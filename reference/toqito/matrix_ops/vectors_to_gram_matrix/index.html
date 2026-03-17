@@ -8797,57 +8797,6 @@ are vectors (pure states) or density matrices (mixed states) and computes the ap
 For density matrices ρᵢ: G[i, j] = Tr(ρᵢ ρⱼ)</p>
 
 
-<p><span class="doc-section-title">Examples:</span></p>
-    <p>Example with real vectors:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.matrix_ops</span><span class="w"> </span><span class="kn">import</span> <span class="n">vectors_to_gram_matrix</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">vectors</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])]</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="n">gram_matrix</span> <span class="o">=</span> <span class="n">vectors_to_gram_matrix</span><span class="p">(</span><span class="n">vectors</span><span class="p">)</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="nb">print</span><span class="p">(</span><span class="n">gram_matrix</span><span class="p">)</span>
-</code></pre></div>
-<p>[[ 5 11]
- [11 25]]</p>
-<p>Example with complex vectors:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.matrix_ops</span><span class="w"> </span><span class="kn">import</span> <span class="n">vectors_to_gram_matrix</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">vectors</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="o">+</span><span class="mi">1</span><span class="n">j</span><span class="p">,</span> <span class="mi">2</span><span class="o">+</span><span class="mi">2</span><span class="n">j</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">3</span><span class="o">+</span><span class="mi">3</span><span class="n">j</span><span class="p">,</span> <span class="mi">4</span><span class="o">+</span><span class="mi">4</span><span class="n">j</span><span class="p">])]</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="n">gram_matrix</span> <span class="o">=</span> <span class="n">vectors_to_gram_matrix</span><span class="p">(</span><span class="n">vectors</span><span class="p">)</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="nb">print</span><span class="p">(</span><span class="n">gram_matrix</span><span class="p">)</span>
-</code></pre></div>
-<p>[[10.+0.j 22.+0.j]
- [22.+0.j 50.+0.j]]</p>
-<p>Example with density matrices (mixed states):</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.matrix_ops</span><span class="w"> </span><span class="kn">import</span> <span class="n">vectors_to_gram_matrix</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="c1"># Two mixed states</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="n">rho1</span> <span class="o">=</span> <span class="mf">0.7</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">]])</span> <span class="o">+</span> <span class="mf">0.3</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="n">rho2</span> <span class="o">=</span> <span class="mf">0.7</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">]])</span> <span class="o">+</span> <span class="mf">0.3</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="n">states</span> <span class="o">=</span> <span class="p">[</span><span class="n">rho1</span><span class="p">,</span> <span class="n">rho2</span><span class="p">]</span>
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="n">gram_matrix</span> <span class="o">=</span> <span class="n">vectors_to_gram_matrix</span><span class="p">(</span><span class="n">states</span><span class="p">)</span>
-<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="nb">print</span><span class="p">(</span><span class="n">gram_matrix</span><span class="p">)</span>
-</code></pre></div>
-<p>[[0.745+0.j 0.255+0.j]
- [0.255+0.j 0.745+0.j]]</p>
-
-
-<p><span class="doc-section-title">Raises:</span></p>
-    <ul>
-        <li class="doc-section-item field-body">
-              <code><span title="ValueError">ValueError</span></code>
-            –
-          <div class="doc-md-description">
-            <p>If the vectors are not all of the same shape.</p>
-          </div>
-        </li>
-    </ul>
-
-
 <p><span class="doc-section-title">Parameters:</span></p>
     <ul>
         <li class="doc-section-item field-body">
@@ -8871,7 +8820,56 @@ For density matrices ρᵢ: G[i, j] = Tr(ρᵢ ρⱼ)</p>
           </div>
         </li>
     </ul>
-        <p><strong>References</strong></p>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+              <code><span title="ValueError">ValueError</span></code>
+            –
+          <div class="doc-md-description">
+            <p>If the vectors are not all of the same shape.</p>
+          </div>
+        </li>
+    </ul>
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>Example with real vectors:</p>
+        <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>  <span class="n">File</span> <span class="s2">&quot;/home/runner/work/toqito/toqito/.venv/lib/python3.12/site-packages/markdown_exec/_internal/formatters/python.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">71</span><span class="p">,</span> <span class="ow">in</span> <span class="n">_run_python</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    <span class="n">exec_python</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="n">code_block_id</span><span class="p">,</span> <span class="n">exec_globals</span><span class="p">)</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>  <span class="n">File</span> <span class="s2">&quot;/home/runner/work/toqito/toqito/.venv/lib/python3.12/site-packages/markdown_exec/_internal/formatters/_exec_python.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">7</span><span class="p">,</span> <span class="ow">in</span> <span class="n">exec_python</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="n">compiled</span> <span class="o">=</span> <span class="nb">compile</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="n">filename</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;exec&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>               <span class="o">^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>  <span class="n">File</span> <span class="s2">&quot;&lt;code block: n89&gt;&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">1</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="ne">IndentationError</span><span class="p">:</span> <span class="n">unexpected</span> <span class="n">indent</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>Example with complex vectors:
+</code></pre></div>
+<p><code>python exec="1" source="above"
+    import numpy as np
+    from toqito.matrix_ops import vectors_to_gram_matrix
+
+    vectors = [np.array([1+1j, 2+2j]), np.array([3+3j, 4+4j])]
+    gram_matrix = vectors_to_gram_matrix(vectors)
+
+    print(gram_matrix)</code></p>
+<div class="highlight"><pre><span></span><code>Example with density matrices (mixed states):
+</code></pre></div>
+<p><code>python exec="1" source="above"
+    import numpy as np
+    from toqito.matrix_ops import vectors_to_gram_matrix
+
+    # Two mixed states
+    rho1 = 0.7 * np.array([[1., 0.], [0., 0.]]) + 0.3 * np.eye(2) / 2
+    rho2 = 0.7 * np.array([[0., 0.], [0., 1.]]) + 0.3 * np.eye(2) / 2
+    states = [rho1, rho2]
+
+    gram_matrix = vectors_to_gram_matrix(states)
+    print(gram_matrix)</code></p>
+<p><strong>References</strong></p>
 <p><span id="ref-toqito-matrix_ops-vectors_to_gram_matrix-vectors_to_gram_matrix-1"><sup><a href="#cite-toqito-matrix_ops-vectors_to_gram_matrix-vectors_to_gram_matrix-1">1</a></sup> Wikipedia. <em>Gram Matrix</em>. <a href="https://en.wikipedia.org/wiki/Gram_matrix">link</a>.</span></p>
 
 
@@ -8953,10 +8951,7 @@ For density matrices ρᵢ: G[i, j] = Tr(ρᵢ ρⱼ)</p>
 <span class="normal"><a href="#__codelineno-0-79">79</a></span>
 <span class="normal"><a href="#__codelineno-0-80">80</a></span>
 <span class="normal"><a href="#__codelineno-0-81">81</a></span>
-<span class="normal"><a href="#__codelineno-0-82">82</a></span>
-<span class="normal"><a href="#__codelineno-0-83">83</a></span>
-<span class="normal"><a href="#__codelineno-0-84">84</a></span>
-<span class="normal"><a href="#__codelineno-0-85">85</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-6" name="__codelineno-0-6"></a><span class="k">def</span><span class="w"> </span><span class="nf">vectors_to_gram_matrix</span><span class="p">(</span><span class="n">vectors</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="normal"><a href="#__codelineno-0-82">82</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-6" name="__codelineno-0-6"></a><span class="k">def</span><span class="w"> </span><span class="nf">vectors_to_gram_matrix</span><span class="p">(</span><span class="n">vectors</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
 <a id="__codelineno-0-7" name="__codelineno-0-7"></a><span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Construct the Gram matrix from a list of vectors or density matrices [@wikipediagram].</span>
 <a id="__codelineno-0-8" name="__codelineno-0-8"></a>
 <a id="__codelineno-0-9" name="__codelineno-0-9"></a><span class="sd">    The Gram matrix is a matrix of inner products. This function automatically detects whether the inputs</span>
@@ -8965,77 +8960,74 @@ For density matrices ρᵢ: G[i, j] = Tr(ρᵢ ρⱼ)</p>
 <a id="__codelineno-0-12" name="__codelineno-0-12"></a><span class="sd">    For vectors |ψᵢ⟩: G[i, j] = ⟨ψᵢ|ψⱼ⟩</span>
 <a id="__codelineno-0-13" name="__codelineno-0-13"></a><span class="sd">    For density matrices ρᵢ: G[i, j] = Tr(ρᵢ ρⱼ)</span>
 <a id="__codelineno-0-14" name="__codelineno-0-14"></a>
-<a id="__codelineno-0-15" name="__codelineno-0-15"></a><span class="sd">    Examples:</span>
-<a id="__codelineno-0-16" name="__codelineno-0-16"></a><span class="sd">        Example with real vectors:</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15"></a><span class="sd">    Args:</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16"></a><span class="sd">        vectors: A list of vectors (1D/column arrays for pure states) or density matrices (2D arrays for mixed states).</span>
 <a id="__codelineno-0-17" name="__codelineno-0-17"></a>
-<a id="__codelineno-0-18" name="__codelineno-0-18"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-19" name="__codelineno-0-19"></a><span class="sd">        import numpy as np</span>
-<a id="__codelineno-0-20" name="__codelineno-0-20"></a><span class="sd">        from toqito.matrix_ops import vectors_to_gram_matrix</span>
-<a id="__codelineno-0-21" name="__codelineno-0-21"></a>
-<a id="__codelineno-0-22" name="__codelineno-0-22"></a><span class="sd">        vectors = [np.array([1, 2]), np.array([3, 4])]</span>
-<a id="__codelineno-0-23" name="__codelineno-0-23"></a><span class="sd">        gram_matrix = vectors_to_gram_matrix(vectors)</span>
-<a id="__codelineno-0-24" name="__codelineno-0-24"></a>
-<a id="__codelineno-0-25" name="__codelineno-0-25"></a><span class="sd">        print(gram_matrix)</span>
-<a id="__codelineno-0-26" name="__codelineno-0-26"></a><span class="sd">        ```</span>
-<a id="__codelineno-0-27" name="__codelineno-0-27"></a>
-<a id="__codelineno-0-28" name="__codelineno-0-28"></a><span class="sd">        Example with complex vectors:</span>
+<a id="__codelineno-0-18" name="__codelineno-0-18"></a><span class="sd">    Returns:</span>
+<a id="__codelineno-0-19" name="__codelineno-0-19"></a><span class="sd">        The Gram matrix with entries G[i,j] = ⟨vᵢ|vⱼ⟩ for vectors or Tr(ρᵢρⱼ) for density matrices.</span>
+<a id="__codelineno-0-20" name="__codelineno-0-20"></a>
+<a id="__codelineno-0-21" name="__codelineno-0-21"></a><span class="sd">    Raises:</span>
+<a id="__codelineno-0-22" name="__codelineno-0-22"></a><span class="sd">        ValueError: If the vectors are not all of the same shape.</span>
+<a id="__codelineno-0-23" name="__codelineno-0-23"></a>
+<a id="__codelineno-0-24" name="__codelineno-0-24"></a><span class="sd">    Examples:</span>
+<a id="__codelineno-0-25" name="__codelineno-0-25"></a><span class="sd">        Example with real vectors:</span>
+<a id="__codelineno-0-26" name="__codelineno-0-26"></a><span class="sd">    ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
+<a id="__codelineno-0-27" name="__codelineno-0-27"></a><span class="sd">        import numpy as np</span>
+<a id="__codelineno-0-28" name="__codelineno-0-28"></a><span class="sd">        from toqito.matrix_ops import vectors_to_gram_matrix</span>
 <a id="__codelineno-0-29" name="__codelineno-0-29"></a>
-<a id="__codelineno-0-30" name="__codelineno-0-30"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-31" name="__codelineno-0-31"></a><span class="sd">        import numpy as np</span>
-<a id="__codelineno-0-32" name="__codelineno-0-32"></a><span class="sd">        from toqito.matrix_ops import vectors_to_gram_matrix</span>
-<a id="__codelineno-0-33" name="__codelineno-0-33"></a>
-<a id="__codelineno-0-34" name="__codelineno-0-34"></a><span class="sd">        vectors = [np.array([1+1j, 2+2j]), np.array([3+3j, 4+4j])]</span>
-<a id="__codelineno-0-35" name="__codelineno-0-35"></a><span class="sd">        gram_matrix = vectors_to_gram_matrix(vectors)</span>
-<a id="__codelineno-0-36" name="__codelineno-0-36"></a>
-<a id="__codelineno-0-37" name="__codelineno-0-37"></a><span class="sd">        print(gram_matrix)</span>
-<a id="__codelineno-0-38" name="__codelineno-0-38"></a><span class="sd">        ```</span>
-<a id="__codelineno-0-39" name="__codelineno-0-39"></a>
-<a id="__codelineno-0-40" name="__codelineno-0-40"></a><span class="sd">        Example with density matrices (mixed states):</span>
-<a id="__codelineno-0-41" name="__codelineno-0-41"></a>
-<a id="__codelineno-0-42" name="__codelineno-0-42"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-43" name="__codelineno-0-43"></a><span class="sd">        import numpy as np</span>
-<a id="__codelineno-0-44" name="__codelineno-0-44"></a><span class="sd">        from toqito.matrix_ops import vectors_to_gram_matrix</span>
-<a id="__codelineno-0-45" name="__codelineno-0-45"></a>
-<a id="__codelineno-0-46" name="__codelineno-0-46"></a><span class="sd">        # Two mixed states</span>
-<a id="__codelineno-0-47" name="__codelineno-0-47"></a><span class="sd">        rho1 = 0.7 * np.array([[1., 0.], [0., 0.]]) + 0.3 * np.eye(2) / 2</span>
-<a id="__codelineno-0-48" name="__codelineno-0-48"></a><span class="sd">        rho2 = 0.7 * np.array([[0., 0.], [0., 1.]]) + 0.3 * np.eye(2) / 2</span>
-<a id="__codelineno-0-49" name="__codelineno-0-49"></a><span class="sd">        states = [rho1, rho2]</span>
-<a id="__codelineno-0-50" name="__codelineno-0-50"></a>
-<a id="__codelineno-0-51" name="__codelineno-0-51"></a><span class="sd">        gram_matrix = vectors_to_gram_matrix(states)</span>
-<a id="__codelineno-0-52" name="__codelineno-0-52"></a><span class="sd">        print(gram_matrix)</span>
-<a id="__codelineno-0-53" name="__codelineno-0-53"></a><span class="sd">        ```</span>
-<a id="__codelineno-0-54" name="__codelineno-0-54"></a>
-<a id="__codelineno-0-55" name="__codelineno-0-55"></a><span class="sd">    Raises:</span>
-<a id="__codelineno-0-56" name="__codelineno-0-56"></a><span class="sd">        ValueError: If the vectors are not all of the same shape.</span>
-<a id="__codelineno-0-57" name="__codelineno-0-57"></a>
-<a id="__codelineno-0-58" name="__codelineno-0-58"></a><span class="sd">    Args:</span>
-<a id="__codelineno-0-59" name="__codelineno-0-59"></a><span class="sd">        vectors: A list of vectors (1D/column arrays for pure states) or density matrices (2D arrays for mixed states).</span>
+<a id="__codelineno-0-30" name="__codelineno-0-30"></a><span class="sd">        vectors = [np.array([1, 2]), np.array([3, 4])]</span>
+<a id="__codelineno-0-31" name="__codelineno-0-31"></a><span class="sd">        gram_matrix = vectors_to_gram_matrix(vectors)</span>
+<a id="__codelineno-0-32" name="__codelineno-0-32"></a>
+<a id="__codelineno-0-33" name="__codelineno-0-33"></a><span class="sd">        print(gram_matrix)</span>
+<a id="__codelineno-0-34" name="__codelineno-0-34"></a><span class="sd">    ```</span>
+<a id="__codelineno-0-35" name="__codelineno-0-35"></a>
+<a id="__codelineno-0-36" name="__codelineno-0-36"></a><span class="sd">        Example with complex vectors:</span>
+<a id="__codelineno-0-37" name="__codelineno-0-37"></a><span class="sd">    ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
+<a id="__codelineno-0-38" name="__codelineno-0-38"></a><span class="sd">        import numpy as np</span>
+<a id="__codelineno-0-39" name="__codelineno-0-39"></a><span class="sd">        from toqito.matrix_ops import vectors_to_gram_matrix</span>
+<a id="__codelineno-0-40" name="__codelineno-0-40"></a>
+<a id="__codelineno-0-41" name="__codelineno-0-41"></a><span class="sd">        vectors = [np.array([1+1j, 2+2j]), np.array([3+3j, 4+4j])]</span>
+<a id="__codelineno-0-42" name="__codelineno-0-42"></a><span class="sd">        gram_matrix = vectors_to_gram_matrix(vectors)</span>
+<a id="__codelineno-0-43" name="__codelineno-0-43"></a>
+<a id="__codelineno-0-44" name="__codelineno-0-44"></a><span class="sd">        print(gram_matrix)</span>
+<a id="__codelineno-0-45" name="__codelineno-0-45"></a><span class="sd">    ```</span>
+<a id="__codelineno-0-46" name="__codelineno-0-46"></a>
+<a id="__codelineno-0-47" name="__codelineno-0-47"></a><span class="sd">        Example with density matrices (mixed states):</span>
+<a id="__codelineno-0-48" name="__codelineno-0-48"></a><span class="sd">    ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
+<a id="__codelineno-0-49" name="__codelineno-0-49"></a><span class="sd">        import numpy as np</span>
+<a id="__codelineno-0-50" name="__codelineno-0-50"></a><span class="sd">        from toqito.matrix_ops import vectors_to_gram_matrix</span>
+<a id="__codelineno-0-51" name="__codelineno-0-51"></a>
+<a id="__codelineno-0-52" name="__codelineno-0-52"></a><span class="sd">        # Two mixed states</span>
+<a id="__codelineno-0-53" name="__codelineno-0-53"></a><span class="sd">        rho1 = 0.7 * np.array([[1., 0.], [0., 0.]]) + 0.3 * np.eye(2) / 2</span>
+<a id="__codelineno-0-54" name="__codelineno-0-54"></a><span class="sd">        rho2 = 0.7 * np.array([[0., 0.], [0., 1.]]) + 0.3 * np.eye(2) / 2</span>
+<a id="__codelineno-0-55" name="__codelineno-0-55"></a><span class="sd">        states = [rho1, rho2]</span>
+<a id="__codelineno-0-56" name="__codelineno-0-56"></a>
+<a id="__codelineno-0-57" name="__codelineno-0-57"></a><span class="sd">        gram_matrix = vectors_to_gram_matrix(states)</span>
+<a id="__codelineno-0-58" name="__codelineno-0-58"></a><span class="sd">        print(gram_matrix)</span>
+<a id="__codelineno-0-59" name="__codelineno-0-59"></a><span class="sd">    ```</span>
 <a id="__codelineno-0-60" name="__codelineno-0-60"></a>
-<a id="__codelineno-0-61" name="__codelineno-0-61"></a><span class="sd">    Returns:</span>
-<a id="__codelineno-0-62" name="__codelineno-0-62"></a><span class="sd">        The Gram matrix with entries G[i,j] = ⟨vᵢ|vⱼ⟩ for vectors or Tr(ρᵢρⱼ) for density matrices.</span>
-<a id="__codelineno-0-63" name="__codelineno-0-63"></a>
-<a id="__codelineno-0-64" name="__codelineno-0-64"></a><span class="sd">    &quot;&quot;&quot;</span>
-<a id="__codelineno-0-65" name="__codelineno-0-65"></a>    <span class="c1"># Check that all vectors are of the same shape</span>
-<a id="__codelineno-0-66" name="__codelineno-0-66"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="n">vectors</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">vectors</span><span class="p">):</span>
-<a id="__codelineno-0-67" name="__codelineno-0-67"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;All vectors must be of the same shape.&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-68" name="__codelineno-0-68"></a>
-<a id="__codelineno-0-69" name="__codelineno-0-69"></a>    <span class="n">first_input</span> <span class="o">=</span> <span class="n">vectors</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<a id="__codelineno-0-70" name="__codelineno-0-70"></a>
-<a id="__codelineno-0-71" name="__codelineno-0-71"></a>    <span class="c1"># Check if inputs are vectors (1D or column vectors) or density matrices (2D with d &gt; 1)</span>
-<a id="__codelineno-0-72" name="__codelineno-0-72"></a>    <span class="k">if</span> <span class="n">first_input</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">or</span> <span class="p">(</span><span class="n">first_input</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">2</span> <span class="ow">and</span> <span class="n">first_input</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">):</span>
-<a id="__codelineno-0-73" name="__codelineno-0-73"></a>        <span class="c1"># Pure states: use standard Gram matrix construction</span>
-<a id="__codelineno-0-74" name="__codelineno-0-74"></a>        <span class="c1"># Stack vectors into a matrix</span>
-<a id="__codelineno-0-75" name="__codelineno-0-75"></a>        <span class="n">stacked_vectors</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">(</span><span class="n">vectors</span><span class="p">)</span>
-<a id="__codelineno-0-76" name="__codelineno-0-76"></a>        <span class="c1"># Compute Gram matrix using vectorized operations</span>
-<a id="__codelineno-0-77" name="__codelineno-0-77"></a>        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">stacked_vectors</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">stacked_vectors</span><span class="p">)</span>
-<a id="__codelineno-0-78" name="__codelineno-0-78"></a>    <span class="k">else</span><span class="p">:</span>
-<a id="__codelineno-0-79" name="__codelineno-0-79"></a>        <span class="c1"># Mixed states: compute Tr(ρᵢ ρⱼ)</span>
-<a id="__codelineno-0-80" name="__codelineno-0-80"></a>        <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">vectors</span><span class="p">)</span>
-<a id="__codelineno-0-81" name="__codelineno-0-81"></a>        <span class="n">gram</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n</span><span class="p">,</span> <span class="n">n</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">complex</span><span class="p">)</span>
-<a id="__codelineno-0-82" name="__codelineno-0-82"></a>        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
-<a id="__codelineno-0-83" name="__codelineno-0-83"></a>            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
-<a id="__codelineno-0-84" name="__codelineno-0-84"></a>                <span class="n">gram</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="n">vectors</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">@</span> <span class="n">vectors</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
-<a id="__codelineno-0-85" name="__codelineno-0-85"></a>        <span class="k">return</span> <span class="n">gram</span>
+<a id="__codelineno-0-61" name="__codelineno-0-61"></a><span class="sd">    &quot;&quot;&quot;</span>
+<a id="__codelineno-0-62" name="__codelineno-0-62"></a>    <span class="c1"># Check that all vectors are of the same shape</span>
+<a id="__codelineno-0-63" name="__codelineno-0-63"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="n">vectors</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">vectors</span><span class="p">):</span>
+<a id="__codelineno-0-64" name="__codelineno-0-64"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;All vectors must be of the same shape.&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-65" name="__codelineno-0-65"></a>
+<a id="__codelineno-0-66" name="__codelineno-0-66"></a>    <span class="n">first_input</span> <span class="o">=</span> <span class="n">vectors</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<a id="__codelineno-0-67" name="__codelineno-0-67"></a>
+<a id="__codelineno-0-68" name="__codelineno-0-68"></a>    <span class="c1"># Check if inputs are vectors (1D or column vectors) or density matrices (2D with d &gt; 1)</span>
+<a id="__codelineno-0-69" name="__codelineno-0-69"></a>    <span class="k">if</span> <span class="n">first_input</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">or</span> <span class="p">(</span><span class="n">first_input</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">2</span> <span class="ow">and</span> <span class="n">first_input</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">):</span>
+<a id="__codelineno-0-70" name="__codelineno-0-70"></a>        <span class="c1"># Pure states: use standard Gram matrix construction</span>
+<a id="__codelineno-0-71" name="__codelineno-0-71"></a>        <span class="c1"># Stack vectors into a matrix</span>
+<a id="__codelineno-0-72" name="__codelineno-0-72"></a>        <span class="n">stacked_vectors</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">(</span><span class="n">vectors</span><span class="p">)</span>
+<a id="__codelineno-0-73" name="__codelineno-0-73"></a>        <span class="c1"># Compute Gram matrix using vectorized operations</span>
+<a id="__codelineno-0-74" name="__codelineno-0-74"></a>        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">stacked_vectors</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">stacked_vectors</span><span class="p">)</span>
+<a id="__codelineno-0-75" name="__codelineno-0-75"></a>    <span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-0-76" name="__codelineno-0-76"></a>        <span class="c1"># Mixed states: compute Tr(ρᵢ ρⱼ)</span>
+<a id="__codelineno-0-77" name="__codelineno-0-77"></a>        <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">vectors</span><span class="p">)</span>
+<a id="__codelineno-0-78" name="__codelineno-0-78"></a>        <span class="n">gram</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n</span><span class="p">,</span> <span class="n">n</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">complex</span><span class="p">)</span>
+<a id="__codelineno-0-79" name="__codelineno-0-79"></a>        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+<a id="__codelineno-0-80" name="__codelineno-0-80"></a>            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+<a id="__codelineno-0-81" name="__codelineno-0-81"></a>                <span class="n">gram</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="n">vectors</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">@</span> <span class="n">vectors</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
+<a id="__codelineno-0-82" name="__codelineno-0-82"></a>        <span class="k">return</span> <span class="n">gram</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>

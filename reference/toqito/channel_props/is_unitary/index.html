@@ -8800,6 +8800,31 @@ unitary operator. Then a unitary channel is defined as:</p>
 \]</div>
 
 
+<p><span class="doc-section-title">Parameters:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+            <b><code>phi</code></b>
+              (<code><span title="numpy.ndarray">ndarray</span> | <span title="list">list</span>[<span title="list">list</span>[<span title="numpy.ndarray">ndarray</span>]]</code>)
+          –
+          <div class="doc-md-description">
+            <p>The channel provided as either a Choi matrix or a list of Kraus operators.</p>
+          </div>
+        </li>
+    </ul>
+
+
+<p><span class="doc-section-title">Returns:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+              <code><span title="bool">bool</span></code>
+          –
+          <div class="doc-md-description">
+            <p><code>True</code> if the channel is a unitary channel, and <code>False</code> otherwise.</p>
+          </div>
+        </li>
+    </ul>
+
+
 <p><span class="doc-section-title">Examples:</span></p>
     <p>The identity channel is one example of a unitary channel:</p>
 <div class="arithmatex">\[
@@ -8837,31 +8862,6 @@ corresponding to the <span class="arithmatex">\(2\)</span>-dimensional completel
 <a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="nb">print</span><span class="p">(</span><span class="n">is_unitary</span><span class="p">(</span><span class="n">depolarizing</span><span class="p">(</span><span class="mi">2</span><span class="p">)))</span>
 </code></pre></div>
 <p>False</p>
-
-
-<p><span class="doc-section-title">Parameters:</span></p>
-    <ul>
-        <li class="doc-section-item field-body">
-            <b><code>phi</code></b>
-              (<code><span title="numpy.ndarray">ndarray</span> | <span title="list">list</span>[<span title="list">list</span>[<span title="numpy.ndarray">ndarray</span>]]</code>)
-          –
-          <div class="doc-md-description">
-            <p>The channel provided as either a Choi matrix or a list of Kraus operators.</p>
-          </div>
-        </li>
-    </ul>
-
-
-<p><span class="doc-section-title">Returns:</span></p>
-    <ul>
-        <li class="doc-section-item field-body">
-              <code><span title="bool">bool</span></code>
-          –
-          <div class="doc-md-description">
-            <p><code>True</code> if the channel is a unitary channel, and <code>False</code> otherwise.</p>
-          </div>
-        </li>
-    </ul>
         <p><strong>References</strong></p>
 <p><span id="ref-toqito-channel_props-is_unitary-is_unitary-1"><sup><a href="#cite-toqito-channel_props-is_unitary-is_unitary-1">1</a></sup> Watrous, John. <em>The Theory of Quantum Information</em>. (2018). <a href="https://doi.org/10.1017/9781316848142">doi:10.1017/9781316848142</a>.</span></p>
 
@@ -8967,56 +8967,56 @@ corresponding to the <span class="arithmatex">\(2\)</span>-dimensional completel
 <a id="__codelineno-0-19" name="__codelineno-0-19"></a><span class="sd">        \Phi(X) = U X U^*.</span>
 <a id="__codelineno-0-20" name="__codelineno-0-20"></a><span class="sd">    \]</span>
 <a id="__codelineno-0-21" name="__codelineno-0-21"></a>
-<a id="__codelineno-0-22" name="__codelineno-0-22"></a><span class="sd">    Examples:</span>
-<a id="__codelineno-0-23" name="__codelineno-0-23"></a><span class="sd">        The identity channel is one example of a unitary channel:</span>
+<a id="__codelineno-0-22" name="__codelineno-0-22"></a><span class="sd">    Args:</span>
+<a id="__codelineno-0-23" name="__codelineno-0-23"></a><span class="sd">        phi: The channel provided as either a Choi matrix or a list of Kraus operators.</span>
 <a id="__codelineno-0-24" name="__codelineno-0-24"></a>
-<a id="__codelineno-0-25" name="__codelineno-0-25"></a><span class="sd">        \[</span>
-<a id="__codelineno-0-26" name="__codelineno-0-26"></a><span class="sd">            U =</span>
-<a id="__codelineno-0-27" name="__codelineno-0-27"></a><span class="sd">            \begin{pmatrix}</span>
-<a id="__codelineno-0-28" name="__codelineno-0-28"></a><span class="sd">                1 &amp; 0 \\</span>
-<a id="__codelineno-0-29" name="__codelineno-0-29"></a><span class="sd">                0 &amp; 1</span>
-<a id="__codelineno-0-30" name="__codelineno-0-30"></a><span class="sd">            \end{pmatrix}.</span>
-<a id="__codelineno-0-31" name="__codelineno-0-31"></a><span class="sd">        \]</span>
-<a id="__codelineno-0-32" name="__codelineno-0-32"></a>
-<a id="__codelineno-0-33" name="__codelineno-0-33"></a><span class="sd">        We can verify this as follows:</span>
-<a id="__codelineno-0-34" name="__codelineno-0-34"></a>
-<a id="__codelineno-0-35" name="__codelineno-0-35"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-36" name="__codelineno-0-36"></a><span class="sd">        import numpy as np</span>
-<a id="__codelineno-0-37" name="__codelineno-0-37"></a><span class="sd">        from toqito.channel_props import is_unitary</span>
+<a id="__codelineno-0-25" name="__codelineno-0-25"></a><span class="sd">    Returns:</span>
+<a id="__codelineno-0-26" name="__codelineno-0-26"></a><span class="sd">        `True` if the channel is a unitary channel, and `False` otherwise.</span>
+<a id="__codelineno-0-27" name="__codelineno-0-27"></a>
+<a id="__codelineno-0-28" name="__codelineno-0-28"></a><span class="sd">    Examples:</span>
+<a id="__codelineno-0-29" name="__codelineno-0-29"></a><span class="sd">        The identity channel is one example of a unitary channel:</span>
+<a id="__codelineno-0-30" name="__codelineno-0-30"></a>
+<a id="__codelineno-0-31" name="__codelineno-0-31"></a><span class="sd">        \[</span>
+<a id="__codelineno-0-32" name="__codelineno-0-32"></a><span class="sd">            U =</span>
+<a id="__codelineno-0-33" name="__codelineno-0-33"></a><span class="sd">            \begin{pmatrix}</span>
+<a id="__codelineno-0-34" name="__codelineno-0-34"></a><span class="sd">                1 &amp; 0 \\</span>
+<a id="__codelineno-0-35" name="__codelineno-0-35"></a><span class="sd">                0 &amp; 1</span>
+<a id="__codelineno-0-36" name="__codelineno-0-36"></a><span class="sd">            \end{pmatrix}.</span>
+<a id="__codelineno-0-37" name="__codelineno-0-37"></a><span class="sd">        \]</span>
 <a id="__codelineno-0-38" name="__codelineno-0-38"></a>
-<a id="__codelineno-0-39" name="__codelineno-0-39"></a><span class="sd">        kraus_ops = [[np.identity(2), np.identity(2)]]</span>
+<a id="__codelineno-0-39" name="__codelineno-0-39"></a><span class="sd">        We can verify this as follows:</span>
 <a id="__codelineno-0-40" name="__codelineno-0-40"></a>
-<a id="__codelineno-0-41" name="__codelineno-0-41"></a><span class="sd">        print(is_unitary(kraus_ops))</span>
-<a id="__codelineno-0-42" name="__codelineno-0-42"></a><span class="sd">        ```</span>
-<a id="__codelineno-0-43" name="__codelineno-0-43"></a>
-<a id="__codelineno-0-44" name="__codelineno-0-44"></a><span class="sd">        We can also specify the input as a Choi matrix. For instance, consider the Choi matrix</span>
-<a id="__codelineno-0-45" name="__codelineno-0-45"></a><span class="sd">        corresponding to the \(2\)-dimensional completely depolarizing channel.</span>
+<a id="__codelineno-0-41" name="__codelineno-0-41"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
+<a id="__codelineno-0-42" name="__codelineno-0-42"></a><span class="sd">        import numpy as np</span>
+<a id="__codelineno-0-43" name="__codelineno-0-43"></a><span class="sd">        from toqito.channel_props import is_unitary</span>
+<a id="__codelineno-0-44" name="__codelineno-0-44"></a>
+<a id="__codelineno-0-45" name="__codelineno-0-45"></a><span class="sd">        kraus_ops = [[np.identity(2), np.identity(2)]]</span>
 <a id="__codelineno-0-46" name="__codelineno-0-46"></a>
-<a id="__codelineno-0-47" name="__codelineno-0-47"></a><span class="sd">        \[</span>
-<a id="__codelineno-0-48" name="__codelineno-0-48"></a><span class="sd">            \Omega =</span>
-<a id="__codelineno-0-49" name="__codelineno-0-49"></a><span class="sd">            \frac{1}{2}</span>
-<a id="__codelineno-0-50" name="__codelineno-0-50"></a><span class="sd">            \begin{pmatrix}</span>
-<a id="__codelineno-0-51" name="__codelineno-0-51"></a><span class="sd">                1 &amp; 0 &amp; 0 &amp; 0 \\</span>
-<a id="__codelineno-0-52" name="__codelineno-0-52"></a><span class="sd">                0 &amp; 1 &amp; 0 &amp; 0 \\</span>
-<a id="__codelineno-0-53" name="__codelineno-0-53"></a><span class="sd">                0 &amp; 0 &amp; 1 &amp; 0 \\</span>
-<a id="__codelineno-0-54" name="__codelineno-0-54"></a><span class="sd">                0 &amp; 0 &amp; 0 &amp; 1</span>
-<a id="__codelineno-0-55" name="__codelineno-0-55"></a><span class="sd">            \end{pmatrix}.</span>
-<a id="__codelineno-0-56" name="__codelineno-0-56"></a><span class="sd">        \]</span>
-<a id="__codelineno-0-57" name="__codelineno-0-57"></a>
-<a id="__codelineno-0-58" name="__codelineno-0-58"></a><span class="sd">        We may verify that this channel is not a unitary channel.</span>
-<a id="__codelineno-0-59" name="__codelineno-0-59"></a>
-<a id="__codelineno-0-60" name="__codelineno-0-60"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-61" name="__codelineno-0-61"></a><span class="sd">        from toqito.channels import depolarizing</span>
-<a id="__codelineno-0-62" name="__codelineno-0-62"></a><span class="sd">        from toqito.channel_props import is_unitary</span>
+<a id="__codelineno-0-47" name="__codelineno-0-47"></a><span class="sd">        print(is_unitary(kraus_ops))</span>
+<a id="__codelineno-0-48" name="__codelineno-0-48"></a><span class="sd">        ```</span>
+<a id="__codelineno-0-49" name="__codelineno-0-49"></a>
+<a id="__codelineno-0-50" name="__codelineno-0-50"></a><span class="sd">        We can also specify the input as a Choi matrix. For instance, consider the Choi matrix</span>
+<a id="__codelineno-0-51" name="__codelineno-0-51"></a><span class="sd">        corresponding to the \(2\)-dimensional completely depolarizing channel.</span>
+<a id="__codelineno-0-52" name="__codelineno-0-52"></a>
+<a id="__codelineno-0-53" name="__codelineno-0-53"></a><span class="sd">        \[</span>
+<a id="__codelineno-0-54" name="__codelineno-0-54"></a><span class="sd">            \Omega =</span>
+<a id="__codelineno-0-55" name="__codelineno-0-55"></a><span class="sd">            \frac{1}{2}</span>
+<a id="__codelineno-0-56" name="__codelineno-0-56"></a><span class="sd">            \begin{pmatrix}</span>
+<a id="__codelineno-0-57" name="__codelineno-0-57"></a><span class="sd">                1 &amp; 0 &amp; 0 &amp; 0 \\</span>
+<a id="__codelineno-0-58" name="__codelineno-0-58"></a><span class="sd">                0 &amp; 1 &amp; 0 &amp; 0 \\</span>
+<a id="__codelineno-0-59" name="__codelineno-0-59"></a><span class="sd">                0 &amp; 0 &amp; 1 &amp; 0 \\</span>
+<a id="__codelineno-0-60" name="__codelineno-0-60"></a><span class="sd">                0 &amp; 0 &amp; 0 &amp; 1</span>
+<a id="__codelineno-0-61" name="__codelineno-0-61"></a><span class="sd">            \end{pmatrix}.</span>
+<a id="__codelineno-0-62" name="__codelineno-0-62"></a><span class="sd">        \]</span>
 <a id="__codelineno-0-63" name="__codelineno-0-63"></a>
-<a id="__codelineno-0-64" name="__codelineno-0-64"></a><span class="sd">        print(is_unitary(depolarizing(2)))</span>
-<a id="__codelineno-0-65" name="__codelineno-0-65"></a><span class="sd">        ```</span>
-<a id="__codelineno-0-66" name="__codelineno-0-66"></a>
-<a id="__codelineno-0-67" name="__codelineno-0-67"></a><span class="sd">    Args:</span>
-<a id="__codelineno-0-68" name="__codelineno-0-68"></a><span class="sd">        phi: The channel provided as either a Choi matrix or a list of Kraus operators.</span>
+<a id="__codelineno-0-64" name="__codelineno-0-64"></a><span class="sd">        We may verify that this channel is not a unitary channel.</span>
+<a id="__codelineno-0-65" name="__codelineno-0-65"></a>
+<a id="__codelineno-0-66" name="__codelineno-0-66"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
+<a id="__codelineno-0-67" name="__codelineno-0-67"></a><span class="sd">        from toqito.channels import depolarizing</span>
+<a id="__codelineno-0-68" name="__codelineno-0-68"></a><span class="sd">        from toqito.channel_props import is_unitary</span>
 <a id="__codelineno-0-69" name="__codelineno-0-69"></a>
-<a id="__codelineno-0-70" name="__codelineno-0-70"></a><span class="sd">    Returns:</span>
-<a id="__codelineno-0-71" name="__codelineno-0-71"></a><span class="sd">        `True` if the channel is a unitary channel, and `False` otherwise.</span>
+<a id="__codelineno-0-70" name="__codelineno-0-70"></a><span class="sd">        print(is_unitary(depolarizing(2)))</span>
+<a id="__codelineno-0-71" name="__codelineno-0-71"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-72" name="__codelineno-0-72"></a>
 <a id="__codelineno-0-73" name="__codelineno-0-73"></a><span class="sd">    &quot;&quot;&quot;</span>
 <a id="__codelineno-0-74" name="__codelineno-0-74"></a>    <span class="c1"># If the variable `phi` is provided as a ndarray, we assume this is a</span>

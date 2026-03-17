@@ -4782,6 +4782,28 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#toqito.matrix_props.sk_norm.__target_is_proved" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-function"></code>&nbsp;__target_is_proved
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#toqito.matrix_props.sk_norm.__lower_bound_sk_norm_randomized" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-function"></code>&nbsp;__lower_bound_sk_norm_randomized
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -8726,6 +8748,28 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#toqito.matrix_props.sk_norm.__target_is_proved" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-function"></code>&nbsp;__target_is_proved
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#toqito.matrix_props.sk_norm.__lower_bound_sk_norm_randomized" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-function"></code>&nbsp;__lower_bound_sk_norm_randomized
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -8807,33 +8851,6 @@ semidefinite the output bounds might be quite poor.</p>
 <p>This function was adapted from QETLAB.</p>
 
 
-<p><span class="doc-section-title">Examples:</span></p>
-    <p>The <span class="arithmatex">\(S(1)\)</span>-norm of a Werner state <span class="arithmatex">\(\rho_a \in M_n \otimes M_n\)</span> is</p>
-<div class="arithmatex">\[
-    \big|\big| \rho_a \big|\big|_{S(1)} = \frac{1 + |min\{a, 0\}|}{n (n - a)}
-\]</div>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.states.werner</span><span class="w"> </span><span class="kn">import</span> <span class="n">werner</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.matrix_props.sk_norm</span><span class="w"> </span><span class="kn">import</span> <span class="n">sk_operator_norm</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">rho</span> <span class="o">=</span> <span class="n">werner</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mf">0.</span><span class="p">)</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="nb">print</span><span class="p">(</span><span class="n">sk_operator_norm</span><span class="p">(</span><span class="n">rho</span><span class="p">))</span>
-</code></pre></div>
-<p>(np.float64(0.0625), np.float64(0.0625))</p>
-
-
-<p><span class="doc-section-title">Raises:</span></p>
-    <ul>
-        <li class="doc-section-item field-body">
-              <code><span title="ValueError">ValueError</span></code>
-            –
-          <div class="doc-md-description">
-            <p>If dimension of the input matrix is not specified.</p>
-          </div>
-        </li>
-    </ul>
-
-
 <p><span class="doc-section-title">Parameters:</span></p>
     <ul>
         <li class="doc-section-item field-body">
@@ -8898,6 +8915,33 @@ and right in the definition of the norm.</p>
           </div>
         </li>
     </ul>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+              <code><span title="ValueError">ValueError</span></code>
+            –
+          <div class="doc-md-description">
+            <p>If dimension of the input matrix is not specified.</p>
+          </div>
+        </li>
+    </ul>
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>The <span class="arithmatex">\(S(1)\)</span>-norm of a Werner state <span class="arithmatex">\(\rho_a \in M_n \otimes M_n\)</span> is</p>
+<div class="arithmatex">\[
+    \big|\big| \rho_a \big|\big|_{S(1)} = \frac{1 + |min\{a, 0\}|}{n (n - a)}
+\]</div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.states.werner</span><span class="w"> </span><span class="kn">import</span> <span class="n">werner</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.matrix_props.sk_norm</span><span class="w"> </span><span class="kn">import</span> <span class="n">sk_operator_norm</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">rho</span> <span class="o">=</span> <span class="n">werner</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mf">0.</span><span class="p">)</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="nb">print</span><span class="p">(</span><span class="n">sk_operator_norm</span><span class="p">(</span><span class="n">rho</span><span class="p">))</span>
+</code></pre></div>
+<p>(np.float64(0.0625), np.float64(0.0625))</p>
         <p><strong>References</strong></p>
 <p><span id="ref-toqito-matrix_props-sk_norm-sk_operator_norm-1"><sup><a href="#cite-toqito-matrix_props-sk_norm-sk_operator_norm-1">1</a></sup> Johnston, Nathaniel and Kribs, David. <em>A family of norms with applications in quantum information theory</em>. <strong>Journal of Mathematical Physics</strong>. vol. 51(8). (2010). <a href="https://doi.org/10.1063/1.3459068">doi:10.1063/1.3459068</a>.</span><br>
 <span id="ref-toqito-matrix_props-sk_norm-sk_operator_norm-2"><sup><a href="#cite-toqito-matrix_props-sk_norm-sk_operator_norm-2">2</a></sup> Johnston, Nathaniel. <em>Norms and Cones in the Theory of Quantum Entanglement</em>. (2012).</span></p>
@@ -9200,35 +9244,35 @@ and right in the definition of the norm.</p>
 <a id="__codelineno-0-46" name="__codelineno-0-46"></a>
 <a id="__codelineno-0-47" name="__codelineno-0-47"></a><span class="sd">    This function was adapted from QETLAB.</span>
 <a id="__codelineno-0-48" name="__codelineno-0-48"></a>
-<a id="__codelineno-0-49" name="__codelineno-0-49"></a><span class="sd">    Examples:</span>
-<a id="__codelineno-0-50" name="__codelineno-0-50"></a><span class="sd">        The \(S(1)\)-norm of a Werner state \(\rho_a \in M_n \otimes M_n\) is</span>
-<a id="__codelineno-0-51" name="__codelineno-0-51"></a>
-<a id="__codelineno-0-52" name="__codelineno-0-52"></a><span class="sd">        \[</span>
-<a id="__codelineno-0-53" name="__codelineno-0-53"></a><span class="sd">            \big|\big| \rho_a \big|\big|_{S(1)} = \frac{1 + |min\{a, 0\}|}{n (n - a)}</span>
-<a id="__codelineno-0-54" name="__codelineno-0-54"></a><span class="sd">        \]</span>
-<a id="__codelineno-0-55" name="__codelineno-0-55"></a>
-<a id="__codelineno-0-56" name="__codelineno-0-56"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-57" name="__codelineno-0-57"></a><span class="sd">        from toqito.states.werner import werner</span>
-<a id="__codelineno-0-58" name="__codelineno-0-58"></a><span class="sd">        from toqito.matrix_props.sk_norm import sk_operator_norm</span>
+<a id="__codelineno-0-49" name="__codelineno-0-49"></a><span class="sd">    Args:</span>
+<a id="__codelineno-0-50" name="__codelineno-0-50"></a><span class="sd">        mat: A matrix.</span>
+<a id="__codelineno-0-51" name="__codelineno-0-51"></a><span class="sd">        k: The &quot;index&quot; of the norm--that is, it is the Schmidt rank of the vectors that are multiplying X on the left</span>
+<a id="__codelineno-0-52" name="__codelineno-0-52"></a><span class="sd">            and right in the definition of the norm.</span>
+<a id="__codelineno-0-53" name="__codelineno-0-53"></a><span class="sd">        dim: The dimension of the two sub-systems. By default it&#39;s assumed to be equal.</span>
+<a id="__codelineno-0-54" name="__codelineno-0-54"></a><span class="sd">        target: A target value that you wish to prove that the norm is above or below.</span>
+<a id="__codelineno-0-55" name="__codelineno-0-55"></a><span class="sd">        effort: An integer value indicating the amount of computation you want to devote to computing the bounds.</span>
+<a id="__codelineno-0-56" name="__codelineno-0-56"></a>
+<a id="__codelineno-0-57" name="__codelineno-0-57"></a><span class="sd">    Returns:</span>
+<a id="__codelineno-0-58" name="__codelineno-0-58"></a><span class="sd">        A lower and an upper bound on S(k)-norm of `mat`.</span>
 <a id="__codelineno-0-59" name="__codelineno-0-59"></a>
-<a id="__codelineno-0-60" name="__codelineno-0-60"></a><span class="sd">        rho = werner(4, 0.)</span>
-<a id="__codelineno-0-61" name="__codelineno-0-61"></a>
-<a id="__codelineno-0-62" name="__codelineno-0-62"></a><span class="sd">        print(sk_operator_norm(rho))</span>
-<a id="__codelineno-0-63" name="__codelineno-0-63"></a><span class="sd">        ```</span>
-<a id="__codelineno-0-64" name="__codelineno-0-64"></a>
-<a id="__codelineno-0-65" name="__codelineno-0-65"></a><span class="sd">    Raises:</span>
-<a id="__codelineno-0-66" name="__codelineno-0-66"></a><span class="sd">        ValueError: If dimension of the input matrix is not specified.</span>
-<a id="__codelineno-0-67" name="__codelineno-0-67"></a>
-<a id="__codelineno-0-68" name="__codelineno-0-68"></a><span class="sd">    Args:</span>
-<a id="__codelineno-0-69" name="__codelineno-0-69"></a><span class="sd">        mat: A matrix.</span>
-<a id="__codelineno-0-70" name="__codelineno-0-70"></a><span class="sd">        k: The &quot;index&quot; of the norm--that is, it is the Schmidt rank of the vectors that are multiplying X on the left</span>
-<a id="__codelineno-0-71" name="__codelineno-0-71"></a><span class="sd">            and right in the definition of the norm.</span>
-<a id="__codelineno-0-72" name="__codelineno-0-72"></a><span class="sd">        dim: The dimension of the two sub-systems. By default it&#39;s assumed to be equal.</span>
-<a id="__codelineno-0-73" name="__codelineno-0-73"></a><span class="sd">        target: A target value that you wish to prove that the norm is above or below.</span>
-<a id="__codelineno-0-74" name="__codelineno-0-74"></a><span class="sd">        effort: An integer value indicating the amount of computation you want to devote to computing the bounds.</span>
+<a id="__codelineno-0-60" name="__codelineno-0-60"></a><span class="sd">    Raises:</span>
+<a id="__codelineno-0-61" name="__codelineno-0-61"></a><span class="sd">        ValueError: If dimension of the input matrix is not specified.</span>
+<a id="__codelineno-0-62" name="__codelineno-0-62"></a>
+<a id="__codelineno-0-63" name="__codelineno-0-63"></a><span class="sd">    Examples:</span>
+<a id="__codelineno-0-64" name="__codelineno-0-64"></a><span class="sd">        The \(S(1)\)-norm of a Werner state \(\rho_a \in M_n \otimes M_n\) is</span>
+<a id="__codelineno-0-65" name="__codelineno-0-65"></a>
+<a id="__codelineno-0-66" name="__codelineno-0-66"></a><span class="sd">        \[</span>
+<a id="__codelineno-0-67" name="__codelineno-0-67"></a><span class="sd">            \big|\big| \rho_a \big|\big|_{S(1)} = \frac{1 + |min\{a, 0\}|}{n (n - a)}</span>
+<a id="__codelineno-0-68" name="__codelineno-0-68"></a><span class="sd">        \]</span>
+<a id="__codelineno-0-69" name="__codelineno-0-69"></a>
+<a id="__codelineno-0-70" name="__codelineno-0-70"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
+<a id="__codelineno-0-71" name="__codelineno-0-71"></a><span class="sd">        from toqito.states.werner import werner</span>
+<a id="__codelineno-0-72" name="__codelineno-0-72"></a><span class="sd">        from toqito.matrix_props.sk_norm import sk_operator_norm</span>
+<a id="__codelineno-0-73" name="__codelineno-0-73"></a>
+<a id="__codelineno-0-74" name="__codelineno-0-74"></a><span class="sd">        rho = werner(4, 0.)</span>
 <a id="__codelineno-0-75" name="__codelineno-0-75"></a>
-<a id="__codelineno-0-76" name="__codelineno-0-76"></a><span class="sd">    Returns:</span>
-<a id="__codelineno-0-77" name="__codelineno-0-77"></a><span class="sd">        A lower and an upper bound on S(k)-norm of `mat`.</span>
+<a id="__codelineno-0-76" name="__codelineno-0-76"></a><span class="sd">        print(sk_operator_norm(rho))</span>
+<a id="__codelineno-0-77" name="__codelineno-0-77"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-78" name="__codelineno-0-78"></a>
 <a id="__codelineno-0-79" name="__codelineno-0-79"></a><span class="sd">    &quot;&quot;&quot;</span>
 <a id="__codelineno-0-80" name="__codelineno-0-80"></a>    <span class="n">eps</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">finfo</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span><span class="o">.</span><span class="n">eps</span>
@@ -9442,6 +9486,226 @@ and right in the definition of the norm.</p>
 <a id="__codelineno-0-288" name="__codelineno-0-288"></a>    <span class="n">upper_bound</span> <span class="o">=</span> <span class="n">op_norm</span> <span class="o">*</span> <span class="n">upper_bound</span>
 <a id="__codelineno-0-289" name="__codelineno-0-289"></a>
 <a id="__codelineno-0-290" name="__codelineno-0-290"></a>    <span class="k">return</span> <span class="n">lower_bound</span><span class="p">,</span> <span class="n">upper_bound</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="toqito.matrix_props.sk_norm.__target_is_proved" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-function"></code>            <span class="doc doc-object-name doc-function-name">__target_is_proved</span>
+
+
+<a href="#toqito.matrix_props.sk_norm.__target_is_proved" class="headerlink" title="Permanent link">&para;</a></h2>
+<div class="doc-signature highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">__target_is_proved</span><span class="p">(</span><span class="n">lower_bound</span><span class="p">:</span> <span class="n"><span title="float">float</span></span><span class="p">,</span> <span class="n">upper_bound</span><span class="p">:</span> <span class="n"><span title="float">float</span></span><span class="p">,</span> <span class="n">op_norm</span><span class="p">:</span> <span class="n"><span title="float">float</span></span><span class="p">,</span> <span class="n">tol</span><span class="p">:</span> <span class="n"><span title="float">float</span></span><span class="p">,</span> <span class="n">target</span><span class="p">:</span> <span class="n"><span title="float">float</span></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><span title="bool">bool</span></span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Check if the lower/upper bound meets the target value.</p>
+
+
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>toqito/matrix_props/sk_norm.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-293">293</a></span>
+<span class="normal"><a href="#__codelineno-0-294">294</a></span>
+<span class="normal"><a href="#__codelineno-0-295">295</a></span>
+<span class="normal"><a href="#__codelineno-0-296">296</a></span>
+<span class="normal"><a href="#__codelineno-0-297">297</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-293" name="__codelineno-0-293"></a><span class="k">def</span><span class="w"> </span><span class="nf">__target_is_proved</span><span class="p">(</span><span class="n">lower_bound</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">upper_bound</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">op_norm</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">tol</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">target</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<a id="__codelineno-0-294" name="__codelineno-0-294"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Check if the lower/upper bound meets the target value.&quot;&quot;&quot;</span>
+<a id="__codelineno-0-295" name="__codelineno-0-295"></a>    <span class="k">return</span> <span class="n">op_norm</span> <span class="o">*</span> <span class="p">(</span><span class="n">lower_bound</span> <span class="o">+</span> <span class="n">tol</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">op_norm</span> <span class="o">*</span> <span class="n">upper_bound</span> <span class="ow">or</span> <span class="p">(</span>
+<a id="__codelineno-0-296" name="__codelineno-0-296"></a>        <span class="n">target</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="p">(</span><span class="n">op_norm</span> <span class="o">*</span> <span class="p">(</span><span class="n">lower_bound</span> <span class="o">-</span> <span class="n">tol</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">target</span> <span class="ow">or</span> <span class="n">op_norm</span> <span class="o">*</span> <span class="p">(</span><span class="n">upper_bound</span> <span class="o">+</span> <span class="n">tol</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">target</span><span class="p">)</span>
+<a id="__codelineno-0-297" name="__codelineno-0-297"></a>    <span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="toqito.matrix_props.sk_norm.__lower_bound_sk_norm_randomized" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-function"></code>            <span class="doc doc-object-name doc-function-name">__lower_bound_sk_norm_randomized</span>
+
+
+<a href="#toqito.matrix_props.sk_norm.__lower_bound_sk_norm_randomized" class="headerlink" title="Permanent link">&para;</a></h2>
+<div class="doc-signature highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">__lower_bound_sk_norm_randomized</span><span class="p">(</span><span class="n">mat</span><span class="p">:</span> <span class="n"><span title="numpy.ndarray">ndarray</span></span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="n"><span title="int">int</span></span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">dim</span><span class="p">:</span> <span class="n"><span title="int">int</span></span> <span class="o">|</span> <span class="n"><span title="list">list</span></span><span class="p">[</span><span class="n"><span title="int">int</span></span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">tol</span><span class="p">:</span> <span class="n"><span title="float">float</span></span> <span class="o">=</span> <span class="mf">1e-05</span><span class="p">,</span> <span class="n">start_vec</span><span class="p">:</span> <span class="n"><span title="numpy.ndarray">ndarray</span></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><span title="float">float</span></span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Compute a lower bound of the S(k)-norm via a randomized method.</p>
+
+
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>toqito/matrix_props/sk_norm.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-300">300</a></span>
+<span class="normal"><a href="#__codelineno-0-301">301</a></span>
+<span class="normal"><a href="#__codelineno-0-302">302</a></span>
+<span class="normal"><a href="#__codelineno-0-303">303</a></span>
+<span class="normal"><a href="#__codelineno-0-304">304</a></span>
+<span class="normal"><a href="#__codelineno-0-305">305</a></span>
+<span class="normal"><a href="#__codelineno-0-306">306</a></span>
+<span class="normal"><a href="#__codelineno-0-307">307</a></span>
+<span class="normal"><a href="#__codelineno-0-308">308</a></span>
+<span class="normal"><a href="#__codelineno-0-309">309</a></span>
+<span class="normal"><a href="#__codelineno-0-310">310</a></span>
+<span class="normal"><a href="#__codelineno-0-311">311</a></span>
+<span class="normal"><a href="#__codelineno-0-312">312</a></span>
+<span class="normal"><a href="#__codelineno-0-313">313</a></span>
+<span class="normal"><a href="#__codelineno-0-314">314</a></span>
+<span class="normal"><a href="#__codelineno-0-315">315</a></span>
+<span class="normal"><a href="#__codelineno-0-316">316</a></span>
+<span class="normal"><a href="#__codelineno-0-317">317</a></span>
+<span class="normal"><a href="#__codelineno-0-318">318</a></span>
+<span class="normal"><a href="#__codelineno-0-319">319</a></span>
+<span class="normal"><a href="#__codelineno-0-320">320</a></span>
+<span class="normal"><a href="#__codelineno-0-321">321</a></span>
+<span class="normal"><a href="#__codelineno-0-322">322</a></span>
+<span class="normal"><a href="#__codelineno-0-323">323</a></span>
+<span class="normal"><a href="#__codelineno-0-324">324</a></span>
+<span class="normal"><a href="#__codelineno-0-325">325</a></span>
+<span class="normal"><a href="#__codelineno-0-326">326</a></span>
+<span class="normal"><a href="#__codelineno-0-327">327</a></span>
+<span class="normal"><a href="#__codelineno-0-328">328</a></span>
+<span class="normal"><a href="#__codelineno-0-329">329</a></span>
+<span class="normal"><a href="#__codelineno-0-330">330</a></span>
+<span class="normal"><a href="#__codelineno-0-331">331</a></span>
+<span class="normal"><a href="#__codelineno-0-332">332</a></span>
+<span class="normal"><a href="#__codelineno-0-333">333</a></span>
+<span class="normal"><a href="#__codelineno-0-334">334</a></span>
+<span class="normal"><a href="#__codelineno-0-335">335</a></span>
+<span class="normal"><a href="#__codelineno-0-336">336</a></span>
+<span class="normal"><a href="#__codelineno-0-337">337</a></span>
+<span class="normal"><a href="#__codelineno-0-338">338</a></span>
+<span class="normal"><a href="#__codelineno-0-339">339</a></span>
+<span class="normal"><a href="#__codelineno-0-340">340</a></span>
+<span class="normal"><a href="#__codelineno-0-341">341</a></span>
+<span class="normal"><a href="#__codelineno-0-342">342</a></span>
+<span class="normal"><a href="#__codelineno-0-343">343</a></span>
+<span class="normal"><a href="#__codelineno-0-344">344</a></span>
+<span class="normal"><a href="#__codelineno-0-345">345</a></span>
+<span class="normal"><a href="#__codelineno-0-346">346</a></span>
+<span class="normal"><a href="#__codelineno-0-347">347</a></span>
+<span class="normal"><a href="#__codelineno-0-348">348</a></span>
+<span class="normal"><a href="#__codelineno-0-349">349</a></span>
+<span class="normal"><a href="#__codelineno-0-350">350</a></span>
+<span class="normal"><a href="#__codelineno-0-351">351</a></span>
+<span class="normal"><a href="#__codelineno-0-352">352</a></span>
+<span class="normal"><a href="#__codelineno-0-353">353</a></span>
+<span class="normal"><a href="#__codelineno-0-354">354</a></span>
+<span class="normal"><a href="#__codelineno-0-355">355</a></span>
+<span class="normal"><a href="#__codelineno-0-356">356</a></span>
+<span class="normal"><a href="#__codelineno-0-357">357</a></span>
+<span class="normal"><a href="#__codelineno-0-358">358</a></span>
+<span class="normal"><a href="#__codelineno-0-359">359</a></span>
+<span class="normal"><a href="#__codelineno-0-360">360</a></span>
+<span class="normal"><a href="#__codelineno-0-361">361</a></span>
+<span class="normal"><a href="#__codelineno-0-362">362</a></span>
+<span class="normal"><a href="#__codelineno-0-363">363</a></span>
+<span class="normal"><a href="#__codelineno-0-364">364</a></span>
+<span class="normal"><a href="#__codelineno-0-365">365</a></span>
+<span class="normal"><a href="#__codelineno-0-366">366</a></span>
+<span class="normal"><a href="#__codelineno-0-367">367</a></span>
+<span class="normal"><a href="#__codelineno-0-368">368</a></span>
+<span class="normal"><a href="#__codelineno-0-369">369</a></span>
+<span class="normal"><a href="#__codelineno-0-370">370</a></span>
+<span class="normal"><a href="#__codelineno-0-371">371</a></span>
+<span class="normal"><a href="#__codelineno-0-372">372</a></span>
+<span class="normal"><a href="#__codelineno-0-373">373</a></span>
+<span class="normal"><a href="#__codelineno-0-374">374</a></span>
+<span class="normal"><a href="#__codelineno-0-375">375</a></span>
+<span class="normal"><a href="#__codelineno-0-376">376</a></span>
+<span class="normal"><a href="#__codelineno-0-377">377</a></span>
+<span class="normal"><a href="#__codelineno-0-378">378</a></span>
+<span class="normal"><a href="#__codelineno-0-379">379</a></span>
+<span class="normal"><a href="#__codelineno-0-380">380</a></span>
+<span class="normal"><a href="#__codelineno-0-381">381</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-300" name="__codelineno-0-300"></a><span class="k">def</span><span class="w"> </span><span class="nf">__lower_bound_sk_norm_randomized</span><span class="p">(</span>
+<a id="__codelineno-0-301" name="__codelineno-0-301"></a>    <span class="n">mat</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+<a id="__codelineno-0-302" name="__codelineno-0-302"></a>    <span class="n">k</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+<a id="__codelineno-0-303" name="__codelineno-0-303"></a>    <span class="n">dim</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<a id="__codelineno-0-304" name="__codelineno-0-304"></a>    <span class="n">tol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-5</span><span class="p">,</span>
+<a id="__codelineno-0-305" name="__codelineno-0-305"></a>    <span class="n">start_vec</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<a id="__codelineno-0-306" name="__codelineno-0-306"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<a id="__codelineno-0-307" name="__codelineno-0-307"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute a lower bound of the S(k)-norm via a randomized method.&quot;&quot;&quot;</span>
+<a id="__codelineno-0-308" name="__codelineno-0-308"></a>    <span class="k">if</span> <span class="n">mat</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="n">mat</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+<a id="__codelineno-0-309" name="__codelineno-0-309"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Input matrix must be square.&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-310" name="__codelineno-0-310"></a>
+<a id="__codelineno-0-311" name="__codelineno-0-311"></a>    <span class="n">dim_a</span><span class="p">,</span> <span class="n">dim_b</span> <span class="o">=</span> <span class="n">dim</span>
+<a id="__codelineno-0-312" name="__codelineno-0-312"></a>
+<a id="__codelineno-0-313" name="__codelineno-0-313"></a>    <span class="n">psi</span> <span class="o">=</span> <span class="n">max_entangled</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">is_normalized</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<a id="__codelineno-0-314" name="__codelineno-0-314"></a>    <span class="n">left_swap_entagled_kron_id</span> <span class="o">=</span> <span class="n">swap</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">kron</span><span class="p">(</span><span class="n">psi</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">dim_a</span> <span class="o">*</span> <span class="n">dim_b</span><span class="p">)),</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">dim_a</span><span class="p">,</span> <span class="n">dim_b</span><span class="p">],</span> <span class="n">row_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<a id="__codelineno-0-315" name="__codelineno-0-315"></a>
+<a id="__codelineno-0-316" name="__codelineno-0-316"></a>    <span class="n">swap_entagled_kron_id</span> <span class="o">=</span> <span class="n">left_swap_entagled_kron_id</span> <span class="o">@</span> <span class="n">left_swap_entagled_kron_id</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span>
+<a id="__codelineno-0-317" name="__codelineno-0-317"></a>    <span class="n">swap_entagled_kron_mat</span> <span class="o">=</span> <span class="n">swap</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">kron</span><span class="p">(</span><span class="n">psi</span> <span class="o">@</span> <span class="n">psi</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">mat</span><span class="p">),</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">dim_a</span><span class="p">,</span> <span class="n">dim_b</span><span class="p">],</span> <span class="n">row_only</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<a id="__codelineno-0-318" name="__codelineno-0-318"></a>
+<a id="__codelineno-0-319" name="__codelineno-0-319"></a>    <span class="n">opt_vec</span> <span class="o">=</span> <span class="kc">None</span>
+<a id="__codelineno-0-320" name="__codelineno-0-320"></a>    <span class="k">if</span> <span class="n">start_vec</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-0-321" name="__codelineno-0-321"></a>        <span class="n">singular_vals</span><span class="p">,</span> <span class="n">vt_mat</span><span class="p">,</span> <span class="n">u_mat</span> <span class="o">=</span> <span class="n">schmidt_decomposition</span><span class="p">(</span><span class="n">start_vec</span><span class="p">,</span> <span class="n">dim</span><span class="p">)</span>
+<a id="__codelineno-0-322" name="__codelineno-0-322"></a>        <span class="k">if</span> <span class="p">(</span><span class="n">s_rank</span> <span class="o">:=</span> <span class="nb">len</span><span class="p">(</span><span class="n">singular_vals</span><span class="p">))</span> <span class="o">&gt;</span> <span class="n">k</span><span class="p">:</span>
+<a id="__codelineno-0-323" name="__codelineno-0-323"></a>            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+<a id="__codelineno-0-324" name="__codelineno-0-324"></a>                <span class="sa">f</span><span class="s2">&quot;The Schmidt rank of the initial vector is </span><span class="si">{</span><span class="n">s_rank</span><span class="si">}</span><span class="s2">, which is larger than k=</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">. &quot;</span>
+<a id="__codelineno-0-325" name="__codelineno-0-325"></a>                <span class="s2">&quot;Using a randomly-generated initial vector instead.&quot;</span>
+<a id="__codelineno-0-326" name="__codelineno-0-326"></a>            <span class="p">)</span>
+<a id="__codelineno-0-327" name="__codelineno-0-327"></a>        <span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-0-328" name="__codelineno-0-328"></a>            <span class="n">opt_vec</span> <span class="o">=</span> <span class="n">start_vec</span>
+<a id="__codelineno-0-329" name="__codelineno-0-329"></a>            <span class="n">opt_schmidt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">max</span><span class="p">(</span><span class="n">dim</span><span class="p">)</span> <span class="o">*</span> <span class="n">k</span><span class="p">,</span> <span class="nb">max</span><span class="p">(</span><span class="n">dim</span><span class="p">)</span> <span class="o">*</span> <span class="n">k</span><span class="p">))</span>
+<a id="__codelineno-0-330" name="__codelineno-0-330"></a>            <span class="n">opt_schmidt</span><span class="p">[:</span> <span class="n">k</span> <span class="o">*</span> <span class="n">dim_a</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ravel</span><span class="p">(</span><span class="n">vt_mat</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">singular_vals</span><span class="p">),</span> <span class="n">order</span><span class="o">=</span><span class="s2">&quot;F&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-331" name="__codelineno-0-331"></a>            <span class="n">opt_schmidt</span><span class="p">[:</span> <span class="n">k</span> <span class="o">*</span> <span class="n">dim_b</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ravel</span><span class="p">(</span><span class="n">u_mat</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="s2">&quot;F&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-332" name="__codelineno-0-332"></a>
+<a id="__codelineno-0-333" name="__codelineno-0-333"></a>    <span class="k">if</span> <span class="n">opt_vec</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-0-334" name="__codelineno-0-334"></a>        <span class="n">opt_schmidt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">dim</span><span class="p">)</span> <span class="o">*</span> <span class="n">k</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">dim</span><span class="p">)</span> <span class="o">*</span> <span class="n">k</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<a id="__codelineno-0-335" name="__codelineno-0-335"></a>        <span class="n">opt_schmidt</span><span class="p">[</span><span class="n">k</span> <span class="o">*</span> <span class="n">dim_a</span> <span class="p">:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+<a id="__codelineno-0-336" name="__codelineno-0-336"></a>        <span class="n">opt_schmidt</span><span class="p">[</span><span class="n">k</span> <span class="o">*</span> <span class="n">dim_b</span> <span class="p">:,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+<a id="__codelineno-0-337" name="__codelineno-0-337"></a>        <span class="n">opt_vec</span> <span class="o">=</span> <span class="n">left_swap_entagled_kron_id</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">kron</span><span class="p">(</span>
+<a id="__codelineno-0-338" name="__codelineno-0-338"></a>            <span class="n">opt_schmidt</span><span class="p">[:</span> <span class="n">k</span> <span class="o">*</span> <span class="n">dim_a</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">opt_schmidt</span><span class="p">[:</span> <span class="n">k</span> <span class="o">*</span> <span class="n">dim_b</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<a id="__codelineno-0-339" name="__codelineno-0-339"></a>        <span class="p">)</span>
+<a id="__codelineno-0-340" name="__codelineno-0-340"></a>        <span class="n">opt_vec</span> <span class="o">/=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">opt_vec</span><span class="p">,</span> <span class="nb">ord</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<a id="__codelineno-0-341" name="__codelineno-0-341"></a>
+<a id="__codelineno-0-342" name="__codelineno-0-342"></a>    <span class="n">opt_schmidt</span> <span class="o">/=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">opt_schmidt</span><span class="p">,</span> <span class="nb">ord</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<a id="__codelineno-0-343" name="__codelineno-0-343"></a>
+<a id="__codelineno-0-344" name="__codelineno-0-344"></a>    <span class="n">sk_lower_bound</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">opt_vec</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">mat</span> <span class="o">@</span> <span class="n">opt_vec</span><span class="p">)</span>
+<a id="__codelineno-0-345" name="__codelineno-0-345"></a>    <span class="n">it_lower_bound_improved</span> <span class="o">=</span> <span class="kc">True</span>
+<a id="__codelineno-0-346" name="__codelineno-0-346"></a>
+<a id="__codelineno-0-347" name="__codelineno-0-347"></a>    <span class="k">while</span> <span class="n">it_lower_bound_improved</span><span class="p">:</span>
+<a id="__codelineno-0-348" name="__codelineno-0-348"></a>        <span class="n">it_lower_bound_improved</span> <span class="o">=</span> <span class="kc">False</span>
+<a id="__codelineno-0-349" name="__codelineno-0-349"></a>
+<a id="__codelineno-0-350" name="__codelineno-0-350"></a>        <span class="c1"># Loop through the 2 parties.</span>
+<a id="__codelineno-0-351" name="__codelineno-0-351"></a>        <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
+<a id="__codelineno-0-352" name="__codelineno-0-352"></a>            <span class="c1"># If Schmidt rank is not full, go to lower Schmidt rank iteration.</span>
+<a id="__codelineno-0-353" name="__codelineno-0-353"></a>            <span class="k">if</span> <span class="p">(</span><span class="n">s_rank</span> <span class="o">:=</span> <span class="n">schmidt_rank</span><span class="p">(</span><span class="n">opt_vec</span><span class="p">,</span> <span class="n">dim</span><span class="p">))</span> <span class="o">&lt;</span> <span class="n">k</span><span class="p">:</span>
+<a id="__codelineno-0-354" name="__codelineno-0-354"></a>                <span class="k">return</span> <span class="n">__lower_bound_sk_norm_randomized</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span> <span class="n">s_rank</span><span class="p">,</span> <span class="n">dim</span><span class="p">,</span> <span class="n">tol</span><span class="p">,</span> <span class="n">opt_vec</span><span class="p">)</span>
+<a id="__codelineno-0-355" name="__codelineno-0-355"></a>
+<a id="__codelineno-0-356" name="__codelineno-0-356"></a>            <span class="c1"># Fix one of the parties and optimize over the other party.</span>
+<a id="__codelineno-0-357" name="__codelineno-0-357"></a>            <span class="k">if</span> <span class="n">p</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+<a id="__codelineno-0-358" name="__codelineno-0-358"></a>                <span class="n">v0_mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">kron</span><span class="p">(</span><span class="n">opt_schmidt</span><span class="p">[:</span> <span class="n">dim_a</span> <span class="o">*</span> <span class="n">k</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)),</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">dim_b</span> <span class="o">*</span> <span class="n">k</span><span class="p">))</span>
+<a id="__codelineno-0-359" name="__codelineno-0-359"></a>            <span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-0-360" name="__codelineno-0-360"></a>                <span class="n">v0_mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">kron</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">dim_a</span> <span class="o">*</span> <span class="n">k</span><span class="p">),</span> <span class="n">opt_schmidt</span><span class="p">[:</span> <span class="n">dim_b</span> <span class="o">*</span> <span class="n">k</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)))</span>
+<a id="__codelineno-0-361" name="__codelineno-0-361"></a>
+<a id="__codelineno-0-362" name="__codelineno-0-362"></a>            <span class="n">a_mat</span> <span class="o">=</span> <span class="n">v0_mat</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">swap_entagled_kron_mat</span> <span class="o">@</span> <span class="n">v0_mat</span>
+<a id="__codelineno-0-363" name="__codelineno-0-363"></a>            <span class="n">b_mat</span> <span class="o">=</span> <span class="n">v0_mat</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">swap_entagled_kron_id</span> <span class="o">@</span> <span class="n">v0_mat</span>
+<a id="__codelineno-0-364" name="__codelineno-0-364"></a>
+<a id="__codelineno-0-365" name="__codelineno-0-365"></a>            <span class="n">largest_eigval</span><span class="p">,</span> <span class="n">largest_eigvec</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigh</span><span class="p">(</span>
+<a id="__codelineno-0-366" name="__codelineno-0-366"></a>                <span class="n">a_mat</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="n">b_mat</span><span class="p">,</span> <span class="n">subset_by_index</span><span class="o">=</span><span class="p">[</span><span class="n">a_mat</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">a_mat</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+<a id="__codelineno-0-367" name="__codelineno-0-367"></a>            <span class="p">)</span>
+<a id="__codelineno-0-368" name="__codelineno-0-368"></a>
+<a id="__codelineno-0-369" name="__codelineno-0-369"></a>            <span class="k">if</span> <span class="p">(</span><span class="n">new_sk_lower_bound</span> <span class="o">:=</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">largest_eigval</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span> <span class="o">&gt;=</span> <span class="n">sk_lower_bound</span> <span class="o">+</span> <span class="n">tol</span><span class="p">:</span>
+<a id="__codelineno-0-370" name="__codelineno-0-370"></a>                <span class="n">it_lower_bound_improved</span> <span class="o">=</span> <span class="kc">True</span>
+<a id="__codelineno-0-371" name="__codelineno-0-371"></a>                <span class="n">sk_lower_bound</span> <span class="o">=</span> <span class="n">new_sk_lower_bound</span>
+<a id="__codelineno-0-372" name="__codelineno-0-372"></a>
+<a id="__codelineno-0-373" name="__codelineno-0-373"></a>                <span class="n">opt_schmidt</span><span class="p">[:</span> <span class="n">v0_mat</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="p">(</span><span class="n">p</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">largest_eigvec</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+<a id="__codelineno-0-374" name="__codelineno-0-374"></a>                <span class="n">opt_vec</span> <span class="o">=</span> <span class="n">left_swap_entagled_kron_id</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">kron</span><span class="p">(</span>
+<a id="__codelineno-0-375" name="__codelineno-0-375"></a>                    <span class="n">opt_schmidt</span><span class="p">[:</span> <span class="n">k</span> <span class="o">*</span> <span class="n">dim_a</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">opt_schmidt</span><span class="p">[:</span> <span class="n">k</span> <span class="o">*</span> <span class="n">dim_b</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<a id="__codelineno-0-376" name="__codelineno-0-376"></a>                <span class="p">)</span>
+<a id="__codelineno-0-377" name="__codelineno-0-377"></a>
+<a id="__codelineno-0-378" name="__codelineno-0-378"></a>                <span class="n">opt_schmidt</span><span class="p">[:,</span> <span class="p">(</span><span class="n">p</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="mi">2</span><span class="p">]</span> <span class="o">/=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">opt_schmidt</span><span class="p">[:,</span> <span class="p">(</span><span class="n">p</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="mi">2</span><span class="p">],</span> <span class="nb">ord</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<a id="__codelineno-0-379" name="__codelineno-0-379"></a>                <span class="n">opt_vec</span> <span class="o">/=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">opt_vec</span><span class="p">,</span> <span class="nb">ord</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<a id="__codelineno-0-380" name="__codelineno-0-380"></a>
+<a id="__codelineno-0-381" name="__codelineno-0-381"></a>    <span class="k">return</span> <span class="n">sk_lower_bound</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>

@@ -8796,37 +8796,6 @@ definite, the Cholesky decomposition is returned. If the matrix is not positive 
 eigendecomposition.</p>
 
 
-<p><span class="doc-section-title">Examples:</span></p>
-    <p>Example of a positive definite matrix:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.matrix_ops</span><span class="w"> </span><span class="kn">import</span> <span class="n">vectors_from_gram_matrix</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">gram_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]])</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="n">vectors</span> <span class="o">=</span> <span class="n">vectors_from_gram_matrix</span><span class="p">(</span><span class="n">gram_matrix</span><span class="p">)</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="nb">print</span><span class="p">(</span><span class="n">vectors</span><span class="p">)</span>
-</code></pre></div>
-<p>[array([1.41421356, 0.        ]), array([-0.70710678,  1.22474487])]</p>
-<p>Example of a matrix that is not positive definite:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.matrix_ops</span><span class="w"> </span><span class="kn">import</span> <span class="n">vectors_from_gram_matrix</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">gram_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]])</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">vectors</span> <span class="o">=</span> <span class="n">vectors_from_gram_matrix</span><span class="p">(</span><span class="n">gram_matrix</span><span class="p">)</span>
-</code></pre></div>
-
-
-<p><span class="doc-section-title">Raises:</span></p>
-    <ul>
-        <li class="doc-section-item field-body">
-              <code><span title="LinAlgError">LinAlgError</span></code>
-            –
-          <div class="doc-md-description">
-            <p>If the Gram matrix is not square.</p>
-          </div>
-        </li>
-    </ul>
-
-
 <p><span class="doc-section-title">Parameters:</span></p>
     <ul>
         <li class="doc-section-item field-body">
@@ -8850,7 +8819,35 @@ eigendecomposition.</p>
           </div>
         </li>
     </ul>
-        <p><strong>References</strong></p>
+        <p>=======
+    print(vectors)
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>&gt;&gt;&gt;&gt;&gt;&gt;&gt; d965b901 (Fix: Reorder docstring sections in matrix_ops (#1455))
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>Raises:
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    LinAlgError: If the Gram matrix is not square.
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>Examples:
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    Example of a positive definite matrix:
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>```python exec=&quot;1&quot; source=&quot;above&quot;
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>    import numpy as np
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>    from toqito.matrix_ops import vectors_from_gram_matrix
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>    gram_matrix = np.array([[2, -1], [-1, 2]])
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>    vectors = vectors_from_gram_matrix(gram_matrix)
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>    print(vectors)
+</code></pre></div></p>
+<div class="highlight"><pre><span></span><code>Example of a matrix that is not positive definite:
+</code></pre></div>
+<p>```python exec="1" source="above"
+    import numpy as np
+    from toqito.matrix_ops import vectors_from_gram_matrix</p>
+<div class="highlight"><pre><span></span><code>gram_matrix = np.array([[0, 1], [1, 0]])
+vectors = vectors_from_gram_matrix(gram_matrix)
+</code></pre></div>
+<p>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+    ```</p>
+<p><strong>References</strong></p>
 <p><span id="ref-toqito-matrix_ops-vectors_from_gram_matrix-vectors_from_gram_matrix-1"><sup><a href="#cite-toqito-matrix_ops-vectors_from_gram_matrix-vectors_from_gram_matrix-1">1</a></sup> Wikipedia. <em>Gram Matrix</em>. <a href="https://en.wikipedia.org/wiki/Gram_matrix">link</a>.</span></p>
 
 
@@ -8908,59 +8905,67 @@ eigendecomposition.</p>
 <span class="normal"><a href="#__codelineno-0-58">58</a></span>
 <span class="normal"><a href="#__codelineno-0-59">59</a></span>
 <span class="normal"><a href="#__codelineno-0-60">60</a></span>
-<span class="normal"><a href="#__codelineno-0-61">61</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-9" name="__codelineno-0-9"></a><span class="k">def</span><span class="w"> </span><span class="nf">vectors_from_gram_matrix</span><span class="p">(</span><span class="n">gram</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+<span class="normal"><a href="#__codelineno-0-61">61</a></span>
+<span class="normal"><a href="#__codelineno-0-62">62</a></span>
+<span class="normal"><a href="#__codelineno-0-63">63</a></span>
+<span class="normal"><a href="#__codelineno-0-64">64</a></span>
+<span class="normal"><a href="#__codelineno-0-65">65</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-9" name="__codelineno-0-9"></a><span class="k">def</span><span class="w"> </span><span class="nf">vectors_from_gram_matrix</span><span class="p">(</span><span class="n">gram</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
 <a id="__codelineno-0-10" name="__codelineno-0-10"></a><span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Obtain the corresponding ensemble of states from the Gram matrix [@wikipediagram].</span>
 <a id="__codelineno-0-11" name="__codelineno-0-11"></a>
 <a id="__codelineno-0-12" name="__codelineno-0-12"></a><span class="sd">    The function attempts to compute the Cholesky decomposition of the given Gram matrix. If the matrix is positive</span>
 <a id="__codelineno-0-13" name="__codelineno-0-13"></a><span class="sd">    definite, the Cholesky decomposition is returned. If the matrix is not positive definite, the function falls back to</span>
 <a id="__codelineno-0-14" name="__codelineno-0-14"></a><span class="sd">    eigendecomposition.</span>
 <a id="__codelineno-0-15" name="__codelineno-0-15"></a>
-<a id="__codelineno-0-16" name="__codelineno-0-16"></a><span class="sd">    Examples:</span>
-<a id="__codelineno-0-17" name="__codelineno-0-17"></a><span class="sd">        Example of a positive definite matrix:</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16"></a><span class="sd">    Args:</span>
+<a id="__codelineno-0-17" name="__codelineno-0-17"></a><span class="sd">        gram: A square, symmetric matrix representing the Gram matrix.</span>
 <a id="__codelineno-0-18" name="__codelineno-0-18"></a>
-<a id="__codelineno-0-19" name="__codelineno-0-19"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-20" name="__codelineno-0-20"></a><span class="sd">        import numpy as np</span>
-<a id="__codelineno-0-21" name="__codelineno-0-21"></a><span class="sd">        from toqito.matrix_ops import vectors_from_gram_matrix</span>
-<a id="__codelineno-0-22" name="__codelineno-0-22"></a>
-<a id="__codelineno-0-23" name="__codelineno-0-23"></a><span class="sd">        gram_matrix = np.array([[2, -1], [-1, 2]])</span>
-<a id="__codelineno-0-24" name="__codelineno-0-24"></a><span class="sd">        vectors = vectors_from_gram_matrix(gram_matrix)</span>
+<a id="__codelineno-0-19" name="__codelineno-0-19"></a><span class="sd">    Returns:</span>
+<a id="__codelineno-0-20" name="__codelineno-0-20"></a><span class="sd">        A list of vectors (np.ndarray) corresponding to the ensemble of states.</span>
+<a id="__codelineno-0-21" name="__codelineno-0-21"></a><span class="sd">    =======</span>
+<a id="__codelineno-0-22" name="__codelineno-0-22"></a><span class="sd">        print(vectors)</span>
+<a id="__codelineno-0-23" name="__codelineno-0-23"></a><span class="sd">    ```</span>
+<a id="__codelineno-0-24" name="__codelineno-0-24"></a><span class="sd">    &gt;&gt;&gt;&gt;&gt;&gt;&gt; d965b901 (Fix: Reorder docstring sections in matrix_ops (#1455))</span>
 <a id="__codelineno-0-25" name="__codelineno-0-25"></a>
-<a id="__codelineno-0-26" name="__codelineno-0-26"></a><span class="sd">        print(vectors)</span>
-<a id="__codelineno-0-27" name="__codelineno-0-27"></a><span class="sd">        ```</span>
+<a id="__codelineno-0-26" name="__codelineno-0-26"></a><span class="sd">    Raises:</span>
+<a id="__codelineno-0-27" name="__codelineno-0-27"></a><span class="sd">        LinAlgError: If the Gram matrix is not square.</span>
 <a id="__codelineno-0-28" name="__codelineno-0-28"></a>
-<a id="__codelineno-0-29" name="__codelineno-0-29"></a><span class="sd">        Example of a matrix that is not positive definite:</span>
-<a id="__codelineno-0-30" name="__codelineno-0-30"></a>
-<a id="__codelineno-0-31" name="__codelineno-0-31"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
+<a id="__codelineno-0-29" name="__codelineno-0-29"></a><span class="sd">    Examples:</span>
+<a id="__codelineno-0-30" name="__codelineno-0-30"></a><span class="sd">        Example of a positive definite matrix:</span>
+<a id="__codelineno-0-31" name="__codelineno-0-31"></a><span class="sd">    ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
 <a id="__codelineno-0-32" name="__codelineno-0-32"></a><span class="sd">        import numpy as np</span>
 <a id="__codelineno-0-33" name="__codelineno-0-33"></a><span class="sd">        from toqito.matrix_ops import vectors_from_gram_matrix</span>
-<a id="__codelineno-0-34" name="__codelineno-0-34"></a><span class="sd">        gram_matrix = np.array([[0, 1], [1, 0]])</span>
-<a id="__codelineno-0-35" name="__codelineno-0-35"></a><span class="sd">        vectors = vectors_from_gram_matrix(gram_matrix)</span>
-<a id="__codelineno-0-36" name="__codelineno-0-36"></a>
-<a id="__codelineno-0-37" name="__codelineno-0-37"></a><span class="sd">        ```</span>
-<a id="__codelineno-0-38" name="__codelineno-0-38"></a>
-<a id="__codelineno-0-39" name="__codelineno-0-39"></a><span class="sd">    Raises:</span>
-<a id="__codelineno-0-40" name="__codelineno-0-40"></a><span class="sd">        LinAlgError: If the Gram matrix is not square.</span>
-<a id="__codelineno-0-41" name="__codelineno-0-41"></a>
-<a id="__codelineno-0-42" name="__codelineno-0-42"></a><span class="sd">    Args:</span>
-<a id="__codelineno-0-43" name="__codelineno-0-43"></a><span class="sd">        gram: A square, symmetric matrix representing the Gram matrix.</span>
-<a id="__codelineno-0-44" name="__codelineno-0-44"></a>
-<a id="__codelineno-0-45" name="__codelineno-0-45"></a><span class="sd">    Returns:</span>
-<a id="__codelineno-0-46" name="__codelineno-0-46"></a><span class="sd">        A list of vectors (np.ndarray) corresponding to the ensemble of states.</span>
-<a id="__codelineno-0-47" name="__codelineno-0-47"></a>
-<a id="__codelineno-0-48" name="__codelineno-0-48"></a><span class="sd">    &quot;&quot;&quot;</span>
-<a id="__codelineno-0-49" name="__codelineno-0-49"></a>    <span class="n">dim</span> <span class="o">=</span> <span class="n">gram</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<a id="__codelineno-0-50" name="__codelineno-0-50"></a>    <span class="k">if</span> <span class="n">gram</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="n">gram</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
-<a id="__codelineno-0-51" name="__codelineno-0-51"></a>        <span class="k">raise</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">LinAlgError</span><span class="p">(</span><span class="s2">&quot;The Gram matrix must be square.&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-52" name="__codelineno-0-52"></a>
-<a id="__codelineno-0-53" name="__codelineno-0-53"></a>    <span class="c1"># If matrix is PD, can do Cholesky decomposition:</span>
-<a id="__codelineno-0-54" name="__codelineno-0-54"></a>    <span class="k">try</span><span class="p">:</span>
-<a id="__codelineno-0-55" name="__codelineno-0-55"></a>        <span class="n">decomp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">cholesky</span><span class="p">(</span><span class="n">gram</span><span class="p">)</span>
-<a id="__codelineno-0-56" name="__codelineno-0-56"></a>        <span class="k">return</span> <span class="p">[</span><span class="n">decomp</span><span class="p">[</span><span class="n">i</span><span class="p">][:]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">dim</span><span class="p">)]</span>
-<a id="__codelineno-0-57" name="__codelineno-0-57"></a>    <span class="c1"># Otherwise, need to do eigendecomposition:</span>
-<a id="__codelineno-0-58" name="__codelineno-0-58"></a>    <span class="k">except</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">LinAlgError</span><span class="p">:</span>
-<a id="__codelineno-0-59" name="__codelineno-0-59"></a>        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Matrix is not positive semidefinite. Using eigendecomposition as alternative.&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-60" name="__codelineno-0-60"></a>        <span class="n">d</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eig</span><span class="p">(</span><span class="n">gram</span><span class="p">)</span>
-<a id="__codelineno-0-61" name="__codelineno-0-61"></a>        <span class="k">return</span> <span class="p">[</span><span class="n">scipy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">sqrtm</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">d</span><span class="p">))</span> <span class="o">@</span> <span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">dim</span><span class="p">)]</span>
+<a id="__codelineno-0-34" name="__codelineno-0-34"></a>
+<a id="__codelineno-0-35" name="__codelineno-0-35"></a><span class="sd">        gram_matrix = np.array([[2, -1], [-1, 2]])</span>
+<a id="__codelineno-0-36" name="__codelineno-0-36"></a><span class="sd">        vectors = vectors_from_gram_matrix(gram_matrix)</span>
+<a id="__codelineno-0-37" name="__codelineno-0-37"></a>
+<a id="__codelineno-0-38" name="__codelineno-0-38"></a><span class="sd">        print(vectors)</span>
+<a id="__codelineno-0-39" name="__codelineno-0-39"></a><span class="sd">    ```</span>
+<a id="__codelineno-0-40" name="__codelineno-0-40"></a>
+<a id="__codelineno-0-41" name="__codelineno-0-41"></a><span class="sd">        Example of a matrix that is not positive definite:</span>
+<a id="__codelineno-0-42" name="__codelineno-0-42"></a><span class="sd">    ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
+<a id="__codelineno-0-43" name="__codelineno-0-43"></a><span class="sd">        import numpy as np</span>
+<a id="__codelineno-0-44" name="__codelineno-0-44"></a><span class="sd">        from toqito.matrix_ops import vectors_from_gram_matrix</span>
+<a id="__codelineno-0-45" name="__codelineno-0-45"></a>
+<a id="__codelineno-0-46" name="__codelineno-0-46"></a><span class="sd">        gram_matrix = np.array([[0, 1], [1, 0]])</span>
+<a id="__codelineno-0-47" name="__codelineno-0-47"></a><span class="sd">        vectors = vectors_from_gram_matrix(gram_matrix)</span>
+<a id="__codelineno-0-48" name="__codelineno-0-48"></a>
+<a id="__codelineno-0-49" name="__codelineno-0-49"></a><span class="sd">    &lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</span>
+<a id="__codelineno-0-50" name="__codelineno-0-50"></a><span class="sd">        ```</span>
+<a id="__codelineno-0-51" name="__codelineno-0-51"></a>
+<a id="__codelineno-0-52" name="__codelineno-0-52"></a><span class="sd">    &quot;&quot;&quot;</span>
+<a id="__codelineno-0-53" name="__codelineno-0-53"></a>    <span class="n">dim</span> <span class="o">=</span> <span class="n">gram</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<a id="__codelineno-0-54" name="__codelineno-0-54"></a>    <span class="k">if</span> <span class="n">gram</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="n">gram</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+<a id="__codelineno-0-55" name="__codelineno-0-55"></a>        <span class="k">raise</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">LinAlgError</span><span class="p">(</span><span class="s2">&quot;The Gram matrix must be square.&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-56" name="__codelineno-0-56"></a>
+<a id="__codelineno-0-57" name="__codelineno-0-57"></a>    <span class="c1"># If matrix is PD, can do Cholesky decomposition:</span>
+<a id="__codelineno-0-58" name="__codelineno-0-58"></a>    <span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-0-59" name="__codelineno-0-59"></a>        <span class="n">decomp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">cholesky</span><span class="p">(</span><span class="n">gram</span><span class="p">)</span>
+<a id="__codelineno-0-60" name="__codelineno-0-60"></a>        <span class="k">return</span> <span class="p">[</span><span class="n">decomp</span><span class="p">[</span><span class="n">i</span><span class="p">][:]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">dim</span><span class="p">)]</span>
+<a id="__codelineno-0-61" name="__codelineno-0-61"></a>    <span class="c1"># Otherwise, need to do eigendecomposition:</span>
+<a id="__codelineno-0-62" name="__codelineno-0-62"></a>    <span class="k">except</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">LinAlgError</span><span class="p">:</span>
+<a id="__codelineno-0-63" name="__codelineno-0-63"></a>        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Matrix is not positive semidefinite. Using eigendecomposition as alternative.&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-64" name="__codelineno-0-64"></a>        <span class="n">d</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eig</span><span class="p">(</span><span class="n">gram</span><span class="p">)</span>
+<a id="__codelineno-0-65" name="__codelineno-0-65"></a>        <span class="k">return</span> <span class="p">[</span><span class="n">scipy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">sqrtm</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">d</span><span class="p">))</span> <span class="o">@</span> <span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">dim</span><span class="p">)]</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>

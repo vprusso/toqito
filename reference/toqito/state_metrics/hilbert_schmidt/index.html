@@ -8798,33 +8798,6 @@
 \]</div>
 
 
-<p><span class="doc-section-title">Examples:</span></p>
-    <p>One may consider taking the Hilbert-Schmidt distance between two Bell states. In <code>|toqito⟩</code>,
-one may accomplish this as</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.states</span><span class="w"> </span><span class="kn">import</span> <span class="n">bell</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.state_metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">hilbert_schmidt</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="n">rho</span> <span class="o">=</span> <span class="n">bell</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">@</span> <span class="n">bell</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="n">sigma</span> <span class="o">=</span> <span class="n">bell</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="o">@</span> <span class="n">bell</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">around</span><span class="p">(</span><span class="n">hilbert_schmidt</span><span class="p">(</span><span class="n">rho</span><span class="p">,</span> <span class="n">sigma</span><span class="p">),</span> <span class="n">decimals</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
-</code></pre></div>
-<p>1.0</p>
-
-
-<p><span class="doc-section-title">Raises:</span></p>
-    <ul>
-        <li class="doc-section-item field-body">
-              <code><span title="ValueError">ValueError</span></code>
-            –
-          <div class="doc-md-description">
-            <p>If matrices are not density operators.</p>
-          </div>
-        </li>
-    </ul>
-
-
 <p><span class="doc-section-title">Parameters:</span></p>
     <ul>
         <li class="doc-section-item field-body">
@@ -8856,6 +8829,33 @@ one may accomplish this as</p>
           </div>
         </li>
     </ul>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+              <code><span title="ValueError">ValueError</span></code>
+            –
+          <div class="doc-md-description">
+            <p>If matrices are not density operators.</p>
+          </div>
+        </li>
+    </ul>
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>One may consider taking the Hilbert-Schmidt distance between two Bell states. In <code>|toqito⟩</code>,
+one may accomplish this as</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.states</span><span class="w"> </span><span class="kn">import</span> <span class="n">bell</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.state_metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">hilbert_schmidt</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="n">rho</span> <span class="o">=</span> <span class="n">bell</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">@</span> <span class="n">bell</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="n">sigma</span> <span class="o">=</span> <span class="n">bell</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="o">@</span> <span class="n">bell</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">around</span><span class="p">(</span><span class="n">hilbert_schmidt</span><span class="p">(</span><span class="n">rho</span><span class="p">,</span> <span class="n">sigma</span><span class="p">),</span> <span class="n">decimals</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+</code></pre></div>
+<p>1.0</p>
         <p><strong>References</strong></p>
 <p><span id="ref-toqito-state_metrics-hilbert_schmidt-hilbert_schmidt-1"><sup><a href="#cite-toqito-state_metrics-hilbert_schmidt-hilbert_schmidt-1">1</a></sup> Wikipedia. <em>Hilbert-Schmidt operator</em>. <a href="https://en.wikipedia.org/wiki/Hilbert%E2%80%93Schmidt_operator">link</a>.</span></p>
 
@@ -8910,30 +8910,30 @@ one may accomplish this as</p>
 <a id="__codelineno-0-15" name="__codelineno-0-15"></a><span class="sd">        \right\rVert_2^2.</span>
 <a id="__codelineno-0-16" name="__codelineno-0-16"></a><span class="sd">    \]</span>
 <a id="__codelineno-0-17" name="__codelineno-0-17"></a>
-<a id="__codelineno-0-18" name="__codelineno-0-18"></a><span class="sd">    Examples:</span>
-<a id="__codelineno-0-19" name="__codelineno-0-19"></a><span class="sd">        One may consider taking the Hilbert-Schmidt distance between two Bell states. In `|toqito⟩`,</span>
-<a id="__codelineno-0-20" name="__codelineno-0-20"></a><span class="sd">        one may accomplish this as</span>
+<a id="__codelineno-0-18" name="__codelineno-0-18"></a><span class="sd">    Args:</span>
+<a id="__codelineno-0-19" name="__codelineno-0-19"></a><span class="sd">        rho: An input matrix.</span>
+<a id="__codelineno-0-20" name="__codelineno-0-20"></a><span class="sd">        sigma: An input matrix.</span>
 <a id="__codelineno-0-21" name="__codelineno-0-21"></a>
-<a id="__codelineno-0-22" name="__codelineno-0-22"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-23" name="__codelineno-0-23"></a><span class="sd">        import numpy as np</span>
-<a id="__codelineno-0-24" name="__codelineno-0-24"></a><span class="sd">        from toqito.states import bell</span>
-<a id="__codelineno-0-25" name="__codelineno-0-25"></a><span class="sd">        from toqito.state_metrics import hilbert_schmidt</span>
-<a id="__codelineno-0-26" name="__codelineno-0-26"></a>
-<a id="__codelineno-0-27" name="__codelineno-0-27"></a><span class="sd">        rho = bell(0) @ bell(0).conj().T</span>
-<a id="__codelineno-0-28" name="__codelineno-0-28"></a><span class="sd">        sigma = bell(3) @ bell(3).conj().T</span>
-<a id="__codelineno-0-29" name="__codelineno-0-29"></a>
-<a id="__codelineno-0-30" name="__codelineno-0-30"></a><span class="sd">        print(np.around(hilbert_schmidt(rho, sigma), decimals=2))</span>
-<a id="__codelineno-0-31" name="__codelineno-0-31"></a><span class="sd">        ```</span>
-<a id="__codelineno-0-32" name="__codelineno-0-32"></a>
-<a id="__codelineno-0-33" name="__codelineno-0-33"></a><span class="sd">    Raises:</span>
-<a id="__codelineno-0-34" name="__codelineno-0-34"></a><span class="sd">        ValueError: If matrices are not density operators.</span>
-<a id="__codelineno-0-35" name="__codelineno-0-35"></a>
-<a id="__codelineno-0-36" name="__codelineno-0-36"></a><span class="sd">    Args:</span>
-<a id="__codelineno-0-37" name="__codelineno-0-37"></a><span class="sd">        rho: An input matrix.</span>
-<a id="__codelineno-0-38" name="__codelineno-0-38"></a><span class="sd">        sigma: An input matrix.</span>
+<a id="__codelineno-0-22" name="__codelineno-0-22"></a><span class="sd">    Returns:</span>
+<a id="__codelineno-0-23" name="__codelineno-0-23"></a><span class="sd">        The Hilbert-Schmidt distance between `rho` and `sigma`.</span>
+<a id="__codelineno-0-24" name="__codelineno-0-24"></a>
+<a id="__codelineno-0-25" name="__codelineno-0-25"></a><span class="sd">    Raises:</span>
+<a id="__codelineno-0-26" name="__codelineno-0-26"></a><span class="sd">        ValueError: If matrices are not density operators.</span>
+<a id="__codelineno-0-27" name="__codelineno-0-27"></a>
+<a id="__codelineno-0-28" name="__codelineno-0-28"></a><span class="sd">    Examples:</span>
+<a id="__codelineno-0-29" name="__codelineno-0-29"></a><span class="sd">        One may consider taking the Hilbert-Schmidt distance between two Bell states. In `|toqito⟩`,</span>
+<a id="__codelineno-0-30" name="__codelineno-0-30"></a><span class="sd">        one may accomplish this as</span>
+<a id="__codelineno-0-31" name="__codelineno-0-31"></a>
+<a id="__codelineno-0-32" name="__codelineno-0-32"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
+<a id="__codelineno-0-33" name="__codelineno-0-33"></a><span class="sd">        import numpy as np</span>
+<a id="__codelineno-0-34" name="__codelineno-0-34"></a><span class="sd">        from toqito.states import bell</span>
+<a id="__codelineno-0-35" name="__codelineno-0-35"></a><span class="sd">        from toqito.state_metrics import hilbert_schmidt</span>
+<a id="__codelineno-0-36" name="__codelineno-0-36"></a>
+<a id="__codelineno-0-37" name="__codelineno-0-37"></a><span class="sd">        rho = bell(0) @ bell(0).conj().T</span>
+<a id="__codelineno-0-38" name="__codelineno-0-38"></a><span class="sd">        sigma = bell(3) @ bell(3).conj().T</span>
 <a id="__codelineno-0-39" name="__codelineno-0-39"></a>
-<a id="__codelineno-0-40" name="__codelineno-0-40"></a><span class="sd">    Returns:</span>
-<a id="__codelineno-0-41" name="__codelineno-0-41"></a><span class="sd">        The Hilbert-Schmidt distance between `rho` and `sigma`.</span>
+<a id="__codelineno-0-40" name="__codelineno-0-40"></a><span class="sd">        print(np.around(hilbert_schmidt(rho, sigma), decimals=2))</span>
+<a id="__codelineno-0-41" name="__codelineno-0-41"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-42" name="__codelineno-0-42"></a>
 <a id="__codelineno-0-43" name="__codelineno-0-43"></a><span class="sd">    &quot;&quot;&quot;</span>
 <a id="__codelineno-0-44" name="__codelineno-0-44"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">is_density</span><span class="p">(</span><span class="n">rho</span><span class="p">)</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">is_density</span><span class="p">(</span><span class="n">sigma</span><span class="p">):</span>

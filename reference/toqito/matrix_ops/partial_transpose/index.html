@@ -8814,75 +8814,6 @@ different row and column dimensions can be specified by putting the row dimensio
 first row of <code>dim</code> and the column dimensions in the second row of <code>dim</code>.</p>
 
 
-<p><span class="doc-section-title">Examples:</span></p>
-    <p>Consider the following matrix</p>
-<div class="arithmatex">\[
-    X = \begin{pmatrix}
-            1 &amp; 2 &amp; 3 &amp; 4 \\
-            5 &amp; 6 &amp; 7 &amp; 8 \\
-            9 &amp; 10 &amp; 11 &amp; 12 \\
-            13 &amp; 14 &amp; 15 &amp; 16
-        \end{pmatrix}.
-\]</div>
-<p>Performing the partial transpose on the matrix <span class="arithmatex">\(X\)</span> over the second
-subsystem yields the following matrix</p>
-<div class="arithmatex">\[
-    X_{pt, 2} = \begin{pmatrix}
-                1 &amp; 5 &amp; 3 &amp; 7 \\
-                2 &amp; 6 &amp; 4 &amp; 8 \\
-                9 &amp; 13 &amp; 11 &amp; 15 \\
-                10 &amp; 14 &amp; 12 &amp; 16
-             \end{pmatrix}.
-\]</div>
-<p>By default, in <code>|toqito⟩</code>, the partial transpose function performs the transposition on
-the second subsystem as follows.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.matrix_ops</span><span class="w"> </span><span class="kn">import</span> <span class="n">partial_transpose</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">test_input_mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">17</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="nb">print</span><span class="p">(</span><span class="n">partial_transpose</span><span class="p">(</span><span class="n">test_input_mat</span><span class="p">))</span>
-</code></pre></div>
-<p>[[ 1  5  3  7]
- [ 2  6  4  8]
- [ 9 13 11 15]
- [10 14 12 16]]</p>
-<p>By specifying the <code>sys = 1</code> argument, we can perform the partial transpose over the
-first subsystem (instead of the default second subsystem as done above). Performing the
-partial transpose over the first subsystem yields the following matrix</p>
-<div class="arithmatex">\[
-    X_{pt, 1} = \begin{pmatrix}
-                    1 &amp; 2 &amp; 9 &amp; 10 \\
-                    5 &amp; 6 &amp; 13 &amp; 14 \\
-                    3 &amp; 4 &amp; 11 &amp; 12 \\
-                    7 &amp; 8 &amp; 15 &amp; 16
-                \end{pmatrix}.
-\]</div>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.matrix_ops</span><span class="w"> </span><span class="kn">import</span> <span class="n">partial_transpose</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">test_input_mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">17</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="nb">print</span><span class="p">(</span><span class="n">partial_transpose</span><span class="p">(</span><span class="n">test_input_mat</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
-</code></pre></div>
-<p>[[ 1  5  3  7]
- [ 2  6  4  8]
- [ 9 13 11 15]
- [10 14 12 16]]</p>
-
-
-<p><span class="doc-section-title">Raises:</span></p>
-    <ul>
-        <li class="doc-section-item field-body">
-              <code><span title="ValueError">ValueError</span></code>
-            –
-          <div class="doc-md-description">
-            <p>If matrix dimensions are not square.</p>
-          </div>
-        </li>
-    </ul>
-
-
 <p><span class="doc-section-title">Parameters:</span></p>
     <ul>
         <li class="doc-section-item field-body">
@@ -8926,7 +8857,73 @@ partial transpose over the first subsystem yields the following matrix</p>
           </div>
         </li>
     </ul>
-        <p><strong>References</strong></p>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+              <code><span title="ValueError">ValueError</span></code>
+            –
+          <div class="doc-md-description">
+            <p>If matrix dimensions are not square.</p>
+          </div>
+        </li>
+    </ul>
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>Consider the following matrix</p>
+<div class="arithmatex">\[
+    X = \begin{pmatrix}
+            1 &amp; 2 &amp; 3 &amp; 4 \\
+            5 &amp; 6 &amp; 7 &amp; 8 \\
+            9 &amp; 10 &amp; 11 &amp; 12 \\
+            13 &amp; 14 &amp; 15 &amp; 16
+        \end{pmatrix}.
+\]</div>
+<p>Performing the partial transpose on the matrix <span class="arithmatex">\(X\)</span> over the second
+subsystem yields the following matrix</p>
+<div class="arithmatex">\[
+    X_{pt, 2} = \begin{pmatrix}
+                1 &amp; 5 &amp; 3 &amp; 7 \\
+                2 &amp; 6 &amp; 4 &amp; 8 \\
+                9 &amp; 13 &amp; 11 &amp; 15 \\
+                10 &amp; 14 &amp; 12 &amp; 16
+             \end{pmatrix}.
+\]</div>
+<p>By default, in <code>|toqito⟩</code>, the partial transpose function performs the transposition on
+the second subsystem as follows.</p>
+        <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>  <span class="n">File</span> <span class="s2">&quot;/home/runner/work/toqito/toqito/.venv/lib/python3.12/site-packages/markdown_exec/_internal/formatters/python.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">71</span><span class="p">,</span> <span class="ow">in</span> <span class="n">_run_python</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    <span class="n">exec_python</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="n">code_block_id</span><span class="p">,</span> <span class="n">exec_globals</span><span class="p">)</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>  <span class="n">File</span> <span class="s2">&quot;/home/runner/work/toqito/toqito/.venv/lib/python3.12/site-packages/markdown_exec/_internal/formatters/_exec_python.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">7</span><span class="p">,</span> <span class="ow">in</span> <span class="n">exec_python</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="n">compiled</span> <span class="o">=</span> <span class="nb">compile</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="n">filename</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;exec&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>               <span class="o">^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>  <span class="n">File</span> <span class="s2">&quot;&lt;code block: n79&gt;&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">1</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="ne">IndentationError</span><span class="p">:</span> <span class="n">unexpected</span> <span class="n">indent</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>By specifying the `sys = 1` argument, we can perform the partial transpose over the
+first subsystem (instead of the default second subsystem as done above). Performing the
+partial transpose over the first subsystem yields the following matrix
+
+\[
+    X_{pt, 1} = \begin{pmatrix}
+                    1 &amp; 2 &amp; 9 &amp; 10 \\
+                    5 &amp; 6 &amp; 13 &amp; 14 \\
+                    3 &amp; 4 &amp; 11 &amp; 12 \\
+                    7 &amp; 8 &amp; 15 &amp; 16
+                \end{pmatrix}.
+\]
+</code></pre></div>
+<p><code>python exec="1" source="above"
+    import numpy as np
+    from toqito.matrix_ops import partial_transpose
+
+    test_input_mat = np.arange(1, 17).reshape(4, 4)
+
+    print(partial_transpose(test_input_mat, 1))</code></p>
+<p><strong>References</strong></p>
 <p><span id="ref-toqito-matrix_ops-partial_transpose-partial_transpose-1"><sup><a href="#cite-toqito-matrix_ops-partial_transpose-partial_transpose-1">1</a></sup> Wikipedia. <em>Peres-Horodecki criterion</em>. <a href="https://en.wikipedia.org/wiki/Peres%E2%80%93Horodecki_criterion">link</a>.</span></p>
 
 
@@ -9121,9 +9118,7 @@ partial transpose over the first subsystem yields the following matrix</p>
 <span class="normal"><a href="#__codelineno-0-197">197</a></span>
 <span class="normal"><a href="#__codelineno-0-198">198</a></span>
 <span class="normal"><a href="#__codelineno-0-199">199</a></span>
-<span class="normal"><a href="#__codelineno-0-200">200</a></span>
-<span class="normal"><a href="#__codelineno-0-201">201</a></span>
-<span class="normal"><a href="#__codelineno-0-202">202</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-11" name="__codelineno-0-11"></a><span class="k">def</span><span class="w"> </span><span class="nf">partial_transpose</span><span class="p">(</span>
+<span class="normal"><a href="#__codelineno-0-200">200</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-11" name="__codelineno-0-11"></a><span class="k">def</span><span class="w"> </span><span class="nf">partial_transpose</span><span class="p">(</span>
 <a id="__codelineno-0-12" name="__codelineno-0-12"></a>    <span class="n">rho</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="n">Variable</span><span class="p">,</span>
 <a id="__codelineno-0-13" name="__codelineno-0-13"></a>    <span class="n">sys</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <a id="__codelineno-0-14" name="__codelineno-0-14"></a>    <span class="n">dim</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -9158,163 +9153,161 @@ partial transpose over the first subsystem yields the following matrix</p>
 <a id="__codelineno-0-43" name="__codelineno-0-43"></a><span class="sd">    different row and column dimensions can be specified by putting the row dimensions in the</span>
 <a id="__codelineno-0-44" name="__codelineno-0-44"></a><span class="sd">    first row of `dim` and the column dimensions in the second row of `dim`.</span>
 <a id="__codelineno-0-45" name="__codelineno-0-45"></a>
-<a id="__codelineno-0-46" name="__codelineno-0-46"></a><span class="sd">    Examples:</span>
-<a id="__codelineno-0-47" name="__codelineno-0-47"></a><span class="sd">        Consider the following matrix</span>
-<a id="__codelineno-0-48" name="__codelineno-0-48"></a>
-<a id="__codelineno-0-49" name="__codelineno-0-49"></a><span class="sd">        \[</span>
-<a id="__codelineno-0-50" name="__codelineno-0-50"></a><span class="sd">            X = \begin{pmatrix}</span>
-<a id="__codelineno-0-51" name="__codelineno-0-51"></a><span class="sd">                    1 &amp; 2 &amp; 3 &amp; 4 \\</span>
-<a id="__codelineno-0-52" name="__codelineno-0-52"></a><span class="sd">                    5 &amp; 6 &amp; 7 &amp; 8 \\</span>
-<a id="__codelineno-0-53" name="__codelineno-0-53"></a><span class="sd">                    9 &amp; 10 &amp; 11 &amp; 12 \\</span>
-<a id="__codelineno-0-54" name="__codelineno-0-54"></a><span class="sd">                    13 &amp; 14 &amp; 15 &amp; 16</span>
-<a id="__codelineno-0-55" name="__codelineno-0-55"></a><span class="sd">                \end{pmatrix}.</span>
-<a id="__codelineno-0-56" name="__codelineno-0-56"></a><span class="sd">        \]</span>
-<a id="__codelineno-0-57" name="__codelineno-0-57"></a>
-<a id="__codelineno-0-58" name="__codelineno-0-58"></a><span class="sd">        Performing the partial transpose on the matrix \(X\) over the second</span>
-<a id="__codelineno-0-59" name="__codelineno-0-59"></a><span class="sd">        subsystem yields the following matrix</span>
-<a id="__codelineno-0-60" name="__codelineno-0-60"></a>
-<a id="__codelineno-0-61" name="__codelineno-0-61"></a><span class="sd">        \[</span>
-<a id="__codelineno-0-62" name="__codelineno-0-62"></a><span class="sd">            X_{pt, 2} = \begin{pmatrix}</span>
-<a id="__codelineno-0-63" name="__codelineno-0-63"></a><span class="sd">                        1 &amp; 5 &amp; 3 &amp; 7 \\</span>
-<a id="__codelineno-0-64" name="__codelineno-0-64"></a><span class="sd">                        2 &amp; 6 &amp; 4 &amp; 8 \\</span>
-<a id="__codelineno-0-65" name="__codelineno-0-65"></a><span class="sd">                        9 &amp; 13 &amp; 11 &amp; 15 \\</span>
-<a id="__codelineno-0-66" name="__codelineno-0-66"></a><span class="sd">                        10 &amp; 14 &amp; 12 &amp; 16</span>
-<a id="__codelineno-0-67" name="__codelineno-0-67"></a><span class="sd">                     \end{pmatrix}.</span>
-<a id="__codelineno-0-68" name="__codelineno-0-68"></a><span class="sd">        \]</span>
-<a id="__codelineno-0-69" name="__codelineno-0-69"></a>
-<a id="__codelineno-0-70" name="__codelineno-0-70"></a><span class="sd">        By default, in `|toqito⟩`, the partial transpose function performs the transposition on</span>
-<a id="__codelineno-0-71" name="__codelineno-0-71"></a><span class="sd">        the second subsystem as follows.</span>
-<a id="__codelineno-0-72" name="__codelineno-0-72"></a>
-<a id="__codelineno-0-73" name="__codelineno-0-73"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-74" name="__codelineno-0-74"></a><span class="sd">        import numpy as np</span>
-<a id="__codelineno-0-75" name="__codelineno-0-75"></a><span class="sd">        from toqito.matrix_ops import partial_transpose</span>
-<a id="__codelineno-0-76" name="__codelineno-0-76"></a>
-<a id="__codelineno-0-77" name="__codelineno-0-77"></a><span class="sd">        test_input_mat = np.arange(1, 17).reshape(4, 4)</span>
-<a id="__codelineno-0-78" name="__codelineno-0-78"></a>
-<a id="__codelineno-0-79" name="__codelineno-0-79"></a><span class="sd">        print(partial_transpose(test_input_mat))</span>
-<a id="__codelineno-0-80" name="__codelineno-0-80"></a><span class="sd">        ```</span>
-<a id="__codelineno-0-81" name="__codelineno-0-81"></a>
-<a id="__codelineno-0-82" name="__codelineno-0-82"></a><span class="sd">        By specifying the `sys = 1` argument, we can perform the partial transpose over the</span>
-<a id="__codelineno-0-83" name="__codelineno-0-83"></a><span class="sd">        first subsystem (instead of the default second subsystem as done above). Performing the</span>
-<a id="__codelineno-0-84" name="__codelineno-0-84"></a><span class="sd">        partial transpose over the first subsystem yields the following matrix</span>
-<a id="__codelineno-0-85" name="__codelineno-0-85"></a>
-<a id="__codelineno-0-86" name="__codelineno-0-86"></a><span class="sd">        \[</span>
-<a id="__codelineno-0-87" name="__codelineno-0-87"></a><span class="sd">            X_{pt, 1} = \begin{pmatrix}</span>
-<a id="__codelineno-0-88" name="__codelineno-0-88"></a><span class="sd">                            1 &amp; 2 &amp; 9 &amp; 10 \\</span>
-<a id="__codelineno-0-89" name="__codelineno-0-89"></a><span class="sd">                            5 &amp; 6 &amp; 13 &amp; 14 \\</span>
-<a id="__codelineno-0-90" name="__codelineno-0-90"></a><span class="sd">                            3 &amp; 4 &amp; 11 &amp; 12 \\</span>
-<a id="__codelineno-0-91" name="__codelineno-0-91"></a><span class="sd">                            7 &amp; 8 &amp; 15 &amp; 16</span>
-<a id="__codelineno-0-92" name="__codelineno-0-92"></a><span class="sd">                        \end{pmatrix}.</span>
-<a id="__codelineno-0-93" name="__codelineno-0-93"></a><span class="sd">        \]</span>
-<a id="__codelineno-0-94" name="__codelineno-0-94"></a>
-<a id="__codelineno-0-95" name="__codelineno-0-95"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-96" name="__codelineno-0-96"></a><span class="sd">        import numpy as np</span>
-<a id="__codelineno-0-97" name="__codelineno-0-97"></a><span class="sd">        from toqito.matrix_ops import partial_transpose</span>
-<a id="__codelineno-0-98" name="__codelineno-0-98"></a>
-<a id="__codelineno-0-99" name="__codelineno-0-99"></a><span class="sd">        test_input_mat = np.arange(1, 17).reshape(4, 4)</span>
-<a id="__codelineno-0-100" name="__codelineno-0-100"></a>
-<a id="__codelineno-0-101" name="__codelineno-0-101"></a><span class="sd">        print(partial_transpose(test_input_mat, 1))</span>
-<a id="__codelineno-0-102" name="__codelineno-0-102"></a><span class="sd">        ```</span>
-<a id="__codelineno-0-103" name="__codelineno-0-103"></a>
-<a id="__codelineno-0-104" name="__codelineno-0-104"></a><span class="sd">    Raises:</span>
-<a id="__codelineno-0-105" name="__codelineno-0-105"></a><span class="sd">        ValueError: If matrix dimensions are not square.</span>
-<a id="__codelineno-0-106" name="__codelineno-0-106"></a>
-<a id="__codelineno-0-107" name="__codelineno-0-107"></a><span class="sd">    Args:</span>
-<a id="__codelineno-0-108" name="__codelineno-0-108"></a><span class="sd">        rho: A matrix.</span>
-<a id="__codelineno-0-109" name="__codelineno-0-109"></a><span class="sd">        sys: Scalar or vector specifying the size of the subsystems.</span>
-<a id="__codelineno-0-110" name="__codelineno-0-110"></a><span class="sd">        dim: Dimension of the subsystems. If `None`, all dimensions are assumed to be equal.</span>
-<a id="__codelineno-0-111" name="__codelineno-0-111"></a>
-<a id="__codelineno-0-112" name="__codelineno-0-112"></a><span class="sd">    Returns:</span>
-<a id="__codelineno-0-113" name="__codelineno-0-113"></a><span class="sd">        The partial transpose of matrix `rho`.</span>
-<a id="__codelineno-0-114" name="__codelineno-0-114"></a>
-<a id="__codelineno-0-115" name="__codelineno-0-115"></a><span class="sd">    &quot;&quot;&quot;</span>
-<a id="__codelineno-0-116" name="__codelineno-0-116"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">sys</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
-<a id="__codelineno-0-117" name="__codelineno-0-117"></a>        <span class="k">if</span> <span class="n">sys</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-<a id="__codelineno-0-118" name="__codelineno-0-118"></a>            <span class="n">sys</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-<a id="__codelineno-0-119" name="__codelineno-0-119"></a>    <span class="c1"># If the input matrix is a CVX variable for an SDP, we convert it to a</span>
-<a id="__codelineno-0-120" name="__codelineno-0-120"></a>    <span class="c1"># numpy array, perform the partial transpose, and convert it back to a CVX</span>
-<a id="__codelineno-0-121" name="__codelineno-0-121"></a>    <span class="c1"># variable.</span>
-<a id="__codelineno-0-122" name="__codelineno-0-122"></a>    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">rho</span><span class="p">,</span> <span class="n">Variable</span><span class="p">):</span>
-<a id="__codelineno-0-123" name="__codelineno-0-123"></a>        <span class="n">rho_np</span> <span class="o">=</span> <span class="n">expr_as_np_array</span><span class="p">(</span><span class="n">rho</span><span class="p">)</span>
-<a id="__codelineno-0-124" name="__codelineno-0-124"></a>        <span class="n">transposed_rho</span> <span class="o">=</span> <span class="n">partial_transpose</span><span class="p">(</span><span class="n">rho_np</span><span class="p">,</span> <span class="n">sys</span><span class="p">,</span> <span class="n">dim</span><span class="p">)</span>
-<a id="__codelineno-0-125" name="__codelineno-0-125"></a>        <span class="n">transposed_rho</span> <span class="o">=</span> <span class="n">np_array_as_expr</span><span class="p">(</span><span class="n">transposed_rho</span><span class="p">)</span>
-<a id="__codelineno-0-126" name="__codelineno-0-126"></a>        <span class="k">return</span> <span class="n">transposed_rho</span>
+<a id="__codelineno-0-46" name="__codelineno-0-46"></a><span class="sd">    Args:</span>
+<a id="__codelineno-0-47" name="__codelineno-0-47"></a><span class="sd">        rho: A matrix.</span>
+<a id="__codelineno-0-48" name="__codelineno-0-48"></a><span class="sd">        sys: Scalar or vector specifying the size of the subsystems.</span>
+<a id="__codelineno-0-49" name="__codelineno-0-49"></a><span class="sd">        dim: Dimension of the subsystems. If `None`, all dimensions are assumed to be equal.</span>
+<a id="__codelineno-0-50" name="__codelineno-0-50"></a>
+<a id="__codelineno-0-51" name="__codelineno-0-51"></a><span class="sd">    Returns:</span>
+<a id="__codelineno-0-52" name="__codelineno-0-52"></a><span class="sd">        The partial transpose of matrix `rho`.</span>
+<a id="__codelineno-0-53" name="__codelineno-0-53"></a>
+<a id="__codelineno-0-54" name="__codelineno-0-54"></a><span class="sd">    Raises:</span>
+<a id="__codelineno-0-55" name="__codelineno-0-55"></a><span class="sd">        ValueError: If matrix dimensions are not square.</span>
+<a id="__codelineno-0-56" name="__codelineno-0-56"></a>
+<a id="__codelineno-0-57" name="__codelineno-0-57"></a><span class="sd">    Examples:</span>
+<a id="__codelineno-0-58" name="__codelineno-0-58"></a><span class="sd">        Consider the following matrix</span>
+<a id="__codelineno-0-59" name="__codelineno-0-59"></a>
+<a id="__codelineno-0-60" name="__codelineno-0-60"></a><span class="sd">        \[</span>
+<a id="__codelineno-0-61" name="__codelineno-0-61"></a><span class="sd">            X = \begin{pmatrix}</span>
+<a id="__codelineno-0-62" name="__codelineno-0-62"></a><span class="sd">                    1 &amp; 2 &amp; 3 &amp; 4 \\</span>
+<a id="__codelineno-0-63" name="__codelineno-0-63"></a><span class="sd">                    5 &amp; 6 &amp; 7 &amp; 8 \\</span>
+<a id="__codelineno-0-64" name="__codelineno-0-64"></a><span class="sd">                    9 &amp; 10 &amp; 11 &amp; 12 \\</span>
+<a id="__codelineno-0-65" name="__codelineno-0-65"></a><span class="sd">                    13 &amp; 14 &amp; 15 &amp; 16</span>
+<a id="__codelineno-0-66" name="__codelineno-0-66"></a><span class="sd">                \end{pmatrix}.</span>
+<a id="__codelineno-0-67" name="__codelineno-0-67"></a><span class="sd">        \]</span>
+<a id="__codelineno-0-68" name="__codelineno-0-68"></a>
+<a id="__codelineno-0-69" name="__codelineno-0-69"></a><span class="sd">        Performing the partial transpose on the matrix \(X\) over the second</span>
+<a id="__codelineno-0-70" name="__codelineno-0-70"></a><span class="sd">        subsystem yields the following matrix</span>
+<a id="__codelineno-0-71" name="__codelineno-0-71"></a>
+<a id="__codelineno-0-72" name="__codelineno-0-72"></a><span class="sd">        \[</span>
+<a id="__codelineno-0-73" name="__codelineno-0-73"></a><span class="sd">            X_{pt, 2} = \begin{pmatrix}</span>
+<a id="__codelineno-0-74" name="__codelineno-0-74"></a><span class="sd">                        1 &amp; 5 &amp; 3 &amp; 7 \\</span>
+<a id="__codelineno-0-75" name="__codelineno-0-75"></a><span class="sd">                        2 &amp; 6 &amp; 4 &amp; 8 \\</span>
+<a id="__codelineno-0-76" name="__codelineno-0-76"></a><span class="sd">                        9 &amp; 13 &amp; 11 &amp; 15 \\</span>
+<a id="__codelineno-0-77" name="__codelineno-0-77"></a><span class="sd">                        10 &amp; 14 &amp; 12 &amp; 16</span>
+<a id="__codelineno-0-78" name="__codelineno-0-78"></a><span class="sd">                     \end{pmatrix}.</span>
+<a id="__codelineno-0-79" name="__codelineno-0-79"></a><span class="sd">        \]</span>
+<a id="__codelineno-0-80" name="__codelineno-0-80"></a>
+<a id="__codelineno-0-81" name="__codelineno-0-81"></a><span class="sd">        By default, in `|toqito⟩`, the partial transpose function performs the transposition on</span>
+<a id="__codelineno-0-82" name="__codelineno-0-82"></a><span class="sd">        the second subsystem as follows.</span>
+<a id="__codelineno-0-83" name="__codelineno-0-83"></a><span class="sd">    ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
+<a id="__codelineno-0-84" name="__codelineno-0-84"></a><span class="sd">        import numpy as np</span>
+<a id="__codelineno-0-85" name="__codelineno-0-85"></a><span class="sd">        from toqito.matrix_ops import partial_transpose</span>
+<a id="__codelineno-0-86" name="__codelineno-0-86"></a>
+<a id="__codelineno-0-87" name="__codelineno-0-87"></a><span class="sd">        test_input_mat = np.arange(1, 17).reshape(4, 4)</span>
+<a id="__codelineno-0-88" name="__codelineno-0-88"></a>
+<a id="__codelineno-0-89" name="__codelineno-0-89"></a><span class="sd">        print(partial_transpose(test_input_mat))</span>
+<a id="__codelineno-0-90" name="__codelineno-0-90"></a><span class="sd">    ```</span>
+<a id="__codelineno-0-91" name="__codelineno-0-91"></a>
+<a id="__codelineno-0-92" name="__codelineno-0-92"></a><span class="sd">        By specifying the `sys = 1` argument, we can perform the partial transpose over the</span>
+<a id="__codelineno-0-93" name="__codelineno-0-93"></a><span class="sd">        first subsystem (instead of the default second subsystem as done above). Performing the</span>
+<a id="__codelineno-0-94" name="__codelineno-0-94"></a><span class="sd">        partial transpose over the first subsystem yields the following matrix</span>
+<a id="__codelineno-0-95" name="__codelineno-0-95"></a>
+<a id="__codelineno-0-96" name="__codelineno-0-96"></a><span class="sd">        \[</span>
+<a id="__codelineno-0-97" name="__codelineno-0-97"></a><span class="sd">            X_{pt, 1} = \begin{pmatrix}</span>
+<a id="__codelineno-0-98" name="__codelineno-0-98"></a><span class="sd">                            1 &amp; 2 &amp; 9 &amp; 10 \\</span>
+<a id="__codelineno-0-99" name="__codelineno-0-99"></a><span class="sd">                            5 &amp; 6 &amp; 13 &amp; 14 \\</span>
+<a id="__codelineno-0-100" name="__codelineno-0-100"></a><span class="sd">                            3 &amp; 4 &amp; 11 &amp; 12 \\</span>
+<a id="__codelineno-0-101" name="__codelineno-0-101"></a><span class="sd">                            7 &amp; 8 &amp; 15 &amp; 16</span>
+<a id="__codelineno-0-102" name="__codelineno-0-102"></a><span class="sd">                        \end{pmatrix}.</span>
+<a id="__codelineno-0-103" name="__codelineno-0-103"></a><span class="sd">        \]</span>
+<a id="__codelineno-0-104" name="__codelineno-0-104"></a><span class="sd">    ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
+<a id="__codelineno-0-105" name="__codelineno-0-105"></a><span class="sd">        import numpy as np</span>
+<a id="__codelineno-0-106" name="__codelineno-0-106"></a><span class="sd">        from toqito.matrix_ops import partial_transpose</span>
+<a id="__codelineno-0-107" name="__codelineno-0-107"></a>
+<a id="__codelineno-0-108" name="__codelineno-0-108"></a><span class="sd">        test_input_mat = np.arange(1, 17).reshape(4, 4)</span>
+<a id="__codelineno-0-109" name="__codelineno-0-109"></a>
+<a id="__codelineno-0-110" name="__codelineno-0-110"></a><span class="sd">        print(partial_transpose(test_input_mat, 1))</span>
+<a id="__codelineno-0-111" name="__codelineno-0-111"></a><span class="sd">    ```</span>
+<a id="__codelineno-0-112" name="__codelineno-0-112"></a>
+<a id="__codelineno-0-113" name="__codelineno-0-113"></a><span class="sd">    &quot;&quot;&quot;</span>
+<a id="__codelineno-0-114" name="__codelineno-0-114"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">sys</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+<a id="__codelineno-0-115" name="__codelineno-0-115"></a>        <span class="k">if</span> <span class="n">sys</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-0-116" name="__codelineno-0-116"></a>            <span class="n">sys</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<a id="__codelineno-0-117" name="__codelineno-0-117"></a>    <span class="c1"># If the input matrix is a CVX variable for an SDP, we convert it to a</span>
+<a id="__codelineno-0-118" name="__codelineno-0-118"></a>    <span class="c1"># numpy array, perform the partial transpose, and convert it back to a CVX</span>
+<a id="__codelineno-0-119" name="__codelineno-0-119"></a>    <span class="c1"># variable.</span>
+<a id="__codelineno-0-120" name="__codelineno-0-120"></a>    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">rho</span><span class="p">,</span> <span class="n">Variable</span><span class="p">):</span>
+<a id="__codelineno-0-121" name="__codelineno-0-121"></a>        <span class="n">rho_np</span> <span class="o">=</span> <span class="n">expr_as_np_array</span><span class="p">(</span><span class="n">rho</span><span class="p">)</span>
+<a id="__codelineno-0-122" name="__codelineno-0-122"></a>        <span class="n">transposed_rho</span> <span class="o">=</span> <span class="n">partial_transpose</span><span class="p">(</span><span class="n">rho_np</span><span class="p">,</span> <span class="n">sys</span><span class="p">,</span> <span class="n">dim</span><span class="p">)</span>
+<a id="__codelineno-0-123" name="__codelineno-0-123"></a>        <span class="n">transposed_rho</span> <span class="o">=</span> <span class="n">np_array_as_expr</span><span class="p">(</span><span class="n">transposed_rho</span><span class="p">)</span>
+<a id="__codelineno-0-124" name="__codelineno-0-124"></a>        <span class="k">return</span> <span class="n">transposed_rho</span>
+<a id="__codelineno-0-125" name="__codelineno-0-125"></a>
+<a id="__codelineno-0-126" name="__codelineno-0-126"></a>    <span class="n">sqrt_rho_dims</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">rho</span><span class="o">.</span><span class="n">shape</span><span class="p">)))</span>
 <a id="__codelineno-0-127" name="__codelineno-0-127"></a>
-<a id="__codelineno-0-128" name="__codelineno-0-128"></a>    <span class="n">sqrt_rho_dims</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">rho</span><span class="o">.</span><span class="n">shape</span><span class="p">)))</span>
-<a id="__codelineno-0-129" name="__codelineno-0-129"></a>
-<a id="__codelineno-0-130" name="__codelineno-0-130"></a>    <span class="k">if</span> <span class="n">dim</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-<a id="__codelineno-0-131" name="__codelineno-0-131"></a>        <span class="n">dim</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">sqrt_rho_dims</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">sqrt_rho_dims</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="p">[</span><span class="n">sqrt_rho_dims</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">sqrt_rho_dims</span><span class="p">[</span><span class="mi">1</span><span class="p">]]])</span>
-<a id="__codelineno-0-132" name="__codelineno-0-132"></a>    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dim</span><span class="p">,</span> <span class="nb">float</span><span class="p">):</span>
-<a id="__codelineno-0-133" name="__codelineno-0-133"></a>        <span class="n">dim</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">dim</span><span class="p">])</span>
-<a id="__codelineno-0-134" name="__codelineno-0-134"></a>    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dim</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
-<a id="__codelineno-0-135" name="__codelineno-0-135"></a>        <span class="n">dim</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">dim</span><span class="p">)</span>
-<a id="__codelineno-0-136" name="__codelineno-0-136"></a>    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">sys</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
-<a id="__codelineno-0-137" name="__codelineno-0-137"></a>        <span class="n">sys</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">sys</span><span class="p">)</span>
-<a id="__codelineno-0-138" name="__codelineno-0-138"></a>    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">sys</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
-<a id="__codelineno-0-139" name="__codelineno-0-139"></a>        <span class="n">sys</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">sys</span><span class="p">])</span>
-<a id="__codelineno-0-140" name="__codelineno-0-140"></a>
-<a id="__codelineno-0-141" name="__codelineno-0-141"></a>    <span class="c1"># Allow the user to enter a single number for dim.</span>
-<a id="__codelineno-0-142" name="__codelineno-0-142"></a>    <span class="k">if</span> <span class="p">(</span><span class="n">num_sys</span> <span class="o">:=</span> <span class="nb">max</span><span class="p">(</span><span class="n">dim</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-<a id="__codelineno-0-143" name="__codelineno-0-143"></a>        <span class="n">dim</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">dim</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="n">rho</span><span class="o">.</span><span class="n">shape</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="n">dim</span><span class="p">])</span>
-<a id="__codelineno-0-144" name="__codelineno-0-144"></a>        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">dim</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">dim</span><span class="p">[</span><span class="mi">1</span><span class="p">]))[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">2</span> <span class="o">*</span> <span class="nb">list</span><span class="p">(</span><span class="n">rho</span><span class="o">.</span><span class="n">shape</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">finfo</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span><span class="o">.</span><span class="n">eps</span><span class="p">:</span>
-<a id="__codelineno-0-145" name="__codelineno-0-145"></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-<a id="__codelineno-0-146" name="__codelineno-0-146"></a>                <span class="s2">&quot;InvalidDim: If `dim` is a scalar, `rho` must be &quot;</span>
-<a id="__codelineno-0-147" name="__codelineno-0-147"></a>                <span class="s2">&quot;square and `dim` must evenly divide `len(rho)`; &quot;</span>
-<a id="__codelineno-0-148" name="__codelineno-0-148"></a>                <span class="s2">&quot;please provide the `dim` array containing the &quot;</span>
-<a id="__codelineno-0-149" name="__codelineno-0-149"></a>                <span class="s2">&quot;dimensions of the subsystems.&quot;</span>
-<a id="__codelineno-0-150" name="__codelineno-0-150"></a>            <span class="p">)</span>
-<a id="__codelineno-0-151" name="__codelineno-0-151"></a>        <span class="n">dim</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">dim</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-<a id="__codelineno-0-152" name="__codelineno-0-152"></a>        <span class="n">num_sys</span> <span class="o">=</span> <span class="mi">2</span>
-<a id="__codelineno-0-153" name="__codelineno-0-153"></a>
-<a id="__codelineno-0-154" name="__codelineno-0-154"></a>    <span class="c1"># Allow the user to enter a vector for dim if X is square.</span>
-<a id="__codelineno-0-155" name="__codelineno-0-155"></a>    <span class="k">if</span> <span class="nb">min</span><span class="p">(</span><span class="n">dim</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">dim</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-<a id="__codelineno-0-156" name="__codelineno-0-156"></a>        <span class="c1"># Force dim to be a row vector.</span>
-<a id="__codelineno-0-157" name="__codelineno-0-157"></a>        <span class="n">dim</span> <span class="o">=</span> <span class="n">dim</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
-<a id="__codelineno-0-158" name="__codelineno-0-158"></a>        <span class="n">dim</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">dim</span><span class="p">,</span> <span class="n">dim</span><span class="p">])</span>
-<a id="__codelineno-0-159" name="__codelineno-0-159"></a>
-<a id="__codelineno-0-160" name="__codelineno-0-160"></a>    <span class="n">prod_dim_r</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">dim</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:]))</span>
-<a id="__codelineno-0-161" name="__codelineno-0-161"></a>    <span class="n">prod_dim_c</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">dim</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]))</span>
-<a id="__codelineno-0-162" name="__codelineno-0-162"></a>
-<a id="__codelineno-0-163" name="__codelineno-0-163"></a>    <span class="n">sub_prod_r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">dim</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">sys</span><span class="p">])</span>
-<a id="__codelineno-0-164" name="__codelineno-0-164"></a>    <span class="n">sub_prod_c</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">dim</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">sys</span><span class="p">])</span>
-<a id="__codelineno-0-165" name="__codelineno-0-165"></a>
-<a id="__codelineno-0-166" name="__codelineno-0-166"></a>    <span class="n">sub_sys_vec_r</span> <span class="o">=</span> <span class="n">prod_dim_r</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">sub_prod_r</span><span class="p">))</span> <span class="o">/</span> <span class="n">sub_prod_r</span>
-<a id="__codelineno-0-167" name="__codelineno-0-167"></a>    <span class="n">sub_sys_vec_c</span> <span class="o">=</span> <span class="n">prod_dim_c</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">sub_prod_c</span><span class="p">))</span> <span class="o">/</span> <span class="n">sub_prod_c</span>
-<a id="__codelineno-0-168" name="__codelineno-0-168"></a>
-<a id="__codelineno-0-169" name="__codelineno-0-169"></a>    <span class="n">set_diff</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">num_sys</span><span class="p">)))</span> <span class="o">-</span> <span class="nb">set</span><span class="p">(</span><span class="n">sys</span><span class="p">))</span>
-<a id="__codelineno-0-170" name="__codelineno-0-170"></a>    <span class="n">perm</span> <span class="o">=</span> <span class="p">(</span><span class="n">sys</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">()[:]</span>
-<a id="__codelineno-0-171" name="__codelineno-0-171"></a>    <span class="n">perm</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">set_diff</span><span class="p">)</span>
-<a id="__codelineno-0-172" name="__codelineno-0-172"></a>
-<a id="__codelineno-0-173" name="__codelineno-0-173"></a>    <span class="c1"># Permute the subsystems so that we just have to do the partial transpose</span>
-<a id="__codelineno-0-174" name="__codelineno-0-174"></a>    <span class="c1"># on the first (potentially larger) subsystem.</span>
-<a id="__codelineno-0-175" name="__codelineno-0-175"></a>    <span class="n">rho_permuted</span> <span class="o">=</span> <span class="n">permute_systems</span><span class="p">(</span><span class="n">rho</span><span class="p">,</span> <span class="n">perm</span><span class="p">,</span> <span class="n">dim</span><span class="p">)</span>
-<a id="__codelineno-0-176" name="__codelineno-0-176"></a>
-<a id="__codelineno-0-177" name="__codelineno-0-177"></a>    <span class="n">x_tmp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span>
-<a id="__codelineno-0-178" name="__codelineno-0-178"></a>        <span class="n">rho_permuted</span><span class="p">,</span>
-<a id="__codelineno-0-179" name="__codelineno-0-179"></a>        <span class="p">[</span>
-<a id="__codelineno-0-180" name="__codelineno-0-180"></a>            <span class="nb">int</span><span class="p">(</span><span class="n">sub_sys_vec_r</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span>
-<a id="__codelineno-0-181" name="__codelineno-0-181"></a>            <span class="nb">int</span><span class="p">(</span><span class="n">sub_prod_r</span><span class="p">),</span>
-<a id="__codelineno-0-182" name="__codelineno-0-182"></a>            <span class="nb">int</span><span class="p">(</span><span class="n">sub_sys_vec_c</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span>
-<a id="__codelineno-0-183" name="__codelineno-0-183"></a>            <span class="nb">int</span><span class="p">(</span><span class="n">sub_prod_c</span><span class="p">),</span>
-<a id="__codelineno-0-184" name="__codelineno-0-184"></a>        <span class="p">],</span>
-<a id="__codelineno-0-185" name="__codelineno-0-185"></a>        <span class="n">order</span><span class="o">=</span><span class="s2">&quot;F&quot;</span><span class="p">,</span>
-<a id="__codelineno-0-186" name="__codelineno-0-186"></a>    <span class="p">)</span>
-<a id="__codelineno-0-187" name="__codelineno-0-187"></a>    <span class="n">y_tmp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">x_tmp</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
-<a id="__codelineno-0-188" name="__codelineno-0-188"></a>    <span class="n">z_tmp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span>
-<a id="__codelineno-0-189" name="__codelineno-0-189"></a>        <span class="n">y_tmp</span><span class="p">,</span>
-<a id="__codelineno-0-190" name="__codelineno-0-190"></a>        <span class="p">[</span>
-<a id="__codelineno-0-191" name="__codelineno-0-191"></a>            <span class="nb">int</span><span class="p">(</span><span class="n">sub_sys_vec_r</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">*</span> <span class="nb">int</span><span class="p">(</span><span class="n">sub_prod_c</span><span class="p">),</span>
-<a id="__codelineno-0-192" name="__codelineno-0-192"></a>            <span class="nb">int</span><span class="p">(</span><span class="n">sub_sys_vec_c</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">*</span> <span class="nb">int</span><span class="p">(</span><span class="n">sub_prod_r</span><span class="p">),</span>
-<a id="__codelineno-0-193" name="__codelineno-0-193"></a>        <span class="p">],</span>
-<a id="__codelineno-0-194" name="__codelineno-0-194"></a>        <span class="n">order</span><span class="o">=</span><span class="s2">&quot;F&quot;</span><span class="p">,</span>
-<a id="__codelineno-0-195" name="__codelineno-0-195"></a>    <span class="p">)</span>
-<a id="__codelineno-0-196" name="__codelineno-0-196"></a>
-<a id="__codelineno-0-197" name="__codelineno-0-197"></a>    <span class="c1"># Return the subsystems back to their original positions.</span>
-<a id="__codelineno-0-198" name="__codelineno-0-198"></a>    <span class="n">dim</span><span class="p">[:,</span> <span class="n">sys</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">flipud</span><span class="p">(</span><span class="n">dim</span><span class="p">[:,</span> <span class="n">sys</span><span class="p">])</span>
+<a id="__codelineno-0-128" name="__codelineno-0-128"></a>    <span class="k">if</span> <span class="n">dim</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-0-129" name="__codelineno-0-129"></a>        <span class="n">dim</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">sqrt_rho_dims</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">sqrt_rho_dims</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="p">[</span><span class="n">sqrt_rho_dims</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">sqrt_rho_dims</span><span class="p">[</span><span class="mi">1</span><span class="p">]]])</span>
+<a id="__codelineno-0-130" name="__codelineno-0-130"></a>    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dim</span><span class="p">,</span> <span class="nb">float</span><span class="p">):</span>
+<a id="__codelineno-0-131" name="__codelineno-0-131"></a>        <span class="n">dim</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">dim</span><span class="p">])</span>
+<a id="__codelineno-0-132" name="__codelineno-0-132"></a>    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dim</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+<a id="__codelineno-0-133" name="__codelineno-0-133"></a>        <span class="n">dim</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">dim</span><span class="p">)</span>
+<a id="__codelineno-0-134" name="__codelineno-0-134"></a>    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">sys</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+<a id="__codelineno-0-135" name="__codelineno-0-135"></a>        <span class="n">sys</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">sys</span><span class="p">)</span>
+<a id="__codelineno-0-136" name="__codelineno-0-136"></a>    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">sys</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+<a id="__codelineno-0-137" name="__codelineno-0-137"></a>        <span class="n">sys</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">sys</span><span class="p">])</span>
+<a id="__codelineno-0-138" name="__codelineno-0-138"></a>
+<a id="__codelineno-0-139" name="__codelineno-0-139"></a>    <span class="c1"># Allow the user to enter a single number for dim.</span>
+<a id="__codelineno-0-140" name="__codelineno-0-140"></a>    <span class="k">if</span> <span class="p">(</span><span class="n">num_sys</span> <span class="o">:=</span> <span class="nb">max</span><span class="p">(</span><span class="n">dim</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+<a id="__codelineno-0-141" name="__codelineno-0-141"></a>        <span class="n">dim</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">dim</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="n">rho</span><span class="o">.</span><span class="n">shape</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="n">dim</span><span class="p">])</span>
+<a id="__codelineno-0-142" name="__codelineno-0-142"></a>        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">dim</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">dim</span><span class="p">[</span><span class="mi">1</span><span class="p">]))[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">2</span> <span class="o">*</span> <span class="nb">list</span><span class="p">(</span><span class="n">rho</span><span class="o">.</span><span class="n">shape</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">finfo</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span><span class="o">.</span><span class="n">eps</span><span class="p">:</span>
+<a id="__codelineno-0-143" name="__codelineno-0-143"></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+<a id="__codelineno-0-144" name="__codelineno-0-144"></a>                <span class="s2">&quot;InvalidDim: If `dim` is a scalar, `rho` must be &quot;</span>
+<a id="__codelineno-0-145" name="__codelineno-0-145"></a>                <span class="s2">&quot;square and `dim` must evenly divide `len(rho)`; &quot;</span>
+<a id="__codelineno-0-146" name="__codelineno-0-146"></a>                <span class="s2">&quot;please provide the `dim` array containing the &quot;</span>
+<a id="__codelineno-0-147" name="__codelineno-0-147"></a>                <span class="s2">&quot;dimensions of the subsystems.&quot;</span>
+<a id="__codelineno-0-148" name="__codelineno-0-148"></a>            <span class="p">)</span>
+<a id="__codelineno-0-149" name="__codelineno-0-149"></a>        <span class="n">dim</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">dim</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<a id="__codelineno-0-150" name="__codelineno-0-150"></a>        <span class="n">num_sys</span> <span class="o">=</span> <span class="mi">2</span>
+<a id="__codelineno-0-151" name="__codelineno-0-151"></a>
+<a id="__codelineno-0-152" name="__codelineno-0-152"></a>    <span class="c1"># Allow the user to enter a vector for dim if X is square.</span>
+<a id="__codelineno-0-153" name="__codelineno-0-153"></a>    <span class="k">if</span> <span class="nb">min</span><span class="p">(</span><span class="n">dim</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">dim</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+<a id="__codelineno-0-154" name="__codelineno-0-154"></a>        <span class="c1"># Force dim to be a row vector.</span>
+<a id="__codelineno-0-155" name="__codelineno-0-155"></a>        <span class="n">dim</span> <span class="o">=</span> <span class="n">dim</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+<a id="__codelineno-0-156" name="__codelineno-0-156"></a>        <span class="n">dim</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">dim</span><span class="p">,</span> <span class="n">dim</span><span class="p">])</span>
+<a id="__codelineno-0-157" name="__codelineno-0-157"></a>
+<a id="__codelineno-0-158" name="__codelineno-0-158"></a>    <span class="n">prod_dim_r</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">dim</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:]))</span>
+<a id="__codelineno-0-159" name="__codelineno-0-159"></a>    <span class="n">prod_dim_c</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">dim</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]))</span>
+<a id="__codelineno-0-160" name="__codelineno-0-160"></a>
+<a id="__codelineno-0-161" name="__codelineno-0-161"></a>    <span class="n">sub_prod_r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">dim</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">sys</span><span class="p">])</span>
+<a id="__codelineno-0-162" name="__codelineno-0-162"></a>    <span class="n">sub_prod_c</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">dim</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">sys</span><span class="p">])</span>
+<a id="__codelineno-0-163" name="__codelineno-0-163"></a>
+<a id="__codelineno-0-164" name="__codelineno-0-164"></a>    <span class="n">sub_sys_vec_r</span> <span class="o">=</span> <span class="n">prod_dim_r</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">sub_prod_r</span><span class="p">))</span> <span class="o">/</span> <span class="n">sub_prod_r</span>
+<a id="__codelineno-0-165" name="__codelineno-0-165"></a>    <span class="n">sub_sys_vec_c</span> <span class="o">=</span> <span class="n">prod_dim_c</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">sub_prod_c</span><span class="p">))</span> <span class="o">/</span> <span class="n">sub_prod_c</span>
+<a id="__codelineno-0-166" name="__codelineno-0-166"></a>
+<a id="__codelineno-0-167" name="__codelineno-0-167"></a>    <span class="n">set_diff</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">num_sys</span><span class="p">)))</span> <span class="o">-</span> <span class="nb">set</span><span class="p">(</span><span class="n">sys</span><span class="p">))</span>
+<a id="__codelineno-0-168" name="__codelineno-0-168"></a>    <span class="n">perm</span> <span class="o">=</span> <span class="p">(</span><span class="n">sys</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">()[:]</span>
+<a id="__codelineno-0-169" name="__codelineno-0-169"></a>    <span class="n">perm</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">set_diff</span><span class="p">)</span>
+<a id="__codelineno-0-170" name="__codelineno-0-170"></a>
+<a id="__codelineno-0-171" name="__codelineno-0-171"></a>    <span class="c1"># Permute the subsystems so that we just have to do the partial transpose</span>
+<a id="__codelineno-0-172" name="__codelineno-0-172"></a>    <span class="c1"># on the first (potentially larger) subsystem.</span>
+<a id="__codelineno-0-173" name="__codelineno-0-173"></a>    <span class="n">rho_permuted</span> <span class="o">=</span> <span class="n">permute_systems</span><span class="p">(</span><span class="n">rho</span><span class="p">,</span> <span class="n">perm</span><span class="p">,</span> <span class="n">dim</span><span class="p">)</span>
+<a id="__codelineno-0-174" name="__codelineno-0-174"></a>
+<a id="__codelineno-0-175" name="__codelineno-0-175"></a>    <span class="n">x_tmp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span>
+<a id="__codelineno-0-176" name="__codelineno-0-176"></a>        <span class="n">rho_permuted</span><span class="p">,</span>
+<a id="__codelineno-0-177" name="__codelineno-0-177"></a>        <span class="p">[</span>
+<a id="__codelineno-0-178" name="__codelineno-0-178"></a>            <span class="nb">int</span><span class="p">(</span><span class="n">sub_sys_vec_r</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span>
+<a id="__codelineno-0-179" name="__codelineno-0-179"></a>            <span class="nb">int</span><span class="p">(</span><span class="n">sub_prod_r</span><span class="p">),</span>
+<a id="__codelineno-0-180" name="__codelineno-0-180"></a>            <span class="nb">int</span><span class="p">(</span><span class="n">sub_sys_vec_c</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span>
+<a id="__codelineno-0-181" name="__codelineno-0-181"></a>            <span class="nb">int</span><span class="p">(</span><span class="n">sub_prod_c</span><span class="p">),</span>
+<a id="__codelineno-0-182" name="__codelineno-0-182"></a>        <span class="p">],</span>
+<a id="__codelineno-0-183" name="__codelineno-0-183"></a>        <span class="n">order</span><span class="o">=</span><span class="s2">&quot;F&quot;</span><span class="p">,</span>
+<a id="__codelineno-0-184" name="__codelineno-0-184"></a>    <span class="p">)</span>
+<a id="__codelineno-0-185" name="__codelineno-0-185"></a>    <span class="n">y_tmp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">x_tmp</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<a id="__codelineno-0-186" name="__codelineno-0-186"></a>    <span class="n">z_tmp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span>
+<a id="__codelineno-0-187" name="__codelineno-0-187"></a>        <span class="n">y_tmp</span><span class="p">,</span>
+<a id="__codelineno-0-188" name="__codelineno-0-188"></a>        <span class="p">[</span>
+<a id="__codelineno-0-189" name="__codelineno-0-189"></a>            <span class="nb">int</span><span class="p">(</span><span class="n">sub_sys_vec_r</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">*</span> <span class="nb">int</span><span class="p">(</span><span class="n">sub_prod_c</span><span class="p">),</span>
+<a id="__codelineno-0-190" name="__codelineno-0-190"></a>            <span class="nb">int</span><span class="p">(</span><span class="n">sub_sys_vec_c</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">*</span> <span class="nb">int</span><span class="p">(</span><span class="n">sub_prod_r</span><span class="p">),</span>
+<a id="__codelineno-0-191" name="__codelineno-0-191"></a>        <span class="p">],</span>
+<a id="__codelineno-0-192" name="__codelineno-0-192"></a>        <span class="n">order</span><span class="o">=</span><span class="s2">&quot;F&quot;</span><span class="p">,</span>
+<a id="__codelineno-0-193" name="__codelineno-0-193"></a>    <span class="p">)</span>
+<a id="__codelineno-0-194" name="__codelineno-0-194"></a>
+<a id="__codelineno-0-195" name="__codelineno-0-195"></a>    <span class="c1"># Return the subsystems back to their original positions.</span>
+<a id="__codelineno-0-196" name="__codelineno-0-196"></a>    <span class="n">dim</span><span class="p">[:,</span> <span class="n">sys</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">flipud</span><span class="p">(</span><span class="n">dim</span><span class="p">[:,</span> <span class="n">sys</span><span class="p">])</span>
+<a id="__codelineno-0-197" name="__codelineno-0-197"></a>
+<a id="__codelineno-0-198" name="__codelineno-0-198"></a>    <span class="n">dim</span> <span class="o">=</span> <span class="n">dim</span><span class="p">[:,</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">perm</span><span class="p">))</span><span class="o">.</span><span class="n">tolist</span><span class="p">()]</span>
 <a id="__codelineno-0-199" name="__codelineno-0-199"></a>
-<a id="__codelineno-0-200" name="__codelineno-0-200"></a>    <span class="n">dim</span> <span class="o">=</span> <span class="n">dim</span><span class="p">[:,</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">perm</span><span class="p">))</span><span class="o">.</span><span class="n">tolist</span><span class="p">()]</span>
-<a id="__codelineno-0-201" name="__codelineno-0-201"></a>
-<a id="__codelineno-0-202" name="__codelineno-0-202"></a>    <span class="k">return</span> <span class="n">permute_systems</span><span class="p">(</span><span class="n">z_tmp</span><span class="p">,</span> <span class="n">perm</span><span class="p">,</span> <span class="n">dim</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+<a id="__codelineno-0-200" name="__codelineno-0-200"></a>    <span class="k">return</span> <span class="n">permute_systems</span><span class="p">(</span><span class="n">z_tmp</span><span class="p">,</span> <span class="n">perm</span><span class="p">,</span> <span class="n">dim</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>

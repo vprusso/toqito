@@ -8815,39 +8815,6 @@
 \]</div>
 
 
-<p><span class="doc-section-title">Examples:</span></p>
-    <p>When <code>idx = 0</code>, this produces the following tile state</p>
-<div class="arithmatex">\[
-    \frac{1}{\sqrt{2}} |0\rangle \left( |0\rangle - |1\rangle \right).
-\]</div>
-<p>Using <code>|toqito⟩</code>, we can see that this yields the proper state.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.states</span><span class="w"> </span><span class="kn">import</span> <span class="n">tile</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">tile</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
-</code></pre></div>
-<p>[[ 0.70710678]
- [-0.70710678]
- [ 0.        ]
- [ 0.        ]
- [ 0.        ]
- [ 0.        ]
- [ 0.        ]
- [ 0.        ]
- [ 0.        ]]</p>
-
-
-<p><span class="doc-section-title">Raises:</span></p>
-    <ul>
-        <li class="doc-section-item field-body">
-              <code><span title="ValueError">ValueError</span></code>
-            –
-          <div class="doc-md-description">
-            <p>Invalid value for <code>idx</code>.</p>
-          </div>
-        </li>
-    </ul>
-
-
 <p><span class="doc-section-title">Parameters:</span></p>
     <ul>
         <li class="doc-section-item field-body">
@@ -8871,6 +8838,39 @@
           </div>
         </li>
     </ul>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+              <code><span title="ValueError">ValueError</span></code>
+            –
+          <div class="doc-md-description">
+            <p>Invalid value for <code>idx</code>.</p>
+          </div>
+        </li>
+    </ul>
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>When <code>idx = 0</code>, this produces the following tile state</p>
+<div class="arithmatex">\[
+    \frac{1}{\sqrt{2}} |0\rangle \left( |0\rangle - |1\rangle \right).
+\]</div>
+<p>Using <code>|toqito⟩</code>, we can see that this yields the proper state.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.states</span><span class="w"> </span><span class="kn">import</span> <span class="n">tile</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">tile</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+</code></pre></div>
+<p>[[ 0.70710678]
+ [-0.70710678]
+ [ 0.        ]
+ [ 0.        ]
+ [ 0.        ]
+ [ 0.        ]
+ [ 0.        ]
+ [ 0.        ]
+ [ 0.        ]]</p>
         <p><strong>References</strong></p>
 <p><span id="ref-toqito-states-tile-tile-1"><sup><a href="#cite-toqito-states-tile-tile-1">1</a></sup> Bennett, Charles and DiVincenzo, David and Mor, Tal and Shor, Peter and Smolin, John and Terhal, Barbara. <em>Unextendible Product Bases and Bound Entanglement</em>. <strong>Physical Review Letters</strong>. vol. 82(26). (1999). <a href="https://doi.org/10.1103/physrevlett.82.5385">doi:10.1103/physrevlett.82.5385</a>.</span></p>
 
@@ -8970,29 +8970,29 @@
 <a id="__codelineno-0-33" name="__codelineno-0-33"></a><span class="sd">        \end{equation}</span>
 <a id="__codelineno-0-34" name="__codelineno-0-34"></a><span class="sd">    \]</span>
 <a id="__codelineno-0-35" name="__codelineno-0-35"></a>
-<a id="__codelineno-0-36" name="__codelineno-0-36"></a><span class="sd">    Examples:</span>
-<a id="__codelineno-0-37" name="__codelineno-0-37"></a><span class="sd">        When `idx = 0`, this produces the following tile state</span>
+<a id="__codelineno-0-36" name="__codelineno-0-36"></a><span class="sd">    Args:</span>
+<a id="__codelineno-0-37" name="__codelineno-0-37"></a><span class="sd">        idx: A parameter in [0, 1, 2, 3, 4]</span>
 <a id="__codelineno-0-38" name="__codelineno-0-38"></a>
-<a id="__codelineno-0-39" name="__codelineno-0-39"></a><span class="sd">        \[</span>
-<a id="__codelineno-0-40" name="__codelineno-0-40"></a><span class="sd">            \frac{1}{\sqrt{2}} |0\rangle \left( |0\rangle - |1\rangle \right).</span>
-<a id="__codelineno-0-41" name="__codelineno-0-41"></a><span class="sd">        \]</span>
-<a id="__codelineno-0-42" name="__codelineno-0-42"></a>
-<a id="__codelineno-0-43" name="__codelineno-0-43"></a><span class="sd">        Using `|toqito⟩`, we can see that this yields the proper state.</span>
+<a id="__codelineno-0-39" name="__codelineno-0-39"></a><span class="sd">    Returns:</span>
+<a id="__codelineno-0-40" name="__codelineno-0-40"></a><span class="sd">        Tile state.</span>
+<a id="__codelineno-0-41" name="__codelineno-0-41"></a>
+<a id="__codelineno-0-42" name="__codelineno-0-42"></a><span class="sd">    Raises:</span>
+<a id="__codelineno-0-43" name="__codelineno-0-43"></a><span class="sd">        ValueError: Invalid value for `idx`.</span>
 <a id="__codelineno-0-44" name="__codelineno-0-44"></a>
-<a id="__codelineno-0-45" name="__codelineno-0-45"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-46" name="__codelineno-0-46"></a><span class="sd">        from toqito.states import tile</span>
-<a id="__codelineno-0-47" name="__codelineno-0-47"></a><span class="sd">        import numpy as np</span>
-<a id="__codelineno-0-48" name="__codelineno-0-48"></a><span class="sd">        print(tile(0))</span>
-<a id="__codelineno-0-49" name="__codelineno-0-49"></a><span class="sd">        ```</span>
-<a id="__codelineno-0-50" name="__codelineno-0-50"></a>
-<a id="__codelineno-0-51" name="__codelineno-0-51"></a><span class="sd">    Raises:</span>
-<a id="__codelineno-0-52" name="__codelineno-0-52"></a><span class="sd">        ValueError: Invalid value for `idx`.</span>
+<a id="__codelineno-0-45" name="__codelineno-0-45"></a><span class="sd">    Examples:</span>
+<a id="__codelineno-0-46" name="__codelineno-0-46"></a><span class="sd">        When `idx = 0`, this produces the following tile state</span>
+<a id="__codelineno-0-47" name="__codelineno-0-47"></a>
+<a id="__codelineno-0-48" name="__codelineno-0-48"></a><span class="sd">        \[</span>
+<a id="__codelineno-0-49" name="__codelineno-0-49"></a><span class="sd">            \frac{1}{\sqrt{2}} |0\rangle \left( |0\rangle - |1\rangle \right).</span>
+<a id="__codelineno-0-50" name="__codelineno-0-50"></a><span class="sd">        \]</span>
+<a id="__codelineno-0-51" name="__codelineno-0-51"></a>
+<a id="__codelineno-0-52" name="__codelineno-0-52"></a><span class="sd">        Using `|toqito⟩`, we can see that this yields the proper state.</span>
 <a id="__codelineno-0-53" name="__codelineno-0-53"></a>
-<a id="__codelineno-0-54" name="__codelineno-0-54"></a><span class="sd">    Args:</span>
-<a id="__codelineno-0-55" name="__codelineno-0-55"></a><span class="sd">        idx: A parameter in [0, 1, 2, 3, 4]</span>
-<a id="__codelineno-0-56" name="__codelineno-0-56"></a>
-<a id="__codelineno-0-57" name="__codelineno-0-57"></a><span class="sd">    Returns:</span>
-<a id="__codelineno-0-58" name="__codelineno-0-58"></a><span class="sd">        Tile state.</span>
+<a id="__codelineno-0-54" name="__codelineno-0-54"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
+<a id="__codelineno-0-55" name="__codelineno-0-55"></a><span class="sd">        from toqito.states import tile</span>
+<a id="__codelineno-0-56" name="__codelineno-0-56"></a><span class="sd">        import numpy as np</span>
+<a id="__codelineno-0-57" name="__codelineno-0-57"></a><span class="sd">        print(tile(0))</span>
+<a id="__codelineno-0-58" name="__codelineno-0-58"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-59" name="__codelineno-0-59"></a>
 <a id="__codelineno-0-60" name="__codelineno-0-60"></a><span class="sd">    &quot;&quot;&quot;</span>
 <a id="__codelineno-0-61" name="__codelineno-0-61"></a>    <span class="n">e_0</span><span class="p">,</span> <span class="n">e_1</span><span class="p">,</span> <span class="n">e_2</span> <span class="o">=</span> <span class="n">basis</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">basis</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">basis</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>

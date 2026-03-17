@@ -8793,41 +8793,6 @@
         <p>Check if matrix is block positive <sup><a id="cite-toqito-matrix_props-is_block_positive-is_block_positive-1" href="#ref-toqito-matrix_props-is_block_positive-is_block_positive-1">1</a></sup>.</p>
 
 
-<p><span class="doc-section-title">Examples:</span></p>
-    <p>The swap operator is always block positive, since it is the Choi
-matrix of the transpose map.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.perms.swap_operator</span><span class="w"> </span><span class="kn">import</span> <span class="n">swap_operator</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.matrix_props.is_block_positive</span><span class="w"> </span><span class="kn">import</span> <span class="n">is_block_positive</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">mat</span> <span class="o">=</span> <span class="n">swap_operator</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="nb">print</span><span class="p">(</span><span class="n">is_block_positive</span><span class="p">(</span><span class="n">mat</span><span class="o">=</span><span class="n">mat</span><span class="p">))</span>
-</code></pre></div>
-<p>True</p>
-<p>However, it's not 2 - block positive.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.perms.swap_operator</span><span class="w"> </span><span class="kn">import</span> <span class="n">swap_operator</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.matrix_props.is_block_positive</span><span class="w"> </span><span class="kn">import</span> <span class="n">is_block_positive</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">mat</span> <span class="o">=</span> <span class="n">swap_operator</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="nb">print</span><span class="p">(</span><span class="n">is_block_positive</span><span class="p">(</span><span class="n">mat</span><span class="o">=</span><span class="n">mat</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
-</code></pre></div>
-<p>False</p>
-
-
-<p><span class="doc-section-title">Raises:</span></p>
-    <ul>
-        <li class="doc-section-item field-body">
-              <code><span title="RuntimeError">RuntimeError</span></code>
-            –
-          <div class="doc-md-description">
-            <p>Unable to determine k-block positivity. Please consider increasing the relative tolerance or the
-effort level.</p>
-          </div>
-        </li>
-    </ul>
-
-
 <p><span class="doc-section-title">Parameters:</span></p>
     <ul>
         <li class="doc-section-item field-body">
@@ -8901,7 +8866,44 @@ before giving up.</p>
           </div>
         </li>
     </ul>
-        <p><strong>References</strong></p>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+              <code><span title="RuntimeError">RuntimeError</span></code>
+            –
+          <div class="doc-md-description">
+            <p>Unable to determine k-block positivity. Please consider increasing the relative tolerance or the
+effort level.</p>
+          </div>
+        </li>
+    </ul>
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>The swap operator is always block positive, since it is the Choi
+matrix of the transpose map.</p>
+        <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>  <span class="n">File</span> <span class="s2">&quot;/home/runner/work/toqito/toqito/.venv/lib/python3.12/site-packages/markdown_exec/_internal/formatters/python.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">71</span><span class="p">,</span> <span class="ow">in</span> <span class="n">_run_python</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    <span class="n">exec_python</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="n">code_block_id</span><span class="p">,</span> <span class="n">exec_globals</span><span class="p">)</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>  <span class="n">File</span> <span class="s2">&quot;/home/runner/work/toqito/toqito/.venv/lib/python3.12/site-packages/markdown_exec/_internal/formatters/_exec_python.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">7</span><span class="p">,</span> <span class="ow">in</span> <span class="n">exec_python</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="n">compiled</span> <span class="o">=</span> <span class="nb">compile</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="n">filename</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;exec&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>               <span class="o">^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>  <span class="n">File</span> <span class="s2">&quot;&lt;code block: n102&gt;&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">1</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    <span class="kn">from</span><span class="w"> </span><span class="nn">toqito.perms.swap_operator</span><span class="w"> </span><span class="kn">import</span> <span class="n">swap_operator</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="ne">IndentationError</span><span class="p">:</span> <span class="n">unexpected</span> <span class="n">indent</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>However, it&#39;s not 2 - block positive.
+</code></pre></div>
+<p><code>python exec="1" source="above"
+    from toqito.perms.swap_operator import swap_operator
+    from toqito.matrix_props.is_block_positive import is_block_positive
+
+    mat = swap_operator(3)
+
+    print(is_block_positive(mat=mat, k=2))</code></p>
+<p><strong>References</strong></p>
 <p><span id="ref-toqito-matrix_props-is_block_positive-is_block_positive-1"><sup><a href="#cite-toqito-matrix_props-is_block_positive-is_block_positive-1">1</a></sup> Johnston, Nathaniel. <em>Norms and Cones in the Theory of Quantum Entanglement</em>. (2012).</span></p>
 
 
@@ -9009,10 +9011,7 @@ before giving up.</p>
 <span class="normal"><a href="#__codelineno-0-109">109</a></span>
 <span class="normal"><a href="#__codelineno-0-110">110</a></span>
 <span class="normal"><a href="#__codelineno-0-111">111</a></span>
-<span class="normal"><a href="#__codelineno-0-112">112</a></span>
-<span class="normal"><a href="#__codelineno-0-113">113</a></span>
-<span class="normal"><a href="#__codelineno-0-114">114</a></span>
-<span class="normal"><a href="#__codelineno-0-115">115</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-10" name="__codelineno-0-10"></a><span class="k">def</span><span class="w"> </span><span class="nf">is_block_positive</span><span class="p">(</span>
+<span class="normal"><a href="#__codelineno-0-112">112</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-10" name="__codelineno-0-10"></a><span class="k">def</span><span class="w"> </span><span class="nf">is_block_positive</span><span class="p">(</span>
 <a id="__codelineno-0-11" name="__codelineno-0-11"></a>    <span class="n">mat</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
 <a id="__codelineno-0-12" name="__codelineno-0-12"></a>    <span class="n">k</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
 <a id="__codelineno-0-13" name="__codelineno-0-13"></a>    <span class="n">dim</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -9021,103 +9020,100 @@ before giving up.</p>
 <a id="__codelineno-0-16" name="__codelineno-0-16"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span> <span class="o">|</span> <span class="ne">RuntimeError</span><span class="p">:</span>
 <a id="__codelineno-0-17" name="__codelineno-0-17"></a><span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Check if matrix is block positive [@johnston2012norms].</span>
 <a id="__codelineno-0-18" name="__codelineno-0-18"></a>
-<a id="__codelineno-0-19" name="__codelineno-0-19"></a><span class="sd">    Examples:</span>
-<a id="__codelineno-0-20" name="__codelineno-0-20"></a><span class="sd">        The swap operator is always block positive, since it is the Choi</span>
-<a id="__codelineno-0-21" name="__codelineno-0-21"></a><span class="sd">        matrix of the transpose map.</span>
-<a id="__codelineno-0-22" name="__codelineno-0-22"></a>
-<a id="__codelineno-0-23" name="__codelineno-0-23"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-24" name="__codelineno-0-24"></a><span class="sd">        from toqito.perms.swap_operator import swap_operator</span>
-<a id="__codelineno-0-25" name="__codelineno-0-25"></a><span class="sd">        from toqito.matrix_props.is_block_positive import is_block_positive</span>
-<a id="__codelineno-0-26" name="__codelineno-0-26"></a>
-<a id="__codelineno-0-27" name="__codelineno-0-27"></a><span class="sd">        mat = swap_operator(3)</span>
+<a id="__codelineno-0-19" name="__codelineno-0-19"></a><span class="sd">    Args:</span>
+<a id="__codelineno-0-20" name="__codelineno-0-20"></a><span class="sd">        mat: A bipartite Hermitian operator.</span>
+<a id="__codelineno-0-21" name="__codelineno-0-21"></a><span class="sd">        k: A positive integer indicating that the function should determine whether or not the input operator is k-block</span>
+<a id="__codelineno-0-22" name="__codelineno-0-22"></a><span class="sd">            positive, i.e., whether or not it remains nonnegative under left and right multiplication by vectors with</span>
+<a id="__codelineno-0-23" name="__codelineno-0-23"></a><span class="sd">            Schmidt rank &lt;= k (default 1).</span>
+<a id="__codelineno-0-24" name="__codelineno-0-24"></a><span class="sd">        dim: The dimension of the two sub-systems. By default it&#39;s assumed to be equal.</span>
+<a id="__codelineno-0-25" name="__codelineno-0-25"></a><span class="sd">        effort: An integer value indicating the amount of computation you want to devote to determine block positivity</span>
+<a id="__codelineno-0-26" name="__codelineno-0-26"></a><span class="sd">            before giving up.</span>
+<a id="__codelineno-0-27" name="__codelineno-0-27"></a><span class="sd">        rtol: The relative tolerance parameter (default 1e-05).</span>
 <a id="__codelineno-0-28" name="__codelineno-0-28"></a>
-<a id="__codelineno-0-29" name="__codelineno-0-29"></a><span class="sd">        print(is_block_positive(mat=mat))</span>
-<a id="__codelineno-0-30" name="__codelineno-0-30"></a><span class="sd">        ```</span>
-<a id="__codelineno-0-31" name="__codelineno-0-31"></a>
+<a id="__codelineno-0-29" name="__codelineno-0-29"></a><span class="sd">    Returns:</span>
+<a id="__codelineno-0-30" name="__codelineno-0-30"></a><span class="sd">        Return `True` if matrix is k-block positive definite, `False` if not, or raise a runtime error if we are unable</span>
+<a id="__codelineno-0-31" name="__codelineno-0-31"></a><span class="sd">        to determine whether or not the operator is block positive.</span>
 <a id="__codelineno-0-32" name="__codelineno-0-32"></a>
-<a id="__codelineno-0-33" name="__codelineno-0-33"></a><span class="sd">        However, it&#39;s not 2 - block positive.</span>
-<a id="__codelineno-0-34" name="__codelineno-0-34"></a>
-<a id="__codelineno-0-35" name="__codelineno-0-35"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-36" name="__codelineno-0-36"></a><span class="sd">        from toqito.perms.swap_operator import swap_operator</span>
-<a id="__codelineno-0-37" name="__codelineno-0-37"></a><span class="sd">        from toqito.matrix_props.is_block_positive import is_block_positive</span>
-<a id="__codelineno-0-38" name="__codelineno-0-38"></a>
-<a id="__codelineno-0-39" name="__codelineno-0-39"></a><span class="sd">        mat = swap_operator(3)</span>
-<a id="__codelineno-0-40" name="__codelineno-0-40"></a>
-<a id="__codelineno-0-41" name="__codelineno-0-41"></a><span class="sd">        print(is_block_positive(mat=mat, k=2))</span>
-<a id="__codelineno-0-42" name="__codelineno-0-42"></a><span class="sd">        ```</span>
+<a id="__codelineno-0-33" name="__codelineno-0-33"></a><span class="sd">    Raises:</span>
+<a id="__codelineno-0-34" name="__codelineno-0-34"></a><span class="sd">        RuntimeError: Unable to determine k-block positivity. Please consider increasing the relative tolerance or the</span>
+<a id="__codelineno-0-35" name="__codelineno-0-35"></a><span class="sd">            effort level.</span>
+<a id="__codelineno-0-36" name="__codelineno-0-36"></a>
+<a id="__codelineno-0-37" name="__codelineno-0-37"></a><span class="sd">    Examples:</span>
+<a id="__codelineno-0-38" name="__codelineno-0-38"></a><span class="sd">        The swap operator is always block positive, since it is the Choi</span>
+<a id="__codelineno-0-39" name="__codelineno-0-39"></a><span class="sd">        matrix of the transpose map.</span>
+<a id="__codelineno-0-40" name="__codelineno-0-40"></a><span class="sd">    ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
+<a id="__codelineno-0-41" name="__codelineno-0-41"></a><span class="sd">        from toqito.perms.swap_operator import swap_operator</span>
+<a id="__codelineno-0-42" name="__codelineno-0-42"></a><span class="sd">        from toqito.matrix_props.is_block_positive import is_block_positive</span>
 <a id="__codelineno-0-43" name="__codelineno-0-43"></a>
-<a id="__codelineno-0-44" name="__codelineno-0-44"></a><span class="sd">    Raises:</span>
-<a id="__codelineno-0-45" name="__codelineno-0-45"></a><span class="sd">        RuntimeError: Unable to determine k-block positivity. Please consider increasing the relative tolerance or the</span>
-<a id="__codelineno-0-46" name="__codelineno-0-46"></a><span class="sd">            effort level.</span>
-<a id="__codelineno-0-47" name="__codelineno-0-47"></a>
-<a id="__codelineno-0-48" name="__codelineno-0-48"></a><span class="sd">    Args:</span>
-<a id="__codelineno-0-49" name="__codelineno-0-49"></a><span class="sd">        mat: A bipartite Hermitian operator.</span>
-<a id="__codelineno-0-50" name="__codelineno-0-50"></a><span class="sd">        k: A positive integer indicating that the function should determine whether or not the input operator is k-block</span>
-<a id="__codelineno-0-51" name="__codelineno-0-51"></a><span class="sd">            positive, i.e., whether or not it remains nonnegative under left and right multiplication by vectors with</span>
-<a id="__codelineno-0-52" name="__codelineno-0-52"></a><span class="sd">            Schmidt rank &lt;= k (default 1).</span>
-<a id="__codelineno-0-53" name="__codelineno-0-53"></a><span class="sd">        dim: The dimension of the two sub-systems. By default it&#39;s assumed to be equal.</span>
-<a id="__codelineno-0-54" name="__codelineno-0-54"></a><span class="sd">        effort: An integer value indicating the amount of computation you want to devote to determine block positivity</span>
-<a id="__codelineno-0-55" name="__codelineno-0-55"></a><span class="sd">            before giving up.</span>
-<a id="__codelineno-0-56" name="__codelineno-0-56"></a><span class="sd">        rtol: The relative tolerance parameter (default 1e-05).</span>
-<a id="__codelineno-0-57" name="__codelineno-0-57"></a>
-<a id="__codelineno-0-58" name="__codelineno-0-58"></a><span class="sd">    Returns:</span>
-<a id="__codelineno-0-59" name="__codelineno-0-59"></a><span class="sd">        Return `True` if matrix is k-block positive definite, `False` if not, or raise a runtime error if we are unable</span>
-<a id="__codelineno-0-60" name="__codelineno-0-60"></a><span class="sd">        to determine whether or not the operator is block positive.</span>
-<a id="__codelineno-0-61" name="__codelineno-0-61"></a>
-<a id="__codelineno-0-62" name="__codelineno-0-62"></a><span class="sd">    &quot;&quot;&quot;</span>
-<a id="__codelineno-0-63" name="__codelineno-0-63"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">is_hermitian</span><span class="p">(</span><span class="n">mat</span><span class="p">):</span>
-<a id="__codelineno-0-64" name="__codelineno-0-64"></a>        <span class="k">return</span> <span class="kc">False</span>
-<a id="__codelineno-0-65" name="__codelineno-0-65"></a>
-<a id="__codelineno-0-66" name="__codelineno-0-66"></a>    <span class="n">dim_xy</span> <span class="o">=</span> <span class="n">mat</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<a id="__codelineno-0-67" name="__codelineno-0-67"></a>    <span class="c1"># Set default dimension if none was provided.</span>
-<a id="__codelineno-0-68" name="__codelineno-0-68"></a>    <span class="k">if</span> <span class="n">dim</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-<a id="__codelineno-0-69" name="__codelineno-0-69"></a>        <span class="n">dim_val</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">dim_xy</span><span class="p">)))</span>
-<a id="__codelineno-0-70" name="__codelineno-0-70"></a>    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dim</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
-<a id="__codelineno-0-71" name="__codelineno-0-71"></a>        <span class="n">dim_val</span> <span class="o">=</span> <span class="n">dim</span>
-<a id="__codelineno-0-72" name="__codelineno-0-72"></a>    <span class="k">else</span><span class="p">:</span>
-<a id="__codelineno-0-73" name="__codelineno-0-73"></a>        <span class="n">dim_val</span> <span class="o">=</span> <span class="kc">None</span>
-<a id="__codelineno-0-74" name="__codelineno-0-74"></a>
-<a id="__codelineno-0-75" name="__codelineno-0-75"></a>    <span class="c1"># Allow the user to enter in a single integer for dimension.</span>
-<a id="__codelineno-0-76" name="__codelineno-0-76"></a>    <span class="k">if</span> <span class="n">dim_val</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-<a id="__codelineno-0-77" name="__codelineno-0-77"></a>        <span class="n">dim_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">dim_val</span><span class="p">,</span> <span class="n">dim_xy</span> <span class="o">/</span> <span class="n">dim_val</span><span class="p">])</span>
-<a id="__codelineno-0-78" name="__codelineno-0-78"></a>        <span class="n">dim_arr</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">dim_arr</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
-<a id="__codelineno-0-79" name="__codelineno-0-79"></a>    <span class="k">else</span><span class="p">:</span>
-<a id="__codelineno-0-80" name="__codelineno-0-80"></a>        <span class="n">dim_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">dim</span><span class="p">)</span>
-<a id="__codelineno-0-81" name="__codelineno-0-81"></a>
-<a id="__codelineno-0-82" name="__codelineno-0-82"></a>    <span class="n">dim_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">dim_arr</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
-<a id="__codelineno-0-83" name="__codelineno-0-83"></a>
-<a id="__codelineno-0-84" name="__codelineno-0-84"></a>    <span class="c1"># When a local dimension is small, block positivity is trivial.</span>
-<a id="__codelineno-0-85" name="__codelineno-0-85"></a>    <span class="k">if</span> <span class="nb">min</span><span class="p">(</span><span class="n">dim_arr</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">k</span><span class="p">:</span>
-<a id="__codelineno-0-86" name="__codelineno-0-86"></a>        <span class="k">return</span> <span class="n">is_positive_semidefinite</span><span class="p">(</span><span class="n">mat</span><span class="p">)</span>
-<a id="__codelineno-0-87" name="__codelineno-0-87"></a>
-<a id="__codelineno-0-88" name="__codelineno-0-88"></a>    <span class="n">op_norm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span> <span class="nb">ord</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-<a id="__codelineno-0-89" name="__codelineno-0-89"></a>    <span class="c1"># We compute the S(k)-norm of this operator since</span>
-<a id="__codelineno-0-90" name="__codelineno-0-90"></a>    <span class="c1"># X k-block positive iff:</span>
-<a id="__codelineno-0-91" name="__codelineno-0-91"></a>    <span class="c1">#   c &gt;= S(k)-norm of(c*I - X)</span>
-<a id="__codelineno-0-92" name="__codelineno-0-92"></a>    <span class="c1"># See Corollary 4.2.9. of `[@johnston2012norms].</span>
-<a id="__codelineno-0-93" name="__codelineno-0-93"></a>    <span class="n">c_mat</span> <span class="o">=</span> <span class="n">op_norm</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">dim_xy</span><span class="p">)</span> <span class="o">-</span> <span class="n">mat</span>
-<a id="__codelineno-0-94" name="__codelineno-0-94"></a>    <span class="n">lower_bound</span><span class="p">,</span> <span class="n">upper_bound</span> <span class="o">=</span> <span class="n">sk_operator_norm</span><span class="p">(</span><span class="n">c_mat</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">dim_arr</span><span class="p">,</span> <span class="n">op_norm</span><span class="p">,</span> <span class="n">effort</span><span class="p">)</span>
-<a id="__codelineno-0-95" name="__codelineno-0-95"></a>
-<a id="__codelineno-0-96" name="__codelineno-0-96"></a>    <span class="c1"># block positive</span>
-<a id="__codelineno-0-97" name="__codelineno-0-97"></a>    <span class="c1"># Note that QETLAB is more conservative here and multiplies</span>
-<a id="__codelineno-0-98" name="__codelineno-0-98"></a>    <span class="c1"># by (1 - rtol). After some experiments though, I found out</span>
-<a id="__codelineno-0-99" name="__codelineno-0-99"></a>    <span class="c1"># that probably due to numerical inaccuracies of CVXPY the check</span>
+<a id="__codelineno-0-44" name="__codelineno-0-44"></a><span class="sd">        mat = swap_operator(3)</span>
+<a id="__codelineno-0-45" name="__codelineno-0-45"></a>
+<a id="__codelineno-0-46" name="__codelineno-0-46"></a><span class="sd">        print(is_block_positive(mat=mat))</span>
+<a id="__codelineno-0-47" name="__codelineno-0-47"></a><span class="sd">    ```</span>
+<a id="__codelineno-0-48" name="__codelineno-0-48"></a>
+<a id="__codelineno-0-49" name="__codelineno-0-49"></a><span class="sd">        However, it&#39;s not 2 - block positive.</span>
+<a id="__codelineno-0-50" name="__codelineno-0-50"></a><span class="sd">    ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
+<a id="__codelineno-0-51" name="__codelineno-0-51"></a><span class="sd">        from toqito.perms.swap_operator import swap_operator</span>
+<a id="__codelineno-0-52" name="__codelineno-0-52"></a><span class="sd">        from toqito.matrix_props.is_block_positive import is_block_positive</span>
+<a id="__codelineno-0-53" name="__codelineno-0-53"></a>
+<a id="__codelineno-0-54" name="__codelineno-0-54"></a><span class="sd">        mat = swap_operator(3)</span>
+<a id="__codelineno-0-55" name="__codelineno-0-55"></a>
+<a id="__codelineno-0-56" name="__codelineno-0-56"></a><span class="sd">        print(is_block_positive(mat=mat, k=2))</span>
+<a id="__codelineno-0-57" name="__codelineno-0-57"></a><span class="sd">    ```</span>
+<a id="__codelineno-0-58" name="__codelineno-0-58"></a>
+<a id="__codelineno-0-59" name="__codelineno-0-59"></a><span class="sd">    &quot;&quot;&quot;</span>
+<a id="__codelineno-0-60" name="__codelineno-0-60"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">is_hermitian</span><span class="p">(</span><span class="n">mat</span><span class="p">):</span>
+<a id="__codelineno-0-61" name="__codelineno-0-61"></a>        <span class="k">return</span> <span class="kc">False</span>
+<a id="__codelineno-0-62" name="__codelineno-0-62"></a>
+<a id="__codelineno-0-63" name="__codelineno-0-63"></a>    <span class="n">dim_xy</span> <span class="o">=</span> <span class="n">mat</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<a id="__codelineno-0-64" name="__codelineno-0-64"></a>    <span class="c1"># Set default dimension if none was provided.</span>
+<a id="__codelineno-0-65" name="__codelineno-0-65"></a>    <span class="k">if</span> <span class="n">dim</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-0-66" name="__codelineno-0-66"></a>        <span class="n">dim_val</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">dim_xy</span><span class="p">)))</span>
+<a id="__codelineno-0-67" name="__codelineno-0-67"></a>    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dim</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+<a id="__codelineno-0-68" name="__codelineno-0-68"></a>        <span class="n">dim_val</span> <span class="o">=</span> <span class="n">dim</span>
+<a id="__codelineno-0-69" name="__codelineno-0-69"></a>    <span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-0-70" name="__codelineno-0-70"></a>        <span class="n">dim_val</span> <span class="o">=</span> <span class="kc">None</span>
+<a id="__codelineno-0-71" name="__codelineno-0-71"></a>
+<a id="__codelineno-0-72" name="__codelineno-0-72"></a>    <span class="c1"># Allow the user to enter in a single integer for dimension.</span>
+<a id="__codelineno-0-73" name="__codelineno-0-73"></a>    <span class="k">if</span> <span class="n">dim_val</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-0-74" name="__codelineno-0-74"></a>        <span class="n">dim_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">dim_val</span><span class="p">,</span> <span class="n">dim_xy</span> <span class="o">/</span> <span class="n">dim_val</span><span class="p">])</span>
+<a id="__codelineno-0-75" name="__codelineno-0-75"></a>        <span class="n">dim_arr</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">dim_arr</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+<a id="__codelineno-0-76" name="__codelineno-0-76"></a>    <span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-0-77" name="__codelineno-0-77"></a>        <span class="n">dim_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">dim</span><span class="p">)</span>
+<a id="__codelineno-0-78" name="__codelineno-0-78"></a>
+<a id="__codelineno-0-79" name="__codelineno-0-79"></a>    <span class="n">dim_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">dim_arr</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+<a id="__codelineno-0-80" name="__codelineno-0-80"></a>
+<a id="__codelineno-0-81" name="__codelineno-0-81"></a>    <span class="c1"># When a local dimension is small, block positivity is trivial.</span>
+<a id="__codelineno-0-82" name="__codelineno-0-82"></a>    <span class="k">if</span> <span class="nb">min</span><span class="p">(</span><span class="n">dim_arr</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">k</span><span class="p">:</span>
+<a id="__codelineno-0-83" name="__codelineno-0-83"></a>        <span class="k">return</span> <span class="n">is_positive_semidefinite</span><span class="p">(</span><span class="n">mat</span><span class="p">)</span>
+<a id="__codelineno-0-84" name="__codelineno-0-84"></a>
+<a id="__codelineno-0-85" name="__codelineno-0-85"></a>    <span class="n">op_norm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span> <span class="nb">ord</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<a id="__codelineno-0-86" name="__codelineno-0-86"></a>    <span class="c1"># We compute the S(k)-norm of this operator since</span>
+<a id="__codelineno-0-87" name="__codelineno-0-87"></a>    <span class="c1"># X k-block positive iff:</span>
+<a id="__codelineno-0-88" name="__codelineno-0-88"></a>    <span class="c1">#   c &gt;= S(k)-norm of(c*I - X)</span>
+<a id="__codelineno-0-89" name="__codelineno-0-89"></a>    <span class="c1"># See Corollary 4.2.9. of `[@johnston2012norms].</span>
+<a id="__codelineno-0-90" name="__codelineno-0-90"></a>    <span class="n">c_mat</span> <span class="o">=</span> <span class="n">op_norm</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">dim_xy</span><span class="p">)</span> <span class="o">-</span> <span class="n">mat</span>
+<a id="__codelineno-0-91" name="__codelineno-0-91"></a>    <span class="n">lower_bound</span><span class="p">,</span> <span class="n">upper_bound</span> <span class="o">=</span> <span class="n">sk_operator_norm</span><span class="p">(</span><span class="n">c_mat</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">dim_arr</span><span class="p">,</span> <span class="n">op_norm</span><span class="p">,</span> <span class="n">effort</span><span class="p">)</span>
+<a id="__codelineno-0-92" name="__codelineno-0-92"></a>
+<a id="__codelineno-0-93" name="__codelineno-0-93"></a>    <span class="c1"># block positive</span>
+<a id="__codelineno-0-94" name="__codelineno-0-94"></a>    <span class="c1"># Note that QETLAB is more conservative here and multiplies</span>
+<a id="__codelineno-0-95" name="__codelineno-0-95"></a>    <span class="c1"># by (1 - rtol). After some experiments though, I found out</span>
+<a id="__codelineno-0-96" name="__codelineno-0-96"></a>    <span class="c1"># that probably due to numerical inaccuracies of CVXPY the check</span>
+<a id="__codelineno-0-97" name="__codelineno-0-97"></a>    <span class="c1">#     upper_bound &lt;= op_norm * (1 - rtol)</span>
+<a id="__codelineno-0-98" name="__codelineno-0-98"></a>    <span class="c1"># would fail even for k - block positive matrices. So, we choose to</span>
+<a id="__codelineno-0-99" name="__codelineno-0-99"></a>    <span class="c1"># relax this inequality by increasing RHS. Additionally, the check</span>
 <a id="__codelineno-0-100" name="__codelineno-0-100"></a>    <span class="c1">#     upper_bound &lt;= op_norm * (1 - rtol)</span>
-<a id="__codelineno-0-101" name="__codelineno-0-101"></a>    <span class="c1"># would fail even for k - block positive matrices. So, we choose to</span>
-<a id="__codelineno-0-102" name="__codelineno-0-102"></a>    <span class="c1"># relax this inequality by increasing RHS. Additionally, the check</span>
-<a id="__codelineno-0-103" name="__codelineno-0-103"></a>    <span class="c1">#     upper_bound &lt;= op_norm * (1 - rtol)</span>
-<a id="__codelineno-0-104" name="__codelineno-0-104"></a>    <span class="c1"># has the &quot;undesired&quot; property that increasing tolerance makes the</span>
-<a id="__codelineno-0-105" name="__codelineno-0-105"></a>    <span class="c1"># inequality more difficult to satisfy but usually the reverse holds,</span>
-<a id="__codelineno-0-106" name="__codelineno-0-106"></a>    <span class="c1"># i.e increased tolerance parameter relaxes the problem.</span>
-<a id="__codelineno-0-107" name="__codelineno-0-107"></a>    <span class="k">if</span> <span class="n">upper_bound</span> <span class="o">&lt;=</span> <span class="n">op_norm</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">rtol</span><span class="p">):</span>
-<a id="__codelineno-0-108" name="__codelineno-0-108"></a>        <span class="k">return</span> <span class="kc">True</span>
-<a id="__codelineno-0-109" name="__codelineno-0-109"></a>    <span class="c1"># not block positive</span>
-<a id="__codelineno-0-110" name="__codelineno-0-110"></a>    <span class="k">if</span> <span class="n">lower_bound</span> <span class="o">&gt;=</span> <span class="n">op_norm</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">rtol</span><span class="p">):</span>
-<a id="__codelineno-0-111" name="__codelineno-0-111"></a>        <span class="k">return</span> <span class="kc">False</span>
-<a id="__codelineno-0-112" name="__codelineno-0-112"></a>
-<a id="__codelineno-0-113" name="__codelineno-0-113"></a>    <span class="k">return</span> <span class="ne">RuntimeError</span><span class="p">(</span>
-<a id="__codelineno-0-114" name="__codelineno-0-114"></a>        <span class="s2">&quot;Unable to determine k-block positivity. Please consider increasing the relative tolerance or the effort level.&quot;</span>
-<a id="__codelineno-0-115" name="__codelineno-0-115"></a>    <span class="p">)</span>
+<a id="__codelineno-0-101" name="__codelineno-0-101"></a>    <span class="c1"># has the &quot;undesired&quot; property that increasing tolerance makes the</span>
+<a id="__codelineno-0-102" name="__codelineno-0-102"></a>    <span class="c1"># inequality more difficult to satisfy but usually the reverse holds,</span>
+<a id="__codelineno-0-103" name="__codelineno-0-103"></a>    <span class="c1"># i.e increased tolerance parameter relaxes the problem.</span>
+<a id="__codelineno-0-104" name="__codelineno-0-104"></a>    <span class="k">if</span> <span class="n">upper_bound</span> <span class="o">&lt;=</span> <span class="n">op_norm</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">rtol</span><span class="p">):</span>
+<a id="__codelineno-0-105" name="__codelineno-0-105"></a>        <span class="k">return</span> <span class="kc">True</span>
+<a id="__codelineno-0-106" name="__codelineno-0-106"></a>    <span class="c1"># not block positive</span>
+<a id="__codelineno-0-107" name="__codelineno-0-107"></a>    <span class="k">if</span> <span class="n">lower_bound</span> <span class="o">&gt;=</span> <span class="n">op_norm</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">rtol</span><span class="p">):</span>
+<a id="__codelineno-0-108" name="__codelineno-0-108"></a>        <span class="k">return</span> <span class="kc">False</span>
+<a id="__codelineno-0-109" name="__codelineno-0-109"></a>
+<a id="__codelineno-0-110" name="__codelineno-0-110"></a>    <span class="k">return</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+<a id="__codelineno-0-111" name="__codelineno-0-111"></a>        <span class="s2">&quot;Unable to determine k-block positivity. Please consider increasing the relative tolerance or the effort level.&quot;</span>
+<a id="__codelineno-0-112" name="__codelineno-0-112"></a>    <span class="p">)</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>

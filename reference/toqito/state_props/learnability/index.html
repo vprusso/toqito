@@ -8806,25 +8806,6 @@ reduced Gram-matrix SDP</p>
 is also solved as a consistency check.</p>
 
 
-<p><span class="doc-section-title">Examples:</span></p>
-    <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.state_props</span><span class="w"> </span><span class="kn">import</span> <span class="n">learnability</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.states</span><span class="w"> </span><span class="kn">import</span> <span class="n">basis</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">e0</span><span class="p">,</span> <span class="n">e1</span> <span class="o">=</span> <span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">learnability</span><span class="p">(</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    <span class="p">[</span><span class="n">e0</span><span class="p">,</span> <span class="n">e1</span><span class="p">],</span>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    <span class="n">k</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    <span class="n">solver</span><span class="o">=</span><span class="s2">&quot;SCS&quot;</span><span class="p">,</span>
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>    <span class="n">solver_kwargs</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;eps&quot;</span><span class="p">:</span> <span class="mf">1e-6</span><span class="p">,</span> <span class="s2">&quot;max_iters&quot;</span><span class="p">:</span> <span class="mi">5_000</span><span class="p">},</span>
-<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="p">))</span>
-</code></pre></div>
-<p>{'value': -1.149574754584084e-06, 'status': 'optimal', 'reduced_value': -1.149574754584084e-06, 'reduced_status': 'optimal', 'measurement_operators': {(0,): array([[ 1.00000115e+00+0.j,  0.00000000e+00+0.j],
-       [ 0.00000000e+00+0.j, -1.14957475e-06+0.j]]), (1,): array([[-1.14957475e-06+0.j,  0.00000000e+00+0.j],
-       [ 0.00000000e+00+0.j,  1.00000115e+00+0.j]])}, 'reduced_operators': {(0,): array([[ 1.00000115e+00+0.j,  0.00000000e+00+0.j],
-       [ 0.00000000e+00+0.j, -1.14957475e-06+0.j]]), (1,): array([[-1.14957475e-06+0.j,  0.00000000e+00+0.j],
-       [ 0.00000000e+00+0.j,  1.00000115e+00+0.j]])}, 'total_value': -2.299149509168168e-06, 'reduced_total_value': -2.299149509168168e-06}</p>
-
-
 <p><span class="doc-section-title">Parameters:</span></p>
     <ul>
         <li class="doc-section-item field-body">
@@ -8932,6 +8913,25 @@ is also solved as a consistency check.</p>
           </div>
         </li>
     </ul>
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.state_props</span><span class="w"> </span><span class="kn">import</span> <span class="n">learnability</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.states</span><span class="w"> </span><span class="kn">import</span> <span class="n">basis</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">e0</span><span class="p">,</span> <span class="n">e1</span> <span class="o">=</span> <span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">learnability</span><span class="p">(</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    <span class="p">[</span><span class="n">e0</span><span class="p">,</span> <span class="n">e1</span><span class="p">],</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    <span class="n">k</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    <span class="n">solver</span><span class="o">=</span><span class="s2">&quot;SCS&quot;</span><span class="p">,</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>    <span class="n">solver_kwargs</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;eps&quot;</span><span class="p">:</span> <span class="mf">1e-6</span><span class="p">,</span> <span class="s2">&quot;max_iters&quot;</span><span class="p">:</span> <span class="mi">5_000</span><span class="p">},</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="p">))</span>
+</code></pre></div>
+<p>{'value': -1.149574754584084e-06, 'status': 'optimal', 'reduced_value': -1.149574754584084e-06, 'reduced_status': 'optimal', 'measurement_operators': {(0,): array([[ 1.00000115e+00+0.j,  0.00000000e+00+0.j],
+       [ 0.00000000e+00+0.j, -1.14957475e-06+0.j]]), (1,): array([[-1.14957475e-06+0.j,  0.00000000e+00+0.j],
+       [ 0.00000000e+00+0.j,  1.00000115e+00+0.j]])}, 'reduced_operators': {(0,): array([[ 1.00000115e+00+0.j,  0.00000000e+00+0.j],
+       [ 0.00000000e+00+0.j, -1.14957475e-06+0.j]]), (1,): array([[-1.14957475e-06+0.j,  0.00000000e+00+0.j],
+       [ 0.00000000e+00+0.j,  1.00000115e+00+0.j]])}, 'total_value': -2.299149509168168e-06, 'reduced_total_value': -2.299149509168168e-06}</p>
 
 
             <details class="mkdocstrings-source">
@@ -9076,36 +9076,36 @@ is also solved as a consistency check.</p>
 <a id="__codelineno-0-43" name="__codelineno-0-43"></a><span class="sd">    with constraint \(\sum_S W_S = G\) (Gram matrix) and \(W_S \succeq 0\)</span>
 <a id="__codelineno-0-44" name="__codelineno-0-44"></a><span class="sd">    is also solved as a consistency check.</span>
 <a id="__codelineno-0-45" name="__codelineno-0-45"></a>
-<a id="__codelineno-0-46" name="__codelineno-0-46"></a><span class="sd">    Examples:</span>
-<a id="__codelineno-0-47" name="__codelineno-0-47"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-48" name="__codelineno-0-48"></a><span class="sd">        from toqito.state_props import learnability</span>
-<a id="__codelineno-0-49" name="__codelineno-0-49"></a><span class="sd">        from toqito.states import basis</span>
-<a id="__codelineno-0-50" name="__codelineno-0-50"></a>
-<a id="__codelineno-0-51" name="__codelineno-0-51"></a><span class="sd">        e0, e1 = basis(2, 0), basis(2, 1)</span>
-<a id="__codelineno-0-52" name="__codelineno-0-52"></a><span class="sd">        print(learnability(</span>
-<a id="__codelineno-0-53" name="__codelineno-0-53"></a><span class="sd">            [e0, e1],</span>
-<a id="__codelineno-0-54" name="__codelineno-0-54"></a><span class="sd">            k=1,</span>
-<a id="__codelineno-0-55" name="__codelineno-0-55"></a><span class="sd">            solver=&quot;SCS&quot;,</span>
-<a id="__codelineno-0-56" name="__codelineno-0-56"></a><span class="sd">            solver_kwargs={&quot;eps&quot;: 1e-6, &quot;max_iters&quot;: 5_000},</span>
-<a id="__codelineno-0-57" name="__codelineno-0-57"></a><span class="sd">        ))</span>
-<a id="__codelineno-0-58" name="__codelineno-0-58"></a><span class="sd">        ```</span>
-<a id="__codelineno-0-59" name="__codelineno-0-59"></a>
-<a id="__codelineno-0-60" name="__codelineno-0-60"></a><span class="sd">    Args:</span>
-<a id="__codelineno-0-61" name="__codelineno-0-61"></a><span class="sd">        states: Sequence of state vectors or density matrices acting on the same space.</span>
-<a id="__codelineno-0-62" name="__codelineno-0-62"></a><span class="sd">        k: Subset size for the POVM outcomes; must satisfy `1 &lt;= k &lt;= len(states)`.</span>
-<a id="__codelineno-0-63" name="__codelineno-0-63"></a><span class="sd">        solver: Optional CVXPY solver name. Defaults to `&quot;SCS&quot;`.</span>
-<a id="__codelineno-0-64" name="__codelineno-0-64"></a><span class="sd">        solver_kwargs: Extra keyword arguments forwarded to :meth:`cvxpy.Problem.solve`.</span>
-<a id="__codelineno-0-65" name="__codelineno-0-65"></a><span class="sd">        verify_reduced: If `True` and the states are pure, also solve the reduced SDP.</span>
-<a id="__codelineno-0-66" name="__codelineno-0-66"></a><span class="sd">        verify_tolerance: Absolute tolerance used when comparing the two optimal values.</span>
-<a id="__codelineno-0-67" name="__codelineno-0-67"></a><span class="sd">        tol: Numerical tolerance used when validating positivity and rank-one states.</span>
-<a id="__codelineno-0-68" name="__codelineno-0-68"></a>
-<a id="__codelineno-0-69" name="__codelineno-0-69"></a><span class="sd">    Returns:</span>
-<a id="__codelineno-0-70" name="__codelineno-0-70"></a><span class="sd">        Dictionary with keys `value`, `total_value`, `status`, `measurement_operators`, and optionally `reduced_value`,</span>
-<a id="__codelineno-0-71" name="__codelineno-0-71"></a><span class="sd">        `reduced_total_value`, `reduced_status`, `reduced_operators`.</span>
-<a id="__codelineno-0-72" name="__codelineno-0-72"></a>
-<a id="__codelineno-0-73" name="__codelineno-0-73"></a><span class="sd">    Raises:</span>
-<a id="__codelineno-0-74" name="__codelineno-0-74"></a><span class="sd">        ValueError: If the data are inconsistent with valid quantum states or if `k` lies outside the permissible range.</span>
-<a id="__codelineno-0-75" name="__codelineno-0-75"></a><span class="sd">        cvxpy.error.SolverError: If the selected solver reports a failure.</span>
+<a id="__codelineno-0-46" name="__codelineno-0-46"></a><span class="sd">    Args:</span>
+<a id="__codelineno-0-47" name="__codelineno-0-47"></a><span class="sd">        states: Sequence of state vectors or density matrices acting on the same space.</span>
+<a id="__codelineno-0-48" name="__codelineno-0-48"></a><span class="sd">        k: Subset size for the POVM outcomes; must satisfy `1 &lt;= k &lt;= len(states)`.</span>
+<a id="__codelineno-0-49" name="__codelineno-0-49"></a><span class="sd">        solver: Optional CVXPY solver name. Defaults to `&quot;SCS&quot;`.</span>
+<a id="__codelineno-0-50" name="__codelineno-0-50"></a><span class="sd">        solver_kwargs: Extra keyword arguments forwarded to :meth:`cvxpy.Problem.solve`.</span>
+<a id="__codelineno-0-51" name="__codelineno-0-51"></a><span class="sd">        verify_reduced: If `True` and the states are pure, also solve the reduced SDP.</span>
+<a id="__codelineno-0-52" name="__codelineno-0-52"></a><span class="sd">        verify_tolerance: Absolute tolerance used when comparing the two optimal values.</span>
+<a id="__codelineno-0-53" name="__codelineno-0-53"></a><span class="sd">        tol: Numerical tolerance used when validating positivity and rank-one states.</span>
+<a id="__codelineno-0-54" name="__codelineno-0-54"></a>
+<a id="__codelineno-0-55" name="__codelineno-0-55"></a><span class="sd">    Returns:</span>
+<a id="__codelineno-0-56" name="__codelineno-0-56"></a><span class="sd">        Dictionary with keys `value`, `total_value`, `status`, `measurement_operators`, and optionally `reduced_value`,</span>
+<a id="__codelineno-0-57" name="__codelineno-0-57"></a><span class="sd">        `reduced_total_value`, `reduced_status`, `reduced_operators`.</span>
+<a id="__codelineno-0-58" name="__codelineno-0-58"></a>
+<a id="__codelineno-0-59" name="__codelineno-0-59"></a><span class="sd">    Raises:</span>
+<a id="__codelineno-0-60" name="__codelineno-0-60"></a><span class="sd">        ValueError: If the data are inconsistent with valid quantum states or if `k` lies outside the permissible range.</span>
+<a id="__codelineno-0-61" name="__codelineno-0-61"></a><span class="sd">        cvxpy.error.SolverError: If the selected solver reports a failure.</span>
+<a id="__codelineno-0-62" name="__codelineno-0-62"></a>
+<a id="__codelineno-0-63" name="__codelineno-0-63"></a><span class="sd">    Examples:</span>
+<a id="__codelineno-0-64" name="__codelineno-0-64"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
+<a id="__codelineno-0-65" name="__codelineno-0-65"></a><span class="sd">        from toqito.state_props import learnability</span>
+<a id="__codelineno-0-66" name="__codelineno-0-66"></a><span class="sd">        from toqito.states import basis</span>
+<a id="__codelineno-0-67" name="__codelineno-0-67"></a>
+<a id="__codelineno-0-68" name="__codelineno-0-68"></a><span class="sd">        e0, e1 = basis(2, 0), basis(2, 1)</span>
+<a id="__codelineno-0-69" name="__codelineno-0-69"></a><span class="sd">        print(learnability(</span>
+<a id="__codelineno-0-70" name="__codelineno-0-70"></a><span class="sd">            [e0, e1],</span>
+<a id="__codelineno-0-71" name="__codelineno-0-71"></a><span class="sd">            k=1,</span>
+<a id="__codelineno-0-72" name="__codelineno-0-72"></a><span class="sd">            solver=&quot;SCS&quot;,</span>
+<a id="__codelineno-0-73" name="__codelineno-0-73"></a><span class="sd">            solver_kwargs={&quot;eps&quot;: 1e-6, &quot;max_iters&quot;: 5_000},</span>
+<a id="__codelineno-0-74" name="__codelineno-0-74"></a><span class="sd">        ))</span>
+<a id="__codelineno-0-75" name="__codelineno-0-75"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-76" name="__codelineno-0-76"></a>
 <a id="__codelineno-0-77" name="__codelineno-0-77"></a><span class="sd">    &quot;&quot;&quot;</span>
 <a id="__codelineno-0-78" name="__codelineno-0-78"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">states</span><span class="p">:</span>

@@ -8797,6 +8797,31 @@ exclusion SDP <sup><a id="cite-toqito-state_props-is_antidistinguishable-is_anti
 the states are chosen from the set of vectors.</p>
 
 
+<p><span class="doc-section-title">Parameters:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+            <b><code>states</code></b>
+              (<code><span title="list">list</span>[<span title="numpy.ndarray">ndarray</span>]</code>)
+          –
+          <div class="doc-md-description">
+            <p>A set of vectors consisting of quantum states to determine the antidistinguishability of.</p>
+          </div>
+        </li>
+    </ul>
+
+
+<p><span class="doc-section-title">Returns:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+              <code><span title="bool">bool</span> | <span title="numpy.bool_">bool_</span></code>
+          –
+          <div class="doc-md-description">
+            <p><code>True</code> if the vectors are antidistinguishable; <code>False</code> otherwise.</p>
+          </div>
+        </li>
+    </ul>
+
+
 <p><span class="doc-section-title">Examples:</span></p>
     <p>The set of Bell states are an example of antidistinguishable states. Recall that the Bell states are defined as:</p>
 <div class="arithmatex">\[
@@ -8825,31 +8850,6 @@ leq i \leq 4\)</span>. It may also be verified that</p>
     \sum_{i=1}^4 \langle M_i, u_i u_i^* \rangle = 0,
 \]</div>
 <p>and hence, the Bell states are antidistinguishable.</p>
-
-
-<p><span class="doc-section-title">Parameters:</span></p>
-    <ul>
-        <li class="doc-section-item field-body">
-            <b><code>states</code></b>
-              (<code><span title="list">list</span>[<span title="numpy.ndarray">ndarray</span>]</code>)
-          –
-          <div class="doc-md-description">
-            <p>A set of vectors consisting of quantum states to determine the antidistinguishability of.</p>
-          </div>
-        </li>
-    </ul>
-
-
-<p><span class="doc-section-title">Returns:</span></p>
-    <ul>
-        <li class="doc-section-item field-body">
-              <code><span title="bool">bool</span> | <span title="numpy.bool_">bool_</span></code>
-          –
-          <div class="doc-md-description">
-            <p><code>True</code> if the vectors are antidistinguishable; <code>False</code> otherwise.</p>
-          </div>
-        </li>
-    </ul>
         <p><strong>References</strong></p>
 <p><span id="ref-toqito-state_props-is_antidistinguishable-is_antidistinguishable-1"><sup><a href="#cite-toqito-state_props-is_antidistinguishable-is_antidistinguishable-1">1</a></sup> Heinosaari, Teiko and Kerppo, Oskari. <em>Antidistinguishability of pure quantum states</em>. <strong>Journal of Physics A: Mathematical and Theoretical</strong>. vol. 51(36). (2018). <a href="https://doi.org/10.1088/1751-8121/aad1fc">doi:10.1088/1751-8121/aad1fc</a>.</span><br>
 <span id="ref-toqito-state_props-is_antidistinguishable-is_antidistinguishable-2"><sup><a href="#cite-toqito-state_props-is_antidistinguishable-is_antidistinguishable-2">2</a></sup> Bandyopadhyay, Somshubhro and Jain, Rahul and Oppenheim, Jonathan and Perry, Christopher. <em>Conclusive exclusion of quantum states</em>. <strong>Physical Review A</strong>. vol. 89(2). (2014). <a href="https://doi.org/10.1103/physreva.89.022336">doi:10.1103/physreva.89.022336</a>.</span></p>
@@ -8923,48 +8923,48 @@ leq i \leq 4\)</span>. It may also be verified that</p>
 <a id="__codelineno-0-17" name="__codelineno-0-17"></a><span class="sd">    exclusion SDP [@bandyopadhyay2014conclusive] such that we ignore the associated probabilities with which</span>
 <a id="__codelineno-0-18" name="__codelineno-0-18"></a><span class="sd">    the states are chosen from the set of vectors.</span>
 <a id="__codelineno-0-19" name="__codelineno-0-19"></a>
-<a id="__codelineno-0-20" name="__codelineno-0-20"></a><span class="sd">    Examples:</span>
-<a id="__codelineno-0-21" name="__codelineno-0-21"></a><span class="sd">        The set of Bell states are an example of antidistinguishable states. Recall that the Bell states are defined as:</span>
+<a id="__codelineno-0-20" name="__codelineno-0-20"></a><span class="sd">    Args:</span>
+<a id="__codelineno-0-21" name="__codelineno-0-21"></a><span class="sd">        states: A set of vectors consisting of quantum states to determine the antidistinguishability of.</span>
 <a id="__codelineno-0-22" name="__codelineno-0-22"></a>
-<a id="__codelineno-0-23" name="__codelineno-0-23"></a><span class="sd">        \[</span>
-<a id="__codelineno-0-24" name="__codelineno-0-24"></a><span class="sd">        \begin{aligned}</span>
-<a id="__codelineno-0-25" name="__codelineno-0-25"></a><span class="sd">        u_1 &amp;= \frac{1}{\sqrt{2}} \left(|00\rangle + |11\rangle\right), \quad</span>
-<a id="__codelineno-0-26" name="__codelineno-0-26"></a><span class="sd">        u_2 = \frac{1}{\sqrt{2}} \left(|00\rangle - |11\rangle\right), \\</span>
-<a id="__codelineno-0-27" name="__codelineno-0-27"></a><span class="sd">        u_3 &amp;= \frac{1}{\sqrt{2}} \left(|01\rangle + |10\rangle\right), \quad</span>
-<a id="__codelineno-0-28" name="__codelineno-0-28"></a><span class="sd">        u_4 = \frac{1}{\sqrt{2}} \left(|01\rangle - |10\rangle\right).</span>
-<a id="__codelineno-0-29" name="__codelineno-0-29"></a><span class="sd">        \end{aligned}</span>
-<a id="__codelineno-0-30" name="__codelineno-0-30"></a><span class="sd">        \]</span>
-<a id="__codelineno-0-31" name="__codelineno-0-31"></a>
-<a id="__codelineno-0-32" name="__codelineno-0-32"></a><span class="sd">        It can be checked in `toqito` that the Bell states are antidistinguishable:</span>
-<a id="__codelineno-0-33" name="__codelineno-0-33"></a>
-<a id="__codelineno-0-34" name="__codelineno-0-34"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-35" name="__codelineno-0-35"></a><span class="sd">        from toqito.states import bell</span>
-<a id="__codelineno-0-36" name="__codelineno-0-36"></a><span class="sd">        from toqito.state_props import is_antidistinguishable</span>
-<a id="__codelineno-0-37" name="__codelineno-0-37"></a><span class="sd">        bell_states = [bell(0), bell(1), bell(2), bell(3)]</span>
-<a id="__codelineno-0-38" name="__codelineno-0-38"></a><span class="sd">        print(is_antidistinguishable(bell_states))</span>
-<a id="__codelineno-0-39" name="__codelineno-0-39"></a><span class="sd">        ```</span>
-<a id="__codelineno-0-40" name="__codelineno-0-40"></a>
-<a id="__codelineno-0-41" name="__codelineno-0-41"></a><span class="sd">        Consider the following measurement operators</span>
-<a id="__codelineno-0-42" name="__codelineno-0-42"></a>
-<a id="__codelineno-0-43" name="__codelineno-0-43"></a><span class="sd">        \[</span>
-<a id="__codelineno-0-44" name="__codelineno-0-44"></a><span class="sd">        M_i = \frac{1}{3}\left(\mathbb{I}_{\mathcal{X}} - u_i u_i^*\right)</span>
-<a id="__codelineno-0-45" name="__codelineno-0-45"></a><span class="sd">        \]</span>
+<a id="__codelineno-0-23" name="__codelineno-0-23"></a><span class="sd">    Returns:</span>
+<a id="__codelineno-0-24" name="__codelineno-0-24"></a><span class="sd">        `True` if the vectors are antidistinguishable; `False` otherwise.</span>
+<a id="__codelineno-0-25" name="__codelineno-0-25"></a>
+<a id="__codelineno-0-26" name="__codelineno-0-26"></a><span class="sd">    Examples:</span>
+<a id="__codelineno-0-27" name="__codelineno-0-27"></a><span class="sd">        The set of Bell states are an example of antidistinguishable states. Recall that the Bell states are defined as:</span>
+<a id="__codelineno-0-28" name="__codelineno-0-28"></a>
+<a id="__codelineno-0-29" name="__codelineno-0-29"></a><span class="sd">        \[</span>
+<a id="__codelineno-0-30" name="__codelineno-0-30"></a><span class="sd">        \begin{aligned}</span>
+<a id="__codelineno-0-31" name="__codelineno-0-31"></a><span class="sd">        u_1 &amp;= \frac{1}{\sqrt{2}} \left(|00\rangle + |11\rangle\right), \quad</span>
+<a id="__codelineno-0-32" name="__codelineno-0-32"></a><span class="sd">        u_2 = \frac{1}{\sqrt{2}} \left(|00\rangle - |11\rangle\right), \\</span>
+<a id="__codelineno-0-33" name="__codelineno-0-33"></a><span class="sd">        u_3 &amp;= \frac{1}{\sqrt{2}} \left(|01\rangle + |10\rangle\right), \quad</span>
+<a id="__codelineno-0-34" name="__codelineno-0-34"></a><span class="sd">        u_4 = \frac{1}{\sqrt{2}} \left(|01\rangle - |10\rangle\right).</span>
+<a id="__codelineno-0-35" name="__codelineno-0-35"></a><span class="sd">        \end{aligned}</span>
+<a id="__codelineno-0-36" name="__codelineno-0-36"></a><span class="sd">        \]</span>
+<a id="__codelineno-0-37" name="__codelineno-0-37"></a>
+<a id="__codelineno-0-38" name="__codelineno-0-38"></a><span class="sd">        It can be checked in `toqito` that the Bell states are antidistinguishable:</span>
+<a id="__codelineno-0-39" name="__codelineno-0-39"></a>
+<a id="__codelineno-0-40" name="__codelineno-0-40"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
+<a id="__codelineno-0-41" name="__codelineno-0-41"></a><span class="sd">        from toqito.states import bell</span>
+<a id="__codelineno-0-42" name="__codelineno-0-42"></a><span class="sd">        from toqito.state_props import is_antidistinguishable</span>
+<a id="__codelineno-0-43" name="__codelineno-0-43"></a><span class="sd">        bell_states = [bell(0), bell(1), bell(2), bell(3)]</span>
+<a id="__codelineno-0-44" name="__codelineno-0-44"></a><span class="sd">        print(is_antidistinguishable(bell_states))</span>
+<a id="__codelineno-0-45" name="__codelineno-0-45"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-46" name="__codelineno-0-46"></a>
-<a id="__codelineno-0-47" name="__codelineno-0-47"></a><span class="sd">        for all \(1 \leq i \leq 4\). It can be verified that these constitute a valid set of POVMs, that is</span>
-<a id="__codelineno-0-48" name="__codelineno-0-48"></a><span class="sd">        \(\sum_{i=1}^4 M_i = \mathbb{I}_{\mathcal{X}}\) and \(M_i \in \text{Pos}(\mathcal{X})\) for all \(1</span>
-<a id="__codelineno-0-49" name="__codelineno-0-49"></a><span class="sd">        leq i \leq 4\). It may also be verified that</span>
-<a id="__codelineno-0-50" name="__codelineno-0-50"></a>
-<a id="__codelineno-0-51" name="__codelineno-0-51"></a><span class="sd">        \[</span>
-<a id="__codelineno-0-52" name="__codelineno-0-52"></a><span class="sd">            \sum_{i=1}^4 \langle M_i, u_i u_i^* \rangle = 0,</span>
-<a id="__codelineno-0-53" name="__codelineno-0-53"></a><span class="sd">        \]</span>
-<a id="__codelineno-0-54" name="__codelineno-0-54"></a>
-<a id="__codelineno-0-55" name="__codelineno-0-55"></a><span class="sd">        and hence, the Bell states are antidistinguishable.</span>
+<a id="__codelineno-0-47" name="__codelineno-0-47"></a><span class="sd">        Consider the following measurement operators</span>
+<a id="__codelineno-0-48" name="__codelineno-0-48"></a>
+<a id="__codelineno-0-49" name="__codelineno-0-49"></a><span class="sd">        \[</span>
+<a id="__codelineno-0-50" name="__codelineno-0-50"></a><span class="sd">        M_i = \frac{1}{3}\left(\mathbb{I}_{\mathcal{X}} - u_i u_i^*\right)</span>
+<a id="__codelineno-0-51" name="__codelineno-0-51"></a><span class="sd">        \]</span>
+<a id="__codelineno-0-52" name="__codelineno-0-52"></a>
+<a id="__codelineno-0-53" name="__codelineno-0-53"></a><span class="sd">        for all \(1 \leq i \leq 4\). It can be verified that these constitute a valid set of POVMs, that is</span>
+<a id="__codelineno-0-54" name="__codelineno-0-54"></a><span class="sd">        \(\sum_{i=1}^4 M_i = \mathbb{I}_{\mathcal{X}}\) and \(M_i \in \text{Pos}(\mathcal{X})\) for all \(1</span>
+<a id="__codelineno-0-55" name="__codelineno-0-55"></a><span class="sd">        leq i \leq 4\). It may also be verified that</span>
 <a id="__codelineno-0-56" name="__codelineno-0-56"></a>
-<a id="__codelineno-0-57" name="__codelineno-0-57"></a><span class="sd">    Args:</span>
-<a id="__codelineno-0-58" name="__codelineno-0-58"></a><span class="sd">        states: A set of vectors consisting of quantum states to determine the antidistinguishability of.</span>
-<a id="__codelineno-0-59" name="__codelineno-0-59"></a>
-<a id="__codelineno-0-60" name="__codelineno-0-60"></a><span class="sd">    Returns:</span>
-<a id="__codelineno-0-61" name="__codelineno-0-61"></a><span class="sd">        `True` if the vectors are antidistinguishable; `False` otherwise.</span>
+<a id="__codelineno-0-57" name="__codelineno-0-57"></a><span class="sd">        \[</span>
+<a id="__codelineno-0-58" name="__codelineno-0-58"></a><span class="sd">            \sum_{i=1}^4 \langle M_i, u_i u_i^* \rangle = 0,</span>
+<a id="__codelineno-0-59" name="__codelineno-0-59"></a><span class="sd">        \]</span>
+<a id="__codelineno-0-60" name="__codelineno-0-60"></a>
+<a id="__codelineno-0-61" name="__codelineno-0-61"></a><span class="sd">        and hence, the Bell states are antidistinguishable.</span>
 <a id="__codelineno-0-62" name="__codelineno-0-62"></a>
 <a id="__codelineno-0-63" name="__codelineno-0-63"></a><span class="sd">    &quot;&quot;&quot;</span>
 <a id="__codelineno-0-64" name="__codelineno-0-64"></a>    <span class="n">probs</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">states</span><span class="p">)</span>

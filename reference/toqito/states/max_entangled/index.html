@@ -8798,33 +8798,6 @@ and it is unnormalized (i.e. each entry in the vector is 0 or 1 and the Euclidea
 <code>sqrt(dim)</code> if <code>is_normalized = False</code>.</p>
 
 
-<p><span class="doc-section-title">Examples:</span></p>
-    <p>We can generate the canonical <span class="arithmatex">\(2\)</span>-dimensional maximally entangled state</p>
-<div class="arithmatex">\[
-    u = \frac{1}{\sqrt{2}} \left( |00 \rangle + |11 \rangle \right)
-\]</div>
-<p>using <code>|toqito⟩</code> as follows.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.states</span><span class="w"> </span><span class="kn">import</span> <span class="n">max_entangled</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nb">print</span><span class="p">(</span><span class="n">max_entangled</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
-</code></pre></div>
-<p>[[0.70710678]
- [0.        ]
- [0.        ]
- [0.70710678]]</p>
-<p>By default, the state returned in normalized, however we can generate the unnormalized state</p>
-<div class="arithmatex">\[
-    v = |00\rangle + |11 \rangle
-\]</div>
-<p>using <code>|toqito⟩</code> as follows.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.states</span><span class="w"> </span><span class="kn">import</span> <span class="n">max_entangled</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nb">print</span><span class="p">(</span><span class="n">max_entangled</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">))</span>
-</code></pre></div>
-<p>[[1.]
- [0.]
- [0.]
- [1.]]</p>
-
-
 <p><span class="doc-section-title">Parameters:</span></p>
     <ul>
         <li class="doc-section-item field-body">
@@ -8868,6 +8841,33 @@ and it is unnormalized (i.e. each entry in the vector is 0 or 1 and the Euclidea
           </div>
         </li>
     </ul>
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>We can generate the canonical <span class="arithmatex">\(2\)</span>-dimensional maximally entangled state</p>
+<div class="arithmatex">\[
+    u = \frac{1}{\sqrt{2}} \left( |00 \rangle + |11 \rangle \right)
+\]</div>
+<p>using <code>|toqito⟩</code> as follows.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.states</span><span class="w"> </span><span class="kn">import</span> <span class="n">max_entangled</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nb">print</span><span class="p">(</span><span class="n">max_entangled</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+</code></pre></div>
+<p>[[0.70710678]
+ [0.        ]
+ [0.        ]
+ [0.70710678]]</p>
+<p>By default, the state returned in normalized, however we can generate the unnormalized state</p>
+<div class="arithmatex">\[
+    v = |00\rangle + |11 \rangle
+\]</div>
+<p>using <code>|toqito⟩</code> as follows.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.states</span><span class="w"> </span><span class="kn">import</span> <span class="n">max_entangled</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nb">print</span><span class="p">(</span><span class="n">max_entangled</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">))</span>
+</code></pre></div>
+<p>[[1.]
+ [0.]
+ [0.]
+ [1.]]</p>
         <p><strong>References</strong></p>
 <p><span id="ref-toqito-states-max_entangled-max_entangled-1"><sup><a href="#cite-toqito-states-max_entangled-max_entangled-1">1</a></sup> Wikipedia. <em>Quantum entanglement</em>. <a href="https://en.wikipedia.org/wiki/Quantum_entanglement">link</a>.</span></p>
 
@@ -8942,41 +8942,41 @@ and it is unnormalized (i.e. each entry in the vector is 0 or 1 and the Euclidea
 <a id="__codelineno-0-15" name="__codelineno-0-15"></a><span class="sd">    and it is unnormalized (i.e. each entry in the vector is 0 or 1 and the Euclidean norm of the vector is</span>
 <a id="__codelineno-0-16" name="__codelineno-0-16"></a><span class="sd">    `sqrt(dim)` if `is_normalized = False`.</span>
 <a id="__codelineno-0-17" name="__codelineno-0-17"></a>
-<a id="__codelineno-0-18" name="__codelineno-0-18"></a><span class="sd">    Examples:</span>
-<a id="__codelineno-0-19" name="__codelineno-0-19"></a><span class="sd">        We can generate the canonical \(2\)-dimensional maximally entangled state</span>
-<a id="__codelineno-0-20" name="__codelineno-0-20"></a>
-<a id="__codelineno-0-21" name="__codelineno-0-21"></a><span class="sd">        \[</span>
-<a id="__codelineno-0-22" name="__codelineno-0-22"></a><span class="sd">            u = \frac{1}{\sqrt{2}} \left( |00 \rangle + |11 \rangle \right)</span>
-<a id="__codelineno-0-23" name="__codelineno-0-23"></a><span class="sd">        \]</span>
-<a id="__codelineno-0-24" name="__codelineno-0-24"></a>
-<a id="__codelineno-0-25" name="__codelineno-0-25"></a><span class="sd">        using `|toqito⟩` as follows.</span>
-<a id="__codelineno-0-26" name="__codelineno-0-26"></a>
-<a id="__codelineno-0-27" name="__codelineno-0-27"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-28" name="__codelineno-0-28"></a><span class="sd">        from toqito.states import max_entangled</span>
-<a id="__codelineno-0-29" name="__codelineno-0-29"></a><span class="sd">        print(max_entangled(2))</span>
-<a id="__codelineno-0-30" name="__codelineno-0-30"></a><span class="sd">        ```</span>
-<a id="__codelineno-0-31" name="__codelineno-0-31"></a>
+<a id="__codelineno-0-18" name="__codelineno-0-18"></a><span class="sd">    Args:</span>
+<a id="__codelineno-0-19" name="__codelineno-0-19"></a><span class="sd">        dim: Dimension of the entangled state.</span>
+<a id="__codelineno-0-20" name="__codelineno-0-20"></a><span class="sd">        is_sparse: `True` if vector is sparse and `False` otherwise.</span>
+<a id="__codelineno-0-21" name="__codelineno-0-21"></a><span class="sd">        is_normalized: `True` if vector is normalized and `False` otherwise.</span>
+<a id="__codelineno-0-22" name="__codelineno-0-22"></a>
+<a id="__codelineno-0-23" name="__codelineno-0-23"></a><span class="sd">    Returns:</span>
+<a id="__codelineno-0-24" name="__codelineno-0-24"></a><span class="sd">        The maximally entangled state of dimension `dim`.</span>
+<a id="__codelineno-0-25" name="__codelineno-0-25"></a>
+<a id="__codelineno-0-26" name="__codelineno-0-26"></a><span class="sd">    Examples:</span>
+<a id="__codelineno-0-27" name="__codelineno-0-27"></a><span class="sd">        We can generate the canonical \(2\)-dimensional maximally entangled state</span>
+<a id="__codelineno-0-28" name="__codelineno-0-28"></a>
+<a id="__codelineno-0-29" name="__codelineno-0-29"></a><span class="sd">        \[</span>
+<a id="__codelineno-0-30" name="__codelineno-0-30"></a><span class="sd">            u = \frac{1}{\sqrt{2}} \left( |00 \rangle + |11 \rangle \right)</span>
+<a id="__codelineno-0-31" name="__codelineno-0-31"></a><span class="sd">        \]</span>
 <a id="__codelineno-0-32" name="__codelineno-0-32"></a>
-<a id="__codelineno-0-33" name="__codelineno-0-33"></a><span class="sd">        By default, the state returned in normalized, however we can generate the unnormalized state</span>
+<a id="__codelineno-0-33" name="__codelineno-0-33"></a><span class="sd">        using `|toqito⟩` as follows.</span>
 <a id="__codelineno-0-34" name="__codelineno-0-34"></a>
-<a id="__codelineno-0-35" name="__codelineno-0-35"></a><span class="sd">        \[</span>
-<a id="__codelineno-0-36" name="__codelineno-0-36"></a><span class="sd">            v = |00\rangle + |11 \rangle</span>
-<a id="__codelineno-0-37" name="__codelineno-0-37"></a><span class="sd">        \]</span>
-<a id="__codelineno-0-38" name="__codelineno-0-38"></a>
-<a id="__codelineno-0-39" name="__codelineno-0-39"></a><span class="sd">        using `|toqito⟩` as follows.</span>
+<a id="__codelineno-0-35" name="__codelineno-0-35"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
+<a id="__codelineno-0-36" name="__codelineno-0-36"></a><span class="sd">        from toqito.states import max_entangled</span>
+<a id="__codelineno-0-37" name="__codelineno-0-37"></a><span class="sd">        print(max_entangled(2))</span>
+<a id="__codelineno-0-38" name="__codelineno-0-38"></a><span class="sd">        ```</span>
+<a id="__codelineno-0-39" name="__codelineno-0-39"></a>
 <a id="__codelineno-0-40" name="__codelineno-0-40"></a>
-<a id="__codelineno-0-41" name="__codelineno-0-41"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-42" name="__codelineno-0-42"></a><span class="sd">        from toqito.states import max_entangled</span>
-<a id="__codelineno-0-43" name="__codelineno-0-43"></a><span class="sd">        print(max_entangled(2, False, False))</span>
-<a id="__codelineno-0-44" name="__codelineno-0-44"></a><span class="sd">        ```</span>
-<a id="__codelineno-0-45" name="__codelineno-0-45"></a>
-<a id="__codelineno-0-46" name="__codelineno-0-46"></a><span class="sd">    Args:</span>
-<a id="__codelineno-0-47" name="__codelineno-0-47"></a><span class="sd">        dim: Dimension of the entangled state.</span>
-<a id="__codelineno-0-48" name="__codelineno-0-48"></a><span class="sd">        is_sparse: `True` if vector is sparse and `False` otherwise.</span>
-<a id="__codelineno-0-49" name="__codelineno-0-49"></a><span class="sd">        is_normalized: `True` if vector is normalized and `False` otherwise.</span>
-<a id="__codelineno-0-50" name="__codelineno-0-50"></a>
-<a id="__codelineno-0-51" name="__codelineno-0-51"></a><span class="sd">    Returns:</span>
-<a id="__codelineno-0-52" name="__codelineno-0-52"></a><span class="sd">        The maximally entangled state of dimension `dim`.</span>
+<a id="__codelineno-0-41" name="__codelineno-0-41"></a><span class="sd">        By default, the state returned in normalized, however we can generate the unnormalized state</span>
+<a id="__codelineno-0-42" name="__codelineno-0-42"></a>
+<a id="__codelineno-0-43" name="__codelineno-0-43"></a><span class="sd">        \[</span>
+<a id="__codelineno-0-44" name="__codelineno-0-44"></a><span class="sd">            v = |00\rangle + |11 \rangle</span>
+<a id="__codelineno-0-45" name="__codelineno-0-45"></a><span class="sd">        \]</span>
+<a id="__codelineno-0-46" name="__codelineno-0-46"></a>
+<a id="__codelineno-0-47" name="__codelineno-0-47"></a><span class="sd">        using `|toqito⟩` as follows.</span>
+<a id="__codelineno-0-48" name="__codelineno-0-48"></a>
+<a id="__codelineno-0-49" name="__codelineno-0-49"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
+<a id="__codelineno-0-50" name="__codelineno-0-50"></a><span class="sd">        from toqito.states import max_entangled</span>
+<a id="__codelineno-0-51" name="__codelineno-0-51"></a><span class="sd">        print(max_entangled(2, False, False))</span>
+<a id="__codelineno-0-52" name="__codelineno-0-52"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-53" name="__codelineno-0-53"></a>
 <a id="__codelineno-0-54" name="__codelineno-0-54"></a><span class="sd">    &quot;&quot;&quot;</span>
 <a id="__codelineno-0-55" name="__codelineno-0-55"></a>    <span class="c1"># Allow both standard int and numpy integer types</span>

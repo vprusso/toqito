@@ -9039,23 +9039,6 @@ The method used to determine the existence of a perfect commuting strategy was o
 in <sup><a id="cite-toqito-nonlocal_games-binary_constraint_system_game-generate_solution_group-1" href="#ref-toqito-nonlocal_games-binary_constraint_system_game-generate_solution_group-1">1</a></sup>.</p>
 
 
-<p><span class="doc-section-title">Examples:</span></p>
-    <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.nonlocal_games.binary_constraint_system_game</span><span class="w"> </span><span class="kn">import</span> <span class="n">generate_solution_group</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">M</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="n">row_masks</span><span class="p">,</span> <span class="n">parity</span> <span class="o">=</span> <span class="n">generate_solution_group</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;```&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="nb">print</span><span class="p">(</span><span class="n">row_masks</span><span class="p">)</span>  <span class="c1"># Output: [3, 6]</span>
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="nb">print</span><span class="p">(</span><span class="n">parity</span><span class="p">)</span>     <span class="c1"># Output: [0, 1]</span>
-<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;```&quot;</span><span class="p">)</span>
-</code></pre></div>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>[3, 6]
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>[0, 1]
-</code></pre></div>
-
-
 <p><span class="doc-section-title">Parameters:</span></p>
     <ul>
         <li class="doc-section-item field-body">
@@ -9094,6 +9077,23 @@ in <sup><a id="cite-toqito-nonlocal_games-binary_constraint_system_game-generate
           </div>
         </li>
     </ul>
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.nonlocal_games.binary_constraint_system_game</span><span class="w"> </span><span class="kn">import</span> <span class="n">generate_solution_group</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">M</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="n">row_masks</span><span class="p">,</span> <span class="n">parity</span> <span class="o">=</span> <span class="n">generate_solution_group</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;```&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="nb">print</span><span class="p">(</span><span class="n">row_masks</span><span class="p">)</span>  <span class="c1"># Output: [3, 6]</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="nb">print</span><span class="p">(</span><span class="n">parity</span><span class="p">)</span>     <span class="c1"># Output: [0, 1]</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;```&quot;</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>[3, 6]
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>[0, 1]
+</code></pre></div>
         <p><strong>References</strong></p>
 <p><span id="ref-toqito-nonlocal_games-binary_constraint_system_game-generate_solution_group-1"><sup><a href="#cite-toqito-nonlocal_games-binary_constraint_system_game-generate_solution_group-1">1</a></sup> Cleve, Richard and Liu, Li and Slofstra, William. <em>Perfect commuting-operator strategies for linear system games</em>. <strong>Journal of Mathematical Physics</strong>. vol. 58. (2016). <a href="https://doi.org/10.1063/1.4973422">doi:10.1063/1.4973422</a>.</span></p>
 
@@ -9151,27 +9151,27 @@ in <sup><a id="cite-toqito-nonlocal_games-binary_constraint_system_game-generate
 <a id="__codelineno-0-72" name="__codelineno-0-72"></a><span class="sd">    The method used to determine the existence of a perfect commuting strategy was originally introduced</span>
 <a id="__codelineno-0-73" name="__codelineno-0-73"></a><span class="sd">    in [@cleve2016perfect].</span>
 <a id="__codelineno-0-74" name="__codelineno-0-74"></a>
-<a id="__codelineno-0-75" name="__codelineno-0-75"></a><span class="sd">    Examples:</span>
-<a id="__codelineno-0-76" name="__codelineno-0-76"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-77" name="__codelineno-0-77"></a><span class="sd">        import numpy as np</span>
-<a id="__codelineno-0-78" name="__codelineno-0-78"></a><span class="sd">        from toqito.nonlocal_games.binary_constraint_system_game import generate_solution_group</span>
-<a id="__codelineno-0-79" name="__codelineno-0-79"></a>
-<a id="__codelineno-0-80" name="__codelineno-0-80"></a><span class="sd">        M = np.array([[1, 1, 0], [0, 1, 1]])</span>
-<a id="__codelineno-0-81" name="__codelineno-0-81"></a><span class="sd">        b = np.array([0, 1])</span>
-<a id="__codelineno-0-82" name="__codelineno-0-82"></a><span class="sd">        row_masks, parity = generate_solution_group(M, b)</span>
-<a id="__codelineno-0-83" name="__codelineno-0-83"></a><span class="sd">        print(&quot;```&quot;)</span>
-<a id="__codelineno-0-84" name="__codelineno-0-84"></a><span class="sd">        print(row_masks)  # Output: [3, 6]</span>
-<a id="__codelineno-0-85" name="__codelineno-0-85"></a><span class="sd">        print(parity)     # Output: [0, 1]</span>
-<a id="__codelineno-0-86" name="__codelineno-0-86"></a><span class="sd">        print(&quot;```&quot;)</span>
-<a id="__codelineno-0-87" name="__codelineno-0-87"></a><span class="sd">        ```</span>
-<a id="__codelineno-0-88" name="__codelineno-0-88"></a>
-<a id="__codelineno-0-89" name="__codelineno-0-89"></a><span class="sd">    Args:</span>
-<a id="__codelineno-0-90" name="__codelineno-0-90"></a><span class="sd">        M: A binary matrix of shape (m, n).Each row encodes which variables appear in a constraint.</span>
-<a id="__codelineno-0-91" name="__codelineno-0-91"></a><span class="sd">        b: A binary vector of length m.Each entry determines the parity for its corresponding constraint row.</span>
-<a id="__codelineno-0-92" name="__codelineno-0-92"></a>
-<a id="__codelineno-0-93" name="__codelineno-0-93"></a><span class="sd">    Returns:</span>
-<a id="__codelineno-0-94" name="__codelineno-0-94"></a><span class="sd">        A list of integer bitmasks.</span>
-<a id="__codelineno-0-95" name="__codelineno-0-95"></a><span class="sd">        A list of parity values.</span>
+<a id="__codelineno-0-75" name="__codelineno-0-75"></a><span class="sd">    Args:</span>
+<a id="__codelineno-0-76" name="__codelineno-0-76"></a><span class="sd">        M: A binary matrix of shape (m, n).Each row encodes which variables appear in a constraint.</span>
+<a id="__codelineno-0-77" name="__codelineno-0-77"></a><span class="sd">        b: A binary vector of length m.Each entry determines the parity for its corresponding constraint row.</span>
+<a id="__codelineno-0-78" name="__codelineno-0-78"></a>
+<a id="__codelineno-0-79" name="__codelineno-0-79"></a><span class="sd">    Returns:</span>
+<a id="__codelineno-0-80" name="__codelineno-0-80"></a><span class="sd">        A list of integer bitmasks.</span>
+<a id="__codelineno-0-81" name="__codelineno-0-81"></a><span class="sd">        A list of parity values.</span>
+<a id="__codelineno-0-82" name="__codelineno-0-82"></a>
+<a id="__codelineno-0-83" name="__codelineno-0-83"></a><span class="sd">    Examples:</span>
+<a id="__codelineno-0-84" name="__codelineno-0-84"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
+<a id="__codelineno-0-85" name="__codelineno-0-85"></a><span class="sd">        import numpy as np</span>
+<a id="__codelineno-0-86" name="__codelineno-0-86"></a><span class="sd">        from toqito.nonlocal_games.binary_constraint_system_game import generate_solution_group</span>
+<a id="__codelineno-0-87" name="__codelineno-0-87"></a>
+<a id="__codelineno-0-88" name="__codelineno-0-88"></a><span class="sd">        M = np.array([[1, 1, 0], [0, 1, 1]])</span>
+<a id="__codelineno-0-89" name="__codelineno-0-89"></a><span class="sd">        b = np.array([0, 1])</span>
+<a id="__codelineno-0-90" name="__codelineno-0-90"></a><span class="sd">        row_masks, parity = generate_solution_group(M, b)</span>
+<a id="__codelineno-0-91" name="__codelineno-0-91"></a><span class="sd">        print(&quot;```&quot;)</span>
+<a id="__codelineno-0-92" name="__codelineno-0-92"></a><span class="sd">        print(row_masks)  # Output: [3, 6]</span>
+<a id="__codelineno-0-93" name="__codelineno-0-93"></a><span class="sd">        print(parity)     # Output: [0, 1]</span>
+<a id="__codelineno-0-94" name="__codelineno-0-94"></a><span class="sd">        print(&quot;```&quot;)</span>
+<a id="__codelineno-0-95" name="__codelineno-0-95"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-96" name="__codelineno-0-96"></a>
 <a id="__codelineno-0-97" name="__codelineno-0-97"></a><span class="sd">    &quot;&quot;&quot;</span>
 <a id="__codelineno-0-98" name="__codelineno-0-98"></a>    <span class="c1"># Ensure M and b are binary.</span>

@@ -8797,66 +8797,6 @@ can be used as a check to determine if the operator is entangled or not.</p>
 <p>This function was adapted from QETLAB.</p>
 
 
-<p><span class="doc-section-title">Examples:</span></p>
-    <p>2-qubit symmetric extension:</p>
-<p>In <sup><a id="cite-toqito-state_props-has_symmetric_extension-has_symmetric_extension-2" href="#ref-toqito-state_props-has_symmetric_extension-has_symmetric_extension-2">2</a></sup>, it was shown that a 2-qubit state <span class="arithmatex">\(\rho_{AB}\)</span> has a
-symmetric extension if and only if</p>
-<div class="arithmatex">\[
-    \text{Tr}(\rho_B^2) \geq \text{Tr}(\rho_{AB}^2) - 4 \sqrt{\text{det}(\rho_{AB})}.
-\]</div>
-<p>This closed-form equation is much quicker to check than running the semidefinite program.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.state_props</span><span class="w"> </span><span class="kn">import</span> <span class="n">has_symmetric_extension</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.matrix_ops</span><span class="w"> </span><span class="kn">import</span> <span class="n">partial_trace</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">rho</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="c1"># Show the closed-form equation holds</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="nb">print</span><span class="p">(</span>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="n">np</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">matrix_power</span><span class="p">(</span><span class="n">partial_trace</span><span class="p">(</span><span class="n">rho</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="mi">2</span><span class="p">))</span>
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="o">&gt;=</span> <span class="n">np</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="n">rho</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">det</span><span class="p">(</span><span class="n">rho</span><span class="p">)))</span>
-</code></pre></div>
-<p>True</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># Now show that the `has_symmetric_extension` function recognizes this case.</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nb">print</span><span class="p">(</span><span class="n">has_symmetric_extension</span><span class="p">(</span><span class="n">rho</span><span class="p">))</span>
-</code></pre></div>
-<p>True</p>
-<p>Higher qubit systems:</p>
-<p>Consider a density operator corresponding to one of the Bell states.</p>
-<div class="arithmatex">\[
-    \rho = \frac{1}{2} \begin{pmatrix}
-                        1 &amp; 0 &amp; 0 &amp; 1 \\
-                        0 &amp; 0 &amp; 0 &amp; 0 \\
-                        0 &amp; 0 &amp; 0 &amp; 0 \\
-                        1 &amp; 0 &amp; 0 &amp; 1
-                       \end{pmatrix}
-\]</div>
-<p>To make this state over more than just two qubits, let's construct the following state</p>
-<div class="arithmatex">\[
-    \sigma = \rho \otimes \rho.
-\]</div>
-<p>As the state <span class="arithmatex">\(\sigma\)</span> is entangled, there should not exist a symmetric extension at some
-level. We see this being the case for a relatively low level of the hierarchy.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.states</span><span class="w"> </span><span class="kn">import</span> <span class="n">bell</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.state_props</span><span class="w"> </span><span class="kn">import</span> <span class="n">has_symmetric_extension</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">rho</span> <span class="o">=</span> <span class="n">bell</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">@</span> <span class="n">bell</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="n">sigma</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">kron</span><span class="p">(</span><span class="n">rho</span><span class="p">,</span> <span class="n">rho</span><span class="p">)</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="nb">print</span><span class="p">(</span><span class="n">has_symmetric_extension</span><span class="p">(</span><span class="n">sigma</span><span class="p">))</span>
-</code></pre></div>
-<p>True</p>
-
-
-<p><span class="doc-section-title">Raises:</span></p>
-    <ul>
-        <li class="doc-section-item field-body">
-              <code><span title="ValueError">ValueError</span></code>
-            –
-          <div class="doc-md-description">
-            <p>If dimension does not evenly divide matrix length.</p>
-          </div>
-        </li>
-    </ul>
-
-
 <p><span class="doc-section-title">Parameters:</span></p>
     <ul>
         <li class="doc-section-item field-body">
@@ -8920,6 +8860,66 @@ level. We see this being the case for a relatively low level of the hierarchy.</
           </div>
         </li>
     </ul>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+              <code><span title="ValueError">ValueError</span></code>
+            –
+          <div class="doc-md-description">
+            <p>If dimension does not evenly divide matrix length.</p>
+          </div>
+        </li>
+    </ul>
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>2-qubit symmetric extension:</p>
+<p>In <sup><a id="cite-toqito-state_props-has_symmetric_extension-has_symmetric_extension-2" href="#ref-toqito-state_props-has_symmetric_extension-has_symmetric_extension-2">2</a></sup>, it was shown that a 2-qubit state <span class="arithmatex">\(\rho_{AB}\)</span> has a
+symmetric extension if and only if</p>
+<div class="arithmatex">\[
+    \text{Tr}(\rho_B^2) \geq \text{Tr}(\rho_{AB}^2) - 4 \sqrt{\text{det}(\rho_{AB})}.
+\]</div>
+<p>This closed-form equation is much quicker to check than running the semidefinite program.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.state_props</span><span class="w"> </span><span class="kn">import</span> <span class="n">has_symmetric_extension</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.matrix_ops</span><span class="w"> </span><span class="kn">import</span> <span class="n">partial_trace</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">rho</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="c1"># Show the closed-form equation holds</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="nb">print</span><span class="p">(</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="n">np</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">matrix_power</span><span class="p">(</span><span class="n">partial_trace</span><span class="p">(</span><span class="n">rho</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="mi">2</span><span class="p">))</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="o">&gt;=</span> <span class="n">np</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="n">rho</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">det</span><span class="p">(</span><span class="n">rho</span><span class="p">)))</span>
+</code></pre></div>
+<p>True</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># Now show that the `has_symmetric_extension` function recognizes this case.</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nb">print</span><span class="p">(</span><span class="n">has_symmetric_extension</span><span class="p">(</span><span class="n">rho</span><span class="p">))</span>
+</code></pre></div>
+<p>True</p>
+<p>Higher qubit systems:</p>
+<p>Consider a density operator corresponding to one of the Bell states.</p>
+<div class="arithmatex">\[
+    \rho = \frac{1}{2} \begin{pmatrix}
+                        1 &amp; 0 &amp; 0 &amp; 1 \\
+                        0 &amp; 0 &amp; 0 &amp; 0 \\
+                        0 &amp; 0 &amp; 0 &amp; 0 \\
+                        1 &amp; 0 &amp; 0 &amp; 1
+                       \end{pmatrix}
+\]</div>
+<p>To make this state over more than just two qubits, let's construct the following state</p>
+<div class="arithmatex">\[
+    \sigma = \rho \otimes \rho.
+\]</div>
+<p>As the state <span class="arithmatex">\(\sigma\)</span> is entangled, there should not exist a symmetric extension at some
+level. We see this being the case for a relatively low level of the hierarchy.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.states</span><span class="w"> </span><span class="kn">import</span> <span class="n">bell</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.state_props</span><span class="w"> </span><span class="kn">import</span> <span class="n">has_symmetric_extension</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">rho</span> <span class="o">=</span> <span class="n">bell</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">@</span> <span class="n">bell</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="n">sigma</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">kron</span><span class="p">(</span><span class="n">rho</span><span class="p">,</span> <span class="n">rho</span><span class="p">)</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="nb">print</span><span class="p">(</span><span class="n">has_symmetric_extension</span><span class="p">(</span><span class="n">sigma</span><span class="p">))</span>
+</code></pre></div>
+<p>True</p>
         <p><strong>References</strong></p>
 <p><span id="ref-toqito-state_props-has_symmetric_extension-has_symmetric_extension-1"><sup><a href="#cite-toqito-state_props-has_symmetric_extension-has_symmetric_extension-1">1</a></sup> Doherty, A. and Parrilo, Pablo and Spedalieri, Federico. <em>Distinguishing Separable and Entangled States</em>. <strong>Physical Review Letters</strong>. vol. 88(18). (2002). <a href="https://doi.org/10.1103/physrevlett.88.187904">doi:10.1103/physrevlett.88.187904</a>.</span><br>
 <span id="ref-toqito-state_props-has_symmetric_extension-has_symmetric_extension-2"><sup><a href="#cite-toqito-state_props-has_symmetric_extension-has_symmetric_extension-2">2</a></sup> Chen, Jianxin and Ji, Zhengfeng and Kribs, David and Lütkenhaus, Norbert and Zeng, Bei. <em>Symmetric extension of two-qubit states</em>. <strong>Physical Review A</strong>. vol. 90(3). (2014). <a href="https://doi.org/10.1103/physreva.90.032318">doi:10.1103/physreva.90.032318</a>.</span></p>
@@ -9099,77 +9099,77 @@ level. We see this being the case for a relatively low level of the hierarchy.</
 <a id="__codelineno-0-27" name="__codelineno-0-27"></a>
 <a id="__codelineno-0-28" name="__codelineno-0-28"></a><span class="sd">    This function was adapted from QETLAB.</span>
 <a id="__codelineno-0-29" name="__codelineno-0-29"></a>
-<a id="__codelineno-0-30" name="__codelineno-0-30"></a><span class="sd">    Examples:</span>
-<a id="__codelineno-0-31" name="__codelineno-0-31"></a><span class="sd">        2-qubit symmetric extension:</span>
-<a id="__codelineno-0-32" name="__codelineno-0-32"></a>
-<a id="__codelineno-0-33" name="__codelineno-0-33"></a><span class="sd">        In [@chen2014symmetric], it was shown that a 2-qubit state \(\rho_{AB}\) has a</span>
-<a id="__codelineno-0-34" name="__codelineno-0-34"></a><span class="sd">        symmetric extension if and only if</span>
-<a id="__codelineno-0-35" name="__codelineno-0-35"></a>
-<a id="__codelineno-0-36" name="__codelineno-0-36"></a><span class="sd">        \[</span>
-<a id="__codelineno-0-37" name="__codelineno-0-37"></a><span class="sd">            \text{Tr}(\rho_B^2) \geq \text{Tr}(\rho_{AB}^2) - 4 \sqrt{\text{det}(\rho_{AB})}.</span>
-<a id="__codelineno-0-38" name="__codelineno-0-38"></a><span class="sd">        \]</span>
+<a id="__codelineno-0-30" name="__codelineno-0-30"></a><span class="sd">    Args:</span>
+<a id="__codelineno-0-31" name="__codelineno-0-31"></a><span class="sd">        rho: A matrix or vector.</span>
+<a id="__codelineno-0-32" name="__codelineno-0-32"></a><span class="sd">        level: Level of the hierarchy to compute.</span>
+<a id="__codelineno-0-33" name="__codelineno-0-33"></a><span class="sd">        dim: The default has both subsystems of equal dimension.</span>
+<a id="__codelineno-0-34" name="__codelineno-0-34"></a><span class="sd">        ppt: If `True`, this enforces that the symmetric extension must be PPT.</span>
+<a id="__codelineno-0-35" name="__codelineno-0-35"></a><span class="sd">        tol: Tolerance when determining whether a symmetric extension exists.</span>
+<a id="__codelineno-0-36" name="__codelineno-0-36"></a>
+<a id="__codelineno-0-37" name="__codelineno-0-37"></a><span class="sd">    Returns:</span>
+<a id="__codelineno-0-38" name="__codelineno-0-38"></a><span class="sd">        `True` if `mat` has a symmetric extension; `False` otherwise.</span>
 <a id="__codelineno-0-39" name="__codelineno-0-39"></a>
-<a id="__codelineno-0-40" name="__codelineno-0-40"></a><span class="sd">        This closed-form equation is much quicker to check than running the semidefinite program.</span>
-<a id="__codelineno-0-41" name="__codelineno-0-41"></a>
-<a id="__codelineno-0-42" name="__codelineno-0-42"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; session=&quot;has_symmetric_example&quot;</span>
-<a id="__codelineno-0-43" name="__codelineno-0-43"></a><span class="sd">        import numpy as np</span>
-<a id="__codelineno-0-44" name="__codelineno-0-44"></a><span class="sd">        from toqito.state_props import has_symmetric_extension</span>
-<a id="__codelineno-0-45" name="__codelineno-0-45"></a><span class="sd">        from toqito.matrix_ops import partial_trace</span>
-<a id="__codelineno-0-46" name="__codelineno-0-46"></a><span class="sd">        rho = np.array([[1, 0, 0, -1], [0, 1, 1/2, 0], [0, 1/2, 1, 0], [-1, 0, 0, 1]])</span>
-<a id="__codelineno-0-47" name="__codelineno-0-47"></a><span class="sd">        # Show the closed-form equation holds</span>
-<a id="__codelineno-0-48" name="__codelineno-0-48"></a><span class="sd">        print(</span>
-<a id="__codelineno-0-49" name="__codelineno-0-49"></a><span class="sd">        np.trace(np.linalg.matrix_power(partial_trace(rho, 1), 2))</span>
-<a id="__codelineno-0-50" name="__codelineno-0-50"></a><span class="sd">        &gt;= np.trace(rho**2) - 4 * np.sqrt(np.linalg.det(rho)))</span>
-<a id="__codelineno-0-51" name="__codelineno-0-51"></a><span class="sd">        ```</span>
+<a id="__codelineno-0-40" name="__codelineno-0-40"></a><span class="sd">    Raises:</span>
+<a id="__codelineno-0-41" name="__codelineno-0-41"></a><span class="sd">        ValueError: If dimension does not evenly divide matrix length.</span>
+<a id="__codelineno-0-42" name="__codelineno-0-42"></a>
+<a id="__codelineno-0-43" name="__codelineno-0-43"></a><span class="sd">    Examples:</span>
+<a id="__codelineno-0-44" name="__codelineno-0-44"></a><span class="sd">        2-qubit symmetric extension:</span>
+<a id="__codelineno-0-45" name="__codelineno-0-45"></a>
+<a id="__codelineno-0-46" name="__codelineno-0-46"></a><span class="sd">        In [@chen2014symmetric], it was shown that a 2-qubit state \(\rho_{AB}\) has a</span>
+<a id="__codelineno-0-47" name="__codelineno-0-47"></a><span class="sd">        symmetric extension if and only if</span>
+<a id="__codelineno-0-48" name="__codelineno-0-48"></a>
+<a id="__codelineno-0-49" name="__codelineno-0-49"></a><span class="sd">        \[</span>
+<a id="__codelineno-0-50" name="__codelineno-0-50"></a><span class="sd">            \text{Tr}(\rho_B^2) \geq \text{Tr}(\rho_{AB}^2) - 4 \sqrt{\text{det}(\rho_{AB})}.</span>
+<a id="__codelineno-0-51" name="__codelineno-0-51"></a><span class="sd">        \]</span>
 <a id="__codelineno-0-52" name="__codelineno-0-52"></a>
-<a id="__codelineno-0-53" name="__codelineno-0-53"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; session=&quot;has_symmetric_example&quot;</span>
-<a id="__codelineno-0-54" name="__codelineno-0-54"></a><span class="sd">        # Now show that the `has_symmetric_extension` function recognizes this case.</span>
-<a id="__codelineno-0-55" name="__codelineno-0-55"></a><span class="sd">        print(has_symmetric_extension(rho))</span>
-<a id="__codelineno-0-56" name="__codelineno-0-56"></a><span class="sd">        ```</span>
-<a id="__codelineno-0-57" name="__codelineno-0-57"></a>
-<a id="__codelineno-0-58" name="__codelineno-0-58"></a><span class="sd">        Higher qubit systems:</span>
-<a id="__codelineno-0-59" name="__codelineno-0-59"></a>
-<a id="__codelineno-0-60" name="__codelineno-0-60"></a><span class="sd">        Consider a density operator corresponding to one of the Bell states.</span>
-<a id="__codelineno-0-61" name="__codelineno-0-61"></a>
-<a id="__codelineno-0-62" name="__codelineno-0-62"></a><span class="sd">        \[</span>
-<a id="__codelineno-0-63" name="__codelineno-0-63"></a><span class="sd">            \rho = \frac{1}{2} \begin{pmatrix}</span>
-<a id="__codelineno-0-64" name="__codelineno-0-64"></a><span class="sd">                                1 &amp; 0 &amp; 0 &amp; 1 \\</span>
-<a id="__codelineno-0-65" name="__codelineno-0-65"></a><span class="sd">                                0 &amp; 0 &amp; 0 &amp; 0 \\</span>
-<a id="__codelineno-0-66" name="__codelineno-0-66"></a><span class="sd">                                0 &amp; 0 &amp; 0 &amp; 0 \\</span>
-<a id="__codelineno-0-67" name="__codelineno-0-67"></a><span class="sd">                                1 &amp; 0 &amp; 0 &amp; 1</span>
-<a id="__codelineno-0-68" name="__codelineno-0-68"></a><span class="sd">                               \end{pmatrix}</span>
-<a id="__codelineno-0-69" name="__codelineno-0-69"></a><span class="sd">        \]</span>
+<a id="__codelineno-0-53" name="__codelineno-0-53"></a><span class="sd">        This closed-form equation is much quicker to check than running the semidefinite program.</span>
+<a id="__codelineno-0-54" name="__codelineno-0-54"></a>
+<a id="__codelineno-0-55" name="__codelineno-0-55"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; session=&quot;has_symmetric_example&quot;</span>
+<a id="__codelineno-0-56" name="__codelineno-0-56"></a><span class="sd">        import numpy as np</span>
+<a id="__codelineno-0-57" name="__codelineno-0-57"></a><span class="sd">        from toqito.state_props import has_symmetric_extension</span>
+<a id="__codelineno-0-58" name="__codelineno-0-58"></a><span class="sd">        from toqito.matrix_ops import partial_trace</span>
+<a id="__codelineno-0-59" name="__codelineno-0-59"></a><span class="sd">        rho = np.array([[1, 0, 0, -1], [0, 1, 1/2, 0], [0, 1/2, 1, 0], [-1, 0, 0, 1]])</span>
+<a id="__codelineno-0-60" name="__codelineno-0-60"></a><span class="sd">        # Show the closed-form equation holds</span>
+<a id="__codelineno-0-61" name="__codelineno-0-61"></a><span class="sd">        print(</span>
+<a id="__codelineno-0-62" name="__codelineno-0-62"></a><span class="sd">        np.trace(np.linalg.matrix_power(partial_trace(rho, 1), 2))</span>
+<a id="__codelineno-0-63" name="__codelineno-0-63"></a><span class="sd">        &gt;= np.trace(rho**2) - 4 * np.sqrt(np.linalg.det(rho)))</span>
+<a id="__codelineno-0-64" name="__codelineno-0-64"></a><span class="sd">        ```</span>
+<a id="__codelineno-0-65" name="__codelineno-0-65"></a>
+<a id="__codelineno-0-66" name="__codelineno-0-66"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; session=&quot;has_symmetric_example&quot;</span>
+<a id="__codelineno-0-67" name="__codelineno-0-67"></a><span class="sd">        # Now show that the `has_symmetric_extension` function recognizes this case.</span>
+<a id="__codelineno-0-68" name="__codelineno-0-68"></a><span class="sd">        print(has_symmetric_extension(rho))</span>
+<a id="__codelineno-0-69" name="__codelineno-0-69"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-70" name="__codelineno-0-70"></a>
-<a id="__codelineno-0-71" name="__codelineno-0-71"></a><span class="sd">        To make this state over more than just two qubits, let&#39;s construct the following state</span>
+<a id="__codelineno-0-71" name="__codelineno-0-71"></a><span class="sd">        Higher qubit systems:</span>
 <a id="__codelineno-0-72" name="__codelineno-0-72"></a>
-<a id="__codelineno-0-73" name="__codelineno-0-73"></a><span class="sd">        \[</span>
-<a id="__codelineno-0-74" name="__codelineno-0-74"></a><span class="sd">            \sigma = \rho \otimes \rho.</span>
-<a id="__codelineno-0-75" name="__codelineno-0-75"></a><span class="sd">        \]</span>
-<a id="__codelineno-0-76" name="__codelineno-0-76"></a>
-<a id="__codelineno-0-77" name="__codelineno-0-77"></a><span class="sd">        As the state \(\sigma\) is entangled, there should not exist a symmetric extension at some</span>
-<a id="__codelineno-0-78" name="__codelineno-0-78"></a><span class="sd">        level. We see this being the case for a relatively low level of the hierarchy.</span>
-<a id="__codelineno-0-79" name="__codelineno-0-79"></a>
-<a id="__codelineno-0-80" name="__codelineno-0-80"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-81" name="__codelineno-0-81"></a><span class="sd">        import numpy as np</span>
-<a id="__codelineno-0-82" name="__codelineno-0-82"></a><span class="sd">        from toqito.states import bell</span>
-<a id="__codelineno-0-83" name="__codelineno-0-83"></a><span class="sd">        from toqito.state_props import has_symmetric_extension</span>
-<a id="__codelineno-0-84" name="__codelineno-0-84"></a><span class="sd">        rho = bell(0) @ bell(0).conj().T</span>
-<a id="__codelineno-0-85" name="__codelineno-0-85"></a><span class="sd">        sigma = np.kron(rho, rho)</span>
-<a id="__codelineno-0-86" name="__codelineno-0-86"></a><span class="sd">        print(has_symmetric_extension(sigma))</span>
-<a id="__codelineno-0-87" name="__codelineno-0-87"></a><span class="sd">        ```</span>
-<a id="__codelineno-0-88" name="__codelineno-0-88"></a>
-<a id="__codelineno-0-89" name="__codelineno-0-89"></a><span class="sd">    Raises:</span>
-<a id="__codelineno-0-90" name="__codelineno-0-90"></a><span class="sd">        ValueError: If dimension does not evenly divide matrix length.</span>
-<a id="__codelineno-0-91" name="__codelineno-0-91"></a>
-<a id="__codelineno-0-92" name="__codelineno-0-92"></a><span class="sd">    Args:</span>
-<a id="__codelineno-0-93" name="__codelineno-0-93"></a><span class="sd">        rho: A matrix or vector.</span>
-<a id="__codelineno-0-94" name="__codelineno-0-94"></a><span class="sd">        level: Level of the hierarchy to compute.</span>
-<a id="__codelineno-0-95" name="__codelineno-0-95"></a><span class="sd">        dim: The default has both subsystems of equal dimension.</span>
-<a id="__codelineno-0-96" name="__codelineno-0-96"></a><span class="sd">        ppt: If `True`, this enforces that the symmetric extension must be PPT.</span>
-<a id="__codelineno-0-97" name="__codelineno-0-97"></a><span class="sd">        tol: Tolerance when determining whether a symmetric extension exists.</span>
-<a id="__codelineno-0-98" name="__codelineno-0-98"></a>
-<a id="__codelineno-0-99" name="__codelineno-0-99"></a><span class="sd">    Returns:</span>
-<a id="__codelineno-0-100" name="__codelineno-0-100"></a><span class="sd">        `True` if `mat` has a symmetric extension; `False` otherwise.</span>
+<a id="__codelineno-0-73" name="__codelineno-0-73"></a><span class="sd">        Consider a density operator corresponding to one of the Bell states.</span>
+<a id="__codelineno-0-74" name="__codelineno-0-74"></a>
+<a id="__codelineno-0-75" name="__codelineno-0-75"></a><span class="sd">        \[</span>
+<a id="__codelineno-0-76" name="__codelineno-0-76"></a><span class="sd">            \rho = \frac{1}{2} \begin{pmatrix}</span>
+<a id="__codelineno-0-77" name="__codelineno-0-77"></a><span class="sd">                                1 &amp; 0 &amp; 0 &amp; 1 \\</span>
+<a id="__codelineno-0-78" name="__codelineno-0-78"></a><span class="sd">                                0 &amp; 0 &amp; 0 &amp; 0 \\</span>
+<a id="__codelineno-0-79" name="__codelineno-0-79"></a><span class="sd">                                0 &amp; 0 &amp; 0 &amp; 0 \\</span>
+<a id="__codelineno-0-80" name="__codelineno-0-80"></a><span class="sd">                                1 &amp; 0 &amp; 0 &amp; 1</span>
+<a id="__codelineno-0-81" name="__codelineno-0-81"></a><span class="sd">                               \end{pmatrix}</span>
+<a id="__codelineno-0-82" name="__codelineno-0-82"></a><span class="sd">        \]</span>
+<a id="__codelineno-0-83" name="__codelineno-0-83"></a>
+<a id="__codelineno-0-84" name="__codelineno-0-84"></a><span class="sd">        To make this state over more than just two qubits, let&#39;s construct the following state</span>
+<a id="__codelineno-0-85" name="__codelineno-0-85"></a>
+<a id="__codelineno-0-86" name="__codelineno-0-86"></a><span class="sd">        \[</span>
+<a id="__codelineno-0-87" name="__codelineno-0-87"></a><span class="sd">            \sigma = \rho \otimes \rho.</span>
+<a id="__codelineno-0-88" name="__codelineno-0-88"></a><span class="sd">        \]</span>
+<a id="__codelineno-0-89" name="__codelineno-0-89"></a>
+<a id="__codelineno-0-90" name="__codelineno-0-90"></a><span class="sd">        As the state \(\sigma\) is entangled, there should not exist a symmetric extension at some</span>
+<a id="__codelineno-0-91" name="__codelineno-0-91"></a><span class="sd">        level. We see this being the case for a relatively low level of the hierarchy.</span>
+<a id="__codelineno-0-92" name="__codelineno-0-92"></a>
+<a id="__codelineno-0-93" name="__codelineno-0-93"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
+<a id="__codelineno-0-94" name="__codelineno-0-94"></a><span class="sd">        import numpy as np</span>
+<a id="__codelineno-0-95" name="__codelineno-0-95"></a><span class="sd">        from toqito.states import bell</span>
+<a id="__codelineno-0-96" name="__codelineno-0-96"></a><span class="sd">        from toqito.state_props import has_symmetric_extension</span>
+<a id="__codelineno-0-97" name="__codelineno-0-97"></a><span class="sd">        rho = bell(0) @ bell(0).conj().T</span>
+<a id="__codelineno-0-98" name="__codelineno-0-98"></a><span class="sd">        sigma = np.kron(rho, rho)</span>
+<a id="__codelineno-0-99" name="__codelineno-0-99"></a><span class="sd">        print(has_symmetric_extension(sigma))</span>
+<a id="__codelineno-0-100" name="__codelineno-0-100"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-101" name="__codelineno-0-101"></a>
 <a id="__codelineno-0-102" name="__codelineno-0-102"></a><span class="sd">    &quot;&quot;&quot;</span>
 <a id="__codelineno-0-103" name="__codelineno-0-103"></a>    <span class="n">len_mat</span> <span class="o">=</span> <span class="n">rho</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>

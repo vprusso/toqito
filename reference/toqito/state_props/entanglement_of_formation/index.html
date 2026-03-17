@@ -8798,41 +8798,6 @@ compute the entanglement-of-formation of higher-dimensional mixed states.</p>
 <p>This function was adapted from QETLAB.</p>
 
 
-<p><span class="doc-section-title">Examples:</span></p>
-    <p>Compute the entanglement-of-formation of a Bell state.</p>
-<p>Let <span class="arithmatex">\(u = \frac{1}{\sqrt{2}} \left(|00\rangle + |11\rangle \right)\)</span>
-and let</p>
-<div class="arithmatex">\[
-    \rho = uu^* = \frac{1}{2}\begin{pmatrix}
-                                1 &amp; 0 &amp; 0 &amp; 1 \\
-                                0 &amp; 0 &amp; 0 &amp; 0 \\
-                                0 &amp; 0 &amp; 0 &amp; 0 \\
-                                1 &amp; 0 &amp; 0 &amp; 1
-                             \end{pmatrix}.
-\]</div>
-<p>The entanglement-of-formation of <span class="arithmatex">\(\rho\)</span> is equal to 1.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.state_props</span><span class="w"> </span><span class="kn">import</span> <span class="n">entanglement_of_formation</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.states</span><span class="w"> </span><span class="kn">import</span> <span class="n">bell</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">u_vec</span> <span class="o">=</span> <span class="n">bell</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="n">rho</span> <span class="o">=</span> <span class="n">u_vec</span> <span class="o">@</span> <span class="n">u_vec</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="nb">print</span><span class="p">(</span><span class="n">entanglement_of_formation</span><span class="p">(</span><span class="n">rho</span><span class="p">))</span>
-</code></pre></div>
-<p>0.9999999999999998</p>
-
-
-<p><span class="doc-section-title">Raises:</span></p>
-    <ul>
-        <li class="doc-section-item field-body">
-              <code><span title="ValueError">ValueError</span></code>
-            –
-          <div class="doc-md-description">
-            <p>If matrices have improper dimension.</p>
-          </div>
-        </li>
-    </ul>
-
-
 <p><span class="doc-section-title">Parameters:</span></p>
     <ul>
         <li class="doc-section-item field-body">
@@ -8866,6 +8831,41 @@ and let</p>
           </div>
         </li>
     </ul>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+              <code><span title="ValueError">ValueError</span></code>
+            –
+          <div class="doc-md-description">
+            <p>If matrices have improper dimension.</p>
+          </div>
+        </li>
+    </ul>
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>Compute the entanglement-of-formation of a Bell state.</p>
+<p>Let <span class="arithmatex">\(u = \frac{1}{\sqrt{2}} \left(|00\rangle + |11\rangle \right)\)</span>
+and let</p>
+<div class="arithmatex">\[
+    \rho = uu^* = \frac{1}{2}\begin{pmatrix}
+                                1 &amp; 0 &amp; 0 &amp; 1 \\
+                                0 &amp; 0 &amp; 0 &amp; 0 \\
+                                0 &amp; 0 &amp; 0 &amp; 0 \\
+                                1 &amp; 0 &amp; 0 &amp; 1
+                             \end{pmatrix}.
+\]</div>
+<p>The entanglement-of-formation of <span class="arithmatex">\(\rho\)</span> is equal to 1.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.state_props</span><span class="w"> </span><span class="kn">import</span> <span class="n">entanglement_of_formation</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.states</span><span class="w"> </span><span class="kn">import</span> <span class="n">bell</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">u_vec</span> <span class="o">=</span> <span class="n">bell</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="n">rho</span> <span class="o">=</span> <span class="n">u_vec</span> <span class="o">@</span> <span class="n">u_vec</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="nb">print</span><span class="p">(</span><span class="n">entanglement_of_formation</span><span class="p">(</span><span class="n">rho</span><span class="p">))</span>
+</code></pre></div>
+<p>0.9999999999999998</p>
         <p><strong>References</strong></p>
 <p><span id="ref-toqito-state_props-entanglement_of_formation-entanglement_of_formation-1"><sup><a href="#cite-toqito-state_props-entanglement_of_formation-entanglement_of_formation-1">1</a></sup> Quantiki. <em>Entanglement of Formation</em>. <a href="https://www.quantiki.org/wiki/entanglement-formation">link</a>.</span></p>
 
@@ -8980,41 +8980,41 @@ and let</p>
 <a id="__codelineno-0-17" name="__codelineno-0-17"></a>
 <a id="__codelineno-0-18" name="__codelineno-0-18"></a><span class="sd">    This function was adapted from QETLAB.</span>
 <a id="__codelineno-0-19" name="__codelineno-0-19"></a>
-<a id="__codelineno-0-20" name="__codelineno-0-20"></a><span class="sd">    Examples:</span>
-<a id="__codelineno-0-21" name="__codelineno-0-21"></a><span class="sd">        Compute the entanglement-of-formation of a Bell state.</span>
-<a id="__codelineno-0-22" name="__codelineno-0-22"></a>
-<a id="__codelineno-0-23" name="__codelineno-0-23"></a><span class="sd">        Let \(u = \frac{1}{\sqrt{2}} \left(|00\rangle + |11\rangle \right)\)</span>
-<a id="__codelineno-0-24" name="__codelineno-0-24"></a><span class="sd">        and let</span>
-<a id="__codelineno-0-25" name="__codelineno-0-25"></a>
-<a id="__codelineno-0-26" name="__codelineno-0-26"></a><span class="sd">        \[</span>
-<a id="__codelineno-0-27" name="__codelineno-0-27"></a><span class="sd">            \rho = uu^* = \frac{1}{2}\begin{pmatrix}</span>
-<a id="__codelineno-0-28" name="__codelineno-0-28"></a><span class="sd">                                        1 &amp; 0 &amp; 0 &amp; 1 \\</span>
-<a id="__codelineno-0-29" name="__codelineno-0-29"></a><span class="sd">                                        0 &amp; 0 &amp; 0 &amp; 0 \\</span>
-<a id="__codelineno-0-30" name="__codelineno-0-30"></a><span class="sd">                                        0 &amp; 0 &amp; 0 &amp; 0 \\</span>
-<a id="__codelineno-0-31" name="__codelineno-0-31"></a><span class="sd">                                        1 &amp; 0 &amp; 0 &amp; 1</span>
-<a id="__codelineno-0-32" name="__codelineno-0-32"></a><span class="sd">                                     \end{pmatrix}.</span>
-<a id="__codelineno-0-33" name="__codelineno-0-33"></a><span class="sd">        \]</span>
-<a id="__codelineno-0-34" name="__codelineno-0-34"></a>
-<a id="__codelineno-0-35" name="__codelineno-0-35"></a><span class="sd">        The entanglement-of-formation of \(\rho\) is equal to 1.</span>
-<a id="__codelineno-0-36" name="__codelineno-0-36"></a>
-<a id="__codelineno-0-37" name="__codelineno-0-37"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-38" name="__codelineno-0-38"></a><span class="sd">        import numpy as np</span>
-<a id="__codelineno-0-39" name="__codelineno-0-39"></a><span class="sd">        from toqito.state_props import entanglement_of_formation</span>
-<a id="__codelineno-0-40" name="__codelineno-0-40"></a><span class="sd">        from toqito.states import bell</span>
-<a id="__codelineno-0-41" name="__codelineno-0-41"></a><span class="sd">        u_vec = bell(0)</span>
-<a id="__codelineno-0-42" name="__codelineno-0-42"></a><span class="sd">        rho = u_vec @ u_vec.conj().T</span>
-<a id="__codelineno-0-43" name="__codelineno-0-43"></a><span class="sd">        print(entanglement_of_formation(rho))</span>
-<a id="__codelineno-0-44" name="__codelineno-0-44"></a><span class="sd">        ```</span>
-<a id="__codelineno-0-45" name="__codelineno-0-45"></a>
-<a id="__codelineno-0-46" name="__codelineno-0-46"></a><span class="sd">    Raises:</span>
-<a id="__codelineno-0-47" name="__codelineno-0-47"></a><span class="sd">        ValueError: If matrices have improper dimension.</span>
-<a id="__codelineno-0-48" name="__codelineno-0-48"></a>
-<a id="__codelineno-0-49" name="__codelineno-0-49"></a><span class="sd">    Args:</span>
-<a id="__codelineno-0-50" name="__codelineno-0-50"></a><span class="sd">        rho: A matrix or vector.</span>
-<a id="__codelineno-0-51" name="__codelineno-0-51"></a><span class="sd">        dim: The default has both subsystems of equal dimension.</span>
-<a id="__codelineno-0-52" name="__codelineno-0-52"></a>
-<a id="__codelineno-0-53" name="__codelineno-0-53"></a><span class="sd">    Returns:</span>
-<a id="__codelineno-0-54" name="__codelineno-0-54"></a><span class="sd">        A value between 0 and 1 that corresponds to the entanglement-of-formation of `rho`.</span>
+<a id="__codelineno-0-20" name="__codelineno-0-20"></a><span class="sd">    Args:</span>
+<a id="__codelineno-0-21" name="__codelineno-0-21"></a><span class="sd">        rho: A matrix or vector.</span>
+<a id="__codelineno-0-22" name="__codelineno-0-22"></a><span class="sd">        dim: The default has both subsystems of equal dimension.</span>
+<a id="__codelineno-0-23" name="__codelineno-0-23"></a>
+<a id="__codelineno-0-24" name="__codelineno-0-24"></a><span class="sd">    Returns:</span>
+<a id="__codelineno-0-25" name="__codelineno-0-25"></a><span class="sd">        A value between 0 and 1 that corresponds to the entanglement-of-formation of `rho`.</span>
+<a id="__codelineno-0-26" name="__codelineno-0-26"></a>
+<a id="__codelineno-0-27" name="__codelineno-0-27"></a><span class="sd">    Raises:</span>
+<a id="__codelineno-0-28" name="__codelineno-0-28"></a><span class="sd">        ValueError: If matrices have improper dimension.</span>
+<a id="__codelineno-0-29" name="__codelineno-0-29"></a>
+<a id="__codelineno-0-30" name="__codelineno-0-30"></a><span class="sd">    Examples:</span>
+<a id="__codelineno-0-31" name="__codelineno-0-31"></a><span class="sd">        Compute the entanglement-of-formation of a Bell state.</span>
+<a id="__codelineno-0-32" name="__codelineno-0-32"></a>
+<a id="__codelineno-0-33" name="__codelineno-0-33"></a><span class="sd">        Let \(u = \frac{1}{\sqrt{2}} \left(|00\rangle + |11\rangle \right)\)</span>
+<a id="__codelineno-0-34" name="__codelineno-0-34"></a><span class="sd">        and let</span>
+<a id="__codelineno-0-35" name="__codelineno-0-35"></a>
+<a id="__codelineno-0-36" name="__codelineno-0-36"></a><span class="sd">        \[</span>
+<a id="__codelineno-0-37" name="__codelineno-0-37"></a><span class="sd">            \rho = uu^* = \frac{1}{2}\begin{pmatrix}</span>
+<a id="__codelineno-0-38" name="__codelineno-0-38"></a><span class="sd">                                        1 &amp; 0 &amp; 0 &amp; 1 \\</span>
+<a id="__codelineno-0-39" name="__codelineno-0-39"></a><span class="sd">                                        0 &amp; 0 &amp; 0 &amp; 0 \\</span>
+<a id="__codelineno-0-40" name="__codelineno-0-40"></a><span class="sd">                                        0 &amp; 0 &amp; 0 &amp; 0 \\</span>
+<a id="__codelineno-0-41" name="__codelineno-0-41"></a><span class="sd">                                        1 &amp; 0 &amp; 0 &amp; 1</span>
+<a id="__codelineno-0-42" name="__codelineno-0-42"></a><span class="sd">                                     \end{pmatrix}.</span>
+<a id="__codelineno-0-43" name="__codelineno-0-43"></a><span class="sd">        \]</span>
+<a id="__codelineno-0-44" name="__codelineno-0-44"></a>
+<a id="__codelineno-0-45" name="__codelineno-0-45"></a><span class="sd">        The entanglement-of-formation of \(\rho\) is equal to 1.</span>
+<a id="__codelineno-0-46" name="__codelineno-0-46"></a>
+<a id="__codelineno-0-47" name="__codelineno-0-47"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
+<a id="__codelineno-0-48" name="__codelineno-0-48"></a><span class="sd">        import numpy as np</span>
+<a id="__codelineno-0-49" name="__codelineno-0-49"></a><span class="sd">        from toqito.state_props import entanglement_of_formation</span>
+<a id="__codelineno-0-50" name="__codelineno-0-50"></a><span class="sd">        from toqito.states import bell</span>
+<a id="__codelineno-0-51" name="__codelineno-0-51"></a><span class="sd">        u_vec = bell(0)</span>
+<a id="__codelineno-0-52" name="__codelineno-0-52"></a><span class="sd">        rho = u_vec @ u_vec.conj().T</span>
+<a id="__codelineno-0-53" name="__codelineno-0-53"></a><span class="sd">        print(entanglement_of_formation(rho))</span>
+<a id="__codelineno-0-54" name="__codelineno-0-54"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-55" name="__codelineno-0-55"></a>
 <a id="__codelineno-0-56" name="__codelineno-0-56"></a><span class="sd">    &quot;&quot;&quot;</span>
 <a id="__codelineno-0-57" name="__codelineno-0-57"></a>    <span class="n">dim_x</span><span class="p">,</span> <span class="n">dim_y</span> <span class="o">=</span> <span class="n">rho</span><span class="o">.</span><span class="n">shape</span>
