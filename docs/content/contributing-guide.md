@@ -176,7 +176,8 @@ def my_new_function(some_parameter: parameter_type) -> return_type:
     r"""One liner description of the new function.
 
     Detailed description of the function, citing relevant papers where 
-    appropriate, for example: `[@johnston2014counting]`.
+    appropriate, for example: `[johnston2014counting]` with an `@` before 
+    `johnston2014counting`.
 
     Examples:
         Demonstrate how the function works with expected output.
@@ -196,8 +197,8 @@ def my_new_function(some_parameter: parameter_type) -> return_type:
     """
 ```
 
-Use `\(\)` for inline math and `\[\]` for display math in docstrings. To cite an entry in `refs.bib`, 
-use, for example, use <code>[johnston2014counting]</code> with an `@` before `johnston` to cite in the docstring. 
+Use `\(\)` for inline math and `\[\]` for display math in docstrings. To cite an entry in `refs.bib` in a docstring, 
+use, for example, <code>[johnston2014counting]</code> with an `@` before `johnston2014counting`. 
 
 To add an attribution to a paper or a book, add your reference with
 `some_ref` as the citation key to `docs/content/refs.bib`. All references in
