@@ -43,9 +43,9 @@ def fourier(dim: int) -> np.ndarray:
         \]
 
         ```python exec="1" source="above"
-        from toqito.matrices import fourier
+    from toqito.matrices import fourier
 
-        print(fourier(3))
+    print(fourier(3))
         ```
 
     """

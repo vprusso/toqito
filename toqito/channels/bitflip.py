@@ -42,9 +42,9 @@ def bitflip(
         We can generate the Kraus operators for the bitflip channel with probability 0.3:
 
         ```python exec="1" source="above"
-        from toqito.channels import bitflip
+    from toqito.channels import bitflip
 
-        print(bitflip(prob=0.3))
+    print(bitflip(prob=0.3))
         ```
 
 
@@ -52,11 +52,11 @@ def bitflip(
         the bitflip channel with probability 0.3 produces:
 
         ```python exec="1" source="above"
-        import numpy as np
-        from toqito.channels import bitflip
+    import numpy as np
+    from toqito.channels import bitflip
 
-        rho = np.array([[1, 0], [0, 0]])  # |0><0|
-        print(bitflip(rho, prob=0.3))
+    rho = np.array([[1, 0], [0, 0]])  # |0><0|
+    print(bitflip(rho, prob=0.3))
         ```
 
     """

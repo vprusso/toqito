@@ -35,17 +35,17 @@ def swap_operator(dim: list[int] | int, is_sparse: bool = False) -> np.ndarray:
         Using `|toqito⟩` we can obtain this matrix as follows.
 
         ```python exec="1" source="above"
-        from toqito.perms import swap_operator
+    from toqito.perms import swap_operator
 
-        print(swap_operator(2))
+    print(swap_operator(2))
         ```
 
         The \(3\)-dimensional operator may be obtained using `|toqito⟩` as follows.
 
         ```python exec="1" source="above"
-        from toqito.perms import swap_operator
+    from toqito.perms import swap_operator
 
-        print(swap_operator(3))
+    print(swap_operator(3))
         ```
 
 

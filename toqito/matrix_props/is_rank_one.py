@@ -21,21 +21,21 @@ def is_rank_one(mat: np.ndarray, tol: float = 1e-08) -> bool:
         has rank one.
 
         ```python exec="1" source="above"
-        from toqito.matrix_props import is_rank_one
-        from toqito.states import bell
+    from toqito.matrix_props import is_rank_one
+    from toqito.states import bell
 
-        rho = bell(0) @ bell(0).conj().T
-        print(is_rank_one(rho))
+    rho = bell(0) @ bell(0).conj().T
+    print(is_rank_one(rho))
         ```
 
         On the other hand, the maximally mixed state is not rank one.
 
         ```python exec="1" source="above"
-        import numpy as np
-        from toqito.matrix_props import is_rank_one
+    import numpy as np
+    from toqito.matrix_props import is_rank_one
 
-        maximally_mixed = np.eye(2) / 2
-        print(is_rank_one(maximally_mixed))
+    maximally_mixed = np.eye(2) / 2
+    print(is_rank_one(maximally_mixed))
         ```
 
     """

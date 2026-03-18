@@ -27,50 +27,50 @@ def random_psd_operator(
         For \(\text{dim}=2\), this can be accomplished as follows.
 
         ```python exec="1" source="above" session="psd_operator"
-        from toqito.rand import random_psd_operator
+    from toqito.rand import random_psd_operator
 
-        complex_psd_mat = random_psd_operator(2)
+    complex_psd_mat = random_psd_operator(2)
 
-        print(complex_psd_mat)
+    print(complex_psd_mat)
         ```
 
         We can confirm that this matrix indeed represents a valid positive semidefinite matrix by utilizing
         the `is_positive_semidefinite` function from the `|toqito⟩` library, as demonstrated below:
 
         ```python exec="1" source="above" session="psd_operator"
-        from toqito.matrix_props import is_positive_semidefinite
+    from toqito.matrix_props import is_positive_semidefinite
 
-        print(is_positive_semidefinite(complex_psd_mat))
+    print(is_positive_semidefinite(complex_psd_mat))
         ```
 
 
         We can also generate random positive semidefinite matrices that are real-valued as follows.
 
         ```python exec="1" source="above" session="psd_operator"
-        from toqito.rand import random_psd_operator
+    from toqito.rand import random_psd_operator
 
-        real_psd_mat = random_psd_operator(2, is_real=True)
+    real_psd_mat = random_psd_operator(2, is_real=True)
 
-        print(real_psd_mat)
+    print(real_psd_mat)
         ```
 
 
         Again, verifying that this is a valid positive semidefinite matrix can be done as follows.
 
         ```python exec="1" source="above" session="psd_operator"
-        from toqito.matrix_props import is_positive_semidefinite
-        print(is_positive_semidefinite(real_psd_mat))
+    from toqito.matrix_props import is_positive_semidefinite
+    print(is_positive_semidefinite(real_psd_mat))
         ```
 
 
         It is also possible to add a seed for reproducibility.
 
         ```python exec="1" source="above" session="psd_operator"
-        from toqito.rand import random_psd_operator
+    from toqito.rand import random_psd_operator
 
-        seeded = random_psd_operator(2, is_real=True, seed=42)
+    seeded = random_psd_operator(2, is_real=True, seed=42)
 
-        print(seeded)
+    print(seeded)
         ```
 
     """

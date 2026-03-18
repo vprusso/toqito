@@ -68,12 +68,12 @@ def sk_operator_norm(
         \]
 
         ```python exec="1" source="above"
-        from toqito.states.werner import werner
-        from toqito.matrix_props.sk_norm import sk_operator_norm
+    from toqito.states.werner import werner
+    from toqito.matrix_props.sk_norm import sk_operator_norm
 
-        rho = werner(4, 0.)
+    rho = werner(4, 0.)
 
-        print(sk_operator_norm(rho))
+    print(sk_operator_norm(rho))
         ```
 
     """

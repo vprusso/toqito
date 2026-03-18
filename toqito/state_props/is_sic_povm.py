@@ -35,29 +35,29 @@ def is_sic_povm(states: Sequence[np.ndarray], *, tol: float = 1e-6) -> bool:
         Qubit tetrahedron SIC.
 
         ```python exec="1" source="above"
-        import numpy as np
-        from toqito.state_props import is_sic_povm
+    import numpy as np
+    from toqito.state_props import is_sic_povm
 
-        omega = np.exp(2j * np.pi / 3)
-        sic_vectors = [
-            np.array([0, 1], dtype=np.complex128),
-            np.array([np.sqrt(2/3), 1/np.sqrt(3)], dtype=np.complex128),
-            np.array([np.sqrt(2/3), omega / np.sqrt(3)], dtype=np.complex128),
-            np.array([np.sqrt(2/3), (omega**2) / np.sqrt(3)], dtype=np.complex128),
-        ]
-        print(is_sic_povm(sic_vectors))
+    omega = np.exp(2j * np.pi / 3)
+    sic_vectors = [
+        np.array([0, 1], dtype=np.complex128),
+        np.array([np.sqrt(2/3), 1/np.sqrt(3)], dtype=np.complex128),
+        np.array([np.sqrt(2/3), omega / np.sqrt(3)], dtype=np.complex128),
+        np.array([np.sqrt(2/3), (omega**2) / np.sqrt(3)], dtype=np.complex128),
+    ]
+    print(is_sic_povm(sic_vectors))
         ```
 
         Non-SIC vector family.
 
         ```python exec="1" source="above"
-        import numpy as np
-        from toqito.state_props import is_sic_povm
-        from toqito.states import basis
+    import numpy as np
+    from toqito.state_props import is_sic_povm
+    from toqito.states import basis
 
-        e0, e1 = basis(2, 0), basis(2, 1)
-        non_sic = [e0, e1, (e0 + e1) / np.sqrt(2), (e0 - e1) / np.sqrt(2)]
-        print(is_sic_povm(non_sic))
+    e0, e1 = basis(2, 0), basis(2, 1)
+    non_sic = [e0, e1, (e0 + e1) / np.sqrt(2), (e0 - e1) / np.sqrt(2)]
+    print(is_sic_povm(non_sic))
         ```
 
     """

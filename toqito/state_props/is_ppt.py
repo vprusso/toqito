@@ -51,10 +51,10 @@ def is_ppt(
         `|toqito⟩` package.
 
         ```python exec="1" source="above"
-        from toqito.state_props import is_ppt
-        import numpy as np
-        mat = np.identity(9)
-        print(is_ppt(mat))
+    from toqito.state_props import is_ppt
+    import numpy as np
+    mat = np.identity(9)
+    print(is_ppt(mat))
         ```
 
         Consider the following Bell state:
@@ -68,10 +68,10 @@ def is_ppt(
         using the `|toqito⟩` package.
 
         ```python exec="1" source="above"
-        from toqito.states import bell
-        from toqito.state_props import is_ppt
-        rho = bell(2) @ bell(2).conj().T
-        print(is_ppt(rho))
+    from toqito.states import bell
+    from toqito.state_props import is_ppt
+    rho = bell(2) @ bell(2).conj().T
+    print(is_ppt(rho))
         ```
 
     """

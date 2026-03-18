@@ -26,12 +26,12 @@ def null_space(mat: np.ndarray, tol: float = 1e-08) -> np.ndarray:
 
         Its null space is spanned by the vectors \((1,-1,0)\) and \((0,0,1)\).
     ```python exec="1" source="above"
-        import numpy as np
-        from toqito.matrix_ops import null_space
+    import numpy as np
+    from toqito.matrix_ops import null_space
 
-        A = np.array([[1, 1, 0], [0, 0, 0]], dtype=float)
-        null_basis = null_space(A)
-        print(null_basis)
+    A = np.array([[1, 1, 0], [0, 0, 0]], dtype=float)
+    null_basis = null_space(A)
+    print(null_basis)
     ```
 
     """

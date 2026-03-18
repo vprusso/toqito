@@ -56,13 +56,13 @@ def is_completely_positive(
         This map is not completely positive, as we can verify as follows.
 
         ```python exec="1" source="above"
-        import numpy as np
-        from toqito.channel_props import is_completely_positive
+    import numpy as np
+    from toqito.channel_props import is_completely_positive
 
-        unitary_mat = np.array([[1, 1], [-1, 1]]) / np.sqrt(2)
-        kraus_ops = [[np.identity(2), np.identity(2)], [unitary_mat, -unitary_mat]]
+    unitary_mat = np.array([[1, 1], [-1, 1]]) / np.sqrt(2)
+    kraus_ops = [[np.identity(2), np.identity(2)], [unitary_mat, -unitary_mat]]
 
-        print(is_completely_positive(kraus_ops))
+    print(is_completely_positive(kraus_ops))
         ```
 
         We can also specify the input as a Choi matrix. For instance, consider the Choi matrix
@@ -82,10 +82,10 @@ def is_completely_positive(
         We may verify that this channel is completely positive
 
         ```python exec="1" source="above"
-        from toqito.channels import depolarizing
-        from toqito.channel_props import is_completely_positive
+    from toqito.channels import depolarizing
+    from toqito.channel_props import is_completely_positive
 
-        print(is_completely_positive(depolarizing(2)))
+    print(is_completely_positive(depolarizing(2)))
         ```
 
     """

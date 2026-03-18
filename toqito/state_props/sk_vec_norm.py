@@ -36,12 +36,12 @@ def sk_vector_norm(rho: np.ndarray, k: int = 1, dim: int | list[int] | None = No
         states".
 
         ```python exec="1" source="above"
-        from toqito.states import max_entangled
-        from toqito.state_props import sk_vector_norm
-        import numpy as np
-        # Maximally entagled state.
-        v = max_entangled(4)
-        print(sk_vector_norm(v))
+    from toqito.states import max_entangled
+    from toqito.state_props import sk_vector_norm
+    import numpy as np
+    # Maximally entagled state.
+    v = max_entangled(4)
+    print(sk_vector_norm(v))
         ```
 
     """

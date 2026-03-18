@@ -38,9 +38,9 @@ def antisymmetric_projection(dim: int, p_param: int = 2, partial: bool = False) 
         Using `|toqito⟩`, we can see this gives the proper result.
 
         ```python exec="1" source="above"
-        from toqito.perms import antisymmetric_projection
+    from toqito.perms import antisymmetric_projection
 
-        print(antisymmetric_projection(2, 1))
+    print(antisymmetric_projection(2, 1))
         ```
 
         When the \(p\) value is greater than the dimension of the antisymmetric projection, this just gives the matrix
@@ -63,9 +63,9 @@ def antisymmetric_projection(dim: int, p_param: int = 2, partial: bool = False) 
         Using `|toqito⟩` we can see this gives the proper result.
 
         ```python exec="1" source="above"
-        from toqito.perms import antisymmetric_projection
+    from toqito.perms import antisymmetric_projection
 
-        print(antisymmetric_projection(2, 3))
+    print(antisymmetric_projection(2, 3))
         ```
 
     """

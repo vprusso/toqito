@@ -49,30 +49,30 @@ def choi_rank(phi: np.ndarray | list[list[np.ndarray]]) -> int:
         and can be generated in `|toqito⟩` with the following list:
 
         ```python exec="1" source="above"
-        import numpy as np
-        from toqito.channel_props import choi_rank
+    import numpy as np
+    from toqito.channel_props import choi_rank
 
-        kraus_1 = np.array([[1, 0], [0, 0]])
-        kraus_2 = np.array([[1, 0], [0, 0]]).conj().T
-        kraus_3 = np.array([[0, 1], [0, 0]])
-        kraus_4 = np.array([[0, 1], [0, 0]]).conj().T
-        kraus_5 = np.array([[0, 0], [1, 0]])
-        kraus_6 = np.array([[0, 0], [1, 0]]).conj().T
-        kraus_7 = np.array([[0, 0], [0, 1]])
-        kraus_8 = np.array([[0, 0], [0, 1]]).conj().T
-        kraus_ops = [[kraus_1, kraus_2], [kraus_3, kraus_4],[kraus_5, kraus_6],[kraus_7, kraus_8]]
+    kraus_1 = np.array([[1, 0], [0, 0]])
+    kraus_2 = np.array([[1, 0], [0, 0]]).conj().T
+    kraus_3 = np.array([[0, 1], [0, 0]])
+    kraus_4 = np.array([[0, 1], [0, 0]]).conj().T
+    kraus_5 = np.array([[0, 0], [1, 0]])
+    kraus_6 = np.array([[0, 0], [1, 0]]).conj().T
+    kraus_7 = np.array([[0, 0], [0, 1]])
+    kraus_8 = np.array([[0, 0], [0, 1]]).conj().T
+    kraus_ops = [[kraus_1, kraus_2], [kraus_3, kraus_4],[kraus_5, kraus_6],[kraus_7, kraus_8]]
 
-        print(choi_rank(kraus_ops))
+    print(choi_rank(kraus_ops))
         ```
 
         We can the verify the associated Choi representation (the SWAP gate)
         gets the same Choi rank:
 
         ```python exec="1" source="above"
-        import numpy as np
-        from toqito.channel_props import choi_rank
-        choi_matrix = np.array([[1,0,0,0],[0,0,1,0],[0,1,0,0],[0,0,0,1]])
-        print(choi_rank(choi_matrix))
+    import numpy as np
+    from toqito.channel_props import choi_rank
+    choi_matrix = np.array([[1,0,0,0],[0,0,1,0],[0,1,0,0],[0,0,0,1]])
+    print(choi_rank(choi_matrix))
         ```
 
     """

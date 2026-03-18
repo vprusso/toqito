@@ -22,11 +22,11 @@ def random_unitary(dim: list[int] | int, is_real: bool = False, seed: int | None
         random \(2\)-dimensional random unitary matrix with complex entries.
 
         ```python exec="1" source="above" session="complex_dm"
-        from toqito.rand import random_unitary
+    from toqito.rand import random_unitary
 
-        complex_dm = random_unitary(2)
+    complex_dm = random_unitary(2)
 
-        print(complex_dm)
+    print(complex_dm)
         ```
 
 
@@ -34,66 +34,66 @@ def random_unitary(dim: list[int] | int, is_real: bool = False, seed: int | None
         from `|toqito⟩` as follows
 
         ```python exec="1" source="above" session="complex_dm"
-        from toqito.matrix_props import is_unitary
+    from toqito.matrix_props import is_unitary
 
-        print(is_unitary(complex_dm))
+    print(is_unitary(complex_dm))
         ```
 
         We can also generate random unitary matrices that are real-valued as follows.
 
         ```python exec="1" source="above" session="real_dm"
-        from toqito.rand import random_unitary
+    from toqito.rand import random_unitary
 
-        real_dm = random_unitary(2, True)
+    real_dm = random_unitary(2, True)
 
-        print(real_dm)
+    print(real_dm)
         ```
 
 
         Again, verifying that this is a valid unitary matrix can be done as follows.
 
         ```python exec="1" source="above" session="real_dm"
-        from toqito.matrix_props import is_unitary
+    from toqito.matrix_props import is_unitary
 
-        print(is_unitary(real_dm))
+    print(is_unitary(real_dm))
         ```
 
         We may also generate unitaries such that the dimension argument provided is a `list` as
         opposed to an `int`. Here is an example of a random unitary matrix of dimension \(4\).
 
         ```python exec="1" source="above" session="mat"
-        from toqito.rand import random_unitary
+    from toqito.rand import random_unitary
 
-        mat = random_unitary([4, 4], True)
+    mat = random_unitary([4, 4], True)
 
-        print(mat)
+    print(mat)
         ```
 
 
         As before, we can verify that this matrix generated is a valid unitary matrix.
 
         ```python exec="1" source="above" session="mat"
-        from toqito.matrix_props import is_unitary
+    from toqito.matrix_props import is_unitary
 
-        print(is_unitary(mat))
+    print(is_unitary(mat))
         ```
 
         It is also possible to pass a seed to this function for reproducibility.
 
         ```python exec="1" source="above" session="seeded"
-        from toqito.rand import random_unitary
+    from toqito.rand import random_unitary
 
-        seeded = random_unitary(2, seed=42)
+    seeded = random_unitary(2, seed=42)
 
-        print(seeded)
+    print(seeded)
         ```
 
         And once again, we can verify that this matrix generated is a valid unitary matrix.
 
         ```python exec="1" source="above" session="seeded"
-        from toqito.matrix_props import is_unitary
+    from toqito.matrix_props import is_unitary
 
-        print(is_unitary(seeded))
+    print(is_unitary(seeded))
         ```
 
     """

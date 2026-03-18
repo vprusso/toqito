@@ -107,15 +107,15 @@ def fidelity_of_separability(
         \]
 
         ```python exec="1" source="above"
-        import numpy as np
-        from toqito.state_metrics import fidelity_of_separability
-        from toqito.matrix_ops import tensor
-        from toqito.states import basis
+    import numpy as np
+    from toqito.state_metrics import fidelity_of_separability
+    from toqito.matrix_ops import tensor
+    from toqito.states import basis
 
-        state = tensor(basis(2, 0), basis(2, 0))
-        rho = state @ state.conj().T
+    state = tensor(basis(2, 0), basis(2, 0))
+    rho = state @ state.conj().T
 
-        print(np.around(fidelity_of_separability(rho, [2, 2]), decimals=2))
+    print(np.around(fidelity_of_separability(rho, [2, 2]), decimals=2))
         ```
             is PSD with trace 1).
 

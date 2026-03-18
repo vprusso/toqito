@@ -30,8 +30,8 @@ def schmidt_decomposition(
         We can generate this state using the `|toqito⟩` module as follows.
 
         ```python exec="1" source="above"
-        from toqito.states import max_entangled
-        print(max_entangled(3))
+    from toqito.states import max_entangled
+    print(max_entangled(3))
         ```
 
         Computing the Schmidt decomposition of \(u\), we can obtain the corresponding singular values of \(u\) as
@@ -41,19 +41,19 @@ def schmidt_decomposition(
         \]
 
         ```python exec="1" source="above"
-        from toqito.states import max_entangled
-        from toqito.state_ops import schmidt_decomposition
+    from toqito.states import max_entangled
+    from toqito.state_ops import schmidt_decomposition
 
-        singular_vals, u_mat, vt_mat = schmidt_decomposition(max_entangled(3))
+    singular_vals, u_mat, vt_mat = schmidt_decomposition(max_entangled(3))
 
-        matrices = {
-            "Singular values": singular_vals,
-            "U matrix": u_mat,
-            "V^T matrix": vt_mat,
-        }
+    matrices = {
+        "Singular values": singular_vals,
+        "U matrix": u_mat,
+        "V^T matrix": vt_mat,
+    }
 
-        for name, mat in matrices.items():
-            print(f"{name}:\n{mat}\n")
+    for name, mat in matrices.items():
+        print(f"{name}:\n{mat}\n")
         ```
 
     """

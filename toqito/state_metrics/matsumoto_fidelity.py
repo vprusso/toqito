@@ -67,18 +67,18 @@ def matsumoto_fidelity(rho: np.ndarray, sigma: np.ndarray) -> float | np.floatin
         of \(1\). This can be observed in `|toqito⟩` as follows.
 
         ```python exec="1" source="above"
-        import numpy as np
-        from toqito.state_metrics import matsumoto_fidelity
+    import numpy as np
+    from toqito.state_metrics import matsumoto_fidelity
 
-        rho = 1 / 2 * np.array(
-            [[1, 0, 0, 1],
-             [0, 0, 0, 0],
-             [0, 0, 0, 0],
-             [1, 0, 0, 1]]
-        )
-        sigma = rho
+    rho = 1 / 2 * np.array(
+        [[1, 0, 0, 1],
+         [0, 0, 0, 0],
+         [0, 0, 0, 0],
+         [1, 0, 0, 1]]
+    )
+    sigma = rho
 
-        print(np.around(matsumoto_fidelity(rho, sigma), decimals=2))
+    print(np.around(matsumoto_fidelity(rho, sigma), decimals=2))
         ```
 
     """

@@ -31,13 +31,13 @@ def in_separable_ball(mat: np.ndarray) -> bool | np.bool_:
         ball.
 
         ```python exec="1" source="above"
-        from toqito.rand import random_unitary
-        from toqito.state_props import in_separable_ball
-        import numpy as np
-        U = random_unitary(4)
-        lam = np.array([1, 1, 1, 0]) / 3
-        rho = U @ np.diag(lam) @ U.conj().T
-        print(in_separable_ball(rho))
+    from toqito.rand import random_unitary
+    from toqito.state_props import in_separable_ball
+    import numpy as np
+    U = random_unitary(4)
+    lam = np.array([1, 1, 1, 0]) / 3
+    rho = U @ np.diag(lam) @ U.conj().T
+    print(in_separable_ball(rho))
         ```
 
         The following is an example of generating a random density matrix with eigenvalues
@@ -45,13 +45,13 @@ def in_separable_ball(mat: np.ndarray) -> bool | np.bool_:
         separable ball.
 
         ```python exec="1" source="above"
-        from toqito.rand import random_unitary
-        from toqito.state_props import in_separable_ball
-        import numpy as np
-        U = random_unitary(4)
-        lam = np.array([1.01, 1, 0.99, 0]) / 3
-        rho = U @ np.diag(lam) @ U.conj().T
-        print(in_separable_ball(rho))
+    from toqito.rand import random_unitary
+    from toqito.state_props import in_separable_ball
+    import numpy as np
+    U = random_unitary(4)
+    lam = np.array([1.01, 1, 0.99, 0]) / 3
+    rho = U @ np.diag(lam) @ U.conj().T
+    print(in_separable_ball(rho))
         ```
 
     """

@@ -34,20 +34,20 @@ def positive_semidefinite_rank(mat: np.ndarray, max_rank: int = 10) -> int | Non
         is known to be \(\text{rank}_{\text{PSD}}(A) = 2\).
 
         ```python exec="1" source="above"
-        import numpy as np
-        from toqito.matrix_props import positive_semidefinite_rank
+    import numpy as np
+    from toqito.matrix_props import positive_semidefinite_rank
 
-        A = 1/2 * np.array([[0, 1, 1], [1, 0, 1], [1, 1, 0]])
-        print(positive_semidefinite_rank(A))
+    A = 1/2 * np.array([[0, 1, 1], [1, 0, 1], [1, 1, 0]])
+    print(positive_semidefinite_rank(A))
         ```
 
         The PSD rank of the identity matrix is the dimension of the matrix [@fawzi2015positive].
 
         ```python exec="1" source="above"
-        import numpy as np
-        from toqito.matrix_props import positive_semidefinite_rank
+    import numpy as np
+    from toqito.matrix_props import positive_semidefinite_rank
 
-        print(positive_semidefinite_rank(np.identity(3)))
+    print(positive_semidefinite_rank(np.identity(3)))
         ```
 
     """

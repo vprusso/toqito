@@ -44,10 +44,10 @@ def choi(a_var: int = 1, b_var: int = 1, c_var: int = 0) -> np.ndarray:
         We can generate the Choi channel in `|toqito⟩` as follows.
 
         ```python exec="1" source="above"
-        import numpy as np
-        from toqito.channels import choi
+    import numpy as np
+    from toqito.channels import choi
 
-        print(choi())
+    print(choi())
         ```
 
         The reduction channel is the map \(R\) defined by:
@@ -77,10 +77,10 @@ def choi(a_var: int = 1, b_var: int = 1, c_var: int = 0) -> np.ndarray:
         c = 1`. We can obtain this matrix using `|toqito⟩` as follows.
 
         ```python exec="1" source="above"
-        import numpy as np
-        from toqito.channels import choi
+    import numpy as np
+    from toqito.channels import choi
 
-        print(choi(0, 1, 1))
+    print(choi(0, 1, 1))
         ```
 
         !!! See Also

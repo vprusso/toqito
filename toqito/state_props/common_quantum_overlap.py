@@ -38,20 +38,20 @@ def common_quantum_overlap(states: list[np.ndarray]) -> float:
         Consider the Bell states:
 
         ```python exec="1" source="above"
-        from toqito.states import bell
-        from toqito.state_props import common_quantum_overlap
-        bell_states = [bell(0), bell(1), bell(2), bell(3)]
-        print(common_quantum_overlap(bell_states))
+    from toqito.states import bell
+    from toqito.state_props import common_quantum_overlap
+    bell_states = [bell(0), bell(1), bell(2), bell(3)]
+    print(common_quantum_overlap(bell_states))
         ```
 
         For maximally mixed states in any dimension:
 
         ```python exec="1" source="above"
-        import numpy as np
-        from toqito.state_props import common_quantum_overlap
-        dim = 2
-        states = [np.eye(dim) / dim, np.eye(dim) / dim, np.eye(dim) / dim]
-        print(common_quantum_overlap(states))
+    import numpy as np
+    from toqito.state_props import common_quantum_overlap
+    dim = 2
+    states = [np.eye(dim) / dim, np.eye(dim) / dim, np.eye(dim) / dim]
+    print(common_quantum_overlap(states))
         ```
 
         The common quantum overlap \(\omega_Q\) for two pure states
@@ -65,11 +65,11 @@ def common_quantum_overlap(states: list[np.ndarray]) -> float:
         For two pure states with a known inner product:
 
         ```python exec="1" source="above"
-        import numpy as np
-        from toqito.state_props import common_quantum_overlap
-        theta = np.pi/4
-        states = [np.array([1, 0]), np.array([np.cos(theta), np.sin(theta)])]
-        print(common_quantum_overlap(states)) # Should approximate (1-sqrt(1-cos²(π/4)))
+    import numpy as np
+    from toqito.state_props import common_quantum_overlap
+    theta = np.pi/4
+    states = [np.array([1, 0]), np.array([np.cos(theta), np.sin(theta)])]
+    print(common_quantum_overlap(states)) # Should approximate (1-sqrt(1-cos²(π/4)))
         ```
 
     """

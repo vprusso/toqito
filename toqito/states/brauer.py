@@ -40,8 +40,8 @@ def brauer(dim: int, p_val: int) -> np.ndarray:
         Generate a matrix whose columns are all Brauer states on 4 qubits.
 
         ```python exec="1" source="above"
-        from toqito.states import brauer
-        print(brauer(2, 2))
+    from toqito.states import brauer
+    print(brauer(2, 2))
         ```
 
     """

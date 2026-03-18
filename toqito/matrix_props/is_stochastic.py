@@ -31,30 +31,30 @@ def is_stochastic(mat: np.ndarray, mat_type: str) -> bool:
         matrix.
 
         ```python exec="1" source="above"
-        import numpy as np
-        from toqito.matrix_props import is_stochastic
+    import numpy as np
+    from toqito.matrix_props import is_stochastic
 
-        print(is_stochastic(np.eye(5), "right"))
-        print(is_stochastic(np.eye(5), "left"))
-        print(is_stochastic(np.eye(5), "doubly"))
+    print(is_stochastic(np.eye(5), "right"))
+    print(is_stochastic(np.eye(5), "left"))
+    print(is_stochastic(np.eye(5), "doubly"))
         ```
 
         ```python exec="1" source="above"
-        from toqito.matrices import pauli
-        from toqito.matrix_props import is_stochastic
+    from toqito.matrices import pauli
+    from toqito.matrix_props import is_stochastic
 
-        print(is_stochastic(pauli("X"), "left"))
-        print(is_stochastic(pauli("X"), "right"))
-        print(is_stochastic(pauli("X"), "doubly"))
+    print(is_stochastic(pauli("X"), "left"))
+    print(is_stochastic(pauli("X"), "right"))
+    print(is_stochastic(pauli("X"), "doubly"))
         ```
 
         ```python exec="1" source="above"
-        from toqito.matrices import pauli
-        from toqito.matrix_props import is_stochastic
+    from toqito.matrices import pauli
+    from toqito.matrix_props import is_stochastic
 
-        print(is_stochastic(pauli("Z"), "right"))
-        print(is_stochastic(pauli("Z"), "left"))
-        print(is_stochastic(pauli("Z"), "doubly"))
+    print(is_stochastic(pauli("Z"), "right"))
+    print(is_stochastic(pauli("Z"), "left"))
+    print(is_stochastic(pauli("Z"), "doubly"))
         ```
 
         !!! See Also

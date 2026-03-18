@@ -30,11 +30,11 @@ def is_mixed(state: np.ndarray) -> bool:
         confirmed in `|toqito⟩` as follows:
 
         ```python exec="1" source="above"
-        from toqito.states import basis
-        from toqito.state_props import is_mixed
-        e_0, e_1 = basis(2, 0), basis(2, 1)
-        rho = 3 / 4 * e_0 @ e_0.conj().T + 1 / 4 * e_1 @ e_1.conj().T
-        print(is_mixed(rho))
+    from toqito.states import basis
+    from toqito.state_props import is_mixed
+    e_0, e_1 = basis(2, 0), basis(2, 1)
+    rho = 3 / 4 * e_0 @ e_0.conj().T + 1 / 4 * e_1 @ e_1.conj().T
+    print(is_mixed(rho))
         ```
 
     """

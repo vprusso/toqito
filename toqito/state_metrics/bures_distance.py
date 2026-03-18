@@ -55,18 +55,18 @@ def bures_distance(rho_1: np.ndarray, rho_2: np.ndarray, decimals: int = 10) -> 
         \(0\). This can be observed in `|toqito⟩` as follows.
 
         ```python exec="1" source="above"
-        import numpy as np
-        from toqito.state_metrics import bures_distance
+    import numpy as np
+    from toqito.state_metrics import bures_distance
 
-        rho = 1 / 2 * np.array(
-            [[1, 0, 0, 1],
-             [0, 0, 0, 0],
-             [0, 0, 0, 0],
-             [1, 0, 0, 1]]
-        )
-        sigma = rho
+    rho = 1 / 2 * np.array(
+        [[1, 0, 0, 1],
+         [0, 0, 0, 0],
+         [0, 0, 0, 0],
+         [1, 0, 0, 1]]
+    )
+    sigma = rho
 
-        print(bures_distance(rho, sigma))
+    print(bures_distance(rho, sigma))
         ```
 
     """
