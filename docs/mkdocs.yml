@@ -116,6 +116,7 @@ extra_javascript:
 
 hooks:
   - _hooks/flatten_api_nav.py
+  - _hooks/full_bibliography.py
 
 extra:
   version:
