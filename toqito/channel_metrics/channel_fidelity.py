@@ -1,5 +1,7 @@
 """Computes the channel fidelity between two quantum channels."""
 
+import warnings
+
 import cvxpy
 import numpy as np
 
@@ -97,4 +99,6 @@ def channel_fidelity(choi_1: np.ndarray, choi_2: np.ndarray, eps: float = 1e-7) 
 
     problem = cvxpy.Problem(objective, constraints)
 
-    return problem.solve(solver=cvxpy.SCS, eps=eps)
+    with warnings.catch_warnings():
+        warnings.filterwarnings("ignore", message="Solution may be inaccurate")
+        return problem.solve(solver=cvxpy.SCS, eps=eps)
