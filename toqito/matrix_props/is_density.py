@@ -40,11 +40,11 @@ def is_density(mat: np.ndarray) -> bool:
         semidefinite.
 
         ```python exec="1" source="above"
-        from toqito.matrix_props import is_density
-        from toqito.states import bell
-        import numpy as np
-        rho = bell(0) @ bell(0).conj().T
-        print(is_density(rho))
+from toqito.matrix_props import is_density
+from toqito.states import bell
+import numpy as np
+rho = bell(0) @ bell(0).conj().T
+print(is_density(rho))
         ```
 
         Alternatively, the following example matrix \(\sigma\) defined as
@@ -61,13 +61,13 @@ def is_density(mat: np.ndarray) -> bool:
         illustrated using `|toqito⟩` as follows.
 
         ```python exec="1" source="above"
-        import numpy as np
-        from toqito.states import bell
-        from toqito.matrix_props import is_density
+import numpy as np
+from toqito.states import bell
+from toqito.matrix_props import is_density
 
-        sigma = 1/2 * np.array([[1, 2], [3, 1]])
+sigma = 1/2 * np.array([[1, 2], [3, 1]])
 
-        print(is_density(sigma))
+print(is_density(sigma))
         ```
 
     """

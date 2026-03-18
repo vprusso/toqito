@@ -55,13 +55,13 @@ def is_positive(
         This map is not completely positive, as we can verify as follows.
 
         ```python exec="1" source="above"
-        import numpy as np
-        from toqito.channel_props import is_positive
+import numpy as np
+from toqito.channel_props import is_positive
 
-        unitary_mat = np.array([[1, 1], [-1, -1]]) / np.sqrt(2)
-        kraus_ops = [[np.identity(2), np.identity(2)], [unitary_mat, -unitary_mat]]
+unitary_mat = np.array([[1, 1], [-1, -1]]) / np.sqrt(2)
+kraus_ops = [[np.identity(2), np.identity(2)], [unitary_mat, -unitary_mat]]
 
-        print(is_positive(kraus_ops))
+print(is_positive(kraus_ops))
         ```
 
         We can also specify the input as a Choi matrix. For instance, consider the Choi matrix
@@ -69,10 +69,10 @@ def is_positive(
         that this channel is positive.
 
         ```python exec="1" source="above"
-        from toqito.channels import depolarizing
-        from toqito.channel_props import is_positive
+from toqito.channels import depolarizing
+from toqito.channel_props import is_positive
 
-        print(is_positive(depolarizing(4)))
+print(is_positive(depolarizing(4)))
         ```
 
     """

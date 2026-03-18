@@ -29,9 +29,9 @@ def standard_basis(dim: int, flatten: bool = False) -> list[np.ndarray]:
 
     Examples:
         ```python exec="1" source="above"
-        from toqito.matrices import standard_basis
+from toqito.matrices import standard_basis
 
-        print(standard_basis(2))
+print(standard_basis(2))
         ```
 
     """

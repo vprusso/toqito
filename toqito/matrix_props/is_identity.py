@@ -44,12 +44,12 @@ def is_identity(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-8) -> boo
         3.
 
         ```python exec="1" source="above"
-        import numpy as np
-        from toqito.matrix_props import is_identity
+import numpy as np
+from toqito.matrix_props import is_identity
 
-        mat = np.eye(3)
+mat = np.eye(3)
 
-        print(is_identity(mat))
+print(is_identity(mat))
         ```
 
         Alternatively, the following example matrix \(B\) defined as
@@ -65,12 +65,12 @@ def is_identity(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-8) -> boo
         is not an identity matrix.
 
         ```python exec="1" source="above"
-        import numpy as np
-        from toqito.matrix_props import is_identity
+import numpy as np
+from toqito.matrix_props import is_identity
 
-        mat = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+mat = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
 
-        print(is_identity(mat))
+print(is_identity(mat))
         ```
 
     """

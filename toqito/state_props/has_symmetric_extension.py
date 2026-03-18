@@ -53,19 +53,19 @@ def has_symmetric_extension(
         This closed-form equation is much quicker to check than running the semidefinite program.
 
         ```python exec="1" source="above" session="has_symmetric_example"
-        import numpy as np
-        from toqito.state_props import has_symmetric_extension
-        from toqito.matrix_ops import partial_trace
-        rho = np.array([[1, 0, 0, -1], [0, 1, 1/2, 0], [0, 1/2, 1, 0], [-1, 0, 0, 1]])
-        # Show the closed-form equation holds
-        print(
-        np.trace(np.linalg.matrix_power(partial_trace(rho, 1), 2))
-        >= np.trace(rho**2) - 4 * np.sqrt(np.linalg.det(rho)))
+import numpy as np
+from toqito.state_props import has_symmetric_extension
+from toqito.matrix_ops import partial_trace
+rho = np.array([[1, 0, 0, -1], [0, 1, 1/2, 0], [0, 1/2, 1, 0], [-1, 0, 0, 1]])
+# Show the closed-form equation holds
+print(
+np.trace(np.linalg.matrix_power(partial_trace(rho, 1), 2))
+>= np.trace(rho**2) - 4 * np.sqrt(np.linalg.det(rho)))
         ```
 
         ```python exec="1" source="above" session="has_symmetric_example"
-        # Now show that the `has_symmetric_extension` function recognizes this case.
-        print(has_symmetric_extension(rho))
+# Now show that the `has_symmetric_extension` function recognizes this case.
+print(has_symmetric_extension(rho))
         ```
 
         Higher qubit systems:
@@ -91,12 +91,12 @@ def has_symmetric_extension(
         level. We see this being the case for a relatively low level of the hierarchy.
 
         ```python exec="1" source="above"
-        import numpy as np
-        from toqito.states import bell
-        from toqito.state_props import has_symmetric_extension
-        rho = bell(0) @ bell(0).conj().T
-        sigma = np.kron(rho, rho)
-        print(has_symmetric_extension(sigma))
+import numpy as np
+from toqito.states import bell
+from toqito.state_props import has_symmetric_extension
+rho = bell(0) @ bell(0).conj().T
+sigma = np.kron(rho, rho)
+print(has_symmetric_extension(sigma))
         ```
 
     """

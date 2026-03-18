@@ -39,12 +39,12 @@ def is_projection(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08) -> 
         our function indicates that this is indeed a projection matrix.
 
         ```python exec="1" source="above"
-        import numpy as np
-        from toqito.matrix_props import is_projection
+import numpy as np
+from toqito.matrix_props import is_projection
 
-        A = np.array([[0, 1], [0, 1]])
+A = np.array([[0, 1], [0, 1]])
 
-        print(is_projection(A))
+print(is_projection(A))
         ```
 
         Alternatively, the following example matrix \(B\) defined as
@@ -59,12 +59,12 @@ def is_projection(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08) -> 
         is not a projection matrix.
 
         ```python exec="1" source="above"
-        import numpy as np
-        from toqito.matrix_props import is_projection
+import numpy as np
+from toqito.matrix_props import is_projection
 
-        B = np.array([[-1, -1], [-1, -1]])
+B = np.array([[-1, -1], [-1, -1]])
 
-        print(is_projection(B))
+print(is_projection(B))
         ```
 
     """

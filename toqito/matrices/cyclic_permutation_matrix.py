@@ -22,17 +22,17 @@ def cyclic_permutation_matrix(n: int, k: int = 1) -> np.ndarray:
         Generate fixed point.
 
         ```python exec="1" source="above"
-        from toqito.matrices import cyclic_permutation_matrix
+from toqito.matrices import cyclic_permutation_matrix
 
-        print(cyclic_permutation_matrix(n=4))
+print(cyclic_permutation_matrix(n=4))
         ```
 
         Generate successive application.
 
         ```python exec="1" source="above"
-        from toqito.matrices import cyclic_permutation_matrix
+from toqito.matrices import cyclic_permutation_matrix
 
-        print(cyclic_permutation_matrix(n=4, k=3))
+print(cyclic_permutation_matrix(n=4, k=3))
         ```
 
 

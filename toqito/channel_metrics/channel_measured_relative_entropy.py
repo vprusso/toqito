@@ -84,17 +84,17 @@ def channel_measured_relative_entropy(
         and the identity channel, constrained by a Hamiltonian and energy, as follows:
 
         ```python exec="1" source="above"
-        from toqito.channel_metrics import channel_measured_relative_entropy
-        from toqito.channels import depolarizing
-        import numpy as np
-        channel_1 = depolarizing(2, 0.2)
-        channel_2 = np.eye(4)
-        in_dim = 2
-        m = 5
-        k = 5
-        hamiltonian = np.zeros((2, 2))
-        energy = 100
-        print(channel_measured_relative_entropy(channel_1, channel_2, in_dim, m, k, hamiltonian, energy))
+from toqito.channel_metrics import channel_measured_relative_entropy
+from toqito.channels import depolarizing
+import numpy as np
+channel_1 = depolarizing(2, 0.2)
+channel_2 = np.eye(4)
+in_dim = 2
+m = 5
+k = 5
+hamiltonian = np.zeros((2, 2))
+energy = 100
+print(channel_measured_relative_entropy(channel_1, channel_2, in_dim, m, k, hamiltonian, energy))
         ```
 
     """

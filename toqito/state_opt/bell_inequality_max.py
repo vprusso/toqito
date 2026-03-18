@@ -146,13 +146,13 @@ def bell_inequality_max(
         \]
 
         ```python exec="1" source="above"
-        import numpy as np
-        from toqito.state_opt.bell_inequality_max import bell_inequality_max
-        M_chsh_fc = np.array([[0, 0, 0], [0, 1, 1], [0, 1, -1]])
-        desc_chsh = [2, 2, 2, 2]
-        bell_inequality_max(M_chsh_fc, desc_chsh, 'fc', 'classical')
-        bell_inequality_max(M_chsh_fc, desc_chsh, 'fc', 'quantum', tol=1e-7)
-        print(bell_inequality_max(M_chsh_fc, desc_chsh, 'fc', 'nosignal', tol=1e-9))
+import numpy as np
+from toqito.state_opt.bell_inequality_max import bell_inequality_max
+M_chsh_fc = np.array([[0, 0, 0], [0, 1, 1], [0, 1, -1]])
+desc_chsh = [2, 2, 2, 2]
+bell_inequality_max(M_chsh_fc, desc_chsh, 'fc', 'classical')
+bell_inequality_max(M_chsh_fc, desc_chsh, 'fc', 'quantum', tol=1e-7)
+print(bell_inequality_max(M_chsh_fc, desc_chsh, 'fc', 'nosignal', tol=1e-9))
         ```
 
 
@@ -171,27 +171,27 @@ def bell_inequality_max(
         \]
 
         ```python exec="1" source="above"
-        import numpy as np
-        from toqito.state_opt.bell_inequality_max import bell_inequality_max
-        M_chsh_cg = np.array([[0, -1, 0], [-1, 1, 1], [0, 1, -1]])
-        desc_chsh = [2, 2, 2, 2]
-        bell_inequality_max(M_chsh_cg, desc_chsh, 'cg', 'classical')
-        bell_inequality_max(M_chsh_cg, desc_chsh, 'cg', 'quantum', tol=1e-7)
-        print(bell_inequality_max(M_chsh_cg, desc_chsh, 'cg', 'nosignal', tol=1e-9))
+import numpy as np
+from toqito.state_opt.bell_inequality_max import bell_inequality_max
+M_chsh_cg = np.array([[0, -1, 0], [-1, 1, 1], [0, 1, -1]])
+desc_chsh = [2, 2, 2, 2]
+bell_inequality_max(M_chsh_cg, desc_chsh, 'cg', 'classical')
+bell_inequality_max(M_chsh_cg, desc_chsh, 'cg', 'quantum', tol=1e-7)
+print(bell_inequality_max(M_chsh_cg, desc_chsh, 'cg', 'nosignal', tol=1e-9))
         ```
 
         The I3322 inequality in Collins-Gisin (CG) notation.
         Classical max = 1, No-signalling max = 2. Quantum value is between 1 and 2.
 
         ```python exec="1" source="above"
-        import numpy as np
-        from toqito.state_opt.bell_inequality_max import bell_inequality_max
-        M_i3322_cg = np.array([[0, 1, 0, 0], [1, -1, -1, -1], [0, -1, -1, 1], [0, -1, 1, 0]])
-        desc_i3322 = [2, 2, 3, 3]
-        bell_inequality_max(M_i3322_cg, desc_i3322, 'cg', 'classical')
-        bell_inequality_max(M_i3322_cg, desc_i3322, 'cg', 'quantum', k=1, tol=1e-7)
-        bell_inequality_max(M_i3322_cg, desc_i3322, 'cg', 'quantum', k='1+ab', tol=1e-7)
-        print(bell_inequality_max(M_i3322_cg, desc_i3322, 'cg', 'nosignal', tol=1e-9))
+import numpy as np
+from toqito.state_opt.bell_inequality_max import bell_inequality_max
+M_i3322_cg = np.array([[0, 1, 0, 0], [1, -1, -1, -1], [0, -1, -1, 1], [0, -1, 1, 0]])
+desc_i3322 = [2, 2, 3, 3]
+bell_inequality_max(M_i3322_cg, desc_i3322, 'cg', 'classical')
+bell_inequality_max(M_i3322_cg, desc_i3322, 'cg', 'quantum', k=1, tol=1e-7)
+bell_inequality_max(M_i3322_cg, desc_i3322, 'cg', 'quantum', k='1+ab', tol=1e-7)
+print(bell_inequality_max(M_i3322_cg, desc_i3322, 'cg', 'nosignal', tol=1e-9))
         ```
 
     """
@@ -489,21 +489,21 @@ def bell_inequality_max_qubits(
         The upper bound can then be found in `|toqito⟩` as follows.
 
         ```python exec="1" source="above"
-        import numpy as np
-        from toqito.state_opt.bell_inequality_max import bell_inequality_max_qubits
+import numpy as np
+from toqito.state_opt.bell_inequality_max import bell_inequality_max_qubits
 
-        joint_coe = np.array([
-            [1, 1, -1],
-            [1, 1, 1],
-            [-1, 1, 0],
-        ])
-        a_coe = np.array([0, -1, 0])
-        b_coe = np.array([-1, -2, 0])
-        a_val = np.array([0, 1])
-        b_val = np.array([0, 1])
+joint_coe = np.array([
+    [1, 1, -1],
+    [1, 1, 1],
+    [-1, 1, 0],
+])
+a_coe = np.array([0, -1, 0])
+b_coe = np.array([-1, -2, 0])
+a_val = np.array([0, 1])
+b_val = np.array([0, 1])
 
-        result = bell_inequality_max_qubits(joint_coe, a_coe, b_coe, a_val, b_val)
-        print(f"Bell inequality maximum value: {result:.3f}")
+result = bell_inequality_max_qubits(joint_coe, a_coe, b_coe, a_val, b_val)
+print(f"Bell inequality maximum value: {result:.3f}")
         ```
 
     """

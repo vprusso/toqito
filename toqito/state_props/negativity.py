@@ -34,10 +34,10 @@ def negativity(rho: np.ndarray, dim: list[int] | int | None = None) -> float | n
         Example of the negativity of density matrix of Bell state.
 
         ```python exec="1" source="above"
-        from toqito.states import bell
-        from toqito.state_props import negativity
-        rho = bell(0) @ bell(0).conj().T
-        print(negativity(rho))
+from toqito.states import bell
+from toqito.state_props import negativity
+rho = bell(0) @ bell(0).conj().T
+print(negativity(rho))
         ```
 
         !!!See Also

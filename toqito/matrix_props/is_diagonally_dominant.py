@@ -33,12 +33,12 @@ def is_diagonally_dominant(mat: np.ndarray, is_strict: bool = True) -> bool:
         our function indicates that this is indeed a diagonally dominant matrix.
 
         ```python exec="1" source="above"
-        import numpy as np
-        from toqito.matrix_props import is_diagonally_dominant
+import numpy as np
+from toqito.matrix_props import is_diagonally_dominant
 
-        A = np.array([[2, -1, 0], [0, 2, -1], [0, -1, 2]])
+A = np.array([[2, -1, 0], [0, 2, -1], [0, -1, 2]])
 
-        print(is_diagonally_dominant(A))
+print(is_diagonally_dominant(A))
         ```
 
         Alternatively, the following example matrix \(B\) defined as
@@ -53,12 +53,12 @@ def is_diagonally_dominant(mat: np.ndarray, is_strict: bool = True) -> bool:
         is not diagonally dominant.
 
         ```python exec="1" source="above"
-        import numpy as np
-        from toqito.matrix_props import is_diagonally_dominant
+import numpy as np
+from toqito.matrix_props import is_diagonally_dominant
 
-        B = np.array([[-1, 2], [-1, -1]])
+B = np.array([[-1, 2], [-1, -1]])
 
-        print(is_diagonally_dominant(B))
+print(is_diagonally_dominant(B))
         ```
 
     """

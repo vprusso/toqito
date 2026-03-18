@@ -57,11 +57,11 @@ def cg_to_fc(cg_mat: np.ndarray, behavior: bool = False) -> np.ndarray:
         Converting to FC notation:
 
         ```python exec="1" source="above"
-        import numpy as np
-        from toqito.state_opt.bell_notation_conversions import cg_to_fc
+import numpy as np
+from toqito.state_opt.bell_notation_conversions import cg_to_fc
 
-        chsh_cg = np.array([[0, 0, 0], [0, 1, -1], [0, -1, 1]])
-        print(cg_to_fc(chsh_cg))
+chsh_cg = np.array([[0, 0, 0], [0, 1, -1], [0, -1, 1]])
+print(cg_to_fc(chsh_cg))
         ```
 
         Consider a behavior (probability distribution) in CG notation:
@@ -78,10 +78,10 @@ def cg_to_fc(cg_mat: np.ndarray, behavior: bool = False) -> np.ndarray:
         Converting to FC notation:
 
         ```python exec="1" source="above"
-        import numpy as np
-        from toqito.state_opt.bell_notation_conversions import cg_to_fc
-        p_cg = np.array([[1, 0.5, 0.5], [0.5, 0.25, 0.25], [0.5, 0.25, 0.25]])
-        print(cg_to_fc(p_cg, behavior=True))
+import numpy as np
+from toqito.state_opt.bell_notation_conversions import cg_to_fc
+p_cg = np.array([[1, 0.5, 0.5], [0.5, 0.25, 0.25], [0.5, 0.25, 0.25]])
+print(cg_to_fc(p_cg, behavior=True))
         ```
 
     """
@@ -162,10 +162,10 @@ def fc_to_cg(fc_mat: np.ndarray, behavior: bool = False) -> np.ndarray:
         Converting to CG notation:
 
         ```python exec="1" source="above"
-        import numpy as np
-        from toqito.state_opt.bell_notation_conversions import fc_to_cg
-        chsh_fc = np.array([[0, 0, 0], [0, 0.25, -0.25], [0, -0.25, 0.25]])
-        print(fc_to_cg(chsh_fc))
+import numpy as np
+from toqito.state_opt.bell_notation_conversions import fc_to_cg
+chsh_fc = np.array([[0, 0, 0], [0, 0.25, -0.25], [0, -0.25, 0.25]])
+print(fc_to_cg(chsh_fc))
         ```
 
         Consider a behavior (correlation matrix) in FC notation:
@@ -182,10 +182,10 @@ def fc_to_cg(fc_mat: np.ndarray, behavior: bool = False) -> np.ndarray:
         Converting to CG notation:
 
         ```python exec="1" source="above"
-        import numpy as np
-        from toqito.state_opt.bell_notation_conversions import fc_to_cg
-        p_fc = np.array([[1, 0, 0], [0, 0, 0], [0, 0, 0]])
-        print(fc_to_cg(p_fc, behavior=True))
+import numpy as np
+from toqito.state_opt.bell_notation_conversions import fc_to_cg
+p_fc = np.array([[1, 0, 0], [0, 0, 0], [0, 0, 0]])
+print(fc_to_cg(p_fc, behavior=True))
         ```
 
     """
@@ -251,11 +251,11 @@ def cg_to_fp(cg_mat: np.ndarray, desc: list[int], behavior: bool = False) -> np.
         Converting to FP notation (desc = [2, 2, 2, 2]):
 
         ```python exec="1" source="above"
-        import numpy as np
-        from toqito.state_opt.bell_notation_conversions import cg_to_fp
-        chsh_cg = np.array([[0, 0, 0], [0, 1, -1], [0, -1, 1]])
-        desc = [2, 2, 2, 2] # oa, ob, ia, ib
-        print(cg_to_fp(chsh_cg, desc))
+import numpy as np
+from toqito.state_opt.bell_notation_conversions import cg_to_fp
+chsh_cg = np.array([[0, 0, 0], [0, 1, -1], [0, -1, 1]])
+desc = [2, 2, 2, 2] # oa, ob, ia, ib
+print(cg_to_fp(chsh_cg, desc))
         ```
 
         Consider a behavior (probability distribution) in CG notation (desc = [2, 2, 2, 2]):
@@ -272,11 +272,11 @@ def cg_to_fp(cg_mat: np.ndarray, desc: list[int], behavior: bool = False) -> np.
         Converting to FP notation:
 
         ```python exec="1" source="above"
-        import numpy as np
-        from toqito.state_opt.bell_notation_conversions import cg_to_fp
-        p_cg = np.array([[1, 0.5, 0.5], [0.5, 0.25, 0.25], [0.5, 0.25, 0.25]])
-        desc = [2, 2, 2, 2]
-        print(cg_to_fp(p_cg, desc, behavior=True))
+import numpy as np
+from toqito.state_opt.bell_notation_conversions import cg_to_fp
+p_cg = np.array([[1, 0.5, 0.5], [0.5, 0.25, 0.25], [0.5, 0.25, 0.25]])
+desc = [2, 2, 2, 2]
+print(cg_to_fp(p_cg, desc, behavior=True))
         ```
 
     """
@@ -412,10 +412,10 @@ def fc_to_fp(fc_mat: np.ndarray, behavior: bool = False) -> np.ndarray:
         Converting to FP notation:
 
         ```python exec="1" source="above"
-        import numpy as np
-        from toqito.state_opt.bell_notation_conversions import fc_to_fp
-        chsh_fc = np.array([[0, 0, 0], [0, 0.25, -0.25], [0, -0.25, 0.25]])
-        print(fc_to_fp(chsh_fc))
+import numpy as np
+from toqito.state_opt.bell_notation_conversions import fc_to_fp
+chsh_fc = np.array([[0, 0, 0], [0, 0.25, -0.25], [0, -0.25, 0.25]])
+print(fc_to_fp(chsh_fc))
         ```
 
         Consider a behavior (correlation matrix) in FC notation (e.g., from PR box):
@@ -434,10 +434,10 @@ def fc_to_fp(fc_mat: np.ndarray, behavior: bool = False) -> np.ndarray:
         Converting to FP notation:
 
         ```python exec="1" source="above"
-        import numpy as np
-        from toqito.state_opt.bell_notation_conversions import fc_to_fp
-        p_fc = np.array([[1, 0, 0], [0, 1/np.sqrt(2), 1/np.sqrt(2)], [0, 1/np.sqrt(2), -1/np.sqrt(2)]])
-        print(fc_to_fp(p_fc, behavior=True))
+import numpy as np
+from toqito.state_opt.bell_notation_conversions import fc_to_fp
+p_fc = np.array([[1, 0, 0], [0, 1/np.sqrt(2), 1/np.sqrt(2)], [0, 1/np.sqrt(2), -1/np.sqrt(2)]])
+print(fc_to_fp(p_fc, behavior=True))
         ```
 
     """
@@ -511,31 +511,31 @@ def fp_to_cg(v_mat: np.ndarray, behavior: bool = False) -> np.ndarray:
         (Here V represents coefficients, not probabilities)
 
         ```python exec="1" source="above"
-        import numpy as np
-        from toqito.state_opt.bell_notation_conversions import fp_to_cg
-        chsh_fp = np.zeros((2, 2, 2, 2))
-        chsh_fp[0, 0, 0, 0] = 1
-        chsh_fp[0, 0, 0, 1] = -1
-        chsh_fp[0, 0, 1, 0] = -1
-        chsh_fp[0, 0, 1, 1] = 1
-        print(fp_to_cg(chsh_fp))
+import numpy as np
+from toqito.state_opt.bell_notation_conversions import fp_to_cg
+chsh_fp = np.zeros((2, 2, 2, 2))
+chsh_fp[0, 0, 0, 0] = 1
+chsh_fp[0, 0, 0, 1] = -1
+chsh_fp[0, 0, 1, 0] = -1
+chsh_fp[0, 0, 1, 1] = 1
+print(fp_to_cg(chsh_fp))
         ```
 
         Consider a behavior (probability distribution) in FP notation (standard PR box):
 
         ```python exec="1" source="above"
-        import numpy as np
-        from toqito.state_opt.bell_notation_conversions import fp_to_cg
-        pr_box = np.zeros((2, 2, 2, 2))
-        pr_box[0, 0, 0, 0] = 0.5 # p(0,0|0,0)
-        pr_box[1, 1, 0, 0] = 0.5 # p(1,1|0,0)
-        pr_box[0, 0, 0, 1] = 0.5 # p(0,0|0,1)
-        pr_box[1, 1, 0, 1] = 0.5 # p(1,1|0,1)
-        pr_box[0, 0, 1, 0] = 0.5 # p(0,0|1,0)
-        pr_box[1, 1, 1, 0] = 0.5 # p(1,1|1,0)
-        pr_box[0, 1, 1, 1] = 0.5 # p(0,1|1,1)
-        pr_box[1, 0, 1, 1] = 0.5 # p(1,0|1,1)
-        print(fp_to_cg(pr_box, behavior=True))
+import numpy as np
+from toqito.state_opt.bell_notation_conversions import fp_to_cg
+pr_box = np.zeros((2, 2, 2, 2))
+pr_box[0, 0, 0, 0] = 0.5 # p(0,0|0,0)
+pr_box[1, 1, 0, 0] = 0.5 # p(1,1|0,0)
+pr_box[0, 0, 0, 1] = 0.5 # p(0,0|0,1)
+pr_box[1, 1, 0, 1] = 0.5 # p(1,1|0,1)
+pr_box[0, 0, 1, 0] = 0.5 # p(0,0|1,0)
+pr_box[1, 1, 1, 0] = 0.5 # p(1,1|1,0)
+pr_box[0, 1, 1, 1] = 0.5 # p(0,1|1,1)
+pr_box[1, 0, 1, 1] = 0.5 # p(1,0|1,1)
+print(fp_to_cg(pr_box, behavior=True))
         ```
 
     """
@@ -660,28 +660,28 @@ def fp_to_fc(v_mat: np.ndarray, behavior: bool = False) -> np.ndarray:
         (Here V represents coefficients, not probabilities)
 
         ```python exec="1" source="above"
-        import numpy as np
-        from toqito.state_opt.bell_notation_conversions import fp_to_fc, fc_to_fp
-        chsh_fc = np.array([[0, 0, 0], [0, 0.25, -0.25], [0, -0.25, 0.25]])
-        chsh_fp = fc_to_fp(chsh_fc)
-        print(fp_to_fc(chsh_fp))
+import numpy as np
+from toqito.state_opt.bell_notation_conversions import fp_to_fc, fc_to_fp
+chsh_fc = np.array([[0, 0, 0], [0, 0.25, -0.25], [0, -0.25, 0.25]])
+chsh_fp = fc_to_fp(chsh_fc)
+print(fp_to_fc(chsh_fp))
         ```
 
         Consider a behavior (probability distribution) in FP notation (standard PR box):
 
         ```python exec="1" source="above"
-        import numpy as np
-        from toqito.state_opt.bell_notation_conversions import fp_to_fc
-        pr_box = np.zeros((2, 2, 2, 2))
-        pr_box[0, 0, 0, 0] = 0.5 # p(0,0|0,0)
-        pr_box[1, 1, 0, 0] = 0.5 # p(1,1|0,0)
-        pr_box[0, 0, 0, 1] = 0.5 # p(0,0|0,1)
-        pr_box[1, 1, 0, 1] = 0.5 # p(1,1|0,1)
-        pr_box[0, 0, 1, 0] = 0.5 # p(0,0|1,0)
-        pr_box[1, 1, 1, 0] = 0.5 # p(1,1|1,0)
-        pr_box[0, 1, 1, 1] = 0.5 # p(0,1|1,1)
-        pr_box[1, 0, 1, 1] = 0.5 # p(1,0|1,1)
-        print(fp_to_fc(pr_box, behavior=True))
+import numpy as np
+from toqito.state_opt.bell_notation_conversions import fp_to_fc
+pr_box = np.zeros((2, 2, 2, 2))
+pr_box[0, 0, 0, 0] = 0.5 # p(0,0|0,0)
+pr_box[1, 1, 0, 0] = 0.5 # p(1,1|0,0)
+pr_box[0, 0, 0, 1] = 0.5 # p(0,0|0,1)
+pr_box[1, 1, 0, 1] = 0.5 # p(1,1|0,1)
+pr_box[0, 0, 1, 0] = 0.5 # p(0,0|1,0)
+pr_box[1, 1, 1, 0] = 0.5 # p(1,1|1,0)
+pr_box[0, 1, 1, 1] = 0.5 # p(0,1|1,1)
+pr_box[1, 0, 1, 1] = 0.5 # p(1,0|1,1)
+print(fp_to_fc(pr_box, behavior=True))
         ```
 
     """

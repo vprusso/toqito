@@ -14,11 +14,11 @@ def natural_representation(kraus_ops: list[np.ndarray]) -> np.ndarray:
 
     Examples:
         ```python exec="1" source="above"
-        import numpy as np
-        from toqito.channel_ops import natural_representation
-        k0 = np.sqrt(1/2) * np.array([[1, 0], [0, 1]])
-        k1 = np.sqrt(1/2) * np.array([[0, 1], [1, 0]])
-        print(natural_representation([k0, k1]))
+import numpy as np
+from toqito.channel_ops import natural_representation
+k0 = np.sqrt(1/2) * np.array([[1, 0], [0, 1]])
+k1 = np.sqrt(1/2) * np.array([[0, 1], [1, 0]])
+print(natural_representation([k0, k1]))
         ```
 
     """

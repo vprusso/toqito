@@ -44,12 +44,12 @@ def is_k_incoherent(mat: np.ndarray, k: int, tol: float = 1e-15) -> bool:
         If \(n = 3\) and \(k = 2\), then the following matrix is \(2\)-incoherent:
 
         ```python exec="1" source="above"
-        import numpy as np
-        from toqito.matrix_props import is_k_incoherent
-        mat = np.array([[2, 1, 2],
-                    [1, 2, -1],
-                    [2, -1, 5]])
-        print(is_k_incoherent(mat, 2))
+import numpy as np
+from toqito.matrix_props import is_k_incoherent
+mat = np.array([[2, 1, 2],
+            [1, 2, -1],
+            [2, -1, 5]])
+print(is_k_incoherent(mat, 2))
         ```
 
         !!! See

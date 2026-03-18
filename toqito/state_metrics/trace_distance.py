@@ -52,13 +52,13 @@ def trace_distance(rho: np.ndarray, sigma: np.ndarray) -> float | np.floating:
         \(\rho = \sigma\). We can check this using the `|toqito⟩` package.
 
         ```python exec="1" source="above"
-        from toqito.states import bell
-        from toqito.state_metrics import trace_distance
+from toqito.states import bell
+from toqito.state_metrics import trace_distance
 
-        rho = bell(0) @ bell(0).conj().T
-        sigma = rho
+rho = bell(0) @ bell(0).conj().T
+sigma = rho
 
-        print(trace_distance(rho, sigma))
+print(trace_distance(rho, sigma))
         ```
 
     """

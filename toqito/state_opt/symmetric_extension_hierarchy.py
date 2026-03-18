@@ -91,45 +91,45 @@ def symmetric_extension_hierarchy(
         Consider a fixed value of \(\epsilon = 0.5\).
 
         ```python exec="1" source="above"
-        from toqito.states import basis, bell
-        from toqito.perms import swap
-        from toqito.state_opt import symmetric_extension_hierarchy
-        import numpy as np
+from toqito.states import basis, bell
+from toqito.perms import swap
+from toqito.state_opt import symmetric_extension_hierarchy
+import numpy as np
 
-        # Create standard basis vectors.
-        e_0, e_1 = basis(2, 0), basis(2, 1)
-        e_00, e_11 = np.kron(e_0, e_0), np.kron(e_1, e_1)
+# Create standard basis vectors.
+e_0, e_1 = basis(2, 0), basis(2, 1)
+e_00, e_11 = np.kron(e_0, e_0), np.kron(e_1, e_1)
 
-        # Define the resource state.
-        eps = 0.5
-        eps_state = np.sqrt((1 + eps) / 2) * e_00 + np.sqrt((1 - eps) / 2) * e_11
-        eps_dm = eps_state @ eps_state.conj().T
+# Define the resource state.
+eps = 0.5
+eps_state = np.sqrt((1 + eps) / 2) * e_00 + np.sqrt((1 - eps) / 2) * e_11
+eps_dm = eps_state @ eps_state.conj().T
 
-        # Define the ensemble of Bell states tensored with the resource state.
-        states = [
-            np.kron(bell(0) @ bell(0).conj().T, eps_dm),
-            np.kron(bell(1) @ bell(1).conj().T, eps_dm),
-            np.kron(bell(2) @ bell(2).conj().T, eps_dm),
-            np.kron(bell(3) @ bell(3).conj().T, eps_dm),
-        ]
+# Define the ensemble of Bell states tensored with the resource state.
+states = [
+    np.kron(bell(0) @ bell(0).conj().T, eps_dm),
+    np.kron(bell(1) @ bell(1).conj().T, eps_dm),
+    np.kron(bell(2) @ bell(2).conj().T, eps_dm),
+    np.kron(bell(3) @ bell(3).conj().T, eps_dm),
+]
 
-        # Ensure correct ordering of subsystems.
-        states = [
-            swap(states[0], [2, 3], [2, 2, 2, 2]),
-            swap(states[1], [2, 3], [2, 2, 2, 2]),
-            swap(states[2], [2, 3], [2, 2, 2, 2]),
-        ]
+# Ensure correct ordering of subsystems.
+states = [
+    swap(states[0], [2, 3], [2, 2, 2, 2]),
+    swap(states[1], [2, 3], [2, 2, 2, 2]),
+    swap(states[2], [2, 3], [2, 2, 2, 2]),
+]
 
-        # Calculate the first and second levels of the symmetric extension hierarchy.
-        val_lvl_1 = symmetric_extension_hierarchy(states=states, probs=None, level=1)
-        val_lvl_2 = symmetric_extension_hierarchy(states=states, probs=None, level=2)
+# Calculate the first and second levels of the symmetric extension hierarchy.
+val_lvl_1 = symmetric_extension_hierarchy(states=states, probs=None, level=1)
+val_lvl_2 = symmetric_extension_hierarchy(states=states, probs=None, level=2)
 
-        # Compute the true separable value as proven in literature.
-        true_sep_val = (1/3) * (2 + np.sqrt(1 - eps**2))
+# Compute the true separable value as proven in literature.
+true_sep_val = (1/3) * (2 + np.sqrt(1 - eps**2))
 
-        print(f"Level 1 symmetric extension value: {np.around(val_lvl_1, decimals=2)}")
-        print(f"Level 2 symmetric extension value: {np.around(val_lvl_2, decimals=2)}")
-        print(f"True separable value: {np.around(true_sep_val, decimals=2)}")
+print(f"Level 1 symmetric extension value: {np.around(val_lvl_1, decimals=2)}")
+print(f"Level 2 symmetric extension value: {np.around(val_lvl_2, decimals=2)}")
+print(f"True separable value: {np.around(true_sep_val, decimals=2)}")
         ```
 
     """

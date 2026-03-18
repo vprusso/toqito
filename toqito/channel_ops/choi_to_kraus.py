@@ -71,14 +71,14 @@ def choi_to_kraus(
         This can be verified in `|toqito⟩` as follows.
 
         ```python exec="1" source="above"
-        import numpy as np
-        from toqito.channel_ops import choi_to_kraus
-        choi_mat = np.array([[1, 0, 0, 0], [0, 0, 1, 0], [0, 1, 0, 0], [0, 0, 0, 1]])
-        kraus_ops = choi_to_kraus(choi_mat)
-        for i, pair in enumerate(kraus_ops):
-           print(f"\nKraus Pair {i+1}:")
-           for j, op in enumerate(pair):
-               print(f"  Operator {j+1}:\n{np.array_str(op, precision=4, suppress_small=True)}")
+import numpy as np
+from toqito.channel_ops import choi_to_kraus
+choi_mat = np.array([[1, 0, 0, 0], [0, 0, 1, 0], [0, 1, 0, 0], [0, 0, 0, 1]])
+kraus_ops = choi_to_kraus(choi_mat)
+for i, pair in enumerate(kraus_ops):
+   print(f"\nKraus Pair {i+1}:")
+   for j, op in enumerate(pair):
+       print(f"  Operator {j+1}:\n{np.array_str(op, precision=4, suppress_small=True)}")
         ```
 
         !!! See Also

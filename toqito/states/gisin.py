@@ -43,8 +43,8 @@ def gisin(lambda_var: float, theta: float) -> np.ndarray:
         The following code generates the Gisin state \(\rho_{0.5, 1}\).
 
         ```python exec="1" source="above"
-        from toqito.states import gisin
-        print(gisin(0.5, 1))
+from toqito.states import gisin
+print(gisin(0.5, 1))
         ```
 
     """

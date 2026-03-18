@@ -30,14 +30,14 @@ def hilbert_schmidt(rho: np.ndarray, sigma: np.ndarray) -> float | np.floating:
         one may accomplish this as
 
         ```python exec="1" source="above"
-        import numpy as np
-        from toqito.states import bell
-        from toqito.state_metrics import hilbert_schmidt
+import numpy as np
+from toqito.states import bell
+from toqito.state_metrics import hilbert_schmidt
 
-        rho = bell(0) @ bell(0).conj().T
-        sigma = bell(3) @ bell(3).conj().T
+rho = bell(0) @ bell(0).conj().T
+sigma = bell(3) @ bell(3).conj().T
 
-        print(np.around(hilbert_schmidt(rho, sigma), decimals=2))
+print(np.around(hilbert_schmidt(rho, sigma), decimals=2))
         ```
 
     """

@@ -39,12 +39,12 @@ def trace_norm(rho: np.ndarray) -> float | np.floating:
         It can be observed using `toqito` that \(||\rho||_1 = 1\) as follows:
 
         ```python exec="1" source="above"
-        from toqito.states import bell
-        from toqito.matrix_props import trace_norm
+from toqito.states import bell
+from toqito.matrix_props import trace_norm
 
-        rho = bell(0) @ bell(0).conj().T
+rho = bell(0) @ bell(0).conj().T
 
-        print(trace_norm(rho))
+print(trace_norm(rho))
         ```
 
     """

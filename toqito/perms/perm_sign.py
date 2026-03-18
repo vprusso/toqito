@@ -27,9 +27,9 @@ def perm_sign(perm: np.ndarray | list[int]) -> float:
         `|toqito⟩` as follows.
 
         ```python exec="1" source="above"
-        from toqito.perms import perm_sign
+from toqito.perms import perm_sign
 
-        print(perm_sign([1, 2, 3, 4]))
+print(perm_sign([1, 2, 3, 4]))
         ```
 
         For the following vector
@@ -42,9 +42,9 @@ def perm_sign(perm: np.ndarray | list[int]) -> float:
         `|toqito⟩` as follows.
 
         ```python exec="1" source="above"
-        from toqito.perms import perm_sign
+from toqito.perms import perm_sign
 
-        print(perm_sign([1, 2, 4, 3, 5]))
+print(perm_sign([1, 2, 4, 3, 5]))
         ```
 
     """

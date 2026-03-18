@@ -53,13 +53,13 @@ def is_pseudo_hermitian(mat: np.ndarray, signature: np.ndarray, rtol: float = 1e
         Our function confirms that \(H\) is pseudo-Hermitian:
 
         ```python exec="1" source="above"
-        import numpy as np
-        from toqito.matrix_props import is_pseudo_hermitian
+import numpy as np
+from toqito.matrix_props import is_pseudo_hermitian
 
-        H = np.array([[1, 1+1j], [-1+1j, -1]])
-        eta = np.array([[1, 0], [0, -1]])
+H = np.array([[1, 1+1j], [-1+1j, -1]])
+eta = np.array([[1, 0], [0, -1]])
 
-        print(is_pseudo_hermitian(H, eta))
+print(is_pseudo_hermitian(H, eta))
         ```
 
         However, the following matrix \(A\)
@@ -74,12 +74,12 @@ def is_pseudo_hermitian(mat: np.ndarray, signature: np.ndarray, rtol: float = 1e
         is not pseudo-Hermitian with respect to the same signature matrix.
 
         ```python exec="1" source="above"
-        import numpy as np
-        from toqito.matrix_props import is_pseudo_hermitian
-        eta = np.array([[1, 0], [0, -1]])
-        A = np.array([[1, 1j], [-1j, 1]])
+import numpy as np
+from toqito.matrix_props import is_pseudo_hermitian
+eta = np.array([[1, 0], [0, -1]])
+A = np.array([[1, 1j], [-1j, 1]])
 
-        print(is_pseudo_hermitian(A, eta))
+print(is_pseudo_hermitian(A, eta))
         ```
 
     """

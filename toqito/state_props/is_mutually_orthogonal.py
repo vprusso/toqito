@@ -40,21 +40,21 @@ def is_mutually_orthogonal(vec_list: list[np.ndarray | list[float | Any]]) -> bo
         The Bell states constitute a set of mutually orthogonal vectors.
 
         ```python exec="1" source="above"
-        from toqito.states import bell
-        from toqito.state_props import is_mutually_orthogonal
-        states = [bell(0), bell(1), bell(2), bell(3)]
-        print(is_mutually_orthogonal(states))
+from toqito.states import bell
+from toqito.state_props import is_mutually_orthogonal
+states = [bell(0), bell(1), bell(2), bell(3)]
+print(is_mutually_orthogonal(states))
         ```
 
 
         The following is an example of a list of vectors that are not mutually orthogonal.
 
         ```python exec="1" source="above"
-        import numpy as np
-        from toqito.states import bell
-        from toqito.state_props import is_mutually_orthogonal
-        states = [np.array([1, 0]), np.array([1, 1])]
-        print(is_mutually_orthogonal(states))
+import numpy as np
+from toqito.states import bell
+from toqito.state_props import is_mutually_orthogonal
+states = [np.array([1, 0]), np.array([1, 1])]
+print(is_mutually_orthogonal(states))
         ```
 
     """
