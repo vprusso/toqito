@@ -65,7 +65,7 @@ def channel_distinguishability(
     Examples:
         Optimal probability of distinguishing two amplitude damping channels in the Bayesian setting:
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     from toqito.channels import amplitude_damping
     from toqito.channel_ops import kraus_to_choi
     from toqito.channel_metrics import channel_distinguishability
@@ -80,7 +80,7 @@ def channel_distinguishability(
 
         Optimal probability of distinguishing two amplitude damping channels in the minimax setting:
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     from toqito.channels import amplitude_damping
     from toqito.channel_ops import kraus_to_choi
     from toqito.channel_metrics import channel_distinguishability

@@ -28,7 +28,7 @@ def is_permutation(mat: np.ndarray) -> bool:
 
         which is indeed a permutation matrix.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.matrix_props import is_permutation
 
@@ -51,7 +51,7 @@ def is_permutation(mat: np.ndarray) -> bool:
         has 2 columns with all zero values and is thus not a
         permutation matrix.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.matrix_props import is_permutation
 

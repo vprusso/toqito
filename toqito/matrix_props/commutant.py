@@ -57,7 +57,7 @@ def commutant(A: np.ndarray | list[np.ndarray]) -> list[np.ndarray]:
         \]
 
         The commutant consists of matrices that commute with both \(A_1\) and \(A_2\).
-    ```python exec="1" source="above"
+    ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.matrix_props import commutant
 
@@ -77,7 +77,7 @@ def commutant(A: np.ndarray | list[np.ndarray]) -> list[np.ndarray]:
                     0 & 1
                 \end{pmatrix}
         \]
-    ```python exec="1" source="above"
+    ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.matrix_props import commutant
 

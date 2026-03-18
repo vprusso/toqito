@@ -51,7 +51,7 @@ def tile(idx: int) -> np.ndarray:
 
         Using `|toqito⟩`, we can see that this yields the proper state.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     from toqito.states import tile
     import numpy as np
     print(tile(0))

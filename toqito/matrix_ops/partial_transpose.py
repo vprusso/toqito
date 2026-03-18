@@ -80,7 +80,7 @@ def partial_transpose(
 
         By default, in `|toqito⟩`, the partial transpose function performs the transposition on
         the second subsystem as follows.
-    ```python exec="1" source="above"
+    ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.matrix_ops import partial_transpose
 
@@ -101,7 +101,7 @@ def partial_transpose(
                             7 & 8 & 15 & 16
                         \end{pmatrix}.
         \]
-    ```python exec="1" source="above"
+    ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.matrix_ops import partial_transpose
 

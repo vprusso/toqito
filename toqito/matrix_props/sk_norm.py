@@ -67,7 +67,7 @@ def sk_operator_norm(
             \big|\big| \rho_a \big|\big|_{S(1)} = \frac{1 + |min\{a, 0\}|}{n (n - a)}
         \]
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     from toqito.states.werner import werner
     from toqito.matrix_props.sk_norm import sk_operator_norm
 

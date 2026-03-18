@@ -48,7 +48,7 @@ def symmetric_projection(dim: int, p_val: int = 2, partial: bool = False) -> np.
 
         Using `|toqito⟩`, we can see this gives the proper result.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     from toqito.perms import symmetric_projection
 
     print(symmetric_projection(2, 1))
@@ -68,7 +68,7 @@ def symmetric_projection(dim: int, p_val: int = 2, partial: bool = False) -> np.
 
         Using `|toqito⟩` we can see this gives the proper result.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     from toqito.perms import symmetric_projection
 
     print(symmetric_projection(dim=2))

@@ -111,7 +111,7 @@ def state_distinguishability(
     Examples:
         Minimal-error state distinguishability for the Bell states (which are perfectly distinguishable).
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.states import bell
     from toqito.state_opt import state_distinguishability
@@ -129,7 +129,7 @@ def state_distinguishability(
         the dual problem over the primal problem. However, the primal problem does allow us to extract the explicit
         measurement operators which may be of interest to us.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.states import bell
     from toqito.state_opt import state_distinguishability
@@ -144,7 +144,7 @@ def state_distinguishability(
 
         Unambiguous state distinguishability for unbiased pure states.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.state_opt import state_distinguishability
 
@@ -158,7 +158,7 @@ def state_distinguishability(
 
         Unambiguous state distinguishability for mixed states.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.state_opt import state_distinguishability
 

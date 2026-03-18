@@ -27,7 +27,7 @@ def diamond_distance(choi_1: np.ndarray, choi_2: np.ndarray) -> float | np.float
         Consider the depolarizing and identity channels in a 2-dimensional space. The depolarizing channel parameter is
         set to 0.2:
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.channels import depolarizing
     from toqito.channel_metrics import diamond_distance
@@ -39,7 +39,7 @@ def diamond_distance(choi_1: np.ndarray, choi_2: np.ndarray) -> float | np.float
         Similarly, we can compute the diamond norm between the dephasing channel (with parameter 0.3) and the identity
         channel:
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.channels import dephasing
     from toqito.channel_metrics import diamond_distance

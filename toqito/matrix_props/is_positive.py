@@ -23,7 +23,7 @@ def is_positive(input_mat: np.ndarray) -> bool:
     Examples:
         We expect a matrix full of 1s to be positive.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.matrix_props import is_positive
 

@@ -48,7 +48,7 @@ def measure(
         P_0 = e_0 e_0^* \quad \text{and} \quad P_1 = e_1 e_1^*.
     \]
 
-    ```python exec="1" source="above"
+    ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.states import basis
     from toqito.measurement_ops import measure
@@ -76,7 +76,7 @@ def measure(
         \langle P_1, \rho \rangle = \frac{2}{3}.
     \]
 
-    ```python exec="1" source="above"
+    ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.measurement_ops.measure import measure
 

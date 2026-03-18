@@ -34,7 +34,7 @@ def kraus_to_choi(kraus_ops: list[np.ndarray] | list[list[np.ndarray]], sys: int
         The Choi matrix of the transpose map is the swap operator. Notice that the transpose map
         is *not* completely positive.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.channel_ops import kraus_to_choi
     kraus_1 = np.array([[1, 0], [0, 0]])

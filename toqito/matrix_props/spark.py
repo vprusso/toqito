@@ -21,7 +21,7 @@ def spark(mat: np.ndarray) -> int:
         ValueError: If the input is not a 2D NumPy array.
 
     Examples:
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.matrix_props import spark
 

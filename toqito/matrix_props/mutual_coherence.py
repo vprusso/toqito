@@ -22,7 +22,7 @@ def mutual_coherence(vectors: list[np.ndarray]) -> float | np.floating:
         TypeError: If input is not a list.
 
     Examples:
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.matrix_props.mutual_coherence import mutual_coherence
     example_A = [np.array([1, 0]), np.array([0, 1])]

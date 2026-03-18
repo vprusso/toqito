@@ -46,7 +46,7 @@ def amplitude_damping(
     Examples:
         Apply the generalized amplitude damping channel to a qubit state:
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.channels import amplitude_damping
 

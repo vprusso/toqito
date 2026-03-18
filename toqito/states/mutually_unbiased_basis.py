@@ -34,13 +34,13 @@ def mutually_unbiased_basis(dim: int) -> list[np.ndarray]:
 
         The six vectors above are obtained accordingly:
 
-        ```python exec="1" source="above" session="mubs"
+        ```python exec="1" source="above" result="text" session="mubs"
     from toqito.states import mutually_unbiased_basis
     mubs = mutually_unbiased_basis(2)
     print(len(mubs))
         ```
 
-        ```python exec="1" source="above" session="mubs"
+        ```python exec="1" source="above" result="text" session="mubs"
     lst =[vec.shape for vec in mubs]
     print(lst)
         ```

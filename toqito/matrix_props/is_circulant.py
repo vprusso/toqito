@@ -31,7 +31,7 @@ def is_circulant(mat: np.ndarray) -> bool:
         As can be seen, this matrix is circulant. We can verify this in
         `|toqito⟩` as
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.matrix_props import is_circulant
 

@@ -28,7 +28,7 @@ def is_positive_semidefinite(mat: np.ndarray, rtol: float = 1e-05, atol: float =
 
         our function indicates that this is indeed a positive semidefinite matrix.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.matrix_props import is_positive_semidefinite
 
@@ -48,7 +48,7 @@ def is_positive_semidefinite(mat: np.ndarray, rtol: float = 1e-05, atol: float =
 
         is not positive semidefinite.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.matrix_props import is_positive_semidefinite
 

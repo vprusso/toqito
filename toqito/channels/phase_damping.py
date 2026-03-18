@@ -30,7 +30,7 @@ def phase_damping(
     Examples:
         Applying the phase damping channel to a qubit state:
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.channels.phase_damping import phase_damping
 

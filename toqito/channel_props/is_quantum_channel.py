@@ -50,7 +50,7 @@ def is_quantum_channel(
 
         To check if this is a valid quantum channel or not,
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.matrices import pauli
     from toqito.channel_props import is_quantum_channel
@@ -64,7 +64,7 @@ def is_quantum_channel(
 
         If we instead check for the validity of depolarizing channel being a valid quantum channel,
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     from toqito.channels import depolarizing
     from toqito.channel_props import is_quantum_channel
 

@@ -29,7 +29,7 @@ def hilbert_schmidt(rho: np.ndarray, sigma: np.ndarray) -> float | np.floating:
         One may consider taking the Hilbert-Schmidt distance between two Bell states. In `|toqito⟩`,
         one may accomplish this as
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.states import bell
     from toqito.state_metrics import hilbert_schmidt

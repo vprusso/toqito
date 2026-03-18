@@ -31,14 +31,14 @@ def basis(dim: int, pos: int) -> np.ndarray:
 
         Example:  Ket basis vector: \(|0\rangle\).
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     from toqito.states import basis
     print(basis(2, 0))
         ```
 
         Example: Ket basis vector: \(|1\rangle\).
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     from toqito.states import basis
     print(basis(2, 1))
         ```

@@ -37,7 +37,7 @@ def is_antidistinguishable(states: list[np.ndarray]) -> bool | np.bool_:
 
         It can be checked in `toqito` that the Bell states are antidistinguishable:
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     from toqito.states import bell
     from toqito.state_props import is_antidistinguishable
     bell_states = [bell(0), bell(1), bell(2), bell(3)]

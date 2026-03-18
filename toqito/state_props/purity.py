@@ -41,7 +41,7 @@ def purity(rho: np.ndarray) -> float:
         Calculating the purity of \(\rho\) yields \(\frac{1}{4}\). This can be observed using
         `|toqito⟩` as follows.
 
-        ```python exec="1" source="above" session="purity_example"
+        ```python exec="1" source="above" result="text" session="purity_example"
     from toqito.state_props import purity
     import numpy as np
     print(purity(np.identity(4) / 4))
@@ -50,7 +50,7 @@ def purity(rho: np.ndarray) -> float:
 
         Calculate the purity of the Werner state:
 
-        ```python exec="1" source="above" session="purity_example"
+        ```python exec="1" source="above" result="text" session="purity_example"
     from toqito.states import werner
     rho = werner(2, 1 / 4)
     print(purity(rho))

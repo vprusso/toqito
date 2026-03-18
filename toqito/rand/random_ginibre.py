@@ -24,7 +24,7 @@ def random_ginibre(dim_n: int, dim_m: int, seed: int | None = None) -> np.ndarra
     Examples:
         Generate a random \(2\)-by-\(2\) Ginibre random matrix.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     from toqito.rand import random_ginibre
 
     print(random_ginibre(2, 2))
@@ -32,7 +32,7 @@ def random_ginibre(dim_n: int, dim_m: int, seed: int | None = None) -> np.ndarra
 
         It is also possible to pass a seed to this function for reproducibility.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     from toqito.rand import random_ginibre
 
     print(random_ginibre(2, 2, seed=42))

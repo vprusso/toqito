@@ -47,7 +47,7 @@ def tensor_comb(
         \]
 
         We can generate all possible tensor products for sequences of length 2.
-    ```python exec="1" source="above"
+    ```python exec="1" source="above" result="text"
     from toqito.matrix_ops import tensor_comb
     import numpy as np
 

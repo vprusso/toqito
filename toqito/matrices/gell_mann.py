@@ -83,7 +83,7 @@ def gell_mann(ind: int, is_sparse: bool = False) -> np.ndarray | csr_array:
                                 0 & 0 & 0
                         \end{pmatrix}
         \]
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     from toqito.matrices import gell_mann
 
     print(gell_mann(ind=2))

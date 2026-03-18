@@ -55,7 +55,7 @@ def abs_ppt_constraints(
     Examples:
         We can compute the constraint matrices for a random density matrix:
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.rand import random_density_matrix
     from toqito.state_props import abs_ppt_constraints

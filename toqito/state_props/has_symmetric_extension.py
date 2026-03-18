@@ -52,7 +52,7 @@ def has_symmetric_extension(
 
         This closed-form equation is much quicker to check than running the semidefinite program.
 
-        ```python exec="1" source="above" session="has_symmetric_example"
+        ```python exec="1" source="above" result="text" session="has_symmetric_example"
     import numpy as np
     from toqito.state_props import has_symmetric_extension
     from toqito.matrix_ops import partial_trace
@@ -63,7 +63,7 @@ def has_symmetric_extension(
     >= np.trace(rho**2) - 4 * np.sqrt(np.linalg.det(rho)))
         ```
 
-        ```python exec="1" source="above" session="has_symmetric_example"
+        ```python exec="1" source="above" result="text" session="has_symmetric_example"
     # Now show that the `has_symmetric_extension` function recognizes this case.
     print(has_symmetric_extension(rho))
         ```
@@ -90,7 +90,7 @@ def has_symmetric_extension(
         As the state \(\sigma\) is entangled, there should not exist a symmetric extension at some
         level. We see this being the case for a relatively low level of the hierarchy.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.states import bell
     from toqito.state_props import has_symmetric_extension

@@ -72,7 +72,7 @@ def unvec(vector: np.ndarray, shape: list[int] | None = None) -> np.ndarray:
         \[
             \text{unvec}(u) = \begin{pmatrix} 1 & 2 \\ 3 & 4 \end{pmatrix}
         \]
-    ```python exec="1" source="above"
+    ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.matrix_ops import unvec
 

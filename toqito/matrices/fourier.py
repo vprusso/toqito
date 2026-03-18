@@ -42,7 +42,7 @@ def fourier(dim: int) -> np.ndarray:
             \end{pmatrix}
         \]
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     from toqito.matrices import fourier
 
     print(fourier(3))

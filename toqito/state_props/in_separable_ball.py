@@ -30,7 +30,7 @@ def in_separable_ball(mat: np.ndarray) -> bool | np.bool_:
         `[1, 1, 1, 0]/3`. This example yields a matrix that is contained within the separable
         ball.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     from toqito.rand import random_unitary
     from toqito.state_props import in_separable_ball
     import numpy as np
@@ -44,7 +44,7 @@ def in_separable_ball(mat: np.ndarray) -> bool | np.bool_:
         `[1.01, 1, 0.99, 0]/3`. This example yields a matrix that is not contained within the
         separable ball.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     from toqito.rand import random_unitary
     from toqito.state_props import in_separable_ball
     import numpy as np

@@ -22,7 +22,7 @@ def has_same_dimension(items: list[np.ndarray]) -> bool:
 
     Examples:
         Check a list of vectors with the same dimension:
-    ```python exec="1" source="above"
+    ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.matrix_props import has_same_dimension
 
@@ -32,7 +32,7 @@ def has_same_dimension(items: list[np.ndarray]) -> bool:
     ```
 
         Check a list of matrices with the same dimension:
-    ```python exec="1" source="above"
+    ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.matrix_props import has_same_dimension
 
@@ -42,7 +42,7 @@ def has_same_dimension(items: list[np.ndarray]) -> bool:
     ```
 
         Check a list containing items of different dimensions:
-    ```python exec="1" source="above"
+    ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.matrix_props import has_same_dimension
 

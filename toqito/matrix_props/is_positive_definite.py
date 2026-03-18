@@ -25,7 +25,7 @@ def is_positive_definite(mat: np.ndarray) -> bool:
 
         our function indicates that this is indeed a positive definite matrix.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.matrix_props import is_positive_definite
 
@@ -45,7 +45,7 @@ def is_positive_definite(mat: np.ndarray) -> bool:
 
         is not positive definite.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.matrix_props import is_positive_definite
 

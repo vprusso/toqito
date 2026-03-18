@@ -16,14 +16,14 @@ def dicke(num_qubit: int, num_exfootcited: int, return_dm: bool = False) -> np.n
     Example
     Consider generating a Dicke state with 3 qubits and 1 excitation:
 
-    ```python exec="1" source="above"
+    ```python exec="1" source="above" result="text"
     from toqito.states import dicke
     print(dicke(3, 1))
     ```
 
     If we request the density matrix for this state, the return value is:
 
-    ```python exec="1" source="above"
+    ```python exec="1" source="above" result="text"
     from toqito.states import dicke
     print(dicke(3, 1, return_dm=True))
     ```

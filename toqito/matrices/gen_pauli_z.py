@@ -43,7 +43,7 @@ def gen_pauli_z(dim: int) -> np.ndarray:
             \end{pmatrix}
         \]
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     from toqito.matrices import gen_pauli_z
 
     print(gen_pauli_z(3))

@@ -32,7 +32,7 @@ def is_orthonormal(vectors: list[np.ndarray]) -> bool:
 
         To check these are a known set of orthonormal vectors:
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.matrix_props import is_orthonormal
 

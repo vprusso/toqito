@@ -90,7 +90,7 @@ def symmetric_extension_hierarchy(
 
         Consider a fixed value of \(\epsilon = 0.5\).
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     from toqito.states import basis, bell
     from toqito.perms import swap
     from toqito.state_opt import symmetric_extension_hierarchy

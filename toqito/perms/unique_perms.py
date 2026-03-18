@@ -31,7 +31,7 @@ def unique_perms(elements: list[int]) -> Generator[tuple[int, ...], None, None]:
         The number of possible permutations possible with the above vector is \(4200\). This can be
         obtained using the `|toqito⟩` package as follows.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     from toqito.perms import unique_perms
 
     vec_nums = [1, 1, 2, 2, 1, 2, 1, 3, 3, 3]

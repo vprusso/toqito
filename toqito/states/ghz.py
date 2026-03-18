@@ -42,7 +42,7 @@ def ghz(dim: int, num_qubits: int, coeff: list[int] | None = None) -> np.ndarray
 
         Using `|toqito⟩`, we can see that this yields the proper state.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     from toqito.states import ghz
     print(ghz(2, 3))
         ```

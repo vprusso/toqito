@@ -313,7 +313,7 @@ class NonlocalGame:
             \(\cos(\pi/8)^2 \approx 0.8536\) where the optimal classical value
             is \(3/4\).
 
-            ```python exec="1" source="above"
+            ```python exec="1" source="above" result="text"
         import numpy as np
         from toqito.nonlocal_games.nonlocal_game import NonlocalGame
 

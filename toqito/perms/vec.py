@@ -74,7 +74,7 @@ def vec(mat: np.ndarray) -> np.ndarray:
             \text{vec}(A) = \left[1, 3, 2, 4 \right]^{T}.
         \]
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.perms import vec
 

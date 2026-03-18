@@ -41,7 +41,7 @@ def is_commuting(mat_1: np.ndarray, mat_2: np.ndarray) -> bool:
 
         and hence, do not commute.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.matrix_props import is_commuting
 
@@ -69,7 +69,7 @@ def is_commuting(mat_1: np.ndarray, mat_2: np.ndarray) -> bool:
         It may be verified that \(AB = BA = 0\), and therefore \(A\) and
         \(B\) commute.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.matrix_props import is_commuting
 

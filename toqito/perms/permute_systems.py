@@ -74,7 +74,7 @@ def permute_systems(
             \end{pmatrix}.
         \]
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.perms import permute_systems
 
@@ -122,7 +122,7 @@ def permute_systems(
             \end{pmatrix}.
         \]
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.perms import permute_systems
 

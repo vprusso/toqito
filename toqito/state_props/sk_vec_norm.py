@@ -35,7 +35,7 @@ def sk_vector_norm(rho: np.ndarray, k: int = 1, dim: int | list[int] | None = No
         \(\sqrt{\frac{k}{n}}\), and is attained exactly by the "maximally entangled
         states".
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     from toqito.states import max_entangled
     from toqito.state_props import sk_vector_norm
     import numpy as np

@@ -42,7 +42,7 @@ def random_state_vector(
         We may generate a random state vector. For instance, here is an example where we can generate a
         \(2\)-dimensional random state vector.
 
-        ```python exec="1" source="above" session="vec_example"
+        ```python exec="1" source="above" result="text" session="vec_example"
     from toqito.rand import random_state_vector
 
     vec = random_state_vector(2)
@@ -53,7 +53,7 @@ def random_state_vector(
         We can verify that this is in fact a valid state vector by computing the corresponding density
         matrix of the vector and checking if the density matrix is pure.
 
-        ```python exec="1" source="above" session="vec_example"
+        ```python exec="1" source="above" result="text" session="vec_example"
     from toqito.state_props import is_pure
 
     dm = vec @ vec.conj().T
@@ -63,7 +63,7 @@ def random_state_vector(
 
         It is also possible to pass a seed for reproducibility.
 
-        ```python exec="1" source="above" session="vec_example"
+        ```python exec="1" source="above" result="text" session="vec_example"
     from toqito.rand import random_state_vector
 
     vec = random_state_vector(2, seed=42)
@@ -74,7 +74,7 @@ def random_state_vector(
         We can once again verify that this is in fact a valid state vector by computing the
         corresponding density matrix of the vector and checking if the density matrix is pure.
 
-        ```python exec="1" source="above" session="vec_example"
+        ```python exec="1" source="above" result="text" session="vec_example"
     from toqito.state_props import is_pure
 
     dm = vec @ vec.conj().T

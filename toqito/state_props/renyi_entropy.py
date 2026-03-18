@@ -58,7 +58,7 @@ def renyi_entropy(rho: np.ndarray, alpha: float) -> float:
         Calculating the Rényi entropy of order \(2\) of \(\rho\) in `|toqito⟩` can be
         done as follows.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     from toqito.state_props import renyi_entropy
     import numpy as np
     test_input_mat = np.array(
@@ -81,7 +81,7 @@ def renyi_entropy(rho: np.ndarray, alpha: float) -> float:
         As this state is maximally mixed, the Rényi entropy of \(\rho\) is
         equal to one for all orders \(\alpha\). We can see this in `|toqito⟩` as follows.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     from toqito.state_props import renyi_entropy
     import numpy as np
     rho = 1/2 * np.identity(2)

@@ -29,7 +29,7 @@ def comparison(mat: np.ndarray) -> np.ndarray:
         ValueError: If the input matrix is not square.
 
     Examples:
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.matrices import comparison
     A = np.array([[2, -1],

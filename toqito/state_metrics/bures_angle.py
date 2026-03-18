@@ -53,7 +53,7 @@ def bures_angle(rho_1: np.ndarray, rho_2: np.ndarray, decimals: int = 10) -> flo
         In the event where we calculate the Bures angle between states that are identical, we should obtain the value of
         \(0\). This can be observed in `|toqito⟩` as follows.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.state_metrics import bures_angle
 

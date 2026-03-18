@@ -52,7 +52,7 @@ def is_pseudo_hermitian(mat: np.ndarray, signature: np.ndarray, rtol: float = 1e
 
         Our function confirms that \(H\) is pseudo-Hermitian:
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.matrix_props import is_pseudo_hermitian
 
@@ -73,7 +73,7 @@ def is_pseudo_hermitian(mat: np.ndarray, signature: np.ndarray, rtol: float = 1e
 
         is not pseudo-Hermitian with respect to the same signature matrix.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.matrix_props import is_pseudo_hermitian
     eta = np.array([[1, 0], [0, -1]])

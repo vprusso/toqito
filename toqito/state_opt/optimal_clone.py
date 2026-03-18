@@ -84,7 +84,7 @@ def optimal_clone(
 
         We can see that the optimal value we obtain in solving the SDP is 3/4.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.states import basis
     from toqito.state_opt import optimal_clone

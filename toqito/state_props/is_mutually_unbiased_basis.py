@@ -53,7 +53,7 @@ def is_mutually_unbiased_basis(vectors: list[np.ndarray | list[float | Any]]) ->
             \end{equation}
         \]
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.states import basis
     from toqito.state_props import is_mutually_unbiased_basis
@@ -68,7 +68,7 @@ def is_mutually_unbiased_basis(vectors: list[np.ndarray | list[float | Any]]) ->
 
         Non-MUB of dimension \(2\).
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.states import basis
     from toqito.state_props import is_mutually_unbiased_basis

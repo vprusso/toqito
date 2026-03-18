@@ -64,7 +64,7 @@ class XORGame:
         In order to specify the CHSH game, we can define the probability matrix and
         predicate matrix for the CHSH game as `numpy` arrays as follows.
 
-        ```python exec="1" source="above" session="chsh"
+        ```python exec="1" source="above" result="text" session="chsh"
     import numpy as np
 
     prob_mat = np.array([[1 / 4, 1 / 4], [1 / 4, 1 / 4]])
@@ -74,7 +74,7 @@ class XORGame:
         In `toqito`, we can calculate both the quantum and classical value of the
         CHSH game as follows.
 
-        ```python exec="1" source="above" session="chsh"
+        ```python exec="1" source="above" result="text" session="chsh"
     import numpy as np
     from toqito.nonlocal_games.xor_game import XORGame
 
@@ -89,7 +89,7 @@ class XORGame:
         The odd cycle game is another XOR game [@cleve2010consequences]. For this game, we can
         specify the probability and predicate matrices as follows.
 
-        ```python exec="1" source="above" session="odd_cycle"
+        ```python exec="1" source="above" result="text" session="odd_cycle"
     import numpy as np
     prob_mat = np.array(
     [
@@ -113,7 +113,7 @@ class XORGame:
         In `|toqito⟩`, we can calculate both the quantum and classical value of
         the odd cycle game as follows.
 
-        ```python exec="1" source="above" session="odd_cycle"
+        ```python exec="1" source="above" result="text" session="odd_cycle"
     import numpy as np
     from toqito.nonlocal_games.xor_game import XORGame
 
@@ -126,7 +126,7 @@ class XORGame:
 
         We can also calculate the nonsignaling value of the odd cycle game.
 
-        ```python exec="1" source="above" session="odd_cycle"
+        ```python exec="1" source="above" result="text" session="odd_cycle"
     print(f"Nonsignaling value of the odd cycle game is {np.around(odd_cycle.nonsignaling_value(), decimals=1)}")
         ```
 

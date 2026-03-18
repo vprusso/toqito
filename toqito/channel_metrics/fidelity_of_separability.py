@@ -101,7 +101,7 @@ def fidelity_of_separability(
         \rho_{AB} = |000 \rangle \langle 000|
         $$
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.state_metrics import fidelity_of_separability
     from toqito.matrix_ops import tensor

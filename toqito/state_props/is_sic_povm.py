@@ -34,7 +34,7 @@ def is_sic_povm(states: Sequence[np.ndarray], *, tol: float = 1e-6) -> bool:
     Examples:
         Qubit tetrahedron SIC.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.state_props import is_sic_povm
 
@@ -50,7 +50,7 @@ def is_sic_povm(states: Sequence[np.ndarray], *, tol: float = 1e-6) -> bool:
 
         Non-SIC vector family.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.state_props import is_sic_povm
     from toqito.states import basis

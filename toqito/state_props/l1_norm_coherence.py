@@ -36,7 +36,7 @@ def l1_norm_coherence(rho: np.ndarray) -> float:
         the "maximally coherent states": pure states whose entries all have the
         same absolute value.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     from toqito.state_props import l1_norm_coherence
     import numpy as np
     # Maximally coherent state.

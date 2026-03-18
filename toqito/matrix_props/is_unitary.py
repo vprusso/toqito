@@ -41,7 +41,7 @@ def is_unitary(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08) -> boo
 
         our function indicates that this is indeed a unitary matrix.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.matrix_props import is_unitary
 
@@ -53,7 +53,7 @@ def is_unitary(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08) -> boo
         We may also use the `random_unitary` function from `toqito`, and can verify that a randomly
         generated matrix is unitary
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     from toqito.matrix_props import is_unitary
     from toqito.rand import random_unitary
 
@@ -73,7 +73,7 @@ def is_unitary(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08) -> boo
 
         is not unitary.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.matrix_props import is_unitary
 
