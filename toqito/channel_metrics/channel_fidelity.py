@@ -34,6 +34,19 @@ def channel_fidelity(choi_1: np.ndarray, choi_2: np.ndarray, eps: float = 1e-7) 
 
     where \(Q \in \text{L}(\mathcal{Z} \otimes \mathcal{X})\).
 
+    Args:
+        choi_1: The Choi matrix of the first quantum channel.
+        choi_2: The Choi matrix of the second quantum channel.
+        eps: The solver tolerance for convergence to feasability.
+
+    Returns:
+        The channel fidelity between the channels specified by the quantum channels corresponding to the Choi matrices
+        `choi_1` and `choi_2`.
+
+    Raises:
+        ValueError: If matrices are not of equal dimension.
+        ValueError: If matrices are not square.
+
     Examples:
         For two identical channels, we should expect that the channel fidelity should yield a value of
         \(1\).
@@ -60,19 +73,6 @@ def channel_fidelity(choi_1: np.ndarray, choi_2: np.ndarray, eps: float = 1e-7) 
         choi_2 = depolarizing(4)
         print(channel_fidelity(choi_1, choi_2))
         ```
-
-    Raises:
-        ValueError: If matrices are not of equal dimension.
-        ValueError: If matrices are not square.
-
-    Args:
-        choi_1: The Choi matrix of the first quantum channel.
-        choi_2: The Choi matrix of the second quantum channel.
-        eps: The solver tolerance for convergence to feasability.
-
-    Returns:
-        The channel fidelity between the channels specified by the quantum channels corresponding to the Choi matrices
-        `choi_1` and `choi_2`.
 
     """
     if choi_1.shape != choi_2.shape:

@@ -22,6 +22,16 @@ def fidelity(rho: np.ndarray, sigma: np.ndarray) -> float:
     \(0\) corresponding to matrices `rho` and `sigma` with orthogonal support, and \(1\)
     corresponding to the case `rho = sigma`.
 
+    Args:
+        rho: Density operator.
+        sigma: Density operator.
+
+    Returns:
+        The fidelity between `rho` and `sigma`.
+
+    Raises:
+        ValueError: If matrices are not density operators.
+
     Examples:
         Consider the following Bell state
 
@@ -57,16 +67,6 @@ def fidelity(rho: np.ndarray, sigma: np.ndarray) -> float:
 
         print(fidelity(rho, sigma))
         ```
-
-    Raises:
-        ValueError: If matrices are not density operators.
-
-    Args:
-        rho: Density operator.
-        sigma: Density operator.
-
-    Returns:
-        The fidelity between `rho` and `sigma`.
 
     """
     # Perform some error checking.

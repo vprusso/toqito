@@ -45,6 +45,11 @@ def pauli(ind: int | str | list[int] | list[str], is_sparse: bool = False) -> np
             \end{equation}
     \]
 
+    Args:
+        ind: The index to indicate which Pauli operator to generate.
+        is_sparse: Returns a compressed sparse row array if set to True and a non compressed sparse row array if set to
+            False.
+
     Examples:
         Example for identity Pauli matrix.
 
@@ -88,11 +93,6 @@ def pauli(ind: int | str | list[int] | list[str], is_sparse: bool = False) -> np
         print(pauli([0,1]))
         ```
 
-
-    Args:
-        ind: The index to indicate which Pauli operator to generate.
-        is_sparse: Returns a compressed sparse row array if set to True and a non compressed sparse row array if set to
-            False.
 
     """
     if isinstance(ind, (int, str)):

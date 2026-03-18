@@ -153,6 +153,39 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
             It also has `SymmetricInnerExtension`, which can prove separability.
 
 
+    Args:
+        state: The density matrix to check.
+        dim: The dimension of the input state, e.g., [dim_A, dim_B]. Optional; inferred if None.
+        level:
+            - The level for symmetric extension (DPS) hierarchy (default: 2)
+            - If 1, only PPT is checked.
+            - If >=2, checks for k-symmetric extension up to this level.
+            - If -1, attempts all implemented checks exhaustively (not all possible checks are implemented).
+        tol: Numerical tolerance (default: 1e-8).
+
+    Returns:
+        `True` if separable, `False` if entangled or inconclusive by implemented checks.
+
+    Raises:
+        Warning: If the symmetric extension check is attempted but CVXPY or a suitable solver is not available.
+        TypeError: If the input `state` is not a NumPy array.
+        RuntimeError: If the symmetric extension check is attempted but fails due to CVXPY solver issues.
+        NotImplementedError: If the symmetric extension check is attempted but the level is not implemented
+            (e.g., level < 1).
+        ValueError:
+            - If the input `state` is not a square matrix.
+            - If the input `state` is not positive semidefinite.
+            - If the input `state` has a trace close to zero but contains significant non-zero elements.
+            - If the input `state` has a numerically insignificant trace but significant elements;
+                cannot normalize reliably.
+            - If the `dim` parameter has an invalid type (not None, int, or list).
+            - If `dim` is provided as an integer that does not evenly divide the state's dimension.
+            - If `dim` is provided as a list with a number of elements other than two.
+            - If `dim` is provided as a list with non-integer or negative elements.
+            - If the product of the dimensions in the `dim` list does not match the state's dimension.
+            - If a dimension of zero is provided for a non-empty state (or vice-versa).
+
+
     Examples:
         Consider the following separable (by construction) state:
 
@@ -218,39 +251,6 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
         print("Is the state PPT?", is_ppt(rho, dim=[2, 3]))         # True
         print("Is the state separable?", is_separable(rho, dim=[2, 3]))  # True
         ```
-
-    Raises:
-        Warning: If the symmetric extension check is attempted but CVXPY or a suitable solver is not available.
-        TypeError: If the input `state` is not a NumPy array.
-        RuntimeError: If the symmetric extension check is attempted but fails due to CVXPY solver issues.
-        NotImplementedError: If the symmetric extension check is attempted but the level is not implemented
-            (e.g., level < 1).
-        ValueError:
-            - If the input `state` is not a square matrix.
-            - If the input `state` is not positive semidefinite.
-            - If the input `state` has a trace close to zero but contains significant non-zero elements.
-            - If the input `state` has a numerically insignificant trace but significant elements;
-                cannot normalize reliably.
-            - If the `dim` parameter has an invalid type (not None, int, or list).
-            - If `dim` is provided as an integer that does not evenly divide the state's dimension.
-            - If `dim` is provided as a list with a number of elements other than two.
-            - If `dim` is provided as a list with non-integer or negative elements.
-            - If the product of the dimensions in the `dim` list does not match the state's dimension.
-            - If a dimension of zero is provided for a non-empty state (or vice-versa).
-
-
-    Args:
-        state: The density matrix to check.
-        dim: The dimension of the input state, e.g., [dim_A, dim_B]. Optional; inferred if None.
-        level:
-            - The level for symmetric extension (DPS) hierarchy (default: 2)
-            - If 1, only PPT is checked.
-            - If >=2, checks for k-symmetric extension up to this level.
-            - If -1, attempts all implemented checks exhaustively (not all possible checks are implemented).
-        tol: Numerical tolerance (default: 1e-8).
-
-    Returns:
-        `True` if separable, `False` if entangled or inconclusive by implemented checks.
 
     """
     # --- 1. Input Validation, Normalization, Dimension Setup ---

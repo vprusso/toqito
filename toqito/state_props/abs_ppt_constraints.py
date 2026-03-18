@@ -38,6 +38,20 @@ def abs_ppt_constraints(
 
     This function is adapted from QETLAB [@qetlablink].
 
+    Args:
+        eigs: A list of eigenvalues.
+        p: The dimension of the smaller subsystem in the bipartite system.
+        max_constraints: The maximum number of constraint matrices to compute. (default: 33,592)
+        use_check: Use the "criss-cross" ordering check described in [@johnston2014counting] to reduce the number of
+            constraint matrices. (default: `False`)
+
+    Returns:
+        A list of `max_constraints` constraint matrices which must be positive semidefinite for an absolutely PPT
+        spectrum.
+
+    Raises:
+        TypeError: If `eigs` is not a `numpy` ndarray or a `cvxpy` Variable.
+
     Examples:
         We can compute the constraint matrices for a random density matrix:
 
@@ -53,19 +67,6 @@ def abs_ppt_constraints(
             print(f"Constraint {i}:")
             print(cons)
         ```
-    Raises:
-        TypeError: If `eigs` is not a `numpy` ndarray or a `cvxpy` Variable.
-
-    Args:
-        eigs: A list of eigenvalues.
-        p: The dimension of the smaller subsystem in the bipartite system.
-        max_constraints: The maximum number of constraint matrices to compute. (default: 33,592)
-        use_check: Use the "criss-cross" ordering check described in [@johnston2014counting] to reduce the number of
-            constraint matrices. (default: `False`)
-
-    Returns:
-        A list of `max_constraints` constraint matrices which must be positive semidefinite for an absolutely PPT
-        spectrum.
 
     """
     if isinstance(eigs, np.ndarray):

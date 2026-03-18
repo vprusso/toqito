@@ -10,6 +10,13 @@ def null_space(mat: np.ndarray, tol: float = 1e-08) -> np.ndarray:
     returned matrix span the null space and are orthonormal with respect to the
     standard inner product.
 
+    Args:
+        mat: Matrix whose null space is sought.
+        tol: Numerical tolerance that distinguishes zero singular values.
+
+    Returns:
+        A matrix whose columns form an orthonormal basis for the null space.
+
     Examples:
         Consider the matrix
 
@@ -18,23 +25,14 @@ def null_space(mat: np.ndarray, tol: float = 1e-08) -> np.ndarray:
         \]
 
         Its null space is spanned by the vectors \((1,-1,0)\) and \((0,0,1)\).
-
-        ```python exec="1" source="above"
+    ```python exec="1" source="above"
         import numpy as np
         from toqito.matrix_ops import null_space
 
         A = np.array([[1, 1, 0], [0, 0, 0]], dtype=float)
         null_basis = null_space(A)
         print(null_basis)
-        ```
-
-
-    Args:
-        mat: Matrix whose null space is sought.
-        tol: Numerical tolerance that distinguishes zero singular values.
-
-    Returns:
-        A matrix whose columns form an orthonormal basis for the null space.
+    ```
 
     """
     mat = np.asarray(mat, dtype=np.complex128)

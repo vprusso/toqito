@@ -19,6 +19,12 @@ def is_unitary(phi: np.ndarray | list[list[np.ndarray]]) -> bool:
         \Phi(X) = U X U^*.
     \]
 
+    Args:
+        phi: The channel provided as either a Choi matrix or a list of Kraus operators.
+
+    Returns:
+        `True` if the channel is a unitary channel, and `False` otherwise.
+
     Examples:
         The identity channel is one example of a unitary channel:
 
@@ -63,12 +69,6 @@ def is_unitary(phi: np.ndarray | list[list[np.ndarray]]) -> bool:
 
         print(is_unitary(depolarizing(2)))
         ```
-
-    Args:
-        phi: The channel provided as either a Choi matrix or a list of Kraus operators.
-
-    Returns:
-        `True` if the channel is a unitary channel, and `False` otherwise.
 
     """
     # If the variable `phi` is provided as a ndarray, we assume this is a

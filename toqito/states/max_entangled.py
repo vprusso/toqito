@@ -15,6 +15,14 @@ def max_entangled(dim: int, is_sparse: bool = False, is_normalized: bool = True)
     and it is unnormalized (i.e. each entry in the vector is 0 or 1 and the Euclidean norm of the vector is
     `sqrt(dim)` if `is_normalized = False`.
 
+    Args:
+        dim: Dimension of the entangled state.
+        is_sparse: `True` if vector is sparse and `False` otherwise.
+        is_normalized: `True` if vector is normalized and `False` otherwise.
+
+    Returns:
+        The maximally entangled state of dimension `dim`.
+
     Examples:
         We can generate the canonical \(2\)-dimensional maximally entangled state
 
@@ -42,14 +50,6 @@ def max_entangled(dim: int, is_sparse: bool = False, is_normalized: bool = True)
         from toqito.states import max_entangled
         print(max_entangled(2, False, False))
         ```
-
-    Args:
-        dim: Dimension of the entangled state.
-        is_sparse: `True` if vector is sparse and `False` otherwise.
-        is_normalized: `True` if vector is normalized and `False` otherwise.
-
-    Returns:
-        The maximally entangled state of dimension `dim`.
 
     """
     # Allow both standard int and numpy integer types

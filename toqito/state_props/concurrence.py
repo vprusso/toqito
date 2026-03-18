@@ -26,6 +26,15 @@ def concurrence(rho: np.ndarray) -> float:
 
     Concurrence can serve as a measure of entanglement.
 
+    Args:
+        rho: The bipartite system specified as a matrix.
+
+    Returns:
+        The concurrence of the bipartite state \(\rho\).
+
+    Raises:
+        ValueError: If system is not bipartite.
+
     Examples:
         Consider the following Bell state:
 
@@ -70,15 +79,6 @@ def concurrence(rho: np.ndarray) -> float:
         sigma = v_vec @ v_vec.conj().T
         print(concurrence(sigma))
         ```
-
-    Raises:
-        ValueError: If system is not bipartite.
-
-    Args:
-        rho: The bipartite system specified as a matrix.
-
-    Returns:
-        The concurrence of the bipartite state \(\rho\).
 
     """
     if rho.shape != (4, 4):

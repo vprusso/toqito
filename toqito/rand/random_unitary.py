@@ -9,6 +9,14 @@ def random_unitary(dim: list[int] | int, is_real: bool = False, seed: int | None
     Calculates a random unitary matrix (if `is_real = False`) or a random real orthogonal
     matrix (if `is_real = True`), uniformly distributed according to the Haar measure.
 
+    Args:
+        dim: The number of rows (and columns) of the unitary matrix.
+        is_real: Boolean denoting whether the returned matrix has real entries or not. Default is `False`.
+        seed: A seed used to instantiate numpy's random number generator.
+
+    Returns:
+        A `dim`-by-`dim` random unitary matrix.
+
     Examples:
         We may generate a random unitary matrix. Here is an example of how we may be able to generate a
         random \(2\)-dimensional random unitary matrix with complex entries.
@@ -87,14 +95,6 @@ def random_unitary(dim: list[int] | int, is_real: bool = False, seed: int | None
 
         print(is_unitary(seeded))
         ```
-
-    Args:
-        dim: The number of rows (and columns) of the unitary matrix.
-        is_real: Boolean denoting whether the returned matrix has real entries or not. Default is `False`.
-        seed: A seed used to instantiate numpy's random number generator.
-
-    Returns:
-        A `dim`-by-`dim` random unitary matrix.
 
     """
     gen = np.random.default_rng(seed=seed)

@@ -21,6 +21,16 @@ def sub_fidelity(rho: np.ndarray, sigma: np.ndarray) -> float:
     where \(\sigma\) and \(\rho\) are density matrices. The sub-fidelity serves as an lower bound for the
     fidelity.
 
+    Args:
+        rho: Density operator.
+        sigma: Density operator.
+
+    Returns:
+        The sub-fidelity between `rho` and `sigma`.
+
+    Raises:
+        ValueError: If matrices are not of equal dimension.
+
     Examples:
         Consider the following pair of states:
 
@@ -59,16 +69,6 @@ def sub_fidelity(rho: np.ndarray, sigma: np.ndarray) -> float:
 
         print(sub_fidelity(rho, sigma))
         ```
-
-    Raises:
-        ValueError: If matrices are not of equal dimension.
-
-    Args:
-        rho: Density operator.
-        sigma: Density operator.
-
-    Returns:
-        The sub-fidelity between `rho` and `sigma`.
 
     """
     # Perform some error checking.

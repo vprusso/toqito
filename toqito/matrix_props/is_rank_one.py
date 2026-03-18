@@ -9,6 +9,13 @@ def is_rank_one(mat: np.ndarray, tol: float = 1e-08) -> bool:
     The function evaluates the singular values (equivalently, eigenvalues for Hermitian matrices)
     and counts how many are greater than the provided tolerance.
 
+    Args:
+        mat: Matrix to test.
+        tol: Numerical tolerance used when distinguishing non-zero singular values.
+
+    Returns:
+        `True` if the matrix has rank at most one, `False` otherwise.
+
     Examples:
         Consider the Bell state density matrix \(\rho = \ket{\Phi^+}\bra{\Phi^+}\). This matrix
         has rank one.
@@ -30,13 +37,6 @@ def is_rank_one(mat: np.ndarray, tol: float = 1e-08) -> bool:
         maximally_mixed = np.eye(2) / 2
         print(is_rank_one(maximally_mixed))
         ```
-
-    Args:
-        mat: Matrix to test.
-        tol: Numerical tolerance used when distinguishing non-zero singular values.
-
-    Returns:
-        `True` if the matrix has rank at most one, `False` otherwise.
 
     """
     singular_values = np.linalg.svd(mat, compute_uv=False)

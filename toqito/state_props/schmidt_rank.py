@@ -36,6 +36,13 @@ def schmidt_rank(rho: np.ndarray, dim: int | list[int] | np.ndarray | None = Non
     The dimension may be specified by the 1-by-2 vector `dim` and the rank in that case is
     determined as the number of Schmidt coefficients larger than `tol`.
 
+    Args:
+        rho: A bipartite vector or matrix to have its Schmidt rank computed.
+        dim: A 1-by-2 vector or matrix.
+
+    Returns:
+        The Schmidt rank of `rho`.
+
     Examples:
         Computing the Schmidt rank of the entangled Bell state should yield a value greater than one.
 
@@ -73,13 +80,6 @@ def schmidt_rank(rho: np.ndarray, dim: int | list[int] | np.ndarray | None = Non
         rho = rho @ rho.conj().T
         print(schmidt_rank(rho))
         ```
-
-    Args:
-        rho: A bipartite vector or matrix to have its Schmidt rank computed.
-        dim: A 1-by-2 vector or matrix.
-
-    Returns:
-        The Schmidt rank of `rho`.
 
     """
     # If the input is provided as a matrix, compute the operator Schmidt rank.

@@ -39,6 +39,29 @@ def channel_distinguishability(
     QETLAB's functionality inspired the Bayesian option [@qetlablink]
     and the minimax option is adapted from QuTIpy [@qutipylink].
 
+    Args:
+        phi: A superoperator. It should be provided either as a Choi matrix,
+             or as a (1d or 2d) list of numpy arrays whose entries are its Kraus operators.
+        psi: A superoperator. It should be provided either as a Choi matrix,
+             or as a (1d or 2d) list of numpy arrays whose entries are its Kraus operators.
+        p: Prior probabilities of the two channels.
+        dim: Input and output dimensions of the channels.
+        strategy: Whether to perform Bayesian or minimax discrimination task. Possible
+                  values are "Bayesian" and "minimax". Default option is `strategy="Bayesian"`.
+        solver: Optimization option for `picos` solver. Default option is `solver="cvxopt"`.
+        primal_dual: Option for the optimization problem. Default option is `solver="cvxopt"`.
+        kwargs: Additional arguments to pass to picos' solve method.
+
+    Returns:
+        The optimal probability of discriminating two quantum channels.
+
+    Raises:
+        ValueError: If prior probabilities not provided at all for Bayesian strategy.
+        ValueError: If strategy is neither Bayesian nor minimax.
+        ValueError: If channels have different input or output dimensions.
+        ValueError: If prior probabilities do not add up to 1.
+        ValueError: If number of prior probabilities not equal to 2.
+
     Examples:
         Optimal probability of distinguishing two amplitude damping channels in the Bayesian setting:
 
@@ -67,29 +90,6 @@ def channel_distinguishability(
 
         print(channel_distinguishability(choi_ch_1, choi_ch_2, None, [2, 2], strategy="minimax",primal_dual="primal"))
         ```
-
-    Raises:
-        ValueError: If prior probabilities not provided at all for Bayesian strategy.
-        ValueError: If strategy is neither Bayesian nor minimax.
-        ValueError: If channels have different input or output dimensions.
-        ValueError: If prior probabilities do not add up to 1.
-        ValueError: If number of prior probabilities not equal to 2.
-
-    Args:
-        phi: A superoperator. It should be provided either as a Choi matrix,
-             or as a (1d or 2d) list of numpy arrays whose entries are its Kraus operators.
-        psi: A superoperator. It should be provided either as a Choi matrix,
-             or as a (1d or 2d) list of numpy arrays whose entries are its Kraus operators.
-        p: Prior probabilities of the two channels.
-        dim: Input and output dimensions of the channels.
-        strategy: Whether to perform Bayesian or minimax discrimination task. Possible
-                  values are "Bayesian" and "minimax". Default option is `strategy="Bayesian"`.
-        solver: Optimization option for `picos` solver. Default option is `solver="cvxopt"`.
-        primal_dual: Option for the optimization problem. Default option is `solver="cvxopt"`.
-        kwargs: Additional arguments to pass to picos' solve method.
-
-    Returns:
-        The optimal probability of discriminating two quantum channels.
 
     """
     # Get the input, output and environment dimensions of phi and psi.

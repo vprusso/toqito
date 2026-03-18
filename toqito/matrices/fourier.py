@@ -24,6 +24,12 @@ def fourier(dim: int) -> np.ndarray:
         \end{pmatrix}
     \]
 
+    Args:
+        dim: The size of the Fourier matrix.
+
+    Returns:
+        The Fourier matrix of dimension `dim`.
+
     Examples:
         The Fourier matrix generated from \(d = 3\) yields the following matrix:
 
@@ -41,12 +47,6 @@ def fourier(dim: int) -> np.ndarray:
 
         print(fourier(3))
         ```
-
-    Args:
-        dim: The size of the Fourier matrix.
-
-    Returns:
-        The Fourier matrix of dimension `dim`.
 
     """
     # Primitive root of unity.

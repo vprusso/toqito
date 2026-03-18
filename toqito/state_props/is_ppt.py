@@ -20,6 +20,15 @@ def is_ppt(
     this size, the return value `True` would indicate that the state is separable and a value
     of `False` would indicate the state is entangled.
 
+    Args:
+        mat: A square matrix.
+        sys: Scalar or vector indicating which subsystems the transpose should be applied on.
+        dim: The dimension is a vector containing the dimensions of the subsystems on which `mat` acts.
+        tol: Tolerance with which to check whether `mat` is PPT.
+
+    Returns:
+        Returns `True` if `mat` is PPT and `False` if not.
+
     Examples:
         Consider the following matrix
 
@@ -64,15 +73,6 @@ def is_ppt(
         rho = bell(2) @ bell(2).conj().T
         print(is_ppt(rho))
         ```
-
-    Args:
-        mat: A square matrix.
-        sys: Scalar or vector indicating which subsystems the transpose should be applied on.
-        dim: The dimension is a vector containing the dimensions of the subsystems on which `mat` acts.
-        tol: Tolerance with which to check whether `mat` is PPT.
-
-    Returns:
-        Returns `True` if `mat` is PPT and `False` if not.
 
     """
     eps = np.finfo(float).eps

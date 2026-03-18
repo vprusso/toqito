@@ -21,6 +21,16 @@ def is_sic_povm(states: Sequence[np.ndarray], *, tol: float = 1e-6) -> bool:
 
     and the projectors satisfy \(\sum_j \ket{\psi_j}\!\bra{\psi_j} = d \mathbb{I}\).
 
+    Args:
+        states: Collection of vectors to test.
+        tol: Numerical tolerance used for equality comparisons.
+
+    Returns:
+        `True` when the vectors form a SIC POVM and `False` otherwise.
+
+    Raises:
+        ValueError: If the vectors cannot represent valid quantum states.
+
     Examples:
         Qubit tetrahedron SIC.
 
@@ -49,16 +59,6 @@ def is_sic_povm(states: Sequence[np.ndarray], *, tol: float = 1e-6) -> bool:
         non_sic = [e0, e1, (e0 + e1) / np.sqrt(2), (e0 - e1) / np.sqrt(2)]
         print(is_sic_povm(non_sic))
         ```
-
-    Raises:
-        ValueError: If the vectors cannot represent valid quantum states.
-
-    Args:
-        states: Collection of vectors to test.
-        tol: Numerical tolerance used for equality comparisons.
-
-    Returns:
-        `True` when the vectors form a SIC POVM and `False` otherwise.
 
     """
     if not states:

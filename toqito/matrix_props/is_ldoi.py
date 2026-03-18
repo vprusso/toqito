@@ -22,6 +22,17 @@ def is_ldoi(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08) -> bool:
     and mixtures of Dicke states. This function efficiently checks the LDOI property using the
     standard basis representation.
 
+    Args:
+        mat: A matrix representing a quantum state.
+        rtol: Relative tolerance parameter (default: 1e-05).
+        atol: Absolute tolerance parameter (default: 1e-08).
+
+    Returns:
+        True if the matrix is LDOI, False otherwise.
+
+    Raises:
+        ValueError: If input matrix is not square.
+
     Examples:
         X-states are examples of 2-qubit LDOI states:
 
@@ -60,14 +71,6 @@ def is_ldoi(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08) -> bool:
                               [13, 14, 15, 16]])
         print(is_ldoi(non_ldoi))
         ```
-
-    Args:
-        mat: A matrix representing a quantum state.
-        rtol: Relative tolerance parameter (default: 1e-05).
-        atol: Absolute tolerance parameter (default: 1e-08).
-
-    Returns:
-        True if the matrix is LDOI, False otherwise.
 
     """
     if mat.ndim != 2 or mat.shape[0] != mat.shape[1]:

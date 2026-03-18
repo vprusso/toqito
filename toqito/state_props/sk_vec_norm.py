@@ -22,6 +22,14 @@ def sk_vector_norm(rho: np.ndarray, k: int = 1, dim: int | list[int] | None = No
 
     This function was adapted from QETLAB.
 
+    Args:
+        rho: A vector.
+        k: An int.
+        dim: The dimension of the two sub-systems. By default it's assumed to be equal.
+
+    Returns:
+        The S(k)-norm of `rho`.
+
     Examples:
         The smallest possible value of the \(S(k)\)-norm of a pure state is
         \(\sqrt{\frac{k}{n}}\), and is attained exactly by the "maximally entangled
@@ -35,14 +43,6 @@ def sk_vector_norm(rho: np.ndarray, k: int = 1, dim: int | list[int] | None = No
         v = max_entangled(4)
         print(sk_vector_norm(v))
         ```
-
-    Args:
-        rho: A vector.
-        k: An int.
-        dim: The dimension of the two sub-systems. By default it's assumed to be equal.
-
-    Returns:
-        The S(k)-norm of `rho`.
 
     """
     dim_xy = rho.shape[0]

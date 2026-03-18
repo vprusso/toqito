@@ -60,6 +60,15 @@ def symmetric_extension_hierarchy(
         \end{equation}
     \]
 
+    Args:
+        states: A list of states provided as either matrices or vectors.
+        probs: Respective list of probabilities each state is selected.
+        level: Level of the hierarchy to compute.
+        dim: The default has both subsystems of equal dimension.
+
+    Returns:
+        The optimal probability of the symmetric extension hierarchy SDP for level `level`.
+
     Examples:
         It is known from [@cosentino2015quantum] that distinguishing three Bell states along with a resource
         state \(|\tau_{\epsilon}\rangle\) via separable measurements has the following closed form
@@ -122,15 +131,6 @@ def symmetric_extension_hierarchy(
         print(f"Level 2 symmetric extension value: {np.around(val_lvl_2, decimals=2)}")
         print(f"True separable value: {np.around(true_sep_val, decimals=2)}")
         ```
-
-    Args:
-        states: A list of states provided as either matrices or vectors.
-        probs: Respective list of probabilities each state is selected.
-        level: Level of the hierarchy to compute.
-        dim: The default has both subsystems of equal dimension.
-
-    Returns:
-        The optimal probability of the symmetric extension hierarchy SDP for level `level`.
 
     """
     obj_func = []

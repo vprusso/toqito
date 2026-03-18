@@ -13,6 +13,13 @@ def is_pure(state: list[np.ndarray] | np.ndarray) -> bool:
         \rho = u u^*.
     \]
 
+    Args:
+        state: The density matrix representing the quantum state or a list of density matrices representing quantum
+            states.
+
+    Returns:
+        `True` if state is pure and `False` otherwise.
+
     Examples:
         Consider the following Bell state:
 
@@ -56,13 +63,6 @@ def is_pure(state: list[np.ndarray] | np.ndarray) -> bool:
         rho3 = u3 @ u3.conj().T
         print(is_pure([rho0, rho1, rho2, rho3]))
         ```
-
-    Args:
-        state: The density matrix representing the quantum state or a list of density matrices representing quantum
-            states.
-
-    Returns:
-        `True` if state is pure and `False` otherwise.
 
     """
     # Allow the user to enter a list of states to check.

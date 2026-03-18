@@ -26,6 +26,7 @@ class NonlocalGame:
 
     A tutorial is available in the documentation. For more info, see
     [Nonlocal Games](../../../generated/gallery/nonlocal_games/nonlocal_game.md).
+
     """
 
     def __init__(self, prob_mat: np.ndarray, pred_mat: np.ndarray, reps: int = 1) -> None:
@@ -262,6 +263,17 @@ class NonlocalGame:
             \end{equation}
         \]
 
+        Args:
+            dim: The dimension of the quantum system that Alice and Bob have
+                    access to (default = 2).
+            iters: The number of times to run the alternating projection
+                      algorithm.
+            tol: The tolerance before quitting out of the alternating
+                    projection semidefinite program.
+
+        Returns:
+            The lower bound on the quantum value of a nonlocal game.
+
         Examples:
             The CHSH game
 
@@ -322,17 +334,6 @@ class NonlocalGame:
 
             print(chsh.quantum_value_lower_bound())
             ```
-
-        Args:
-            dim: The dimension of the quantum system that Alice and Bob have
-                    access to (default = 2).
-            iters: The number of times to run the alternating projection
-                      algorithm.
-            tol: The tolerance before quitting out of the alternating
-                    projection semidefinite program.
-
-        Returns:
-            The lower bound on the quantum value of a nonlocal game.
 
         """
         # Get number of inputs and outputs.

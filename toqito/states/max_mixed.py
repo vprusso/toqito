@@ -33,6 +33,13 @@ def max_mixed(dim: int, is_sparse: bool = False) -> np.ndarray | dia_array:
     The maximally mixed state is returned as a sparse matrix if `is_sparse = True` and is full if `is_sparse
     = False`.
 
+    Args:
+        dim: Dimension of the entangled state.
+        is_sparse: `True` if vector is sparse and `False` otherwise.
+
+    Returns:
+        The maximally mixed state of dimension `dim`.
+
     Examples:
         Using `|toqito⟩`, we can generate the \(2\)-dimensional maximally mixed state
 
@@ -59,13 +66,6 @@ def max_mixed(dim: int, is_sparse: bool = False) -> np.ndarray | dia_array:
         from toqito.states import max_mixed
         print(max_mixed(2, is_sparse=True))
         ```
-
-    Args:
-        dim: Dimension of the entangled state.
-        is_sparse: `True` if vector is sparse and `False` otherwise.
-
-    Returns:
-        The maximally mixed state of dimension `dim`.
 
     """
     if is_sparse:

@@ -8,16 +8,22 @@ from toqito.state_props.is_mutually_orthogonal import is_mutually_orthogonal
 def is_orthonormal(vectors: list[np.ndarray]) -> bool:
     r"""Check if the vectors are orthonormal.
 
+    Args:
+        vectors: A list of `np.ndarray` 1-by-n vectors.
+
+    Returns:
+        True if vectors are orthonormal; False otherwise.
+
     Examples:
         The following vectors are an example of an orthonormal set of
         vectors in \(\mathbb{R}^3\).
 
         \[
             \begin{pmatrix}
-                1 \\ 0 \\ 1
+                1 \\ 0 \\ 0
             \end{pmatrix}, \quad
             \begin{pmatrix}
-                1 \\ 1 \\ 0
+                0 \\ 1 \\ 0
             \end{pmatrix}, \quad \text{and} \quad
             \begin{pmatrix}
                 0 \\ 0 \\ 1
@@ -34,19 +40,12 @@ def is_orthonormal(vectors: list[np.ndarray]) -> bool:
         v_2 = np.array([0, 1, 0])
         v_3 = np.array([0, 0, 1])
 
-        v = np.array([v_1, v_2, v_3])
+        v = [v_1, v_2, v_3]
 
         print(is_orthonormal(v))
         ```
 
-
-    Args:
-        vectors: A list of `np.ndarray` 1-by-n vectors.
-
-    Returns:
-        True if vectors are orthonormal; False otherwise.
-
     """
     return is_mutually_orthogonal(vectors) and np.allclose(
-        np.dot(vectors, np.conjugate(vectors).T), np.eye(vectors.shape[0])
+        np.dot(vectors, np.conjugate(vectors).T), np.eye(len(vectors))
     )

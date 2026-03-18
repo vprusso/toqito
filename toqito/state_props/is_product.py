@@ -12,6 +12,13 @@ def is_product(rho: np.ndarray, dim: int | list[int] | np.ndarray | None = None)
     If the input is deemed to be product, then the product decomposition is also
     returned.
 
+    Args:
+        rho: The vector or matrix to check.
+        dim: The dimension of the input.
+
+    Returns:
+        `True` if `rho` is a product vector and `False` otherwise.
+
     Examples:
         Consider the following Bell state
 
@@ -44,13 +51,6 @@ def is_product(rho: np.ndarray, dim: int | list[int] | np.ndarray | None = None)
         ```python exec="1" source="above" session="is_product_example"
         print(is_product(u_vec))
         ```
-
-    Args:
-        rho: The vector or matrix to check.
-        dim: The dimension of the input.
-
-    Returns:
-        `True` if `rho` is a product vector and `False` otherwise.
 
     """
     return _is_product(rho, dim)

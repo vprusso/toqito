@@ -10,6 +10,12 @@ def is_circulant(mat: np.ndarray) -> bool:
     of the same elements and each row vector is rotated one element to the right
     relative to the preceding row vector.
 
+    Args:
+        mat: Matrix to check the circulancy of.
+
+    Returns:
+        Return `True` if `mat` is circulant; `False` otherwise.
+
     Examples:
         Consider the following matrix:
 
@@ -33,12 +39,6 @@ def is_circulant(mat: np.ndarray) -> bool:
 
         print(is_circulant(mat))
         ```
-
-    Args:
-        mat: Matrix to check the circulancy of.
-
-    Returns:
-        Return `True` if `mat` is circulant; `False` otherwise.
 
     """
     n, m = mat.shape

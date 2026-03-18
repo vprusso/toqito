@@ -16,6 +16,17 @@ def completely_bounded_trace_norm(phi: np.ndarray, solver: str = "cvxopt", **kwa
     Also known as the diamond norm of a quantum channel (Section 3.3.2 of [@watrous2018theory]).
     The algorithm in p.11 of [@watrous2012simpler] with implementation in QETLAB [@qetlablink] is used.
 
+    Args:
+        phi: superoperator as choi matrix
+        solver: Optimization option for `picos` solver. Default option is `solver="cvxopt"`.
+        kwargs: Additional arguments to pass to picos' solve method.
+
+    Returns:
+        The completely bounded trace norm of the channel
+
+    Raises:
+        ValueError: If matrix is not square.
+
     Examples:
         To compute the completely bounded trace norm of a depolarizing channel:
 
@@ -26,17 +37,6 @@ def completely_bounded_trace_norm(phi: np.ndarray, solver: str = "cvxopt", **kwa
         choi_depolarizing = depolarizing(dim=2, param_p=0.2)
         print(completely_bounded_trace_norm(choi_depolarizing))
         ```
-
-    Raises:
-        ValueError: If matrix is not square.
-
-    Args:
-        phi: superoperator as choi matrix
-        solver: Optimization option for `picos` solver. Default option is `solver="cvxopt"`.
-        kwargs: Additional arguments to pass to picos' solve method.
-
-    Returns:
-        The completely bounded trace norm of the channel
 
     """
     dim_lx, dim_ly = phi.shape

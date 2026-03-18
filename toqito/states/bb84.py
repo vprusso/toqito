@@ -20,6 +20,9 @@ def bb84() -> list[list[np.ndarray]]:
         |-\rangle := \frac{1}{\sqrt{2}} \begin{pmatrix} 1 \\ -1 \end{pmatrix}.
     \]
 
+    Returns:
+        The four BB84 basis states.
+
     Examples:
         The BB84 basis states can be obtained in `|toqito⟩` as follows in the form of a list of
         arrays.
@@ -28,9 +31,6 @@ def bb84() -> list[list[np.ndarray]]:
         from toqito.states import bb84
         print(bb84())
         ```
-
-    Returns:
-        The four BB84 basis states.
 
     """
     # Computational basis states |0>, |1>:

@@ -15,6 +15,16 @@ def helstrom_holevo(rho: np.ndarray, sigma: np.ndarray) -> float | np.floating:
         \frac{1}{2}+\frac{1}{2} \left(\frac{1}{2} \left|\rho - \sigma \right|_1\right).
     \]
 
+    Args:
+        rho: Density operator.
+        sigma: Density operator.
+
+    Returns:
+        The Helstrom-Holevo distance between `rho` and `sigma`.
+
+    Raises:
+        ValueError: If matrices are not density operators.
+
     Examples:
         Consider the following Bell state
 
@@ -51,16 +61,6 @@ def helstrom_holevo(rho: np.ndarray, sigma: np.ndarray) -> float | np.floating:
 
         print(helstrom_holevo(rho, sigma))
         ```
-
-    Raises:
-        ValueError: If matrices are not density operators.
-
-    Args:
-        rho: Density operator.
-        sigma: Density operator.
-
-    Returns:
-        The Helstrom-Holevo distance between `rho` and `sigma`.
 
     """
     if not is_density(rho) or not is_density(sigma):

@@ -15,6 +15,14 @@ def choi(a_var: int = 1, b_var: int = 1, c_var: int = 0) -> np.ndarray:
     matrix of the positive map defined in [@cho1992generalized]. Many of these maps are capable of detecting
     PPT entanglement.
 
+    Args:
+        a_var: Default integer for standard Choi map.
+        b_var: Default integer for standard Choi map.
+        c_var: Default integer for standard Choi map.
+
+    Returns:
+        The Choi channel (or one of its  generalizations).
+
     Examples:
         The standard Choi channel is given as
 
@@ -77,14 +85,6 @@ def choi(a_var: int = 1, b_var: int = 1, c_var: int = 0) -> np.ndarray:
 
         !!! See Also
             [reduction][toqito.channels.reduction.reduction]
-
-    Args:
-        a_var: Default integer for standard Choi map.
-        b_var: Default integer for standard Choi map.
-        c_var: Default integer for standard Choi map.
-
-    Returns:
-        The Choi channel (or one of its  generalizations).
 
     """
     psi = max_entangled(3, False, False)

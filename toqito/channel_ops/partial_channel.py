@@ -30,6 +30,18 @@ def partial_channel(
 
     This function is adapted from the QETLAB package.
 
+    Args:
+        rho: A matrix.
+        phi_map: The map to partially apply.
+        sys: Scalar or vector specifying the size of the subsystems.
+        dim: Dimension of the subsystems. If `None`, all dimensions are assumed to be equal.
+
+    Returns:
+        The partial map `phi_map` applied to matrix `rho`.
+
+    Raises:
+        ValueError: If Phi map is not provided as a Choi matrix or Kraus operators.
+
     Examples:
         The following applies the completely depolarizing channel to the second
         subsystem of a random density matrix.
@@ -72,18 +84,6 @@ def partial_channel(
         np.set_printoptions(linewidth=150, suppress=False)
         print(res)
         ```
-
-    Raises:
-        ValueError: If Phi map is not provided as a Choi matrix or Kraus operators.
-
-    Args:
-        rho: A matrix.
-        phi_map: The map to partially apply.
-        sys: Scalar or vector specifying the size of the subsystems.
-        dim: Dimension of the subsystems. If `None`, all dimensions are assumed to be equal.
-
-    Returns:
-        The partial map `phi_map` applied to matrix `rho`.
 
     """
     if dim is None:

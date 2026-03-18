@@ -68,6 +68,28 @@ def fidelity_of_separability(
 
     These other constraints are due to the PPT condition [@peres1996separability].
 
+    Args:
+        psi: the density matrix for the tripartite state of interest psi_{BAR}
+        psi_dims: the dimensions of System A, B, & R in the input state density matrix. It is assumed that the first
+            quantity in this list is the dimension of System B.
+        k: value for k-extendibility.
+        verbosity_option: Parameter option for `picos`. Default value is
+            `verbosity = 0`. For more info, visit
+            https://picos-api.gitlab.io/picos/api/picos.modeling.options.html#option-verbosity.
+        solver_option: Optimization option for `picos` solver. Default option is
+            `solver_option="cvxopt"`. For more info, visit
+            https://picos-api.gitlab.io/picos/api/picos.modeling.options.html#option-solver.
+
+    Returns:
+        Optimized value of the SDP when maximized over a set of linear operators subject to some constraints.
+
+    Raises:
+        AssertionError: If the provided dimensions are not for a tripartite density matrix.
+        ValueError: If the matrix is not a density matrix (square matrix that
+            is PSD with trace 1).
+        ValueError: the input state is entangled.
+        ValueError: the input state is a mixed state.
+
     Examples:
         Let's consider a density matrix of a state that we know is pure & separable.
         $|000 \rangle = |0 \rangle \otimes |0 \rangle \otimes |0 \rangle$.
@@ -88,28 +110,6 @@ def fidelity_of_separability(
         rho = state @ state.conj().T
         print(fidelity_of_separability(rho, [2, 2]))
         ```
-
-    Raises:
-        AssertionError: If the provided dimensions are not for a tripartite density matrix.
-        ValueError: If the matrix is not a density matrix (square matrix that
-            is PSD with trace 1).
-        ValueError: the input state is entangled.
-        ValueError: the input state is a mixed state.
-
-    Args:
-        psi: the density matrix for the tripartite state of interest psi_{BAR}
-        psi_dims: the dimensions of System A, B, & R in the input state density matrix. It is assumed that the first
-            quantity in this list is the dimension of System B.
-        k: value for k-extendibility.
-        verbosity_option: Parameter option for `picos`. Default value is
-            `verbosity = 0`. For more info, visit
-            https://picos-api.gitlab.io/picos/api/picos.modeling.options.html#option-verbosity.
-        solver_option: Optimization option for `picos` solver. Default option is
-            `solver_option="cvxopt"`. For more info, visit
-            https://picos-api.gitlab.io/picos/api/picos.modeling.options.html#option-solver.
-
-    Returns:
-        Optimized value of the SDP when maximized over a set of linear operators subject to some constraints.
 
     """
     if not is_density(psi):
