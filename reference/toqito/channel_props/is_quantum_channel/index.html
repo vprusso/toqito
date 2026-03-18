@@ -8861,7 +8861,7 @@ and <span class="arithmatex">\(\mathcal{Y}\)</span>, if it holds that:</p>
     \end{pmatrix}.
 \]</div>
 <p>To check if this is a valid quantum channel or not,</p>
-<p>```python exec="1" source="above"</p>
+<p>```python exec="1" source="above" result="text"</p>
         <p>import numpy as np
 from toqito.matrices import pauli
 from toqito.channel_props import is_quantum_channel</p>
@@ -8872,7 +8872,7 @@ phi = X - np.matmul(U, np.matmul(X, np.conjugate(U)))</p>
     ```</p>
 <div class="highlight"><pre><span></span><code>If we instead check for the validity of depolarizing channel being a valid quantum channel,
 
-```python exec=&quot;1&quot; source=&quot;above&quot;
+```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;
 </code></pre></div>
 <p>from toqito.channels import depolarizing
 from toqito.channel_props import is_quantum_channel</p>
@@ -9017,7 +9017,7 @@ from toqito.channel_props import is_quantum_channel</p>
 <a id="__codelineno-0-50" name="__codelineno-0-50"></a>
 <a id="__codelineno-0-51" name="__codelineno-0-51"></a><span class="sd">        To check if this is a valid quantum channel or not,</span>
 <a id="__codelineno-0-52" name="__codelineno-0-52"></a>
-<a id="__codelineno-0-53" name="__codelineno-0-53"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
+<a id="__codelineno-0-53" name="__codelineno-0-53"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;</span>
 <a id="__codelineno-0-54" name="__codelineno-0-54"></a><span class="sd">    import numpy as np</span>
 <a id="__codelineno-0-55" name="__codelineno-0-55"></a><span class="sd">    from toqito.matrices import pauli</span>
 <a id="__codelineno-0-56" name="__codelineno-0-56"></a><span class="sd">    from toqito.channel_props import is_quantum_channel</span>
@@ -9031,7 +9031,7 @@ from toqito.channel_props import is_quantum_channel</p>
 <a id="__codelineno-0-64" name="__codelineno-0-64"></a>
 <a id="__codelineno-0-65" name="__codelineno-0-65"></a><span class="sd">        If we instead check for the validity of depolarizing channel being a valid quantum channel,</span>
 <a id="__codelineno-0-66" name="__codelineno-0-66"></a>
-<a id="__codelineno-0-67" name="__codelineno-0-67"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
+<a id="__codelineno-0-67" name="__codelineno-0-67"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;</span>
 <a id="__codelineno-0-68" name="__codelineno-0-68"></a><span class="sd">    from toqito.channels import depolarizing</span>
 <a id="__codelineno-0-69" name="__codelineno-0-69"></a><span class="sd">    from toqito.channel_props import is_quantum_channel</span>
 <a id="__codelineno-0-70" name="__codelineno-0-70"></a>

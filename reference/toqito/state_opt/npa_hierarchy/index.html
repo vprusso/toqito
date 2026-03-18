@@ -9407,7 +9407,7 @@ Specifically, if <span class="arithmatex">\(i = (oa-1) \times x + a + 1\)</span>
 <p><span class="doc-section-title">Examples:</span></p>
     <p>Consider the CHSH inequality scenario with <code>desc = [2, 2, 2, 2]</code>. We want to generate the NPA level 1
 constraints.</p>
-<p>```python exec="1" source="above" session="npa_example"</p>
+<p>```python exec="1" source="above" result="text" session="npa_example"</p>
         <p>import cvxpy
 import numpy as np
 from toqito.state_opt.npa_hierarchy import bell_npa_constraints
@@ -9421,7 +9421,7 @@ print(constraints[0])
     ```</p>
 <div class="highlight"><pre><span></span><code>We can also use intermediate levels, like &quot;1+ab&quot;:
 
-```python exec=&quot;1&quot; source=&quot;above&quot; session=&quot;npa_example&quot;
+```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot; session=&quot;npa_example&quot;
 </code></pre></div>
 <p>constraints_1ab = bell_npa_constraints(p_var, desc, k="1+ab")
 print(len(constraints_1ab))
@@ -9429,7 +9429,7 @@ print(constraints_1ab[0])
     ```</p>
 <div class="highlight"><pre><span></span><code>For the CGLMP inequality with ``dim=3``, ``desc = [3, 3, 2, 2]``, level 1:
 
-```python exec=&quot;1&quot; source=&quot;above&quot;
+```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;
 </code></pre></div>
 <p>import cvxpy
 import numpy as np
@@ -9627,7 +9627,7 @@ print(constraints_c[0])
 <a id="__codelineno-0-518" name="__codelineno-0-518"></a><span class="sd">        Consider the CHSH inequality scenario with ``desc = [2, 2, 2, 2]``. We want to generate the NPA level 1</span>
 <a id="__codelineno-0-519" name="__codelineno-0-519"></a><span class="sd">        constraints.</span>
 <a id="__codelineno-0-520" name="__codelineno-0-520"></a>
-<a id="__codelineno-0-521" name="__codelineno-0-521"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; session=&quot;npa_example&quot;</span>
+<a id="__codelineno-0-521" name="__codelineno-0-521"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot; session=&quot;npa_example&quot;</span>
 <a id="__codelineno-0-522" name="__codelineno-0-522"></a><span class="sd">    import cvxpy</span>
 <a id="__codelineno-0-523" name="__codelineno-0-523"></a><span class="sd">    import numpy as np</span>
 <a id="__codelineno-0-524" name="__codelineno-0-524"></a><span class="sd">    from toqito.state_opt.npa_hierarchy import bell_npa_constraints</span>
@@ -9642,7 +9642,7 @@ print(constraints_c[0])
 <a id="__codelineno-0-533" name="__codelineno-0-533"></a>
 <a id="__codelineno-0-534" name="__codelineno-0-534"></a><span class="sd">        We can also use intermediate levels, like &quot;1+ab&quot;:</span>
 <a id="__codelineno-0-535" name="__codelineno-0-535"></a>
-<a id="__codelineno-0-536" name="__codelineno-0-536"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; session=&quot;npa_example&quot;</span>
+<a id="__codelineno-0-536" name="__codelineno-0-536"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot; session=&quot;npa_example&quot;</span>
 <a id="__codelineno-0-537" name="__codelineno-0-537"></a><span class="sd">    constraints_1ab = bell_npa_constraints(p_var, desc, k=&quot;1+ab&quot;)</span>
 <a id="__codelineno-0-538" name="__codelineno-0-538"></a><span class="sd">    print(len(constraints_1ab))</span>
 <a id="__codelineno-0-539" name="__codelineno-0-539"></a><span class="sd">    print(constraints_1ab[0])</span>
@@ -9650,7 +9650,7 @@ print(constraints_c[0])
 <a id="__codelineno-0-541" name="__codelineno-0-541"></a>
 <a id="__codelineno-0-542" name="__codelineno-0-542"></a><span class="sd">        For the CGLMP inequality with ``dim=3``, ``desc = [3, 3, 2, 2]``, level 1:</span>
 <a id="__codelineno-0-543" name="__codelineno-0-543"></a>
-<a id="__codelineno-0-544" name="__codelineno-0-544"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
+<a id="__codelineno-0-544" name="__codelineno-0-544"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;</span>
 <a id="__codelineno-0-545" name="__codelineno-0-545"></a><span class="sd">    import cvxpy</span>
 <a id="__codelineno-0-546" name="__codelineno-0-546"></a><span class="sd">    import numpy as np</span>
 <a id="__codelineno-0-547" name="__codelineno-0-547"></a><span class="sd">    from toqito.state_opt.npa_hierarchy import bell_npa_constraints</span>

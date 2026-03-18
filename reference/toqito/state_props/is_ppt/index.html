@@ -8873,7 +8873,7 @@ of <code>False</code> would indicate the state is entangled.</p>
 \]</div>
 <p>This matrix trivially satisfies the PPT criterion as can be seen using the
 <code>|toqito⟩</code> package.</p>
-<p>```python exec="1" source="above"</p>
+<p>```python exec="1" source="above" result="text"</p>
         <p>from toqito.state_props import is_ppt
 import numpy as np
 mat = np.identity(9)
@@ -8889,7 +8889,7 @@ For the density matrix \(\rho = u u^*\), as this is an entangled state
 of dimension \(2\), it will violate the PPT criterion, which can be seen
 using the `|toqito⟩` package.
 
-```python exec=&quot;1&quot; source=&quot;above&quot;
+```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;
 </code></pre></div>
 <p>from toqito.states import bell
 from toqito.state_props import is_ppt
@@ -9027,7 +9027,7 @@ print(is_ppt(rho))
 <a id="__codelineno-0-50" name="__codelineno-0-50"></a><span class="sd">        This matrix trivially satisfies the PPT criterion as can be seen using the</span>
 <a id="__codelineno-0-51" name="__codelineno-0-51"></a><span class="sd">        `|toqito⟩` package.</span>
 <a id="__codelineno-0-52" name="__codelineno-0-52"></a>
-<a id="__codelineno-0-53" name="__codelineno-0-53"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
+<a id="__codelineno-0-53" name="__codelineno-0-53"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;</span>
 <a id="__codelineno-0-54" name="__codelineno-0-54"></a><span class="sd">    from toqito.state_props import is_ppt</span>
 <a id="__codelineno-0-55" name="__codelineno-0-55"></a><span class="sd">    import numpy as np</span>
 <a id="__codelineno-0-56" name="__codelineno-0-56"></a><span class="sd">    mat = np.identity(9)</span>
@@ -9044,7 +9044,7 @@ print(is_ppt(rho))
 <a id="__codelineno-0-67" name="__codelineno-0-67"></a><span class="sd">        of dimension \(2\), it will violate the PPT criterion, which can be seen</span>
 <a id="__codelineno-0-68" name="__codelineno-0-68"></a><span class="sd">        using the `|toqito⟩` package.</span>
 <a id="__codelineno-0-69" name="__codelineno-0-69"></a>
-<a id="__codelineno-0-70" name="__codelineno-0-70"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
+<a id="__codelineno-0-70" name="__codelineno-0-70"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;</span>
 <a id="__codelineno-0-71" name="__codelineno-0-71"></a><span class="sd">    from toqito.states import bell</span>
 <a id="__codelineno-0-72" name="__codelineno-0-72"></a><span class="sd">    from toqito.state_props import is_ppt</span>
 <a id="__codelineno-0-73" name="__codelineno-0-73"></a><span class="sd">    rho = bell(2) @ bell(2).conj().T</span>

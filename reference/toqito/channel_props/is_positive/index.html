@@ -8861,7 +8861,7 @@ Hermitian-preserving and positive semidefinite.</p>
     \end{pmatrix}.
 \]</div>
 <p>This map is not completely positive, as we can verify as follows.</p>
-<p>```python exec="1" source="above"</p>
+<p>```python exec="1" source="above" result="text"</p>
         <p>import numpy as np
 from toqito.channel_props import is_positive</p>
 <p>unitary_mat = np.array([[1, 1], [-1, -1]]) / np.sqrt(2)
@@ -8872,7 +8872,7 @@ kraus_ops = [[np.identity(2), np.identity(2)], [unitary_mat, -unitary_mat]]</p>
 corresponding to the \(4\)-dimensional completely depolarizing channel and may verify
 that this channel is positive.
 
-```python exec=&quot;1&quot; source=&quot;above&quot;
+```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;
 </code></pre></div>
 <p>from toqito.channels import depolarizing
 from toqito.channel_props import is_positive</p>
@@ -9006,7 +9006,7 @@ from toqito.channel_props import is_positive</p>
 <a id="__codelineno-0-54" name="__codelineno-0-54"></a>
 <a id="__codelineno-0-55" name="__codelineno-0-55"></a><span class="sd">        This map is not completely positive, as we can verify as follows.</span>
 <a id="__codelineno-0-56" name="__codelineno-0-56"></a>
-<a id="__codelineno-0-57" name="__codelineno-0-57"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
+<a id="__codelineno-0-57" name="__codelineno-0-57"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;</span>
 <a id="__codelineno-0-58" name="__codelineno-0-58"></a><span class="sd">    import numpy as np</span>
 <a id="__codelineno-0-59" name="__codelineno-0-59"></a><span class="sd">    from toqito.channel_props import is_positive</span>
 <a id="__codelineno-0-60" name="__codelineno-0-60"></a>
@@ -9020,7 +9020,7 @@ from toqito.channel_props import is_positive</p>
 <a id="__codelineno-0-68" name="__codelineno-0-68"></a><span class="sd">        corresponding to the \(4\)-dimensional completely depolarizing channel and may verify</span>
 <a id="__codelineno-0-69" name="__codelineno-0-69"></a><span class="sd">        that this channel is positive.</span>
 <a id="__codelineno-0-70" name="__codelineno-0-70"></a>
-<a id="__codelineno-0-71" name="__codelineno-0-71"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
+<a id="__codelineno-0-71" name="__codelineno-0-71"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;</span>
 <a id="__codelineno-0-72" name="__codelineno-0-72"></a><span class="sd">    from toqito.channels import depolarizing</span>
 <a id="__codelineno-0-73" name="__codelineno-0-73"></a><span class="sd">    from toqito.channel_props import is_positive</span>
 <a id="__codelineno-0-74" name="__codelineno-0-74"></a>

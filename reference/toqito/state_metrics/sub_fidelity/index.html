@@ -8857,7 +8857,7 @@ fidelity.</p>
 \]</div>
 <p>Calculating the fidelity between the states <span class="arithmatex">\(\rho\)</span> and <span class="arithmatex">\(\sigma\)</span> as <span class="arithmatex">\(F(\rho, \sigma) \approx
 0.774\)</span>. This can be observed in <code>|toqito⟩</code> as</p>
-<p>```python exec="1" source="above"</p>
+<p>```python exec="1" source="above" result="text"</p>
         <p>from toqito.states import basis
 from toqito.state_metrics import fidelity</p>
 <p>e_0, e_1 = basis(2, 0), basis(2, 1)
@@ -8868,7 +8868,7 @@ sigma = 1/8 * e_0 @ e_0.conj().T + 7/8 * e_1 @ e_1.conj().T</p>
 <div class="highlight"><pre><span></span><code>As the sub-fidelity is a lower bound on the fidelity, that is \(E(\rho, \sigma) \leq F(\rho, \sigma)\), we can
 use `|toqito⟩` to observe that \(E(\rho, \sigma) \approx 0.599\leq F(\rho, \sigma \approx 0.774\).
 
-```python exec=&quot;1&quot; source=&quot;above&quot;
+```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;
 </code></pre></div>
 <p>from toqito.states import basis
 from toqito.state_metrics import sub_fidelity</p>
@@ -8991,7 +8991,7 @@ sigma = 1/8 * e_0 @ e_0.conj().T + 7/8 * e_1 @ e_1.conj().T</p>
 <a id="__codelineno-0-45" name="__codelineno-0-45"></a><span class="sd">        Calculating the fidelity between the states \(\rho\) and \(\sigma\) as \(F(\rho, \sigma) \approx</span>
 <a id="__codelineno-0-46" name="__codelineno-0-46"></a><span class="sd">        0.774\). This can be observed in `|toqito⟩` as</span>
 <a id="__codelineno-0-47" name="__codelineno-0-47"></a>
-<a id="__codelineno-0-48" name="__codelineno-0-48"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
+<a id="__codelineno-0-48" name="__codelineno-0-48"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;</span>
 <a id="__codelineno-0-49" name="__codelineno-0-49"></a><span class="sd">    from toqito.states import basis</span>
 <a id="__codelineno-0-50" name="__codelineno-0-50"></a><span class="sd">    from toqito.state_metrics import fidelity</span>
 <a id="__codelineno-0-51" name="__codelineno-0-51"></a>
@@ -9005,7 +9005,7 @@ sigma = 1/8 * e_0 @ e_0.conj().T + 7/8 * e_1 @ e_1.conj().T</p>
 <a id="__codelineno-0-59" name="__codelineno-0-59"></a><span class="sd">        As the sub-fidelity is a lower bound on the fidelity, that is \(E(\rho, \sigma) \leq F(\rho, \sigma)\), we can</span>
 <a id="__codelineno-0-60" name="__codelineno-0-60"></a><span class="sd">        use `|toqito⟩` to observe that \(E(\rho, \sigma) \approx 0.599\leq F(\rho, \sigma \approx 0.774\).</span>
 <a id="__codelineno-0-61" name="__codelineno-0-61"></a>
-<a id="__codelineno-0-62" name="__codelineno-0-62"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
+<a id="__codelineno-0-62" name="__codelineno-0-62"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;</span>
 <a id="__codelineno-0-63" name="__codelineno-0-63"></a><span class="sd">    from toqito.states import basis</span>
 <a id="__codelineno-0-64" name="__codelineno-0-64"></a><span class="sd">    from toqito.state_metrics import sub_fidelity</span>
 <a id="__codelineno-0-65" name="__codelineno-0-65"></a>

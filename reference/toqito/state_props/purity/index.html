@@ -8848,14 +8848,14 @@ purity of a quantum state <span class="arithmatex">\(\rho\)</span> is defined as
 \]</div>
 <p>Calculating the purity of <span class="arithmatex">\(\rho\)</span> yields <span class="arithmatex">\(\frac{1}{4}\)</span>. This can be observed using
 <code>|toqito⟩</code> as follows.</p>
-<p>```python exec="1" source="above" session="purity_example"</p>
+<p>```python exec="1" source="above" result="text" session="purity_example"</p>
         <p>from toqito.state_props import purity
 import numpy as np
 print(purity(np.identity(4) / 4))
     ```</p>
 <div class="highlight"><pre><span></span><code>Calculate the purity of the Werner state:
 
-```python exec=&quot;1&quot; source=&quot;above&quot; session=&quot;purity_example&quot;
+```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot; session=&quot;purity_example&quot;
 </code></pre></div>
 <p>from toqito.states import werner
 rho = werner(2, 1 / 4)
@@ -8958,7 +8958,7 @@ print(purity(rho))
 <a id="__codelineno-0-41" name="__codelineno-0-41"></a><span class="sd">        Calculating the purity of \(\rho\) yields \(\frac{1}{4}\). This can be observed using</span>
 <a id="__codelineno-0-42" name="__codelineno-0-42"></a><span class="sd">        `|toqito⟩` as follows.</span>
 <a id="__codelineno-0-43" name="__codelineno-0-43"></a>
-<a id="__codelineno-0-44" name="__codelineno-0-44"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; session=&quot;purity_example&quot;</span>
+<a id="__codelineno-0-44" name="__codelineno-0-44"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot; session=&quot;purity_example&quot;</span>
 <a id="__codelineno-0-45" name="__codelineno-0-45"></a><span class="sd">    from toqito.state_props import purity</span>
 <a id="__codelineno-0-46" name="__codelineno-0-46"></a><span class="sd">    import numpy as np</span>
 <a id="__codelineno-0-47" name="__codelineno-0-47"></a><span class="sd">    print(purity(np.identity(4) / 4))</span>
@@ -8967,7 +8967,7 @@ print(purity(rho))
 <a id="__codelineno-0-50" name="__codelineno-0-50"></a>
 <a id="__codelineno-0-51" name="__codelineno-0-51"></a><span class="sd">        Calculate the purity of the Werner state:</span>
 <a id="__codelineno-0-52" name="__codelineno-0-52"></a>
-<a id="__codelineno-0-53" name="__codelineno-0-53"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; session=&quot;purity_example&quot;</span>
+<a id="__codelineno-0-53" name="__codelineno-0-53"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot; session=&quot;purity_example&quot;</span>
 <a id="__codelineno-0-54" name="__codelineno-0-54"></a><span class="sd">    from toqito.states import werner</span>
 <a id="__codelineno-0-55" name="__codelineno-0-55"></a><span class="sd">    rho = werner(2, 1 / 4)</span>
 <a id="__codelineno-0-56" name="__codelineno-0-56"></a><span class="sd">    print(purity(rho))</span>

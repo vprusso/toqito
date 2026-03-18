@@ -8895,7 +8895,7 @@ Wishart measure on the POVM effects.  Supplying <code>seed</code> reproduces the
     <p>We can generate a set of <code>dim</code>-by-<code>dim</code> POVMs consisting of a specific dimension along with a given number of
 measurement inputs and measurement outputs. As an example, we can construct a random set of <span class="arithmatex">\(2\)</span>-by-<span class="arithmatex">\(2\)</span>
 POVMs of dimension with <span class="arithmatex">\(2\)</span> inputs and <span class="arithmatex">\(2\)</span> outputs.</p>
-<p>```python exec="1" source="above" session="povm_example"</p>
+<p>```python exec="1" source="above" result="text" session="povm_example"</p>
         <p>import numpy as np
 from toqito.rand import random_povm</p>
 <p>dim, num_inputs, num_outputs = 2, 2, 2</p>
@@ -8905,13 +8905,13 @@ from toqito.rand import random_povm</p>
 <div class="highlight"><pre><span></span><code>We can verify that this constitutes a valid set of POVM elements as checking that these operators all sum to the
 identity operator.
 
-```python exec=&quot;1&quot; source=&quot;above&quot; session=&quot;povm_example&quot;
+```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot; session=&quot;povm_example&quot;
 </code></pre></div>
 <p>print(np.round(povms[:, :, 0, 0] + povms[:, :, 0, 1]))
     ```</p>
 <div class="highlight"><pre><span></span><code>It is also possible to add a seed for reproducibility.
 
-```python exec=&quot;1&quot; source=&quot;above&quot; session=&quot;povm_example&quot;
+```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot; session=&quot;povm_example&quot;
 </code></pre></div>
 <p>import numpy as np
 from toqito.rand import random_povm</p>
@@ -8922,7 +8922,7 @@ from toqito.rand import random_povm</p>
 <div class="highlight"><pre><span></span><code>We can once again verify that this constitutes a valid set of POVM elements as checking that
 these operators all sum to the identity operator.
 
-```python exec=&quot;1&quot; source=&quot;above&quot; session=&quot;povm_example&quot;
+```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot; session=&quot;povm_example&quot;
 </code></pre></div>
 <p>print(np.round(povms[:, :, 0, 0] + povms[:, :, 0, 1]))
     ```</p>
@@ -9060,7 +9060,7 @@ these operators all sum to the identity operator.
 <a id="__codelineno-0-38" name="__codelineno-0-38"></a><span class="sd">        measurement inputs and measurement outputs. As an example, we can construct a random set of \(2\)-by-\(2\)</span>
 <a id="__codelineno-0-39" name="__codelineno-0-39"></a><span class="sd">        POVMs of dimension with \(2\) inputs and \(2\) outputs.</span>
 <a id="__codelineno-0-40" name="__codelineno-0-40"></a>
-<a id="__codelineno-0-41" name="__codelineno-0-41"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; session=&quot;povm_example&quot;</span>
+<a id="__codelineno-0-41" name="__codelineno-0-41"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot; session=&quot;povm_example&quot;</span>
 <a id="__codelineno-0-42" name="__codelineno-0-42"></a><span class="sd">    import numpy as np</span>
 <a id="__codelineno-0-43" name="__codelineno-0-43"></a><span class="sd">    from toqito.rand import random_povm</span>
 <a id="__codelineno-0-44" name="__codelineno-0-44"></a>
@@ -9075,13 +9075,13 @@ these operators all sum to the identity operator.
 <a id="__codelineno-0-53" name="__codelineno-0-53"></a><span class="sd">        We can verify that this constitutes a valid set of POVM elements as checking that these operators all sum to the</span>
 <a id="__codelineno-0-54" name="__codelineno-0-54"></a><span class="sd">        identity operator.</span>
 <a id="__codelineno-0-55" name="__codelineno-0-55"></a>
-<a id="__codelineno-0-56" name="__codelineno-0-56"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; session=&quot;povm_example&quot;</span>
+<a id="__codelineno-0-56" name="__codelineno-0-56"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot; session=&quot;povm_example&quot;</span>
 <a id="__codelineno-0-57" name="__codelineno-0-57"></a><span class="sd">    print(np.round(povms[:, :, 0, 0] + povms[:, :, 0, 1]))</span>
 <a id="__codelineno-0-58" name="__codelineno-0-58"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-59" name="__codelineno-0-59"></a>
 <a id="__codelineno-0-60" name="__codelineno-0-60"></a><span class="sd">        It is also possible to add a seed for reproducibility.</span>
 <a id="__codelineno-0-61" name="__codelineno-0-61"></a>
-<a id="__codelineno-0-62" name="__codelineno-0-62"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; session=&quot;povm_example&quot;</span>
+<a id="__codelineno-0-62" name="__codelineno-0-62"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot; session=&quot;povm_example&quot;</span>
 <a id="__codelineno-0-63" name="__codelineno-0-63"></a><span class="sd">    import numpy as np</span>
 <a id="__codelineno-0-64" name="__codelineno-0-64"></a><span class="sd">    from toqito.rand import random_povm</span>
 <a id="__codelineno-0-65" name="__codelineno-0-65"></a>
@@ -9095,7 +9095,7 @@ these operators all sum to the identity operator.
 <a id="__codelineno-0-73" name="__codelineno-0-73"></a><span class="sd">        We can once again verify that this constitutes a valid set of POVM elements as checking that</span>
 <a id="__codelineno-0-74" name="__codelineno-0-74"></a><span class="sd">        these operators all sum to the identity operator.</span>
 <a id="__codelineno-0-75" name="__codelineno-0-75"></a>
-<a id="__codelineno-0-76" name="__codelineno-0-76"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; session=&quot;povm_example&quot;</span>
+<a id="__codelineno-0-76" name="__codelineno-0-76"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot; session=&quot;povm_example&quot;</span>
 <a id="__codelineno-0-77" name="__codelineno-0-77"></a><span class="sd">    print(np.round(povms[:, :, 0, 0] + povms[:, :, 0, 1]))</span>
 <a id="__codelineno-0-78" name="__codelineno-0-78"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-79" name="__codelineno-0-79"></a>

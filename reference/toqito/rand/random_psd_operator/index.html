@@ -8844,7 +8844,7 @@ based on the fact that a Hermitian matrix can have real eigenvalues.</p>
 <p><span class="doc-section-title">Examples:</span></p>
     <p>Using <code>|toqito⟩</code>, we may generate a random positive semidefinite matrix.
 For <span class="arithmatex">\(\text{dim}=2\)</span>, this can be accomplished as follows.</p>
-<p>```python exec="1" source="above" session="psd_operator"</p>
+<p>```python exec="1" source="above" result="text" session="psd_operator"</p>
         <p>from toqito.rand import random_psd_operator</p>
 <p>complex_psd_mat = random_psd_operator(2)</p>
 <p>print(complex_psd_mat)
@@ -8852,14 +8852,14 @@ For <span class="arithmatex">\(\text{dim}=2\)</span>, this can be accomplished a
 <div class="highlight"><pre><span></span><code>We can confirm that this matrix indeed represents a valid positive semidefinite matrix by utilizing
 the `is_positive_semidefinite` function from the `|toqito⟩` library, as demonstrated below:
 
-```python exec=&quot;1&quot; source=&quot;above&quot; session=&quot;psd_operator&quot;
+```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot; session=&quot;psd_operator&quot;
 </code></pre></div>
 <p>from toqito.matrix_props import is_positive_semidefinite</p>
 <p>print(is_positive_semidefinite(complex_psd_mat))
     ```</p>
 <div class="highlight"><pre><span></span><code>We can also generate random positive semidefinite matrices that are real-valued as follows.
 
-```python exec=&quot;1&quot; source=&quot;above&quot; session=&quot;psd_operator&quot;
+```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot; session=&quot;psd_operator&quot;
 </code></pre></div>
 <p>from toqito.rand import random_psd_operator</p>
 <p>real_psd_mat = random_psd_operator(2, is_real=True)</p>
@@ -8867,14 +8867,14 @@ the `is_positive_semidefinite` function from the `|toqito⟩` library, as demons
     ```</p>
 <div class="highlight"><pre><span></span><code>Again, verifying that this is a valid positive semidefinite matrix can be done as follows.
 
-```python exec=&quot;1&quot; source=&quot;above&quot; session=&quot;psd_operator&quot;
+```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot; session=&quot;psd_operator&quot;
 </code></pre></div>
 <p>from toqito.matrix_props import is_positive_semidefinite
 print(is_positive_semidefinite(real_psd_mat))
     ```</p>
 <div class="highlight"><pre><span></span><code>It is also possible to add a seed for reproducibility.
 
-```python exec=&quot;1&quot; source=&quot;above&quot; session=&quot;psd_operator&quot;
+```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot; session=&quot;psd_operator&quot;
 </code></pre></div>
 <p>from toqito.rand import random_psd_operator</p>
 <p>seeded = random_psd_operator(2, is_real=True, seed=42)</p>
@@ -8992,7 +8992,7 @@ print(is_positive_semidefinite(real_psd_mat))
 <a id="__codelineno-0-26" name="__codelineno-0-26"></a><span class="sd">        Using `|toqito⟩`, we may generate a random positive semidefinite matrix.</span>
 <a id="__codelineno-0-27" name="__codelineno-0-27"></a><span class="sd">        For \(\text{dim}=2\), this can be accomplished as follows.</span>
 <a id="__codelineno-0-28" name="__codelineno-0-28"></a>
-<a id="__codelineno-0-29" name="__codelineno-0-29"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; session=&quot;psd_operator&quot;</span>
+<a id="__codelineno-0-29" name="__codelineno-0-29"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot; session=&quot;psd_operator&quot;</span>
 <a id="__codelineno-0-30" name="__codelineno-0-30"></a><span class="sd">    from toqito.rand import random_psd_operator</span>
 <a id="__codelineno-0-31" name="__codelineno-0-31"></a>
 <a id="__codelineno-0-32" name="__codelineno-0-32"></a><span class="sd">    complex_psd_mat = random_psd_operator(2)</span>
@@ -9003,7 +9003,7 @@ print(is_positive_semidefinite(real_psd_mat))
 <a id="__codelineno-0-37" name="__codelineno-0-37"></a><span class="sd">        We can confirm that this matrix indeed represents a valid positive semidefinite matrix by utilizing</span>
 <a id="__codelineno-0-38" name="__codelineno-0-38"></a><span class="sd">        the `is_positive_semidefinite` function from the `|toqito⟩` library, as demonstrated below:</span>
 <a id="__codelineno-0-39" name="__codelineno-0-39"></a>
-<a id="__codelineno-0-40" name="__codelineno-0-40"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; session=&quot;psd_operator&quot;</span>
+<a id="__codelineno-0-40" name="__codelineno-0-40"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot; session=&quot;psd_operator&quot;</span>
 <a id="__codelineno-0-41" name="__codelineno-0-41"></a><span class="sd">    from toqito.matrix_props import is_positive_semidefinite</span>
 <a id="__codelineno-0-42" name="__codelineno-0-42"></a>
 <a id="__codelineno-0-43" name="__codelineno-0-43"></a><span class="sd">    print(is_positive_semidefinite(complex_psd_mat))</span>
@@ -9012,7 +9012,7 @@ print(is_positive_semidefinite(real_psd_mat))
 <a id="__codelineno-0-46" name="__codelineno-0-46"></a>
 <a id="__codelineno-0-47" name="__codelineno-0-47"></a><span class="sd">        We can also generate random positive semidefinite matrices that are real-valued as follows.</span>
 <a id="__codelineno-0-48" name="__codelineno-0-48"></a>
-<a id="__codelineno-0-49" name="__codelineno-0-49"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; session=&quot;psd_operator&quot;</span>
+<a id="__codelineno-0-49" name="__codelineno-0-49"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot; session=&quot;psd_operator&quot;</span>
 <a id="__codelineno-0-50" name="__codelineno-0-50"></a><span class="sd">    from toqito.rand import random_psd_operator</span>
 <a id="__codelineno-0-51" name="__codelineno-0-51"></a>
 <a id="__codelineno-0-52" name="__codelineno-0-52"></a><span class="sd">    real_psd_mat = random_psd_operator(2, is_real=True)</span>
@@ -9023,7 +9023,7 @@ print(is_positive_semidefinite(real_psd_mat))
 <a id="__codelineno-0-57" name="__codelineno-0-57"></a>
 <a id="__codelineno-0-58" name="__codelineno-0-58"></a><span class="sd">        Again, verifying that this is a valid positive semidefinite matrix can be done as follows.</span>
 <a id="__codelineno-0-59" name="__codelineno-0-59"></a>
-<a id="__codelineno-0-60" name="__codelineno-0-60"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; session=&quot;psd_operator&quot;</span>
+<a id="__codelineno-0-60" name="__codelineno-0-60"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot; session=&quot;psd_operator&quot;</span>
 <a id="__codelineno-0-61" name="__codelineno-0-61"></a><span class="sd">    from toqito.matrix_props import is_positive_semidefinite</span>
 <a id="__codelineno-0-62" name="__codelineno-0-62"></a><span class="sd">    print(is_positive_semidefinite(real_psd_mat))</span>
 <a id="__codelineno-0-63" name="__codelineno-0-63"></a><span class="sd">        ```</span>
@@ -9031,7 +9031,7 @@ print(is_positive_semidefinite(real_psd_mat))
 <a id="__codelineno-0-65" name="__codelineno-0-65"></a>
 <a id="__codelineno-0-66" name="__codelineno-0-66"></a><span class="sd">        It is also possible to add a seed for reproducibility.</span>
 <a id="__codelineno-0-67" name="__codelineno-0-67"></a>
-<a id="__codelineno-0-68" name="__codelineno-0-68"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; session=&quot;psd_operator&quot;</span>
+<a id="__codelineno-0-68" name="__codelineno-0-68"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot; session=&quot;psd_operator&quot;</span>
 <a id="__codelineno-0-69" name="__codelineno-0-69"></a><span class="sd">    from toqito.rand import random_psd_operator</span>
 <a id="__codelineno-0-70" name="__codelineno-0-70"></a>
 <a id="__codelineno-0-71" name="__codelineno-0-71"></a><span class="sd">    seeded = random_psd_operator(2, is_real=True, seed=42)</span>

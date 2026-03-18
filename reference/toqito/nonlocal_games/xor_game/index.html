@@ -8936,7 +8936,7 @@ satisfied</p>
 where the optimal classical value is <span class="arithmatex">\(3/4\)</span>.</p>
 <p>In order to specify the CHSH game, we can define the probability matrix and
 predicate matrix for the CHSH game as <code>numpy</code> arrays as follows.</p>
-<p>```python exec="1" source="above" session="chsh"</p>
+<p>```python exec="1" source="above" result="text" session="chsh"</p>
         <p>import numpy as np</p>
 <p>prob_mat = np.array([[1 / 4, 1 / 4], [1 / 4, 1 / 4]])
 pred_mat = np.array([[0, 0], [0, 1]])
@@ -8944,7 +8944,7 @@ pred_mat = np.array([[0, 0], [0, 1]])
 <div class="highlight"><pre><span></span><code>In `toqito`, we can calculate both the quantum and classical value of the
 CHSH game as follows.
 
-```python exec=&quot;1&quot; source=&quot;above&quot; session=&quot;chsh&quot;
+```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot; session=&quot;chsh&quot;
 </code></pre></div>
 <p>import numpy as np
 from toqito.nonlocal_games.xor_game import XORGame</p>
@@ -8957,7 +8957,7 @@ print(f"Classical value of the CHSH game is {chsh.classical_value()}")
 The odd cycle game is another XOR game &lt;sup&gt;&lt;a id=&quot;cite-toqito-nonlocal_games-xor_game-XORGame-1&quot; href=&quot;#ref-toqito-nonlocal_games-xor_game-XORGame-1&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;. For this game, we can
 specify the probability and predicate matrices as follows.
 
-```python exec=&quot;1&quot; source=&quot;above&quot; session=&quot;odd_cycle&quot;
+```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot; session=&quot;odd_cycle&quot;
 </code></pre></div>
 <p>import numpy as np
 prob_mat = np.array(
@@ -8981,7 +8981,7 @@ pred_mat = np.array(
 <div class="highlight"><pre><span></span><code>In `|toqito⟩`, we can calculate both the quantum and classical value of
 the odd cycle game as follows.
 
-```python exec=&quot;1&quot; source=&quot;above&quot; session=&quot;odd_cycle&quot;
+```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot; session=&quot;odd_cycle&quot;
 </code></pre></div>
 <p>import numpy as np
 from toqito.nonlocal_games.xor_game import XORGame</p>
@@ -8991,7 +8991,7 @@ print(f"Classical value of the odd cycle game is {np.around(odd_cycle.classical_
     ```</p>
 <div class="highlight"><pre><span></span><code>We can also calculate the nonsignaling value of the odd cycle game.
 
-```python exec=&quot;1&quot; source=&quot;above&quot; session=&quot;odd_cycle&quot;
+```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot; session=&quot;odd_cycle&quot;
 </code></pre></div>
 <p>print(f"Nonsignaling value of the odd cycle game is {np.around(odd_cycle.nonsignaling_value(), decimals=1)}")
     ```</p>

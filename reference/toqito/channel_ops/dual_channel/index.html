@@ -8864,7 +8864,7 @@ from <code>phi_op.shape</code>.</p>
 <p><span class="doc-section-title">Examples:</span></p>
     <p>When a channel is represented by a 1-D list of of Kraus operators, the CPTP dual channel can be determined
 as shown below.</p>
-<p>```python exec="1" source="above"</p>
+<p>```python exec="1" source="above" result="text"</p>
         <p>import numpy as np
 from toqito.channel_ops import dual_channel
 kraus_1 = np.array([[1, 0, 1j, 0]])
@@ -8877,7 +8877,7 @@ for i, op in enumerate(dual_kraus, start=1):
     ```</p>
 <div class="highlight"><pre><span></span><code>If the input channel&#39;s dimensions are different from the output dual channel&#39;s dimensions,
 
-```python exec=&quot;1&quot; source=&quot;above&quot;
+```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;
 </code></pre></div>
 <p>import numpy as np
 from toqito.channel_ops import dual_channel
@@ -9022,7 +9022,7 @@ print(output)
 <a id="__codelineno-0-52" name="__codelineno-0-52"></a><span class="sd">        When a channel is represented by a 1-D list of of Kraus operators, the CPTP dual channel can be determined</span>
 <a id="__codelineno-0-53" name="__codelineno-0-53"></a><span class="sd">        as shown below.</span>
 <a id="__codelineno-0-54" name="__codelineno-0-54"></a>
-<a id="__codelineno-0-55" name="__codelineno-0-55"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
+<a id="__codelineno-0-55" name="__codelineno-0-55"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;</span>
 <a id="__codelineno-0-56" name="__codelineno-0-56"></a><span class="sd">    import numpy as np</span>
 <a id="__codelineno-0-57" name="__codelineno-0-57"></a><span class="sd">    from toqito.channel_ops import dual_channel</span>
 <a id="__codelineno-0-58" name="__codelineno-0-58"></a><span class="sd">    kraus_1 = np.array([[1, 0, 1j, 0]])</span>
@@ -9037,7 +9037,7 @@ print(output)
 <a id="__codelineno-0-67" name="__codelineno-0-67"></a>
 <a id="__codelineno-0-68" name="__codelineno-0-68"></a><span class="sd">        If the input channel&#39;s dimensions are different from the output dual channel&#39;s dimensions,</span>
 <a id="__codelineno-0-69" name="__codelineno-0-69"></a>
-<a id="__codelineno-0-70" name="__codelineno-0-70"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
+<a id="__codelineno-0-70" name="__codelineno-0-70"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;</span>
 <a id="__codelineno-0-71" name="__codelineno-0-71"></a><span class="sd">    import numpy as np</span>
 <a id="__codelineno-0-72" name="__codelineno-0-72"></a><span class="sd">    from toqito.channel_ops import dual_channel</span>
 <a id="__codelineno-0-73" name="__codelineno-0-73"></a><span class="sd">    from toqito.perms import swap_operator</span>

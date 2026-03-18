@@ -8900,10 +8900,11 @@ the second subsystem as follows.</p>
 <a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
 <a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="nb">print</span><span class="p">(</span><span class="n">partial_transpose</span><span class="p">(</span><span class="n">test_input_mat</span><span class="p">))</span>
 </code></pre></div>
-<p>[[ 1  5  3  7]
- [ 2  6  4  8]
- [ 9 13 11 15]
- [10 14 12 16]]</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>[[ 1  5  3  7]
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a> [ 2  6  4  8]
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a> [ 9 13 11 15]
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a> [10 14 12 16]]
+</code></pre></div>
 <div class="highlight"><pre><span></span><code>By specifying the `sys = 1` argument, we can perform the partial transpose over the
 first subsystem (instead of the default second subsystem as done above). Performing the
 partial transpose over the first subsystem yields the following matrix
@@ -8917,7 +8918,7 @@ partial transpose over the first subsystem yields the following matrix
                 \end{pmatrix}.
 \]
 </code></pre></div>
-<p><code>python exec="1" source="above"
+<p><code>python exec="1" source="above" result="text"
 import numpy as np
 from toqito.matrix_ops import partial_transpose
 
@@ -9191,7 +9192,7 @@ print(partial_transpose(test_input_mat, 1))</code></p>
 <a id="__codelineno-0-80" name="__codelineno-0-80"></a>
 <a id="__codelineno-0-81" name="__codelineno-0-81"></a><span class="sd">        By default, in `|toqito⟩`, the partial transpose function performs the transposition on</span>
 <a id="__codelineno-0-82" name="__codelineno-0-82"></a><span class="sd">        the second subsystem as follows.</span>
-<a id="__codelineno-0-83" name="__codelineno-0-83"></a><span class="sd">    ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
+<a id="__codelineno-0-83" name="__codelineno-0-83"></a><span class="sd">    ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;</span>
 <a id="__codelineno-0-84" name="__codelineno-0-84"></a><span class="sd">    import numpy as np</span>
 <a id="__codelineno-0-85" name="__codelineno-0-85"></a><span class="sd">    from toqito.matrix_ops import partial_transpose</span>
 <a id="__codelineno-0-86" name="__codelineno-0-86"></a>
@@ -9212,7 +9213,7 @@ print(partial_transpose(test_input_mat, 1))</code></p>
 <a id="__codelineno-0-101" name="__codelineno-0-101"></a><span class="sd">                            7 &amp; 8 &amp; 15 &amp; 16</span>
 <a id="__codelineno-0-102" name="__codelineno-0-102"></a><span class="sd">                        \end{pmatrix}.</span>
 <a id="__codelineno-0-103" name="__codelineno-0-103"></a><span class="sd">        \]</span>
-<a id="__codelineno-0-104" name="__codelineno-0-104"></a><span class="sd">    ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
+<a id="__codelineno-0-104" name="__codelineno-0-104"></a><span class="sd">    ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;</span>
 <a id="__codelineno-0-105" name="__codelineno-0-105"></a><span class="sd">    import numpy as np</span>
 <a id="__codelineno-0-106" name="__codelineno-0-106"></a><span class="sd">    from toqito.matrix_ops import partial_transpose</span>
 <a id="__codelineno-0-107" name="__codelineno-0-107"></a>

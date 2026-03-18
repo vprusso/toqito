@@ -8833,7 +8833,7 @@ and counts how many are greater than the provided tolerance.</p>
 <p><span class="doc-section-title">Examples:</span></p>
     <p>Consider the Bell state density matrix <span class="arithmatex">\(\rho = \ket{\Phi^+}\bra{\Phi^+}\)</span>. This matrix
 has rank one.</p>
-<p>```python exec="1" source="above"</p>
+<p>```python exec="1" source="above" result="text"</p>
         <p>from toqito.matrix_props import is_rank_one
 from toqito.states import bell</p>
 <p>rho = bell(0) @ bell(0).conj().T
@@ -8841,7 +8841,7 @@ print(is_rank_one(rho))
     ```</p>
 <div class="highlight"><pre><span></span><code>On the other hand, the maximally mixed state is not rank one.
 
-```python exec=&quot;1&quot; source=&quot;above&quot;
+```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;
 </code></pre></div>
 <p>import numpy as np
 from toqito.matrix_props import is_rank_one</p>
@@ -8908,7 +8908,7 @@ print(is_rank_one(maximally_mixed))
 <a id="__codelineno-0-20" name="__codelineno-0-20"></a><span class="sd">        Consider the Bell state density matrix \(\rho = \ket{\Phi^+}\bra{\Phi^+}\). This matrix</span>
 <a id="__codelineno-0-21" name="__codelineno-0-21"></a><span class="sd">        has rank one.</span>
 <a id="__codelineno-0-22" name="__codelineno-0-22"></a>
-<a id="__codelineno-0-23" name="__codelineno-0-23"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
+<a id="__codelineno-0-23" name="__codelineno-0-23"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;</span>
 <a id="__codelineno-0-24" name="__codelineno-0-24"></a><span class="sd">    from toqito.matrix_props import is_rank_one</span>
 <a id="__codelineno-0-25" name="__codelineno-0-25"></a><span class="sd">    from toqito.states import bell</span>
 <a id="__codelineno-0-26" name="__codelineno-0-26"></a>
@@ -8918,7 +8918,7 @@ print(is_rank_one(maximally_mixed))
 <a id="__codelineno-0-30" name="__codelineno-0-30"></a>
 <a id="__codelineno-0-31" name="__codelineno-0-31"></a><span class="sd">        On the other hand, the maximally mixed state is not rank one.</span>
 <a id="__codelineno-0-32" name="__codelineno-0-32"></a>
-<a id="__codelineno-0-33" name="__codelineno-0-33"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
+<a id="__codelineno-0-33" name="__codelineno-0-33"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;</span>
 <a id="__codelineno-0-34" name="__codelineno-0-34"></a><span class="sd">    import numpy as np</span>
 <a id="__codelineno-0-35" name="__codelineno-0-35"></a><span class="sd">    from toqito.matrix_props import is_rank_one</span>
 <a id="__codelineno-0-36" name="__codelineno-0-36"></a>

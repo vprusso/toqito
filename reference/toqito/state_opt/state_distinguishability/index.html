@@ -8963,7 +8963,7 @@ and "unambiguous". Default option is <code>strategy="min_error"</code>. Both str
 
 <p><span class="doc-section-title">Examples:</span></p>
     <p>Minimal-error state distinguishability for the Bell states (which are perfectly distinguishable).</p>
-<p>```python exec="1" source="above"</p>
+<p>```python exec="1" source="above" result="text"</p>
         <p>import numpy as np
 from toqito.states import bell
 from toqito.state_opt import state_distinguishability</p>
@@ -8977,7 +8977,7 @@ to compute
 the dual problem over the primal problem. However, the primal problem does allow us to extract the explicit
 measurement operators which may be of interest to us.
 
-```python exec=&quot;1&quot; source=&quot;above&quot;
+```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;
 </code></pre></div>
 <p>import numpy as np
 from toqito.states import bell
@@ -8989,7 +8989,7 @@ probs = [1 / 4, 1 / 4, 1 / 4, 1 / 4]</p>
     ```</p>
 <div class="highlight"><pre><span></span><code>Unambiguous state distinguishability for unbiased pure states.
 
-```python exec=&quot;1&quot; source=&quot;above&quot;
+```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;
 </code></pre></div>
 <p>import numpy as np
 from toqito.state_opt import state_distinguishability</p>
@@ -9000,7 +9000,7 @@ probs = [1 / 2, 1 / 2]</p>
     ```</p>
 <div class="highlight"><pre><span></span><code>Unambiguous state distinguishability for mixed states.
 
-```python exec=&quot;1&quot; source=&quot;above&quot;
+```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;
 </code></pre></div>
 <p>import numpy as np
 from toqito.state_opt import state_distinguishability</p>
@@ -9275,7 +9275,7 @@ probs = [1 / 2, 1 / 2]</p>
 <a id="__codelineno-0-111" name="__codelineno-0-111"></a><span class="sd">    Examples:</span>
 <a id="__codelineno-0-112" name="__codelineno-0-112"></a><span class="sd">        Minimal-error state distinguishability for the Bell states (which are perfectly distinguishable).</span>
 <a id="__codelineno-0-113" name="__codelineno-0-113"></a>
-<a id="__codelineno-0-114" name="__codelineno-0-114"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
+<a id="__codelineno-0-114" name="__codelineno-0-114"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;</span>
 <a id="__codelineno-0-115" name="__codelineno-0-115"></a><span class="sd">    import numpy as np</span>
 <a id="__codelineno-0-116" name="__codelineno-0-116"></a><span class="sd">    from toqito.states import bell</span>
 <a id="__codelineno-0-117" name="__codelineno-0-117"></a><span class="sd">    from toqito.state_opt import state_distinguishability</span>
@@ -9293,7 +9293,7 @@ probs = [1 / 2, 1 / 2]</p>
 <a id="__codelineno-0-129" name="__codelineno-0-129"></a><span class="sd">        the dual problem over the primal problem. However, the primal problem does allow us to extract the explicit</span>
 <a id="__codelineno-0-130" name="__codelineno-0-130"></a><span class="sd">        measurement operators which may be of interest to us.</span>
 <a id="__codelineno-0-131" name="__codelineno-0-131"></a>
-<a id="__codelineno-0-132" name="__codelineno-0-132"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
+<a id="__codelineno-0-132" name="__codelineno-0-132"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;</span>
 <a id="__codelineno-0-133" name="__codelineno-0-133"></a><span class="sd">    import numpy as np</span>
 <a id="__codelineno-0-134" name="__codelineno-0-134"></a><span class="sd">    from toqito.states import bell</span>
 <a id="__codelineno-0-135" name="__codelineno-0-135"></a><span class="sd">    from toqito.state_opt import state_distinguishability</span>
@@ -9308,7 +9308,7 @@ probs = [1 / 2, 1 / 2]</p>
 <a id="__codelineno-0-144" name="__codelineno-0-144"></a>
 <a id="__codelineno-0-145" name="__codelineno-0-145"></a><span class="sd">        Unambiguous state distinguishability for unbiased pure states.</span>
 <a id="__codelineno-0-146" name="__codelineno-0-146"></a>
-<a id="__codelineno-0-147" name="__codelineno-0-147"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
+<a id="__codelineno-0-147" name="__codelineno-0-147"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;</span>
 <a id="__codelineno-0-148" name="__codelineno-0-148"></a><span class="sd">    import numpy as np</span>
 <a id="__codelineno-0-149" name="__codelineno-0-149"></a><span class="sd">    from toqito.state_opt import state_distinguishability</span>
 <a id="__codelineno-0-150" name="__codelineno-0-150"></a>
@@ -9322,7 +9322,7 @@ probs = [1 / 2, 1 / 2]</p>
 <a id="__codelineno-0-158" name="__codelineno-0-158"></a>
 <a id="__codelineno-0-159" name="__codelineno-0-159"></a><span class="sd">        Unambiguous state distinguishability for mixed states.</span>
 <a id="__codelineno-0-160" name="__codelineno-0-160"></a>
-<a id="__codelineno-0-161" name="__codelineno-0-161"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
+<a id="__codelineno-0-161" name="__codelineno-0-161"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;</span>
 <a id="__codelineno-0-162" name="__codelineno-0-162"></a><span class="sd">    import numpy as np</span>
 <a id="__codelineno-0-163" name="__codelineno-0-163"></a><span class="sd">    from toqito.state_opt import state_distinguishability</span>
 <a id="__codelineno-0-164" name="__codelineno-0-164"></a>

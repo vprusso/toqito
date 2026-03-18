@@ -9146,14 +9146,14 @@ It also has <code>SymmetricInnerExtension</code>, which can prove separability.<
 \]</div>
 <p>We provide the input as a density matrix <span class="arithmatex">\(\rho\)</span>.</p>
 <p>On the other hand, a random density matrix will be an entangled state (a separable state).</p>
-<p>```python exec="1" source="above" session="is_separable_example"</p>
+<p>```python exec="1" source="above" result="text" session="is_separable_example"</p>
         <p>import numpy as np
 from toqito.rand.random_density_matrix import random_density_matrix
 from toqito.state_props.is_separable import is_separable
 rho_separable = np.array([[1, 0, 1, 0], [0, 1, 0, 1], [1, 0, 1, 0], [0, 1, 0, 1]])
 print(is_separable(rho_separable))
     ```</p>
-<div class="highlight"><pre><span></span><code>```python exec=&quot;1&quot; source=&quot;above&quot; session=&quot;is_separable_example&quot;
+<div class="highlight"><pre><span></span><code>```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot; session=&quot;is_separable_example&quot;
 </code></pre></div>
 <p>rho_not_separable = np.array([[ 0.13407875+0.j        , -0.08263926-0.17760437j,
         -0.0135111 -0.12352182j,  0.0368423 -0.05563985j],
@@ -9168,7 +9168,7 @@ print(is_separable(rho_not_separable))
 <div class="highlight"><pre><span></span><code>We can also detect certain PPT-entangled states. For example, a state constructed from a Breuer-Hall map
 is entangled but PPT.
 
-```python exec=&quot;1&quot; source=&quot;above&quot; session=&quot;is_separable_example&quot;
+```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot; session=&quot;is_separable_example&quot;
 </code></pre></div>
 <p>from toqito.state_props.is_ppt import is_ppt</p>
 <h3 id="toqito.state_props.is_separable.is_separable--construct-a-2x3-separable-ppt-state-of-rank-2">Construct a 2x3 separable PPT state of rank 2<a class="headerlink" href="#toqito.state_props.is_separable.is_separable--construct-a-2x3-separable-ppt-state-of-rank-2" title="Permanent link">&para;</a></h3>
@@ -10129,7 +10129,7 @@ print("Is the state separable?", is_separable(rho, dim=[2, 3]))  # True
 <a id="__codelineno-0-216" name="__codelineno-0-216"></a>
 <a id="__codelineno-0-217" name="__codelineno-0-217"></a><span class="sd">        On the other hand, a random density matrix will be an entangled state (a separable state).</span>
 <a id="__codelineno-0-218" name="__codelineno-0-218"></a>
-<a id="__codelineno-0-219" name="__codelineno-0-219"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; session=&quot;is_separable_example&quot;</span>
+<a id="__codelineno-0-219" name="__codelineno-0-219"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot; session=&quot;is_separable_example&quot;</span>
 <a id="__codelineno-0-220" name="__codelineno-0-220"></a><span class="sd">    import numpy as np</span>
 <a id="__codelineno-0-221" name="__codelineno-0-221"></a><span class="sd">    from toqito.rand.random_density_matrix import random_density_matrix</span>
 <a id="__codelineno-0-222" name="__codelineno-0-222"></a><span class="sd">    from toqito.state_props.is_separable import is_separable</span>
@@ -10137,7 +10137,7 @@ print("Is the state separable?", is_separable(rho, dim=[2, 3]))  # True
 <a id="__codelineno-0-224" name="__codelineno-0-224"></a><span class="sd">    print(is_separable(rho_separable))</span>
 <a id="__codelineno-0-225" name="__codelineno-0-225"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-226" name="__codelineno-0-226"></a>
-<a id="__codelineno-0-227" name="__codelineno-0-227"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; session=&quot;is_separable_example&quot;</span>
+<a id="__codelineno-0-227" name="__codelineno-0-227"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot; session=&quot;is_separable_example&quot;</span>
 <a id="__codelineno-0-228" name="__codelineno-0-228"></a><span class="sd">    rho_not_separable = np.array([[ 0.13407875+0.j        , -0.08263926-0.17760437j,</span>
 <a id="__codelineno-0-229" name="__codelineno-0-229"></a><span class="sd">            -0.0135111 -0.12352182j,  0.0368423 -0.05563985j],</span>
 <a id="__codelineno-0-230" name="__codelineno-0-230"></a><span class="sd">        [-0.08263926+0.17760437j,  0.53338542+0.j        ,</span>
@@ -10152,7 +10152,7 @@ print("Is the state separable?", is_separable(rho, dim=[2, 3]))  # True
 <a id="__codelineno-0-239" name="__codelineno-0-239"></a><span class="sd">        We can also detect certain PPT-entangled states. For example, a state constructed from a Breuer-Hall map</span>
 <a id="__codelineno-0-240" name="__codelineno-0-240"></a><span class="sd">        is entangled but PPT.</span>
 <a id="__codelineno-0-241" name="__codelineno-0-241"></a>
-<a id="__codelineno-0-242" name="__codelineno-0-242"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; session=&quot;is_separable_example&quot;</span>
+<a id="__codelineno-0-242" name="__codelineno-0-242"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot; session=&quot;is_separable_example&quot;</span>
 <a id="__codelineno-0-243" name="__codelineno-0-243"></a><span class="sd">    from toqito.state_props.is_ppt import is_ppt</span>
 <a id="__codelineno-0-244" name="__codelineno-0-244"></a>
 <a id="__codelineno-0-245" name="__codelineno-0-245"></a><span class="sd">    # Construct a 2x3 separable PPT state of rank 2</span>

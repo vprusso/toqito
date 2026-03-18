@@ -8938,7 +8938,7 @@ symmetric extension if and only if</p>
     \text{Tr}(\rho_B^2) \geq \text{Tr}(\rho_{AB}^2) - 4 \sqrt{\text{det}(\rho_{AB})}.
 \]</div>
 <p>This closed-form equation is much quicker to check than running the semidefinite program.</p>
-<p>```python exec="1" source="above" session="has_symmetric_example"</p>
+<p>```python exec="1" source="above" result="text" session="has_symmetric_example"</p>
         <p>import numpy as np
 from toqito.state_props import has_symmetric_extension
 from toqito.matrix_ops import partial_trace
@@ -8950,7 +8950,7 @@ np.trace(np.linalg.matrix_power(partial_trace(rho, 1), 2))</p>
 <p>= np.trace(rho**2) - 4 * np.sqrt(np.linalg.det(rho)))
     ```</p>
 </blockquote>
-<div class="highlight"><pre><span></span><code>```python exec=&quot;1&quot; source=&quot;above&quot; session=&quot;has_symmetric_example&quot;
+<div class="highlight"><pre><span></span><code>```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot; session=&quot;has_symmetric_example&quot;
 </code></pre></div>
 <h3 id="toqito.state_props.has_symmetric_extension.has_symmetric_extension--now-show-that-the-has_symmetric_extension-function-recognizes-this-case">Now show that the <code>has_symmetric_extension</code> function recognizes this case.<a class="headerlink" href="#toqito.state_props.has_symmetric_extension.has_symmetric_extension--now-show-that-the-has_symmetric_extension-function-recognizes-this-case" title="Permanent link">&para;</a></h3>
 <p>print(has_symmetric_extension(rho))
@@ -8977,7 +8977,7 @@ To make this state over more than just two qubits, let&#39;s construct the follo
 As the state \(\sigma\) is entangled, there should not exist a symmetric extension at some
 level. We see this being the case for a relatively low level of the hierarchy.
 
-```python exec=&quot;1&quot; source=&quot;above&quot;
+```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;
 </code></pre></div>
 <p>import numpy as np
 from toqito.states import bell
@@ -9190,7 +9190,7 @@ print(has_symmetric_extension(sigma))
 <a id="__codelineno-0-52" name="__codelineno-0-52"></a>
 <a id="__codelineno-0-53" name="__codelineno-0-53"></a><span class="sd">        This closed-form equation is much quicker to check than running the semidefinite program.</span>
 <a id="__codelineno-0-54" name="__codelineno-0-54"></a>
-<a id="__codelineno-0-55" name="__codelineno-0-55"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; session=&quot;has_symmetric_example&quot;</span>
+<a id="__codelineno-0-55" name="__codelineno-0-55"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot; session=&quot;has_symmetric_example&quot;</span>
 <a id="__codelineno-0-56" name="__codelineno-0-56"></a><span class="sd">    import numpy as np</span>
 <a id="__codelineno-0-57" name="__codelineno-0-57"></a><span class="sd">    from toqito.state_props import has_symmetric_extension</span>
 <a id="__codelineno-0-58" name="__codelineno-0-58"></a><span class="sd">    from toqito.matrix_ops import partial_trace</span>
@@ -9201,7 +9201,7 @@ print(has_symmetric_extension(sigma))
 <a id="__codelineno-0-63" name="__codelineno-0-63"></a><span class="sd">    &gt;= np.trace(rho**2) - 4 * np.sqrt(np.linalg.det(rho)))</span>
 <a id="__codelineno-0-64" name="__codelineno-0-64"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-65" name="__codelineno-0-65"></a>
-<a id="__codelineno-0-66" name="__codelineno-0-66"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; session=&quot;has_symmetric_example&quot;</span>
+<a id="__codelineno-0-66" name="__codelineno-0-66"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot; session=&quot;has_symmetric_example&quot;</span>
 <a id="__codelineno-0-67" name="__codelineno-0-67"></a><span class="sd">    # Now show that the `has_symmetric_extension` function recognizes this case.</span>
 <a id="__codelineno-0-68" name="__codelineno-0-68"></a><span class="sd">    print(has_symmetric_extension(rho))</span>
 <a id="__codelineno-0-69" name="__codelineno-0-69"></a><span class="sd">        ```</span>
@@ -9228,7 +9228,7 @@ print(has_symmetric_extension(sigma))
 <a id="__codelineno-0-90" name="__codelineno-0-90"></a><span class="sd">        As the state \(\sigma\) is entangled, there should not exist a symmetric extension at some</span>
 <a id="__codelineno-0-91" name="__codelineno-0-91"></a><span class="sd">        level. We see this being the case for a relatively low level of the hierarchy.</span>
 <a id="__codelineno-0-92" name="__codelineno-0-92"></a>
-<a id="__codelineno-0-93" name="__codelineno-0-93"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
+<a id="__codelineno-0-93" name="__codelineno-0-93"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;</span>
 <a id="__codelineno-0-94" name="__codelineno-0-94"></a><span class="sd">    import numpy as np</span>
 <a id="__codelineno-0-95" name="__codelineno-0-95"></a><span class="sd">    from toqito.states import bell</span>
 <a id="__codelineno-0-96" name="__codelineno-0-96"></a><span class="sd">    from toqito.state_props import has_symmetric_extension</span>

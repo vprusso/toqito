@@ -8848,7 +8848,7 @@ Of Quantum Entropic Functions" from <sup><a id="cite-toqito-state_props-von_neum
                    \end{pmatrix} \in \text{D}(\mathcal{X}).
 \]</div>
 <p>Calculating the von Neumann entropy of <span class="arithmatex">\(\rho\)</span> in <code>|toqito⟩</code> can be done as follows.</p>
-<p>```python exec="1" source="above"</p>
+<p>```python exec="1" source="above" result="text"</p>
         <p>from toqito.state_props import von_neumann_entropy
 import numpy as np
 test_input_mat = np.array(
@@ -8870,7 +8870,7 @@ print(von_neumann_entropy(test_input_mat))
 As this state is maximally mixed, the von Neumann entropy of \(\rho\) is
 equal to one. We can see this in `|toqito⟩` as follows.
 
-```python exec=&quot;1&quot; source=&quot;above&quot;
+```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;
 </code></pre></div>
 <p>from toqito.state_props import von_neumann_entropy
 import numpy as np
@@ -9019,7 +9019,7 @@ print(von_neumann_entropy(rho))
 <a id="__codelineno-0-55" name="__codelineno-0-55"></a>
 <a id="__codelineno-0-56" name="__codelineno-0-56"></a><span class="sd">        Calculating the von Neumann entropy of \(\rho\) in `|toqito⟩` can be done as follows.</span>
 <a id="__codelineno-0-57" name="__codelineno-0-57"></a>
-<a id="__codelineno-0-58" name="__codelineno-0-58"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
+<a id="__codelineno-0-58" name="__codelineno-0-58"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;</span>
 <a id="__codelineno-0-59" name="__codelineno-0-59"></a><span class="sd">    from toqito.state_props import von_neumann_entropy</span>
 <a id="__codelineno-0-60" name="__codelineno-0-60"></a><span class="sd">    import numpy as np</span>
 <a id="__codelineno-0-61" name="__codelineno-0-61"></a><span class="sd">    test_input_mat = np.array(</span>
@@ -9042,7 +9042,7 @@ print(von_neumann_entropy(rho))
 <a id="__codelineno-0-78" name="__codelineno-0-78"></a><span class="sd">        As this state is maximally mixed, the von Neumann entropy of \(\rho\) is</span>
 <a id="__codelineno-0-79" name="__codelineno-0-79"></a><span class="sd">        equal to one. We can see this in `|toqito⟩` as follows.</span>
 <a id="__codelineno-0-80" name="__codelineno-0-80"></a>
-<a id="__codelineno-0-81" name="__codelineno-0-81"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
+<a id="__codelineno-0-81" name="__codelineno-0-81"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;</span>
 <a id="__codelineno-0-82" name="__codelineno-0-82"></a><span class="sd">    from toqito.state_props import von_neumann_entropy</span>
 <a id="__codelineno-0-83" name="__codelineno-0-83"></a><span class="sd">    import numpy as np</span>
 <a id="__codelineno-0-84" name="__codelineno-0-84"></a><span class="sd">    rho = 1/2 * np.identity(2)</span>

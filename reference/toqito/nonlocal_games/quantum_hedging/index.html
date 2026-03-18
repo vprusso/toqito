@@ -8932,7 +8932,7 @@ entangled state:</p>
 \]</div>
 <p>As was illustrated in <sup><a id="cite-toqito-nonlocal_games-quantum_hedging-QuantumHedging-1" href="#ref-toqito-nonlocal_games-quantum_hedging-QuantumHedging-1">1</a></sup>, the hedging value of the above scenario is
 <span class="arithmatex">\(\cos(\pi/8)^2 \approx 0.8536\)</span></p>
-<p>```python exec="1" source="above"</p>
+<p>```python exec="1" source="above" result="text"</p>
         <p>import numpy as np
 from toqito.states import basis
 from numpy import kron, cos, sin, pi, sqrt, isclose
@@ -8954,7 +8954,7 @@ q_0 = l_1 @ l_1.conj().T + l_2 @ l_2.conj().T + l_3 @ l_3.conj().T</p>
     ```</p>
 <div class="highlight"><pre><span></span><code>This example demonstrates strong duality with matching primal and dual values, as can be seen below:
 
-```python exec=&quot;1&quot; source=&quot;above&quot;
+```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;
 </code></pre></div>
 <p>import numpy as np
 from toqito.states import basis
@@ -8976,7 +8976,7 @@ print(np.around(molina_watrous.max_prob_outcome_a_dual(), decimals=2))
     ```</p>
 <div class="highlight"><pre><span></span><code>and
 
-```python exec=&quot;1&quot; source=&quot;above&quot;
+```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;
 </code></pre></div>
 <p>import numpy as np
 from toqito.states import basis
@@ -8996,7 +8996,7 @@ q_0 = l_1 @ l_1.conj().T + l_2 @ l_2.conj().T + l_3 @ l_3.conj().T</p>
 <p>molina_watrous = QuantumHedging(q_0, 1)
 print(np.around(molina_watrous.min_prob_outcome_a_primal(), decimals=2))
     ```</p>
-<div class="highlight"><pre><span></span><code>```python exec=&quot;1&quot; source=&quot;above&quot;
+<div class="highlight"><pre><span></span><code>```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;
 </code></pre></div>
 <p>import numpy as np
 from toqito.states import basis

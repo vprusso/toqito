@@ -8956,7 +8956,7 @@ and the no-signalling maximum is 4.</p>
 <div class="arithmatex">\[
     M_{FC} = \begin{pmatrix} 0 &amp; 0 &amp; 0 \\ 0 &amp; 1 &amp; 1 \\ 0 &amp; 1 &amp; -1 \end{pmatrix}
 \]</div>
-<p>```python exec="1" source="above"</p>
+<p>```python exec="1" source="above" result="text"</p>
         <p>import numpy as np
 from toqito.state_opt.bell_inequality_max import bell_inequality_max
 M_chsh_fc = np.array([[0, 0, 0], [0, 1, 1], [0, 1, -1]])
@@ -8979,7 +8979,7 @@ Represented by the coefficient matrix:
     M_{CG} = \begin{pmatrix} 0 &amp; -1 &amp; 0 \\ -1 &amp; 1 &amp; 1 \\ 0 &amp; 1 &amp; -1 \end{pmatrix}
 \]
 
-```python exec=&quot;1&quot; source=&quot;above&quot;
+```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;
 </code></pre></div>
 <p>import numpy as np
 from toqito.state_opt.bell_inequality_max import bell_inequality_max
@@ -8992,7 +8992,7 @@ print(bell_inequality_max(M_chsh_cg, desc_chsh, 'cg', 'nosignal', tol=1e-9))
 <div class="highlight"><pre><span></span><code>The I3322 inequality in Collins-Gisin (CG) notation.
 Classical max = 1, No-signalling max = 2. Quantum value is between 1 and 2.
 
-```python exec=&quot;1&quot; source=&quot;above&quot;
+```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;
 </code></pre></div>
 <p>import numpy as np
 from toqito.state_opt.bell_inequality_max import bell_inequality_max
@@ -9412,7 +9412,7 @@ print(bell_inequality_max(M_i3322_cg, desc_i3322, 'cg', 'nosignal', tol=1e-9))
 <a id="__codelineno-0-145" name="__codelineno-0-145"></a><span class="sd">            M_{FC} = \begin{pmatrix} 0 &amp; 0 &amp; 0 \\ 0 &amp; 1 &amp; 1 \\ 0 &amp; 1 &amp; -1 \end{pmatrix}</span>
 <a id="__codelineno-0-146" name="__codelineno-0-146"></a><span class="sd">        \]</span>
 <a id="__codelineno-0-147" name="__codelineno-0-147"></a>
-<a id="__codelineno-0-148" name="__codelineno-0-148"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
+<a id="__codelineno-0-148" name="__codelineno-0-148"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;</span>
 <a id="__codelineno-0-149" name="__codelineno-0-149"></a><span class="sd">    import numpy as np</span>
 <a id="__codelineno-0-150" name="__codelineno-0-150"></a><span class="sd">    from toqito.state_opt.bell_inequality_max import bell_inequality_max</span>
 <a id="__codelineno-0-151" name="__codelineno-0-151"></a><span class="sd">    M_chsh_fc = np.array([[0, 0, 0], [0, 1, 1], [0, 1, -1]])</span>
@@ -9437,7 +9437,7 @@ print(bell_inequality_max(M_i3322_cg, desc_i3322, 'cg', 'nosignal', tol=1e-9))
 <a id="__codelineno-0-170" name="__codelineno-0-170"></a><span class="sd">            M_{CG} = \begin{pmatrix} 0 &amp; -1 &amp; 0 \\ -1 &amp; 1 &amp; 1 \\ 0 &amp; 1 &amp; -1 \end{pmatrix}</span>
 <a id="__codelineno-0-171" name="__codelineno-0-171"></a><span class="sd">        \]</span>
 <a id="__codelineno-0-172" name="__codelineno-0-172"></a>
-<a id="__codelineno-0-173" name="__codelineno-0-173"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
+<a id="__codelineno-0-173" name="__codelineno-0-173"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;</span>
 <a id="__codelineno-0-174" name="__codelineno-0-174"></a><span class="sd">    import numpy as np</span>
 <a id="__codelineno-0-175" name="__codelineno-0-175"></a><span class="sd">    from toqito.state_opt.bell_inequality_max import bell_inequality_max</span>
 <a id="__codelineno-0-176" name="__codelineno-0-176"></a><span class="sd">    M_chsh_cg = np.array([[0, -1, 0], [-1, 1, 1], [0, 1, -1]])</span>
@@ -9450,7 +9450,7 @@ print(bell_inequality_max(M_i3322_cg, desc_i3322, 'cg', 'nosignal', tol=1e-9))
 <a id="__codelineno-0-183" name="__codelineno-0-183"></a><span class="sd">        The I3322 inequality in Collins-Gisin (CG) notation.</span>
 <a id="__codelineno-0-184" name="__codelineno-0-184"></a><span class="sd">        Classical max = 1, No-signalling max = 2. Quantum value is between 1 and 2.</span>
 <a id="__codelineno-0-185" name="__codelineno-0-185"></a>
-<a id="__codelineno-0-186" name="__codelineno-0-186"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
+<a id="__codelineno-0-186" name="__codelineno-0-186"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;</span>
 <a id="__codelineno-0-187" name="__codelineno-0-187"></a><span class="sd">    import numpy as np</span>
 <a id="__codelineno-0-188" name="__codelineno-0-188"></a><span class="sd">    from toqito.state_opt.bell_inequality_max import bell_inequality_max</span>
 <a id="__codelineno-0-189" name="__codelineno-0-189"></a><span class="sd">    M_i3322_cg = np.array([[0, 1, 0, 0], [1, -1, -1, -1], [0, -1, -1, 1], [0, -1, 1, 0]])</span>
@@ -9823,7 +9823,7 @@ The method is from <sup><a id="cite-toqito-state_opt-bell_inequality_max-bell_in
 \]</div>
 <p>The individual and joint coefficents and measurement values are encoded as matrices.
 The upper bound can then be found in <code>|toqito⟩</code> as follows.</p>
-<p>```python exec="1" source="above"</p>
+<p>```python exec="1" source="above" result="text"</p>
         <p>import numpy as np
 from toqito.state_opt.bell_inequality_max import bell_inequality_max_qubits</p>
 <p>joint_coe = np.array([
@@ -10037,7 +10037,7 @@ print(f"Bell inequality maximum value: {result:.3f}")
 <a id="__codelineno-0-488" name="__codelineno-0-488"></a><span class="sd">        The individual and joint coefficents and measurement values are encoded as matrices.</span>
 <a id="__codelineno-0-489" name="__codelineno-0-489"></a><span class="sd">        The upper bound can then be found in `|toqito⟩` as follows.</span>
 <a id="__codelineno-0-490" name="__codelineno-0-490"></a>
-<a id="__codelineno-0-491" name="__codelineno-0-491"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
+<a id="__codelineno-0-491" name="__codelineno-0-491"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;</span>
 <a id="__codelineno-0-492" name="__codelineno-0-492"></a><span class="sd">    import numpy as np</span>
 <a id="__codelineno-0-493" name="__codelineno-0-493"></a><span class="sd">    from toqito.state_opt.bell_inequality_max import bell_inequality_max_qubits</span>
 <a id="__codelineno-0-494" name="__codelineno-0-494"></a>
