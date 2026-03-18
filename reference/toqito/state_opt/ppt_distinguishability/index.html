@@ -6854,45 +6854,6 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label=" ppt_distinguishability">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#toqito.state_opt.ppt_distinguishability.ppt_distinguishability--bell-vectors" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Bell vectors:
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#toqito.state_opt.ppt_distinguishability.ppt_distinguishability--ydy-vectors-from-2" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        YDY vectors from ppt_distinguishability &para; Calculates the probability of PPT state distinguishability when done optimally. ppt_distinguishability &para; ppt_distinguishability(vectors: list[ndarray], subsystems: list[int], dimensions: list[int], probs: list[float] | None = None, strategy: str = &#39;min_error&#39;, solver: str = &#39;cvxopt&#39;, primal_dual: str = &#39;dual&#39;) -&gt; float Compute probability of optimally distinguishing a state via PPT measurements 1. Implements the semidefinite program (SDP) whose optimal value is equal to the maximum probability of perfectly distinguishing orthogonal maximally entangled states using any PPT measurement; a measurement whose operators are positive under partial transpose. This SDP was explicitly provided in 1. One can specify the distinguishability method using the dist_method argument. For dist_method = "min_error", this is the default method that yields the probability of distinguishing quantum states via PPT measurements that minimize the probability of error. For dist_method = "unambig", Alice and Bob never provide an incorrect answer, although it is possible that their answer is inconclusive. For more background, see the state_distinguishability example in the quantum states gallery. Note This function supports both pure states (vectors) and mixed states (density matrices). The PPT constraints are applied to the measurement operators to restrict the class of allowed measurements. Parameters: vectors (list[ndarray]) – A list of states provided as either matrices or vectors. probs (list[float] | None, default: None ) – Respective list of probabilities each state is selected. subsystems (list[int]) – A list of integers that correspond to the complex Euclidean space dimensions. dimensions (list[int]) – A list of integers that correspond to the dimensions of the subsystems. strategy (str, default: &#39;min_error&#39; ) – The method of distinguishing states. solver (str, default: &#39;cvxopt&#39; ) – The SDP solver to use. primal_dual (str, default: &#39;dual&#39; ) – Option for the optimization problem. Returns: float – The optimal probability with which the states can be distinguished via PPT measurements. Examples: Consider the following Bell states: \[ \begin{equation} \begin{aligned} |\psi_0 \rangle = \frac{|00\rangle + |11\rangle}{\sqrt{2}}, &amp;\quad |\psi_1 \rangle = \frac{|01\rangle + |10\rangle}{\sqrt{2}}, \\ |\psi_2 \rangle = \frac{|01\rangle - |10\rangle}{\sqrt{2}}, &amp;\quad |\psi_3 \rangle = \frac{|00\rangle - |11\rangle}{\sqrt{2}}. \end{aligned} \end{equation} \] It was illustrated in 2 that for the following set of states \[ \begin{equation} \begin{aligned} \rho_1^{(2)} &amp;= |\psi_0 \rangle | \psi_0 \rangle \langle \psi_0 | \langle \psi_0 |, \quad \rho_2^{(2)} &amp;= |\psi_1 \rangle | \psi_3 \rangle \langle \psi_1 | \langle \psi_3 |, \\ \rho_3^{(2)} &amp;= |\psi_2 \rangle | \psi_3 \rangle \langle \psi_2 | \langle \psi_3 |, \quad \rho_4^{(2)} &amp;= |\psi_3 \rangle | \psi_3 \rangle \langle \psi_3 | \langle \psi_3 |, \\ \end{aligned} \end{equation} \] that the optimal probability of distinguishing via a PPT measurement should yield \(7/8 \approx 0.875\) as was proved in 2. ```python exec="1" source="above" result="text" import numpy as np from toqito.states import bell from toqito.state_opt import ppt_distinguishability Bell vectors:&para; psi_0 = bell(0) psi_1 = bell(2) psi_2 = bell(3) psi_3 = bell(1) YDY vectors from 2.&para; x_1 = np.kron(psi_0, psi_0) x_2 = np.kron(psi_1, psi_3) x_3 = np.kron(psi_2, psi_3) x_4 = np.kron(psi_3, psi_3) YDY density matrices.&para; rho_1 = x_1 @ x_1.conj().T rho_2 = x_2 @ x_2.conj().T rho_3 = x_3 @ x_3.conj().T rho_4 = x_4 @ x_4.conj().T states = [rho_1, rho_2, rho_3, rho_4] probs = [1 / 4, 1 / 4, 1 / 4, 1 / 4] opt_val, _ = ppt_distinguishability(vectors=states, probs=probs, dimensions=[2, 2, 2, 2], subsystems=[0, 2]) print(f"Optimal value: {opt_val:.3f}") ``` References 1 Cosentino, Alessandro. Positive-partial-transpose-indistinguishable states via semidefinite programming. Physical Review A. vol. 87(1). (2013). doi:10.1103/physreva.87.012321. 2 Yu, Nengkun and Duan, Runyao and Ying, Mingsheng. Four Locally Indistinguishable Ququad-Ququad Orthogonal Maximally Entangled States. Physical Review Letters. vol. 109(2). (2012). doi:10.1103/physrevlett.109.020506. Source code in toqito/state_opt/ppt_distinguishability.py 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99 100 101 102 103 104 105 106 107 108 109 110 111 112 113 114 115 116 117 118 119 120 121 122 123 124 125 126 127 128 129def ppt_distinguishability( vectors: list[np.ndarray], subsystems: list[int], dimensions: list[int], probs: list[float] | None = None, strategy: str = &quot;min_error&quot;, solver: str = &quot;cvxopt&quot;, primal_dual: str = &quot;dual&quot;, ) -&gt; float: r&quot;&quot;&quot;Compute probability of optimally distinguishing a state via PPT measurements [@cosentino2013positive]. Implements the semidefinite program (SDP) whose optimal value is equal to the maximum probability of perfectly distinguishing orthogonal maximally entangled states using any PPT measurement; a measurement whose operators are positive under partial transpose. This SDP was explicitly provided in [@cosentino2013positive]. One can specify the distinguishability method using the `dist_method` argument. For `dist_method = &quot;min_error&quot;`, this is the default method that yields the probability of distinguishing quantum states via PPT measurements that minimize the probability of error. For `dist_method = &quot;unambig&quot;`, Alice and Bob never provide an incorrect answer, although it is possible that their answer is inconclusive. For more background, see the ``state_distinguishability`` example in the quantum states gallery. !!! Note This function supports both pure states (vectors) and mixed states (density matrices). The PPT constraints are applied to the measurement operators to restrict the class of allowed measurements. Args: vectors: A list of states provided as either matrices or vectors. probs: Respective list of probabilities each state is selected. subsystems: A list of integers that correspond to the complex Euclidean space dimensions. dimensions: A list of integers that correspond to the dimensions of the subsystems. strategy: The method of distinguishing states. solver: The SDP solver to use. primal_dual: Option for the optimization problem. Returns: The optimal probability with which the states can be distinguished via PPT measurements. Examples: Consider the following Bell states: \[ \begin{equation} \begin{aligned} |\psi_0 \rangle = \frac{|00\rangle + |11\rangle}{\sqrt{2}}, &amp;\quad |\psi_1 \rangle = \frac{|01\rangle + |10\rangle}{\sqrt{2}}, \\ |\psi_2 \rangle = \frac{|01\rangle - |10\rangle}{\sqrt{2}}, &amp;\quad |\psi_3 \rangle = \frac{|00\rangle - |11\rangle}{\sqrt{2}}. \end{aligned} \end{equation} \] It was illustrated in [@yu2012four] that for the following set of states \[ \begin{equation} \begin{aligned} \rho_1^{(2)} &amp;= |\psi_0 \rangle | \psi_0 \rangle \langle \psi_0 | \langle \psi_0 |, \quad \rho_2^{(2)} &amp;= |\psi_1 \rangle | \psi_3 \rangle \langle \psi_1 | \langle \psi_3 |, \\ \rho_3^{(2)} &amp;= |\psi_2 \rangle | \psi_3 \rangle \langle \psi_2 | \langle \psi_3 |, \quad \rho_4^{(2)} &amp;= |\psi_3 \rangle | \psi_3 \rangle \langle \psi_3 | \langle \psi_3 |, \\ \end{aligned} \end{equation} \] that the optimal probability of distinguishing via a PPT measurement should yield \(7/8 \approx 0.875\) as was proved in [@yu2012four]. ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot; import numpy as np from toqito.states import bell from toqito.state_opt import ppt_distinguishability # Bell vectors: psi_0 = bell(0) psi_1 = bell(2) psi_2 = bell(3) psi_3 = bell(1) # YDY vectors from [@yu2012four]. x_1 = np.kron(psi_0, psi_0) x_2 = np.kron(psi_1, psi_3) x_3 = np.kron(psi_2, psi_3) x_4 = np.kron(psi_3, psi_3) # YDY density matrices. rho_1 = x_1 @ x_1.conj().T rho_2 = x_2 @ x_2.conj().T rho_3 = x_3 @ x_3.conj().T rho_4 = x_4 @ x_4.conj().T states = [rho_1, rho_2, rho_3, rho_4] probs = [1 / 4, 1 / 4, 1 / 4, 1 / 4] opt_val, _ = ppt_distinguishability(vectors=states, probs=probs, dimensions=[2, 2, 2, 2], subsystems=[0, 2]) print(f&quot;Optimal value: {opt_val:.3f}&quot;) ``` &quot;&quot;&quot; if not has_same_dimension(vectors): raise ValueError(&quot;Vectors for state distinguishability must all have the same dimension.&quot;) # Assumes a uniform probabilities distribution among the states if one is not explicitly provided. n = len(vectors) probs = [1 / n] * n if probs is None else probs if primal_dual == &quot;primal&quot;: return _min_error_primal( vectors=vectors, subsystems=subsystems, dimensions=dimensions, probs=probs, solver=solver, strategy=strategy ) return _min_error_dual( vectors=vectors, subsystems=subsystems, dimensions=dimensions, probs=probs, solver=solver, strategy=strategy ) 2.
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#toqito.state_opt.ppt_distinguishability.ppt_distinguishability--ydy-density-matrices" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        YDY density matrices.
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
     </ul>
@@ -8763,45 +8724,6 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label=" ppt_distinguishability">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#toqito.state_opt.ppt_distinguishability.ppt_distinguishability--bell-vectors" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Bell vectors:
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#toqito.state_opt.ppt_distinguishability.ppt_distinguishability--ydy-vectors-from-2" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        YDY vectors from ppt_distinguishability &para; Calculates the probability of PPT state distinguishability when done optimally. ppt_distinguishability &para; ppt_distinguishability(vectors: list[ndarray], subsystems: list[int], dimensions: list[int], probs: list[float] | None = None, strategy: str = &#39;min_error&#39;, solver: str = &#39;cvxopt&#39;, primal_dual: str = &#39;dual&#39;) -&gt; float Compute probability of optimally distinguishing a state via PPT measurements 1. Implements the semidefinite program (SDP) whose optimal value is equal to the maximum probability of perfectly distinguishing orthogonal maximally entangled states using any PPT measurement; a measurement whose operators are positive under partial transpose. This SDP was explicitly provided in 1. One can specify the distinguishability method using the dist_method argument. For dist_method = "min_error", this is the default method that yields the probability of distinguishing quantum states via PPT measurements that minimize the probability of error. For dist_method = "unambig", Alice and Bob never provide an incorrect answer, although it is possible that their answer is inconclusive. For more background, see the state_distinguishability example in the quantum states gallery. Note This function supports both pure states (vectors) and mixed states (density matrices). The PPT constraints are applied to the measurement operators to restrict the class of allowed measurements. Parameters: vectors (list[ndarray]) – A list of states provided as either matrices or vectors. probs (list[float] | None, default: None ) – Respective list of probabilities each state is selected. subsystems (list[int]) – A list of integers that correspond to the complex Euclidean space dimensions. dimensions (list[int]) – A list of integers that correspond to the dimensions of the subsystems. strategy (str, default: &#39;min_error&#39; ) – The method of distinguishing states. solver (str, default: &#39;cvxopt&#39; ) – The SDP solver to use. primal_dual (str, default: &#39;dual&#39; ) – Option for the optimization problem. Returns: float – The optimal probability with which the states can be distinguished via PPT measurements. Examples: Consider the following Bell states: \[ \begin{equation} \begin{aligned} |\psi_0 \rangle = \frac{|00\rangle + |11\rangle}{\sqrt{2}}, &amp;\quad |\psi_1 \rangle = \frac{|01\rangle + |10\rangle}{\sqrt{2}}, \\ |\psi_2 \rangle = \frac{|01\rangle - |10\rangle}{\sqrt{2}}, &amp;\quad |\psi_3 \rangle = \frac{|00\rangle - |11\rangle}{\sqrt{2}}. \end{aligned} \end{equation} \] It was illustrated in 2 that for the following set of states \[ \begin{equation} \begin{aligned} \rho_1^{(2)} &amp;= |\psi_0 \rangle | \psi_0 \rangle \langle \psi_0 | \langle \psi_0 |, \quad \rho_2^{(2)} &amp;= |\psi_1 \rangle | \psi_3 \rangle \langle \psi_1 | \langle \psi_3 |, \\ \rho_3^{(2)} &amp;= |\psi_2 \rangle | \psi_3 \rangle \langle \psi_2 | \langle \psi_3 |, \quad \rho_4^{(2)} &amp;= |\psi_3 \rangle | \psi_3 \rangle \langle \psi_3 | \langle \psi_3 |, \\ \end{aligned} \end{equation} \] that the optimal probability of distinguishing via a PPT measurement should yield \(7/8 \approx 0.875\) as was proved in 2. ```python exec="1" source="above" result="text" import numpy as np from toqito.states import bell from toqito.state_opt import ppt_distinguishability Bell vectors:&para; psi_0 = bell(0) psi_1 = bell(2) psi_2 = bell(3) psi_3 = bell(1) YDY vectors from 2.&para; x_1 = np.kron(psi_0, psi_0) x_2 = np.kron(psi_1, psi_3) x_3 = np.kron(psi_2, psi_3) x_4 = np.kron(psi_3, psi_3) YDY density matrices.&para; rho_1 = x_1 @ x_1.conj().T rho_2 = x_2 @ x_2.conj().T rho_3 = x_3 @ x_3.conj().T rho_4 = x_4 @ x_4.conj().T states = [rho_1, rho_2, rho_3, rho_4] probs = [1 / 4, 1 / 4, 1 / 4, 1 / 4] opt_val, _ = ppt_distinguishability(vectors=states, probs=probs, dimensions=[2, 2, 2, 2], subsystems=[0, 2]) print(f"Optimal value: {opt_val:.3f}") ``` References 1 Cosentino, Alessandro. Positive-partial-transpose-indistinguishable states via semidefinite programming. Physical Review A. vol. 87(1). (2013). doi:10.1103/physreva.87.012321. 2 Yu, Nengkun and Duan, Runyao and Ying, Mingsheng. Four Locally Indistinguishable Ququad-Ququad Orthogonal Maximally Entangled States. Physical Review Letters. vol. 109(2). (2012). doi:10.1103/physrevlett.109.020506. Source code in toqito/state_opt/ppt_distinguishability.py 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99 100 101 102 103 104 105 106 107 108 109 110 111 112 113 114 115 116 117 118 119 120 121 122 123 124 125 126 127 128 129def ppt_distinguishability( vectors: list[np.ndarray], subsystems: list[int], dimensions: list[int], probs: list[float] | None = None, strategy: str = &quot;min_error&quot;, solver: str = &quot;cvxopt&quot;, primal_dual: str = &quot;dual&quot;, ) -&gt; float: r&quot;&quot;&quot;Compute probability of optimally distinguishing a state via PPT measurements [@cosentino2013positive]. Implements the semidefinite program (SDP) whose optimal value is equal to the maximum probability of perfectly distinguishing orthogonal maximally entangled states using any PPT measurement; a measurement whose operators are positive under partial transpose. This SDP was explicitly provided in [@cosentino2013positive]. One can specify the distinguishability method using the `dist_method` argument. For `dist_method = &quot;min_error&quot;`, this is the default method that yields the probability of distinguishing quantum states via PPT measurements that minimize the probability of error. For `dist_method = &quot;unambig&quot;`, Alice and Bob never provide an incorrect answer, although it is possible that their answer is inconclusive. For more background, see the ``state_distinguishability`` example in the quantum states gallery. !!! Note This function supports both pure states (vectors) and mixed states (density matrices). The PPT constraints are applied to the measurement operators to restrict the class of allowed measurements. Args: vectors: A list of states provided as either matrices or vectors. probs: Respective list of probabilities each state is selected. subsystems: A list of integers that correspond to the complex Euclidean space dimensions. dimensions: A list of integers that correspond to the dimensions of the subsystems. strategy: The method of distinguishing states. solver: The SDP solver to use. primal_dual: Option for the optimization problem. Returns: The optimal probability with which the states can be distinguished via PPT measurements. Examples: Consider the following Bell states: \[ \begin{equation} \begin{aligned} |\psi_0 \rangle = \frac{|00\rangle + |11\rangle}{\sqrt{2}}, &amp;\quad |\psi_1 \rangle = \frac{|01\rangle + |10\rangle}{\sqrt{2}}, \\ |\psi_2 \rangle = \frac{|01\rangle - |10\rangle}{\sqrt{2}}, &amp;\quad |\psi_3 \rangle = \frac{|00\rangle - |11\rangle}{\sqrt{2}}. \end{aligned} \end{equation} \] It was illustrated in [@yu2012four] that for the following set of states \[ \begin{equation} \begin{aligned} \rho_1^{(2)} &amp;= |\psi_0 \rangle | \psi_0 \rangle \langle \psi_0 | \langle \psi_0 |, \quad \rho_2^{(2)} &amp;= |\psi_1 \rangle | \psi_3 \rangle \langle \psi_1 | \langle \psi_3 |, \\ \rho_3^{(2)} &amp;= |\psi_2 \rangle | \psi_3 \rangle \langle \psi_2 | \langle \psi_3 |, \quad \rho_4^{(2)} &amp;= |\psi_3 \rangle | \psi_3 \rangle \langle \psi_3 | \langle \psi_3 |, \\ \end{aligned} \end{equation} \] that the optimal probability of distinguishing via a PPT measurement should yield \(7/8 \approx 0.875\) as was proved in [@yu2012four]. ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot; import numpy as np from toqito.states import bell from toqito.state_opt import ppt_distinguishability # Bell vectors: psi_0 = bell(0) psi_1 = bell(2) psi_2 = bell(3) psi_3 = bell(1) # YDY vectors from [@yu2012four]. x_1 = np.kron(psi_0, psi_0) x_2 = np.kron(psi_1, psi_3) x_3 = np.kron(psi_2, psi_3) x_4 = np.kron(psi_3, psi_3) # YDY density matrices. rho_1 = x_1 @ x_1.conj().T rho_2 = x_2 @ x_2.conj().T rho_3 = x_3 @ x_3.conj().T rho_4 = x_4 @ x_4.conj().T states = [rho_1, rho_2, rho_3, rho_4] probs = [1 / 4, 1 / 4, 1 / 4, 1 / 4] opt_val, _ = ppt_distinguishability(vectors=states, probs=probs, dimensions=[2, 2, 2, 2], subsystems=[0, 2]) print(f&quot;Optimal value: {opt_val:.3f}&quot;) ``` &quot;&quot;&quot; if not has_same_dimension(vectors): raise ValueError(&quot;Vectors for state distinguishability must all have the same dimension.&quot;) # Assumes a uniform probabilities distribution among the states if one is not explicitly provided. n = len(vectors) probs = [1 / n] * n if probs is None else probs if primal_dual == &quot;primal&quot;: return _min_error_primal( vectors=vectors, subsystems=subsystems, dimensions=dimensions, probs=probs, solver=solver, strategy=strategy ) return _min_error_dual( vectors=vectors, subsystems=subsystems, dimensions=dimensions, probs=probs, solver=solver, strategy=strategy ) 2.
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#toqito.state_opt.ppt_distinguishability.ppt_distinguishability--ydy-density-matrices" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        YDY density matrices.
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
     </ul>
@@ -8994,31 +8916,38 @@ allowed measurements.</p>
 \]</div>
 <p>that the optimal probability of distinguishing via a PPT measurement should yield
 <span class="arithmatex">\(7/8 \approx 0.875\)</span> as was proved in <sup><a id="cite-toqito-state_opt-ppt_distinguishability-ppt_distinguishability-2" href="#ref-toqito-state_opt-ppt_distinguishability-ppt_distinguishability-2">2</a></sup>.</p>
-<p>```python exec="1" source="above" result="text"</p>
-        <p>import numpy as np
-from toqito.states import bell
-from toqito.state_opt import ppt_distinguishability</p>
-<h3 id="toqito.state_opt.ppt_distinguishability.ppt_distinguishability--bell-vectors">Bell vectors:<a class="headerlink" href="#toqito.state_opt.ppt_distinguishability.ppt_distinguishability--bell-vectors" title="Permanent link">&para;</a></h3>
-<p>psi_0 = bell(0)
-psi_1 = bell(2)
-psi_2 = bell(3)
-psi_3 = bell(1)</p>
-<h3 id="toqito.state_opt.ppt_distinguishability.ppt_distinguishability--ydy-vectors-from-2">YDY vectors from <sup><a id="cite-toqito-state_opt-ppt_distinguishability-ppt_distinguishability-2" href="#ref-toqito-state_opt-ppt_distinguishability-ppt_distinguishability-2">2</a></sup>.<a class="headerlink" href="#toqito.state_opt.ppt_distinguishability.ppt_distinguishability--ydy-vectors-from-2" title="Permanent link">&para;</a></h3>
-<p>x_1 = np.kron(psi_0, psi_0)
-x_2 = np.kron(psi_1, psi_3)
-x_3 = np.kron(psi_2, psi_3)
-x_4 = np.kron(psi_3, psi_3)</p>
-<h3 id="toqito.state_opt.ppt_distinguishability.ppt_distinguishability--ydy-density-matrices">YDY density matrices.<a class="headerlink" href="#toqito.state_opt.ppt_distinguishability.ppt_distinguishability--ydy-density-matrices" title="Permanent link">&para;</a></h3>
-<p>rho_1 = x_1 @ x_1.conj().T
-rho_2 = x_2 @ x_2.conj().T
-rho_3 = x_3 @ x_3.conj().T
-rho_4 = x_4 @ x_4.conj().T</p>
-<p>states = [rho_1, rho_2, rho_3, rho_4]
-probs = [1 / 4, 1 / 4, 1 / 4, 1 / 4]</p>
-<p>opt_val, _ = ppt_distinguishability(vectors=states, probs=probs, dimensions=[2, 2, 2, 2], subsystems=[0, 2])</p>
-<p>print(f"Optimal value: {opt_val:.3f}")
-    ```</p>
-<p><strong>References</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.states</span><span class="w"> </span><span class="kn">import</span> <span class="n">bell</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.state_opt</span><span class="w"> </span><span class="kn">import</span> <span class="n">ppt_distinguishability</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="c1"># Bell vectors:</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="n">psi_0</span> <span class="o">=</span> <span class="n">bell</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="n">psi_1</span> <span class="o">=</span> <span class="n">bell</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="n">psi_2</span> <span class="o">=</span> <span class="n">bell</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="n">psi_3</span> <span class="o">=</span> <span class="n">bell</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="c1"># YDY vectors from &lt;sup&gt;&lt;a id=&quot;cite-toqito-state_opt-ppt_distinguishability-ppt_distinguishability-2&quot; href=&quot;#ref-toqito-state_opt-ppt_distinguishability-ppt_distinguishability-2&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;.</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="n">x_1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">kron</span><span class="p">(</span><span class="n">psi_0</span><span class="p">,</span> <span class="n">psi_0</span><span class="p">)</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="n">x_2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">kron</span><span class="p">(</span><span class="n">psi_1</span><span class="p">,</span> <span class="n">psi_3</span><span class="p">)</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="n">x_3</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">kron</span><span class="p">(</span><span class="n">psi_2</span><span class="p">,</span> <span class="n">psi_3</span><span class="p">)</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="n">x_4</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">kron</span><span class="p">(</span><span class="n">psi_3</span><span class="p">,</span> <span class="n">psi_3</span><span class="p">)</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="c1"># YDY density matrices.</span>
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="n">rho_1</span> <span class="o">=</span> <span class="n">x_1</span> <span class="o">@</span> <span class="n">x_1</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span>
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="n">rho_2</span> <span class="o">=</span> <span class="n">x_2</span> <span class="o">@</span> <span class="n">x_2</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span>
+<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a><span class="n">rho_3</span> <span class="o">=</span> <span class="n">x_3</span> <span class="o">@</span> <span class="n">x_3</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span>
+<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a><span class="n">rho_4</span> <span class="o">=</span> <span class="n">x_4</span> <span class="o">@</span> <span class="n">x_4</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span>
+<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>
+<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a><span class="n">states</span> <span class="o">=</span> <span class="p">[</span><span class="n">rho_1</span><span class="p">,</span> <span class="n">rho_2</span><span class="p">,</span> <span class="n">rho_3</span><span class="p">,</span> <span class="n">rho_4</span><span class="p">]</span>
+<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a><span class="n">probs</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span> <span class="o">/</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span> <span class="o">/</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span> <span class="o">/</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span> <span class="o">/</span> <span class="mi">4</span><span class="p">]</span>
+<a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a>
+<a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a><span class="n">opt_val</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">ppt_distinguishability</span><span class="p">(</span><span class="n">vectors</span><span class="o">=</span><span class="n">states</span><span class="p">,</span> <span class="n">probs</span><span class="o">=</span><span class="n">probs</span><span class="p">,</span> <span class="n">dimensions</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">subsystems</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+<a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a>
+<a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Optimal value: </span><span class="si">{</span><span class="n">opt_val</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>Optimal value: 0.875
+</code></pre></div>
+        <p><strong>References</strong></p>
 <p><span id="ref-toqito-state_opt-ppt_distinguishability-ppt_distinguishability-1"><sup><a href="#cite-toqito-state_opt-ppt_distinguishability-ppt_distinguishability-1">1</a></sup> Cosentino, Alessandro. <em>Positive-partial-transpose-indistinguishable states via semidefinite programming</em>. <strong>Physical Review A</strong>. vol. 87(1). (2013). <a href="https://doi.org/10.1103/physreva.87.012321">doi:10.1103/physreva.87.012321</a>.</span><br>
 <span id="ref-toqito-state_opt-ppt_distinguishability-ppt_distinguishability-2"><sup><a href="#cite-toqito-state_opt-ppt_distinguishability-ppt_distinguishability-2">2</a></sup> Yu, Nengkun and Duan, Runyao and Ying, Mingsheng. <em>Four Locally Indistinguishable Ququad-Ququad Orthogonal Maximally Entangled States</em>. <strong>Physical Review Letters</strong>. vol. 109(2). (2012). <a href="https://doi.org/10.1103/physrevlett.109.020506">doi:10.1103/physrevlett.109.020506</a>.</span></p>
 
@@ -9219,34 +9148,34 @@ probs = [1 / 4, 1 / 4, 1 / 4, 1 / 4]</p>
 <a id="__codelineno-0-82" name="__codelineno-0-82"></a><span class="sd">        \(7/8 \approx 0.875\) as was proved in [@yu2012four].</span>
 <a id="__codelineno-0-83" name="__codelineno-0-83"></a>
 <a id="__codelineno-0-84" name="__codelineno-0-84"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;</span>
-<a id="__codelineno-0-85" name="__codelineno-0-85"></a><span class="sd">    import numpy as np</span>
-<a id="__codelineno-0-86" name="__codelineno-0-86"></a><span class="sd">    from toqito.states import bell</span>
-<a id="__codelineno-0-87" name="__codelineno-0-87"></a><span class="sd">    from toqito.state_opt import ppt_distinguishability</span>
+<a id="__codelineno-0-85" name="__codelineno-0-85"></a><span class="sd">        import numpy as np</span>
+<a id="__codelineno-0-86" name="__codelineno-0-86"></a><span class="sd">        from toqito.states import bell</span>
+<a id="__codelineno-0-87" name="__codelineno-0-87"></a><span class="sd">        from toqito.state_opt import ppt_distinguishability</span>
 <a id="__codelineno-0-88" name="__codelineno-0-88"></a>
-<a id="__codelineno-0-89" name="__codelineno-0-89"></a><span class="sd">    # Bell vectors:</span>
-<a id="__codelineno-0-90" name="__codelineno-0-90"></a><span class="sd">    psi_0 = bell(0)</span>
-<a id="__codelineno-0-91" name="__codelineno-0-91"></a><span class="sd">    psi_1 = bell(2)</span>
-<a id="__codelineno-0-92" name="__codelineno-0-92"></a><span class="sd">    psi_2 = bell(3)</span>
-<a id="__codelineno-0-93" name="__codelineno-0-93"></a><span class="sd">    psi_3 = bell(1)</span>
+<a id="__codelineno-0-89" name="__codelineno-0-89"></a><span class="sd">        # Bell vectors:</span>
+<a id="__codelineno-0-90" name="__codelineno-0-90"></a><span class="sd">        psi_0 = bell(0)</span>
+<a id="__codelineno-0-91" name="__codelineno-0-91"></a><span class="sd">        psi_1 = bell(2)</span>
+<a id="__codelineno-0-92" name="__codelineno-0-92"></a><span class="sd">        psi_2 = bell(3)</span>
+<a id="__codelineno-0-93" name="__codelineno-0-93"></a><span class="sd">        psi_3 = bell(1)</span>
 <a id="__codelineno-0-94" name="__codelineno-0-94"></a>
-<a id="__codelineno-0-95" name="__codelineno-0-95"></a><span class="sd">    # YDY vectors from [@yu2012four].</span>
-<a id="__codelineno-0-96" name="__codelineno-0-96"></a><span class="sd">    x_1 = np.kron(psi_0, psi_0)</span>
-<a id="__codelineno-0-97" name="__codelineno-0-97"></a><span class="sd">    x_2 = np.kron(psi_1, psi_3)</span>
-<a id="__codelineno-0-98" name="__codelineno-0-98"></a><span class="sd">    x_3 = np.kron(psi_2, psi_3)</span>
-<a id="__codelineno-0-99" name="__codelineno-0-99"></a><span class="sd">    x_4 = np.kron(psi_3, psi_3)</span>
+<a id="__codelineno-0-95" name="__codelineno-0-95"></a><span class="sd">        # YDY vectors from [@yu2012four].</span>
+<a id="__codelineno-0-96" name="__codelineno-0-96"></a><span class="sd">        x_1 = np.kron(psi_0, psi_0)</span>
+<a id="__codelineno-0-97" name="__codelineno-0-97"></a><span class="sd">        x_2 = np.kron(psi_1, psi_3)</span>
+<a id="__codelineno-0-98" name="__codelineno-0-98"></a><span class="sd">        x_3 = np.kron(psi_2, psi_3)</span>
+<a id="__codelineno-0-99" name="__codelineno-0-99"></a><span class="sd">        x_4 = np.kron(psi_3, psi_3)</span>
 <a id="__codelineno-0-100" name="__codelineno-0-100"></a>
-<a id="__codelineno-0-101" name="__codelineno-0-101"></a><span class="sd">    # YDY density matrices.</span>
-<a id="__codelineno-0-102" name="__codelineno-0-102"></a><span class="sd">    rho_1 = x_1 @ x_1.conj().T</span>
-<a id="__codelineno-0-103" name="__codelineno-0-103"></a><span class="sd">    rho_2 = x_2 @ x_2.conj().T</span>
-<a id="__codelineno-0-104" name="__codelineno-0-104"></a><span class="sd">    rho_3 = x_3 @ x_3.conj().T</span>
-<a id="__codelineno-0-105" name="__codelineno-0-105"></a><span class="sd">    rho_4 = x_4 @ x_4.conj().T</span>
+<a id="__codelineno-0-101" name="__codelineno-0-101"></a><span class="sd">        # YDY density matrices.</span>
+<a id="__codelineno-0-102" name="__codelineno-0-102"></a><span class="sd">        rho_1 = x_1 @ x_1.conj().T</span>
+<a id="__codelineno-0-103" name="__codelineno-0-103"></a><span class="sd">        rho_2 = x_2 @ x_2.conj().T</span>
+<a id="__codelineno-0-104" name="__codelineno-0-104"></a><span class="sd">        rho_3 = x_3 @ x_3.conj().T</span>
+<a id="__codelineno-0-105" name="__codelineno-0-105"></a><span class="sd">        rho_4 = x_4 @ x_4.conj().T</span>
 <a id="__codelineno-0-106" name="__codelineno-0-106"></a>
-<a id="__codelineno-0-107" name="__codelineno-0-107"></a><span class="sd">    states = [rho_1, rho_2, rho_3, rho_4]</span>
-<a id="__codelineno-0-108" name="__codelineno-0-108"></a><span class="sd">    probs = [1 / 4, 1 / 4, 1 / 4, 1 / 4]</span>
+<a id="__codelineno-0-107" name="__codelineno-0-107"></a><span class="sd">        states = [rho_1, rho_2, rho_3, rho_4]</span>
+<a id="__codelineno-0-108" name="__codelineno-0-108"></a><span class="sd">        probs = [1 / 4, 1 / 4, 1 / 4, 1 / 4]</span>
 <a id="__codelineno-0-109" name="__codelineno-0-109"></a>
-<a id="__codelineno-0-110" name="__codelineno-0-110"></a><span class="sd">    opt_val, _ = ppt_distinguishability(vectors=states, probs=probs, dimensions=[2, 2, 2, 2], subsystems=[0, 2])</span>
+<a id="__codelineno-0-110" name="__codelineno-0-110"></a><span class="sd">        opt_val, _ = ppt_distinguishability(vectors=states, probs=probs, dimensions=[2, 2, 2, 2], subsystems=[0, 2])</span>
 <a id="__codelineno-0-111" name="__codelineno-0-111"></a>
-<a id="__codelineno-0-112" name="__codelineno-0-112"></a><span class="sd">    print(f&quot;Optimal value: {opt_val:.3f}&quot;)</span>
+<a id="__codelineno-0-112" name="__codelineno-0-112"></a><span class="sd">        print(f&quot;Optimal value: {opt_val:.3f}&quot;)</span>
 <a id="__codelineno-0-113" name="__codelineno-0-113"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-114" name="__codelineno-0-114"></a>
 <a id="__codelineno-0-115" name="__codelineno-0-115"></a><span class="sd">    &quot;&quot;&quot;</span>

@@ -6966,78 +6966,6 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label=" symmetric_extension_hierarchy">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#toqito.state_opt.symmetric_extension_hierarchy.symmetric_extension_hierarchy--create-standard-basis-vectors" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Create standard basis vectors.
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#toqito.state_opt.symmetric_extension_hierarchy.symmetric_extension_hierarchy--define-the-resource-state" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Define the resource state.
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#toqito.state_opt.symmetric_extension_hierarchy.symmetric_extension_hierarchy--define-the-ensemble-of-bell-states-tensored-with-the-resource-state" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Define the ensemble of Bell states tensored with the resource state.
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#toqito.state_opt.symmetric_extension_hierarchy.symmetric_extension_hierarchy--ensure-correct-ordering-of-subsystems" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Ensure correct ordering of subsystems.
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#toqito.state_opt.symmetric_extension_hierarchy.symmetric_extension_hierarchy--calculate-the-first-and-second-levels-of-the-symmetric-extension-hierarchy" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Calculate the first and second levels of the symmetric extension hierarchy.
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#toqito.state_opt.symmetric_extension_hierarchy.symmetric_extension_hierarchy--compute-the-true-separable-value-as-proven-in-literature" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Compute the true separable value as proven in literature.
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
     </ul>
@@ -8796,78 +8724,6 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label=" symmetric_extension_hierarchy">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#toqito.state_opt.symmetric_extension_hierarchy.symmetric_extension_hierarchy--create-standard-basis-vectors" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Create standard basis vectors.
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#toqito.state_opt.symmetric_extension_hierarchy.symmetric_extension_hierarchy--define-the-resource-state" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Define the resource state.
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#toqito.state_opt.symmetric_extension_hierarchy.symmetric_extension_hierarchy--define-the-ensemble-of-bell-states-tensored-with-the-resource-state" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Define the ensemble of Bell states tensored with the resource state.
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#toqito.state_opt.symmetric_extension_hierarchy.symmetric_extension_hierarchy--ensure-correct-ordering-of-subsystems" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Ensure correct ordering of subsystems.
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#toqito.state_opt.symmetric_extension_hierarchy.symmetric_extension_hierarchy--calculate-the-first-and-second-levels-of-the-symmetric-extension-hierarchy" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Calculate the first and second levels of the symmetric extension hierarchy.
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#toqito.state_opt.symmetric_extension_hierarchy.symmetric_extension_hierarchy--compute-the-true-separable-value-as-proven-in-literature" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Compute the true separable value as proven in literature.
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
     </ul>
@@ -9044,41 +8900,51 @@ state <span class="arithmatex">\(|\tau_{\epsilon}\rangle\)</span> via separable 
 the value one obtains from separable measurements. Calculating the first level of the hierarchy
 provides for us the optimal value of PPT measurements.</p>
 <p>Consider a fixed value of <span class="arithmatex">\(\epsilon = 0.5\)</span>.</p>
-<p>```python exec="1" source="above" result="text"</p>
-        <p>from toqito.states import basis, bell
-from toqito.perms import swap
-from toqito.state_opt import symmetric_extension_hierarchy
-import numpy as np</p>
-<h3 id="toqito.state_opt.symmetric_extension_hierarchy.symmetric_extension_hierarchy--create-standard-basis-vectors">Create standard basis vectors.<a class="headerlink" href="#toqito.state_opt.symmetric_extension_hierarchy.symmetric_extension_hierarchy--create-standard-basis-vectors" title="Permanent link">&para;</a></h3>
-<p>e_0, e_1 = basis(2, 0), basis(2, 1)
-e_00, e_11 = np.kron(e_0, e_0), np.kron(e_1, e_1)</p>
-<h3 id="toqito.state_opt.symmetric_extension_hierarchy.symmetric_extension_hierarchy--define-the-resource-state">Define the resource state.<a class="headerlink" href="#toqito.state_opt.symmetric_extension_hierarchy.symmetric_extension_hierarchy--define-the-resource-state" title="Permanent link">&para;</a></h3>
-<p>eps = 0.5
-eps_state = np.sqrt((1 + eps) / 2) * e_00 + np.sqrt((1 - eps) / 2) * e_11
-eps_dm = eps_state @ eps_state.conj().T</p>
-<h3 id="toqito.state_opt.symmetric_extension_hierarchy.symmetric_extension_hierarchy--define-the-ensemble-of-bell-states-tensored-with-the-resource-state">Define the ensemble of Bell states tensored with the resource state.<a class="headerlink" href="#toqito.state_opt.symmetric_extension_hierarchy.symmetric_extension_hierarchy--define-the-ensemble-of-bell-states-tensored-with-the-resource-state" title="Permanent link">&para;</a></h3>
-<p>states = [
-    np.kron(bell(0) @ bell(0).conj().T, eps_dm),
-    np.kron(bell(1) @ bell(1).conj().T, eps_dm),
-    np.kron(bell(2) @ bell(2).conj().T, eps_dm),
-    np.kron(bell(3) @ bell(3).conj().T, eps_dm),
-]</p>
-<h3 id="toqito.state_opt.symmetric_extension_hierarchy.symmetric_extension_hierarchy--ensure-correct-ordering-of-subsystems">Ensure correct ordering of subsystems.<a class="headerlink" href="#toqito.state_opt.symmetric_extension_hierarchy.symmetric_extension_hierarchy--ensure-correct-ordering-of-subsystems" title="Permanent link">&para;</a></h3>
-<p>states = [
-    swap(states[0], [2, 3], [2, 2, 2, 2]),
-    swap(states[1], [2, 3], [2, 2, 2, 2]),
-    swap(states[2], [2, 3], [2, 2, 2, 2]),
-]</p>
-<h3 id="toqito.state_opt.symmetric_extension_hierarchy.symmetric_extension_hierarchy--calculate-the-first-and-second-levels-of-the-symmetric-extension-hierarchy">Calculate the first and second levels of the symmetric extension hierarchy.<a class="headerlink" href="#toqito.state_opt.symmetric_extension_hierarchy.symmetric_extension_hierarchy--calculate-the-first-and-second-levels-of-the-symmetric-extension-hierarchy" title="Permanent link">&para;</a></h3>
-<p>val_lvl_1 = symmetric_extension_hierarchy(states=states, probs=None, level=1)
-val_lvl_2 = symmetric_extension_hierarchy(states=states, probs=None, level=2)</p>
-<h3 id="toqito.state_opt.symmetric_extension_hierarchy.symmetric_extension_hierarchy--compute-the-true-separable-value-as-proven-in-literature">Compute the true separable value as proven in literature.<a class="headerlink" href="#toqito.state_opt.symmetric_extension_hierarchy.symmetric_extension_hierarchy--compute-the-true-separable-value-as-proven-in-literature" title="Permanent link">&para;</a></h3>
-<p>true_sep_val = (1/3) * (2 + np.sqrt(1 - eps**2))</p>
-<p>print(f"Level 1 symmetric extension value: {np.around(val_lvl_1, decimals=2)}")
-print(f"Level 2 symmetric extension value: {np.around(val_lvl_2, decimals=2)}")
-print(f"True separable value: {np.around(true_sep_val, decimals=2)}")
-    ```</p>
-<p><strong>References</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.states</span><span class="w"> </span><span class="kn">import</span> <span class="n">basis</span><span class="p">,</span> <span class="n">bell</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.perms</span><span class="w"> </span><span class="kn">import</span> <span class="n">swap</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.state_opt</span><span class="w"> </span><span class="kn">import</span> <span class="n">symmetric_extension_hierarchy</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="c1"># Create standard basis vectors.</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="n">e_0</span><span class="p">,</span> <span class="n">e_1</span> <span class="o">=</span> <span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="n">e_00</span><span class="p">,</span> <span class="n">e_11</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">kron</span><span class="p">(</span><span class="n">e_0</span><span class="p">,</span> <span class="n">e_0</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">kron</span><span class="p">(</span><span class="n">e_1</span><span class="p">,</span> <span class="n">e_1</span><span class="p">)</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="c1"># Define the resource state.</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="n">eps</span> <span class="o">=</span> <span class="mf">0.5</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="n">eps_state</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="mi">1</span> <span class="o">+</span> <span class="n">eps</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">e_00</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="mi">1</span> <span class="o">-</span> <span class="n">eps</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">e_11</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="n">eps_dm</span> <span class="o">=</span> <span class="n">eps_state</span> <span class="o">@</span> <span class="n">eps_state</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="c1"># Define the ensemble of Bell states tensored with the resource state.</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="n">states</span> <span class="o">=</span> <span class="p">[</span>
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="n">np</span><span class="o">.</span><span class="n">kron</span><span class="p">(</span><span class="n">bell</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">@</span> <span class="n">bell</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">eps_dm</span><span class="p">),</span>
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="n">np</span><span class="o">.</span><span class="n">kron</span><span class="p">(</span><span class="n">bell</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">@</span> <span class="n">bell</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">eps_dm</span><span class="p">),</span>
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="n">np</span><span class="o">.</span><span class="n">kron</span><span class="p">(</span><span class="n">bell</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">@</span> <span class="n">bell</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">eps_dm</span><span class="p">),</span>
+<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a><span class="n">np</span><span class="o">.</span><span class="n">kron</span><span class="p">(</span><span class="n">bell</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="o">@</span> <span class="n">bell</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">eps_dm</span><span class="p">),</span>
+<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a><span class="p">]</span>
+<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>
+<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a><span class="c1"># Ensure correct ordering of subsystems.</span>
+<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a><span class="n">states</span> <span class="o">=</span> <span class="p">[</span>
+<a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a><span class="n">swap</span><span class="p">(</span><span class="n">states</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">]),</span>
+<a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a><span class="n">swap</span><span class="p">(</span><span class="n">states</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">]),</span>
+<a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a><span class="n">swap</span><span class="p">(</span><span class="n">states</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">]),</span>
+<a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a><span class="p">]</span>
+<a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a>
+<a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a><span class="c1"># Calculate the first and second levels of the symmetric extension hierarchy.</span>
+<a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a><span class="n">val_lvl_1</span> <span class="o">=</span> <span class="n">symmetric_extension_hierarchy</span><span class="p">(</span><span class="n">states</span><span class="o">=</span><span class="n">states</span><span class="p">,</span> <span class="n">probs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<a id="__codelineno-0-32" name="__codelineno-0-32" href="#__codelineno-0-32"></a><span class="n">val_lvl_2</span> <span class="o">=</span> <span class="n">symmetric_extension_hierarchy</span><span class="p">(</span><span class="n">states</span><span class="o">=</span><span class="n">states</span><span class="p">,</span> <span class="n">probs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<a id="__codelineno-0-33" name="__codelineno-0-33" href="#__codelineno-0-33"></a>
+<a id="__codelineno-0-34" name="__codelineno-0-34" href="#__codelineno-0-34"></a><span class="c1"># Compute the true separable value as proven in literature.</span>
+<a id="__codelineno-0-35" name="__codelineno-0-35" href="#__codelineno-0-35"></a><span class="n">true_sep_val</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">3</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mi">2</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">eps</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+<a id="__codelineno-0-36" name="__codelineno-0-36" href="#__codelineno-0-36"></a>
+<a id="__codelineno-0-37" name="__codelineno-0-37" href="#__codelineno-0-37"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Level 1 symmetric extension value: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">around</span><span class="p">(</span><span class="n">val_lvl_1</span><span class="p">,</span><span class="w"> </span><span class="n">decimals</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-38" name="__codelineno-0-38" href="#__codelineno-0-38"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Level 2 symmetric extension value: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">around</span><span class="p">(</span><span class="n">val_lvl_2</span><span class="p">,</span><span class="w"> </span><span class="n">decimals</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-39" name="__codelineno-0-39" href="#__codelineno-0-39"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;True separable value: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">around</span><span class="p">(</span><span class="n">true_sep_val</span><span class="p">,</span><span class="w"> </span><span class="n">decimals</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>Level 1 symmetric extension value: 0.99
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>Level 2 symmetric extension value: 0.96
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>True separable value: 0.96
+</code></pre></div>
+        <p><strong>References</strong></p>
 <p><span id="ref-toqito-state_opt-symmetric_extension_hierarchy-symmetric_extension_hierarchy-1"><sup><a href="#cite-toqito-state_opt-symmetric_extension_hierarchy-symmetric_extension_hierarchy-1">1</a></sup> Navascués, Miguel. <em>Pure State Estimation and the Characterization of Entanglement</em>. <strong>Physical Review Letters</strong>. vol. 100(7). (2008). <a href="https://doi.org/10.1103/physrevlett.100.070503">doi:10.1103/physrevlett.100.070503</a>.</span><br>
 <span id="ref-toqito-state_opt-symmetric_extension_hierarchy-symmetric_extension_hierarchy-2"><sup><a href="#cite-toqito-state_opt-symmetric_extension_hierarchy-symmetric_extension_hierarchy-2">2</a></sup> Cosentino, Alessandro. <em>Quantum State Local Distinguishability via Convex Optimization</em>. (2015). <a href="https://uwspace.uwaterloo.ca/handle/10012/9572">link</a>.</span></p>
 
@@ -9346,45 +9212,45 @@ print(f"True separable value: {np.around(true_sep_val, decimals=2)}")
 <a id="__codelineno-0-91" name="__codelineno-0-91"></a><span class="sd">        Consider a fixed value of \(\epsilon = 0.5\).</span>
 <a id="__codelineno-0-92" name="__codelineno-0-92"></a>
 <a id="__codelineno-0-93" name="__codelineno-0-93"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;</span>
-<a id="__codelineno-0-94" name="__codelineno-0-94"></a><span class="sd">    from toqito.states import basis, bell</span>
-<a id="__codelineno-0-95" name="__codelineno-0-95"></a><span class="sd">    from toqito.perms import swap</span>
-<a id="__codelineno-0-96" name="__codelineno-0-96"></a><span class="sd">    from toqito.state_opt import symmetric_extension_hierarchy</span>
-<a id="__codelineno-0-97" name="__codelineno-0-97"></a><span class="sd">    import numpy as np</span>
+<a id="__codelineno-0-94" name="__codelineno-0-94"></a><span class="sd">        from toqito.states import basis, bell</span>
+<a id="__codelineno-0-95" name="__codelineno-0-95"></a><span class="sd">        from toqito.perms import swap</span>
+<a id="__codelineno-0-96" name="__codelineno-0-96"></a><span class="sd">        from toqito.state_opt import symmetric_extension_hierarchy</span>
+<a id="__codelineno-0-97" name="__codelineno-0-97"></a><span class="sd">        import numpy as np</span>
 <a id="__codelineno-0-98" name="__codelineno-0-98"></a>
-<a id="__codelineno-0-99" name="__codelineno-0-99"></a><span class="sd">    # Create standard basis vectors.</span>
-<a id="__codelineno-0-100" name="__codelineno-0-100"></a><span class="sd">    e_0, e_1 = basis(2, 0), basis(2, 1)</span>
-<a id="__codelineno-0-101" name="__codelineno-0-101"></a><span class="sd">    e_00, e_11 = np.kron(e_0, e_0), np.kron(e_1, e_1)</span>
+<a id="__codelineno-0-99" name="__codelineno-0-99"></a><span class="sd">        # Create standard basis vectors.</span>
+<a id="__codelineno-0-100" name="__codelineno-0-100"></a><span class="sd">        e_0, e_1 = basis(2, 0), basis(2, 1)</span>
+<a id="__codelineno-0-101" name="__codelineno-0-101"></a><span class="sd">        e_00, e_11 = np.kron(e_0, e_0), np.kron(e_1, e_1)</span>
 <a id="__codelineno-0-102" name="__codelineno-0-102"></a>
-<a id="__codelineno-0-103" name="__codelineno-0-103"></a><span class="sd">    # Define the resource state.</span>
-<a id="__codelineno-0-104" name="__codelineno-0-104"></a><span class="sd">    eps = 0.5</span>
-<a id="__codelineno-0-105" name="__codelineno-0-105"></a><span class="sd">    eps_state = np.sqrt((1 + eps) / 2) * e_00 + np.sqrt((1 - eps) / 2) * e_11</span>
-<a id="__codelineno-0-106" name="__codelineno-0-106"></a><span class="sd">    eps_dm = eps_state @ eps_state.conj().T</span>
+<a id="__codelineno-0-103" name="__codelineno-0-103"></a><span class="sd">        # Define the resource state.</span>
+<a id="__codelineno-0-104" name="__codelineno-0-104"></a><span class="sd">        eps = 0.5</span>
+<a id="__codelineno-0-105" name="__codelineno-0-105"></a><span class="sd">        eps_state = np.sqrt((1 + eps) / 2) * e_00 + np.sqrt((1 - eps) / 2) * e_11</span>
+<a id="__codelineno-0-106" name="__codelineno-0-106"></a><span class="sd">        eps_dm = eps_state @ eps_state.conj().T</span>
 <a id="__codelineno-0-107" name="__codelineno-0-107"></a>
-<a id="__codelineno-0-108" name="__codelineno-0-108"></a><span class="sd">    # Define the ensemble of Bell states tensored with the resource state.</span>
-<a id="__codelineno-0-109" name="__codelineno-0-109"></a><span class="sd">    states = [</span>
+<a id="__codelineno-0-108" name="__codelineno-0-108"></a><span class="sd">        # Define the ensemble of Bell states tensored with the resource state.</span>
+<a id="__codelineno-0-109" name="__codelineno-0-109"></a><span class="sd">        states = [</span>
 <a id="__codelineno-0-110" name="__codelineno-0-110"></a><span class="sd">        np.kron(bell(0) @ bell(0).conj().T, eps_dm),</span>
 <a id="__codelineno-0-111" name="__codelineno-0-111"></a><span class="sd">        np.kron(bell(1) @ bell(1).conj().T, eps_dm),</span>
 <a id="__codelineno-0-112" name="__codelineno-0-112"></a><span class="sd">        np.kron(bell(2) @ bell(2).conj().T, eps_dm),</span>
 <a id="__codelineno-0-113" name="__codelineno-0-113"></a><span class="sd">        np.kron(bell(3) @ bell(3).conj().T, eps_dm),</span>
-<a id="__codelineno-0-114" name="__codelineno-0-114"></a><span class="sd">    ]</span>
+<a id="__codelineno-0-114" name="__codelineno-0-114"></a><span class="sd">        ]</span>
 <a id="__codelineno-0-115" name="__codelineno-0-115"></a>
-<a id="__codelineno-0-116" name="__codelineno-0-116"></a><span class="sd">    # Ensure correct ordering of subsystems.</span>
-<a id="__codelineno-0-117" name="__codelineno-0-117"></a><span class="sd">    states = [</span>
+<a id="__codelineno-0-116" name="__codelineno-0-116"></a><span class="sd">        # Ensure correct ordering of subsystems.</span>
+<a id="__codelineno-0-117" name="__codelineno-0-117"></a><span class="sd">        states = [</span>
 <a id="__codelineno-0-118" name="__codelineno-0-118"></a><span class="sd">        swap(states[0], [2, 3], [2, 2, 2, 2]),</span>
 <a id="__codelineno-0-119" name="__codelineno-0-119"></a><span class="sd">        swap(states[1], [2, 3], [2, 2, 2, 2]),</span>
 <a id="__codelineno-0-120" name="__codelineno-0-120"></a><span class="sd">        swap(states[2], [2, 3], [2, 2, 2, 2]),</span>
-<a id="__codelineno-0-121" name="__codelineno-0-121"></a><span class="sd">    ]</span>
+<a id="__codelineno-0-121" name="__codelineno-0-121"></a><span class="sd">        ]</span>
 <a id="__codelineno-0-122" name="__codelineno-0-122"></a>
-<a id="__codelineno-0-123" name="__codelineno-0-123"></a><span class="sd">    # Calculate the first and second levels of the symmetric extension hierarchy.</span>
-<a id="__codelineno-0-124" name="__codelineno-0-124"></a><span class="sd">    val_lvl_1 = symmetric_extension_hierarchy(states=states, probs=None, level=1)</span>
-<a id="__codelineno-0-125" name="__codelineno-0-125"></a><span class="sd">    val_lvl_2 = symmetric_extension_hierarchy(states=states, probs=None, level=2)</span>
+<a id="__codelineno-0-123" name="__codelineno-0-123"></a><span class="sd">        # Calculate the first and second levels of the symmetric extension hierarchy.</span>
+<a id="__codelineno-0-124" name="__codelineno-0-124"></a><span class="sd">        val_lvl_1 = symmetric_extension_hierarchy(states=states, probs=None, level=1)</span>
+<a id="__codelineno-0-125" name="__codelineno-0-125"></a><span class="sd">        val_lvl_2 = symmetric_extension_hierarchy(states=states, probs=None, level=2)</span>
 <a id="__codelineno-0-126" name="__codelineno-0-126"></a>
-<a id="__codelineno-0-127" name="__codelineno-0-127"></a><span class="sd">    # Compute the true separable value as proven in literature.</span>
-<a id="__codelineno-0-128" name="__codelineno-0-128"></a><span class="sd">    true_sep_val = (1/3) * (2 + np.sqrt(1 - eps**2))</span>
+<a id="__codelineno-0-127" name="__codelineno-0-127"></a><span class="sd">        # Compute the true separable value as proven in literature.</span>
+<a id="__codelineno-0-128" name="__codelineno-0-128"></a><span class="sd">        true_sep_val = (1/3) * (2 + np.sqrt(1 - eps**2))</span>
 <a id="__codelineno-0-129" name="__codelineno-0-129"></a>
-<a id="__codelineno-0-130" name="__codelineno-0-130"></a><span class="sd">    print(f&quot;Level 1 symmetric extension value: {np.around(val_lvl_1, decimals=2)}&quot;)</span>
-<a id="__codelineno-0-131" name="__codelineno-0-131"></a><span class="sd">    print(f&quot;Level 2 symmetric extension value: {np.around(val_lvl_2, decimals=2)}&quot;)</span>
-<a id="__codelineno-0-132" name="__codelineno-0-132"></a><span class="sd">    print(f&quot;True separable value: {np.around(true_sep_val, decimals=2)}&quot;)</span>
+<a id="__codelineno-0-130" name="__codelineno-0-130"></a><span class="sd">        print(f&quot;Level 1 symmetric extension value: {np.around(val_lvl_1, decimals=2)}&quot;)</span>
+<a id="__codelineno-0-131" name="__codelineno-0-131"></a><span class="sd">        print(f&quot;Level 2 symmetric extension value: {np.around(val_lvl_2, decimals=2)}&quot;)</span>
+<a id="__codelineno-0-132" name="__codelineno-0-132"></a><span class="sd">        print(f&quot;True separable value: {np.around(true_sep_val, decimals=2)}&quot;)</span>
 <a id="__codelineno-0-133" name="__codelineno-0-133"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-134" name="__codelineno-0-134"></a>
 <a id="__codelineno-0-135" name="__codelineno-0-135"></a><span class="sd">    &quot;&quot;&quot;</span>

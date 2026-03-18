@@ -8850,16 +8850,18 @@ absolute value of the negative eigenvalues of the partial transpose of <span cla
 
 <p><span class="doc-section-title">Examples:</span></p>
     <p>Example of the negativity of density matrix of Bell state.</p>
-<p>```python exec="1" source="above" result="text"</p>
-        <p>from toqito.states import bell
-from toqito.state_props import negativity
-rho = bell(0) @ bell(0).conj().T
-print(negativity(rho))
-    ```</p>
-<div class="highlight"><pre><span></span><code>!!!See Also
-    [log_negativity()][toqito.state_props.log_negativity.log_negativity]
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.states</span><span class="w"> </span><span class="kn">import</span> <span class="n">bell</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.state_props</span><span class="w"> </span><span class="kn">import</span> <span class="n">negativity</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">rho</span> <span class="o">=</span> <span class="n">bell</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">@</span> <span class="n">bell</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="nb">print</span><span class="p">(</span><span class="n">negativity</span><span class="p">(</span><span class="n">rho</span><span class="p">))</span>
 </code></pre></div>
-<p><strong>References</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>0.4999999999999998
+</code></pre></div>
+<div class="admonition see also">
+<p class="admonition-title">See</p>
+<p><a class="autorefs autorefs-internal" title="            log_negativity" href="../log_negativity/#toqito.state_props.log_negativity.log_negativity">log_negativity()</a></p>
+</div>
+        <p><strong>References</strong></p>
 <p><span id="ref-toqito-state_props-negativity-negativity-1"><sup><a href="#cite-toqito-state_props-negativity-negativity-1">1</a></sup> Wikipedia. <em>Negativity</em>. <a href="https://en.wikipedia.org/wiki/Negativity_(quantum_mechanics)">link</a>.</span></p>
 
 
@@ -8962,10 +8964,10 @@ print(negativity(rho))
 <a id="__codelineno-0-34" name="__codelineno-0-34"></a><span class="sd">        Example of the negativity of density matrix of Bell state.</span>
 <a id="__codelineno-0-35" name="__codelineno-0-35"></a>
 <a id="__codelineno-0-36" name="__codelineno-0-36"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;</span>
-<a id="__codelineno-0-37" name="__codelineno-0-37"></a><span class="sd">    from toqito.states import bell</span>
-<a id="__codelineno-0-38" name="__codelineno-0-38"></a><span class="sd">    from toqito.state_props import negativity</span>
-<a id="__codelineno-0-39" name="__codelineno-0-39"></a><span class="sd">    rho = bell(0) @ bell(0).conj().T</span>
-<a id="__codelineno-0-40" name="__codelineno-0-40"></a><span class="sd">    print(negativity(rho))</span>
+<a id="__codelineno-0-37" name="__codelineno-0-37"></a><span class="sd">        from toqito.states import bell</span>
+<a id="__codelineno-0-38" name="__codelineno-0-38"></a><span class="sd">        from toqito.state_props import negativity</span>
+<a id="__codelineno-0-39" name="__codelineno-0-39"></a><span class="sd">        rho = bell(0) @ bell(0).conj().T</span>
+<a id="__codelineno-0-40" name="__codelineno-0-40"></a><span class="sd">        print(negativity(rho))</span>
 <a id="__codelineno-0-41" name="__codelineno-0-41"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-42" name="__codelineno-0-42"></a>
 <a id="__codelineno-0-43" name="__codelineno-0-43"></a><span class="sd">        !!!See Also</span>

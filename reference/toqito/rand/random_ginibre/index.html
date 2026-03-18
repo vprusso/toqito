@@ -8842,18 +8842,22 @@ entries.</p>
 
 <p><span class="doc-section-title">Examples:</span></p>
     <p>Generate a random <span class="arithmatex">\(2\)</span>-by-<span class="arithmatex">\(2\)</span> Ginibre random matrix.</p>
-<p>```python exec="1" source="above" result="text"</p>
-        <p>from toqito.rand import random_ginibre</p>
-<p>print(random_ginibre(2, 2))
-    ```</p>
-<div class="highlight"><pre><span></span><code>It is also possible to pass a seed to this function for reproducibility.
-
-```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.rand</span><span class="w"> </span><span class="kn">import</span> <span class="n">random_ginibre</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">random_ginibre</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
 </code></pre></div>
-<p>from toqito.rand import random_ginibre</p>
-<p>print(random_ginibre(2, 2, seed=42))
-    ```</p>
-<p><strong>References</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>[[-0.3962581 +0.09638656j  0.27850713+0.21719061j]
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a> [ 0.23843267+0.9755251j   0.70887166+0.46608322j]]
+</code></pre></div>
+<p>It is also possible to pass a seed to this function for reproducibility.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.rand</span><span class="w"> </span><span class="kn">import</span> <span class="n">random_ginibre</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">random_ginibre</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">42</span><span class="p">))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>[[ 0.21546751-1.37959021j -0.73537981-0.92077996j]
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a> [ 0.53064913+0.09039682j  0.66507969-0.22361728j]]
+</code></pre></div>
+        <p><strong>References</strong></p>
 <p><span id="ref-toqito-rand-random_ginibre-random_ginibre-1"><sup><a href="#cite-toqito-rand-random_ginibre-random_ginibre-1">1</a></sup> Wikipedia. <em>Circular law</em>. <a href="https://en.wikipedia.org/wiki/Circular_law">link</a>.</span><br>
 <span id="ref-toqito-rand-random_ginibre-random_ginibre-2"><sup><a href="#cite-toqito-rand-random_ginibre-random_ginibre-2">2</a></sup> Heinosaari, Teiko and Jivulescu, Maria and Nechita, Ion. <em>Random positive operator valued measures</em>. <strong>Journal of Mathematical Physics</strong>. vol. 61(4). (2020). <a href="https://doi.org/10.1063/1.5131028">doi:10.1063/1.5131028</a>.</span></p>
 
@@ -8919,17 +8923,17 @@ entries.</p>
 <a id="__codelineno-0-25" name="__codelineno-0-25"></a><span class="sd">        Generate a random \(2\)-by-\(2\) Ginibre random matrix.</span>
 <a id="__codelineno-0-26" name="__codelineno-0-26"></a>
 <a id="__codelineno-0-27" name="__codelineno-0-27"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;</span>
-<a id="__codelineno-0-28" name="__codelineno-0-28"></a><span class="sd">    from toqito.rand import random_ginibre</span>
+<a id="__codelineno-0-28" name="__codelineno-0-28"></a><span class="sd">        from toqito.rand import random_ginibre</span>
 <a id="__codelineno-0-29" name="__codelineno-0-29"></a>
-<a id="__codelineno-0-30" name="__codelineno-0-30"></a><span class="sd">    print(random_ginibre(2, 2))</span>
+<a id="__codelineno-0-30" name="__codelineno-0-30"></a><span class="sd">        print(random_ginibre(2, 2))</span>
 <a id="__codelineno-0-31" name="__codelineno-0-31"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-32" name="__codelineno-0-32"></a>
 <a id="__codelineno-0-33" name="__codelineno-0-33"></a><span class="sd">        It is also possible to pass a seed to this function for reproducibility.</span>
 <a id="__codelineno-0-34" name="__codelineno-0-34"></a>
 <a id="__codelineno-0-35" name="__codelineno-0-35"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;</span>
-<a id="__codelineno-0-36" name="__codelineno-0-36"></a><span class="sd">    from toqito.rand import random_ginibre</span>
+<a id="__codelineno-0-36" name="__codelineno-0-36"></a><span class="sd">        from toqito.rand import random_ginibre</span>
 <a id="__codelineno-0-37" name="__codelineno-0-37"></a>
-<a id="__codelineno-0-38" name="__codelineno-0-38"></a><span class="sd">    print(random_ginibre(2, 2, seed=42))</span>
+<a id="__codelineno-0-38" name="__codelineno-0-38"></a><span class="sd">        print(random_ginibre(2, 2, seed=42))</span>
 <a id="__codelineno-0-39" name="__codelineno-0-39"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-40" name="__codelineno-0-40"></a>
 <a id="__codelineno-0-41" name="__codelineno-0-41"></a><span class="sd">    &quot;&quot;&quot;</span>

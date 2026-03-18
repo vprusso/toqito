@@ -8870,37 +8870,45 @@ subsystem dimension when used.</p>
 <p><span class="doc-section-title">Examples:</span></p>
     <p>We may generate a random state vector. For instance, here is an example where we can generate a
 <span class="arithmatex">\(2\)</span>-dimensional random state vector.</p>
-<p>```python exec="1" source="above" result="text" session="vec_example"</p>
-        <p>from toqito.rand import random_state_vector</p>
-<p>vec = random_state_vector(2)</p>
-<p>print(vec)
-    ```</p>
-<div class="highlight"><pre><span></span><code>We can verify that this is in fact a valid state vector by computing the corresponding density
-matrix of the vector and checking if the density matrix is pure.
-
-```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot; session=&quot;vec_example&quot;
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.rand</span><span class="w"> </span><span class="kn">import</span> <span class="n">random_state_vector</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">vec</span> <span class="o">=</span> <span class="n">random_state_vector</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">vec</span><span class="p">)</span>
 </code></pre></div>
-<p>from toqito.state_props import is_pure</p>
-<p>dm = vec @ vec.conj().T</p>
-<p>print(is_pure(dm))
-    ```</p>
-<div class="highlight"><pre><span></span><code>It is also possible to pass a seed for reproducibility.
-
-```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot; session=&quot;vec_example&quot;
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>[[0.02957586+0.70220865j]
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a> [0.01204236+0.71125471j]]
 </code></pre></div>
-<p>from toqito.rand import random_state_vector</p>
-<p>vec = random_state_vector(2, seed=42)</p>
-<p>print(vec)
-    ```</p>
-<div class="highlight"><pre><span></span><code>We can once again verify that this is in fact a valid state vector by computing the
-corresponding density matrix of the vector and checking if the density matrix is pure.
-
-```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot; session=&quot;vec_example&quot;
+<p>We can verify that this is in fact a valid state vector by computing the corresponding density
+matrix of the vector and checking if the density matrix is pure.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.state_props</span><span class="w"> </span><span class="kn">import</span> <span class="n">is_pure</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">dm</span> <span class="o">=</span> <span class="n">vec</span> <span class="o">@</span> <span class="n">vec</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">is_pure</span><span class="p">(</span><span class="n">dm</span><span class="p">))</span>
 </code></pre></div>
-<p>from toqito.state_props import is_pure</p>
-<p>dm = vec @ vec.conj().T</p>
-<p>print(is_pure(dm))
-    ```</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>True
+</code></pre></div>
+<p>It is also possible to pass a seed for reproducibility.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.rand</span><span class="w"> </span><span class="kn">import</span> <span class="n">random_state_vector</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">vec</span> <span class="o">=</span> <span class="n">random_state_vector</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">vec</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>[[0.54521054+0.60483621j]
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a> [0.30916633+0.49125839j]]
+</code></pre></div>
+<p>We can once again verify that this is in fact a valid state vector by computing the
+corresponding density matrix of the vector and checking if the density matrix is pure.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.state_props</span><span class="w"> </span><span class="kn">import</span> <span class="n">is_pure</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">dm</span> <span class="o">=</span> <span class="n">vec</span> <span class="o">@</span> <span class="n">vec</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">is_pure</span><span class="p">(</span><span class="n">dm</span><span class="p">))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>True
+</code></pre></div>
 
 
             <details class="mkdocstrings-source">
@@ -9072,43 +9080,43 @@ corresponding density matrix of the vector and checking if the density matrix is
 <a id="__codelineno-0-43" name="__codelineno-0-43"></a><span class="sd">        \(2\)-dimensional random state vector.</span>
 <a id="__codelineno-0-44" name="__codelineno-0-44"></a>
 <a id="__codelineno-0-45" name="__codelineno-0-45"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot; session=&quot;vec_example&quot;</span>
-<a id="__codelineno-0-46" name="__codelineno-0-46"></a><span class="sd">    from toqito.rand import random_state_vector</span>
+<a id="__codelineno-0-46" name="__codelineno-0-46"></a><span class="sd">        from toqito.rand import random_state_vector</span>
 <a id="__codelineno-0-47" name="__codelineno-0-47"></a>
-<a id="__codelineno-0-48" name="__codelineno-0-48"></a><span class="sd">    vec = random_state_vector(2)</span>
+<a id="__codelineno-0-48" name="__codelineno-0-48"></a><span class="sd">        vec = random_state_vector(2)</span>
 <a id="__codelineno-0-49" name="__codelineno-0-49"></a>
-<a id="__codelineno-0-50" name="__codelineno-0-50"></a><span class="sd">    print(vec)</span>
+<a id="__codelineno-0-50" name="__codelineno-0-50"></a><span class="sd">        print(vec)</span>
 <a id="__codelineno-0-51" name="__codelineno-0-51"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-52" name="__codelineno-0-52"></a>
 <a id="__codelineno-0-53" name="__codelineno-0-53"></a><span class="sd">        We can verify that this is in fact a valid state vector by computing the corresponding density</span>
 <a id="__codelineno-0-54" name="__codelineno-0-54"></a><span class="sd">        matrix of the vector and checking if the density matrix is pure.</span>
 <a id="__codelineno-0-55" name="__codelineno-0-55"></a>
 <a id="__codelineno-0-56" name="__codelineno-0-56"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot; session=&quot;vec_example&quot;</span>
-<a id="__codelineno-0-57" name="__codelineno-0-57"></a><span class="sd">    from toqito.state_props import is_pure</span>
+<a id="__codelineno-0-57" name="__codelineno-0-57"></a><span class="sd">        from toqito.state_props import is_pure</span>
 <a id="__codelineno-0-58" name="__codelineno-0-58"></a>
-<a id="__codelineno-0-59" name="__codelineno-0-59"></a><span class="sd">    dm = vec @ vec.conj().T</span>
+<a id="__codelineno-0-59" name="__codelineno-0-59"></a><span class="sd">        dm = vec @ vec.conj().T</span>
 <a id="__codelineno-0-60" name="__codelineno-0-60"></a>
-<a id="__codelineno-0-61" name="__codelineno-0-61"></a><span class="sd">    print(is_pure(dm))</span>
+<a id="__codelineno-0-61" name="__codelineno-0-61"></a><span class="sd">        print(is_pure(dm))</span>
 <a id="__codelineno-0-62" name="__codelineno-0-62"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-63" name="__codelineno-0-63"></a>
 <a id="__codelineno-0-64" name="__codelineno-0-64"></a><span class="sd">        It is also possible to pass a seed for reproducibility.</span>
 <a id="__codelineno-0-65" name="__codelineno-0-65"></a>
 <a id="__codelineno-0-66" name="__codelineno-0-66"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot; session=&quot;vec_example&quot;</span>
-<a id="__codelineno-0-67" name="__codelineno-0-67"></a><span class="sd">    from toqito.rand import random_state_vector</span>
+<a id="__codelineno-0-67" name="__codelineno-0-67"></a><span class="sd">        from toqito.rand import random_state_vector</span>
 <a id="__codelineno-0-68" name="__codelineno-0-68"></a>
-<a id="__codelineno-0-69" name="__codelineno-0-69"></a><span class="sd">    vec = random_state_vector(2, seed=42)</span>
+<a id="__codelineno-0-69" name="__codelineno-0-69"></a><span class="sd">        vec = random_state_vector(2, seed=42)</span>
 <a id="__codelineno-0-70" name="__codelineno-0-70"></a>
-<a id="__codelineno-0-71" name="__codelineno-0-71"></a><span class="sd">    print(vec)</span>
+<a id="__codelineno-0-71" name="__codelineno-0-71"></a><span class="sd">        print(vec)</span>
 <a id="__codelineno-0-72" name="__codelineno-0-72"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-73" name="__codelineno-0-73"></a>
 <a id="__codelineno-0-74" name="__codelineno-0-74"></a><span class="sd">        We can once again verify that this is in fact a valid state vector by computing the</span>
 <a id="__codelineno-0-75" name="__codelineno-0-75"></a><span class="sd">        corresponding density matrix of the vector and checking if the density matrix is pure.</span>
 <a id="__codelineno-0-76" name="__codelineno-0-76"></a>
 <a id="__codelineno-0-77" name="__codelineno-0-77"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot; session=&quot;vec_example&quot;</span>
-<a id="__codelineno-0-78" name="__codelineno-0-78"></a><span class="sd">    from toqito.state_props import is_pure</span>
+<a id="__codelineno-0-78" name="__codelineno-0-78"></a><span class="sd">        from toqito.state_props import is_pure</span>
 <a id="__codelineno-0-79" name="__codelineno-0-79"></a>
-<a id="__codelineno-0-80" name="__codelineno-0-80"></a><span class="sd">    dm = vec @ vec.conj().T</span>
+<a id="__codelineno-0-80" name="__codelineno-0-80"></a><span class="sd">        dm = vec @ vec.conj().T</span>
 <a id="__codelineno-0-81" name="__codelineno-0-81"></a>
-<a id="__codelineno-0-82" name="__codelineno-0-82"></a><span class="sd">    print(is_pure(dm))</span>
+<a id="__codelineno-0-82" name="__codelineno-0-82"></a><span class="sd">        print(is_pure(dm))</span>
 <a id="__codelineno-0-83" name="__codelineno-0-83"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-84" name="__codelineno-0-84"></a>
 <a id="__codelineno-0-85" name="__codelineno-0-85"></a>

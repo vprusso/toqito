@@ -8879,20 +8879,22 @@ defined as</p>
     \end{equation}
 \]</div>
 <p>This can be verified in <code>|toqito⟩</code> as follows.</p>
-<p>```python exec="1" source="above" result="text"</p>
-        <p>import numpy as np
-from toqito.channel_ops import choi_to_kraus
-choi_mat = np.array([[1, 0, 0, 0], [0, 0, 1, 0], [0, 1, 0, 0], [0, 0, 0, 1]])
-kraus_ops = choi_to_kraus(choi_mat)
-for i, pair in enumerate(kraus_ops):
-   print(f"\nKraus Pair {i+1}:")
-   for j, op in enumerate(pair):
-       print(f"  Operator {j+1}:\n{np.array_str(op, precision=4, suppress_small=True)}")
-    ```</p>
-<div class="highlight"><pre><span></span><code>!!! See Also
-    [kraus_to_choi][toqito.channel_ops.kraus_to_choi.kraus_to_choi]
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>  <span class="n">File</span> <span class="s2">&quot;/home/runner/work/toqito/toqito/.venv/lib/python3.12/site-packages/markdown_exec/_internal/formatters/python.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">71</span><span class="p">,</span> <span class="ow">in</span> <span class="n">_run_python</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    <span class="n">exec_python</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="n">code_block_id</span><span class="p">,</span> <span class="n">exec_globals</span><span class="p">)</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>  <span class="n">File</span> <span class="s2">&quot;/home/runner/work/toqito/toqito/.venv/lib/python3.12/site-packages/markdown_exec/_internal/formatters/_exec_python.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">7</span><span class="p">,</span> <span class="ow">in</span> <span class="n">exec_python</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="n">compiled</span> <span class="o">=</span> <span class="nb">compile</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="n">filename</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;exec&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>               <span class="o">^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>  <span class="n">File</span> <span class="s2">&quot;&lt;code block: n12&gt;&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">6</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Kraus Pair </span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">:&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>    <span class="o">^^^^^</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="ne">IndentationError</span><span class="p">:</span> <span class="n">expected</span> <span class="n">an</span> <span class="n">indented</span> <span class="n">block</span> <span class="n">after</span> <span class="s1">&#39;for&#39;</span> <span class="n">statement</span> <span class="n">on</span> <span class="n">line</span> <span class="mi">5</span>
 </code></pre></div>
-<p><strong>References</strong></p>
+<div class="admonition see also">
+<p class="admonition-title">See</p>
+<p><a class="autorefs autorefs-internal" title="            kraus_to_choi" href="../kraus_to_choi/#toqito.channel_ops.kraus_to_choi.kraus_to_choi">kraus_to_choi</a></p>
+</div>
+        <p><strong>References</strong></p>
 <p><span id="ref-toqito-channel_ops-choi_to_kraus-choi_to_kraus-1"><sup><a href="#cite-toqito-channel_ops-choi_to_kraus-choi_to_kraus-1">1</a></sup> Rigetti. <em>Forest Benchmarking</em>. <a href="https://github.com/rigetti/forest-benchmarking">link</a>.</span><br>
 <span id="ref-toqito-channel_ops-choi_to_kraus-choi_to_kraus-2"><sup><a href="#cite-toqito-channel_ops-choi_to_kraus-choi_to_kraus-2">2</a></sup> Johnston, Nathaniel. <em>{{QETLAB}: {A MATLAB} toolbox for quantum entanglement}</em>. <a href="https://doi.org/10.5281/zenodo.44637">doi:10.5281/zenodo.44637</a>.</span></p>
 
@@ -9070,13 +9072,13 @@ for i, pair in enumerate(kraus_ops):
 <a id="__codelineno-0-71" name="__codelineno-0-71"></a><span class="sd">        This can be verified in `|toqito⟩` as follows.</span>
 <a id="__codelineno-0-72" name="__codelineno-0-72"></a>
 <a id="__codelineno-0-73" name="__codelineno-0-73"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;</span>
-<a id="__codelineno-0-74" name="__codelineno-0-74"></a><span class="sd">    import numpy as np</span>
-<a id="__codelineno-0-75" name="__codelineno-0-75"></a><span class="sd">    from toqito.channel_ops import choi_to_kraus</span>
-<a id="__codelineno-0-76" name="__codelineno-0-76"></a><span class="sd">    choi_mat = np.array([[1, 0, 0, 0], [0, 0, 1, 0], [0, 1, 0, 0], [0, 0, 0, 1]])</span>
-<a id="__codelineno-0-77" name="__codelineno-0-77"></a><span class="sd">    kraus_ops = choi_to_kraus(choi_mat)</span>
-<a id="__codelineno-0-78" name="__codelineno-0-78"></a><span class="sd">    for i, pair in enumerate(kraus_ops):</span>
-<a id="__codelineno-0-79" name="__codelineno-0-79"></a><span class="sd">       print(f&quot;\nKraus Pair {i+1}:&quot;)</span>
-<a id="__codelineno-0-80" name="__codelineno-0-80"></a><span class="sd">       for j, op in enumerate(pair):</span>
+<a id="__codelineno-0-74" name="__codelineno-0-74"></a><span class="sd">        import numpy as np</span>
+<a id="__codelineno-0-75" name="__codelineno-0-75"></a><span class="sd">        from toqito.channel_ops import choi_to_kraus</span>
+<a id="__codelineno-0-76" name="__codelineno-0-76"></a><span class="sd">        choi_mat = np.array([[1, 0, 0, 0], [0, 0, 1, 0], [0, 1, 0, 0], [0, 0, 0, 1]])</span>
+<a id="__codelineno-0-77" name="__codelineno-0-77"></a><span class="sd">        kraus_ops = choi_to_kraus(choi_mat)</span>
+<a id="__codelineno-0-78" name="__codelineno-0-78"></a><span class="sd">        for i, pair in enumerate(kraus_ops):</span>
+<a id="__codelineno-0-79" name="__codelineno-0-79"></a><span class="sd">        print(f&quot;\nKraus Pair {i+1}:&quot;)</span>
+<a id="__codelineno-0-80" name="__codelineno-0-80"></a><span class="sd">        for j, op in enumerate(pair):</span>
 <a id="__codelineno-0-81" name="__codelineno-0-81"></a><span class="sd">           print(f&quot;  Operator {j+1}:\n{np.array_str(op, precision=4, suppress_small=True)}&quot;)</span>
 <a id="__codelineno-0-82" name="__codelineno-0-82"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-83" name="__codelineno-0-83"></a>

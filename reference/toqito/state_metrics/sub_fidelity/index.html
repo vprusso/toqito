@@ -8857,27 +8857,31 @@ fidelity.</p>
 \]</div>
 <p>Calculating the fidelity between the states <span class="arithmatex">\(\rho\)</span> and <span class="arithmatex">\(\sigma\)</span> as <span class="arithmatex">\(F(\rho, \sigma) \approx
 0.774\)</span>. This can be observed in <code>|toqito⟩</code> as</p>
-<p>```python exec="1" source="above" result="text"</p>
-        <p>from toqito.states import basis
-from toqito.state_metrics import fidelity</p>
-<p>e_0, e_1 = basis(2, 0), basis(2, 1)
-rho = 3 / 4 * e_0 @ e_0.conj().T + 1 / 4 * e_1 @ e_1.conj().T
-sigma = 1/8 * e_0 @ e_0.conj().T + 7/8 * e_1 @ e_1.conj().T</p>
-<p>print(fidelity(rho, sigma))
-    ```</p>
-<div class="highlight"><pre><span></span><code>As the sub-fidelity is a lower bound on the fidelity, that is \(E(\rho, \sigma) \leq F(\rho, \sigma)\), we can
-use `|toqito⟩` to observe that \(E(\rho, \sigma) \approx 0.599\leq F(\rho, \sigma \approx 0.774\).
-
-```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.states</span><span class="w"> </span><span class="kn">import</span> <span class="n">basis</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.state_metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">fidelity</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">e_0</span><span class="p">,</span> <span class="n">e_1</span> <span class="o">=</span> <span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="n">rho</span> <span class="o">=</span> <span class="mi">3</span> <span class="o">/</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">e_0</span> <span class="o">@</span> <span class="n">e_0</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">/</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">e_1</span> <span class="o">@</span> <span class="n">e_1</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="n">sigma</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="mi">8</span> <span class="o">*</span> <span class="n">e_0</span> <span class="o">@</span> <span class="n">e_0</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span> <span class="o">+</span> <span class="mi">7</span><span class="o">/</span><span class="mi">8</span> <span class="o">*</span> <span class="n">e_1</span> <span class="o">@</span> <span class="n">e_1</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="nb">print</span><span class="p">(</span><span class="n">fidelity</span><span class="p">(</span><span class="n">rho</span><span class="p">,</span> <span class="n">sigma</span><span class="p">))</span>
 </code></pre></div>
-<p>from toqito.states import basis
-from toqito.state_metrics import sub_fidelity</p>
-<p>e_0, e_1 = basis(2, 0), basis(2, 1)
-rho = 3 / 4 * e_0 @ e_0.conj().T + 1 / 4 * e_1 @ e_1.conj().T
-sigma = 1/8 * e_0 @ e_0.conj().T + 7/8 * e_1 @ e_1.conj().T</p>
-<p>print(sub_fidelity(rho, sigma))
-    ```</p>
-<p><strong>References</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>0.77389339119464
+</code></pre></div>
+<p>As the sub-fidelity is a lower bound on the fidelity, that is <span class="arithmatex">\(E(\rho, \sigma) \leq F(\rho, \sigma)\)</span>, we can
+use <code>|toqito⟩</code> to observe that <span class="arithmatex">\(E(\rho, \sigma) \approx 0.599\leq F(\rho, \sigma \approx 0.774\)</span>.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.states</span><span class="w"> </span><span class="kn">import</span> <span class="n">basis</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.state_metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">sub_fidelity</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">e_0</span><span class="p">,</span> <span class="n">e_1</span> <span class="o">=</span> <span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="n">rho</span> <span class="o">=</span> <span class="mi">3</span> <span class="o">/</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">e_0</span> <span class="o">@</span> <span class="n">e_0</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">/</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">e_1</span> <span class="o">@</span> <span class="n">e_1</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="n">sigma</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="mi">8</span> <span class="o">*</span> <span class="n">e_0</span> <span class="o">@</span> <span class="n">e_0</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span> <span class="o">+</span> <span class="mi">7</span><span class="o">/</span><span class="mi">8</span> <span class="o">*</span> <span class="n">e_1</span> <span class="o">@</span> <span class="n">e_1</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="nb">print</span><span class="p">(</span><span class="n">sub_fidelity</span><span class="p">(</span><span class="n">rho</span><span class="p">,</span> <span class="n">sigma</span><span class="p">))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>0.5989109809347399
+</code></pre></div>
+        <p><strong>References</strong></p>
 <p><span id="ref-toqito-state_metrics-sub_fidelity-sub_fidelity-1"><sup><a href="#cite-toqito-state_metrics-sub_fidelity-sub_fidelity-1">1</a></sup> Miszczak, J. and Puchała, Z. and Horodecki, P. and Uhlmann, A. and Życzkowski, K.. <em>Sub-- and super--fidelity as bounds for quantum fidelity</em>. (2008).</span></p>
 
 
@@ -8992,28 +8996,28 @@ sigma = 1/8 * e_0 @ e_0.conj().T + 7/8 * e_1 @ e_1.conj().T</p>
 <a id="__codelineno-0-46" name="__codelineno-0-46"></a><span class="sd">        0.774\). This can be observed in `|toqito⟩` as</span>
 <a id="__codelineno-0-47" name="__codelineno-0-47"></a>
 <a id="__codelineno-0-48" name="__codelineno-0-48"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;</span>
-<a id="__codelineno-0-49" name="__codelineno-0-49"></a><span class="sd">    from toqito.states import basis</span>
-<a id="__codelineno-0-50" name="__codelineno-0-50"></a><span class="sd">    from toqito.state_metrics import fidelity</span>
+<a id="__codelineno-0-49" name="__codelineno-0-49"></a><span class="sd">        from toqito.states import basis</span>
+<a id="__codelineno-0-50" name="__codelineno-0-50"></a><span class="sd">        from toqito.state_metrics import fidelity</span>
 <a id="__codelineno-0-51" name="__codelineno-0-51"></a>
-<a id="__codelineno-0-52" name="__codelineno-0-52"></a><span class="sd">    e_0, e_1 = basis(2, 0), basis(2, 1)</span>
-<a id="__codelineno-0-53" name="__codelineno-0-53"></a><span class="sd">    rho = 3 / 4 * e_0 @ e_0.conj().T + 1 / 4 * e_1 @ e_1.conj().T</span>
-<a id="__codelineno-0-54" name="__codelineno-0-54"></a><span class="sd">    sigma = 1/8 * e_0 @ e_0.conj().T + 7/8 * e_1 @ e_1.conj().T</span>
+<a id="__codelineno-0-52" name="__codelineno-0-52"></a><span class="sd">        e_0, e_1 = basis(2, 0), basis(2, 1)</span>
+<a id="__codelineno-0-53" name="__codelineno-0-53"></a><span class="sd">        rho = 3 / 4 * e_0 @ e_0.conj().T + 1 / 4 * e_1 @ e_1.conj().T</span>
+<a id="__codelineno-0-54" name="__codelineno-0-54"></a><span class="sd">        sigma = 1/8 * e_0 @ e_0.conj().T + 7/8 * e_1 @ e_1.conj().T</span>
 <a id="__codelineno-0-55" name="__codelineno-0-55"></a>
-<a id="__codelineno-0-56" name="__codelineno-0-56"></a><span class="sd">    print(fidelity(rho, sigma))</span>
+<a id="__codelineno-0-56" name="__codelineno-0-56"></a><span class="sd">        print(fidelity(rho, sigma))</span>
 <a id="__codelineno-0-57" name="__codelineno-0-57"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-58" name="__codelineno-0-58"></a>
 <a id="__codelineno-0-59" name="__codelineno-0-59"></a><span class="sd">        As the sub-fidelity is a lower bound on the fidelity, that is \(E(\rho, \sigma) \leq F(\rho, \sigma)\), we can</span>
 <a id="__codelineno-0-60" name="__codelineno-0-60"></a><span class="sd">        use `|toqito⟩` to observe that \(E(\rho, \sigma) \approx 0.599\leq F(\rho, \sigma \approx 0.774\).</span>
 <a id="__codelineno-0-61" name="__codelineno-0-61"></a>
 <a id="__codelineno-0-62" name="__codelineno-0-62"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;</span>
-<a id="__codelineno-0-63" name="__codelineno-0-63"></a><span class="sd">    from toqito.states import basis</span>
-<a id="__codelineno-0-64" name="__codelineno-0-64"></a><span class="sd">    from toqito.state_metrics import sub_fidelity</span>
+<a id="__codelineno-0-63" name="__codelineno-0-63"></a><span class="sd">        from toqito.states import basis</span>
+<a id="__codelineno-0-64" name="__codelineno-0-64"></a><span class="sd">        from toqito.state_metrics import sub_fidelity</span>
 <a id="__codelineno-0-65" name="__codelineno-0-65"></a>
-<a id="__codelineno-0-66" name="__codelineno-0-66"></a><span class="sd">    e_0, e_1 = basis(2, 0), basis(2, 1)</span>
-<a id="__codelineno-0-67" name="__codelineno-0-67"></a><span class="sd">    rho = 3 / 4 * e_0 @ e_0.conj().T + 1 / 4 * e_1 @ e_1.conj().T</span>
-<a id="__codelineno-0-68" name="__codelineno-0-68"></a><span class="sd">    sigma = 1/8 * e_0 @ e_0.conj().T + 7/8 * e_1 @ e_1.conj().T</span>
+<a id="__codelineno-0-66" name="__codelineno-0-66"></a><span class="sd">        e_0, e_1 = basis(2, 0), basis(2, 1)</span>
+<a id="__codelineno-0-67" name="__codelineno-0-67"></a><span class="sd">        rho = 3 / 4 * e_0 @ e_0.conj().T + 1 / 4 * e_1 @ e_1.conj().T</span>
+<a id="__codelineno-0-68" name="__codelineno-0-68"></a><span class="sd">        sigma = 1/8 * e_0 @ e_0.conj().T + 7/8 * e_1 @ e_1.conj().T</span>
 <a id="__codelineno-0-69" name="__codelineno-0-69"></a>
-<a id="__codelineno-0-70" name="__codelineno-0-70"></a><span class="sd">    print(sub_fidelity(rho, sigma))</span>
+<a id="__codelineno-0-70" name="__codelineno-0-70"></a><span class="sd">        print(sub_fidelity(rho, sigma))</span>
 <a id="__codelineno-0-71" name="__codelineno-0-71"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-72" name="__codelineno-0-72"></a>
 <a id="__codelineno-0-73" name="__codelineno-0-73"></a><span class="sd">    &quot;&quot;&quot;</span>

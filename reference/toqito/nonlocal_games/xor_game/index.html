@@ -8936,66 +8936,69 @@ satisfied</p>
 where the optimal classical value is <span class="arithmatex">\(3/4\)</span>.</p>
 <p>In order to specify the CHSH game, we can define the probability matrix and
 predicate matrix for the CHSH game as <code>numpy</code> arrays as follows.</p>
-<p>```python exec="1" source="above" result="text" session="chsh"</p>
-        <p>import numpy as np</p>
-<p>prob_mat = np.array([[1 / 4, 1 / 4], [1 / 4, 1 / 4]])
-pred_mat = np.array([[0, 0], [0, 1]])
-    ```</p>
-<div class="highlight"><pre><span></span><code>In `toqito`, we can calculate both the quantum and classical value of the
-CHSH game as follows.
-
-```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot; session=&quot;chsh&quot;
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">prob_mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span> <span class="o">/</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span> <span class="o">/</span> <span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span> <span class="o">/</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span> <span class="o">/</span> <span class="mi">4</span><span class="p">]])</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">pred_mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
 </code></pre></div>
-<p>import numpy as np
-from toqito.nonlocal_games.xor_game import XORGame</p>
-<p>chsh = XORGame(prob_mat, pred_mat)</p>
-<p>print(f"Quantum value of the CHSH game is {np.around(chsh.quantum_value(), decimals=2)}")
-print(f"Classical value of the CHSH game is {chsh.classical_value()}")
-    ```</p>
-<div class="highlight"><pre><span></span><code>The odd cycle game
-
-The odd cycle game is another XOR game &lt;sup&gt;&lt;a id=&quot;cite-toqito-nonlocal_games-xor_game-XORGame-1&quot; href=&quot;#ref-toqito-nonlocal_games-xor_game-XORGame-1&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;. For this game, we can
-specify the probability and predicate matrices as follows.
-
-```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot; session=&quot;odd_cycle&quot;
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>
 </code></pre></div>
-<p>import numpy as np
-prob_mat = np.array(
-[
-    [0.1, 0.1, 0, 0, 0],
-    [0, 0.1, 0.1, 0, 0],
-    [0, 0, 0.1, 0.1, 0],
-    [0, 0, 0, 0.1, 0.1],
-    [0.1, 0, 0, 0, 0.1],
-]
-)
-pred_mat = np.array(
-[
-    [0, 1, 0, 0, 0],
-    [0, 0, 1, 0, 0],
-    [0, 0, 0, 1, 0],
-    [0, 0, 0, 0, 1],
-    [1, 0, 0, 0, 0],
-])
-    ```</p>
-<div class="highlight"><pre><span></span><code>In `|toqito⟩`, we can calculate both the quantum and classical value of
-the odd cycle game as follows.
-
-```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot; session=&quot;odd_cycle&quot;
+<p>In <code>toqito</code>, we can calculate both the quantum and classical value of the
+CHSH game as follows.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.nonlocal_games.xor_game</span><span class="w"> </span><span class="kn">import</span> <span class="n">XORGame</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">chsh</span> <span class="o">=</span> <span class="n">XORGame</span><span class="p">(</span><span class="n">prob_mat</span><span class="p">,</span> <span class="n">pred_mat</span><span class="p">)</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Quantum value of the CHSH game is </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">around</span><span class="p">(</span><span class="n">chsh</span><span class="o">.</span><span class="n">quantum_value</span><span class="p">(),</span><span class="w"> </span><span class="n">decimals</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Classical value of the CHSH game is </span><span class="si">{</span><span class="n">chsh</span><span class="o">.</span><span class="n">classical_value</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </code></pre></div>
-<p>import numpy as np
-from toqito.nonlocal_games.xor_game import XORGame</p>
-<p>odd_cycle = XORGame(prob_mat, pred_mat)</p>
-<p>print(f"Quantum value of the odd cycle game is {np.around(odd_cycle.quantum_value(), decimals=2)}")
-print(f"Classical value of the odd cycle game is {np.around(odd_cycle.classical_value(), decimals=1)}")
-    ```</p>
-<div class="highlight"><pre><span></span><code>We can also calculate the nonsignaling value of the odd cycle game.
-
-```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot; session=&quot;odd_cycle&quot;
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>Quantum value of the CHSH game is 0.85
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>Classical value of the CHSH game is 0.75
 </code></pre></div>
-<p>print(f"Nonsignaling value of the odd cycle game is {np.around(odd_cycle.nonsignaling_value(), decimals=1)}")
-    ```</p>
-<p><strong>References</strong></p>
+<p>The odd cycle game</p>
+<p>The odd cycle game is another XOR game <sup><a id="cite-toqito-nonlocal_games-xor_game-XORGame-1" href="#ref-toqito-nonlocal_games-xor_game-XORGame-1">1</a></sup>. For this game, we can
+specify the probability and predicate matrices as follows.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="n">prob_mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="p">[</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">],</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">],</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="p">]</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="p">)</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="n">pred_mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="p">[</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="p">])</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>
+</code></pre></div>
+<p>In <code>|toqito⟩</code>, we can calculate both the quantum and classical value of
+the odd cycle game as follows.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.nonlocal_games.xor_game</span><span class="w"> </span><span class="kn">import</span> <span class="n">XORGame</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">odd_cycle</span> <span class="o">=</span> <span class="n">XORGame</span><span class="p">(</span><span class="n">prob_mat</span><span class="p">,</span> <span class="n">pred_mat</span><span class="p">)</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Quantum value of the odd cycle game is </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">around</span><span class="p">(</span><span class="n">odd_cycle</span><span class="o">.</span><span class="n">quantum_value</span><span class="p">(),</span><span class="w"> </span><span class="n">decimals</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Classical value of the odd cycle game is </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">around</span><span class="p">(</span><span class="n">odd_cycle</span><span class="o">.</span><span class="n">classical_value</span><span class="p">(),</span><span class="w"> </span><span class="n">decimals</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>Quantum value of the odd cycle game is 0.98
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>Classical value of the odd cycle game is 0.9
+</code></pre></div>
+<p>We can also calculate the nonsignaling value of the odd cycle game.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Nonsignaling value of the odd cycle game is </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">around</span><span class="p">(</span><span class="n">odd_cycle</span><span class="o">.</span><span class="n">nonsignaling_value</span><span class="p">(),</span><span class="w"> </span><span class="n">decimals</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>Nonsignaling value of the odd cycle game is 1.0
+</code></pre></div>
+        <p><strong>References</strong></p>
 <p><span id="ref-toqito-nonlocal_games-xor_game-XORGame-1"><sup><a href="#cite-toqito-nonlocal_games-xor_game-XORGame-1">1</a></sup> Cleve, Richard and Hoyer, Peter and Toner, Ben and Watrous, John. <em>Consequences and Limits of Nonlocal Strategies</em>. (2010).</span><br>
 <span id="ref-toqito-nonlocal_games-xor_game-XORGame-2"><sup><a href="#cite-toqito-nonlocal_games-xor_game-XORGame-2">2</a></sup> Cleve, Richard and Slofstra, William and Unger, Falk and Upadhyay, Sarvagya. <em>Strong Parallel Repetition Theorem for Quantum XOR Proof Systems</em>. (2008).</span></p>
 

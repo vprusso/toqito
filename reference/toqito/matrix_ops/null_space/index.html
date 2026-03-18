@@ -8836,8 +8836,8 @@ standard inner product.</p>
 <div class="arithmatex">\[
     A = \begin{pmatrix} 1 &amp; 1 &amp; 0 \\ 0 &amp; 0 &amp; 0 \end{pmatrix}.
 \]</div>
-<p>Its null space is spanned by the vectors <span class="arithmatex">\((1,-1,0)\)</span> and <span class="arithmatex">\((0,0,1)\)</span>.</p>
-        <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<p>Its null space is spanned by the vectors <span class="arithmatex">\((1,-1,0)\)</span> and <span class="arithmatex">\((0,0,1)\)</span>.
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.matrix_ops</span><span class="w"> </span><span class="kn">import</span> <span class="n">null_space</span>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
 <a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
@@ -8847,8 +8847,8 @@ standard inner product.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>[[-0.70710678+0.j  0.        +0.j]
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a> [ 0.70710678-0.j  0.        +0.j]
 <a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a> [ 0.        -0.j -1.        +0.j]]
-</code></pre></div>
-<p><strong>References</strong></p>
+</code></pre></div></p>
+        <p><strong>References</strong></p>
 <p><span id="ref-toqito-matrix_ops-null_space-null_space-1"><sup><a href="#cite-toqito-matrix_ops-null_space-null_space-1">1</a></sup> Wikipedia. <em>Kernel (linear algebra)</em>. <a href="https://en.wikipedia.org/wiki/Kernel_(linear_algebra)">link</a>.</span></p>
 
 
@@ -8920,14 +8920,14 @@ standard inner product.</p>
 <a id="__codelineno-0-25" name="__codelineno-0-25"></a><span class="sd">        \]</span>
 <a id="__codelineno-0-26" name="__codelineno-0-26"></a>
 <a id="__codelineno-0-27" name="__codelineno-0-27"></a><span class="sd">        Its null space is spanned by the vectors \((1,-1,0)\) and \((0,0,1)\).</span>
-<a id="__codelineno-0-28" name="__codelineno-0-28"></a><span class="sd">    ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;</span>
-<a id="__codelineno-0-29" name="__codelineno-0-29"></a><span class="sd">    import numpy as np</span>
-<a id="__codelineno-0-30" name="__codelineno-0-30"></a><span class="sd">    from toqito.matrix_ops import null_space</span>
+<a id="__codelineno-0-28" name="__codelineno-0-28"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;</span>
+<a id="__codelineno-0-29" name="__codelineno-0-29"></a><span class="sd">        import numpy as np</span>
+<a id="__codelineno-0-30" name="__codelineno-0-30"></a><span class="sd">        from toqito.matrix_ops import null_space</span>
 <a id="__codelineno-0-31" name="__codelineno-0-31"></a>
-<a id="__codelineno-0-32" name="__codelineno-0-32"></a><span class="sd">    A = np.array([[1, 1, 0], [0, 0, 0]], dtype=float)</span>
-<a id="__codelineno-0-33" name="__codelineno-0-33"></a><span class="sd">    null_basis = null_space(A)</span>
-<a id="__codelineno-0-34" name="__codelineno-0-34"></a><span class="sd">    print(null_basis)</span>
-<a id="__codelineno-0-35" name="__codelineno-0-35"></a><span class="sd">    ```</span>
+<a id="__codelineno-0-32" name="__codelineno-0-32"></a><span class="sd">        A = np.array([[1, 1, 0], [0, 0, 0]], dtype=float)</span>
+<a id="__codelineno-0-33" name="__codelineno-0-33"></a><span class="sd">        null_basis = null_space(A)</span>
+<a id="__codelineno-0-34" name="__codelineno-0-34"></a><span class="sd">        print(null_basis)</span>
+<a id="__codelineno-0-35" name="__codelineno-0-35"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-36" name="__codelineno-0-36"></a>
 <a id="__codelineno-0-37" name="__codelineno-0-37"></a><span class="sd">    &quot;&quot;&quot;</span>
 <a id="__codelineno-0-38" name="__codelineno-0-38"></a>    <span class="n">mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">)</span>

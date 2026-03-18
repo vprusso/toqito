@@ -4164,34 +4164,6 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label=" is_ldoi">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#toqito.matrix_props.is_ldoi.is_ldoi--example-x-state" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Example X-state
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#toqito.matrix_props.is_ldoi.is_ldoi--random-non-ldoi-state" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Random non-LDOI state
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
     </ul>
@@ -8752,34 +8724,6 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label=" is_ldoi">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#toqito.matrix_props.is_ldoi.is_ldoi--example-x-state" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Example X-state
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#toqito.matrix_props.is_ldoi.is_ldoi--random-non-ldoi-state" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Random non-LDOI state
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
     </ul>
@@ -8918,38 +8862,40 @@ standard basis representation.</p>
 
 <p><span class="doc-section-title">Examples:</span></p>
     <p>X-states are examples of 2-qubit LDOI states:</p>
-<p>```python exec="1" source="above" result="text"</p>
-        <p>from toqito.matrix_props import is_ldoi
-import numpy as np</p>
-<h3 id="toqito.matrix_props.is_ldoi.is_ldoi--example-x-state">Example X-state<a class="headerlink" href="#toqito.matrix_props.is_ldoi.is_ldoi--example-x-state" title="Permanent link">&para;</a></h3>
-<p>x_state = np.array([[1, 0, 0, 2],
-                     [0, 3, 4, 0],
-                     [0, 5, 6, 0],
-                     [7, 0, 0, 8]])
-print(is_ldoi(x_state))
-    ```</p>
-<div class="highlight"><pre><span></span><code>All diagonal states are LDOI:
-
-```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.matrix_props</span><span class="w"> </span><span class="kn">import</span> <span class="n">is_ldoi</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="c1"># Example X-state</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="n">x_state</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>                 <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>                 <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>                 <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">]])</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="nb">print</span><span class="p">(</span><span class="n">is_ldoi</span><span class="p">(</span><span class="n">x_state</span><span class="p">))</span>
 </code></pre></div>
-<p>from toqito.matrix_props import is_ldoi
-import numpy as np</p>
-<p>diagonal_state = np.diag([1, 2, 3, 4])
-print(is_ldoi(diagonal_state))
-    ```</p>
-<div class="highlight"><pre><span></span><code>Non-LDOI states return False:
-
-```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>True
 </code></pre></div>
-<p>from toqito.matrix_props import is_ldoi
-import numpy as np</p>
-<h3 id="toqito.matrix_props.is_ldoi.is_ldoi--random-non-ldoi-state">Random non-LDOI state<a class="headerlink" href="#toqito.matrix_props.is_ldoi.is_ldoi--random-non-ldoi-state" title="Permanent link">&para;</a></h3>
-<p>non_ldoi = np.array([[1, 2, 3, 4],
-                      [5, 6, 7, 8],
-                      [9, 10, 11, 12],
-                      [13, 14, 15, 16]])
-print(is_ldoi(non_ldoi))
-    ```</p>
+<p>All diagonal states are LDOI:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.matrix_props</span><span class="w"> </span><span class="kn">import</span> <span class="n">is_ldoi</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">diagonal_state</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">is_ldoi</span><span class="p">(</span><span class="n">diagonal_state</span><span class="p">))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>True
+</code></pre></div>
+<p>Non-LDOI states return False:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.matrix_props</span><span class="w"> </span><span class="kn">import</span> <span class="n">is_ldoi</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="c1"># Random non-LDOI state</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="n">non_ldoi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>                  <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">],</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>                  <span class="p">[</span><span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">12</span><span class="p">],</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>                  <span class="p">[</span><span class="mi">13</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">16</span><span class="p">]])</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="nb">print</span><span class="p">(</span><span class="n">is_ldoi</span><span class="p">(</span><span class="n">non_ldoi</span><span class="p">))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>False
+</code></pre></div>
 
 
             <details class="mkdocstrings-source">
@@ -9059,39 +9005,39 @@ print(is_ldoi(non_ldoi))
 <a id="__codelineno-0-37" name="__codelineno-0-37"></a><span class="sd">        X-states are examples of 2-qubit LDOI states:</span>
 <a id="__codelineno-0-38" name="__codelineno-0-38"></a>
 <a id="__codelineno-0-39" name="__codelineno-0-39"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;</span>
-<a id="__codelineno-0-40" name="__codelineno-0-40"></a><span class="sd">    from toqito.matrix_props import is_ldoi</span>
-<a id="__codelineno-0-41" name="__codelineno-0-41"></a><span class="sd">    import numpy as np</span>
+<a id="__codelineno-0-40" name="__codelineno-0-40"></a><span class="sd">        from toqito.matrix_props import is_ldoi</span>
+<a id="__codelineno-0-41" name="__codelineno-0-41"></a><span class="sd">        import numpy as np</span>
 <a id="__codelineno-0-42" name="__codelineno-0-42"></a>
-<a id="__codelineno-0-43" name="__codelineno-0-43"></a><span class="sd">    # Example X-state</span>
-<a id="__codelineno-0-44" name="__codelineno-0-44"></a><span class="sd">    x_state = np.array([[1, 0, 0, 2],</span>
+<a id="__codelineno-0-43" name="__codelineno-0-43"></a><span class="sd">        # Example X-state</span>
+<a id="__codelineno-0-44" name="__codelineno-0-44"></a><span class="sd">        x_state = np.array([[1, 0, 0, 2],</span>
 <a id="__codelineno-0-45" name="__codelineno-0-45"></a><span class="sd">                         [0, 3, 4, 0],</span>
 <a id="__codelineno-0-46" name="__codelineno-0-46"></a><span class="sd">                         [0, 5, 6, 0],</span>
 <a id="__codelineno-0-47" name="__codelineno-0-47"></a><span class="sd">                         [7, 0, 0, 8]])</span>
-<a id="__codelineno-0-48" name="__codelineno-0-48"></a><span class="sd">    print(is_ldoi(x_state))</span>
+<a id="__codelineno-0-48" name="__codelineno-0-48"></a><span class="sd">        print(is_ldoi(x_state))</span>
 <a id="__codelineno-0-49" name="__codelineno-0-49"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-50" name="__codelineno-0-50"></a>
 <a id="__codelineno-0-51" name="__codelineno-0-51"></a><span class="sd">        All diagonal states are LDOI:</span>
 <a id="__codelineno-0-52" name="__codelineno-0-52"></a>
 <a id="__codelineno-0-53" name="__codelineno-0-53"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;</span>
-<a id="__codelineno-0-54" name="__codelineno-0-54"></a><span class="sd">    from toqito.matrix_props import is_ldoi</span>
-<a id="__codelineno-0-55" name="__codelineno-0-55"></a><span class="sd">    import numpy as np</span>
+<a id="__codelineno-0-54" name="__codelineno-0-54"></a><span class="sd">        from toqito.matrix_props import is_ldoi</span>
+<a id="__codelineno-0-55" name="__codelineno-0-55"></a><span class="sd">        import numpy as np</span>
 <a id="__codelineno-0-56" name="__codelineno-0-56"></a>
-<a id="__codelineno-0-57" name="__codelineno-0-57"></a><span class="sd">    diagonal_state = np.diag([1, 2, 3, 4])</span>
-<a id="__codelineno-0-58" name="__codelineno-0-58"></a><span class="sd">    print(is_ldoi(diagonal_state))</span>
+<a id="__codelineno-0-57" name="__codelineno-0-57"></a><span class="sd">        diagonal_state = np.diag([1, 2, 3, 4])</span>
+<a id="__codelineno-0-58" name="__codelineno-0-58"></a><span class="sd">        print(is_ldoi(diagonal_state))</span>
 <a id="__codelineno-0-59" name="__codelineno-0-59"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-60" name="__codelineno-0-60"></a>
 <a id="__codelineno-0-61" name="__codelineno-0-61"></a><span class="sd">        Non-LDOI states return False:</span>
 <a id="__codelineno-0-62" name="__codelineno-0-62"></a>
 <a id="__codelineno-0-63" name="__codelineno-0-63"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;</span>
-<a id="__codelineno-0-64" name="__codelineno-0-64"></a><span class="sd">    from toqito.matrix_props import is_ldoi</span>
-<a id="__codelineno-0-65" name="__codelineno-0-65"></a><span class="sd">    import numpy as np</span>
+<a id="__codelineno-0-64" name="__codelineno-0-64"></a><span class="sd">        from toqito.matrix_props import is_ldoi</span>
+<a id="__codelineno-0-65" name="__codelineno-0-65"></a><span class="sd">        import numpy as np</span>
 <a id="__codelineno-0-66" name="__codelineno-0-66"></a>
-<a id="__codelineno-0-67" name="__codelineno-0-67"></a><span class="sd">    # Random non-LDOI state</span>
-<a id="__codelineno-0-68" name="__codelineno-0-68"></a><span class="sd">    non_ldoi = np.array([[1, 2, 3, 4],</span>
+<a id="__codelineno-0-67" name="__codelineno-0-67"></a><span class="sd">        # Random non-LDOI state</span>
+<a id="__codelineno-0-68" name="__codelineno-0-68"></a><span class="sd">        non_ldoi = np.array([[1, 2, 3, 4],</span>
 <a id="__codelineno-0-69" name="__codelineno-0-69"></a><span class="sd">                          [5, 6, 7, 8],</span>
 <a id="__codelineno-0-70" name="__codelineno-0-70"></a><span class="sd">                          [9, 10, 11, 12],</span>
 <a id="__codelineno-0-71" name="__codelineno-0-71"></a><span class="sd">                          [13, 14, 15, 16]])</span>
-<a id="__codelineno-0-72" name="__codelineno-0-72"></a><span class="sd">    print(is_ldoi(non_ldoi))</span>
+<a id="__codelineno-0-72" name="__codelineno-0-72"></a><span class="sd">        print(is_ldoi(non_ldoi))</span>
 <a id="__codelineno-0-73" name="__codelineno-0-73"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-74" name="__codelineno-0-74"></a>
 <a id="__codelineno-0-75" name="__codelineno-0-75"></a><span class="sd">    &quot;&quot;&quot;</span>

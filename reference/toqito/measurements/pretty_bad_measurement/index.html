@@ -8879,15 +8879,20 @@ is the set of POVMs <span class="arithmatex">\((B_1, \ldots, B_n)\)</span> where
     u_1 = -\frac{1}{2}\left(|0\rangle + \sqrt{3}|1\rangle\right), \quad \text{and} \quad
     u_2 = -\frac{1}{2}\left(|0\rangle - \sqrt{3}|1\rangle\right).
 \]</div>
-<p>```python exec="1" source="above" result="text"</p>
-        <p>from toqito.states import trine
-from toqito.measurements import pretty_bad_measurement</p>
-<p>states = trine()
-probs = [1 / 3, 1 / 3, 1 / 3]
-pbm = pretty_bad_measurement(states, probs)
-print(pbm)
-    ```</p>
-<p><strong>References</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.states</span><span class="w"> </span><span class="kn">import</span> <span class="n">trine</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.measurements</span><span class="w"> </span><span class="kn">import</span> <span class="n">pretty_bad_measurement</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">states</span> <span class="o">=</span> <span class="n">trine</span><span class="p">()</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="n">probs</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span> <span class="o">/</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span> <span class="o">/</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span> <span class="o">/</span> <span class="mi">3</span><span class="p">]</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="n">pbm</span> <span class="o">=</span> <span class="n">pretty_bad_measurement</span><span class="p">(</span><span class="n">states</span><span class="p">,</span> <span class="n">probs</span><span class="p">)</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="nb">print</span><span class="p">(</span><span class="n">pbm</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>[array([[0.16666667, 0.        ],
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>       [0.        , 0.5       ]]), array([[ 0.41666667, -0.14433757],
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>       [-0.14433757,  0.25      ]]), array([[0.41666667, 0.14433757],
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>       [0.14433757, 0.25      ]])]
+</code></pre></div>
+        <p><strong>References</strong></p>
 <p><span id="ref-toqito-measurements-pretty_bad_measurement-pretty_bad_measurement-1"><sup><a href="#cite-toqito-measurements-pretty_bad_measurement-pretty_bad_measurement-1">1</a></sup> McIrvin, Caleb and Mohan, Ankith and Sikora, Jamie. <em>The pretty bad measurement</em>. (2024).</span></p>
 
 
@@ -9006,13 +9011,13 @@ print(pbm)
 <a id="__codelineno-0-49" name="__codelineno-0-49"></a><span class="sd">        \]</span>
 <a id="__codelineno-0-50" name="__codelineno-0-50"></a>
 <a id="__codelineno-0-51" name="__codelineno-0-51"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;</span>
-<a id="__codelineno-0-52" name="__codelineno-0-52"></a><span class="sd">    from toqito.states import trine</span>
-<a id="__codelineno-0-53" name="__codelineno-0-53"></a><span class="sd">    from toqito.measurements import pretty_bad_measurement</span>
+<a id="__codelineno-0-52" name="__codelineno-0-52"></a><span class="sd">        from toqito.states import trine</span>
+<a id="__codelineno-0-53" name="__codelineno-0-53"></a><span class="sd">        from toqito.measurements import pretty_bad_measurement</span>
 <a id="__codelineno-0-54" name="__codelineno-0-54"></a>
-<a id="__codelineno-0-55" name="__codelineno-0-55"></a><span class="sd">    states = trine()</span>
-<a id="__codelineno-0-56" name="__codelineno-0-56"></a><span class="sd">    probs = [1 / 3, 1 / 3, 1 / 3]</span>
-<a id="__codelineno-0-57" name="__codelineno-0-57"></a><span class="sd">    pbm = pretty_bad_measurement(states, probs)</span>
-<a id="__codelineno-0-58" name="__codelineno-0-58"></a><span class="sd">    print(pbm)</span>
+<a id="__codelineno-0-55" name="__codelineno-0-55"></a><span class="sd">        states = trine()</span>
+<a id="__codelineno-0-56" name="__codelineno-0-56"></a><span class="sd">        probs = [1 / 3, 1 / 3, 1 / 3]</span>
+<a id="__codelineno-0-57" name="__codelineno-0-57"></a><span class="sd">        pbm = pretty_bad_measurement(states, probs)</span>
+<a id="__codelineno-0-58" name="__codelineno-0-58"></a><span class="sd">        print(pbm)</span>
 <a id="__codelineno-0-59" name="__codelineno-0-59"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-60" name="__codelineno-0-60"></a>
 <a id="__codelineno-0-61" name="__codelineno-0-61"></a><span class="sd">    &quot;&quot;&quot;</span>

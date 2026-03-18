@@ -7682,23 +7682,6 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label=" l1_norm_coherence">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#toqito.state_props.l1_norm_coherence.l1_norm_coherence--maximally-coherent-state" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Maximally coherent state.
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
     </ul>
@@ -8741,23 +8724,6 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label=" l1_norm_coherence">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#toqito.state_props.l1_norm_coherence.l1_norm_coherence--maximally-coherent-state" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Maximally coherent state.
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
     </ul>
@@ -8868,14 +8834,15 @@ matrix <code>rho</code> in the standard basis.</p>
 <span class="arithmatex">\(d\)</span>-dimensional states is <span class="arithmatex">\(d-1\)</span>, and is attained exactly by
 the "maximally coherent states": pure states whose entries all have the
 same absolute value.</p>
-<p>```python exec="1" source="above" result="text"</p>
-        <p>from toqito.state_props import l1_norm_coherence
-import numpy as np</p>
-<h3 id="toqito.state_props.l1_norm_coherence.l1_norm_coherence--maximally-coherent-state">Maximally coherent state.<a class="headerlink" href="#toqito.state_props.l1_norm_coherence.l1_norm_coherence--maximally-coherent-state" title="Permanent link">&para;</a></h3>
-<p>v = np.ones((3,1))/np.sqrt(3)
-print(l1_norm_coherence(v))
-    ```</p>
-<p><strong>References</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.state_props</span><span class="w"> </span><span class="kn">import</span> <span class="n">l1_norm_coherence</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="c1"># Maximally coherent state.</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">v</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">l1_norm_coherence</span><span class="p">(</span><span class="n">v</span><span class="p">))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>2.000000000000001
+</code></pre></div>
+        <p><strong>References</strong></p>
 <p><span id="ref-toqito-state_props-l1_norm_coherence-l1_norm_coherence-1"><sup><a href="#cite-toqito-state_props-l1_norm_coherence-l1_norm_coherence-1">1</a></sup> Rana, Swapan and Parashar, Preeti and Winter, Andreas and Lewenstein, Maciej. <em>Logarithmic coherence: Operational interpretation of <span class="arithmatex">\({\ensuremath{ \ell}}_{1}\)</span>-norm coherence</em>. <strong>Phys. Rev. A</strong>. vol. 96. (2017). <a href="https://doi.org/10.1103/PhysRevA.96.052336">doi:10.1103/PhysRevA.96.052336</a>.</span></p>
 
 
@@ -8954,11 +8921,11 @@ print(l1_norm_coherence(v))
 <a id="__codelineno-0-37" name="__codelineno-0-37"></a><span class="sd">        same absolute value.</span>
 <a id="__codelineno-0-38" name="__codelineno-0-38"></a>
 <a id="__codelineno-0-39" name="__codelineno-0-39"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;</span>
-<a id="__codelineno-0-40" name="__codelineno-0-40"></a><span class="sd">    from toqito.state_props import l1_norm_coherence</span>
-<a id="__codelineno-0-41" name="__codelineno-0-41"></a><span class="sd">    import numpy as np</span>
-<a id="__codelineno-0-42" name="__codelineno-0-42"></a><span class="sd">    # Maximally coherent state.</span>
-<a id="__codelineno-0-43" name="__codelineno-0-43"></a><span class="sd">    v = np.ones((3,1))/np.sqrt(3)</span>
-<a id="__codelineno-0-44" name="__codelineno-0-44"></a><span class="sd">    print(l1_norm_coherence(v))</span>
+<a id="__codelineno-0-40" name="__codelineno-0-40"></a><span class="sd">        from toqito.state_props import l1_norm_coherence</span>
+<a id="__codelineno-0-41" name="__codelineno-0-41"></a><span class="sd">        import numpy as np</span>
+<a id="__codelineno-0-42" name="__codelineno-0-42"></a><span class="sd">        # Maximally coherent state.</span>
+<a id="__codelineno-0-43" name="__codelineno-0-43"></a><span class="sd">        v = np.ones((3,1))/np.sqrt(3)</span>
+<a id="__codelineno-0-44" name="__codelineno-0-44"></a><span class="sd">        print(l1_norm_coherence(v))</span>
 <a id="__codelineno-0-45" name="__codelineno-0-45"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-46" name="__codelineno-0-46"></a>
 <a id="__codelineno-0-47" name="__codelineno-0-47"></a><span class="sd">    &quot;&quot;&quot;</span>

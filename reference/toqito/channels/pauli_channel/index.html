@@ -8883,21 +8883,27 @@ qubits. The probabilities correspond to Pauli operators in lexographical order o
 
 <p><span class="doc-section-title">Examples:</span></p>
     <p>Generate a random single-qubit Pauli channel:</p>
-<p>```python exec="1" source="above" result="text"</p>
-        <p>from toqito.channels import pauli_channel</p>
-<p>print(pauli_channel(prob=1))
-    ```</p>
-<div class="highlight"><pre><span></span><code>Apply a specific two-qubit Pauli channel to an input matrix:
-
-```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.channels</span><span class="w"> </span><span class="kn">import</span> <span class="n">pauli_channel</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">pauli_channel</span><span class="p">(</span><span class="n">prob</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
 </code></pre></div>
-<p>import numpy as np
-from toqito.channels import pauli_channel</p>
-<p>_, output = pauli_channel(
-    prob=np.array([0.1, 0.2, 0.3, 0.4]), input_mat=np.eye(2)
-)
-print(output)
-    ```</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>[[ 0.46756239+0.j  0.        +0.j  0.        +0.j -0.36502853+0.j]
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a> [ 0.        +0.j  0.53243761+0.j  0.23841668+0.j  0.        +0.j]
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a> [ 0.        +0.j  0.23841668+0.j  0.53243761+0.j  0.        +0.j]
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a> [-0.36502853+0.j  0.        +0.j  0.        +0.j  0.46756239+0.j]]
+</code></pre></div>
+<p>Apply a specific two-qubit Pauli channel to an input matrix:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.channels</span><span class="w"> </span><span class="kn">import</span> <span class="n">pauli_channel</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">_</span><span class="p">,</span> <span class="n">output</span> <span class="o">=</span> <span class="n">pauli_channel</span><span class="p">(</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="n">prob</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">]),</span> <span class="n">input_mat</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="p">)</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="nb">print</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>[[1.+0.j 0.+0.j]
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a> [0.+0.j 1.+0.j]]
+</code></pre></div>
 
 
             <details class="mkdocstrings-source">
@@ -9039,21 +9045,21 @@ print(output)
 <a id="__codelineno-0-53" name="__codelineno-0-53"></a><span class="sd">        Generate a random single-qubit Pauli channel:</span>
 <a id="__codelineno-0-54" name="__codelineno-0-54"></a>
 <a id="__codelineno-0-55" name="__codelineno-0-55"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;</span>
-<a id="__codelineno-0-56" name="__codelineno-0-56"></a><span class="sd">    from toqito.channels import pauli_channel</span>
+<a id="__codelineno-0-56" name="__codelineno-0-56"></a><span class="sd">        from toqito.channels import pauli_channel</span>
 <a id="__codelineno-0-57" name="__codelineno-0-57"></a>
-<a id="__codelineno-0-58" name="__codelineno-0-58"></a><span class="sd">    print(pauli_channel(prob=1))</span>
+<a id="__codelineno-0-58" name="__codelineno-0-58"></a><span class="sd">        print(pauli_channel(prob=1))</span>
 <a id="__codelineno-0-59" name="__codelineno-0-59"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-60" name="__codelineno-0-60"></a>
 <a id="__codelineno-0-61" name="__codelineno-0-61"></a><span class="sd">        Apply a specific two-qubit Pauli channel to an input matrix:</span>
 <a id="__codelineno-0-62" name="__codelineno-0-62"></a>
 <a id="__codelineno-0-63" name="__codelineno-0-63"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;</span>
-<a id="__codelineno-0-64" name="__codelineno-0-64"></a><span class="sd">    import numpy as np</span>
-<a id="__codelineno-0-65" name="__codelineno-0-65"></a><span class="sd">    from toqito.channels import pauli_channel</span>
+<a id="__codelineno-0-64" name="__codelineno-0-64"></a><span class="sd">        import numpy as np</span>
+<a id="__codelineno-0-65" name="__codelineno-0-65"></a><span class="sd">        from toqito.channels import pauli_channel</span>
 <a id="__codelineno-0-66" name="__codelineno-0-66"></a>
-<a id="__codelineno-0-67" name="__codelineno-0-67"></a><span class="sd">    _, output = pauli_channel(</span>
+<a id="__codelineno-0-67" name="__codelineno-0-67"></a><span class="sd">        _, output = pauli_channel(</span>
 <a id="__codelineno-0-68" name="__codelineno-0-68"></a><span class="sd">        prob=np.array([0.1, 0.2, 0.3, 0.4]), input_mat=np.eye(2)</span>
-<a id="__codelineno-0-69" name="__codelineno-0-69"></a><span class="sd">    )</span>
-<a id="__codelineno-0-70" name="__codelineno-0-70"></a><span class="sd">    print(output)</span>
+<a id="__codelineno-0-69" name="__codelineno-0-69"></a><span class="sd">        )</span>
+<a id="__codelineno-0-70" name="__codelineno-0-70"></a><span class="sd">        print(output)</span>
 <a id="__codelineno-0-71" name="__codelineno-0-71"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-72" name="__codelineno-0-72"></a>
 <a id="__codelineno-0-73" name="__codelineno-0-73"></a><span class="sd">    &quot;&quot;&quot;</span>

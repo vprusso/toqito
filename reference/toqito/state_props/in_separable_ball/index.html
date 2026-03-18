@@ -8831,30 +8831,30 @@ other.</p>
 <p>The following is an example of generating a random density matrix with eigenvalues
 <code>[1, 1, 1, 0]/3</code>. This example yields a matrix that is contained within the separable
 ball.</p>
-<p>```python exec="1" source="above" result="text"</p>
-        <p>from toqito.rand import random_unitary
-from toqito.state_props import in_separable_ball
-import numpy as np
-U = random_unitary(4)
-lam = np.array([1, 1, 1, 0]) / 3
-rho = U @ np.diag(lam) @ U.conj().T
-print(in_separable_ball(rho))
-    ```</p>
-<div class="highlight"><pre><span></span><code>The following is an example of generating a random density matrix with eigenvalues
-`[1.01, 1, 0.99, 0]/3`. This example yields a matrix that is not contained within the
-separable ball.
-
-```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.rand</span><span class="w"> </span><span class="kn">import</span> <span class="n">random_unitary</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.state_props</span><span class="w"> </span><span class="kn">import</span> <span class="n">in_separable_ball</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">U</span> <span class="o">=</span> <span class="n">random_unitary</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="n">lam</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span> <span class="o">/</span> <span class="mi">3</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="n">rho</span> <span class="o">=</span> <span class="n">U</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">lam</span><span class="p">)</span> <span class="o">@</span> <span class="n">U</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="nb">print</span><span class="p">(</span><span class="n">in_separable_ball</span><span class="p">(</span><span class="n">rho</span><span class="p">))</span>
 </code></pre></div>
-<p>from toqito.rand import random_unitary
-from toqito.state_props import in_separable_ball
-import numpy as np
-U = random_unitary(4)
-lam = np.array([1.01, 1, 0.99, 0]) / 3
-rho = U @ np.diag(lam) @ U.conj().T
-print(in_separable_ball(rho))
-    ```</p>
-<p><strong>References</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>True
+</code></pre></div>
+<p>The following is an example of generating a random density matrix with eigenvalues
+<code>[1.01, 1, 0.99, 0]/3</code>. This example yields a matrix that is not contained within the
+separable ball.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.rand</span><span class="w"> </span><span class="kn">import</span> <span class="n">random_unitary</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.state_props</span><span class="w"> </span><span class="kn">import</span> <span class="n">in_separable_ball</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">U</span> <span class="o">=</span> <span class="n">random_unitary</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="n">lam</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.01</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">0.99</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span> <span class="o">/</span> <span class="mi">3</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="n">rho</span> <span class="o">=</span> <span class="n">U</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">lam</span><span class="p">)</span> <span class="o">@</span> <span class="n">U</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="nb">print</span><span class="p">(</span><span class="n">in_separable_ball</span><span class="p">(</span><span class="n">rho</span><span class="p">))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>False
+</code></pre></div>
+        <p><strong>References</strong></p>
 <p><span id="ref-toqito-state_props-in_separable_ball-in_separable_ball-1"><sup><a href="#cite-toqito-state_props-in_separable_ball-in_separable_ball-1">1</a></sup> Gurvits, Leonid and Barnum, Howard. <em>Largest separable balls around the maximally mixed bipartite quantum state</em>. <strong>Physical Review A</strong>. vol. 66(6). (2002). <a href="https://doi.org/10.1103/physreva.66.062311">doi:10.1103/physreva.66.062311</a>.</span></p>
 
 
@@ -8959,13 +8959,13 @@ print(in_separable_ball(rho))
 <a id="__codelineno-0-31" name="__codelineno-0-31"></a><span class="sd">        ball.</span>
 <a id="__codelineno-0-32" name="__codelineno-0-32"></a>
 <a id="__codelineno-0-33" name="__codelineno-0-33"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;</span>
-<a id="__codelineno-0-34" name="__codelineno-0-34"></a><span class="sd">    from toqito.rand import random_unitary</span>
-<a id="__codelineno-0-35" name="__codelineno-0-35"></a><span class="sd">    from toqito.state_props import in_separable_ball</span>
-<a id="__codelineno-0-36" name="__codelineno-0-36"></a><span class="sd">    import numpy as np</span>
-<a id="__codelineno-0-37" name="__codelineno-0-37"></a><span class="sd">    U = random_unitary(4)</span>
-<a id="__codelineno-0-38" name="__codelineno-0-38"></a><span class="sd">    lam = np.array([1, 1, 1, 0]) / 3</span>
-<a id="__codelineno-0-39" name="__codelineno-0-39"></a><span class="sd">    rho = U @ np.diag(lam) @ U.conj().T</span>
-<a id="__codelineno-0-40" name="__codelineno-0-40"></a><span class="sd">    print(in_separable_ball(rho))</span>
+<a id="__codelineno-0-34" name="__codelineno-0-34"></a><span class="sd">        from toqito.rand import random_unitary</span>
+<a id="__codelineno-0-35" name="__codelineno-0-35"></a><span class="sd">        from toqito.state_props import in_separable_ball</span>
+<a id="__codelineno-0-36" name="__codelineno-0-36"></a><span class="sd">        import numpy as np</span>
+<a id="__codelineno-0-37" name="__codelineno-0-37"></a><span class="sd">        U = random_unitary(4)</span>
+<a id="__codelineno-0-38" name="__codelineno-0-38"></a><span class="sd">        lam = np.array([1, 1, 1, 0]) / 3</span>
+<a id="__codelineno-0-39" name="__codelineno-0-39"></a><span class="sd">        rho = U @ np.diag(lam) @ U.conj().T</span>
+<a id="__codelineno-0-40" name="__codelineno-0-40"></a><span class="sd">        print(in_separable_ball(rho))</span>
 <a id="__codelineno-0-41" name="__codelineno-0-41"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-42" name="__codelineno-0-42"></a>
 <a id="__codelineno-0-43" name="__codelineno-0-43"></a><span class="sd">        The following is an example of generating a random density matrix with eigenvalues</span>
@@ -8973,13 +8973,13 @@ print(in_separable_ball(rho))
 <a id="__codelineno-0-45" name="__codelineno-0-45"></a><span class="sd">        separable ball.</span>
 <a id="__codelineno-0-46" name="__codelineno-0-46"></a>
 <a id="__codelineno-0-47" name="__codelineno-0-47"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;</span>
-<a id="__codelineno-0-48" name="__codelineno-0-48"></a><span class="sd">    from toqito.rand import random_unitary</span>
-<a id="__codelineno-0-49" name="__codelineno-0-49"></a><span class="sd">    from toqito.state_props import in_separable_ball</span>
-<a id="__codelineno-0-50" name="__codelineno-0-50"></a><span class="sd">    import numpy as np</span>
-<a id="__codelineno-0-51" name="__codelineno-0-51"></a><span class="sd">    U = random_unitary(4)</span>
-<a id="__codelineno-0-52" name="__codelineno-0-52"></a><span class="sd">    lam = np.array([1.01, 1, 0.99, 0]) / 3</span>
-<a id="__codelineno-0-53" name="__codelineno-0-53"></a><span class="sd">    rho = U @ np.diag(lam) @ U.conj().T</span>
-<a id="__codelineno-0-54" name="__codelineno-0-54"></a><span class="sd">    print(in_separable_ball(rho))</span>
+<a id="__codelineno-0-48" name="__codelineno-0-48"></a><span class="sd">        from toqito.rand import random_unitary</span>
+<a id="__codelineno-0-49" name="__codelineno-0-49"></a><span class="sd">        from toqito.state_props import in_separable_ball</span>
+<a id="__codelineno-0-50" name="__codelineno-0-50"></a><span class="sd">        import numpy as np</span>
+<a id="__codelineno-0-51" name="__codelineno-0-51"></a><span class="sd">        U = random_unitary(4)</span>
+<a id="__codelineno-0-52" name="__codelineno-0-52"></a><span class="sd">        lam = np.array([1.01, 1, 0.99, 0]) / 3</span>
+<a id="__codelineno-0-53" name="__codelineno-0-53"></a><span class="sd">        rho = U @ np.diag(lam) @ U.conj().T</span>
+<a id="__codelineno-0-54" name="__codelineno-0-54"></a><span class="sd">        print(in_separable_ball(rho))</span>
 <a id="__codelineno-0-55" name="__codelineno-0-55"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-56" name="__codelineno-0-56"></a>
 <a id="__codelineno-0-57" name="__codelineno-0-57"></a><span class="sd">    &quot;&quot;&quot;</span>

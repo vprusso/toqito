@@ -8859,33 +8859,33 @@ is mutually unbiased with <span class="arithmatex">\(\mathcal{B}_x^{\prime}\)</s
         \end{aligned}
     \end{equation}
 \]</div>
-<p>```python exec="1" source="above" result="text"</p>
-        <p>import numpy as np
-from toqito.states import basis
-from toqito.state_props import is_mutually_unbiased_basis
-e_0, e_1 = basis(2, 0), basis(2, 1)
-mub_1 = [e_0, e_1]
-mub_2 = [1 / np.sqrt(2) * (e_0 + e_1), 1 / np.sqrt(2) * (e_0 - e_1)]
-mub_3 = [1 / np.sqrt(2) * (e_0 + 1j * e_1), 1 / np.sqrt(2) * (e_0 - 1j * e_1)]
-nested_mubs = [mub_1, mub_2, mub_3]
-mubs = sum(nested_mubs, [])
-print(is_mutually_unbiased_basis(mubs))
-    ```</p>
-<div class="highlight"><pre><span></span><code>Non-MUB of dimension \(2\).
-
-```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.states</span><span class="w"> </span><span class="kn">import</span> <span class="n">basis</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.state_props</span><span class="w"> </span><span class="kn">import</span> <span class="n">is_mutually_unbiased_basis</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">e_0</span><span class="p">,</span> <span class="n">e_1</span> <span class="o">=</span> <span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="n">mub_1</span> <span class="o">=</span> <span class="p">[</span><span class="n">e_0</span><span class="p">,</span> <span class="n">e_1</span><span class="p">]</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="n">mub_2</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">e_0</span> <span class="o">+</span> <span class="n">e_1</span><span class="p">),</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">e_0</span> <span class="o">-</span> <span class="n">e_1</span><span class="p">)]</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="n">mub_3</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">e_0</span> <span class="o">+</span> <span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="n">e_1</span><span class="p">),</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">e_0</span> <span class="o">-</span> <span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="n">e_1</span><span class="p">)]</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="n">nested_mubs</span> <span class="o">=</span> <span class="p">[</span><span class="n">mub_1</span><span class="p">,</span> <span class="n">mub_2</span><span class="p">,</span> <span class="n">mub_3</span><span class="p">]</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="n">mubs</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">nested_mubs</span><span class="p">,</span> <span class="p">[])</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="nb">print</span><span class="p">(</span><span class="n">is_mutually_unbiased_basis</span><span class="p">(</span><span class="n">mubs</span><span class="p">))</span>
 </code></pre></div>
-<p>import numpy as np
-from toqito.states import basis
-from toqito.state_props import is_mutually_unbiased_basis
-e_0, e_1 = basis(2, 0), basis(2, 1)
-mub_1 = [e_0, e_1]
-mub_2 = [1 / np.sqrt(2) * (e_0 + e_1), e_1]
-mub_3 = [1 / np.sqrt(2) * (e_0 + 1j * e_1), e_0]
-mubs = [mub_1, mub_2, mub_3]
-print(is_mutually_unbiased_basis(mubs))
-    ```</p>
-<p><strong>References</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>True
+</code></pre></div>
+<p>Non-MUB of dimension <span class="arithmatex">\(2\)</span>.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.states</span><span class="w"> </span><span class="kn">import</span> <span class="n">basis</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.state_props</span><span class="w"> </span><span class="kn">import</span> <span class="n">is_mutually_unbiased_basis</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">e_0</span><span class="p">,</span> <span class="n">e_1</span> <span class="o">=</span> <span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="n">mub_1</span> <span class="o">=</span> <span class="p">[</span><span class="n">e_0</span><span class="p">,</span> <span class="n">e_1</span><span class="p">]</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="n">mub_2</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">e_0</span> <span class="o">+</span> <span class="n">e_1</span><span class="p">),</span> <span class="n">e_1</span><span class="p">]</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="n">mub_3</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">e_0</span> <span class="o">+</span> <span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="n">e_1</span><span class="p">),</span> <span class="n">e_0</span><span class="p">]</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="n">mubs</span> <span class="o">=</span> <span class="p">[</span><span class="n">mub_1</span><span class="p">,</span> <span class="n">mub_2</span><span class="p">,</span> <span class="n">mub_3</span><span class="p">]</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="nb">print</span><span class="p">(</span><span class="n">is_mutually_unbiased_basis</span><span class="p">(</span><span class="n">mubs</span><span class="p">))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>False
+</code></pre></div>
+        <p><strong>References</strong></p>
 <p><span id="ref-toqito-state_props-is_mutually_unbiased_basis-is_mutually_unbiased_basis-1"><sup><a href="#cite-toqito-state_props-is_mutually_unbiased_basis-is_mutually_unbiased_basis-1">1</a></sup> Wikipedia. <em>Mutually unbiased bases</em>. <a href="https://en.wikipedia.org/wiki/Mutually_unbiased_bases">link</a>.</span></p>
 
 
@@ -9035,30 +9035,30 @@ print(is_mutually_unbiased_basis(mubs))
 <a id="__codelineno-0-54" name="__codelineno-0-54"></a><span class="sd">        \]</span>
 <a id="__codelineno-0-55" name="__codelineno-0-55"></a>
 <a id="__codelineno-0-56" name="__codelineno-0-56"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;</span>
-<a id="__codelineno-0-57" name="__codelineno-0-57"></a><span class="sd">    import numpy as np</span>
-<a id="__codelineno-0-58" name="__codelineno-0-58"></a><span class="sd">    from toqito.states import basis</span>
-<a id="__codelineno-0-59" name="__codelineno-0-59"></a><span class="sd">    from toqito.state_props import is_mutually_unbiased_basis</span>
-<a id="__codelineno-0-60" name="__codelineno-0-60"></a><span class="sd">    e_0, e_1 = basis(2, 0), basis(2, 1)</span>
-<a id="__codelineno-0-61" name="__codelineno-0-61"></a><span class="sd">    mub_1 = [e_0, e_1]</span>
-<a id="__codelineno-0-62" name="__codelineno-0-62"></a><span class="sd">    mub_2 = [1 / np.sqrt(2) * (e_0 + e_1), 1 / np.sqrt(2) * (e_0 - e_1)]</span>
-<a id="__codelineno-0-63" name="__codelineno-0-63"></a><span class="sd">    mub_3 = [1 / np.sqrt(2) * (e_0 + 1j * e_1), 1 / np.sqrt(2) * (e_0 - 1j * e_1)]</span>
-<a id="__codelineno-0-64" name="__codelineno-0-64"></a><span class="sd">    nested_mubs = [mub_1, mub_2, mub_3]</span>
-<a id="__codelineno-0-65" name="__codelineno-0-65"></a><span class="sd">    mubs = sum(nested_mubs, [])</span>
-<a id="__codelineno-0-66" name="__codelineno-0-66"></a><span class="sd">    print(is_mutually_unbiased_basis(mubs))</span>
+<a id="__codelineno-0-57" name="__codelineno-0-57"></a><span class="sd">        import numpy as np</span>
+<a id="__codelineno-0-58" name="__codelineno-0-58"></a><span class="sd">        from toqito.states import basis</span>
+<a id="__codelineno-0-59" name="__codelineno-0-59"></a><span class="sd">        from toqito.state_props import is_mutually_unbiased_basis</span>
+<a id="__codelineno-0-60" name="__codelineno-0-60"></a><span class="sd">        e_0, e_1 = basis(2, 0), basis(2, 1)</span>
+<a id="__codelineno-0-61" name="__codelineno-0-61"></a><span class="sd">        mub_1 = [e_0, e_1]</span>
+<a id="__codelineno-0-62" name="__codelineno-0-62"></a><span class="sd">        mub_2 = [1 / np.sqrt(2) * (e_0 + e_1), 1 / np.sqrt(2) * (e_0 - e_1)]</span>
+<a id="__codelineno-0-63" name="__codelineno-0-63"></a><span class="sd">        mub_3 = [1 / np.sqrt(2) * (e_0 + 1j * e_1), 1 / np.sqrt(2) * (e_0 - 1j * e_1)]</span>
+<a id="__codelineno-0-64" name="__codelineno-0-64"></a><span class="sd">        nested_mubs = [mub_1, mub_2, mub_3]</span>
+<a id="__codelineno-0-65" name="__codelineno-0-65"></a><span class="sd">        mubs = sum(nested_mubs, [])</span>
+<a id="__codelineno-0-66" name="__codelineno-0-66"></a><span class="sd">        print(is_mutually_unbiased_basis(mubs))</span>
 <a id="__codelineno-0-67" name="__codelineno-0-67"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-68" name="__codelineno-0-68"></a>
 <a id="__codelineno-0-69" name="__codelineno-0-69"></a><span class="sd">        Non-MUB of dimension \(2\).</span>
 <a id="__codelineno-0-70" name="__codelineno-0-70"></a>
 <a id="__codelineno-0-71" name="__codelineno-0-71"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;</span>
-<a id="__codelineno-0-72" name="__codelineno-0-72"></a><span class="sd">    import numpy as np</span>
-<a id="__codelineno-0-73" name="__codelineno-0-73"></a><span class="sd">    from toqito.states import basis</span>
-<a id="__codelineno-0-74" name="__codelineno-0-74"></a><span class="sd">    from toqito.state_props import is_mutually_unbiased_basis</span>
-<a id="__codelineno-0-75" name="__codelineno-0-75"></a><span class="sd">    e_0, e_1 = basis(2, 0), basis(2, 1)</span>
-<a id="__codelineno-0-76" name="__codelineno-0-76"></a><span class="sd">    mub_1 = [e_0, e_1]</span>
-<a id="__codelineno-0-77" name="__codelineno-0-77"></a><span class="sd">    mub_2 = [1 / np.sqrt(2) * (e_0 + e_1), e_1]</span>
-<a id="__codelineno-0-78" name="__codelineno-0-78"></a><span class="sd">    mub_3 = [1 / np.sqrt(2) * (e_0 + 1j * e_1), e_0]</span>
-<a id="__codelineno-0-79" name="__codelineno-0-79"></a><span class="sd">    mubs = [mub_1, mub_2, mub_3]</span>
-<a id="__codelineno-0-80" name="__codelineno-0-80"></a><span class="sd">    print(is_mutually_unbiased_basis(mubs))</span>
+<a id="__codelineno-0-72" name="__codelineno-0-72"></a><span class="sd">        import numpy as np</span>
+<a id="__codelineno-0-73" name="__codelineno-0-73"></a><span class="sd">        from toqito.states import basis</span>
+<a id="__codelineno-0-74" name="__codelineno-0-74"></a><span class="sd">        from toqito.state_props import is_mutually_unbiased_basis</span>
+<a id="__codelineno-0-75" name="__codelineno-0-75"></a><span class="sd">        e_0, e_1 = basis(2, 0), basis(2, 1)</span>
+<a id="__codelineno-0-76" name="__codelineno-0-76"></a><span class="sd">        mub_1 = [e_0, e_1]</span>
+<a id="__codelineno-0-77" name="__codelineno-0-77"></a><span class="sd">        mub_2 = [1 / np.sqrt(2) * (e_0 + e_1), e_1]</span>
+<a id="__codelineno-0-78" name="__codelineno-0-78"></a><span class="sd">        mub_3 = [1 / np.sqrt(2) * (e_0 + 1j * e_1), e_0]</span>
+<a id="__codelineno-0-79" name="__codelineno-0-79"></a><span class="sd">        mubs = [mub_1, mub_2, mub_3]</span>
+<a id="__codelineno-0-80" name="__codelineno-0-80"></a><span class="sd">        print(is_mutually_unbiased_basis(mubs))</span>
 <a id="__codelineno-0-81" name="__codelineno-0-81"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-82" name="__codelineno-0-82"></a>
 <a id="__codelineno-0-83" name="__codelineno-0-83"></a><span class="sd">    &quot;&quot;&quot;</span>

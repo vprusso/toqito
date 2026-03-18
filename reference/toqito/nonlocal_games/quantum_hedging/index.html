@@ -5362,17 +5362,6 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#toqito.nonlocal_games.quantum_hedging.QuantumHedging--cospi82-approx-08536" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        cos(pi/8)**2 \approx 0.8536
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#toqito.nonlocal_games.quantum_hedging.QuantumHedging.max_prob_outcome_a_primal" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -8789,17 +8778,6 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#toqito.nonlocal_games.quantum_hedging.QuantumHedging--cospi82-approx-08536" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        cos(pi/8)**2 \approx 0.8536
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#toqito.nonlocal_games.quantum_hedging.QuantumHedging.max_prob_outcome_a_primal" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -8932,91 +8910,111 @@ entangled state:</p>
 \]</div>
 <p>As was illustrated in <sup><a id="cite-toqito-nonlocal_games-quantum_hedging-QuantumHedging-1" href="#ref-toqito-nonlocal_games-quantum_hedging-QuantumHedging-1">1</a></sup>, the hedging value of the above scenario is
 <span class="arithmatex">\(\cos(\pi/8)^2 \approx 0.8536\)</span></p>
-<p>```python exec="1" source="above" result="text"</p>
-        <p>import numpy as np
-from toqito.states import basis
-from numpy import kron, cos, sin, pi, sqrt, isclose
-from toqito.nonlocal_games.quantum_hedging import QuantumHedging</p>
-<p>e_0, e_1 = basis(2, 0), basis(2, 1)
-e_00, e_01 = kron(e_0, e_0), kron(e_0, e_1)
-e_10, e_11 = kron(e_1, e_0), kron(e_1, e_1)</p>
-<p>alpha = 1 / sqrt(2)
-theta = pi / 8
-w_var = alpha * cos(theta) * e_00 + sqrt(1 - alpha ** 2) * sin(theta) * e_11</p>
-<p>l_1 = -alpha * sin(theta) * e_00 + sqrt(1 - alpha ** 2) * cos(theta) * e_11
-l_2 = alpha * sin(theta) * e_10
-l_3 = sqrt(1 - alpha ** 2) * cos(theta) * e_01</p>
-<p>q_1 = w_var @ w_var.conj().T
-q_0 = l_1 @ l_1.conj().T + l_2 @ l_2.conj().T + l_3 @ l_3.conj().T</p>
-<p>molina_watrous = QuantumHedging(q_0, 1)</p>
-<h3 id="toqito.nonlocal_games.quantum_hedging.QuantumHedging--cospi82-approx-08536">cos(pi/8)**2 \approx 0.8536<a class="headerlink" href="#toqito.nonlocal_games.quantum_hedging.QuantumHedging--cospi82-approx-08536" title="Permanent link">&para;</a></h3>
-<p>print(np.around(molina_watrous.max_prob_outcome_a_primal(), decimals=2))
-    ```</p>
-<div class="highlight"><pre><span></span><code>This example demonstrates strong duality with matching primal and dual values, as can be seen below:
-
-```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.states</span><span class="w"> </span><span class="kn">import</span> <span class="n">basis</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="kn">import</span> <span class="n">kron</span><span class="p">,</span> <span class="n">cos</span><span class="p">,</span> <span class="n">sin</span><span class="p">,</span> <span class="n">pi</span><span class="p">,</span> <span class="n">sqrt</span><span class="p">,</span> <span class="n">isclose</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.nonlocal_games.quantum_hedging</span><span class="w"> </span><span class="kn">import</span> <span class="n">QuantumHedging</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="n">e_0</span><span class="p">,</span> <span class="n">e_1</span> <span class="o">=</span> <span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="n">e_00</span><span class="p">,</span> <span class="n">e_01</span> <span class="o">=</span> <span class="n">kron</span><span class="p">(</span><span class="n">e_0</span><span class="p">,</span> <span class="n">e_0</span><span class="p">),</span> <span class="n">kron</span><span class="p">(</span><span class="n">e_0</span><span class="p">,</span> <span class="n">e_1</span><span class="p">)</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="n">e_10</span><span class="p">,</span> <span class="n">e_11</span> <span class="o">=</span> <span class="n">kron</span><span class="p">(</span><span class="n">e_1</span><span class="p">,</span> <span class="n">e_0</span><span class="p">),</span> <span class="n">kron</span><span class="p">(</span><span class="n">e_1</span><span class="p">,</span> <span class="n">e_1</span><span class="p">)</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="n">alpha</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="n">theta</span> <span class="o">=</span> <span class="n">pi</span> <span class="o">/</span> <span class="mi">8</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="n">w_var</span> <span class="o">=</span> <span class="n">alpha</span> <span class="o">*</span> <span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span> <span class="o">*</span> <span class="n">e_00</span> <span class="o">+</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">alpha</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span> <span class="o">*</span> <span class="n">e_11</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="n">l_1</span> <span class="o">=</span> <span class="o">-</span><span class="n">alpha</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span> <span class="o">*</span> <span class="n">e_00</span> <span class="o">+</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">alpha</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span> <span class="o">*</span> <span class="n">e_11</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="n">l_2</span> <span class="o">=</span> <span class="n">alpha</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span> <span class="o">*</span> <span class="n">e_10</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="n">l_3</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">alpha</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span> <span class="o">*</span> <span class="n">e_01</span>
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="n">q_1</span> <span class="o">=</span> <span class="n">w_var</span> <span class="o">@</span> <span class="n">w_var</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span>
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="n">q_0</span> <span class="o">=</span> <span class="n">l_1</span> <span class="o">@</span> <span class="n">l_1</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span> <span class="o">+</span> <span class="n">l_2</span> <span class="o">@</span> <span class="n">l_2</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span> <span class="o">+</span> <span class="n">l_3</span> <span class="o">@</span> <span class="n">l_3</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span>
+<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>
+<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a><span class="n">molina_watrous</span> <span class="o">=</span> <span class="n">QuantumHedging</span><span class="p">(</span><span class="n">q_0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>
+<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a><span class="c1"># cos(pi/8)**2 \approx 0.8536</span>
+<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a><span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">around</span><span class="p">(</span><span class="n">molina_watrous</span><span class="o">.</span><span class="n">max_prob_outcome_a_primal</span><span class="p">(),</span> <span class="n">decimals</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
 </code></pre></div>
-<p>import numpy as np
-from toqito.states import basis
-from numpy import kron, cos, sin, pi, sqrt, isclose
-from toqito.nonlocal_games.quantum_hedging import QuantumHedging</p>
-<p>e_0, e_1 = basis(2, 0), basis(2, 1)
-e_00, e_01 = kron(e_0, e_0), kron(e_0, e_1)
-e_10, e_11 = kron(e_1, e_0), kron(e_1, e_1)</p>
-<p>alpha = 1 / sqrt(2)
-theta = pi / 8
-w_var = alpha * cos(theta) * e_00 + sqrt(1 - alpha ** 2) * sin(theta) * e_11</p>
-<p>l_1 = -alpha * sin(theta) * e_00 + sqrt(1 - alpha ** 2) * cos(theta) * e_11
-l_2 = alpha * sin(theta) * e_10
-l_3 = sqrt(1 - alpha ** 2) * cos(theta) * e_01</p>
-<p>q_1 = w_var @ w_var.conj().T
-q_0 = l_1 @ l_1.conj().T + l_2 @ l_2.conj().T + l_3 @ l_3.conj().T</p>
-<p>molina_watrous = QuantumHedging(q_0, 1)
-print(np.around(molina_watrous.max_prob_outcome_a_dual(), decimals=2))
-    ```</p>
-<div class="highlight"><pre><span></span><code>and
-
-```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>0.85
 </code></pre></div>
-<p>import numpy as np
-from toqito.states import basis
-from numpy import kron, cos, sin, pi, sqrt, isclose
-from toqito.nonlocal_games.quantum_hedging import QuantumHedging</p>
-<p>e_0, e_1 = basis(2, 0), basis(2, 1)
-e_00, e_01 = kron(e_0, e_0), kron(e_0, e_1)
-e_10, e_11 = kron(e_1, e_0), kron(e_1, e_1)</p>
-<p>alpha = 1 / sqrt(2)
-theta = pi / 8
-w_var = alpha * cos(theta) * e_00 + sqrt(1 - alpha ** 2) * sin(theta) * e_11</p>
-<p>l_1 = -alpha * sin(theta) * e_00 + sqrt(1 - alpha ** 2) * cos(theta) * e_11
-l_2 = alpha * sin(theta) * e_10
-l_3 = sqrt(1 - alpha ** 2) * cos(theta) * e_01</p>
-<p>q_1 = w_var @ w_var.conj().T
-q_0 = l_1 @ l_1.conj().T + l_2 @ l_2.conj().T + l_3 @ l_3.conj().T</p>
-<p>molina_watrous = QuantumHedging(q_0, 1)
-print(np.around(molina_watrous.min_prob_outcome_a_primal(), decimals=2))
-    ```</p>
-<div class="highlight"><pre><span></span><code>```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;
+<p>This example demonstrates strong duality with matching primal and dual values, as can be seen below:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.states</span><span class="w"> </span><span class="kn">import</span> <span class="n">basis</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="kn">import</span> <span class="n">kron</span><span class="p">,</span> <span class="n">cos</span><span class="p">,</span> <span class="n">sin</span><span class="p">,</span> <span class="n">pi</span><span class="p">,</span> <span class="n">sqrt</span><span class="p">,</span> <span class="n">isclose</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.nonlocal_games.quantum_hedging</span><span class="w"> </span><span class="kn">import</span> <span class="n">QuantumHedging</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="n">e_0</span><span class="p">,</span> <span class="n">e_1</span> <span class="o">=</span> <span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="n">e_00</span><span class="p">,</span> <span class="n">e_01</span> <span class="o">=</span> <span class="n">kron</span><span class="p">(</span><span class="n">e_0</span><span class="p">,</span> <span class="n">e_0</span><span class="p">),</span> <span class="n">kron</span><span class="p">(</span><span class="n">e_0</span><span class="p">,</span> <span class="n">e_1</span><span class="p">)</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="n">e_10</span><span class="p">,</span> <span class="n">e_11</span> <span class="o">=</span> <span class="n">kron</span><span class="p">(</span><span class="n">e_1</span><span class="p">,</span> <span class="n">e_0</span><span class="p">),</span> <span class="n">kron</span><span class="p">(</span><span class="n">e_1</span><span class="p">,</span> <span class="n">e_1</span><span class="p">)</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="n">alpha</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="n">theta</span> <span class="o">=</span> <span class="n">pi</span> <span class="o">/</span> <span class="mi">8</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="n">w_var</span> <span class="o">=</span> <span class="n">alpha</span> <span class="o">*</span> <span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span> <span class="o">*</span> <span class="n">e_00</span> <span class="o">+</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">alpha</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span> <span class="o">*</span> <span class="n">e_11</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="n">l_1</span> <span class="o">=</span> <span class="o">-</span><span class="n">alpha</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span> <span class="o">*</span> <span class="n">e_00</span> <span class="o">+</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">alpha</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span> <span class="o">*</span> <span class="n">e_11</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="n">l_2</span> <span class="o">=</span> <span class="n">alpha</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span> <span class="o">*</span> <span class="n">e_10</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="n">l_3</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">alpha</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span> <span class="o">*</span> <span class="n">e_01</span>
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="n">q_1</span> <span class="o">=</span> <span class="n">w_var</span> <span class="o">@</span> <span class="n">w_var</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span>
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="n">q_0</span> <span class="o">=</span> <span class="n">l_1</span> <span class="o">@</span> <span class="n">l_1</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span> <span class="o">+</span> <span class="n">l_2</span> <span class="o">@</span> <span class="n">l_2</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span> <span class="o">+</span> <span class="n">l_3</span> <span class="o">@</span> <span class="n">l_3</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span>
+<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>
+<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a><span class="n">molina_watrous</span> <span class="o">=</span> <span class="n">QuantumHedging</span><span class="p">(</span><span class="n">q_0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a><span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">around</span><span class="p">(</span><span class="n">molina_watrous</span><span class="o">.</span><span class="n">max_prob_outcome_a_dual</span><span class="p">(),</span> <span class="n">decimals</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
 </code></pre></div>
-<p>import numpy as np
-from toqito.states import basis
-from numpy import kron, cos, sin, pi, sqrt, isclose
-from toqito.nonlocal_games.quantum_hedging import QuantumHedging</p>
-<p>e_0, e_1 = basis(2, 0), basis(2, 1)
-e_00, e_01 = kron(e_0, e_0), kron(e_0, e_1)
-e_10, e_11 = kron(e_1, e_0), kron(e_1, e_1)</p>
-<p>alpha = 1 / sqrt(2)
-theta = pi / 8
-w_var = alpha * cos(theta) * e_00 + sqrt(1 - alpha ** 2) * sin(theta) * e_11</p>
-<p>l_1 = -alpha * sin(theta) * e_00 + sqrt(1 - alpha ** 2) * cos(theta) * e_11
-l_2 = alpha * sin(theta) * e_10
-l_3 = sqrt(1 - alpha ** 2) * cos(theta) * e_01</p>
-<p>q_1 = w_var @ w_var.conj().T
-q_0 = l_1 @ l_1.conj().T + l_2 @ l_2.conj().T + l_3 @ l_3.conj().T</p>
-<p>molina_watrous = QuantumHedging(q_0, 1)
-print(np.around(molina_watrous.min_prob_outcome_a_dual(), decimals=2))
-    ```</p>
-<p><strong>References</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>0.85
+</code></pre></div>
+<p>and</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.states</span><span class="w"> </span><span class="kn">import</span> <span class="n">basis</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="kn">import</span> <span class="n">kron</span><span class="p">,</span> <span class="n">cos</span><span class="p">,</span> <span class="n">sin</span><span class="p">,</span> <span class="n">pi</span><span class="p">,</span> <span class="n">sqrt</span><span class="p">,</span> <span class="n">isclose</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.nonlocal_games.quantum_hedging</span><span class="w"> </span><span class="kn">import</span> <span class="n">QuantumHedging</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="n">e_0</span><span class="p">,</span> <span class="n">e_1</span> <span class="o">=</span> <span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="n">e_00</span><span class="p">,</span> <span class="n">e_01</span> <span class="o">=</span> <span class="n">kron</span><span class="p">(</span><span class="n">e_0</span><span class="p">,</span> <span class="n">e_0</span><span class="p">),</span> <span class="n">kron</span><span class="p">(</span><span class="n">e_0</span><span class="p">,</span> <span class="n">e_1</span><span class="p">)</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="n">e_10</span><span class="p">,</span> <span class="n">e_11</span> <span class="o">=</span> <span class="n">kron</span><span class="p">(</span><span class="n">e_1</span><span class="p">,</span> <span class="n">e_0</span><span class="p">),</span> <span class="n">kron</span><span class="p">(</span><span class="n">e_1</span><span class="p">,</span> <span class="n">e_1</span><span class="p">)</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="n">alpha</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="n">theta</span> <span class="o">=</span> <span class="n">pi</span> <span class="o">/</span> <span class="mi">8</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="n">w_var</span> <span class="o">=</span> <span class="n">alpha</span> <span class="o">*</span> <span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span> <span class="o">*</span> <span class="n">e_00</span> <span class="o">+</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">alpha</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span> <span class="o">*</span> <span class="n">e_11</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="n">l_1</span> <span class="o">=</span> <span class="o">-</span><span class="n">alpha</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span> <span class="o">*</span> <span class="n">e_00</span> <span class="o">+</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">alpha</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span> <span class="o">*</span> <span class="n">e_11</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="n">l_2</span> <span class="o">=</span> <span class="n">alpha</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span> <span class="o">*</span> <span class="n">e_10</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="n">l_3</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">alpha</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span> <span class="o">*</span> <span class="n">e_01</span>
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="n">q_1</span> <span class="o">=</span> <span class="n">w_var</span> <span class="o">@</span> <span class="n">w_var</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span>
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="n">q_0</span> <span class="o">=</span> <span class="n">l_1</span> <span class="o">@</span> <span class="n">l_1</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span> <span class="o">+</span> <span class="n">l_2</span> <span class="o">@</span> <span class="n">l_2</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span> <span class="o">+</span> <span class="n">l_3</span> <span class="o">@</span> <span class="n">l_3</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span>
+<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>
+<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a><span class="n">molina_watrous</span> <span class="o">=</span> <span class="n">QuantumHedging</span><span class="p">(</span><span class="n">q_0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a><span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">around</span><span class="p">(</span><span class="n">molina_watrous</span><span class="o">.</span><span class="n">min_prob_outcome_a_primal</span><span class="p">(),</span> <span class="n">decimals</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>0.15
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.states</span><span class="w"> </span><span class="kn">import</span> <span class="n">basis</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="kn">import</span> <span class="n">kron</span><span class="p">,</span> <span class="n">cos</span><span class="p">,</span> <span class="n">sin</span><span class="p">,</span> <span class="n">pi</span><span class="p">,</span> <span class="n">sqrt</span><span class="p">,</span> <span class="n">isclose</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.nonlocal_games.quantum_hedging</span><span class="w"> </span><span class="kn">import</span> <span class="n">QuantumHedging</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="n">e_0</span><span class="p">,</span> <span class="n">e_1</span> <span class="o">=</span> <span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="n">e_00</span><span class="p">,</span> <span class="n">e_01</span> <span class="o">=</span> <span class="n">kron</span><span class="p">(</span><span class="n">e_0</span><span class="p">,</span> <span class="n">e_0</span><span class="p">),</span> <span class="n">kron</span><span class="p">(</span><span class="n">e_0</span><span class="p">,</span> <span class="n">e_1</span><span class="p">)</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="n">e_10</span><span class="p">,</span> <span class="n">e_11</span> <span class="o">=</span> <span class="n">kron</span><span class="p">(</span><span class="n">e_1</span><span class="p">,</span> <span class="n">e_0</span><span class="p">),</span> <span class="n">kron</span><span class="p">(</span><span class="n">e_1</span><span class="p">,</span> <span class="n">e_1</span><span class="p">)</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="n">alpha</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="n">theta</span> <span class="o">=</span> <span class="n">pi</span> <span class="o">/</span> <span class="mi">8</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="n">w_var</span> <span class="o">=</span> <span class="n">alpha</span> <span class="o">*</span> <span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span> <span class="o">*</span> <span class="n">e_00</span> <span class="o">+</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">alpha</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span> <span class="o">*</span> <span class="n">e_11</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="n">l_1</span> <span class="o">=</span> <span class="o">-</span><span class="n">alpha</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span> <span class="o">*</span> <span class="n">e_00</span> <span class="o">+</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">alpha</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span> <span class="o">*</span> <span class="n">e_11</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="n">l_2</span> <span class="o">=</span> <span class="n">alpha</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span> <span class="o">*</span> <span class="n">e_10</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="n">l_3</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">alpha</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span> <span class="o">*</span> <span class="n">e_01</span>
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="n">q_1</span> <span class="o">=</span> <span class="n">w_var</span> <span class="o">@</span> <span class="n">w_var</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span>
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="n">q_0</span> <span class="o">=</span> <span class="n">l_1</span> <span class="o">@</span> <span class="n">l_1</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span> <span class="o">+</span> <span class="n">l_2</span> <span class="o">@</span> <span class="n">l_2</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span> <span class="o">+</span> <span class="n">l_3</span> <span class="o">@</span> <span class="n">l_3</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span>
+<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>
+<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a><span class="n">molina_watrous</span> <span class="o">=</span> <span class="n">QuantumHedging</span><span class="p">(</span><span class="n">q_0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a><span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">around</span><span class="p">(</span><span class="n">molina_watrous</span><span class="o">.</span><span class="n">min_prob_outcome_a_dual</span><span class="p">(),</span> <span class="n">decimals</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>0.15
+</code></pre></div>
+        <p><strong>References</strong></p>
 <p><span id="ref-toqito-nonlocal_games-quantum_hedging-QuantumHedging-1"><sup><a href="#cite-toqito-nonlocal_games-quantum_hedging-QuantumHedging-1">1</a></sup> Molina, Abel and Watrous, John. <em>Hedging bets with correlated quantum strategies</em>. <strong>Proceedings of the Royal Society A: Mathematical, Physical and Engineering Sciences</strong>. vol. 468(2145). (2012). <a href="https://arxiv.org/abs/1104.1140">link</a>.</span></p>
 
         <p>Initialize the variables for semidefinite program.</p>

@@ -8849,30 +8849,31 @@ and <code>dim = 2</code> is given as</p>
                   \end{pmatrix}.
 \]</div>
 <p>This can be obtained in <code>|toqito⟩</code> as follows.</p>
-<p>```python exec="1" source="above" result="text"</p>
-        <p>from toqito.matrices import gen_gell_mann</p>
-<p>print(gen_gell_mann(ind_1=0, ind_2=1, dim=2))
-    ```</p>
-<div class="highlight"><pre><span></span><code>The generalized Gell-Mann matrix `ind_1 = 2`, `ind_2 = 3`, and
-`dim = 4` is given as
-
-\[
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.matrices</span><span class="w"> </span><span class="kn">import</span> <span class="n">gen_gell_mann</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">gen_gell_mann</span><span class="p">(</span><span class="n">ind_1</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ind_2</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>[[0. 1.]
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a> [1. 0.]]
+</code></pre></div>
+<p>The generalized Gell-Mann matrix <code>ind_1 = 2</code>, <code>ind_2 = 3</code>, and
+<code>dim = 4</code> is given as</p>
+<div class="arithmatex">\[
     G_{2, 3, 4} = \begin{pmatrix}
                     0 &amp; 0 &amp; 0 &amp; 0 \\
                     0 &amp; 0 &amp; 0 &amp; 0 \\
                     0 &amp; 0 &amp; 0 &amp; 1 \\
                     0 &amp; 0 &amp; 1 &amp; 0
                   \end{pmatrix}.
-\]
-
-This can be obtained in `|toqito⟩` as follows.
-
-```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;
+\]</div>
+<p>This can be obtained in <code>|toqito⟩</code> as follows.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.matrices</span><span class="w"> </span><span class="kn">import</span> <span class="n">gen_gell_mann</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">gen_gell_mann</span><span class="p">(</span><span class="n">ind_1</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">ind_2</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
 </code></pre></div>
-<p>from toqito.matrices import gen_gell_mann</p>
-<p>gen_gell_mann(ind_1=2, ind_2=3, dim=4)
-    ```</p>
-<p><strong>References</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>
+</code></pre></div>
+        <p><strong>References</strong></p>
 <p><span id="ref-toqito-matrices-gen_gell_mann-gen_gell_mann-1"><sup><a href="#cite-toqito-matrices-gen_gell_mann-gen_gell_mann-1">1</a></sup> Wikipedia. <em>Gell-{M}ann matrices</em>. <a href="https://en.wikipedia.org/wiki/Gell-Mann_matrices">link</a>.</span></p>
 
 
@@ -8985,9 +8986,9 @@ This can be obtained in `|toqito⟩` as follows.
 <a id="__codelineno-0-34" name="__codelineno-0-34"></a><span class="sd">        This can be obtained in `|toqito⟩` as follows.</span>
 <a id="__codelineno-0-35" name="__codelineno-0-35"></a>
 <a id="__codelineno-0-36" name="__codelineno-0-36"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;</span>
-<a id="__codelineno-0-37" name="__codelineno-0-37"></a><span class="sd">    from toqito.matrices import gen_gell_mann</span>
+<a id="__codelineno-0-37" name="__codelineno-0-37"></a><span class="sd">        from toqito.matrices import gen_gell_mann</span>
 <a id="__codelineno-0-38" name="__codelineno-0-38"></a>
-<a id="__codelineno-0-39" name="__codelineno-0-39"></a><span class="sd">    print(gen_gell_mann(ind_1=0, ind_2=1, dim=2))</span>
+<a id="__codelineno-0-39" name="__codelineno-0-39"></a><span class="sd">        print(gen_gell_mann(ind_1=0, ind_2=1, dim=2))</span>
 <a id="__codelineno-0-40" name="__codelineno-0-40"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-41" name="__codelineno-0-41"></a>
 <a id="__codelineno-0-42" name="__codelineno-0-42"></a><span class="sd">        The generalized Gell-Mann matrix `ind_1 = 2`, `ind_2 = 3`, and</span>
@@ -9005,9 +9006,9 @@ This can be obtained in `|toqito⟩` as follows.
 <a id="__codelineno-0-54" name="__codelineno-0-54"></a><span class="sd">        This can be obtained in `|toqito⟩` as follows.</span>
 <a id="__codelineno-0-55" name="__codelineno-0-55"></a>
 <a id="__codelineno-0-56" name="__codelineno-0-56"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;</span>
-<a id="__codelineno-0-57" name="__codelineno-0-57"></a><span class="sd">    from toqito.matrices import gen_gell_mann</span>
+<a id="__codelineno-0-57" name="__codelineno-0-57"></a><span class="sd">        from toqito.matrices import gen_gell_mann</span>
 <a id="__codelineno-0-58" name="__codelineno-0-58"></a>
-<a id="__codelineno-0-59" name="__codelineno-0-59"></a><span class="sd">    gen_gell_mann(ind_1=2, ind_2=3, dim=4)</span>
+<a id="__codelineno-0-59" name="__codelineno-0-59"></a><span class="sd">        gen_gell_mann(ind_1=2, ind_2=3, dim=4)</span>
 <a id="__codelineno-0-60" name="__codelineno-0-60"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-61" name="__codelineno-0-61"></a>
 <a id="__codelineno-0-62" name="__codelineno-0-62"></a><span class="sd">    &quot;&quot;&quot;</span>

@@ -8903,20 +8903,24 @@ yield the following matrix</p>
         13 &amp; 15 &amp; 14 &amp; 16
     \end{pmatrix}.
 \]</div>
-<p>```python exec="1" source="above" result="text"</p>
-        <p>import numpy as np
-from toqito.perms import permute_systems</p>
-<p>test_input_mat = np.arange(1, 17).reshape(4, 4)</p>
-<p>print(permute_systems(test_input_mat, [1, 0]))
-    ```</p>
-<div class="highlight"><pre><span></span><code>For spaces \(\mathcal{A}, \mathcal{B}\), and \(\mathcal{C}\) where \(\text{dim}(\mathcal{A}) =
-\text{dim}(\mathcal{B}) = \text{dim}(\mathcal{C}) = 2\) we may consider an operator \(X \in \mathcal{A} \otimes
-\mathcal{B} \otimes \mathcal{C}\). Applying the `permute_systems` function with vector \([1,2,0]\) on
-\(X\), we may reorient the spaces such that \(X \in \mathcal{B} \otimes \mathcal{C} \otimes \mathcal{A}\).
-
-For example, if we define \(X \in \mathcal{A} \otimes \mathcal{B} \otimes \mathcal{C}\) as
-
-\[
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.perms</span><span class="w"> </span><span class="kn">import</span> <span class="n">permute_systems</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">test_input_mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">17</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="nb">print</span><span class="p">(</span><span class="n">permute_systems</span><span class="p">(</span><span class="n">test_input_mat</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>[[ 1  3  2  4]
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a> [ 9 11 10 12]
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a> [ 5  7  6  8]
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a> [13 15 14 16]]
+</code></pre></div>
+<p>For spaces <span class="arithmatex">\(\mathcal{A}, \mathcal{B}\)</span>, and <span class="arithmatex">\(\mathcal{C}\)</span> where <span class="arithmatex">\(\text{dim}(\mathcal{A}) =
+\text{dim}(\mathcal{B}) = \text{dim}(\mathcal{C}) = 2\)</span> we may consider an operator <span class="arithmatex">\(X \in \mathcal{A} \otimes
+\mathcal{B} \otimes \mathcal{C}\)</span>. Applying the <code>permute_systems</code> function with vector <span class="arithmatex">\([1,2,0]\)</span> on
+<span class="arithmatex">\(X\)</span>, we may reorient the spaces such that <span class="arithmatex">\(X \in \mathcal{B} \otimes \mathcal{C} \otimes \mathcal{A}\)</span>.</p>
+<p>For example, if we define <span class="arithmatex">\(X \in \mathcal{A} \otimes \mathcal{B} \otimes \mathcal{C}\)</span> as</p>
+<div class="arithmatex">\[
     X =
     \begin{pmatrix}
         1 &amp; 2 &amp; 3 &amp; 4, 5 &amp; 6 &amp; 7 &amp; 8 \\
@@ -8928,12 +8932,10 @@ For example, if we define \(X \in \mathcal{A} \otimes \mathcal{B} \otimes \mathc
         49 &amp; 50 &amp; 51 &amp; 52 &amp; 53 &amp; 54 &amp; 55 &amp; 56 \\
         57 &amp; 58 &amp; 59 &amp; 60 &amp; 61 &amp; 62 &amp; 63 &amp; 64
     \end{pmatrix},
-\]
-
-then applying the `permute_systems` function on \(X\) to obtain \(X \in \mathcal{B} \otimes \mathcal{C}
-\otimes \mathcal{C}\) yield the following matrix
-
-\[
+\]</div>
+<p>then applying the <code>permute_systems</code> function on <span class="arithmatex">\(X\)</span> to obtain <span class="arithmatex">\(X \in \mathcal{B} \otimes \mathcal{C}
+\otimes \mathcal{C}\)</span> yield the following matrix</p>
+<div class="arithmatex">\[
     X_{[1, 2, 0]} =
     \begin{pmatrix}
         1 &amp; 5 &amp; 2 &amp; 6 &amp; 3 &amp; 7 &amp; 4, 8 \\
@@ -8945,15 +8947,23 @@ then applying the `permute_systems` function on \(X\) to obtain \(X \in \mathcal
         25 &amp; 29 &amp; 26 &amp; 30 &amp; 27 &amp; 31 &amp; 28 &amp; 32 \\
         57 &amp; 61 &amp; 58 &amp; 62 &amp; 59 &amp; 63 &amp; 60 &amp; 64
     \end{pmatrix}.
-\]
-
-```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;
+\]</div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.perms</span><span class="w"> </span><span class="kn">import</span> <span class="n">permute_systems</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">test_input_mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">65</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="nb">print</span><span class="p">(</span><span class="n">permute_systems</span><span class="p">(</span><span class="n">test_input_mat</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">]))</span>
 </code></pre></div>
-<p>import numpy as np
-from toqito.perms import permute_systems</p>
-<p>test_input_mat = np.arange(1, 65).reshape(8, 8)</p>
-<p>print(permute_systems(test_input_mat, [1, 2, 0]))
-    ```</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>[[ 1  5  2  6  3  7  4  8]
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a> [33 37 34 38 35 39 36 40]
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a> [ 9 13 10 14 11 15 12 16]
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a> [41 45 42 46 43 47 44 48]
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a> [17 21 18 22 19 23 20 24]
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a> [49 53 50 54 51 55 52 56]
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a> [25 29 26 30 27 31 28 32]
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a> [57 61 58 62 59 63 60 64]]
+</code></pre></div>
 
 
             <details class="mkdocstrings-source">
@@ -9231,12 +9241,12 @@ from toqito.perms import permute_systems</p>
 <a id="__codelineno-0-75" name="__codelineno-0-75"></a><span class="sd">        \]</span>
 <a id="__codelineno-0-76" name="__codelineno-0-76"></a>
 <a id="__codelineno-0-77" name="__codelineno-0-77"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;</span>
-<a id="__codelineno-0-78" name="__codelineno-0-78"></a><span class="sd">    import numpy as np</span>
-<a id="__codelineno-0-79" name="__codelineno-0-79"></a><span class="sd">    from toqito.perms import permute_systems</span>
+<a id="__codelineno-0-78" name="__codelineno-0-78"></a><span class="sd">        import numpy as np</span>
+<a id="__codelineno-0-79" name="__codelineno-0-79"></a><span class="sd">        from toqito.perms import permute_systems</span>
 <a id="__codelineno-0-80" name="__codelineno-0-80"></a>
-<a id="__codelineno-0-81" name="__codelineno-0-81"></a><span class="sd">    test_input_mat = np.arange(1, 17).reshape(4, 4)</span>
+<a id="__codelineno-0-81" name="__codelineno-0-81"></a><span class="sd">        test_input_mat = np.arange(1, 17).reshape(4, 4)</span>
 <a id="__codelineno-0-82" name="__codelineno-0-82"></a>
-<a id="__codelineno-0-83" name="__codelineno-0-83"></a><span class="sd">    print(permute_systems(test_input_mat, [1, 0]))</span>
+<a id="__codelineno-0-83" name="__codelineno-0-83"></a><span class="sd">        print(permute_systems(test_input_mat, [1, 0]))</span>
 <a id="__codelineno-0-84" name="__codelineno-0-84"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-85" name="__codelineno-0-85"></a>
 <a id="__codelineno-0-86" name="__codelineno-0-86"></a>
@@ -9279,12 +9289,12 @@ from toqito.perms import permute_systems</p>
 <a id="__codelineno-0-123" name="__codelineno-0-123"></a><span class="sd">        \]</span>
 <a id="__codelineno-0-124" name="__codelineno-0-124"></a>
 <a id="__codelineno-0-125" name="__codelineno-0-125"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;</span>
-<a id="__codelineno-0-126" name="__codelineno-0-126"></a><span class="sd">    import numpy as np</span>
-<a id="__codelineno-0-127" name="__codelineno-0-127"></a><span class="sd">    from toqito.perms import permute_systems</span>
+<a id="__codelineno-0-126" name="__codelineno-0-126"></a><span class="sd">        import numpy as np</span>
+<a id="__codelineno-0-127" name="__codelineno-0-127"></a><span class="sd">        from toqito.perms import permute_systems</span>
 <a id="__codelineno-0-128" name="__codelineno-0-128"></a>
-<a id="__codelineno-0-129" name="__codelineno-0-129"></a><span class="sd">    test_input_mat = np.arange(1, 65).reshape(8, 8)</span>
+<a id="__codelineno-0-129" name="__codelineno-0-129"></a><span class="sd">        test_input_mat = np.arange(1, 65).reshape(8, 8)</span>
 <a id="__codelineno-0-130" name="__codelineno-0-130"></a>
-<a id="__codelineno-0-131" name="__codelineno-0-131"></a><span class="sd">    print(permute_systems(test_input_mat, [1, 2, 0]))</span>
+<a id="__codelineno-0-131" name="__codelineno-0-131"></a><span class="sd">        print(permute_systems(test_input_mat, [1, 2, 0]))</span>
 <a id="__codelineno-0-132" name="__codelineno-0-132"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-133" name="__codelineno-0-133"></a>
 <a id="__codelineno-0-134" name="__codelineno-0-134"></a>

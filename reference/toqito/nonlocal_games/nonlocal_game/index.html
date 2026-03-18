@@ -9665,24 +9665,18 @@ satisfied.</p>
 <p>The optimal quantum value of CHSH is
 <span class="arithmatex">\(\cos(\pi/8)^2 \approx 0.8536\)</span> where the optimal classical value
 is <span class="arithmatex">\(3/4\)</span>.</p>
-<p>```python exec="1" source="above" result="text"</p>
-        <p>import numpy as np
-from toqito.nonlocal_games.nonlocal_game import NonlocalGame</p>
-<p>dim = 2
-num_alice_inputs, num_alice_outputs = 2, 2
-num_bob_inputs, num_bob_outputs = 2, 2
-prob_mat = np.array([[1 / 4, 1 / 4], [1 / 4, 1 / 4]])
-pred_mat = np.zeros((num_alice_outputs, num_bob_outputs, num_alice_inputs, num_bob_inputs))</p>
-<p>for a_alice in range(num_alice_outputs):
-for b_bob in range(num_bob_outputs):
-   for x_alice in range(num_alice_inputs):
-       for y_bob in range(num_bob_inputs):
-           if np.mod(a_alice + b_bob + x_alice * y_bob, dim) == 0:
-               pred_mat[a_alice, b_bob, x_alice, y_bob] = 1</p>
-<p>chsh = NonlocalGame(prob_mat, pred_mat)</p>
-<p>print(chsh.quantum_value_lower_bound())
-    ```</p>
-<p><strong>References</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>  <span class="n">File</span> <span class="s2">&quot;/home/runner/work/toqito/toqito/.venv/lib/python3.12/site-packages/markdown_exec/_internal/formatters/python.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">71</span><span class="p">,</span> <span class="ow">in</span> <span class="n">_run_python</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    <span class="n">exec_python</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="n">code_block_id</span><span class="p">,</span> <span class="n">exec_globals</span><span class="p">)</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>  <span class="n">File</span> <span class="s2">&quot;/home/runner/work/toqito/toqito/.venv/lib/python3.12/site-packages/markdown_exec/_internal/formatters/_exec_python.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">7</span><span class="p">,</span> <span class="ow">in</span> <span class="n">exec_python</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="n">compiled</span> <span class="o">=</span> <span class="nb">compile</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="n">filename</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;exec&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>               <span class="o">^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>  <span class="n">File</span> <span class="s2">&quot;&lt;code block: n175&gt;&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">11</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    <span class="k">for</span> <span class="n">b_bob</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_bob_outputs</span><span class="p">):</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>    <span class="o">^^^</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="ne">IndentationError</span><span class="p">:</span> <span class="n">expected</span> <span class="n">an</span> <span class="n">indented</span> <span class="n">block</span> <span class="n">after</span> <span class="s1">&#39;for&#39;</span> <span class="n">statement</span> <span class="n">on</span> <span class="n">line</span> <span class="mi">10</span>
+</code></pre></div>
+        <p><strong>References</strong></p>
 <p><span id="ref-toqito-nonlocal_games-nonlocal_game-NonlocalGame-quantum_value_lower_bound-1"><sup><a href="#cite-toqito-nonlocal_games-nonlocal_game-NonlocalGame-quantum_value_lower_bound-1">1</a></sup> Liang, Yeong-Cherng and Doherty, Andrew. <em>Bounds on quantum correlations in Bell-inequality experiments</em>. <strong>Physical Review A</strong>. vol. 75(4). (2007). <a href="https://doi.org/10.1103/physreva.75.042103">doi:10.1103/physreva.75.042103</a>.</span></p>
 
 
@@ -9981,25 +9975,25 @@ for b_bob in range(num_bob_outputs):
 <a id="__codelineno-0-314" name="__codelineno-0-314"></a><span class="sd">        is \(3/4\).</span>
 <a id="__codelineno-0-315" name="__codelineno-0-315"></a>
 <a id="__codelineno-0-316" name="__codelineno-0-316"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;</span>
-<a id="__codelineno-0-317" name="__codelineno-0-317"></a><span class="sd">    import numpy as np</span>
-<a id="__codelineno-0-318" name="__codelineno-0-318"></a><span class="sd">    from toqito.nonlocal_games.nonlocal_game import NonlocalGame</span>
+<a id="__codelineno-0-317" name="__codelineno-0-317"></a><span class="sd">        import numpy as np</span>
+<a id="__codelineno-0-318" name="__codelineno-0-318"></a><span class="sd">        from toqito.nonlocal_games.nonlocal_game import NonlocalGame</span>
 <a id="__codelineno-0-319" name="__codelineno-0-319"></a>
-<a id="__codelineno-0-320" name="__codelineno-0-320"></a><span class="sd">    dim = 2</span>
-<a id="__codelineno-0-321" name="__codelineno-0-321"></a><span class="sd">    num_alice_inputs, num_alice_outputs = 2, 2</span>
-<a id="__codelineno-0-322" name="__codelineno-0-322"></a><span class="sd">    num_bob_inputs, num_bob_outputs = 2, 2</span>
-<a id="__codelineno-0-323" name="__codelineno-0-323"></a><span class="sd">    prob_mat = np.array([[1 / 4, 1 / 4], [1 / 4, 1 / 4]])</span>
-<a id="__codelineno-0-324" name="__codelineno-0-324"></a><span class="sd">    pred_mat = np.zeros((num_alice_outputs, num_bob_outputs, num_alice_inputs, num_bob_inputs))</span>
+<a id="__codelineno-0-320" name="__codelineno-0-320"></a><span class="sd">        dim = 2</span>
+<a id="__codelineno-0-321" name="__codelineno-0-321"></a><span class="sd">        num_alice_inputs, num_alice_outputs = 2, 2</span>
+<a id="__codelineno-0-322" name="__codelineno-0-322"></a><span class="sd">        num_bob_inputs, num_bob_outputs = 2, 2</span>
+<a id="__codelineno-0-323" name="__codelineno-0-323"></a><span class="sd">        prob_mat = np.array([[1 / 4, 1 / 4], [1 / 4, 1 / 4]])</span>
+<a id="__codelineno-0-324" name="__codelineno-0-324"></a><span class="sd">        pred_mat = np.zeros((num_alice_outputs, num_bob_outputs, num_alice_inputs, num_bob_inputs))</span>
 <a id="__codelineno-0-325" name="__codelineno-0-325"></a>
-<a id="__codelineno-0-326" name="__codelineno-0-326"></a><span class="sd">    for a_alice in range(num_alice_outputs):</span>
-<a id="__codelineno-0-327" name="__codelineno-0-327"></a><span class="sd">    for b_bob in range(num_bob_outputs):</span>
-<a id="__codelineno-0-328" name="__codelineno-0-328"></a><span class="sd">       for x_alice in range(num_alice_inputs):</span>
+<a id="__codelineno-0-326" name="__codelineno-0-326"></a><span class="sd">        for a_alice in range(num_alice_outputs):</span>
+<a id="__codelineno-0-327" name="__codelineno-0-327"></a><span class="sd">        for b_bob in range(num_bob_outputs):</span>
+<a id="__codelineno-0-328" name="__codelineno-0-328"></a><span class="sd">        for x_alice in range(num_alice_inputs):</span>
 <a id="__codelineno-0-329" name="__codelineno-0-329"></a><span class="sd">           for y_bob in range(num_bob_inputs):</span>
 <a id="__codelineno-0-330" name="__codelineno-0-330"></a><span class="sd">               if np.mod(a_alice + b_bob + x_alice * y_bob, dim) == 0:</span>
 <a id="__codelineno-0-331" name="__codelineno-0-331"></a><span class="sd">                   pred_mat[a_alice, b_bob, x_alice, y_bob] = 1</span>
 <a id="__codelineno-0-332" name="__codelineno-0-332"></a>
-<a id="__codelineno-0-333" name="__codelineno-0-333"></a><span class="sd">    chsh = NonlocalGame(prob_mat, pred_mat)</span>
+<a id="__codelineno-0-333" name="__codelineno-0-333"></a><span class="sd">        chsh = NonlocalGame(prob_mat, pred_mat)</span>
 <a id="__codelineno-0-334" name="__codelineno-0-334"></a>
-<a id="__codelineno-0-335" name="__codelineno-0-335"></a><span class="sd">    print(chsh.quantum_value_lower_bound())</span>
+<a id="__codelineno-0-335" name="__codelineno-0-335"></a><span class="sd">        print(chsh.quantum_value_lower_bound())</span>
 <a id="__codelineno-0-336" name="__codelineno-0-336"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-337" name="__codelineno-0-337"></a>
 <a id="__codelineno-0-338" name="__codelineno-0-338"></a><span class="sd">    &quot;&quot;&quot;</span>

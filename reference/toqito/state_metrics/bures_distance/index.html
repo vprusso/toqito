@@ -8873,19 +8873,22 @@ corresponding to the case: <code>rho_1</code> and <code>rho_2</code> with orthog
 <p>In the event where we calculate the Bures distance between states that are identical, we should obtain
 the value of
 <span class="arithmatex">\(0\)</span>. This can be observed in <code>|toqito⟩</code> as follows.</p>
-<p>```python exec="1" source="above" result="text"</p>
-        <p>import numpy as np
-from toqito.state_metrics import bures_distance</p>
-<p>rho = 1 / 2 * np.array(
-    [[1, 0, 0, 1],
-     [0, 0, 0, 0],
-     [0, 0, 0, 0],
-     [1, 0, 0, 1]]
-)
-sigma = rho</p>
-<p>print(bures_distance(rho, sigma))
-    ```</p>
-<p><strong>References</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.state_metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">bures_distance</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">rho</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="p">)</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="n">sigma</span> <span class="o">=</span> <span class="n">rho</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="nb">print</span><span class="p">(</span><span class="n">bures_distance</span><span class="p">(</span><span class="n">rho</span><span class="p">,</span> <span class="n">sigma</span><span class="p">))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>0.0
+</code></pre></div>
+        <p><strong>References</strong></p>
 <p><span id="ref-toqito-state_metrics-bures_distance-bures_distance-1"><sup><a href="#cite-toqito-state_metrics-bures_distance-bures_distance-1">1</a></sup> Wikipedia. <em>Bures distance</em>. <a href="https://en.wikipedia.org/wiki/Bures_metric#Bures_distance">link</a>.</span></p>
 
 
@@ -9004,18 +9007,18 @@ sigma = rho</p>
 <a id="__codelineno-0-55" name="__codelineno-0-55"></a><span class="sd">        \(0\). This can be observed in `|toqito⟩` as follows.</span>
 <a id="__codelineno-0-56" name="__codelineno-0-56"></a>
 <a id="__codelineno-0-57" name="__codelineno-0-57"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;</span>
-<a id="__codelineno-0-58" name="__codelineno-0-58"></a><span class="sd">    import numpy as np</span>
-<a id="__codelineno-0-59" name="__codelineno-0-59"></a><span class="sd">    from toqito.state_metrics import bures_distance</span>
+<a id="__codelineno-0-58" name="__codelineno-0-58"></a><span class="sd">        import numpy as np</span>
+<a id="__codelineno-0-59" name="__codelineno-0-59"></a><span class="sd">        from toqito.state_metrics import bures_distance</span>
 <a id="__codelineno-0-60" name="__codelineno-0-60"></a>
-<a id="__codelineno-0-61" name="__codelineno-0-61"></a><span class="sd">    rho = 1 / 2 * np.array(</span>
+<a id="__codelineno-0-61" name="__codelineno-0-61"></a><span class="sd">        rho = 1 / 2 * np.array(</span>
 <a id="__codelineno-0-62" name="__codelineno-0-62"></a><span class="sd">        [[1, 0, 0, 1],</span>
 <a id="__codelineno-0-63" name="__codelineno-0-63"></a><span class="sd">         [0, 0, 0, 0],</span>
 <a id="__codelineno-0-64" name="__codelineno-0-64"></a><span class="sd">         [0, 0, 0, 0],</span>
 <a id="__codelineno-0-65" name="__codelineno-0-65"></a><span class="sd">         [1, 0, 0, 1]]</span>
-<a id="__codelineno-0-66" name="__codelineno-0-66"></a><span class="sd">    )</span>
-<a id="__codelineno-0-67" name="__codelineno-0-67"></a><span class="sd">    sigma = rho</span>
+<a id="__codelineno-0-66" name="__codelineno-0-66"></a><span class="sd">        )</span>
+<a id="__codelineno-0-67" name="__codelineno-0-67"></a><span class="sd">        sigma = rho</span>
 <a id="__codelineno-0-68" name="__codelineno-0-68"></a>
-<a id="__codelineno-0-69" name="__codelineno-0-69"></a><span class="sd">    print(bures_distance(rho, sigma))</span>
+<a id="__codelineno-0-69" name="__codelineno-0-69"></a><span class="sd">        print(bures_distance(rho, sigma))</span>
 <a id="__codelineno-0-70" name="__codelineno-0-70"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-71" name="__codelineno-0-71"></a>
 <a id="__codelineno-0-72" name="__codelineno-0-72"></a><span class="sd">    &quot;&quot;&quot;</span>

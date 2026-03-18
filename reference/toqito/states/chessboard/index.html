@@ -8845,11 +8845,20 @@ thus may not be bound entangled.</p>
 
 <p><span class="doc-section-title">Examples:</span></p>
     <p>The standard chessboard state can be invoked using <code>|toqito⟩</code> as</p>
-<p>```python exec="1" source="above" result="text"</p>
-        <p>from toqito.states import chessboard
-print(chessboard([1, 2, 3, 4, 5, 6], 7, 8))
-    ```</p>
-<p><strong>References</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.states</span><span class="w"> </span><span class="kn">import</span> <span class="n">chessboard</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nb">print</span><span class="p">(</span><span class="n">chessboard</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>[[ 0.22592593  0.          0.12962963  0.          0.          0.          0.17777778  0.          0.        ]
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a> [ 0.          0.01851852  0.          0.          0.          0.01111111  0.          0.02962963  0.        ]
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a> [ 0.12962963  0.          0.18148148  0.          0.15555556  0.          0.          0.          0.        ]
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a> [ 0.          0.          0.          0.01851852  0.          0.02222222  0.         -0.01481481  0.        ]
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a> [ 0.          0.          0.15555556  0.          0.22592593  0.         -0.14814815  0.          0.        ]
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a> [ 0.          0.01111111  0.          0.02222222  0.          0.03333333  0.          0.          0.        ]
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a> [ 0.17777778  0.          0.          0.         -0.14814815  0.          0.23703704  0.          0.        ]
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a> [ 0.          0.02962963  0.         -0.01481481  0.          0.          0.          0.05925926  0.        ]
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a> [ 0.          0.          0.          0.          0.          0.          0.          0.          0.        ]]
+</code></pre></div>
+        <p><strong>References</strong></p>
 <p><span id="ref-toqito-states-chessboard-chessboard-1"><sup><a href="#cite-toqito-states-chessboard-chessboard-1">1</a></sup> Bru\ss{}, Dagmar and Peres, Asher. <em>Construction of quantum states with bound entanglement</em>. <strong>Phys. Rev. A</strong>. vol. 61. (2000). <a href="https://doi.org/10.1103/PhysRevA.61.030301">doi:10.1103/PhysRevA.61.030301</a>.</span></p>
 
 
@@ -8908,8 +8917,8 @@ print(chessboard([1, 2, 3, 4, 5, 6], 7, 8))
 <a id="__codelineno-0-26" name="__codelineno-0-26"></a><span class="sd">        The standard chessboard state can be invoked using `|toqito⟩` as</span>
 <a id="__codelineno-0-27" name="__codelineno-0-27"></a>
 <a id="__codelineno-0-28" name="__codelineno-0-28"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;</span>
-<a id="__codelineno-0-29" name="__codelineno-0-29"></a><span class="sd">    from toqito.states import chessboard</span>
-<a id="__codelineno-0-30" name="__codelineno-0-30"></a><span class="sd">    print(chessboard([1, 2, 3, 4, 5, 6], 7, 8))</span>
+<a id="__codelineno-0-29" name="__codelineno-0-29"></a><span class="sd">        from toqito.states import chessboard</span>
+<a id="__codelineno-0-30" name="__codelineno-0-30"></a><span class="sd">        print(chessboard([1, 2, 3, 4, 5, 6], 7, 8))</span>
 <a id="__codelineno-0-31" name="__codelineno-0-31"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-32" name="__codelineno-0-32"></a>
 <a id="__codelineno-0-33" name="__codelineno-0-33"></a><span class="sd">    &quot;&quot;&quot;</span>

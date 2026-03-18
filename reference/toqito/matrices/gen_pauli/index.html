@@ -8853,28 +8853,30 @@ from 0 to <code>dim-1</code>, inclusive.</p>
                   \end{pmatrix}.
 \]</div>
 <p>This can be obtained in <code>|toqito⟩</code> as follows.</p>
-<p>```python exec="1" source="above" result="text"</p>
-        <p>from toqito.matrices import gen_pauli</p>
-<p>print(gen_pauli(k_1=1, k_2=0, dim=2))
-    ```</p>
-<div class="highlight"><pre><span></span><code>The generalized Pauli matrix `k_1 = 1`, `k_2 = 1`, and
-`dim = 2` is given as the standard Pauli-Y matrix
-
-\[
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.matrices</span><span class="w"> </span><span class="kn">import</span> <span class="n">gen_pauli</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">gen_pauli</span><span class="p">(</span><span class="n">k_1</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">k_2</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>[[0.+0.j 1.+0.j]
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a> [1.+0.j 0.+0.j]]
+</code></pre></div>
+<p>The generalized Pauli matrix <code>k_1 = 1</code>, <code>k_2 = 1</code>, and
+<code>dim = 2</code> is given as the standard Pauli-Y matrix</p>
+<div class="arithmatex">\[
     G_{1, 1, 2} = \begin{pmatrix}
                     0 &amp; -1 \\
                     1 &amp; 0
                   \end{pmatrix}.
-\]
-
-This can be obtained in `|toqito⟩` as follows.
-
-```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;
+\]</div>
+<p>This can be obtained in <code>|toqito⟩</code> as follows.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.matrices</span><span class="w"> </span><span class="kn">import</span> <span class="n">gen_pauli</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">gen_pauli</span><span class="p">(</span><span class="n">k_1</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">k_2</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
 </code></pre></div>
-<p>from toqito.matrices import gen_pauli</p>
-<p>print(gen_pauli(k_1=1, k_2=1, dim=2))
-    ```</p>
-<p><strong>References</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>[[ 0.+0.0000000e+00j -1.+1.2246468e-16j]
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a> [ 1.+0.0000000e+00j  0.+0.0000000e+00j]]
+</code></pre></div>
+        <p><strong>References</strong></p>
 <p><span id="ref-toqito-matrices-gen_pauli-gen_pauli-1"><sup><a href="#cite-toqito-matrices-gen_pauli-gen_pauli-1">1</a></sup> Wikipedia. <em>Generalizations of {P}auli matrices</em>. <a href="https://en.wikipedia.org/wiki/Generalizations_of_Pauli_matrices">link</a>.</span><br>
 <span id="ref-toqito-matrices-gen_pauli-gen_pauli-2"><sup><a href="#cite-toqito-matrices-gen_pauli-gen_pauli-2">2</a></sup> Watrous, John. <em>Theory of Quantum Information Lecture Notes</em>. (2011). <a href="https://cs.uwaterloo.ca/~watrous/TQI-notes/">link</a>.</span></p>
 
@@ -8983,9 +8985,9 @@ This can be obtained in `|toqito⟩` as follows.
 <a id="__codelineno-0-41" name="__codelineno-0-41"></a><span class="sd">        This can be obtained in `|toqito⟩` as follows.</span>
 <a id="__codelineno-0-42" name="__codelineno-0-42"></a>
 <a id="__codelineno-0-43" name="__codelineno-0-43"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;</span>
-<a id="__codelineno-0-44" name="__codelineno-0-44"></a><span class="sd">    from toqito.matrices import gen_pauli</span>
+<a id="__codelineno-0-44" name="__codelineno-0-44"></a><span class="sd">        from toqito.matrices import gen_pauli</span>
 <a id="__codelineno-0-45" name="__codelineno-0-45"></a>
-<a id="__codelineno-0-46" name="__codelineno-0-46"></a><span class="sd">    print(gen_pauli(k_1=1, k_2=0, dim=2))</span>
+<a id="__codelineno-0-46" name="__codelineno-0-46"></a><span class="sd">        print(gen_pauli(k_1=1, k_2=0, dim=2))</span>
 <a id="__codelineno-0-47" name="__codelineno-0-47"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-48" name="__codelineno-0-48"></a>
 <a id="__codelineno-0-49" name="__codelineno-0-49"></a>
@@ -9002,9 +9004,9 @@ This can be obtained in `|toqito⟩` as follows.
 <a id="__codelineno-0-60" name="__codelineno-0-60"></a><span class="sd">        This can be obtained in `|toqito⟩` as follows.</span>
 <a id="__codelineno-0-61" name="__codelineno-0-61"></a>
 <a id="__codelineno-0-62" name="__codelineno-0-62"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;</span>
-<a id="__codelineno-0-63" name="__codelineno-0-63"></a><span class="sd">    from toqito.matrices import gen_pauli</span>
+<a id="__codelineno-0-63" name="__codelineno-0-63"></a><span class="sd">        from toqito.matrices import gen_pauli</span>
 <a id="__codelineno-0-64" name="__codelineno-0-64"></a>
-<a id="__codelineno-0-65" name="__codelineno-0-65"></a><span class="sd">    print(gen_pauli(k_1=1, k_2=1, dim=2))</span>
+<a id="__codelineno-0-65" name="__codelineno-0-65"></a><span class="sd">        print(gen_pauli(k_1=1, k_2=1, dim=2))</span>
 <a id="__codelineno-0-66" name="__codelineno-0-66"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-67" name="__codelineno-0-67"></a>
 <a id="__codelineno-0-68" name="__codelineno-0-68"></a><span class="sd">    &quot;&quot;&quot;</span>
