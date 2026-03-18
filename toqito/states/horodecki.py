@@ -66,16 +66,16 @@ def horodecki(a_param: float, dim: list[int] | None = None) -> np.ndarray:
         The following code generates a Horodecki state in \(\mathbb{C}^3 \otimes \mathbb{C}^3\)
 
         ```python exec="1" source="above" result="text"
-    from toqito.states import horodecki
-    print(horodecki(0.5, [3, 3]))
+        from toqito.states import horodecki
+        print(horodecki(0.5, [3, 3]))
         ```
 
 
         The following code generates a Horodecki state in \(\mathbb{C}^2 \otimes \mathbb{C}^4\).
 
         ```python exec="1" source="above" result="text"
-    from toqito.states import horodecki
-    print(horodecki(0.5, [2, 4]))
+        from toqito.states import horodecki
+        print(horodecki(0.5, [2, 4]))
         ```
 
     """

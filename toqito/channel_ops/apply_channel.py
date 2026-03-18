@@ -88,11 +88,11 @@ def apply_channel(mat: np.ndarray, phi_op: np.ndarray | list[list[np.ndarray]]) 
         Using `|toqito⟩`, we can obtain the above matrices as follows.
 
         ```python exec="1" source="above" result="text"
-    from toqito.channel_ops import apply_channel
-    from toqito.perms import swap_operator
-    import numpy as np
-    test_input_mat = np.array([[1, 4, 7], [2, 5, 8], [3, 6, 9]])
-    print(apply_channel(test_input_mat, swap_operator(3)))
+        from toqito.channel_ops import apply_channel
+        from toqito.perms import swap_operator
+        import numpy as np
+        test_input_mat = np.array([[1, 4, 7], [2, 5, 8], [3, 6, 9]])
+        print(apply_channel(test_input_mat, swap_operator(3)))
         ```
 
     """

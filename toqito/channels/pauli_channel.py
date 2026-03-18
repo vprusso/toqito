@@ -53,21 +53,21 @@ def pauli_channel(
         Generate a random single-qubit Pauli channel:
 
         ```python exec="1" source="above" result="text"
-    from toqito.channels import pauli_channel
+        from toqito.channels import pauli_channel
 
-    print(pauli_channel(prob=1))
+        print(pauli_channel(prob=1))
         ```
 
         Apply a specific two-qubit Pauli channel to an input matrix:
 
         ```python exec="1" source="above" result="text"
-    import numpy as np
-    from toqito.channels import pauli_channel
+        import numpy as np
+        from toqito.channels import pauli_channel
 
-    _, output = pauli_channel(
+        _, output = pauli_channel(
         prob=np.array([0.1, 0.2, 0.3, 0.4]), input_mat=np.eye(2)
-    )
-    print(output)
+        )
+        print(output)
         ```
 
     """

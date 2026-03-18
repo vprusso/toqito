@@ -42,11 +42,11 @@ def is_pure(state: list[np.ndarray] | np.ndarray) -> bool:
         confirmed in `|toqito⟩` as follows:
 
         ```python exec="1" source="above" result="text"
-    from toqito.states import bell
-    from toqito.state_props import is_pure
-    u = bell(0)
-    rho = u @ u.conj().T
-    print(is_pure(rho))
+        from toqito.states import bell
+        from toqito.state_props import is_pure
+        u = bell(0)
+        rho = u @ u.conj().T
+        print(is_pure(rho))
         ```
 
         It is also possible to determine whether a set of density matrices are pure. For instance, we
@@ -54,14 +54,14 @@ def is_pure(state: list[np.ndarray] | np.ndarray) -> bool:
         `True` indicating that all states provided to the function are pure.
 
         ```python exec="1" source="above" result="text"
-    from toqito.states import bell
-    from toqito.state_props import is_pure
-    u0, u1, u2, u3 = bell(0), bell(1), bell(2), bell(3)
-    rho0 = u0 @ u0.conj().T
-    rho1 = u1 @ u1.conj().T
-    rho2 = u2 @ u2.conj().T
-    rho3 = u3 @ u3.conj().T
-    print(is_pure([rho0, rho1, rho2, rho3]))
+        from toqito.states import bell
+        from toqito.state_props import is_pure
+        u0, u1, u2, u3 = bell(0), bell(1), bell(2), bell(3)
+        rho0 = u0 @ u0.conj().T
+        rho1 = u1 @ u1.conj().T
+        rho2 = u2 @ u2.conj().T
+        rho3 = u3 @ u3.conj().T
+        print(is_pure([rho0, rho1, rho2, rho3]))
         ```
 
     """

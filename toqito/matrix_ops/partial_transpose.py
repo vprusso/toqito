@@ -80,14 +80,14 @@ def partial_transpose(
 
         By default, in `|toqito⟩`, the partial transpose function performs the transposition on
         the second subsystem as follows.
-    ```python exec="1" source="above" result="text"
-    import numpy as np
-    from toqito.matrix_ops import partial_transpose
+        ```python exec="1" source="above" result="text"
+        import numpy as np
+        from toqito.matrix_ops import partial_transpose
 
-    test_input_mat = np.arange(1, 17).reshape(4, 4)
+        test_input_mat = np.arange(1, 17).reshape(4, 4)
 
-    print(partial_transpose(test_input_mat))
-    ```
+        print(partial_transpose(test_input_mat))
+        ```
 
         By specifying the `sys = 1` argument, we can perform the partial transpose over the
         first subsystem (instead of the default second subsystem as done above). Performing the
@@ -101,14 +101,14 @@ def partial_transpose(
                             7 & 8 & 15 & 16
                         \end{pmatrix}.
         \]
-    ```python exec="1" source="above" result="text"
-    import numpy as np
-    from toqito.matrix_ops import partial_transpose
+        ```python exec="1" source="above" result="text"
+        import numpy as np
+        from toqito.matrix_ops import partial_transpose
 
-    test_input_mat = np.arange(1, 17).reshape(4, 4)
+        test_input_mat = np.arange(1, 17).reshape(4, 4)
 
-    print(partial_transpose(test_input_mat, 1))
-    ```
+        print(partial_transpose(test_input_mat, 1))
+        ```
 
     """
     if not isinstance(sys, int):

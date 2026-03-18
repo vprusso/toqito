@@ -28,9 +28,9 @@ def hadamard(n_param: int = 1) -> np.ndarray:
         The standard 1-qubit Hadamard matrix can be generated in `toqito` as
 
         ```python exec="1" source="above" result="text"
-    from toqito.matrices import hadamard
+        from toqito.matrices import hadamard
 
-    print(hadamard(1))
+        print(hadamard(1))
         ```
 
     """

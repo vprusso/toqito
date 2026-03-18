@@ -40,13 +40,13 @@ def create_bcs_constraints(M: np.ndarray, b: np.ndarray) -> list[np.ndarray]:
 
     Examples:
         ```python exec="1" source="above" result="text"
-    import numpy as np
-    from toqito.nonlocal_games.binary_constraint_system_game import create_bcs_constraints
+        import numpy as np
+        from toqito.nonlocal_games.binary_constraint_system_game import create_bcs_constraints
 
-    M = np.array([[1, 1], [1, 1]], dtype=int)
-    b = np.array([0, 1], dtype=int)
-    constraints = create_bcs_constraints(M, b)
-    print(constraints[0].shape)
+        M = np.array([[1, 1], [1, 1]], dtype=int)
+        b = np.array([0, 1], dtype=int)
+        constraints = create_bcs_constraints(M, b)
+        print(constraints[0].shape)
         ```
 
     """
@@ -82,16 +82,16 @@ def generate_solution_group(M: np.ndarray, b: np.ndarray) -> tuple[list[int], li
 
     Examples:
         ```python exec="1" source="above" result="text"
-    import numpy as np
-    from toqito.nonlocal_games.binary_constraint_system_game import generate_solution_group
+        import numpy as np
+        from toqito.nonlocal_games.binary_constraint_system_game import generate_solution_group
 
-    M = np.array([[1, 1, 0], [0, 1, 1]])
-    b = np.array([0, 1])
-    row_masks, parity = generate_solution_group(M, b)
-    print("```")
-    print(row_masks)  # Output: [3, 6]
-    print(parity)     # Output: [0, 1]
-    print("```")
+        M = np.array([[1, 1, 0], [0, 1, 1]])
+        b = np.array([0, 1])
+        row_masks, parity = generate_solution_group(M, b)
+        print("```")
+        print(row_masks)  # Output: [3, 6]
+        print(parity)     # Output: [0, 1]
+        print("```")
         ```
 
     """
@@ -122,12 +122,12 @@ def check_perfect_commuting_strategy(M: np.ndarray, b: np.ndarray) -> bool:
 
     Examples:
         ```python exec="1" source="above" result="text"
-    import numpy as np
-    from toqito.nonlocal_games.binary_constraint_system_game import check_perfect_commuting_strategy
+        import numpy as np
+        from toqito.nonlocal_games.binary_constraint_system_game import check_perfect_commuting_strategy
 
-    M = np.array([[1, 1], [1, 1]])
-    b = np.array([0, 1])
-    print(check_perfect_commuting_strategy(M, b))
+        M = np.array([[1, 1], [1, 1]])
+        b = np.array([0, 1])
+        print(check_perfect_commuting_strategy(M, b))
         ```
 
     """

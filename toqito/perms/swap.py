@@ -64,12 +64,12 @@ def swap(
         This can be observed by the following example in `|toqito⟩`.
 
         ```python exec="1" source="above" result="text"
-    import numpy as np
-    from toqito.perms import swap
+        import numpy as np
+        from toqito.perms import swap
 
-    test_mat = np.arange(1, 17).reshape(4, 4)
+        test_mat = np.arange(1, 17).reshape(4, 4)
 
-    print(swap(test_mat))
+        print(swap(test_mat))
         ```
 
         It is also possible to use the `sys` and `dim` arguments, it is possible to specify the system and
@@ -89,24 +89,24 @@ def swap(
         Using `|toqito⟩` we can see this gives the proper result.
 
         ```python exec="1" source="above" result="text"
-    import numpy as np
-    from toqito.perms import swap
+        import numpy as np
+        from toqito.perms import swap
 
-    test_mat = np.array(
+        test_mat = np.array(
         [[1, 5, 9, 13], [2, 6, 10, 14], [3, 7, 11, 15], [4, 8, 12, 16]]
-    )
-    print(swap(test_mat, [1, 2], 2))
+        )
+        print(swap(test_mat, [1, 2], 2))
         ```
 
         It is also possible to perform the `swap` function on vectors in addition to matrices.
 
         ```python exec="1" source="above" result="text"
-    import numpy as np
-    from toqito.perms import swap
+        import numpy as np
+        from toqito.perms import swap
 
-    test_vec = np.array([1, 2, 3, 4])
+        test_vec = np.array([1, 2, 3, 4])
 
-    print(swap(test_vec))
+        print(swap(test_vec))
         ```
 
 

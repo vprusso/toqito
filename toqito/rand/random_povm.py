@@ -39,14 +39,14 @@ def random_povm(dim: int, num_inputs: int, num_outputs: int, seed: int | None = 
         POVMs of dimension with \(2\) inputs and \(2\) outputs.
 
         ```python exec="1" source="above" result="text" session="povm_example"
-    import numpy as np
-    from toqito.rand import random_povm
+        import numpy as np
+        from toqito.rand import random_povm
 
-    dim, num_inputs, num_outputs = 2, 2, 2
+        dim, num_inputs, num_outputs = 2, 2, 2
 
-    povms = random_povm(dim, num_inputs, num_outputs)
+        povms = random_povm(dim, num_inputs, num_outputs)
 
-    print(povms)
+        print(povms)
         ```
 
 
@@ -54,27 +54,27 @@ def random_povm(dim: int, num_inputs: int, num_outputs: int, seed: int | None = 
         identity operator.
 
         ```python exec="1" source="above" result="text" session="povm_example"
-    print(np.round(povms[:, :, 0, 0] + povms[:, :, 0, 1]))
+        print(np.round(povms[:, :, 0, 0] + povms[:, :, 0, 1]))
         ```
 
         It is also possible to add a seed for reproducibility.
 
         ```python exec="1" source="above" result="text" session="povm_example"
-    import numpy as np
-    from toqito.rand import random_povm
+        import numpy as np
+        from toqito.rand import random_povm
 
-    dim, num_inputs, num_outputs = 2, 2, 2
+        dim, num_inputs, num_outputs = 2, 2, 2
 
-    povms = random_povm(dim, num_inputs, num_outputs, seed=42)
+        povms = random_povm(dim, num_inputs, num_outputs, seed=42)
 
-    print(povms)
+        print(povms)
         ```
 
         We can once again verify that this constitutes a valid set of POVM elements as checking that
         these operators all sum to the identity operator.
 
         ```python exec="1" source="above" result="text" session="povm_example"
-    print(np.round(povms[:, :, 0, 0] + povms[:, :, 0, 1]))
+        print(np.round(povms[:, :, 0, 0] + povms[:, :, 0, 1]))
         ```
 
     """

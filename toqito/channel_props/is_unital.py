@@ -41,24 +41,24 @@ def is_unital(
         unital channel.
 
         ```python exec="1" source="above" result="text"
-    from toqito.perms import swap_operator
-    from toqito.channel_props import is_unital
+        from toqito.perms import swap_operator
+        from toqito.channel_props import is_unital
 
-    choi = swap_operator(3)
+        choi = swap_operator(3)
 
-    print(is_unital(choi))
+        print(is_unital(choi))
         ```
 
         Additionally, the channel whose Choi matrix is the depolarizing channel is another example of
         a unital channel.
 
         ```python exec="1" source="above" result="text"
-    from toqito.channels import depolarizing
-    from toqito.channel_props import is_unital
+        from toqito.channels import depolarizing
+        from toqito.channel_props import is_unital
 
-    choi = depolarizing(4)
+        choi = depolarizing(4)
 
-    print(is_unital(choi))
+        print(is_unital(choi))
         ```
 
     """

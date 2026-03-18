@@ -33,16 +33,16 @@ def is_orthonormal(vectors: list[np.ndarray]) -> bool:
         To check these are a known set of orthonormal vectors:
 
         ```python exec="1" source="above" result="text"
-    import numpy as np
-    from toqito.matrix_props import is_orthonormal
+        import numpy as np
+        from toqito.matrix_props import is_orthonormal
 
-    v_1 = np.array([1, 0, 0])
-    v_2 = np.array([0, 1, 0])
-    v_3 = np.array([0, 0, 1])
+        v_1 = np.array([1, 0, 0])
+        v_2 = np.array([0, 1, 0])
+        v_3 = np.array([0, 0, 1])
 
-    v = [v_1, v_2, v_3]
+        v = [v_1, v_2, v_3]
 
-    print(is_orthonormal(v))
+        print(is_orthonormal(v))
         ```
 
     """

@@ -32,12 +32,12 @@ def is_circulant(mat: np.ndarray) -> bool:
         `|toqito⟩` as
 
         ```python exec="1" source="above" result="text"
-    import numpy as np
-    from toqito.matrix_props import is_circulant
+        import numpy as np
+        from toqito.matrix_props import is_circulant
 
-    mat = np.array([[4, 1, 2, 3], [3, 4, 1, 2], [2, 3, 4, 1], [1, 2, 3, 4]])
+        mat = np.array([[4, 1, 2, 3], [3, 4, 1, 2], [2, 3, 4, 1], [1, 2, 3, 4]])
 
-    print(is_circulant(mat))
+        print(is_circulant(mat))
         ```
 
     """

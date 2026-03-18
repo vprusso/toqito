@@ -54,18 +54,18 @@ def fidelity(rho: np.ndarray, sigma: np.ndarray) -> float:
         \(1\). This can be observed in `|toqito⟩` as follows.
 
         ```python exec="1" source="above" result="text"
-    import numpy as np
-    from toqito.state_metrics import fidelity
+        import numpy as np
+        from toqito.state_metrics import fidelity
 
-    rho = 1 / 2 * np.array(
+        rho = 1 / 2 * np.array(
         [[1, 0, 0, 1],
          [0, 0, 0, 0],
          [0, 0, 0, 0],
          [1, 0, 0, 1]]
-    )
-    sigma = rho
+        )
+        sigma = rho
 
-    print(fidelity(rho, sigma))
+        print(fidelity(rho, sigma))
         ```
 
     """

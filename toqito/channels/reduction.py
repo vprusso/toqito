@@ -33,9 +33,9 @@ def reduction(dim: int, k: int = 1) -> np.ndarray:
 
 
         ```python exec="1" source="above" result="text"
-    from toqito.channels import reduction
+        from toqito.channels import reduction
 
-    print(reduction(3))
+        print(reduction(3))
         ```
 
     """

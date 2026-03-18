@@ -59,13 +59,13 @@ def renyi_entropy(rho: np.ndarray, alpha: float) -> float:
         done as follows.
 
         ```python exec="1" source="above" result="text"
-    from toqito.state_props import renyi_entropy
-    import numpy as np
-    test_input_mat = np.array(
+        from toqito.state_props import renyi_entropy
+        import numpy as np
+        test_input_mat = np.array(
             [[1 / 2, 0, 0, 1 / 2], [0, 0, 0, 0],
             [0, 0, 0, 0], [1 / 2, 0, 0, 1 / 2]]
         )
-    print(renyi_entropy(test_input_mat, 2))
+        print(renyi_entropy(test_input_mat, 2))
         ```
 
         Consider the density operator corresponding to the maximally mixed state of dimension two
@@ -82,10 +82,10 @@ def renyi_entropy(rho: np.ndarray, alpha: float) -> float:
         equal to one for all orders \(\alpha\). We can see this in `|toqito⟩` as follows.
 
         ```python exec="1" source="above" result="text"
-    from toqito.state_props import renyi_entropy
-    import numpy as np
-    rho = 1/2 * np.identity(2)
-    print(renyi_entropy(rho, 3/2))
+        from toqito.state_props import renyi_entropy
+        import numpy as np
+        rho = 1/2 * np.identity(2)
+        print(renyi_entropy(rho, 3/2))
         ```
 
     """

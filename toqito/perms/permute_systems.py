@@ -75,12 +75,12 @@ def permute_systems(
         \]
 
         ```python exec="1" source="above" result="text"
-    import numpy as np
-    from toqito.perms import permute_systems
+        import numpy as np
+        from toqito.perms import permute_systems
 
-    test_input_mat = np.arange(1, 17).reshape(4, 4)
+        test_input_mat = np.arange(1, 17).reshape(4, 4)
 
-    print(permute_systems(test_input_mat, [1, 0]))
+        print(permute_systems(test_input_mat, [1, 0]))
         ```
 
 
@@ -123,12 +123,12 @@ def permute_systems(
         \]
 
         ```python exec="1" source="above" result="text"
-    import numpy as np
-    from toqito.perms import permute_systems
+        import numpy as np
+        from toqito.perms import permute_systems
 
-    test_input_mat = np.arange(1, 65).reshape(8, 8)
+        test_input_mat = np.arange(1, 65).reshape(8, 8)
 
-    print(permute_systems(test_input_mat, [1, 2, 0]))
+        print(permute_systems(test_input_mat, [1, 2, 0]))
         ```
 
 

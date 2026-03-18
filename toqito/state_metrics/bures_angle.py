@@ -54,18 +54,18 @@ def bures_angle(rho_1: np.ndarray, rho_2: np.ndarray, decimals: int = 10) -> flo
         \(0\). This can be observed in `|toqito⟩` as follows.
 
         ```python exec="1" source="above" result="text"
-    import numpy as np
-    from toqito.state_metrics import bures_angle
+        import numpy as np
+        from toqito.state_metrics import bures_angle
 
-    rho = 1 / 2 * np.array(
+        rho = 1 / 2 * np.array(
         [[1, 0, 0, 1],
          [0, 0, 0, 0],
          [0, 0, 0, 0],
          [1, 0, 0, 1]]
-    )
-    sigma = rho
+        )
+        sigma = rho
 
-    print(bures_angle(rho, sigma))
+        print(bures_angle(rho, sigma))
         ```
 
     """

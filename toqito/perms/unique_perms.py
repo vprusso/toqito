@@ -32,11 +32,11 @@ def unique_perms(elements: list[int]) -> Generator[tuple[int, ...], None, None]:
         obtained using the `|toqito⟩` package as follows.
 
         ```python exec="1" source="above" result="text"
-    from toqito.perms import unique_perms
+        from toqito.perms import unique_perms
 
-    vec_nums = [1, 1, 2, 2, 1, 2, 1, 3, 3, 3]
+        vec_nums = [1, 1, 2, 2, 1, 2, 1, 3, 3, 3]
 
-    print(len(list(unique_perms(vec_nums))))
+        print(len(list(unique_perms(vec_nums))))
         ```
 
     """
