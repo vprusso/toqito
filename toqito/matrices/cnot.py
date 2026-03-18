@@ -22,7 +22,7 @@ def cnot() -> np.ndarray:
         The CNOT matrix.
 
     Examples:
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     from toqito.matrices import cnot
 
     print(cnot())

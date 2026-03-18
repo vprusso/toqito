@@ -36,7 +36,7 @@ def realignment(input_mat: np.ndarray, dim: int | list[int] | np.ndarray | None 
         its vectorization the rows of the realignment matrix. This is illustrated by the following
         small example:
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.channels import realignment
 

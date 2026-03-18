@@ -45,7 +45,7 @@ def permutation_operator(
 
         Using `|toqito⟩`, this can be achieved in the following manner.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     from toqito.perms import permutation_operator
 
     print(permutation_operator(2, [1, 0]))

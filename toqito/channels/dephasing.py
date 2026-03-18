@@ -55,7 +55,7 @@ def dephasing(dim: int, param_p: float = 0) -> np.ndarray:
 
         This can be observed in `|toqito⟩` as follows.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.channels import dephasing
     from toqito.channel_ops import apply_channel
@@ -68,7 +68,7 @@ def dephasing(dim: int, param_p: float = 0) -> np.ndarray:
 
         We may also consider setting the parameter `p = 0.5`.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.channels import dephasing
     from toqito.channel_ops import apply_channel

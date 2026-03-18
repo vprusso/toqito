@@ -46,7 +46,7 @@ def is_normal(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08) -> bool
 
         our function indicates that this is indeed a normal matrix.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.matrix_props import is_normal
 
@@ -67,7 +67,7 @@ def is_normal(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08) -> bool
 
         is not normal.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.matrix_props import is_normal
 

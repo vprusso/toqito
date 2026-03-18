@@ -145,7 +145,7 @@ def bell_inequality_max(
             M_{FC} = \begin{pmatrix} 0 & 0 & 0 \\ 0 & 1 & 1 \\ 0 & 1 & -1 \end{pmatrix}
         \]
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.state_opt.bell_inequality_max import bell_inequality_max
     M_chsh_fc = np.array([[0, 0, 0], [0, 1, 1], [0, 1, -1]])
@@ -170,7 +170,7 @@ def bell_inequality_max(
             M_{CG} = \begin{pmatrix} 0 & -1 & 0 \\ -1 & 1 & 1 \\ 0 & 1 & -1 \end{pmatrix}
         \]
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.state_opt.bell_inequality_max import bell_inequality_max
     M_chsh_cg = np.array([[0, -1, 0], [-1, 1, 1], [0, 1, -1]])
@@ -183,7 +183,7 @@ def bell_inequality_max(
         The I3322 inequality in Collins-Gisin (CG) notation.
         Classical max = 1, No-signalling max = 2. Quantum value is between 1 and 2.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.state_opt.bell_inequality_max import bell_inequality_max
     M_i3322_cg = np.array([[0, 1, 0, 0], [1, -1, -1, -1], [0, -1, -1, 1], [0, -1, 1, 0]])
@@ -488,7 +488,7 @@ def bell_inequality_max_qubits(
         The individual and joint coefficents and measurement values are encoded as matrices.
         The upper bound can then be found in `|toqito⟩` as follows.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.state_opt.bell_inequality_max import bell_inequality_max_qubits
 

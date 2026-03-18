@@ -21,7 +21,7 @@ def normalize(vector: Sequence[complex] | np.ndarray, *, tol: float = 1e-8) -> n
         ValueError: If the input is not vector-shaped or has vanishing norm.
 
     Examples:
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.state_ops import normalize
 

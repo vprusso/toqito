@@ -30,7 +30,7 @@ def is_square(mat: np.ndarray) -> bool:
 
         our function indicates that this is indeed a square matrix.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.matrix_props import is_square
 
@@ -50,7 +50,7 @@ def is_square(mat: np.ndarray) -> bool:
 
         is not square.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.matrix_props import is_square
 

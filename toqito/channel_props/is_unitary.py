@@ -38,7 +38,7 @@ def is_unitary(phi: np.ndarray | list[list[np.ndarray]]) -> bool:
 
         We can verify this as follows:
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.channel_props import is_unitary
 
@@ -63,7 +63,7 @@ def is_unitary(phi: np.ndarray | list[list[np.ndarray]]) -> bool:
 
         We may verify that this channel is not a unitary channel.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     from toqito.channels import depolarizing
     from toqito.channel_props import is_unitary
 

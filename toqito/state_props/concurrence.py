@@ -51,7 +51,7 @@ def concurrence(rho: np.ndarray) -> float:
 
         The following example calculates this quantity using the `|toqito⟩` package.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.matrices import standard_basis
     from toqito.state_props import concurrence
@@ -70,7 +70,7 @@ def concurrence(rho: np.ndarray) -> float:
 
         As this state has no entanglement, the concurrence is zero.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.states import basis
     from toqito.state_props import concurrence

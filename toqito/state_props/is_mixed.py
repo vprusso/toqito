@@ -29,7 +29,7 @@ def is_mixed(state: np.ndarray) -> bool:
         Calculating the rank of \(\rho\) yields that the \(\rho\) is a mixed state. This can be
         confirmed in `|toqito⟩` as follows:
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     from toqito.states import basis
     from toqito.state_props import is_mixed
     e_0, e_1 = basis(2, 0), basis(2, 1)

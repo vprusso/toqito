@@ -32,7 +32,7 @@ def max_entangled(dim: int, is_sparse: bool = False, is_normalized: bool = True)
 
         using `|toqito⟩` as follows.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     from toqito.states import max_entangled
     print(max_entangled(2))
         ```
@@ -46,7 +46,7 @@ def max_entangled(dim: int, is_sparse: bool = False, is_normalized: bool = True)
 
         using `|toqito⟩` as follows.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     from toqito.states import max_entangled
     print(max_entangled(2, False, False))
         ```

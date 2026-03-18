@@ -48,7 +48,7 @@ def domino(idx: int) -> np.ndarray:
 
         Using `|toqito⟩`, we can see that this yields the proper state.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     from toqito.states import domino
     print(domino(0))
         ```
@@ -63,7 +63,7 @@ def domino(idx: int) -> np.ndarray:
 
         Using `|toqito⟩`, we can see that this yields the proper state.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     from toqito.states import domino
     print(domino(3))
         ```

@@ -36,7 +36,7 @@ def tensor_unravel(constraint_tensor: np.ndarray) -> np.ndarray:
         element is the unique constant (rhs).
 
     Examples:
-    ```python exec="1" source="above"
+    ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.matrix_ops import tensor_unravel
 

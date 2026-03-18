@@ -48,7 +48,7 @@ def choi_rank(phi: np.ndarray | list[list[np.ndarray]]) -> int:
 
         and can be generated in `|toqito⟩` with the following list:
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.channel_props import choi_rank
 
@@ -68,7 +68,7 @@ def choi_rank(phi: np.ndarray | list[list[np.ndarray]]) -> int:
         We can the verify the associated Choi representation (the SWAP gate)
         gets the same Choi rank:
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.channel_props import choi_rank
     choi_matrix = np.array([[1,0,0,0],[0,0,1,0],[0,1,0,0],[0,0,0,1]])

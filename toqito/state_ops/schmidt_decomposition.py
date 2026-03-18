@@ -29,7 +29,7 @@ def schmidt_decomposition(
 
         We can generate this state using the `|toqito⟩` module as follows.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     from toqito.states import max_entangled
     print(max_entangled(3))
         ```
@@ -40,7 +40,7 @@ def schmidt_decomposition(
             \frac{1}{\sqrt{3}} \left[1, 1, 1 \right]^{\text{T}}.
         \]
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     from toqito.states import max_entangled
     from toqito.state_ops import schmidt_decomposition
 

@@ -27,7 +27,7 @@ def is_nonnegative(input_mat: np.ndarray, mat_type: str = "nonnegative") -> bool
     Examples:
         We expect an identity matrix to be nonnegative.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.matrix_props import is_nonnegative
 

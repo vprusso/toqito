@@ -36,7 +36,7 @@ def w_state(num_qubits: int, coeff: list[int] | None = None) -> np.ndarray:
 
         as follows.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     from toqito.states import w_state
     print(w_state(3))
         ```
@@ -50,7 +50,7 @@ def w_state(num_qubits: int, coeff: list[int] | None = None) -> np.ndarray:
 
         We can generate this state in `|toqito⟩` as
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     from toqito.states import w_state
     import numpy as np
     coeffs = np.array([1, 2, 3, 4]) / np.sqrt(30)

@@ -28,7 +28,7 @@ def vectors_from_gram_matrix(gram: np.ndarray) -> list[np.ndarray]:
 
     Examples:
         Example of a positive definite matrix:
-    ```python exec="1" source="above"
+    ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.matrix_ops import vectors_from_gram_matrix
 
@@ -39,7 +39,7 @@ def vectors_from_gram_matrix(gram: np.ndarray) -> list[np.ndarray]:
     ```
 
         Example of a matrix that is not positive definite:
-    ```python exec="1" source="above"
+    ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.matrix_ops import vectors_from_gram_matrix
 

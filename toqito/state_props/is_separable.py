@@ -216,7 +216,7 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
 
         On the other hand, a random density matrix will be an entangled state (a separable state).
 
-        ```python exec="1" source="above" session="is_separable_example"
+        ```python exec="1" source="above" result="text" session="is_separable_example"
     import numpy as np
     from toqito.rand.random_density_matrix import random_density_matrix
     from toqito.state_props.is_separable import is_separable
@@ -224,7 +224,7 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
     print(is_separable(rho_separable))
         ```
 
-        ```python exec="1" source="above" session="is_separable_example"
+        ```python exec="1" source="above" result="text" session="is_separable_example"
     rho_not_separable = np.array([[ 0.13407875+0.j        , -0.08263926-0.17760437j,
             -0.0135111 -0.12352182j,  0.0368423 -0.05563985j],
         [-0.08263926+0.17760437j,  0.53338542+0.j        ,
@@ -239,7 +239,7 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
         We can also detect certain PPT-entangled states. For example, a state constructed from a Breuer-Hall map
         is entangled but PPT.
 
-        ```python exec="1" source="above" session="is_separable_example"
+        ```python exec="1" source="above" result="text" session="is_separable_example"
     from toqito.state_props.is_ppt import is_ppt
 
     # Construct a 2x3 separable PPT state of rank 2

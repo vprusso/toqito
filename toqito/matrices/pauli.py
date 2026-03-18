@@ -53,7 +53,7 @@ def pauli(ind: int | str | list[int] | list[str], is_sparse: bool = False) -> np
     Examples:
         Example for identity Pauli matrix.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     from toqito.matrices import pauli
 
     print(pauli("I"))
@@ -61,7 +61,7 @@ def pauli(ind: int | str | list[int] | list[str], is_sparse: bool = False) -> np
 
         Example for Pauli-X matrix.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     from toqito.matrices import pauli
 
     print(pauli("X"))
@@ -70,7 +70,7 @@ def pauli(ind: int | str | list[int] | list[str], is_sparse: bool = False) -> np
 
         Example for Pauli-Y matrix.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     from toqito.matrices import pauli
 
     print(pauli("Y"))
@@ -79,7 +79,7 @@ def pauli(ind: int | str | list[int] | list[str], is_sparse: bool = False) -> np
 
         Example for Pauli-Z matrix.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     from toqito.matrices import pauli
 
     print(pauli("Z"))
@@ -87,7 +87,7 @@ def pauli(ind: int | str | list[int] | list[str], is_sparse: bool = False) -> np
 
         Example using `ind` as list.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     from toqito.matrices import pauli
 
     print(pauli([0,1]))

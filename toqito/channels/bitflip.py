@@ -41,7 +41,7 @@ def bitflip(
     Examples:
         We can generate the Kraus operators for the bitflip channel with probability 0.3:
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     from toqito.channels import bitflip
 
     print(bitflip(prob=0.3))
@@ -51,7 +51,7 @@ def bitflip(
         We can also apply the bitflip channel to a quantum state. For the state \(|0\rangle\),
         the bitflip channel with probability 0.3 produces:
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.channels import bitflip
 

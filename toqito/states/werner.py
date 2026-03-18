@@ -46,7 +46,7 @@ def werner(dim: int, alpha: float | list[float]) -> np.ndarray:
     Examples:
         Computing the qutrit Werner state with \(\alpha = 1/2\) can be done in `|toqito⟩` as
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     from toqito.states import werner
     print(werner(3, 1 / 2))
         ```
@@ -54,7 +54,7 @@ def werner(dim: int, alpha: float | list[float]) -> np.ndarray:
 
         We may also compute multipartite Werner states in `|toqito⟩` as well.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     from toqito.states import werner
     print(werner(2, [0.01, 0.02, 0.03, 0.04, 0.05]))
         ```

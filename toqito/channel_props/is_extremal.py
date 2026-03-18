@@ -42,7 +42,7 @@ def is_extremal(phi: np.ndarray | list[np.ndarray | list[np.ndarray]], tol: floa
         The following demonstrates an example of an extremal quantum channel from Example 2.33
         in [@watrous2018theory].
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.channel_props import is_extremal
     kraus_ops = [

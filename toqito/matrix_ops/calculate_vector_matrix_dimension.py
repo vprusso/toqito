@@ -29,7 +29,7 @@ def calculate_vector_matrix_dimension(item: np.ndarray) -> int:
         \]
 
         For this case, the dimension of the vector is equal to its length.
-    ```python exec="1" source="above"
+    ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.matrix_ops import calculate_vector_matrix_dimension
 
@@ -47,7 +47,7 @@ def calculate_vector_matrix_dimension(item: np.ndarray) -> int:
                         0 & 1
                     \end{pmatrix}
         \]
-    ```python exec="1" source="above"
+    ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.matrix_ops import calculate_vector_matrix_dimension
 

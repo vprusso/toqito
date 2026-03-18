@@ -43,7 +43,7 @@ def is_diagonal(mat: np.ndarray) -> bool:
 
         Our function indicates that this is indeed a diagonal matrix:
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.matrix_props import is_diagonal
 
@@ -63,7 +63,7 @@ def is_diagonal(mat: np.ndarray) -> bool:
 
         is not diagonal, as shown using `|toqito⟩`.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.matrix_props import is_diagonal
 

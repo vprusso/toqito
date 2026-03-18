@@ -45,7 +45,7 @@ def sub_fidelity(rho: np.ndarray, sigma: np.ndarray) -> float:
         Calculating the fidelity between the states \(\rho\) and \(\sigma\) as \(F(\rho, \sigma) \approx
         0.774\). This can be observed in `|toqito⟩` as
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     from toqito.states import basis
     from toqito.state_metrics import fidelity
 
@@ -59,7 +59,7 @@ def sub_fidelity(rho: np.ndarray, sigma: np.ndarray) -> float:
         As the sub-fidelity is a lower bound on the fidelity, that is \(E(\rho, \sigma) \leq F(\rho, \sigma)\), we can
         use `|toqito⟩` to observe that \(E(\rho, \sigma) \approx 0.599\leq F(\rho, \sigma \approx 0.774\).
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     from toqito.states import basis
     from toqito.state_metrics import sub_fidelity
 

@@ -61,7 +61,7 @@ def learnability(
         cvxpy.error.SolverError: If the selected solver reports a failure.
 
     Examples:
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     from toqito.state_props import learnability
     from toqito.states import basis
 

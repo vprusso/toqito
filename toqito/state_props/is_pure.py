@@ -41,7 +41,7 @@ def is_pure(state: list[np.ndarray] | np.ndarray) -> bool:
         Calculating the rank of \(\rho\) yields that the \(\rho\) is a pure state. This can be
         confirmed in `|toqito⟩` as follows:
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     from toqito.states import bell
     from toqito.state_props import is_pure
     u = bell(0)
@@ -53,7 +53,7 @@ def is_pure(state: list[np.ndarray] | np.ndarray) -> bool:
         can see that the density matrices corresponding to the four Bell states yield a result of
         `True` indicating that all states provided to the function are pure.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     from toqito.states import bell
     from toqito.state_props import is_pure
     u0, u1, u2, u3 = bell(0), bell(1), bell(2), bell(3)

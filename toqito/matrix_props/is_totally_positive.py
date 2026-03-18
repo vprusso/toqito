@@ -52,7 +52,7 @@ def is_totally_positive(mat: np.ndarray, tol: float = 1e-6, sub_sizes: list | No
 
         Our function indicates that this matrix is indeed totally positive.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.matrix_props import is_totally_positive
 
@@ -78,7 +78,7 @@ def is_totally_positive(mat: np.ndarray, tol: float = 1e-6, sub_sizes: list | No
 
         Since the determinant is negative, \(B\) is not totally positive.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.matrix_props import is_totally_positive
 

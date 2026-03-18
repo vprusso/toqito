@@ -83,7 +83,7 @@ def channel_measured_relative_entropy(
         We can find the measured relative entropy between a depolarizing channel of dimension 2
         and the identity channel, constrained by a Hamiltonian and energy, as follows:
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     from toqito.channel_metrics import channel_measured_relative_entropy
     from toqito.channels import depolarizing
     import numpy as np

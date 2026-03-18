@@ -33,7 +33,7 @@ def gen_gell_mann(ind_1: int, ind_2: int, dim: int) -> np.ndarray:
 
         This can be obtained in `|toqito⟩` as follows.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     from toqito.matrices import gen_gell_mann
 
     print(gen_gell_mann(ind_1=0, ind_2=1, dim=2))
@@ -53,7 +53,7 @@ def gen_gell_mann(ind_1: int, ind_2: int, dim: int) -> np.ndarray:
 
         This can be obtained in `|toqito⟩` as follows.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     from toqito.matrices import gen_gell_mann
 
     gen_gell_mann(ind_1=2, ind_2=3, dim=4)

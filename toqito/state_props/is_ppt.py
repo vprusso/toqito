@@ -50,7 +50,7 @@ def is_ppt(
         This matrix trivially satisfies the PPT criterion as can be seen using the
         `|toqito⟩` package.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     from toqito.state_props import is_ppt
     import numpy as np
     mat = np.identity(9)
@@ -67,7 +67,7 @@ def is_ppt(
         of dimension \(2\), it will violate the PPT criterion, which can be seen
         using the `|toqito⟩` package.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     from toqito.states import bell
     from toqito.state_props import is_ppt
     rho = bell(2) @ bell(2).conj().T

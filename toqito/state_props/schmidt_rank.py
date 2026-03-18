@@ -46,7 +46,7 @@ def schmidt_rank(rho: np.ndarray, dim: int | list[int] | np.ndarray | None = Non
     Examples:
         Computing the Schmidt rank of the entangled Bell state should yield a value greater than one.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     from toqito.states import bell
     from toqito.state_props import schmidt_rank
     rho = bell(0) @ bell(0).conj().T
@@ -57,7 +57,7 @@ def schmidt_rank(rho: np.ndarray, dim: int | list[int] | np.ndarray | None = Non
         Computing the Schmidt rank of the entangled singlet state should yield a value greater than
         \(1\).
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     from toqito.states import bell
     from toqito.state_props import schmidt_rank
     u = bell(2) @ bell(2).conj().T
@@ -67,7 +67,7 @@ def schmidt_rank(rho: np.ndarray, dim: int | list[int] | np.ndarray | None = Non
 
         Computing the Schmidt rank of a separable state should yield a value equal to \(1\).
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     from toqito.states import basis
     from toqito.state_props import schmidt_rank
     import numpy as np

@@ -17,7 +17,7 @@ def brauer(dim: int, p_val: int) -> np.ndarray:
 
     The exact number of such states is:
 
-    ```python exec="1" source="above"
+    ```python exec="1" source="above" result="text"
     import math
     import numpy as np
     p_val = 2
@@ -39,7 +39,7 @@ def brauer(dim: int, p_val: int) -> np.ndarray:
     Examples:
         Generate a matrix whose columns are all Brauer states on 4 qubits.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     from toqito.states import brauer
     print(brauer(2, 2))
         ```

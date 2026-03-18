@@ -39,7 +39,7 @@ def is_density(mat: np.ndarray) -> bool:
         of \(\rho\) is equal to \(1\) and the matrix is positive
         semidefinite.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     from toqito.matrix_props import is_density
     from toqito.states import bell
     import numpy as np
@@ -60,7 +60,7 @@ def is_density(mat: np.ndarray) -> bool:
         semidefinite, and is therefore not a density operator. This can be
         illustrated using `|toqito⟩` as follows.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.states import bell
     from toqito.matrix_props import is_density

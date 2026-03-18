@@ -41,7 +41,7 @@ def gen_pauli_x(dim: int) -> np.ndarray:
             \end{pmatrix}
         \]
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     from toqito.matrices import gen_pauli_x
 
     print(gen_pauli_x(3))

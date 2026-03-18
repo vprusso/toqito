@@ -49,7 +49,7 @@ def is_herm_preserving(
             \end{pmatrix}.
         \]
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.channel_props import is_herm_preserving
 
@@ -64,7 +64,7 @@ def is_herm_preserving(
         Hermitian-preserving. The swap operator is the Choi matrix of the transpose map, which is
         Hermitian-preserving as can be seen as follows:
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.perms import swap_operator
     from toqito.channel_props import is_herm_preserving

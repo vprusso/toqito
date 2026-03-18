@@ -32,7 +32,7 @@ def is_diagonally_dominant(mat: np.ndarray, is_strict: bool = True) -> bool:
 
         our function indicates that this is indeed a diagonally dominant matrix.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.matrix_props import is_diagonally_dominant
 
@@ -52,7 +52,7 @@ def is_diagonally_dominant(mat: np.ndarray, is_strict: bool = True) -> bool:
 
         is not diagonally dominant.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.matrix_props import is_diagonally_dominant
 

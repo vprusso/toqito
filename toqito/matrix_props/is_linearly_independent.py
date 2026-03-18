@@ -29,7 +29,7 @@ def is_linearly_independent(vectors: list[np.ndarray]) -> bool:
 
         We can see that these are linearly independent.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.matrix_props import is_linearly_independent
 

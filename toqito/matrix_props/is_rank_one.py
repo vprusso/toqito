@@ -20,7 +20,7 @@ def is_rank_one(mat: np.ndarray, tol: float = 1e-08) -> bool:
         Consider the Bell state density matrix \(\rho = \ket{\Phi^+}\bra{\Phi^+}\). This matrix
         has rank one.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     from toqito.matrix_props import is_rank_one
     from toqito.states import bell
 
@@ -30,7 +30,7 @@ def is_rank_one(mat: np.ndarray, tol: float = 1e-08) -> bool:
 
         On the other hand, the maximally mixed state is not rank one.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.matrix_props import is_rank_one
 

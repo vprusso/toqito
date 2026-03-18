@@ -65,7 +65,7 @@ def tensor(*args: np.ndarray | int | list[np.ndarray]) -> np.ndarray | None:
         \]
 
         This can be accomplished in `|toqito⟩` as follows.
-    ```python exec="1" source="above"
+    ```python exec="1" source="above" result="text"
     from toqito.states import basis
     from toqito.matrix_ops import tensor
 
@@ -84,7 +84,7 @@ def tensor(*args: np.ndarray | int | list[np.ndarray]) -> np.ndarray | None:
         \]
 
         in `|toqito⟩` as follows.
-    ```python exec="1" source="above"
+    ```python exec="1" source="above" result="text"
     from toqito.states import basis
     from toqito.matrix_ops import tensor
 
@@ -99,7 +99,7 @@ def tensor(*args: np.ndarray | int | list[np.ndarray]) -> np.ndarray | None:
         vectors, we can feed them in as a `list`. For instance, if we wish to
         compute \(e_0 \otimes e_1 \otimes e_0\), we can do
         so as follows.
-    ```python exec="1" source="above"
+    ```python exec="1" source="above" result="text"
     from toqito.states import basis
     from toqito.matrix_ops import tensor
 

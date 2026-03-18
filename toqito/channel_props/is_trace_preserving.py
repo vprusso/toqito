@@ -70,7 +70,7 @@ def is_trace_preserving(
             \end{pmatrix}.
         \]
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.channel_props import is_trace_preserving
 
@@ -82,7 +82,7 @@ def is_trace_preserving(
 
         As another example, the depolarizing channel is trace-preserving.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     from toqito.channels import depolarizing
     from toqito.channel_props import is_trace_preserving
 

@@ -518,7 +518,7 @@ def bell_npa_constraints(
         Consider the CHSH inequality scenario with ``desc = [2, 2, 2, 2]``. We want to generate the NPA level 1
         constraints.
 
-        ```python exec="1" source="above" session="npa_example"
+        ```python exec="1" source="above" result="text" session="npa_example"
     import cvxpy
     import numpy as np
     from toqito.state_opt.npa_hierarchy import bell_npa_constraints
@@ -533,7 +533,7 @@ def bell_npa_constraints(
 
         We can also use intermediate levels, like "1+ab":
 
-        ```python exec="1" source="above" session="npa_example"
+        ```python exec="1" source="above" result="text" session="npa_example"
     constraints_1ab = bell_npa_constraints(p_var, desc, k="1+ab")
     print(len(constraints_1ab))
     print(constraints_1ab[0])
@@ -541,7 +541,7 @@ def bell_npa_constraints(
 
         For the CGLMP inequality with ``dim=3``, ``desc = [3, 3, 2, 2]``, level 1:
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import cvxpy
     import numpy as np
     from toqito.state_opt.npa_hierarchy import bell_npa_constraints

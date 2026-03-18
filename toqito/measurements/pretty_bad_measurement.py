@@ -48,7 +48,7 @@ def pretty_bad_measurement(
             u_2 = -\frac{1}{2}\left(|0\rangle - \sqrt{3}|1\rangle\right).
         \]
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     from toqito.states import trine
     from toqito.measurements import pretty_bad_measurement
 

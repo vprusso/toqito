@@ -36,7 +36,7 @@ def is_ldoi(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08) -> bool:
     Examples:
         X-states are examples of 2-qubit LDOI states:
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     from toqito.matrix_props import is_ldoi
     import numpy as np
 
@@ -50,7 +50,7 @@ def is_ldoi(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08) -> bool:
 
         All diagonal states are LDOI:
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     from toqito.matrix_props import is_ldoi
     import numpy as np
 
@@ -60,7 +60,7 @@ def is_ldoi(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08) -> bool:
 
         Non-LDOI states return False:
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     from toqito.matrix_props import is_ldoi
     import numpy as np
 

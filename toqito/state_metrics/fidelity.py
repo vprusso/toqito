@@ -53,7 +53,7 @@ def fidelity(rho: np.ndarray, sigma: np.ndarray) -> float:
         In the event where we calculate the fidelity between states that are identical, we should obtain the value of
         \(1\). This can be observed in `|toqito⟩` as follows.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.state_metrics import fidelity
 

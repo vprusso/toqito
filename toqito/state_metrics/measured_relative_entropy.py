@@ -86,7 +86,7 @@ def measured_relative_entropy(rho: np.ndarray, sigma: np.ndarray, eps: float = 1
 
         Calculating the measured relative entropy can be done as follows.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     from toqito.matrices import pauli
     from toqito.state_metrics import measured_relative_entropy
     import numpy as np

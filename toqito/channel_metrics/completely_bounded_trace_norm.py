@@ -30,7 +30,7 @@ def completely_bounded_trace_norm(phi: np.ndarray, solver: str = "cvxopt", **kwa
     Examples:
         To compute the completely bounded trace norm of a depolarizing channel:
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     from toqito.channels import depolarizing
     from toqito.channel_metrics import completely_bounded_trace_norm
     # Define the depolarizing channel

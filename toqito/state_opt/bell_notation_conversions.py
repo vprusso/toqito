@@ -56,7 +56,7 @@ def cg_to_fc(cg_mat: np.ndarray, behavior: bool = False) -> np.ndarray:
 
         Converting to FC notation:
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.state_opt.bell_notation_conversions import cg_to_fc
 
@@ -77,7 +77,7 @@ def cg_to_fc(cg_mat: np.ndarray, behavior: bool = False) -> np.ndarray:
 
         Converting to FC notation:
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.state_opt.bell_notation_conversions import cg_to_fc
     p_cg = np.array([[1, 0.5, 0.5], [0.5, 0.25, 0.25], [0.5, 0.25, 0.25]])
@@ -161,7 +161,7 @@ def fc_to_cg(fc_mat: np.ndarray, behavior: bool = False) -> np.ndarray:
 
         Converting to CG notation:
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.state_opt.bell_notation_conversions import fc_to_cg
     chsh_fc = np.array([[0, 0, 0], [0, 0.25, -0.25], [0, -0.25, 0.25]])
@@ -181,7 +181,7 @@ def fc_to_cg(fc_mat: np.ndarray, behavior: bool = False) -> np.ndarray:
 
         Converting to CG notation:
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.state_opt.bell_notation_conversions import fc_to_cg
     p_fc = np.array([[1, 0, 0], [0, 0, 0], [0, 0, 0]])
@@ -250,7 +250,7 @@ def cg_to_fp(cg_mat: np.ndarray, desc: list[int], behavior: bool = False) -> np.
 
         Converting to FP notation (desc = [2, 2, 2, 2]):
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.state_opt.bell_notation_conversions import cg_to_fp
     chsh_cg = np.array([[0, 0, 0], [0, 1, -1], [0, -1, 1]])
@@ -271,7 +271,7 @@ def cg_to_fp(cg_mat: np.ndarray, desc: list[int], behavior: bool = False) -> np.
 
         Converting to FP notation:
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.state_opt.bell_notation_conversions import cg_to_fp
     p_cg = np.array([[1, 0.5, 0.5], [0.5, 0.25, 0.25], [0.5, 0.25, 0.25]])
@@ -411,7 +411,7 @@ def fc_to_fp(fc_mat: np.ndarray, behavior: bool = False) -> np.ndarray:
 
         Converting to FP notation:
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.state_opt.bell_notation_conversions import fc_to_fp
     chsh_fc = np.array([[0, 0, 0], [0, 0.25, -0.25], [0, -0.25, 0.25]])
@@ -433,7 +433,7 @@ def fc_to_fp(fc_mat: np.ndarray, behavior: bool = False) -> np.ndarray:
 
         Converting to FP notation:
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.state_opt.bell_notation_conversions import fc_to_fp
     p_fc = np.array([[1, 0, 0], [0, 1/np.sqrt(2), 1/np.sqrt(2)], [0, 1/np.sqrt(2), -1/np.sqrt(2)]])
@@ -510,7 +510,7 @@ def fp_to_cg(v_mat: np.ndarray, behavior: bool = False) -> np.ndarray:
         Consider the CHSH inequality functional in FP notation:
         (Here V represents coefficients, not probabilities)
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.state_opt.bell_notation_conversions import fp_to_cg
     chsh_fp = np.zeros((2, 2, 2, 2))
@@ -523,7 +523,7 @@ def fp_to_cg(v_mat: np.ndarray, behavior: bool = False) -> np.ndarray:
 
         Consider a behavior (probability distribution) in FP notation (standard PR box):
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.state_opt.bell_notation_conversions import fp_to_cg
     pr_box = np.zeros((2, 2, 2, 2))
@@ -659,7 +659,7 @@ def fp_to_fc(v_mat: np.ndarray, behavior: bool = False) -> np.ndarray:
         Consider the CHSH inequality functional in FP notation:
         (Here V represents coefficients, not probabilities)
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.state_opt.bell_notation_conversions import fp_to_fc, fc_to_fp
     chsh_fc = np.array([[0, 0, 0], [0, 0.25, -0.25], [0, -0.25, 0.25]])
@@ -669,7 +669,7 @@ def fp_to_fc(v_mat: np.ndarray, behavior: bool = False) -> np.ndarray:
 
         Consider a behavior (probability distribution) in FP notation (standard PR box):
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.state_opt.bell_notation_conversions import fp_to_fc
     pr_box = np.zeros((2, 2, 2, 2))

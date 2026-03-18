@@ -31,7 +31,7 @@ class QuantumHedging:
         As was illustrated in [@molina2012hedging], the hedging value of the above scenario is
         \(\cos(\pi/8)^2 \approx 0.8536\)
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.states import basis
     from numpy import kron, cos, sin, pi, sqrt, isclose
@@ -60,7 +60,7 @@ class QuantumHedging:
 
         This example demonstrates strong duality with matching primal and dual values, as can be seen below:
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.states import basis
     from numpy import kron, cos, sin, pi, sqrt, isclose
@@ -87,7 +87,7 @@ class QuantumHedging:
 
         and
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.states import basis
     from numpy import kron, cos, sin, pi, sqrt, isclose
@@ -112,7 +112,7 @@ class QuantumHedging:
     print(np.around(molina_watrous.min_prob_outcome_a_primal(), decimals=2))
         ```
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.states import basis
     from numpy import kron, cos, sin, pi, sqrt, isclose

@@ -54,7 +54,7 @@ def is_pseudo_unitary(mat: np.ndarray, p: int, q: int, rtol: float = 1e-05, atol
 
         Our function confirms that \(A\) is pseudo-unitary.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.matrix_props import is_pseudo_unitary
 
@@ -75,7 +75,7 @@ def is_pseudo_unitary(mat: np.ndarray, p: int, q: int, rtol: float = 1e-05, atol
 
         is not pseudo-unitary with respect to the same signature matrix:
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.matrix_props import is_pseudo_unitary
 

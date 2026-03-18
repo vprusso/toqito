@@ -63,7 +63,7 @@ def swap(
 
         This can be observed by the following example in `|toqito⟩`.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.perms import swap
 
@@ -88,7 +88,7 @@ def swap(
 
         Using `|toqito⟩` we can see this gives the proper result.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.perms import swap
 
@@ -100,7 +100,7 @@ def swap(
 
         It is also possible to perform the `swap` function on vectors in addition to matrices.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.perms import swap
 

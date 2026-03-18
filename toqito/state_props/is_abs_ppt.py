@@ -63,7 +63,7 @@ def is_abs_ppt(
     Examples:
         A random density matrix will likely not be absolutely PPT:
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.rand import random_density_matrix
     from toqito.state_props import is_abs_ppt
@@ -73,7 +73,7 @@ def is_abs_ppt(
 
         The maximally-mixed state is an example of an absolutely PPT state:
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.states import max_mixed
     from toqito.state_props import is_abs_ppt

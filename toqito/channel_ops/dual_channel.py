@@ -52,7 +52,7 @@ def dual_channel(
         When a channel is represented by a 1-D list of of Kraus operators, the CPTP dual channel can be determined
         as shown below.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.channel_ops import dual_channel
     kraus_1 = np.array([[1, 0, 1j, 0]])
@@ -67,7 +67,7 @@ def dual_channel(
 
         If the input channel's dimensions are different from the output dual channel's dimensions,
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.channel_ops import dual_channel
     from toqito.perms import swap_operator

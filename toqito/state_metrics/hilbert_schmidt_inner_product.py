@@ -26,7 +26,7 @@ def hilbert_schmidt_inner_product(a_mat: np.ndarray, b_mat: np.ndarray) -> compl
     Examples:
         One may consider taking the Hilbert-Schmidt distance between two Hadamard matrices.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.matrices import hadamard
     from toqito.state_metrics import hilbert_schmidt_inner_product

@@ -55,7 +55,7 @@ def von_neumann_entropy(rho: np.ndarray) -> float:
 
         Calculating the von Neumann entropy of \(\rho\) in `|toqito⟩` can be done as follows.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     from toqito.state_props import von_neumann_entropy
     import numpy as np
     test_input_mat = np.array(
@@ -78,7 +78,7 @@ def von_neumann_entropy(rho: np.ndarray) -> float:
         As this state is maximally mixed, the von Neumann entropy of \(\rho\) is
         equal to one. We can see this in `|toqito⟩` as follows.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     from toqito.state_props import von_neumann_entropy
     import numpy as np
     rho = 1/2 * np.identity(2)

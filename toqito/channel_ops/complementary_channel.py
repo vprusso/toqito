@@ -51,7 +51,7 @@ def complementary_channel(kraus_ops: list[np.ndarray]) -> list[np.ndarray]:
         To compute the Kraus operators for the complementary map, we rearrange the rows of these
         Kraus operators as follows:
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.channel_ops import complementary_channel
     kraus_ops_Phi = [

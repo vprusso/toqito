@@ -129,7 +129,7 @@ def state_exclusion(
         function in
         `|toqito⟩` yields a value of \(0\) as the probability for this to occur.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.states import bell
     from toqito.state_opt import state_exclusion
@@ -142,7 +142,7 @@ def state_exclusion(
 
         Unambiguous state exclusion for unbiased pure states.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.state_opt import state_exclusion
 
@@ -155,7 +155,7 @@ def state_exclusion(
 
         State exclusion for mixed states.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.state_opt import state_exclusion
 

@@ -30,7 +30,7 @@ def is_stochastic(mat: np.ndarray, mat_type: str) -> bool:
         We expect these matrices to be left and right stochastic. The same cannot be said about a Pauli-Z or a Pauli-Y
         matrix.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.matrix_props import is_stochastic
 
@@ -39,7 +39,7 @@ def is_stochastic(mat: np.ndarray, mat_type: str) -> bool:
     print(is_stochastic(np.eye(5), "doubly"))
         ```
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     from toqito.matrices import pauli
     from toqito.matrix_props import is_stochastic
 
@@ -48,7 +48,7 @@ def is_stochastic(mat: np.ndarray, mat_type: str) -> bool:
     print(is_stochastic(pauli("X"), "doubly"))
         ```
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     from toqito.matrices import pauli
     from toqito.matrix_props import is_stochastic
 

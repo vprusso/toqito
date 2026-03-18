@@ -42,7 +42,7 @@ def ldot_channel(mat: np.ndarray, efficient: bool = True) -> np.ndarray:
     Examples:
         Apply LDOT channel to project an arbitrary matrix onto LDOI subspace:
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     from toqito.channels import ldot_channel
     import numpy as np
 
@@ -57,7 +57,7 @@ def ldot_channel(mat: np.ndarray, efficient: bool = True) -> np.ndarray:
 
         The LDOT channel is idempotent (applying it twice gives the same result):
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     from toqito.channels import ldot_channel
     import numpy as np
 

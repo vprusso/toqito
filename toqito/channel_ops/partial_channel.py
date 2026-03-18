@@ -46,7 +46,7 @@ def partial_channel(
         The following applies the completely depolarizing channel to the second
         subsystem of a random density matrix.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.channel_ops import partial_channel
     from toqito.channels import depolarizing
@@ -68,7 +68,7 @@ def partial_channel(
         The following applies the completely depolarizing channel to the first
         subsystem.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.channel_ops import partial_channel
     from toqito.channels import depolarizing

@@ -40,7 +40,7 @@ def is_product(rho: np.ndarray, dim: int | list[int] | np.ndarray | None = None)
         We can provide the input as either the vector \(u\) or the denisty matrix \(\rho\).
         In either case, this represents an entangled state (and hence a non-product state).
 
-        ```python exec="1" source="above" session="is_product_example"
+        ```python exec="1" source="above" result="text" session="is_product_example"
     from toqito.state_props import is_product
     from toqito.states import bell
     rho = bell(0) @ bell(0).conj().T
@@ -48,7 +48,7 @@ def is_product(rho: np.ndarray, dim: int | list[int] | np.ndarray | None = None)
     print(is_product(rho))
         ```
 
-        ```python exec="1" source="above" session="is_product_example"
+        ```python exec="1" source="above" result="text" session="is_product_example"
     print(is_product(u_vec))
         ```
 

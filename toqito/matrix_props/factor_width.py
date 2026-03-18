@@ -43,7 +43,7 @@ def factor_width(
 
     Examples:
         The matrix \(\operatorname{diag}(1, 1, 0)\) has factor width at most \(1\).
-    ```python exec="1" source="above"
+    ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.matrix_props import factor_width
 
@@ -54,7 +54,7 @@ def factor_width(
 
         Conversely, the rank-one matrix \(\begin{pmatrix} 1 & 1 \\ 1 & 1 \end{pmatrix}/2\) is not
         \(1\)-factorable.
-    ```python exec="1" source="above"
+    ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.matrix_props import factor_width
 

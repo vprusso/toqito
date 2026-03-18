@@ -54,7 +54,7 @@ def is_positive(
 
         This map is not completely positive, as we can verify as follows.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     import numpy as np
     from toqito.channel_props import is_positive
 
@@ -68,7 +68,7 @@ def is_positive(
         corresponding to the \(4\)-dimensional completely depolarizing channel and may verify
         that this channel is positive.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
     from toqito.channels import depolarizing
     from toqito.channel_props import is_positive
 
