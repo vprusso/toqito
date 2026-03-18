@@ -35,9 +35,9 @@ def singlet(dim: int) -> np.ndarray:
         is the singlet state. This can be computed via `|toqito⟩` as follows:
 
         ```python exec="1" source="above"
-from toqito.states import singlet
-dim = 2
-print(singlet(dim))
+    from toqito.states import singlet
+    dim = 2
+    print(singlet(dim))
         ```
 
 
@@ -45,9 +45,9 @@ print(singlet(dim))
         \(3\)-dimensional Singlet state as follows:
 
         ```python exec="1" source="above"
-from toqito.states import singlet
-dim = 3
-print(singlet(dim))
+    from toqito.states import singlet
+    dim = 3
+    print(singlet(dim))
         ```
 
     """

@@ -37,8 +37,8 @@ def isotropic(dim: int, alpha: float) -> np.ndarray:
         `|toqito⟩` as
 
         ```python exec="1" source="above"
-from toqito.states import isotropic
-print(isotropic(3, 1 / 2))
+    from toqito.states import isotropic
+    print(isotropic(3, 1 / 2))
         ```
 
     """

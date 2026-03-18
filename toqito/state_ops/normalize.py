@@ -22,11 +22,11 @@ def normalize(vector: Sequence[complex] | np.ndarray, *, tol: float = 1e-8) -> n
 
     Examples:
         ```python exec="1" source="above"
-import numpy as np
-from toqito.state_ops import normalize
+    import numpy as np
+    from toqito.state_ops import normalize
 
-v = np.array([1, 1], dtype=np.complex128)
-print(normalize(v))
+    v = np.array([1, 1], dtype=np.complex128)
+    print(normalize(v))
         ```
 
 

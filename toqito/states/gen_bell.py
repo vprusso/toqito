@@ -50,22 +50,22 @@ def gen_bell(k_1: int, k_2: int, dim: int) -> np.ndarray:
         is one of the four standard Bell states. This can be computed via `|toqito⟩` as follows.
 
         ```python exec="1" source="above"
-from toqito.states import gen_bell
-dim = 2
-k_1 = 0
-k_2 = 0
-print(gen_bell(k_1, k_2, dim))
+    from toqito.states import gen_bell
+    dim = 2
+    k_1 = 0
+    k_2 = 0
+    print(gen_bell(k_1, k_2, dim))
         ```
 
         It is possible for us to consider higher dimensional Bell states. For instance, we can consider
         the \(3\)-dimensional Bell state for \(k_1 = k_2 = 0\) as follows.
 
         ```python exec="1" source="above"
-from toqito.states import gen_bell
-dim = 3
-k_1 = 0
-k_2 = 0
-print(gen_bell(k_1, k_2, dim))
+    from toqito.states import gen_bell
+    dim = 3
+    k_1 = 0
+    k_2 = 0
+    print(gen_bell(k_1, k_2, dim))
         ```
 
     """

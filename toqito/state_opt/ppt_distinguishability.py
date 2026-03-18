@@ -82,34 +82,34 @@ def ppt_distinguishability(
         \(7/8 \approx 0.875\) as was proved in [@yu2012four].
 
         ```python exec="1" source="above"
-import numpy as np
-from toqito.states import bell
-from toqito.state_opt import ppt_distinguishability
+    import numpy as np
+    from toqito.states import bell
+    from toqito.state_opt import ppt_distinguishability
 
-# Bell vectors:
-psi_0 = bell(0)
-psi_1 = bell(2)
-psi_2 = bell(3)
-psi_3 = bell(1)
+    # Bell vectors:
+    psi_0 = bell(0)
+    psi_1 = bell(2)
+    psi_2 = bell(3)
+    psi_3 = bell(1)
 
-# YDY vectors from [@yu2012four].
-x_1 = np.kron(psi_0, psi_0)
-x_2 = np.kron(psi_1, psi_3)
-x_3 = np.kron(psi_2, psi_3)
-x_4 = np.kron(psi_3, psi_3)
+    # YDY vectors from [@yu2012four].
+    x_1 = np.kron(psi_0, psi_0)
+    x_2 = np.kron(psi_1, psi_3)
+    x_3 = np.kron(psi_2, psi_3)
+    x_4 = np.kron(psi_3, psi_3)
 
-# YDY density matrices.
-rho_1 = x_1 @ x_1.conj().T
-rho_2 = x_2 @ x_2.conj().T
-rho_3 = x_3 @ x_3.conj().T
-rho_4 = x_4 @ x_4.conj().T
+    # YDY density matrices.
+    rho_1 = x_1 @ x_1.conj().T
+    rho_2 = x_2 @ x_2.conj().T
+    rho_3 = x_3 @ x_3.conj().T
+    rho_4 = x_4 @ x_4.conj().T
 
-states = [rho_1, rho_2, rho_3, rho_4]
-probs = [1 / 4, 1 / 4, 1 / 4, 1 / 4]
+    states = [rho_1, rho_2, rho_3, rho_4]
+    probs = [1 / 4, 1 / 4, 1 / 4, 1 / 4]
 
-opt_val, _ = ppt_distinguishability(vectors=states, probs=probs, dimensions=[2, 2, 2, 2], subsystems=[0, 2])
+    opt_val, _ = ppt_distinguishability(vectors=states, probs=probs, dimensions=[2, 2, 2, 2], subsystems=[0, 2])
 
-print(f"Optimal value: {opt_val:.3f}")
+    print(f"Optimal value: {opt_val:.3f}")
         ```
 
     """

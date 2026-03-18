@@ -27,10 +27,10 @@ def is_npt(mat: np.ndarray, sys: int = 2, dim: int | list[int] | None = None, to
         To check if a matrix has negative partial transpose
 
         ```python exec="1" source="above"
-import numpy as np
-from toqito.state_props import is_npt
-from toqito.states import bell
-print(is_npt(bell(2) @ bell(2).conj().T, 2))
+    import numpy as np
+    from toqito.state_props import is_npt
+    from toqito.states import bell
+    print(is_npt(bell(2) @ bell(2).conj().T, 2))
         ```
 
     """

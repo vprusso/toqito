@@ -33,8 +33,8 @@ def breuer(dim: int, lam: float) -> np.ndarray:
         state will be bound entangled, that is, it will satisfy the PPT criterion, but it will be entangled.
 
         ```python exec="1" source="above"
-from toqito.states import breuer
-print(breuer(2, 0.1))
+    from toqito.states import breuer
+    print(breuer(2, 0.1))
         ```
 
     """

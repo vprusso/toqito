@@ -52,14 +52,14 @@ def concurrence(rho: np.ndarray) -> float:
         The following example calculates this quantity using the `|toqito⟩` package.
 
         ```python exec="1" source="above"
-import numpy as np
-from toqito.matrices import standard_basis
-from toqito.state_props import concurrence
-e_0, e_1 = standard_basis(2)
-e_00, e_11 = np.kron(e_0, e_0), np.kron(e_1, e_1)
-u_vec = 1 / np.sqrt(2) * (e_00 + e_11)
-rho = u_vec @ u_vec.conj().T
-print(concurrence(rho))
+    import numpy as np
+    from toqito.matrices import standard_basis
+    from toqito.state_props import concurrence
+    e_0, e_1 = standard_basis(2)
+    e_00, e_11 = np.kron(e_0, e_0), np.kron(e_1, e_1)
+    u_vec = 1 / np.sqrt(2) * (e_00 + e_11)
+    rho = u_vec @ u_vec.conj().T
+    print(concurrence(rho))
         ```
 
         Consider the concurrence of the following product state
@@ -71,13 +71,13 @@ print(concurrence(rho))
         As this state has no entanglement, the concurrence is zero.
 
         ```python exec="1" source="above"
-import numpy as np
-from toqito.states import basis
-from toqito.state_props import concurrence
-e_0, e_1 = basis(2, 0), basis(2, 1)
-v_vec = np.kron(e_0, e_1)
-sigma = v_vec @ v_vec.conj().T
-print(concurrence(sigma))
+    import numpy as np
+    from toqito.states import basis
+    from toqito.state_props import concurrence
+    e_0, e_1 = basis(2, 0), basis(2, 1)
+    v_vec = np.kron(e_0, e_1)
+    sigma = v_vec @ v_vec.conj().T
+    print(concurrence(sigma))
         ```
 
     """

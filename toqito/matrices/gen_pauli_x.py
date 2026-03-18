@@ -42,9 +42,9 @@ def gen_pauli_x(dim: int) -> np.ndarray:
         \]
 
         ```python exec="1" source="above"
-from toqito.matrices import gen_pauli_x
+    from toqito.matrices import gen_pauli_x
 
-print(gen_pauli_x(3))
+    print(gen_pauli_x(3))
         ```
 
     """

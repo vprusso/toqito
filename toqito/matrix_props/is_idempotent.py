@@ -30,12 +30,12 @@ def is_idempotent(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-8) -> b
         \]
 
         ```python exec="1" source="above"
-import numpy as np
-from toqito.matrix_props import is_idempotent
+    import numpy as np
+    from toqito.matrix_props import is_idempotent
 
-mat = np.array([[3, -6], [1, -2]])
+    mat = np.array([[3, -6], [1, -2]])
 
-print(is_idempotent(mat))
+    print(is_idempotent(mat))
         ```
 
 
@@ -52,12 +52,12 @@ print(is_idempotent(mat))
         is not idempotent.
 
         ```python exec="1" source="above"
-import numpy as np
-from toqito.matrix_props import is_idempotent
+    import numpy as np
+    from toqito.matrix_props import is_idempotent
 
-mat = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+    mat = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
 
-print(is_idempotent(mat))
+    print(is_idempotent(mat))
         ```
 
     """

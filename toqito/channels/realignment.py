@@ -37,12 +37,12 @@ def realignment(input_mat: np.ndarray, dim: int | list[int] | np.ndarray | None 
         small example:
 
         ```python exec="1" source="above"
-import numpy as np
-from toqito.channels import realignment
+    import numpy as np
+    from toqito.channels import realignment
 
-test_input_mat = np.arange(1, 17).reshape(4, 4)
+    test_input_mat = np.arange(1, 17).reshape(4, 4)
 
-print(realignment(test_input_mat))
+    print(realignment(test_input_mat))
         ```
 
     """

@@ -36,12 +36,12 @@ def is_anti_hermitian(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08)
             A = -A^*.
         \]
     ```python exec="1" source="above"
-import numpy as np
-from toqito.matrix_props import is_anti_hermitian
+    import numpy as np
+    from toqito.matrix_props import is_anti_hermitian
 
-mat = np.array([[2j, -1 + 2j, 4j], [1 + 2j, 3j, -1], [4j, 1, 1j]])
+    mat = np.array([[2j, -1 + 2j, 4j], [1 + 2j, 3j, -1], [4j, 1, 1j]])
 
-print(is_anti_hermitian(mat))
+    print(is_anti_hermitian(mat))
     ```
 
         Alternatively, the following example matrix \(B\) defined as
@@ -56,12 +56,12 @@ print(is_anti_hermitian(mat))
 
         is not anti-Hermitian.
     ```python exec="1" source="above"
-import numpy as np
-from toqito.matrix_props import is_anti_hermitian
+    import numpy as np
+    from toqito.matrix_props import is_anti_hermitian
 
-mat = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+    mat = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
 
-print(is_anti_hermitian(mat))
+    print(is_anti_hermitian(mat))
     ```
 
     """

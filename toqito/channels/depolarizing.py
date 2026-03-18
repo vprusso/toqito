@@ -65,23 +65,23 @@ def depolarizing(dim: int, param_p: float = 0) -> np.ndarray:
         This can be observed in `|toqito⟩` as follows.
 
         ```python exec="1" source="above"
-import numpy as np
-from toqito.channels import depolarizing
-from toqito.channel_ops import apply_channel
+    import numpy as np
+    from toqito.channels import depolarizing
+    from toqito.channel_ops import apply_channel
 
-test_input_mat = np.array([[1 / 2, 0, 0, 1 / 2], [0, 0, 0, 0], [0, 0, 0, 0], [1 / 2, 0, 0, 1 / 2]])
+    test_input_mat = np.array([[1 / 2, 0, 0, 1 / 2], [0, 0, 0, 0], [0, 0, 0, 0], [1 / 2, 0, 0, 1 / 2]])
 
-print(apply_channel(test_input_mat, depolarizing(4)))
+    print(apply_channel(test_input_mat, depolarizing(4)))
         ```
 
         ```python exec="1" source="above"
-import numpy as np
-from toqito.channels import depolarizing
-from toqito.channel_ops import apply_channel
+    import numpy as np
+    from toqito.channels import depolarizing
+    from toqito.channel_ops import apply_channel
 
-test_input_mat = np.arange(1, 17).reshape(4, 4)
+    test_input_mat = np.arange(1, 17).reshape(4, 4)
 
-print(apply_channel(test_input_mat, depolarizing(4, 0.5)))
+    print(apply_channel(test_input_mat, depolarizing(4, 0.5)))
         ```
 
     """

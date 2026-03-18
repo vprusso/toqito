@@ -53,12 +53,12 @@ def is_totally_positive(mat: np.ndarray, tol: float = 1e-6, sub_sizes: list | No
         Our function indicates that this matrix is indeed totally positive.
 
         ```python exec="1" source="above"
-import numpy as np
-from toqito.matrix_props import is_totally_positive
+    import numpy as np
+    from toqito.matrix_props import is_totally_positive
 
-A = np.array([[5, 2], [2, 1]])
+    A = np.array([[5, 2], [2, 1]])
 
-print(is_totally_positive(A))
+    print(is_totally_positive(A))
         ```
 
         However, the following example matrix \(B\) defined as
@@ -79,12 +79,12 @@ print(is_totally_positive(A))
         Since the determinant is negative, \(B\) is not totally positive.
 
         ```python exec="1" source="above"
-import numpy as np
-from toqito.matrix_props import is_totally_positive
+    import numpy as np
+    from toqito.matrix_props import is_totally_positive
 
-B = np.array([[1, 2], [3, 4]])
+    B = np.array([[1, 2], [3, 4]])
 
-print(is_totally_positive(B))
+    print(is_totally_positive(B))
         ```
 
     """

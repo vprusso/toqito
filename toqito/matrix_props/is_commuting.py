@@ -42,13 +42,13 @@ def is_commuting(mat_1: np.ndarray, mat_2: np.ndarray) -> bool:
         and hence, do not commute.
 
         ```python exec="1" source="above"
-import numpy as np
-from toqito.matrix_props import is_commuting
+    import numpy as np
+    from toqito.matrix_props import is_commuting
 
-mat_1 = np.array([[0, 1], [0, 0]])
-mat_2 = np.array([[1, 0], [0, 0]])
+    mat_1 = np.array([[0, 1], [0, 0]])
+    mat_2 = np.array([[1, 0], [0, 0]])
 
-print(is_commuting(mat_1, mat_2))
+    print(is_commuting(mat_1, mat_2))
         ```
 
         Consider the following pair of matrices:
@@ -70,13 +70,13 @@ print(is_commuting(mat_1, mat_2))
         \(B\) commute.
 
         ```python exec="1" source="above"
-import numpy as np
-from toqito.matrix_props import is_commuting
+    import numpy as np
+    from toqito.matrix_props import is_commuting
 
-mat_1 = np.array([[1, 0, 0], [0, 1, 0], [1, 0, 2]])
-mat_2 = np.array([[2, 4, 0], [3, 1, 0], [-1, -4, 1]])
+    mat_1 = np.array([[1, 0, 0], [0, 1, 0], [1, 0, 2]])
+    mat_2 = np.array([[2, 4, 0], [3, 1, 0], [-1, -4, 1]])
 
-print(is_commuting(mat_1, mat_2))
+    print(is_commuting(mat_1, mat_2))
         ```
 
     """

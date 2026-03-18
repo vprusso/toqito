@@ -75,12 +75,12 @@ def vec(mat: np.ndarray) -> np.ndarray:
         \]
 
         ```python exec="1" source="above"
-import numpy as np
-from toqito.perms import vec
+    import numpy as np
+    from toqito.perms import vec
 
-X = np.array([[1, 2], [3, 4]])
+    X = np.array([[1, 2], [3, 4]])
 
-print(vec(X))
+    print(vec(X))
         ```
 
         !!! See Also

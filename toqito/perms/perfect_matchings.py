@@ -26,9 +26,9 @@ def perfect_matchings(num: list[int] | int | np.ndarray) -> np.ndarray:
         This is an example of how to generate all perfect matchings of the numbers 0, 1, 2, 3.
 
         ```python exec="1" source="above"
-from toqito.perms import perfect_matchings
+    from toqito.perms import perfect_matchings
 
-print(perfect_matchings(4))
+    print(perfect_matchings(4))
         ```
 
     """

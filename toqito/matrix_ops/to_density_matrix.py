@@ -21,10 +21,10 @@ def to_density_matrix(input_array: np.ndarray) -> np.ndarray:
     Examples:
         As an example, consider one of the Bell states.
     ```python exec="1" source="above"
-from toqito.states import bell
-from toqito.matrix_ops import to_density_matrix
+    from toqito.states import bell
+    from toqito.matrix_ops import to_density_matrix
 
-print(to_density_matrix(bell(0)))
+    print(to_density_matrix(bell(0)))
     ```
 
     """

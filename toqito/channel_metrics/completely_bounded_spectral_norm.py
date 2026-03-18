@@ -21,11 +21,11 @@ def completely_bounded_spectral_norm(phi: np.ndarray) -> float | np.floating:
         To compute the completely bounded spectral norm of a depolarizing channel:
 
         ```python exec="1" source="above"
-from toqito.channels import depolarizing
-from toqito.channel_metrics import completely_bounded_spectral_norm
-# Define the depolarizing channel
-choi_depolarizing = depolarizing(dim=2, param_p=0.2)
-print(completely_bounded_spectral_norm(choi_depolarizing))
+    from toqito.channels import depolarizing
+    from toqito.channel_metrics import completely_bounded_spectral_norm
+    # Define the depolarizing channel
+    choi_depolarizing = depolarizing(dim=2, param_p=0.2)
+    print(completely_bounded_spectral_norm(choi_depolarizing))
         ```
 
     """

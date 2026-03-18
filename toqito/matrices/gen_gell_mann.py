@@ -34,9 +34,9 @@ def gen_gell_mann(ind_1: int, ind_2: int, dim: int) -> np.ndarray:
         This can be obtained in `|toqito⟩` as follows.
 
         ```python exec="1" source="above"
-from toqito.matrices import gen_gell_mann
+    from toqito.matrices import gen_gell_mann
 
-print(gen_gell_mann(ind_1=0, ind_2=1, dim=2))
+    print(gen_gell_mann(ind_1=0, ind_2=1, dim=2))
         ```
 
         The generalized Gell-Mann matrix `ind_1 = 2`, `ind_2 = 3`, and
@@ -54,9 +54,9 @@ print(gen_gell_mann(ind_1=0, ind_2=1, dim=2))
         This can be obtained in `|toqito⟩` as follows.
 
         ```python exec="1" source="above"
-from toqito.matrices import gen_gell_mann
+    from toqito.matrices import gen_gell_mann
 
-gen_gell_mann(ind_1=2, ind_2=3, dim=4)
+    gen_gell_mann(ind_1=2, ind_2=3, dim=4)
         ```
 
     """

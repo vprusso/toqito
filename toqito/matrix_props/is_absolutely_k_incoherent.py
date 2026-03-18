@@ -34,13 +34,13 @@ def is_absolutely_k_incoherent(mat: np.ndarray, k: int, tol: float = 1e-15) -> b
 
     Examples:
     ```python exec="1" source="above"
-import numpy as np
-from toqito.matrix_props import is_absolutely_k_incoherent
+    import numpy as np
+    from toqito.matrix_props import is_absolutely_k_incoherent
 
-mat = np.array([[2, 1, 2],
-            [1, 2, -1],
-            [2, -1, 5]])
-print(is_absolutely_k_incoherent(mat, 4))
+    mat = np.array([[2, 1, 2],
+                [1, 2, -1],
+                [2, -1, 5]])
+    print(is_absolutely_k_incoherent(mat, 4))
     ```
 
         !!! See

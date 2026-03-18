@@ -41,9 +41,9 @@ def gen_pauli(k_1: int, k_2: int, dim: int) -> np.ndarray:
         This can be obtained in `|toqito⟩` as follows.
 
         ```python exec="1" source="above"
-from toqito.matrices import gen_pauli
+    from toqito.matrices import gen_pauli
 
-print(gen_pauli(k_1=1, k_2=0, dim=2))
+    print(gen_pauli(k_1=1, k_2=0, dim=2))
         ```
 
 
@@ -60,9 +60,9 @@ print(gen_pauli(k_1=1, k_2=0, dim=2))
         This can be obtained in `|toqito⟩` as follows.
 
         ```python exec="1" source="above"
-from toqito.matrices import gen_pauli
+    from toqito.matrices import gen_pauli
 
-print(gen_pauli(k_1=1, k_2=1, dim=2))
+    print(gen_pauli(k_1=1, k_2=1, dim=2))
         ```
 
     """

@@ -39,12 +39,12 @@ def is_unitary(phi: np.ndarray | list[list[np.ndarray]]) -> bool:
         We can verify this as follows:
 
         ```python exec="1" source="above"
-import numpy as np
-from toqito.channel_props import is_unitary
+    import numpy as np
+    from toqito.channel_props import is_unitary
 
-kraus_ops = [[np.identity(2), np.identity(2)]]
+    kraus_ops = [[np.identity(2), np.identity(2)]]
 
-print(is_unitary(kraus_ops))
+    print(is_unitary(kraus_ops))
         ```
 
         We can also specify the input as a Choi matrix. For instance, consider the Choi matrix
@@ -64,10 +64,10 @@ print(is_unitary(kraus_ops))
         We may verify that this channel is not a unitary channel.
 
         ```python exec="1" source="above"
-from toqito.channels import depolarizing
-from toqito.channel_props import is_unitary
+    from toqito.channels import depolarizing
+    from toqito.channel_props import is_unitary
 
-print(is_unitary(depolarizing(2)))
+    print(is_unitary(depolarizing(2)))
         ```
 
     """

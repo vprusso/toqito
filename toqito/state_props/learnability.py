@@ -62,16 +62,16 @@ def learnability(
 
     Examples:
         ```python exec="1" source="above"
-from toqito.state_props import learnability
-from toqito.states import basis
+    from toqito.state_props import learnability
+    from toqito.states import basis
 
-e0, e1 = basis(2, 0), basis(2, 1)
-print(learnability(
-    [e0, e1],
-    k=1,
-    solver="SCS",
-    solver_kwargs={"eps": 1e-6, "max_iters": 5_000},
-))
+    e0, e1 = basis(2, 0), basis(2, 1)
+    print(learnability(
+        [e0, e1],
+        k=1,
+        solver="SCS",
+        solver_kwargs={"eps": 1e-6, "max_iters": 5_000},
+    ))
         ```
 
     """

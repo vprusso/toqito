@@ -43,9 +43,9 @@ def bell(idx: int) -> np.ndarray:
         Using `|toqito⟩`, we can see that this yields the proper state.
 
         ```python exec="1" source="above"
-from toqito.states import bell
-import numpy as np
-print(bell(0))
+    from toqito.states import bell
+    import numpy as np
+    print(bell(0))
         ```
 
     """
