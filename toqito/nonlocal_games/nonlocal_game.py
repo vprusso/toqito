@@ -26,6 +26,7 @@ class NonlocalGame:
 
     A tutorial is available in the documentation. For more info, see
     [Nonlocal Games](../../../generated/gallery/nonlocal_games/nonlocal_game.md).
+
     """
 
     def __init__(self, prob_mat: np.ndarray, pred_mat: np.ndarray, reps: int = 1) -> None:
@@ -262,6 +263,17 @@ class NonlocalGame:
             \end{equation}
         \]
 
+        Args:
+            dim: The dimension of the quantum system that Alice and Bob have
+                    access to (default = 2).
+            iters: The number of times to run the alternating projection
+                      algorithm.
+            tol: The tolerance before quitting out of the alternating
+                    projection semidefinite program.
+
+        Returns:
+            The lower bound on the quantum value of a nonlocal game.
+
         Examples:
             The CHSH game
 
@@ -301,7 +313,7 @@ class NonlocalGame:
             \(\cos(\pi/8)^2 \approx 0.8536\) where the optimal classical value
             is \(3/4\).
 
-            ```python exec="1" source="above"
+            ```python exec="1" source="above" result="text"
             import numpy as np
             from toqito.nonlocal_games.nonlocal_game import NonlocalGame
 
@@ -312,27 +324,16 @@ class NonlocalGame:
             pred_mat = np.zeros((num_alice_outputs, num_bob_outputs, num_alice_inputs, num_bob_inputs))
 
             for a_alice in range(num_alice_outputs):
-                for b_bob in range(num_bob_outputs):
-                   for x_alice in range(num_alice_inputs):
-                       for y_bob in range(num_bob_inputs):
-                           if np.mod(a_alice + b_bob + x_alice * y_bob, dim) == 0:
-                               pred_mat[a_alice, b_bob, x_alice, y_bob] = 1
+            for b_bob in range(num_bob_outputs):
+            for x_alice in range(num_alice_inputs):
+               for y_bob in range(num_bob_inputs):
+                   if np.mod(a_alice + b_bob + x_alice * y_bob, dim) == 0:
+                       pred_mat[a_alice, b_bob, x_alice, y_bob] = 1
 
             chsh = NonlocalGame(prob_mat, pred_mat)
 
             print(chsh.quantum_value_lower_bound())
             ```
-
-        Args:
-            dim: The dimension of the quantum system that Alice and Bob have
-                    access to (default = 2).
-            iters: The number of times to run the alternating projection
-                      algorithm.
-            tol: The tolerance before quitting out of the alternating
-                    projection semidefinite program.
-
-        Returns:
-            The lower bound on the quantum value of a nonlocal game.
 
         """
         # Get number of inputs and outputs.

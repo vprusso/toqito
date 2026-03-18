@@ -39,7 +39,7 @@ def create_bcs_constraints(M: np.ndarray, b: np.ndarray) -> list[np.ndarray]:
         A list of NumPy arrays, each of shape ``(2,)*n``. Each tensor represents one constraint in tensor form.
 
     Examples:
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         import numpy as np
         from toqito.nonlocal_games.binary_constraint_system_game import create_bcs_constraints
 
@@ -72,8 +72,16 @@ def generate_solution_group(M: np.ndarray, b: np.ndarray) -> tuple[list[int], li
     The method used to determine the existence of a perfect commuting strategy was originally introduced
     in [@cleve2016perfect].
 
+    Args:
+        M: A binary matrix of shape (m, n).Each row encodes which variables appear in a constraint.
+        b: A binary vector of length m.Each entry determines the parity for its corresponding constraint row.
+
+    Returns:
+        A list of integer bitmasks.
+        A list of parity values.
+
     Examples:
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         import numpy as np
         from toqito.nonlocal_games.binary_constraint_system_game import generate_solution_group
 
@@ -85,14 +93,6 @@ def generate_solution_group(M: np.ndarray, b: np.ndarray) -> tuple[list[int], li
         print(parity)     # Output: [0, 1]
         print("```")
         ```
-
-    Args:
-        M: A binary matrix of shape (m, n).Each row encodes which variables appear in a constraint.
-        b: A binary vector of length m.Each entry determines the parity for its corresponding constraint row.
-
-    Returns:
-        A list of integer bitmasks.
-        A list of parity values.
 
     """
     # Ensure M and b are binary.
@@ -121,7 +121,7 @@ def check_perfect_commuting_strategy(M: np.ndarray, b: np.ndarray) -> bool:
         ``True`` if a perfect commuting-operator strategy exists; otherwise, ``False``.
 
     Examples:
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         import numpy as np
         from toqito.nonlocal_games.binary_constraint_system_game import check_perfect_commuting_strategy
 

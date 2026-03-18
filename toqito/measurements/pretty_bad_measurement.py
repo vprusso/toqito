@@ -27,6 +27,18 @@ def pretty_bad_measurement(
     !!! See Also
         [pretty_good_measurement()][toqito.measurements.pretty_good_measurement.pretty_good_measurement]
 
+    Args:
+        states: A collection of states provided as either vectors or density matrices.
+        probs: A set of fixed probabilities for each quantum state. If not provided, a uniform distribution is assumed.
+        tol: A tolerance value for numerical comparisons.
+
+    Returns:
+        A list of POVM operators for the PBM.
+
+    Raises:
+        ValueError: If number of states does not match number of probabilities.
+        ValueError: If probabilities do not sum to 1.
+
     Examples:
         Consider the collection of trine states.
 
@@ -36,7 +48,7 @@ def pretty_bad_measurement(
             u_2 = -\frac{1}{2}\left(|0\rangle - \sqrt{3}|1\rangle\right).
         \]
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         from toqito.states import trine
         from toqito.measurements import pretty_bad_measurement
 
@@ -45,18 +57,6 @@ def pretty_bad_measurement(
         pbm = pretty_bad_measurement(states, probs)
         print(pbm)
         ```
-
-    Raises:
-        ValueError: If number of states does not match number of probabilities.
-        ValueError: If probabilities do not sum to 1.
-
-    Args:
-        states: A collection of states provided as either vectors or density matrices.
-        probs: A set of fixed probabilities for each quantum state. If not provided, a uniform distribution is assumed.
-        tol: A tolerance value for numerical comparisons.
-
-    Returns:
-        A list of POVM operators for the PBM.
 
     """
     n = len(states)

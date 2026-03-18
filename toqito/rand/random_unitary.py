@@ -9,11 +9,19 @@ def random_unitary(dim: list[int] | int, is_real: bool = False, seed: int | None
     Calculates a random unitary matrix (if `is_real = False`) or a random real orthogonal
     matrix (if `is_real = True`), uniformly distributed according to the Haar measure.
 
+    Args:
+        dim: The number of rows (and columns) of the unitary matrix.
+        is_real: Boolean denoting whether the returned matrix has real entries or not. Default is `False`.
+        seed: A seed used to instantiate numpy's random number generator.
+
+    Returns:
+        A `dim`-by-`dim` random unitary matrix.
+
     Examples:
         We may generate a random unitary matrix. Here is an example of how we may be able to generate a
         random \(2\)-dimensional random unitary matrix with complex entries.
 
-        ```python exec="1" source="above" session="complex_dm"
+        ```python exec="1" source="above" result="text" session="complex_dm"
         from toqito.rand import random_unitary
 
         complex_dm = random_unitary(2)
@@ -25,7 +33,7 @@ def random_unitary(dim: list[int] | int, is_real: bool = False, seed: int | None
         We can verify that this is in fact a valid unitary matrix using the `is_unitary` function
         from `|toqito⟩` as follows
 
-        ```python exec="1" source="above" session="complex_dm"
+        ```python exec="1" source="above" result="text" session="complex_dm"
         from toqito.matrix_props import is_unitary
 
         print(is_unitary(complex_dm))
@@ -33,7 +41,7 @@ def random_unitary(dim: list[int] | int, is_real: bool = False, seed: int | None
 
         We can also generate random unitary matrices that are real-valued as follows.
 
-        ```python exec="1" source="above" session="real_dm"
+        ```python exec="1" source="above" result="text" session="real_dm"
         from toqito.rand import random_unitary
 
         real_dm = random_unitary(2, True)
@@ -44,7 +52,7 @@ def random_unitary(dim: list[int] | int, is_real: bool = False, seed: int | None
 
         Again, verifying that this is a valid unitary matrix can be done as follows.
 
-        ```python exec="1" source="above" session="real_dm"
+        ```python exec="1" source="above" result="text" session="real_dm"
         from toqito.matrix_props import is_unitary
 
         print(is_unitary(real_dm))
@@ -53,7 +61,7 @@ def random_unitary(dim: list[int] | int, is_real: bool = False, seed: int | None
         We may also generate unitaries such that the dimension argument provided is a `list` as
         opposed to an `int`. Here is an example of a random unitary matrix of dimension \(4\).
 
-        ```python exec="1" source="above" session="mat"
+        ```python exec="1" source="above" result="text" session="mat"
         from toqito.rand import random_unitary
 
         mat = random_unitary([4, 4], True)
@@ -64,7 +72,7 @@ def random_unitary(dim: list[int] | int, is_real: bool = False, seed: int | None
 
         As before, we can verify that this matrix generated is a valid unitary matrix.
 
-        ```python exec="1" source="above" session="mat"
+        ```python exec="1" source="above" result="text" session="mat"
         from toqito.matrix_props import is_unitary
 
         print(is_unitary(mat))
@@ -72,7 +80,7 @@ def random_unitary(dim: list[int] | int, is_real: bool = False, seed: int | None
 
         It is also possible to pass a seed to this function for reproducibility.
 
-        ```python exec="1" source="above" session="seeded"
+        ```python exec="1" source="above" result="text" session="seeded"
         from toqito.rand import random_unitary
 
         seeded = random_unitary(2, seed=42)
@@ -82,19 +90,11 @@ def random_unitary(dim: list[int] | int, is_real: bool = False, seed: int | None
 
         And once again, we can verify that this matrix generated is a valid unitary matrix.
 
-        ```python exec="1" source="above" session="seeded"
+        ```python exec="1" source="above" result="text" session="seeded"
         from toqito.matrix_props import is_unitary
 
         print(is_unitary(seeded))
         ```
-
-    Args:
-        dim: The number of rows (and columns) of the unitary matrix.
-        is_real: Boolean denoting whether the returned matrix has real entries or not. Default is `False`.
-        seed: A seed used to instantiate numpy's random number generator.
-
-    Returns:
-        A `dim`-by-`dim` random unitary matrix.
 
     """
     gen = np.random.default_rng(seed=seed)

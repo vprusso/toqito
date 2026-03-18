@@ -16,6 +16,16 @@ def complementary_channel(kraus_ops: list[np.ndarray]) -> list[np.ndarray]:
     we define the complementary Kraus operators \(K_i^C\) by stacking the rows of
     \(K_i\) from all Kraus operators vertically.
 
+    Args:
+        kraus_ops: A list of numpy arrays representing the Kraus operators of a quantum channel. Each Kraus operator is
+            assumed to be a square matrix.
+
+    Returns:
+        A list of numpy arrays representing the Kraus operators of the complementary map.
+
+    Raises:
+        ValueError: If the input is not a valid list of Kraus operators.
+
     Examples:
         Suppose the following Kraus operators define a quantum channel:
 
@@ -41,30 +51,20 @@ def complementary_channel(kraus_ops: list[np.ndarray]) -> list[np.ndarray]:
         To compute the Kraus operators for the complementary map, we rearrange the rows of these
         Kraus operators as follows:
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         import numpy as np
         from toqito.channel_ops import complementary_channel
         kraus_ops_Phi = [
-            np.sqrt(0.5) * np.array([[1, 0], [0, 0]]),
-            np.sqrt(0.5) * np.array([[0, 1], [0, 0]]),
-            np.sqrt(0.5) * np.array([[0, 0], [1, 0]]),
-            np.sqrt(0.5) * np.array([[0, 0], [0, 1]])
+        np.sqrt(0.5) * np.array([[1, 0], [0, 0]]),
+        np.sqrt(0.5) * np.array([[0, 1], [0, 0]]),
+        np.sqrt(0.5) * np.array([[0, 0], [1, 0]]),
+        np.sqrt(0.5) * np.array([[0, 0], [0, 1]])
         ]
         comp_kraus_ops = complementary_channel(kraus_ops_Phi)
         for i, op in enumerate(comp_kraus_ops):
-            print(f"Kraus operator {i + 1}:")
-            print(op)
+        print(f"Kraus operator {i + 1}:")
+        print(op)
         ```
-
-    Raises:
-        ValueError: If the input is not a valid list of Kraus operators.
-
-    Args:
-        kraus_ops: A list of numpy arrays representing the Kraus operators of a quantum channel. Each Kraus operator is
-            assumed to be a square matrix.
-
-    Returns:
-        A list of numpy arrays representing the Kraus operators of the complementary map.
 
     """
     num_kraus = len(kraus_ops)

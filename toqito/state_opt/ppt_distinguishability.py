@@ -39,6 +39,18 @@ def ppt_distinguishability(
         The PPT constraints are applied to the measurement operators to restrict the class of
         allowed measurements.
 
+    Args:
+        vectors: A list of states provided as either matrices or vectors.
+        probs: Respective list of probabilities each state is selected.
+        subsystems: A list of integers that correspond to the complex Euclidean space dimensions.
+        dimensions: A list of integers that correspond to the dimensions of the subsystems.
+        strategy: The method of distinguishing states.
+        solver: The SDP solver to use.
+        primal_dual: Option for the optimization problem.
+
+    Returns:
+        The optimal probability with which the states can be distinguished via PPT measurements.
+
     Examples:
         Consider the following Bell states:
 
@@ -69,7 +81,7 @@ def ppt_distinguishability(
         that the optimal probability of distinguishing via a PPT measurement should yield
         \(7/8 \approx 0.875\) as was proved in [@yu2012four].
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         import numpy as np
         from toqito.states import bell
         from toqito.state_opt import ppt_distinguishability
@@ -99,18 +111,6 @@ def ppt_distinguishability(
 
         print(f"Optimal value: {opt_val:.3f}")
         ```
-
-    Args:
-        vectors: A list of states provided as either matrices or vectors.
-        probs: Respective list of probabilities each state is selected.
-        subsystems: A list of integers that correspond to the complex Euclidean space dimensions.
-        dimensions: A list of integers that correspond to the dimensions of the subsystems.
-        strategy: The method of distinguishing states.
-        solver: The SDP solver to use.
-        primal_dual: Option for the optimization problem.
-
-    Returns:
-        The optimal probability with which the states can be distinguished via PPT measurements.
 
     """
     if not has_same_dimension(vectors):

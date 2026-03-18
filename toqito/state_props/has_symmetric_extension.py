@@ -27,6 +27,19 @@ def has_symmetric_extension(
 
     This function was adapted from QETLAB.
 
+    Args:
+        rho: A matrix or vector.
+        level: Level of the hierarchy to compute.
+        dim: The default has both subsystems of equal dimension.
+        ppt: If `True`, this enforces that the symmetric extension must be PPT.
+        tol: Tolerance when determining whether a symmetric extension exists.
+
+    Returns:
+        `True` if `mat` has a symmetric extension; `False` otherwise.
+
+    Raises:
+        ValueError: If dimension does not evenly divide matrix length.
+
     Examples:
         2-qubit symmetric extension:
 
@@ -39,7 +52,7 @@ def has_symmetric_extension(
 
         This closed-form equation is much quicker to check than running the semidefinite program.
 
-        ```python exec="1" source="above" session="has_symmetric_example"
+        ```python exec="1" source="above" result="text" session="has_symmetric_example"
         import numpy as np
         from toqito.state_props import has_symmetric_extension
         from toqito.matrix_ops import partial_trace
@@ -50,7 +63,7 @@ def has_symmetric_extension(
         >= np.trace(rho**2) - 4 * np.sqrt(np.linalg.det(rho)))
         ```
 
-        ```python exec="1" source="above" session="has_symmetric_example"
+        ```python exec="1" source="above" result="text" session="has_symmetric_example"
         # Now show that the `has_symmetric_extension` function recognizes this case.
         print(has_symmetric_extension(rho))
         ```
@@ -77,7 +90,7 @@ def has_symmetric_extension(
         As the state \(\sigma\) is entangled, there should not exist a symmetric extension at some
         level. We see this being the case for a relatively low level of the hierarchy.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         import numpy as np
         from toqito.states import bell
         from toqito.state_props import has_symmetric_extension
@@ -85,19 +98,6 @@ def has_symmetric_extension(
         sigma = np.kron(rho, rho)
         print(has_symmetric_extension(sigma))
         ```
-
-    Raises:
-        ValueError: If dimension does not evenly divide matrix length.
-
-    Args:
-        rho: A matrix or vector.
-        level: Level of the hierarchy to compute.
-        dim: The default has both subsystems of equal dimension.
-        ppt: If `True`, this enforces that the symmetric extension must be PPT.
-        tol: Tolerance when determining whether a symmetric extension exists.
-
-    Returns:
-        `True` if `mat` has a symmetric extension; `False` otherwise.
 
     """
     len_mat = rho.shape[1]

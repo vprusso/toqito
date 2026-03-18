@@ -43,6 +43,16 @@ def is_trace_preserving(
         \sum_{a \in \Sigma} A_a^* B_a = \mathbb{I}_{\mathcal{X}}
     \]
 
+    Args:
+        phi: The channel provided as either a Choi matrix or a list of Kraus operators.
+        rtol: The relative tolerance parameter (default 1e-05).
+        atol: The absolute tolerance parameter (default 1e-08).
+        sys: Scalar or vector specifying the size of the subsystems.
+        dim: Dimension of the subsystems. If `None`, all dimensions are assumed to be equal.
+
+    Returns:
+        True if the channel is trace-preserving, and False otherwise.
+
     Examples:
         The map \(\Phi\) defined as
 
@@ -60,7 +70,7 @@ def is_trace_preserving(
             \end{pmatrix}.
         \]
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         import numpy as np
         from toqito.channel_props import is_trace_preserving
 
@@ -72,7 +82,7 @@ def is_trace_preserving(
 
         As another example, the depolarizing channel is trace-preserving.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         from toqito.channels import depolarizing
         from toqito.channel_props import is_trace_preserving
 
@@ -83,16 +93,6 @@ def is_trace_preserving(
 
         Further information for determining the trace preserving properties of channels consult (Section: Linear Maps Of
         Square Operators from [@watrous2018theory]).
-
-    Args:
-        phi: The channel provided as either a Choi matrix or a list of Kraus operators.
-        rtol: The relative tolerance parameter (default 1e-05).
-        atol: The absolute tolerance parameter (default 1e-08).
-        sys: Scalar or vector specifying the size of the subsystems.
-        dim: Dimension of the subsystems. If `None`, all dimensions are assumed to be equal.
-
-    Returns:
-        True if the channel is trace-preserving, and False otherwise.
 
     """
     # If the variable `phi` is provided as a list, we assume this is a list

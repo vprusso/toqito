@@ -10,6 +10,17 @@ def calculate_vector_matrix_dimension(item: np.ndarray) -> int:
     2D arrays with one dimension being 1 as vector representations, and square 2D arrays as density matrices.
     The dimension is the length for vectors and the square of the side length for density matrices.
 
+    Args:
+        item: The item whose dimension is being calculated. Can be a 1D array (vector), a 2D array representing a vector
+            with one dimension being 1, or a square 2D array (density matrix).
+
+    Returns:
+        The dimension of the vector or matrix.
+
+    Raises:
+        ValueError: If the input is not a numpy array, not a 1D array (vector), a 2D array representing a vector, or a
+            square 2D array (density matrix).
+
     Examples:
         Consider the following three-dimensional vector:
 
@@ -18,8 +29,7 @@ def calculate_vector_matrix_dimension(item: np.ndarray) -> int:
         \]
 
         For this case, the dimension of the vector is equal to its length.
-
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         import numpy as np
         from toqito.matrix_ops import calculate_vector_matrix_dimension
 
@@ -37,8 +47,7 @@ def calculate_vector_matrix_dimension(item: np.ndarray) -> int:
                         0 & 1
                     \end{pmatrix}
         \]
-
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         import numpy as np
         from toqito.matrix_ops import calculate_vector_matrix_dimension
 
@@ -46,17 +55,6 @@ def calculate_vector_matrix_dimension(item: np.ndarray) -> int:
 
         print(calculate_vector_matrix_dimension(rho))
         ```
-
-    Raises:
-        ValueError: If the input is not a numpy array, not a 1D array (vector), a 2D array representing a vector, or a
-            square 2D array (density matrix).
-
-    Args:
-        item: The item whose dimension is being calculated. Can be a 1D array (vector), a 2D array representing a vector
-            with one dimension being 1, or a square 2D array (density matrix).
-
-    Returns:
-        The dimension of the vector or matrix.
 
     """
     # Check if the input is a numpy array

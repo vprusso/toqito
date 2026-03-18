@@ -33,6 +33,17 @@ def apply_channel(mat: np.ndarray, phi_op: np.ndarray | list[list[np.ndarray]]) 
 
     This function is adapted from the QETLAB package.
 
+    Args:
+        mat: A matrix.
+        phi_op: A superoperator. `phi_op` should be provided either as a Choi matrix, or as a list of numpy arrays with
+            either 1 or 2 columns whose entries are its Kraus operators.
+
+    Returns:
+        The result of applying the superoperator `phi_op` to the operator `mat`.
+
+    Raises:
+        ValueError: If matrix is not Choi matrix.
+
     Examples:
         The swap operator is the Choi matrix of the transpose map. The following is a (non-ideal,
         but illustrative) way of computing the transpose of a matrix.
@@ -76,24 +87,13 @@ def apply_channel(mat: np.ndarray, phi_op: np.ndarray | list[list[np.ndarray]]) 
 
         Using `|toqito⟩`, we can obtain the above matrices as follows.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         from toqito.channel_ops import apply_channel
         from toqito.perms import swap_operator
         import numpy as np
         test_input_mat = np.array([[1, 4, 7], [2, 5, 8], [3, 6, 9]])
         print(apply_channel(test_input_mat, swap_operator(3)))
         ```
-
-    Raises:
-        ValueError: If matrix is not Choi matrix.
-
-    Args:
-        mat: A matrix.
-        phi_op: A superoperator. `phi_op` should be provided either as a Choi matrix, or as a list of numpy arrays with
-            either 1 or 2 columns whose entries are its Kraus operators.
-
-    Returns:
-        The result of applying the superoperator `phi_op` to the operator `mat`.
 
     """
     # Both of the following methods of applying the superoperator are much faster than naively

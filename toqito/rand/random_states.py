@@ -9,10 +9,18 @@ def random_states(n: int, d: int, seed: int | None = None) -> list[np.ndarray]:
     This function generates a list of quantum states, each of a specified dimension. The states are
     valid quantum states distributed according to the Haar measure.
 
+    Args:
+        n: int The number of random states to generate.
+        d: int The dimension of each quantum state.
+        seed: int | None A seed used to instantiate numpy's random number generator.
+
+    Returns:
+        A list of `n` numpy arrays, each representing a d-dimensional quantum state as a column vector.
+
     Examples:
         Generating three quantum states each of dimension 4.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         from toqito.rand import random_states
 
         states = random_states(3, 4)
@@ -21,33 +29,25 @@ def random_states(n: int, d: int, seed: int | None = None) -> list[np.ndarray]:
         print(f"Shape of each state vector: {states[0].shape}")
 
         for idx, state in enumerate(states):
-           print(f"\nState {idx}:")
-           print(state)
+        print(f"\nState {idx}:")
+        print(state)
         ```
 
         It is also possible to pass a seed to this function for reproducibility.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         from toqito.rand import random_states
 
         states = random_states(3, 4, seed=42)
 
         for idx, state in enumerate(states):
-           print(f"\nState {idx}:")
-           print(state)
+        print(f"\nState {idx}:")
+        print(state)
         ```
 
 
 
 
-
-    Args:
-        n: int The number of random states to generate.
-        d: int The dimension of each quantum state.
-        seed: int | None A seed used to instantiate numpy's random number generator.
-
-    Returns:
-        A list of `n` numpy arrays, each representing a d-dimensional quantum state as a column vector.
 
     """
     gen = np.random.default_rng(seed=seed)

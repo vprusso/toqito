@@ -17,6 +17,15 @@ def purity(rho: np.ndarray) -> float:
 
     where \(\text{Tr}\) is the trace function.
 
+    Args:
+        rho: A density matrix of a pure state vector.
+
+    Returns:
+        A value between 0 and 1 that corresponds to the purity of \(\rho\).
+
+    Raises:
+        ValueError: If matrix is not density operator.
+
     Examples:
         Consider the following scaled state defined as the scaled identity matrix
 
@@ -32,7 +41,7 @@ def purity(rho: np.ndarray) -> float:
         Calculating the purity of \(\rho\) yields \(\frac{1}{4}\). This can be observed using
         `|toqito⟩` as follows.
 
-        ```python exec="1" source="above" session="purity_example"
+        ```python exec="1" source="above" result="text" session="purity_example"
         from toqito.state_props import purity
         import numpy as np
         print(purity(np.identity(4) / 4))
@@ -41,20 +50,11 @@ def purity(rho: np.ndarray) -> float:
 
         Calculate the purity of the Werner state:
 
-        ```python exec="1" source="above" session="purity_example"
+        ```python exec="1" source="above" result="text" session="purity_example"
         from toqito.states import werner
         rho = werner(2, 1 / 4)
         print(purity(rho))
         ```
-
-    Raises:
-        ValueError: If matrix is not density operator.
-
-    Args:
-        rho: A density matrix of a pure state vector.
-
-    Returns:
-        A value between 0 and 1 that corresponds to the purity of \(\rho\).
 
     """
     if not is_density(rho):

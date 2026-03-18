@@ -21,10 +21,17 @@ def random_circulant_gram_matrix(dim: int, seed: int | None = None) -> np.ndarra
     normalized DFT matrix. Finally, it computes the circulant matrix, which is real due to its origin
     from the DFT of a real diagonal matrix.
 
+    Args:
+        dim: int The dimension of the circulant matrix to generate.
+        seed: int | None A seed used to instantiate numpy's random number generator.
+
+    Returns:
+        numpy.ndarray A `dim` x `dim` real, symmetric, circulant matrix.
+
     Examples:
         Generate a random circulant Gram matrix of dimension 4.
 
-        ```python exec="1" source="above" session="random_circulant_gram_matrix_example"
+        ```python exec="1" source="above" result="text" session="random_circulant_gram_matrix_example"
         import numpy as np
         from toqito.rand import random_circulant_gram_matrix
 
@@ -33,17 +40,17 @@ def random_circulant_gram_matrix(dim: int, seed: int | None = None) -> np.ndarra
         print(f"Shape of circulant matrix is {circulant_matrix.shape}")
         ```
 
-        ```python exec="1" source="above" session="random_circulant_gram_matrix_example"
+        ```python exec="1" source="above" result="text" session="random_circulant_gram_matrix_example"
         print(np.allclose(circulant_matrix, circulant_matrix.T))
         ```
 
-        ```python exec="1" source="above" session="random_circulant_gram_matrix_example"
+        ```python exec="1" source="above" result="text" session="random_circulant_gram_matrix_example"
         print(circulant_matrix)
         ```
 
         It is also possible to pass a seed to this function for reproducibility.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         from toqito.rand import random_circulant_gram_matrix
 
         circulant_matrix = random_circulant_gram_matrix(4, seed=42)
@@ -51,13 +58,6 @@ def random_circulant_gram_matrix(dim: int, seed: int | None = None) -> np.ndarra
         print(circulant_matrix)
         ```
 
-
-    Args:
-        dim: int The dimension of the circulant matrix to generate.
-        seed: int | None A seed used to instantiate numpy's random number generator.
-
-    Returns:
-        numpy.ndarray A `dim` x `dim` real, symmetric, circulant matrix.
 
     """
     gen = np.random.default_rng(seed=seed)

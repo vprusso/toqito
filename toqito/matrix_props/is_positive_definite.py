@@ -6,6 +6,12 @@ import numpy as np
 def is_positive_definite(mat: np.ndarray) -> bool:
     r"""Check if matrix is positive definite (PD) [@wikipediadefinite].
 
+    Args:
+        mat: Matrix to check.
+
+    Returns:
+        Return `True` if matrix is positive definite, and `False` otherwise.
+
     Examples:
         Consider the following matrix
 
@@ -19,7 +25,7 @@ def is_positive_definite(mat: np.ndarray) -> bool:
 
         our function indicates that this is indeed a positive definite matrix.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         import numpy as np
         from toqito.matrix_props import is_positive_definite
 
@@ -39,7 +45,7 @@ def is_positive_definite(mat: np.ndarray) -> bool:
 
         is not positive definite.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         import numpy as np
         from toqito.matrix_props import is_positive_definite
 
@@ -50,12 +56,6 @@ def is_positive_definite(mat: np.ndarray) -> bool:
 
         !!! See Also
             [`is_positive_semidefinite`][toqito.matrix_props.is_positive_semidefinite.is_positive_semidefinite]
-
-    Args:
-        mat: Matrix to check.
-
-    Returns:
-        Return `True` if matrix is positive definite, and `False` otherwise.
 
     """
     if np.array_equal(mat, mat.conj().T):

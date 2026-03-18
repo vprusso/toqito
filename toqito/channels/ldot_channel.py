@@ -29,34 +29,6 @@ def ldot_channel(mat: np.ndarray, efficient: bool = True) -> np.ndarray:
     that average to zero under the twirl. This keeps the complexity polynomial in \(n\) instead
     of the exponential \(O(2^n)\) for the brute-force approach.
 
-    Examples:
-        Apply LDOT channel to project an arbitrary matrix onto LDOI subspace:
-
-        ```python exec="1" source="above"
-        from toqito.channels import ldot_channel
-        import numpy as np
-
-        # Arbitrary 2-qubit matrix
-        mat = np.array([[1, 2, 3, 4],
-                        [5, 6, 7, 8],
-                        [9, 10, 11, 12],
-                        [13, 14, 15, 16]])
-        ldoi_projection = ldot_channel(mat)
-        print(ldoi_projection)
-        ```
-
-        The LDOT channel is idempotent (applying it twice gives the same result):
-
-        ```python exec="1" source="above"
-        from toqito.channels import ldot_channel
-        import numpy as np
-
-        mat = np.random.rand(4, 4)
-        once = ldot_channel(mat)
-        twice = ldot_channel(once)
-        print(np.allclose(once, twice))
-        ```
-
     Args:
         mat: A square matrix of dimension \(n^2 \times n^2\) representing a bipartite
                 operator on \(\mathcal{X} \otimes \mathcal{Y}\) where
@@ -66,6 +38,34 @@ def ldot_channel(mat: np.ndarray, efficient: bool = True) -> np.ndarray:
 
     Returns:
         The LDOI projection of the input matrix.
+
+    Examples:
+        Apply LDOT channel to project an arbitrary matrix onto LDOI subspace:
+
+        ```python exec="1" source="above" result="text"
+        from toqito.channels import ldot_channel
+        import numpy as np
+
+        # Arbitrary 2-qubit matrix
+        mat = np.array([[1, 2, 3, 4],
+                    [5, 6, 7, 8],
+                    [9, 10, 11, 12],
+                    [13, 14, 15, 16]])
+        ldoi_projection = ldot_channel(mat)
+        print(ldoi_projection)
+        ```
+
+        The LDOT channel is idempotent (applying it twice gives the same result):
+
+        ```python exec="1" source="above" result="text"
+        from toqito.channels import ldot_channel
+        import numpy as np
+
+        mat = np.random.rand(4, 4)
+        once = ldot_channel(mat)
+        twice = ldot_channel(once)
+        print(np.allclose(once, twice))
+        ```
 
     """
     if mat.ndim != 2 or mat.shape[0] != mat.shape[1]:

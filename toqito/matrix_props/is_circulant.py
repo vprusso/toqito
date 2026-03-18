@@ -10,6 +10,12 @@ def is_circulant(mat: np.ndarray) -> bool:
     of the same elements and each row vector is rotated one element to the right
     relative to the preceding row vector.
 
+    Args:
+        mat: Matrix to check the circulancy of.
+
+    Returns:
+        Return `True` if `mat` is circulant; `False` otherwise.
+
     Examples:
         Consider the following matrix:
 
@@ -25,7 +31,7 @@ def is_circulant(mat: np.ndarray) -> bool:
         As can be seen, this matrix is circulant. We can verify this in
         `|toqito⟩` as
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         import numpy as np
         from toqito.matrix_props import is_circulant
 
@@ -33,12 +39,6 @@ def is_circulant(mat: np.ndarray) -> bool:
 
         print(is_circulant(mat))
         ```
-
-    Args:
-        mat: Matrix to check the circulancy of.
-
-    Returns:
-        Return `True` if `mat` is circulant; `False` otherwise.
 
     """
     n, m = mat.shape

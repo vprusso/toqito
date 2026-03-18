@@ -27,11 +27,20 @@ def is_unital(
 
     More information can be found in Chapter: Unital Channels And Majorization from [@watrous2018theory]).
 
+    Args:
+        phi: The channel provided as either a Choi matrix or a list of Kraus operators.
+        rtol: The relative tolerance parameter (default 1e-05).
+        atol: The absolute tolerance parameter (default 1e-08).
+        dim: A scalar, vector or matrix containing the input and output dimensions of PHI.
+
+    Returns:
+        `True` if the channel is unital, and `False` otherwise.
+
     Examples:
         Consider the channel whose Choi matrix is the swap operator. This channel is an example of a
         unital channel.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         from toqito.perms import swap_operator
         from toqito.channel_props import is_unital
 
@@ -43,7 +52,7 @@ def is_unital(
         Additionally, the channel whose Choi matrix is the depolarizing channel is another example of
         a unital channel.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         from toqito.channels import depolarizing
         from toqito.channel_props import is_unital
 
@@ -51,15 +60,6 @@ def is_unital(
 
         print(is_unital(choi))
         ```
-
-    Args:
-        phi: The channel provided as either a Choi matrix or a list of Kraus operators.
-        rtol: The relative tolerance parameter (default 1e-05).
-        atol: The absolute tolerance parameter (default 1e-08).
-        dim: A scalar, vector or matrix containing the input and output dimensions of PHI.
-
-    Returns:
-        `True` if the channel is unital, and `False` otherwise.
 
     """
     dim_in, _, _ = channel_dim(phi, dim=dim, allow_rect=False, compute_env_dim=False)

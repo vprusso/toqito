@@ -31,6 +31,19 @@ def permute_systems(
     `input_mat` is not square. If `inv_perm = True`, then the inverse permutation of `perm` is applied
     instead of `perm` itself.
 
+    Args:
+        input_mat: The vector or matrix.
+        perm: A permutation vector.
+        dim: The default has all subsystems of equal dimension.
+        row_only: Default: `False`
+        inv_perm: Default: `True`
+
+    Returns:
+        The matrix or vector that has been permuted.
+
+    Raises:
+        ValueError: If dimension does not match the number of subsystems.
+
     Examples:
         For spaces \(\mathcal{A}\) and \(\mathcal{B}\) where \(\text{dim}(\mathcal{A}) =
         \text{dim}(\mathcal{B}) = 2\) we may consider an operator \(X \in \mathcal{A} \otimes \mathcal{B}\).
@@ -61,7 +74,7 @@ def permute_systems(
             \end{pmatrix}.
         \]
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         import numpy as np
         from toqito.perms import permute_systems
 
@@ -109,7 +122,7 @@ def permute_systems(
             \end{pmatrix}.
         \]
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         import numpy as np
         from toqito.perms import permute_systems
 
@@ -119,19 +132,6 @@ def permute_systems(
         ```
 
 
-
-    Raises:
-        ValueError: If dimension does not match the number of subsystems.
-
-    Args:
-        input_mat: The vector or matrix.
-        perm: A permutation vector.
-        dim: The default has all subsystems of equal dimension.
-        row_only: Default: `False`
-        inv_perm: Default: `True`
-
-    Returns:
-        The matrix or vector that has been permuted.
 
     """
     if len(input_mat.shape) == 1:

@@ -19,17 +19,6 @@ def reduction(dim: int, k: int = 1) -> np.ndarray:
 
     where \(\mathbb{I}\) is the identity matrix. This map is \(k\)-positive.
 
-    Examples:
-        Using `|toqito⟩`, we can generate the \(3\)-dimensional (or standard) reduction map
-        as follows.
-
-
-        ```python exec="1" source="above"
-        from toqito.channels import reduction
-
-        print(reduction(3))
-        ```
-
     Args:
         dim: A positive integer (the dimension of the reduction map).
         k: If this positive integer is provided, the script will instead return the Choi matrix of the following
@@ -37,6 +26,17 @@ def reduction(dim: int, k: int = 1) -> np.ndarray:
 
     Returns:
         The reduction map.
+
+    Examples:
+        Using `|toqito⟩`, we can generate the \(3\)-dimensional (or standard) reduction map
+        as follows.
+
+
+        ```python exec="1" source="above" result="text"
+        from toqito.channels import reduction
+
+        print(reduction(3))
+        ```
 
     """
     psi = max_entangled(dim, False, False)

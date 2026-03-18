@@ -6,6 +6,12 @@ import numpy as np
 def is_linearly_independent(vectors: list[np.ndarray]) -> bool:
     r"""Check if set of vectors are linearly independent [@wikipedialinearindependence].
 
+    Args:
+        vectors: Vectors to check the linear independence of.
+
+    Returns:
+        Return `True` if vectors are linearly independent `False` otherwise.
+
     Examples:
         The following vectors are an example of a linearly independent set of vectors in \(\mathbb{R}^3\).
 
@@ -23,7 +29,7 @@ def is_linearly_independent(vectors: list[np.ndarray]) -> bool:
 
         We can see that these are linearly independent.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         import numpy as np
         from toqito.matrix_props import is_linearly_independent
 
@@ -33,12 +39,6 @@ def is_linearly_independent(vectors: list[np.ndarray]) -> bool:
 
         print(is_linearly_independent([v_1, v_2, v_3]))
         ```
-
-    Args:
-        vectors: Vectors to check the linear independence of.
-
-    Returns:
-        Return `True` if vectors are linearly independent `False` otherwise.
 
     """
     # Check if the rank of the matrix equals the number of vectors.

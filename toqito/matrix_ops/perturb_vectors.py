@@ -9,8 +9,15 @@ import numpy as np
 def perturb_vectors(vectors: list[np.ndarray], eps: float = 0.1) -> np.ndarray:
     """Perturb the vectors by adding a small random number to each element.
 
+    Args:
+        vectors: List of vectors to perturb.
+        eps: Amount by which to perturb vectors.
+
+    Returns:
+        Resulting list of perturbed vectors by a factor of epsilon.
+
     Examples:
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         import numpy as np
         from toqito.matrix_ops import perturb_vectors
 
@@ -18,13 +25,6 @@ def perturb_vectors(vectors: list[np.ndarray], eps: float = 0.1) -> np.ndarray:
 
         print(perturb_vectors(vectors, eps=0.1))
         ```
-
-    Args:
-        vectors: List of vectors to perturb.
-        eps: Amount by which to perturb vectors.
-
-    Returns:
-        Resulting list of perturbed vectors by a factor of epsilon.
 
     """
     perturbed_vectors: list[np.ndarray] = []

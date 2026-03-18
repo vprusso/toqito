@@ -9,10 +9,18 @@ def kp_norm(mat: np.ndarray, k: int, p: int) -> float | np.floating:
     Calculate the p-norm of a vector or the k-largest singular values of a
     matrix.
 
+    Args:
+        mat: 2D numpy ndarray.
+        k: The number of singular values to take.
+        p: The order of the norm.
+
+    Returns:
+        The kp-norm of a matrix.
+
     Examples:
         To compute the p-norm of a vector
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         import numpy as np
         from toqito.states import bell
         from toqito.matrix_props import kp_norm
@@ -20,27 +28,15 @@ def kp_norm(mat: np.ndarray, k: int, p: int) -> float | np.floating:
         print(np.around(kp_norm(bell(0), 1, np.inf), decimals=2))
         ```
 
-
-
         To compute the k-largest singular values of a matrix:
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         import numpy as np
         from toqito.matrix_props import kp_norm
         from toqito.rand import random_unitary
 
         print(np.around(kp_norm(random_unitary(5), 5, 2), decimals=2))
         ```
-
-
-
-    Args:
-        mat: 2D numpy ndarray
-        k: The number of singular values to take.
-        p: The order of the norm.
-
-    Returns:
-        The kp-norm of a matrix.
 
     """
     dim = min(mat.shape)

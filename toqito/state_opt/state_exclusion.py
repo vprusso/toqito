@@ -99,6 +99,20 @@ def state_exclusion(
     The conclusive state exclusion SDP is written explicitly in [@bandyopadhyay2014conclusive]. The problem
     of conclusive state exclusion was also thought about under a different guise in [@pusey2012reality].
 
+    Args:
+        vectors: A list of states provided as vectors (for pure states) or density matrices (for mixed states).
+        probs: Respective list of probabilities each state is selected. If no probabilities are provided, a uniform
+            probability distribution is assumed.
+        strategy: Whether to perform minimal error or unambiguous discrimination task. Possible values are "min_error"
+            and "unambiguous". Both strategies support pure and mixed states.
+        solver: Optimization option for `picos` solver. Default option is `solver_option="cvxopt"`.
+        primal_dual: Option for the optimization problem.
+        kwargs: Additional arguments to pass to picos' solve method.
+
+    Returns:
+        The optimal probability with which Bob can guess the state he was not given from `states` along with the optimal
+        set of measurements.
+
     Examples:
         Consider the following two Bell states
 
@@ -115,7 +129,7 @@ def state_exclusion(
         function in
         `|toqito⟩` yields a value of \(0\) as the probability for this to occur.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         import numpy as np
         from toqito.states import bell
         from toqito.state_opt import state_exclusion
@@ -128,7 +142,7 @@ def state_exclusion(
 
         Unambiguous state exclusion for unbiased pure states.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         import numpy as np
         from toqito.state_opt import state_exclusion
 
@@ -141,7 +155,7 @@ def state_exclusion(
 
         State exclusion for mixed states.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         import numpy as np
         from toqito.state_opt import state_exclusion
 
@@ -161,20 +175,6 @@ def state_exclusion(
             to set the `cvxopt_kktsolver` option to `ldl`.
 
             See https://gitlab.com/picos-api/picos/-/issues/341
-
-    Args:
-        vectors: A list of states provided as vectors (for pure states) or density matrices (for mixed states).
-        probs: Respective list of probabilities each state is selected. If no probabilities are provided, a uniform
-            probability distribution is assumed.
-        strategy: Whether to perform minimal error or unambiguous discrimination task. Possible values are "min_error"
-            and "unambiguous". Both strategies support pure and mixed states.
-        solver: Optimization option for `picos` solver. Default option is `solver_option="cvxopt"`.
-        primal_dual: Option for the optimization problem.
-        kwargs: Additional arguments to pass to picos' solve method.
-
-    Returns:
-        The optimal probability with which Bob can guess the state he was not given from `states` along with the optimal
-        set of measurements.
 
     """
     if not has_same_dimension(vectors):
@@ -252,6 +252,7 @@ def _unambiguous_primal(
     """Solve the primal problem for unambiguous quantum state distinguishability SDP.
 
     Implemented according to Equation (33) of [@bandyopadhyay2014conclusive].
+
     """
     n = len(vectors)
     problem = picos.Problem()
@@ -282,6 +283,7 @@ def _unambiguous_dual(
     """Solve the dual problem for unambiguous quantum state distinguishability SDP.
 
     Implemented according to Equation (35) of [@bandyopadhyay2014conclusive].
+
     """
     n = len(vectors)
     problem = picos.Problem()

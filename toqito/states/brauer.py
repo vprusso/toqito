@@ -17,24 +17,16 @@ def brauer(dim: int, p_val: int) -> np.ndarray:
 
     The exact number of such states is:
 
-    ```python exec="1" source="above"
-    import math
-    import numpy as np
-    p_val = 2
-    print(math.factorial(2 * p_val) / (math.factorial(p_val) * 2**p_val))
-    ```
+        ```python exec="1" source="above" result="text"
+        import math
+        import numpy as np
+        p_val = 2
+        print(math.factorial(2 * p_val) / (math.factorial(p_val) * 2**p_val))
+        ```
 
     which is the number of columns of the returned matrix.
 
     This function has been adapted from QETLAB.
-
-    Examples:
-        Generate a matrix whose columns are all Brauer states on 4 qubits.
-
-        ```python exec="1" source="above"
-        from toqito.states import brauer
-        print(brauer(2, 2))
-        ```
 
     Args:
         dim: Dimension of each local subsystem
@@ -43,6 +35,14 @@ def brauer(dim: int, p_val: int) -> np.ndarray:
 
     Returns:
         Matrix whose columns are all of the unnormalized Brauer states.
+
+    Examples:
+        Generate a matrix whose columns are all Brauer states on 4 qubits.
+
+        ```python exec="1" source="above" result="text"
+        from toqito.states import brauer
+        print(brauer(2, 2))
+        ```
 
     """
     # The Brauer states are computed from perfect matchings of the complete graph. So compute all

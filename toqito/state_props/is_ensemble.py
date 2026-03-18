@@ -22,6 +22,12 @@ def is_ensemble(states: list[np.ndarray]) -> bool:
         \text{Tr}\left( \sum_{a \in \Gamma} \eta(a) \right) = 1.
     \]
 
+    Args:
+        states: The list of states to check.
+
+    Returns:
+        `True` if states form an ensemble and `False` otherwise.
+
     Examples:
         Consider the following set of matrices
 
@@ -38,7 +44,7 @@ def is_ensemble(states: list[np.ndarray]) -> bool:
 
         The set \(\eta\) constitutes a valid ensemble.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         from toqito.state_props import is_ensemble
         import numpy as np
         rho_0 = np.array([[0.5, 0], [0, 0]])
@@ -46,12 +52,6 @@ def is_ensemble(states: list[np.ndarray]) -> bool:
         states = [rho_0, rho_1]
         print(is_ensemble(states))
         ```
-
-    Args:
-        states: The list of states to check.
-
-    Returns:
-        `True` if states form an ensemble and `False` otherwise.
 
     """
     trace_sum = 0

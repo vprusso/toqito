@@ -20,6 +20,16 @@ def trace_distance(rho: np.ndarray, sigma: np.ndarray) -> float | np.floating:
 
     More information on the trace distance can be found in [@quantikitracedistance].
 
+    Args:
+        rho: An input matrix.
+        sigma: An input matrix.
+
+    Returns:
+        The trace distance between `rho` and `sigma`.
+
+    Raises:
+        ValueError: If matrices are not of density operators.
+
     Examples:
         Consider the following Bell state
 
@@ -41,7 +51,7 @@ def trace_distance(rho: np.ndarray, sigma: np.ndarray) -> float | np.floating:
         The trace distance between \(\rho\) and another state \(\sigma\) is equal to \(0\) if any only if
         \(\rho = \sigma\). We can check this using the `|toqito⟩` package.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         from toqito.states import bell
         from toqito.state_metrics import trace_distance
 
@@ -50,16 +60,6 @@ def trace_distance(rho: np.ndarray, sigma: np.ndarray) -> float | np.floating:
 
         print(trace_distance(rho, sigma))
         ```
-
-    Raises:
-        ValueError: If matrices are not of density operators.
-
-    Args:
-        rho: An input matrix.
-        sigma: An input matrix.
-
-    Returns:
-        The trace distance between `rho` and `sigma`.
 
     """
     if not is_density(rho) or not is_density(sigma):

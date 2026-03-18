@@ -21,6 +21,14 @@ def is_identity(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-8) -> boo
         \end{pmatrix}.
     \]
 
+    Args:
+        mat: Matrix to check.
+        rtol: The relative tolerance parameter (default 1e-05).
+        atol: The absolute tolerance parameter (default 1e-08).
+
+    Returns:
+        Return `True` if matrix is the identity matrix, and `False` otherwise.
+
     Examples:
         Consider the following matrix:
 
@@ -35,7 +43,7 @@ def is_identity(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-8) -> boo
         our function indicates that this is indeed the identity matrix of dimension
         3.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         import numpy as np
         from toqito.matrix_props import is_identity
 
@@ -56,7 +64,7 @@ def is_identity(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-8) -> boo
 
         is not an identity matrix.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         import numpy as np
         from toqito.matrix_props import is_identity
 
@@ -64,14 +72,6 @@ def is_identity(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-8) -> boo
 
         print(is_identity(mat))
         ```
-
-    Args:
-        mat: Matrix to check.
-        rtol: The relative tolerance parameter (default 1e-05).
-        atol: The absolute tolerance parameter (default 1e-08).
-
-    Returns:
-        Return `True` if matrix is the identity matrix, and `False` otherwise.
 
     """
     if not is_square(mat):

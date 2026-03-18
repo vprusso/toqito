@@ -64,11 +64,26 @@ def channel_measured_relative_entropy(
     are the weights and nodes, respectively, for the $m$-point Gauss--Legendre quadrature
     on the interval $[0, 1]$.
 
+    Args:
+        channel_1: Choi matrix for the first channel.
+        channel_2: Choi matrix for the second channel.
+        in_dim: The dimension of the input of the quantum channels.
+        m: One of the optimization parameters.
+        k: The other optimization parameter.
+        hamiltonian: The Hamiltonian.
+        energy: The energy constraint.
+
+    Returns:
+        The measured relative entropy between `channel_1` and `channel_2`.
+
+    Raises:
+        ValueError: If `channel_1` is not a quantum channel or `channel_2` is not completely positive.
+
     Examples:
         We can find the measured relative entropy between a depolarizing channel of dimension 2
         and the identity channel, constrained by a Hamiltonian and energy, as follows:
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         from toqito.channel_metrics import channel_measured_relative_entropy
         from toqito.channels import depolarizing
         import numpy as np
@@ -81,21 +96,6 @@ def channel_measured_relative_entropy(
         energy = 100
         print(channel_measured_relative_entropy(channel_1, channel_2, in_dim, m, k, hamiltonian, energy))
         ```
-
-    Raises:
-        ValueError: If `channel_1` is not a quantum channel or `channel_2` is not completely positive.
-
-    Args:
-        channel_1: Choi matrix for the first channel.
-        channel_2: Choi matrix for the second channel.
-        in_dim: The dimension of the input of the quantum channels.
-        m: One of the optimization parameters.
-        k: The other optimization parameter.
-        hamiltonian: The Hamiltonian.
-        energy: The energy constraint.
-
-    Returns:
-        The measured relative entropy between `channel_1` and `channel_2`.
 
     """
     if not is_quantum_channel(channel_1):

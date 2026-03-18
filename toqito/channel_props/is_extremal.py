@@ -28,30 +28,30 @@ def is_extremal(phi: np.ndarray | list[np.ndarray | list[np.ndarray]], tol: floa
     - A list of Kraus operators, representing the channel in Kraus form.
     - A nested list of Kraus operators, which will be flattened automatically.
 
-    Examples:
-        The following demonstrates an example of an extremal quantum channel from Example 2.33
-        in [@watrous2018theory].
-
-        ```python exec="1" source="above"
-        import numpy as np
-        from toqito.channel_props import is_extremal
-        kraus_ops = [
-            (1 / np.sqrt(6)) * np.array([[2, 0], [0, 1], [0, 1], [0, 0]]),
-            (1 / np.sqrt(6)) * np.array([[0, 0], [1, 0], [1, 0], [0, 2]])
-        ]
-
-        print(is_extremal(kraus_ops))
-        ```
-
-    Raises:
-        ValueError: If the input is neither a valid list of Kraus operators nor a Choi matrix.
-
     Args:
         phi: The quantum channel, which may be given as a Choi matrix or a list of Kraus operators.
         tol: Tolerance value for numerical precision in rank computation.
 
     Returns:
         True if the channel is extremal; False otherwise.
+
+    Raises:
+        ValueError: If the input is neither a valid list of Kraus operators nor a Choi matrix.
+
+    Examples:
+        The following demonstrates an example of an extremal quantum channel from Example 2.33
+        in [@watrous2018theory].
+
+        ```python exec="1" source="above" result="text"
+        import numpy as np
+        from toqito.channel_props import is_extremal
+        kraus_ops = [
+        (1 / np.sqrt(6)) * np.array([[2, 0], [0, 1], [0, 1], [0, 0]]),
+        (1 / np.sqrt(6)) * np.array([[0, 0], [1, 0], [1, 0], [0, 2]])
+        ]
+
+        print(is_extremal(kraus_ops))
+        ```
 
     """
     # If input is a Choi matrix, convert to a (flat) list of Kraus operators.

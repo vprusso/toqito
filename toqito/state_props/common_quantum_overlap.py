@@ -27,10 +27,17 @@ def common_quantum_overlap(states: list[np.ndarray]) -> float:
     The common quantum overlap is a key concept in analyzing epistemic models of quantum
     mechanics and understanding quantum state preparation contextuality.
 
+    Args:
+        states: A list of quantum states represented as numpy arrays. States can be pure states
+            (represented as state vectors) or mixed states (represented as density matrices).
+
+    Returns:
+        The common quantum overlap value.
+
     Examples:
         Consider the Bell states:
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         from toqito.states import bell
         from toqito.state_props import common_quantum_overlap
         bell_states = [bell(0), bell(1), bell(2), bell(3)]
@@ -39,7 +46,7 @@ def common_quantum_overlap(states: list[np.ndarray]) -> float:
 
         For maximally mixed states in any dimension:
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         import numpy as np
         from toqito.state_props import common_quantum_overlap
         dim = 2
@@ -57,20 +64,13 @@ def common_quantum_overlap(states: list[np.ndarray]) -> float:
         where \(\theta\) represents the angle between the two states in Hilbert space.
         For two pure states with a known inner product:
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         import numpy as np
         from toqito.state_props import common_quantum_overlap
         theta = np.pi/4
         states = [np.array([1, 0]), np.array([np.cos(theta), np.sin(theta)])]
         print(common_quantum_overlap(states)) # Should approximate (1-sqrt(1-cos²(π/4)))
         ```
-
-    Args:
-        states: A list of quantum states represented as numpy arrays. States can be pure states
-            (represented as state vectors) or mixed states (represented as density matrices).
-
-    Returns:
-        The common quantum overlap value.
 
     """
     n = len(states)

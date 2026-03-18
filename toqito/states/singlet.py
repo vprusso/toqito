@@ -8,6 +8,12 @@ from toqito.perms import swap_operator
 def singlet(dim: int) -> np.ndarray:
     r"""Produce a generalized singlet state acting on two n-dimensional systems [@cabello2002nparticle].
 
+    Args:
+        dim: The dimension of the generalized singlet state.
+
+    Returns:
+        The singlet state of dimension `dim`.
+
     Examples:
         For \(n = 2\) this generates the following matrix
 
@@ -28,7 +34,7 @@ def singlet(dim: int) -> np.ndarray:
 
         is the singlet state. This can be computed via `|toqito⟩` as follows:
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         from toqito.states import singlet
         dim = 2
         print(singlet(dim))
@@ -38,17 +44,11 @@ def singlet(dim: int) -> np.ndarray:
         It is possible for us to consider higher dimensional singlet states. For instance, we can consider the
         \(3\)-dimensional Singlet state as follows:
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         from toqito.states import singlet
         dim = 3
         print(singlet(dim))
         ```
-
-    Args:
-        dim: The dimension of the generalized singlet state.
-
-    Returns:
-        The singlet state of dimension `dim`.
 
     """
     return (np.identity(dim**2) - swap_operator([dim, dim])) / ((dim**2) - dim)

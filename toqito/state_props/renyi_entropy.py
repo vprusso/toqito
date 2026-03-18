@@ -29,6 +29,14 @@ def renyi_entropy(rho: np.ndarray, alpha: float) -> float:
     nonnegative real numbers indexed by \(\Sigma\). It recovers the von Neumann entropy for
     \(\alpha=1\) and the min-entropy for \(\alpha=+\infty\).
 
+    Args:
+        rho: Density operator.
+        alpha: Order for the Rényi entropy. Note that numerical instability may happen for small positive values because
+            of the computation of the spectral decomposition.
+
+    Returns:
+        The Rényi entropy of order `alpha` of `rho`.
+
     Examples:
         Consider the following Bell state:
 
@@ -50,13 +58,13 @@ def renyi_entropy(rho: np.ndarray, alpha: float) -> float:
         Calculating the Rényi entropy of order \(2\) of \(\rho\) in `|toqito⟩` can be
         done as follows.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         from toqito.state_props import renyi_entropy
         import numpy as np
         test_input_mat = np.array(
-                [[1 / 2, 0, 0, 1 / 2], [0, 0, 0, 0],
-                [0, 0, 0, 0], [1 / 2, 0, 0, 1 / 2]]
-            )
+            [[1 / 2, 0, 0, 1 / 2], [0, 0, 0, 0],
+            [0, 0, 0, 0], [1 / 2, 0, 0, 1 / 2]]
+        )
         print(renyi_entropy(test_input_mat, 2))
         ```
 
@@ -73,20 +81,12 @@ def renyi_entropy(rho: np.ndarray, alpha: float) -> float:
         As this state is maximally mixed, the Rényi entropy of \(\rho\) is
         equal to one for all orders \(\alpha\). We can see this in `|toqito⟩` as follows.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         from toqito.state_props import renyi_entropy
         import numpy as np
         rho = 1/2 * np.identity(2)
         print(renyi_entropy(rho, 3/2))
         ```
-
-    Args:
-        rho: Density operator.
-        alpha: Order for the Rényi entropy. Note that numerical instability may happen for small positive values because
-            of the computation of the spectral decomposition.
-
-    Returns:
-        The Rényi entropy of order `alpha` of `rho`.
 
     """
     if not is_density(rho):

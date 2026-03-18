@@ -19,6 +19,12 @@ def is_unitary(phi: np.ndarray | list[list[np.ndarray]]) -> bool:
         \Phi(X) = U X U^*.
     \]
 
+    Args:
+        phi: The channel provided as either a Choi matrix or a list of Kraus operators.
+
+    Returns:
+        `True` if the channel is a unitary channel, and `False` otherwise.
+
     Examples:
         The identity channel is one example of a unitary channel:
 
@@ -32,7 +38,7 @@ def is_unitary(phi: np.ndarray | list[list[np.ndarray]]) -> bool:
 
         We can verify this as follows:
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         import numpy as np
         from toqito.channel_props import is_unitary
 
@@ -57,18 +63,12 @@ def is_unitary(phi: np.ndarray | list[list[np.ndarray]]) -> bool:
 
         We may verify that this channel is not a unitary channel.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         from toqito.channels import depolarizing
         from toqito.channel_props import is_unitary
 
         print(is_unitary(depolarizing(2)))
         ```
-
-    Args:
-        phi: The channel provided as either a Choi matrix or a list of Kraus operators.
-
-    Returns:
-        `True` if the channel is a unitary channel, and `False` otherwise.
 
     """
     # If the variable `phi` is provided as a ndarray, we assume this is a

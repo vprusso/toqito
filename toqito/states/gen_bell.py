@@ -24,6 +24,11 @@ def gen_bell(k_1: int, k_2: int, dim: int) -> np.ndarray:
         bell(3) : gen_bell(1, 1, 2)
 
 
+    Args:
+        k_1: An integer 0 <= k_1 <= n.
+        k_2: An integer 0 <= k_2 <= n.
+        dim: The dimension of the generalized Bell state.
+
     Examples:
         For \(d = 2\) and \(k_1 = k_2 = 0\), this generates the following matrix
 
@@ -44,7 +49,7 @@ def gen_bell(k_1: int, k_2: int, dim: int) -> np.ndarray:
 
         is one of the four standard Bell states. This can be computed via `|toqito⟩` as follows.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         from toqito.states import gen_bell
         dim = 2
         k_1 = 0
@@ -55,18 +60,13 @@ def gen_bell(k_1: int, k_2: int, dim: int) -> np.ndarray:
         It is possible for us to consider higher dimensional Bell states. For instance, we can consider
         the \(3\)-dimensional Bell state for \(k_1 = k_2 = 0\) as follows.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         from toqito.states import gen_bell
         dim = 3
         k_1 = 0
         k_2 = 0
         print(gen_bell(k_1, k_2, dim))
         ```
-
-    Args:
-        k_1: An integer 0 <= k_1 <= n.
-        k_2: An integer 0 <= k_2 <= n.
-        dim: The dimension of the generalized Bell state.
 
     """
     gen_pauli_w = gen_pauli(k_1, k_2, dim)

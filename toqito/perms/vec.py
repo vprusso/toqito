@@ -52,6 +52,12 @@ def vec(mat: np.ndarray) -> np.ndarray:
 
     for all \(a\) and \(b\).
 
+    Args:
+        mat: The input matrix.
+
+    Returns:
+        The vec representation of the matrix.
+
     Examples:
         Consider the following matrix
 
@@ -68,7 +74,7 @@ def vec(mat: np.ndarray) -> np.ndarray:
             \text{vec}(A) = \left[1, 3, 2, 4 \right]^{T}.
         \]
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         import numpy as np
         from toqito.perms import vec
 
@@ -79,12 +85,6 @@ def vec(mat: np.ndarray) -> np.ndarray:
 
         !!! See Also
             [`unvec()`][toqito.matrix_ops.unvec.unvec]
-
-    Args:
-        mat: The input matrix.
-
-    Returns:
-        The vec representation of the matrix.
 
     """
     return mat.reshape((-1, 1), order="F")

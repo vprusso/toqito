@@ -8,29 +8,30 @@ def mutual_coherence(vectors: list[np.ndarray]) -> float | np.floating:
 
     The mutual coherence of a collection of input vectors is defined as the maximum
     absolute value of the inner product between any two distinct vectors, divided by the
-    product of their norms [@wikipediamutualcoherence]. It provides a measure of how
+    product of their norms [@wikipediamutualcoherence]. It provides a measure of how
     similar the vectors are to each other.
-
-    Examples:
-        ```python exec="1" source="above"
-        import numpy as np
-        from toqito.matrix_props.mutual_coherence import mutual_coherence
-        example_A = [np.array([1, 0]), np.array([0, 1])]
-        print("Result for example_A = ",mutual_coherence(example_A))
-        # An example with a larger set of vectors
-        example_B = [np.array([1, 0, 1]), np.array([0, 1, 1]), np.array([1, 1, 0])]
-        print("Result for example_B = ",mutual_coherence(example_B))
-        ```
-
-    Raises:
-        ValueError: If arrays in list are not 1D.
-        TypeError: If input is not a list.
 
     Args:
         vectors: A list of 1D numpy arrays.
 
     Returns:
         The mutual coherence of the collection of input vectors.
+
+    Raises:
+        ValueError: If arrays in list are not 1D.
+        TypeError: If input is not a list.
+
+    Examples:
+        ```python exec="1" source="above" result="text"
+        import numpy as np
+        from toqito.matrix_props.mutual_coherence import mutual_coherence
+        example_A = [np.array([1, 0]), np.array([0, 1])]
+        print("Result for example_A = ", mutual_coherence(example_A))
+
+        # An example with a larger set of vectors
+        example_B = [np.array([1, 0, 1]), np.array([0, 1, 1]), np.array([1, 1, 0])]
+        print("Result for example_B = ", mutual_coherence(example_B))
+        ```
 
     """
     # Check if the input is a valid list of 1D numpy arrays.

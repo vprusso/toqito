@@ -9,7 +9,7 @@ from toqito.channels.ldot_channel import ldot_channel
 from toqito.channels.pauli_channel import pauli_channel
 from toqito.channels.phase_damping import phase_damping
 from toqito.channels.realignment import realignment
-from toqito.channels.reduction import reduction  
+from toqito.channels.reduction import reduction
 from toqito.channel_ops import kraus_to_choi
 from toqito.channel_ops import choi_to_kraus
 from toqito.matrix_ops import partial_trace
