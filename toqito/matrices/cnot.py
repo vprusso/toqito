@@ -23,9 +23,9 @@ def cnot() -> np.ndarray:
 
     Examples:
         ```python exec="1" source="above" result="text"
-    from toqito.matrices import cnot
+        from toqito.matrices import cnot
 
-    print(cnot())
+        print(cnot())
         ```
 
     """

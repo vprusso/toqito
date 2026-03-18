@@ -52,16 +52,16 @@ def complementary_channel(kraus_ops: list[np.ndarray]) -> list[np.ndarray]:
         Kraus operators as follows:
 
         ```python exec="1" source="above" result="text"
-    import numpy as np
-    from toqito.channel_ops import complementary_channel
-    kraus_ops_Phi = [
+        import numpy as np
+        from toqito.channel_ops import complementary_channel
+        kraus_ops_Phi = [
         np.sqrt(0.5) * np.array([[1, 0], [0, 0]]),
         np.sqrt(0.5) * np.array([[0, 1], [0, 0]]),
         np.sqrt(0.5) * np.array([[0, 0], [1, 0]]),
         np.sqrt(0.5) * np.array([[0, 0], [0, 1]])
-    ]
-    comp_kraus_ops = complementary_channel(kraus_ops_Phi)
-    for i, op in enumerate(comp_kraus_ops):
+        ]
+        comp_kraus_ops = complementary_channel(kraus_ops_Phi)
+        for i, op in enumerate(comp_kraus_ops):
         print(f"Kraus operator {i + 1}:")
         print(op)
         ```

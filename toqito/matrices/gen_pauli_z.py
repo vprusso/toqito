@@ -44,9 +44,9 @@ def gen_pauli_z(dim: int) -> np.ndarray:
         \]
 
         ```python exec="1" source="above" result="text"
-    from toqito.matrices import gen_pauli_z
+        from toqito.matrices import gen_pauli_z
 
-    print(gen_pauli_z(3))
+        print(gen_pauli_z(3))
         ```
 
     """

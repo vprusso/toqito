@@ -33,15 +33,15 @@ def is_absolutely_k_incoherent(mat: np.ndarray, k: int, tol: float = 1e-15) -> b
         ValueError: If the input matrix is not square.
 
     Examples:
-    ```python exec="1" source="above" result="text"
-    import numpy as np
-    from toqito.matrix_props import is_absolutely_k_incoherent
+        ```python exec="1" source="above" result="text"
+        import numpy as np
+        from toqito.matrix_props import is_absolutely_k_incoherent
 
-    mat = np.array([[2, 1, 2],
-                [1, 2, -1],
-                [2, -1, 5]])
-    print(is_absolutely_k_incoherent(mat, 4))
-    ```
+        mat = np.array([[2, 1, 2],
+                    [1, 2, -1],
+                    [2, -1, 5]])
+        print(is_absolutely_k_incoherent(mat, 4))
+        ```
 
         !!! See
             [is_antidistinguishable()][toqito.state_props.is_antidistinguishable.is_antidistinguishable],

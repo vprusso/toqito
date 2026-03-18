@@ -43,14 +43,14 @@ def is_extremal(phi: np.ndarray | list[np.ndarray | list[np.ndarray]], tol: floa
         in [@watrous2018theory].
 
         ```python exec="1" source="above" result="text"
-    import numpy as np
-    from toqito.channel_props import is_extremal
-    kraus_ops = [
+        import numpy as np
+        from toqito.channel_props import is_extremal
+        kraus_ops = [
         (1 / np.sqrt(6)) * np.array([[2, 0], [0, 1], [0, 1], [0, 0]]),
         (1 / np.sqrt(6)) * np.array([[0, 0], [1, 0], [1, 0], [0, 2]])
-    ]
+        ]
 
-    print(is_extremal(kraus_ops))
+        print(is_extremal(kraus_ops))
         ```
 
     """

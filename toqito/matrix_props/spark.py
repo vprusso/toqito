@@ -22,14 +22,14 @@ def spark(mat: np.ndarray) -> int:
 
     Examples:
         ```python exec="1" source="above" result="text"
-    import numpy as np
-    from toqito.matrix_props import spark
+        import numpy as np
+        from toqito.matrix_props import spark
 
-    A = np.array([[1, 0, 1, 2],
+        A = np.array([[1, 0, 1, 2],
                   [0, 1, 1, 3],
                   [1, 1, 2, 5]])
 
-    print(spark(A))
+        print(spark(A))
         ```
 
     Notes:

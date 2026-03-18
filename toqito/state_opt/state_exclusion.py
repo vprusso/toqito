@@ -130,43 +130,43 @@ def state_exclusion(
         `|toqito⟩` yields a value of \(0\) as the probability for this to occur.
 
         ```python exec="1" source="above" result="text"
-    import numpy as np
-    from toqito.states import bell
-    from toqito.state_opt import state_exclusion
+        import numpy as np
+        from toqito.states import bell
+        from toqito.state_opt import state_exclusion
 
-    vectors = [bell(0), bell(1)]
-    probs = [1/2, 1/2]
+        vectors = [bell(0), bell(1)]
+        probs = [1/2, 1/2]
 
-    print(np.around(state_exclusion(vectors, probs)[0], decimals=2))
+        print(np.around(state_exclusion(vectors, probs)[0], decimals=2))
         ```
 
         Unambiguous state exclusion for unbiased pure states.
 
         ```python exec="1" source="above" result="text"
-    import numpy as np
-    from toqito.state_opt import state_exclusion
+        import numpy as np
+        from toqito.state_opt import state_exclusion
 
-    states = [np.array([[1.], [0.]]), np.array([[1.],[1.]]) / np.sqrt(2)]
+        states = [np.array([[1.], [0.]]), np.array([[1.],[1.]]) / np.sqrt(2)]
 
-    res, _ = state_exclusion(states, primal_dual="primal", strategy="unambiguous", abs_ipm_opt_tol=1e-7)
+        res, _ = state_exclusion(states, primal_dual="primal", strategy="unambiguous", abs_ipm_opt_tol=1e-7)
 
-    print(np.around(res, decimals=2))
+        print(np.around(res, decimals=2))
         ```
 
         State exclusion for mixed states.
 
         ```python exec="1" source="above" result="text"
-    import numpy as np
-    from toqito.state_opt import state_exclusion
+        import numpy as np
+        from toqito.state_opt import state_exclusion
 
-    # Two mixed states
-    rho1 = 0.7 * np.array([[1., 0.], [0., 0.]]) + 0.3 * np.eye(2) / 2
-    rho2 = 0.7 * np.array([[0., 0.], [0., 1.]]) + 0.3 * np.eye(2) / 2
-    states = [rho1, rho2]
+        # Two mixed states
+        rho1 = 0.7 * np.array([[1., 0.], [0., 0.]]) + 0.3 * np.eye(2) / 2
+        rho2 = 0.7 * np.array([[0., 0.], [0., 1.]]) + 0.3 * np.eye(2) / 2
+        states = [rho1, rho2]
 
-    res, _ = state_exclusion(states, primal_dual="dual")
+        res, _ = state_exclusion(states, primal_dual="dual")
 
-    print(np.around(res, decimals=2))
+        print(np.around(res, decimals=2))
         ```
 
         !!! Note

@@ -37,24 +37,24 @@ def is_block_positive(
     Examples:
         The swap operator is always block positive, since it is the Choi
         matrix of the transpose map.
-    ```python exec="1" source="above" result="text"
-    from toqito.perms.swap_operator import swap_operator
-    from toqito.matrix_props.is_block_positive import is_block_positive
+        ```python exec="1" source="above" result="text"
+        from toqito.perms.swap_operator import swap_operator
+        from toqito.matrix_props.is_block_positive import is_block_positive
 
-    mat = swap_operator(3)
+        mat = swap_operator(3)
 
-    print(is_block_positive(mat=mat))
-    ```
+        print(is_block_positive(mat=mat))
+        ```
 
         However, it's not 2 - block positive.
-    ```python exec="1" source="above" result="text"
-    from toqito.perms.swap_operator import swap_operator
-    from toqito.matrix_props.is_block_positive import is_block_positive
+        ```python exec="1" source="above" result="text"
+        from toqito.perms.swap_operator import swap_operator
+        from toqito.matrix_props.is_block_positive import is_block_positive
 
-    mat = swap_operator(3)
+        mat = swap_operator(3)
 
-    print(is_block_positive(mat=mat, k=2))
-    ```
+        print(is_block_positive(mat=mat, k=2))
+        ```
 
     """
     if not is_hermitian(mat):

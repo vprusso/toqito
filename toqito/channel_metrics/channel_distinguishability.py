@@ -66,29 +66,29 @@ def channel_distinguishability(
         Optimal probability of distinguishing two amplitude damping channels in the Bayesian setting:
 
         ```python exec="1" source="above" result="text"
-    from toqito.channels import amplitude_damping
-    from toqito.channel_ops import kraus_to_choi
-    from toqito.channel_metrics import channel_distinguishability
-    # Define two amplitude damping channels with gamma=0.25 and gamma=0.5
-    choi_ch_1 = kraus_to_choi(amplitude_damping(gamma=0.25))
-    choi_ch_2 = kraus_to_choi(amplitude_damping(gamma=0.5))
+        from toqito.channels import amplitude_damping
+        from toqito.channel_ops import kraus_to_choi
+        from toqito.channel_metrics import channel_distinguishability
+        # Define two amplitude damping channels with gamma=0.25 and gamma=0.5
+        choi_ch_1 = kraus_to_choi(amplitude_damping(gamma=0.25))
+        choi_ch_2 = kraus_to_choi(amplitude_damping(gamma=0.5))
 
-    p = [0.5, 0.5]
+        p = [0.5, 0.5]
 
-    print(channel_distinguishability(choi_ch_1, choi_ch_2, p))
+        print(channel_distinguishability(choi_ch_1, choi_ch_2, p))
         ```
 
         Optimal probability of distinguishing two amplitude damping channels in the minimax setting:
 
         ```python exec="1" source="above" result="text"
-    from toqito.channels import amplitude_damping
-    from toqito.channel_ops import kraus_to_choi
-    from toqito.channel_metrics import channel_distinguishability
-    # Define two amplitude damping channels with gamma=0.25 and gamma=0.5
-    choi_ch_1 = kraus_to_choi(amplitude_damping(gamma=0.25))
-    choi_ch_2 = kraus_to_choi(amplitude_damping(gamma=0.5))
+        from toqito.channels import amplitude_damping
+        from toqito.channel_ops import kraus_to_choi
+        from toqito.channel_metrics import channel_distinguishability
+        # Define two amplitude damping channels with gamma=0.25 and gamma=0.5
+        choi_ch_1 = kraus_to_choi(amplitude_damping(gamma=0.25))
+        choi_ch_2 = kraus_to_choi(amplitude_damping(gamma=0.5))
 
-    print(channel_distinguishability(choi_ch_1, choi_ch_2, None, [2, 2], strategy="minimax",primal_dual="primal"))
+        print(channel_distinguishability(choi_ch_1, choi_ch_2, None, [2, 2], strategy="minimax",primal_dual="primal"))
         ```
 
     """

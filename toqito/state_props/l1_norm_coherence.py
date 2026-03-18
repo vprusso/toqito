@@ -37,11 +37,11 @@ def l1_norm_coherence(rho: np.ndarray) -> float:
         same absolute value.
 
         ```python exec="1" source="above" result="text"
-    from toqito.state_props import l1_norm_coherence
-    import numpy as np
-    # Maximally coherent state.
-    v = np.ones((3,1))/np.sqrt(3)
-    print(l1_norm_coherence(v))
+        from toqito.state_props import l1_norm_coherence
+        import numpy as np
+        # Maximally coherent state.
+        v = np.ones((3,1))/np.sqrt(3)
+        print(l1_norm_coherence(v))
         ```
 
     """

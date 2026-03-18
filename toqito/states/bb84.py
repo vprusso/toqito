@@ -28,8 +28,8 @@ def bb84() -> list[list[np.ndarray]]:
         arrays.
 
         ```python exec="1" source="above" result="text"
-    from toqito.states import bb84
-    print(bb84())
+        from toqito.states import bb84
+        print(bb84())
         ```
 
     """

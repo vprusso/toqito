@@ -23,8 +23,8 @@ def trine() -> list[np.ndarray]:
         Generating the trine states can be done by simply invoking the function:
 
         ```python exec="1" source="above" result="text"
-    from toqito.states import trine
-    print(trine())
+        from toqito.states import trine
+        print(trine())
         ```
 
     """

@@ -20,17 +20,17 @@ def random_orthonormal_basis(dim: int, is_real: bool = False, seed: int | None =
         To generate a random orthonormal basis of dimension \(4\),
 
         ```python exec="1" source="above" result="text"
-    from toqito.rand import random_orthonormal_basis
+        from toqito.rand import random_orthonormal_basis
 
-    print(random_orthonormal_basis(4, is_real = True))
+        print(random_orthonormal_basis(4, is_real = True))
         ```
 
         It is also possible to add a seed for reproducibility.
 
         ```python exec="1" source="above" result="text"
-    from toqito.rand import random_orthonormal_basis
+        from toqito.rand import random_orthonormal_basis
 
-    print(random_orthonormal_basis(2, is_real=True, seed=42))
+        print(random_orthonormal_basis(2, is_real=True, seed=42))
         ```
 
     """

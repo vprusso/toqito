@@ -52,26 +52,26 @@ def channel_fidelity(choi_1: np.ndarray, choi_2: np.ndarray, eps: float = 1e-7) 
         \(1\).
 
         ```python exec="1" source="above" result="text"
-    import numpy as np
-    from toqito.channels import dephasing
-    from toqito.channel_metrics import channel_fidelity
-    # The Choi matrices of dimension-4 for the dephasing channel
-    choi_1 = dephasing(4)
-    choi_2 = dephasing(4)
-    print(channel_fidelity(choi_1, choi_2))
+        import numpy as np
+        from toqito.channels import dephasing
+        from toqito.channel_metrics import channel_fidelity
+        # The Choi matrices of dimension-4 for the dephasing channel
+        choi_1 = dephasing(4)
+        choi_2 = dephasing(4)
+        print(channel_fidelity(choi_1, choi_2))
         ```
 
         We can also compute the channel fidelity between two different channels. For example, we can
         compute the channel fidelity between the dephasing and depolarizing channels.
 
         ```python exec="1" source="above" result="text"
-    import numpy as np
-    from toqito.channels import dephasing, depolarizing
-    from toqito.channel_metrics import channel_fidelity
-    # The Choi matrices of dimension-4 for the dephasing and depolarizing channels
-    choi_1 = dephasing(4)
-    choi_2 = depolarizing(4)
-    print(channel_fidelity(choi_1, choi_2))
+        import numpy as np
+        from toqito.channels import dephasing, depolarizing
+        from toqito.channel_metrics import channel_fidelity
+        # The Choi matrices of dimension-4 for the dephasing and depolarizing channels
+        choi_1 = dephasing(4)
+        choi_2 = depolarizing(4)
+        print(channel_fidelity(choi_1, choi_2))
         ```
 
     """

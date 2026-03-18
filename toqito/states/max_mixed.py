@@ -54,8 +54,8 @@ def max_mixed(dim: int, is_sparse: bool = False) -> np.ndarray | dia_array:
         as follows.
 
         ```python exec="1" source="above" result="text"
-    from toqito.states import max_mixed
-    print(max_mixed(2, is_sparse=False))
+        from toqito.states import max_mixed
+        print(max_mixed(2, is_sparse=False))
         ```
 
 
@@ -63,8 +63,8 @@ def max_mixed(dim: int, is_sparse: bool = False) -> np.ndarray | dia_array:
         One may also generate a maximally mixed state returned as a sparse matrix
 
         ```python exec="1" source="above" result="text"
-    from toqito.states import max_mixed
-    print(max_mixed(2, is_sparse=True))
+        from toqito.states import max_mixed
+        print(max_mixed(2, is_sparse=True))
         ```
 
     """
