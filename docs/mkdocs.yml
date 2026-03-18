@@ -118,6 +118,8 @@ hooks:
   - _hooks/flatten_api_nav.py
 
 extra:
+  version:
+    provider: mike
   social:
     - icon: fontawesome/brands/github
       link: https://github.com/vprusso/toqito
