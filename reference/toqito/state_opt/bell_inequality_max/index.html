@@ -8956,47 +8956,54 @@ and the no-signalling maximum is 4.</p>
 <div class="arithmatex">\[
     M_{FC} = \begin{pmatrix} 0 &amp; 0 &amp; 0 \\ 0 &amp; 1 &amp; 1 \\ 0 &amp; 1 &amp; -1 \end{pmatrix}
 \]</div>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.state_opt.bell_inequality_max</span><span class="w"> </span><span class="kn">import</span> <span class="n">bell_inequality_max</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">M_chsh_fc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]])</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">desc_chsh</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="n">bell_inequality_max</span><span class="p">(</span><span class="n">M_chsh_fc</span><span class="p">,</span> <span class="n">desc_chsh</span><span class="p">,</span> <span class="s1">&#39;fc&#39;</span><span class="p">,</span> <span class="s1">&#39;classical&#39;</span><span class="p">)</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="n">bell_inequality_max</span><span class="p">(</span><span class="n">M_chsh_fc</span><span class="p">,</span> <span class="n">desc_chsh</span><span class="p">,</span> <span class="s1">&#39;fc&#39;</span><span class="p">,</span> <span class="s1">&#39;quantum&#39;</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">1e-7</span><span class="p">)</span>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="nb">print</span><span class="p">(</span><span class="n">bell_inequality_max</span><span class="p">(</span><span class="n">M_chsh_fc</span><span class="p">,</span> <span class="n">desc_chsh</span><span class="p">,</span> <span class="s1">&#39;fc&#39;</span><span class="p">,</span> <span class="s1">&#39;nosignal&#39;</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">1e-9</span><span class="p">))</span>
-</code></pre></div>
-<p>4.000000016013089</p>
-<p>The CHSH inequality in Collins-Gisin (CG) notation.
-The classical maximum is 0, the quantum maximum is <span class="arithmatex">\(1/\sqrt{2} - 1/2\)</span>,
-and the no-signalling maximum is 1/2.</p>
-<div class="arithmatex">\[
+<p>```python exec="1" source="above"</p>
+        <p>import numpy as np
+from toqito.state_opt.bell_inequality_max import bell_inequality_max
+M_chsh_fc = np.array([[0, 0, 0], [0, 1, 1], [0, 1, -1]])
+desc_chsh = [2, 2, 2, 2]
+bell_inequality_max(M_chsh_fc, desc_chsh, 'fc', 'classical')
+bell_inequality_max(M_chsh_fc, desc_chsh, 'fc', 'quantum', tol=1e-7)
+print(bell_inequality_max(M_chsh_fc, desc_chsh, 'fc', 'nosignal', tol=1e-9))
+    ```</p>
+<div class="highlight"><pre><span></span><code>The CHSH inequality in Collins-Gisin (CG) notation.
+The classical maximum is 0, the quantum maximum is \(1/\sqrt{2} - 1/2\),
+and the no-signalling maximum is 1/2.
+
+\[
     p(00|11)+p(00|12)+p(00|21)-p(00|22)-p_A(0|1)-p_B(0|1) \le V
-\]</div>
-<p>Represented by the coefficient matrix:</p>
-<div class="arithmatex">\[
+\]
+
+Represented by the coefficient matrix:
+
+\[
     M_{CG} = \begin{pmatrix} 0 &amp; -1 &amp; 0 \\ -1 &amp; 1 &amp; 1 \\ 0 &amp; 1 &amp; -1 \end{pmatrix}
-\]</div>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.state_opt.bell_inequality_max</span><span class="w"> </span><span class="kn">import</span> <span class="n">bell_inequality_max</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">M_chsh_cg</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]])</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">desc_chsh</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="n">bell_inequality_max</span><span class="p">(</span><span class="n">M_chsh_cg</span><span class="p">,</span> <span class="n">desc_chsh</span><span class="p">,</span> <span class="s1">&#39;cg&#39;</span><span class="p">,</span> <span class="s1">&#39;classical&#39;</span><span class="p">)</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="n">bell_inequality_max</span><span class="p">(</span><span class="n">M_chsh_cg</span><span class="p">,</span> <span class="n">desc_chsh</span><span class="p">,</span> <span class="s1">&#39;cg&#39;</span><span class="p">,</span> <span class="s1">&#39;quantum&#39;</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">1e-7</span><span class="p">)</span>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="nb">print</span><span class="p">(</span><span class="n">bell_inequality_max</span><span class="p">(</span><span class="n">M_chsh_cg</span><span class="p">,</span> <span class="n">desc_chsh</span><span class="p">,</span> <span class="s1">&#39;cg&#39;</span><span class="p">,</span> <span class="s1">&#39;nosignal&#39;</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">1e-9</span><span class="p">))</span>
+\]
+
+```python exec=&quot;1&quot; source=&quot;above&quot;
 </code></pre></div>
-<p>0.5000000040078955</p>
-<p>The I3322 inequality in Collins-Gisin (CG) notation.
-Classical max = 1, No-signalling max = 2. Quantum value is between 1 and 2.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.state_opt.bell_inequality_max</span><span class="w"> </span><span class="kn">import</span> <span class="n">bell_inequality_max</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">M_i3322_cg</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]])</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">desc_i3322</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="n">bell_inequality_max</span><span class="p">(</span><span class="n">M_i3322_cg</span><span class="p">,</span> <span class="n">desc_i3322</span><span class="p">,</span> <span class="s1">&#39;cg&#39;</span><span class="p">,</span> <span class="s1">&#39;classical&#39;</span><span class="p">)</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="n">bell_inequality_max</span><span class="p">(</span><span class="n">M_i3322_cg</span><span class="p">,</span> <span class="n">desc_i3322</span><span class="p">,</span> <span class="s1">&#39;cg&#39;</span><span class="p">,</span> <span class="s1">&#39;quantum&#39;</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">1e-7</span><span class="p">)</span>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="n">bell_inequality_max</span><span class="p">(</span><span class="n">M_i3322_cg</span><span class="p">,</span> <span class="n">desc_i3322</span><span class="p">,</span> <span class="s1">&#39;cg&#39;</span><span class="p">,</span> <span class="s1">&#39;quantum&#39;</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="s1">&#39;1+ab&#39;</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">1e-7</span><span class="p">)</span>
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="nb">print</span><span class="p">(</span><span class="n">bell_inequality_max</span><span class="p">(</span><span class="n">M_i3322_cg</span><span class="p">,</span> <span class="n">desc_i3322</span><span class="p">,</span> <span class="s1">&#39;cg&#39;</span><span class="p">,</span> <span class="s1">&#39;nosignal&#39;</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">1e-9</span><span class="p">))</span>
+<p>import numpy as np
+from toqito.state_opt.bell_inequality_max import bell_inequality_max
+M_chsh_cg = np.array([[0, -1, 0], [-1, 1, 1], [0, 1, -1]])
+desc_chsh = [2, 2, 2, 2]
+bell_inequality_max(M_chsh_cg, desc_chsh, 'cg', 'classical')
+bell_inequality_max(M_chsh_cg, desc_chsh, 'cg', 'quantum', tol=1e-7)
+print(bell_inequality_max(M_chsh_cg, desc_chsh, 'cg', 'nosignal', tol=1e-9))
+    ```</p>
+<div class="highlight"><pre><span></span><code>The I3322 inequality in Collins-Gisin (CG) notation.
+Classical max = 1, No-signalling max = 2. Quantum value is between 1 and 2.
+
+```python exec=&quot;1&quot; source=&quot;above&quot;
 </code></pre></div>
-<p>2.000000007999548</p>
-        <p><strong>References</strong></p>
+<p>import numpy as np
+from toqito.state_opt.bell_inequality_max import bell_inequality_max
+M_i3322_cg = np.array([[0, 1, 0, 0], [1, -1, -1, -1], [0, -1, -1, 1], [0, -1, 1, 0]])
+desc_i3322 = [2, 2, 3, 3]
+bell_inequality_max(M_i3322_cg, desc_i3322, 'cg', 'classical')
+bell_inequality_max(M_i3322_cg, desc_i3322, 'cg', 'quantum', k=1, tol=1e-7)
+bell_inequality_max(M_i3322_cg, desc_i3322, 'cg', 'quantum', k='1+ab', tol=1e-7)
+print(bell_inequality_max(M_i3322_cg, desc_i3322, 'cg', 'nosignal', tol=1e-9))
+    ```</p>
+<p><strong>References</strong></p>
 <p><span id="ref-toqito-state_opt-bell_inequality_max-bell_inequality_max-1"><sup><a href="#cite-toqito-state_opt-bell_inequality_max-bell_inequality_max-1">1</a></sup> Navascués, Miguel and Pironio, Stefano and Acín, Antonio. <em>A convergent hierarchy of semidefinite programs characterizing the set of quantum correlations</em>. <strong>New Journal of Physics</strong>. vol. 10(7). (2008). <a href="https://doi.org/10.1088/1367-2630/10/7/073013">doi:10.1088/1367-2630/10/7/073013</a>.</span></p>
 
 
@@ -9406,13 +9413,13 @@ Classical max = 1, No-signalling max = 2. Quantum value is between 1 and 2.</p>
 <a id="__codelineno-0-146" name="__codelineno-0-146"></a><span class="sd">        \]</span>
 <a id="__codelineno-0-147" name="__codelineno-0-147"></a>
 <a id="__codelineno-0-148" name="__codelineno-0-148"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-149" name="__codelineno-0-149"></a><span class="sd">        import numpy as np</span>
-<a id="__codelineno-0-150" name="__codelineno-0-150"></a><span class="sd">        from toqito.state_opt.bell_inequality_max import bell_inequality_max</span>
-<a id="__codelineno-0-151" name="__codelineno-0-151"></a><span class="sd">        M_chsh_fc = np.array([[0, 0, 0], [0, 1, 1], [0, 1, -1]])</span>
-<a id="__codelineno-0-152" name="__codelineno-0-152"></a><span class="sd">        desc_chsh = [2, 2, 2, 2]</span>
-<a id="__codelineno-0-153" name="__codelineno-0-153"></a><span class="sd">        bell_inequality_max(M_chsh_fc, desc_chsh, &#39;fc&#39;, &#39;classical&#39;)</span>
-<a id="__codelineno-0-154" name="__codelineno-0-154"></a><span class="sd">        bell_inequality_max(M_chsh_fc, desc_chsh, &#39;fc&#39;, &#39;quantum&#39;, tol=1e-7)</span>
-<a id="__codelineno-0-155" name="__codelineno-0-155"></a><span class="sd">        print(bell_inequality_max(M_chsh_fc, desc_chsh, &#39;fc&#39;, &#39;nosignal&#39;, tol=1e-9))</span>
+<a id="__codelineno-0-149" name="__codelineno-0-149"></a><span class="sd">    import numpy as np</span>
+<a id="__codelineno-0-150" name="__codelineno-0-150"></a><span class="sd">    from toqito.state_opt.bell_inequality_max import bell_inequality_max</span>
+<a id="__codelineno-0-151" name="__codelineno-0-151"></a><span class="sd">    M_chsh_fc = np.array([[0, 0, 0], [0, 1, 1], [0, 1, -1]])</span>
+<a id="__codelineno-0-152" name="__codelineno-0-152"></a><span class="sd">    desc_chsh = [2, 2, 2, 2]</span>
+<a id="__codelineno-0-153" name="__codelineno-0-153"></a><span class="sd">    bell_inequality_max(M_chsh_fc, desc_chsh, &#39;fc&#39;, &#39;classical&#39;)</span>
+<a id="__codelineno-0-154" name="__codelineno-0-154"></a><span class="sd">    bell_inequality_max(M_chsh_fc, desc_chsh, &#39;fc&#39;, &#39;quantum&#39;, tol=1e-7)</span>
+<a id="__codelineno-0-155" name="__codelineno-0-155"></a><span class="sd">    print(bell_inequality_max(M_chsh_fc, desc_chsh, &#39;fc&#39;, &#39;nosignal&#39;, tol=1e-9))</span>
 <a id="__codelineno-0-156" name="__codelineno-0-156"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-157" name="__codelineno-0-157"></a>
 <a id="__codelineno-0-158" name="__codelineno-0-158"></a>
@@ -9431,27 +9438,27 @@ Classical max = 1, No-signalling max = 2. Quantum value is between 1 and 2.</p>
 <a id="__codelineno-0-171" name="__codelineno-0-171"></a><span class="sd">        \]</span>
 <a id="__codelineno-0-172" name="__codelineno-0-172"></a>
 <a id="__codelineno-0-173" name="__codelineno-0-173"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-174" name="__codelineno-0-174"></a><span class="sd">        import numpy as np</span>
-<a id="__codelineno-0-175" name="__codelineno-0-175"></a><span class="sd">        from toqito.state_opt.bell_inequality_max import bell_inequality_max</span>
-<a id="__codelineno-0-176" name="__codelineno-0-176"></a><span class="sd">        M_chsh_cg = np.array([[0, -1, 0], [-1, 1, 1], [0, 1, -1]])</span>
-<a id="__codelineno-0-177" name="__codelineno-0-177"></a><span class="sd">        desc_chsh = [2, 2, 2, 2]</span>
-<a id="__codelineno-0-178" name="__codelineno-0-178"></a><span class="sd">        bell_inequality_max(M_chsh_cg, desc_chsh, &#39;cg&#39;, &#39;classical&#39;)</span>
-<a id="__codelineno-0-179" name="__codelineno-0-179"></a><span class="sd">        bell_inequality_max(M_chsh_cg, desc_chsh, &#39;cg&#39;, &#39;quantum&#39;, tol=1e-7)</span>
-<a id="__codelineno-0-180" name="__codelineno-0-180"></a><span class="sd">        print(bell_inequality_max(M_chsh_cg, desc_chsh, &#39;cg&#39;, &#39;nosignal&#39;, tol=1e-9))</span>
+<a id="__codelineno-0-174" name="__codelineno-0-174"></a><span class="sd">    import numpy as np</span>
+<a id="__codelineno-0-175" name="__codelineno-0-175"></a><span class="sd">    from toqito.state_opt.bell_inequality_max import bell_inequality_max</span>
+<a id="__codelineno-0-176" name="__codelineno-0-176"></a><span class="sd">    M_chsh_cg = np.array([[0, -1, 0], [-1, 1, 1], [0, 1, -1]])</span>
+<a id="__codelineno-0-177" name="__codelineno-0-177"></a><span class="sd">    desc_chsh = [2, 2, 2, 2]</span>
+<a id="__codelineno-0-178" name="__codelineno-0-178"></a><span class="sd">    bell_inequality_max(M_chsh_cg, desc_chsh, &#39;cg&#39;, &#39;classical&#39;)</span>
+<a id="__codelineno-0-179" name="__codelineno-0-179"></a><span class="sd">    bell_inequality_max(M_chsh_cg, desc_chsh, &#39;cg&#39;, &#39;quantum&#39;, tol=1e-7)</span>
+<a id="__codelineno-0-180" name="__codelineno-0-180"></a><span class="sd">    print(bell_inequality_max(M_chsh_cg, desc_chsh, &#39;cg&#39;, &#39;nosignal&#39;, tol=1e-9))</span>
 <a id="__codelineno-0-181" name="__codelineno-0-181"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-182" name="__codelineno-0-182"></a>
 <a id="__codelineno-0-183" name="__codelineno-0-183"></a><span class="sd">        The I3322 inequality in Collins-Gisin (CG) notation.</span>
 <a id="__codelineno-0-184" name="__codelineno-0-184"></a><span class="sd">        Classical max = 1, No-signalling max = 2. Quantum value is between 1 and 2.</span>
 <a id="__codelineno-0-185" name="__codelineno-0-185"></a>
 <a id="__codelineno-0-186" name="__codelineno-0-186"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-187" name="__codelineno-0-187"></a><span class="sd">        import numpy as np</span>
-<a id="__codelineno-0-188" name="__codelineno-0-188"></a><span class="sd">        from toqito.state_opt.bell_inequality_max import bell_inequality_max</span>
-<a id="__codelineno-0-189" name="__codelineno-0-189"></a><span class="sd">        M_i3322_cg = np.array([[0, 1, 0, 0], [1, -1, -1, -1], [0, -1, -1, 1], [0, -1, 1, 0]])</span>
-<a id="__codelineno-0-190" name="__codelineno-0-190"></a><span class="sd">        desc_i3322 = [2, 2, 3, 3]</span>
-<a id="__codelineno-0-191" name="__codelineno-0-191"></a><span class="sd">        bell_inequality_max(M_i3322_cg, desc_i3322, &#39;cg&#39;, &#39;classical&#39;)</span>
-<a id="__codelineno-0-192" name="__codelineno-0-192"></a><span class="sd">        bell_inequality_max(M_i3322_cg, desc_i3322, &#39;cg&#39;, &#39;quantum&#39;, k=1, tol=1e-7)</span>
-<a id="__codelineno-0-193" name="__codelineno-0-193"></a><span class="sd">        bell_inequality_max(M_i3322_cg, desc_i3322, &#39;cg&#39;, &#39;quantum&#39;, k=&#39;1+ab&#39;, tol=1e-7)</span>
-<a id="__codelineno-0-194" name="__codelineno-0-194"></a><span class="sd">        print(bell_inequality_max(M_i3322_cg, desc_i3322, &#39;cg&#39;, &#39;nosignal&#39;, tol=1e-9))</span>
+<a id="__codelineno-0-187" name="__codelineno-0-187"></a><span class="sd">    import numpy as np</span>
+<a id="__codelineno-0-188" name="__codelineno-0-188"></a><span class="sd">    from toqito.state_opt.bell_inequality_max import bell_inequality_max</span>
+<a id="__codelineno-0-189" name="__codelineno-0-189"></a><span class="sd">    M_i3322_cg = np.array([[0, 1, 0, 0], [1, -1, -1, -1], [0, -1, -1, 1], [0, -1, 1, 0]])</span>
+<a id="__codelineno-0-190" name="__codelineno-0-190"></a><span class="sd">    desc_i3322 = [2, 2, 3, 3]</span>
+<a id="__codelineno-0-191" name="__codelineno-0-191"></a><span class="sd">    bell_inequality_max(M_i3322_cg, desc_i3322, &#39;cg&#39;, &#39;classical&#39;)</span>
+<a id="__codelineno-0-192" name="__codelineno-0-192"></a><span class="sd">    bell_inequality_max(M_i3322_cg, desc_i3322, &#39;cg&#39;, &#39;quantum&#39;, k=1, tol=1e-7)</span>
+<a id="__codelineno-0-193" name="__codelineno-0-193"></a><span class="sd">    bell_inequality_max(M_i3322_cg, desc_i3322, &#39;cg&#39;, &#39;quantum&#39;, k=&#39;1+ab&#39;, tol=1e-7)</span>
+<a id="__codelineno-0-194" name="__codelineno-0-194"></a><span class="sd">    print(bell_inequality_max(M_i3322_cg, desc_i3322, &#39;cg&#39;, &#39;nosignal&#39;, tol=1e-9))</span>
 <a id="__codelineno-0-195" name="__codelineno-0-195"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-196" name="__codelineno-0-196"></a>
 <a id="__codelineno-0-197" name="__codelineno-0-197"></a><span class="sd">    &quot;&quot;&quot;</span>
@@ -9816,24 +9823,22 @@ The method is from <sup><a id="cite-toqito-state_opt-bell_inequality_max-bell_in
 \]</div>
 <p>The individual and joint coefficents and measurement values are encoded as matrices.
 The upper bound can then be found in <code>|toqito⟩</code> as follows.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.state_opt.bell_inequality_max</span><span class="w"> </span><span class="kn">import</span> <span class="n">bell_inequality_max_qubits</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">joint_coe</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="p">])</span>
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="n">a_coe</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
-<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="n">b_coe</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
-<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="n">a_val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
-<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="n">b_val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
-<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>
-<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="n">result</span> <span class="o">=</span> <span class="n">bell_inequality_max_qubits</span><span class="p">(</span><span class="n">joint_coe</span><span class="p">,</span> <span class="n">a_coe</span><span class="p">,</span> <span class="n">b_coe</span><span class="p">,</span> <span class="n">a_val</span><span class="p">,</span> <span class="n">b_val</span><span class="p">)</span>
-<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Bell inequality maximum value: </span><span class="si">{</span><span class="n">result</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-</code></pre></div>
-<p>Bell inequality maximum value: 0.250</p>
-        <p><strong>References</strong></p>
+<p>```python exec="1" source="above"</p>
+        <p>import numpy as np
+from toqito.state_opt.bell_inequality_max import bell_inequality_max_qubits</p>
+<p>joint_coe = np.array([
+    [1, 1, -1],
+    [1, 1, 1],
+    [-1, 1, 0],
+])
+a_coe = np.array([0, -1, 0])
+b_coe = np.array([-1, -2, 0])
+a_val = np.array([0, 1])
+b_val = np.array([0, 1])</p>
+<p>result = bell_inequality_max_qubits(joint_coe, a_coe, b_coe, a_val, b_val)
+print(f"Bell inequality maximum value: {result:.3f}")
+    ```</p>
+<p><strong>References</strong></p>
 <p><span id="ref-toqito-state_opt-bell_inequality_max-bell_inequality_max_qubits-1"><sup><a href="#cite-toqito-state_opt-bell_inequality_max-bell_inequality_max_qubits-1">1</a></sup> Navascues, Miguel and Torre, Gonzalo and Vertesi, Tamas. <em>Characterization of quantum correlations with local dimension constraints and its device-independent applications</em>. <strong>Physical Review X</strong>. vol. 4(1). (2014). <a href="https://doi.org/10.1103/PhysRevX.4.011011">doi:10.1103/PhysRevX.4.011011</a>.</span><br>
 <span id="ref-toqito-state_opt-bell_inequality_max-bell_inequality_max_qubits-2"><sup><a href="#cite-toqito-state_opt-bell_inequality_max-bell_inequality_max_qubits-2">2</a></sup> Johnston, Nathaniel. <em>{{QETLAB}: {A MATLAB} toolbox for quantum entanglement}</em>. <a href="https://doi.org/10.5281/zenodo.44637">doi:10.5281/zenodo.44637</a>.</span><br>
 <span id="ref-toqito-state_opt-bell_inequality_max-bell_inequality_max_qubits-3"><sup><a href="#cite-toqito-state_opt-bell_inequality_max-bell_inequality_max_qubits-3">3</a></sup> Collins, Daniel and Gisin, Nicolas. <em>A relevant two qubit Bell inequality inequivalent to the CHSH inequality</em>. <strong>Journal of Physics A: Mathematical and General</strong>. vol. 37(5). (2004). <a href="https://doi.org/10.1088/0305-4470/37/5/021">doi:10.1088/0305-4470/37/5/021</a>.</span></p>
@@ -10033,21 +10038,21 @@ The upper bound can then be found in <code>|toqito⟩</code> as follows.</p>
 <a id="__codelineno-0-489" name="__codelineno-0-489"></a><span class="sd">        The upper bound can then be found in `|toqito⟩` as follows.</span>
 <a id="__codelineno-0-490" name="__codelineno-0-490"></a>
 <a id="__codelineno-0-491" name="__codelineno-0-491"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-492" name="__codelineno-0-492"></a><span class="sd">        import numpy as np</span>
-<a id="__codelineno-0-493" name="__codelineno-0-493"></a><span class="sd">        from toqito.state_opt.bell_inequality_max import bell_inequality_max_qubits</span>
+<a id="__codelineno-0-492" name="__codelineno-0-492"></a><span class="sd">    import numpy as np</span>
+<a id="__codelineno-0-493" name="__codelineno-0-493"></a><span class="sd">    from toqito.state_opt.bell_inequality_max import bell_inequality_max_qubits</span>
 <a id="__codelineno-0-494" name="__codelineno-0-494"></a>
-<a id="__codelineno-0-495" name="__codelineno-0-495"></a><span class="sd">        joint_coe = np.array([</span>
-<a id="__codelineno-0-496" name="__codelineno-0-496"></a><span class="sd">            [1, 1, -1],</span>
-<a id="__codelineno-0-497" name="__codelineno-0-497"></a><span class="sd">            [1, 1, 1],</span>
-<a id="__codelineno-0-498" name="__codelineno-0-498"></a><span class="sd">            [-1, 1, 0],</span>
-<a id="__codelineno-0-499" name="__codelineno-0-499"></a><span class="sd">        ])</span>
-<a id="__codelineno-0-500" name="__codelineno-0-500"></a><span class="sd">        a_coe = np.array([0, -1, 0])</span>
-<a id="__codelineno-0-501" name="__codelineno-0-501"></a><span class="sd">        b_coe = np.array([-1, -2, 0])</span>
-<a id="__codelineno-0-502" name="__codelineno-0-502"></a><span class="sd">        a_val = np.array([0, 1])</span>
-<a id="__codelineno-0-503" name="__codelineno-0-503"></a><span class="sd">        b_val = np.array([0, 1])</span>
+<a id="__codelineno-0-495" name="__codelineno-0-495"></a><span class="sd">    joint_coe = np.array([</span>
+<a id="__codelineno-0-496" name="__codelineno-0-496"></a><span class="sd">        [1, 1, -1],</span>
+<a id="__codelineno-0-497" name="__codelineno-0-497"></a><span class="sd">        [1, 1, 1],</span>
+<a id="__codelineno-0-498" name="__codelineno-0-498"></a><span class="sd">        [-1, 1, 0],</span>
+<a id="__codelineno-0-499" name="__codelineno-0-499"></a><span class="sd">    ])</span>
+<a id="__codelineno-0-500" name="__codelineno-0-500"></a><span class="sd">    a_coe = np.array([0, -1, 0])</span>
+<a id="__codelineno-0-501" name="__codelineno-0-501"></a><span class="sd">    b_coe = np.array([-1, -2, 0])</span>
+<a id="__codelineno-0-502" name="__codelineno-0-502"></a><span class="sd">    a_val = np.array([0, 1])</span>
+<a id="__codelineno-0-503" name="__codelineno-0-503"></a><span class="sd">    b_val = np.array([0, 1])</span>
 <a id="__codelineno-0-504" name="__codelineno-0-504"></a>
-<a id="__codelineno-0-505" name="__codelineno-0-505"></a><span class="sd">        result = bell_inequality_max_qubits(joint_coe, a_coe, b_coe, a_val, b_val)</span>
-<a id="__codelineno-0-506" name="__codelineno-0-506"></a><span class="sd">        print(f&quot;Bell inequality maximum value: {result:.3f}&quot;)</span>
+<a id="__codelineno-0-505" name="__codelineno-0-505"></a><span class="sd">    result = bell_inequality_max_qubits(joint_coe, a_coe, b_coe, a_val, b_val)</span>
+<a id="__codelineno-0-506" name="__codelineno-0-506"></a><span class="sd">    print(f&quot;Bell inequality maximum value: {result:.3f}&quot;)</span>
 <a id="__codelineno-0-507" name="__codelineno-0-507"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-508" name="__codelineno-0-508"></a>
 <a id="__codelineno-0-509" name="__codelineno-0-509"></a><span class="sd">    &quot;&quot;&quot;</span>

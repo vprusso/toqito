@@ -8827,23 +8827,25 @@ inversions contained in <code>perm</code>.</p>
 \]</div>
 <p>the permutation sign is positive as the number of elements in the vector are even. This can be performed in
 <code>|toqito⟩</code> as follows.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.perms</span><span class="w"> </span><span class="kn">import</span> <span class="n">perm_sign</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">perm_sign</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]))</span>
-</code></pre></div>
-<p>1.0</p>
-<p>For the following vector</p>
-<div class="arithmatex">\[
+<p>```python exec="1" source="above"</p>
+        <p>from toqito.perms import perm_sign</p>
+<p>print(perm_sign([1, 2, 3, 4]))
+    ```</p>
+<div class="highlight"><pre><span></span><code>For the following vector
+
+\[
     [1, 2, 3, 4, 5]
-\]</div>
-<p>the permutation sign is negative as the number of elements in the vector are odd. This can be performed in
-<code>|toqito⟩</code> as follows.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.perms</span><span class="w"> </span><span class="kn">import</span> <span class="n">perm_sign</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">perm_sign</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">]))</span>
+\]
+
+the permutation sign is negative as the number of elements in the vector are odd. This can be performed in
+`|toqito⟩` as follows.
+
+```python exec=&quot;1&quot; source=&quot;above&quot;
 </code></pre></div>
-<p>-1.0</p>
-        <p><strong>References</strong></p>
+<p>from toqito.perms import perm_sign</p>
+<p>print(perm_sign([1, 2, 4, 3, 5]))
+    ```</p>
+<p><strong>References</strong></p>
 <p><span id="ref-toqito-perms-perm_sign-perm_sign-1"><sup><a href="#cite-toqito-perms-perm_sign-perm_sign-1">1</a></sup> Wikipedia. <em>Parity of a permutation</em>. <a href="https://en.wikipedia.org/wiki/Parity_of_a_permutation">link</a>.</span></p>
 
 
@@ -8916,9 +8918,9 @@ inversions contained in <code>perm</code>.</p>
 <a id="__codelineno-0-27" name="__codelineno-0-27"></a><span class="sd">        `|toqito⟩` as follows.</span>
 <a id="__codelineno-0-28" name="__codelineno-0-28"></a>
 <a id="__codelineno-0-29" name="__codelineno-0-29"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-30" name="__codelineno-0-30"></a><span class="sd">        from toqito.perms import perm_sign</span>
+<a id="__codelineno-0-30" name="__codelineno-0-30"></a><span class="sd">    from toqito.perms import perm_sign</span>
 <a id="__codelineno-0-31" name="__codelineno-0-31"></a>
-<a id="__codelineno-0-32" name="__codelineno-0-32"></a><span class="sd">        print(perm_sign([1, 2, 3, 4]))</span>
+<a id="__codelineno-0-32" name="__codelineno-0-32"></a><span class="sd">    print(perm_sign([1, 2, 3, 4]))</span>
 <a id="__codelineno-0-33" name="__codelineno-0-33"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-34" name="__codelineno-0-34"></a>
 <a id="__codelineno-0-35" name="__codelineno-0-35"></a><span class="sd">        For the following vector</span>
@@ -8931,9 +8933,9 @@ inversions contained in <code>perm</code>.</p>
 <a id="__codelineno-0-42" name="__codelineno-0-42"></a><span class="sd">        `|toqito⟩` as follows.</span>
 <a id="__codelineno-0-43" name="__codelineno-0-43"></a>
 <a id="__codelineno-0-44" name="__codelineno-0-44"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-45" name="__codelineno-0-45"></a><span class="sd">        from toqito.perms import perm_sign</span>
+<a id="__codelineno-0-45" name="__codelineno-0-45"></a><span class="sd">    from toqito.perms import perm_sign</span>
 <a id="__codelineno-0-46" name="__codelineno-0-46"></a>
-<a id="__codelineno-0-47" name="__codelineno-0-47"></a><span class="sd">        print(perm_sign([1, 2, 4, 3, 5]))</span>
+<a id="__codelineno-0-47" name="__codelineno-0-47"></a><span class="sd">    print(perm_sign([1, 2, 4, 3, 5]))</span>
 <a id="__codelineno-0-48" name="__codelineno-0-48"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-49" name="__codelineno-0-49"></a>
 <a id="__codelineno-0-50" name="__codelineno-0-50"></a><span class="sd">    &quot;&quot;&quot;</span>

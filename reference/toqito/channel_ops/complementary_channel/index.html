@@ -8860,30 +8860,21 @@ assumed to be a square matrix.</p>
 \]</div>
 <p>To compute the Kraus operators for the complementary map, we rearrange the rows of these
 Kraus operators as follows:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.channel_ops</span><span class="w"> </span><span class="kn">import</span> <span class="n">complementary_channel</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">kraus_ops_Phi</span> <span class="o">=</span> <span class="p">[</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]]),</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]]),</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]]),</span>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="p">]</span>
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="n">comp_kraus_ops</span> <span class="o">=</span> <span class="n">complementary_channel</span><span class="p">(</span><span class="n">kraus_ops_Phi</span><span class="p">)</span>
-<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">op</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">comp_kraus_ops</span><span class="p">):</span>
-<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Kraus operator </span><span class="si">{</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2">:&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">op</span><span class="p">)</span>
-</code></pre></div>
-<p>Kraus operator 1:
-[[0.70710678 0.        ]
- [0.         0.70710678]
- [0.         0.        ]
- [0.         0.        ]]
-Kraus operator 2:
-[[0.         0.        ]
- [0.         0.        ]
- [0.70710678 0.        ]
- [0.         0.70710678]]</p>
-        <p><strong>References</strong></p>
+<p>```python exec="1" source="above"</p>
+        <p>import numpy as np
+from toqito.channel_ops import complementary_channel
+kraus_ops_Phi = [
+    np.sqrt(0.5) * np.array([[1, 0], [0, 0]]),
+    np.sqrt(0.5) * np.array([[0, 1], [0, 0]]),
+    np.sqrt(0.5) * np.array([[0, 0], [1, 0]]),
+    np.sqrt(0.5) * np.array([[0, 0], [0, 1]])
+]
+comp_kraus_ops = complementary_channel(kraus_ops_Phi)
+for i, op in enumerate(comp_kraus_ops):
+    print(f"Kraus operator {i + 1}:")
+    print(op)
+    ```</p>
+<p><strong>References</strong></p>
 <p><span id="ref-toqito-channel_ops-complementary_channel-complementary_channel-1"><sup><a href="#cite-toqito-channel_ops-complementary_channel-complementary_channel-1">1</a></sup> Watrous, John. <em>The Theory of Quantum Information</em>. (2018). <a href="https://doi.org/10.1017/9781316848142">doi:10.1017/9781316848142</a>.</span></p>
 
 
@@ -9027,18 +9018,18 @@ Kraus operator 2:
 <a id="__codelineno-0-52" name="__codelineno-0-52"></a><span class="sd">        Kraus operators as follows:</span>
 <a id="__codelineno-0-53" name="__codelineno-0-53"></a>
 <a id="__codelineno-0-54" name="__codelineno-0-54"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-55" name="__codelineno-0-55"></a><span class="sd">        import numpy as np</span>
-<a id="__codelineno-0-56" name="__codelineno-0-56"></a><span class="sd">        from toqito.channel_ops import complementary_channel</span>
-<a id="__codelineno-0-57" name="__codelineno-0-57"></a><span class="sd">        kraus_ops_Phi = [</span>
-<a id="__codelineno-0-58" name="__codelineno-0-58"></a><span class="sd">            np.sqrt(0.5) * np.array([[1, 0], [0, 0]]),</span>
-<a id="__codelineno-0-59" name="__codelineno-0-59"></a><span class="sd">            np.sqrt(0.5) * np.array([[0, 1], [0, 0]]),</span>
-<a id="__codelineno-0-60" name="__codelineno-0-60"></a><span class="sd">            np.sqrt(0.5) * np.array([[0, 0], [1, 0]]),</span>
-<a id="__codelineno-0-61" name="__codelineno-0-61"></a><span class="sd">            np.sqrt(0.5) * np.array([[0, 0], [0, 1]])</span>
-<a id="__codelineno-0-62" name="__codelineno-0-62"></a><span class="sd">        ]</span>
-<a id="__codelineno-0-63" name="__codelineno-0-63"></a><span class="sd">        comp_kraus_ops = complementary_channel(kraus_ops_Phi)</span>
-<a id="__codelineno-0-64" name="__codelineno-0-64"></a><span class="sd">        for i, op in enumerate(comp_kraus_ops):</span>
-<a id="__codelineno-0-65" name="__codelineno-0-65"></a><span class="sd">            print(f&quot;Kraus operator {i + 1}:&quot;)</span>
-<a id="__codelineno-0-66" name="__codelineno-0-66"></a><span class="sd">            print(op)</span>
+<a id="__codelineno-0-55" name="__codelineno-0-55"></a><span class="sd">    import numpy as np</span>
+<a id="__codelineno-0-56" name="__codelineno-0-56"></a><span class="sd">    from toqito.channel_ops import complementary_channel</span>
+<a id="__codelineno-0-57" name="__codelineno-0-57"></a><span class="sd">    kraus_ops_Phi = [</span>
+<a id="__codelineno-0-58" name="__codelineno-0-58"></a><span class="sd">        np.sqrt(0.5) * np.array([[1, 0], [0, 0]]),</span>
+<a id="__codelineno-0-59" name="__codelineno-0-59"></a><span class="sd">        np.sqrt(0.5) * np.array([[0, 1], [0, 0]]),</span>
+<a id="__codelineno-0-60" name="__codelineno-0-60"></a><span class="sd">        np.sqrt(0.5) * np.array([[0, 0], [1, 0]]),</span>
+<a id="__codelineno-0-61" name="__codelineno-0-61"></a><span class="sd">        np.sqrt(0.5) * np.array([[0, 0], [0, 1]])</span>
+<a id="__codelineno-0-62" name="__codelineno-0-62"></a><span class="sd">    ]</span>
+<a id="__codelineno-0-63" name="__codelineno-0-63"></a><span class="sd">    comp_kraus_ops = complementary_channel(kraus_ops_Phi)</span>
+<a id="__codelineno-0-64" name="__codelineno-0-64"></a><span class="sd">    for i, op in enumerate(comp_kraus_ops):</span>
+<a id="__codelineno-0-65" name="__codelineno-0-65"></a><span class="sd">        print(f&quot;Kraus operator {i + 1}:&quot;)</span>
+<a id="__codelineno-0-66" name="__codelineno-0-66"></a><span class="sd">        print(op)</span>
 <a id="__codelineno-0-67" name="__codelineno-0-67"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-68" name="__codelineno-0-68"></a>
 <a id="__codelineno-0-69" name="__codelineno-0-69"></a><span class="sd">    &quot;&quot;&quot;</span>

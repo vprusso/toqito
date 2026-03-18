@@ -8833,24 +8833,29 @@ u_4 = \frac{1}{\sqrt{2}} \left(|01\rangle - |10\rangle\right).
 \end{aligned}
 \]</div>
 <p>It can be checked in <code>toqito</code> that the Bell states are antidistinguishable:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.states</span><span class="w"> </span><span class="kn">import</span> <span class="n">bell</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.state_props</span><span class="w"> </span><span class="kn">import</span> <span class="n">is_antidistinguishable</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">bell_states</span> <span class="o">=</span> <span class="p">[</span><span class="n">bell</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">bell</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">bell</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="n">bell</span><span class="p">(</span><span class="mi">3</span><span class="p">)]</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="nb">print</span><span class="p">(</span><span class="n">is_antidistinguishable</span><span class="p">(</span><span class="n">bell_states</span><span class="p">))</span>
-</code></pre></div>
-<p>True</p>
-<p>Consider the following measurement operators</p>
-<div class="arithmatex">\[
+<p>```python exec="1" source="above"</p>
+        <p>from toqito.states import bell
+from toqito.state_props import is_antidistinguishable
+bell_states = [bell(0), bell(1), bell(2), bell(3)]
+print(is_antidistinguishable(bell_states))
+    ```</p>
+<div class="highlight"><pre><span></span><code>Consider the following measurement operators
+
+\[
 M_i = \frac{1}{3}\left(\mathbb{I}_{\mathcal{X}} - u_i u_i^*\right)
-\]</div>
-<p>for all <span class="arithmatex">\(1 \leq i \leq 4\)</span>. It can be verified that these constitute a valid set of POVMs, that is
-<span class="arithmatex">\(\sum_{i=1}^4 M_i = \mathbb{I}_{\mathcal{X}}\)</span> and <span class="arithmatex">\(M_i \in \text{Pos}(\mathcal{X})\)</span> for all <span class="arithmatex">\(1
-leq i \leq 4\)</span>. It may also be verified that</p>
-<div class="arithmatex">\[
+\]
+
+for all \(1 \leq i \leq 4\). It can be verified that these constitute a valid set of POVMs, that is
+\(\sum_{i=1}^4 M_i = \mathbb{I}_{\mathcal{X}}\) and \(M_i \in \text{Pos}(\mathcal{X})\) for all \(1
+leq i \leq 4\). It may also be verified that
+
+\[
     \sum_{i=1}^4 \langle M_i, u_i u_i^* \rangle = 0,
-\]</div>
-<p>and hence, the Bell states are antidistinguishable.</p>
-        <p><strong>References</strong></p>
+\]
+
+and hence, the Bell states are antidistinguishable.
+</code></pre></div>
+<p><strong>References</strong></p>
 <p><span id="ref-toqito-state_props-is_antidistinguishable-is_antidistinguishable-1"><sup><a href="#cite-toqito-state_props-is_antidistinguishable-is_antidistinguishable-1">1</a></sup> Heinosaari, Teiko and Kerppo, Oskari. <em>Antidistinguishability of pure quantum states</em>. <strong>Journal of Physics A: Mathematical and Theoretical</strong>. vol. 51(36). (2018). <a href="https://doi.org/10.1088/1751-8121/aad1fc">doi:10.1088/1751-8121/aad1fc</a>.</span><br>
 <span id="ref-toqito-state_props-is_antidistinguishable-is_antidistinguishable-2"><sup><a href="#cite-toqito-state_props-is_antidistinguishable-is_antidistinguishable-2">2</a></sup> Bandyopadhyay, Somshubhro and Jain, Rahul and Oppenheim, Jonathan and Perry, Christopher. <em>Conclusive exclusion of quantum states</em>. <strong>Physical Review A</strong>. vol. 89(2). (2014). <a href="https://doi.org/10.1103/physreva.89.022336">doi:10.1103/physreva.89.022336</a>.</span></p>
 
@@ -8944,10 +8949,10 @@ leq i \leq 4\)</span>. It may also be verified that</p>
 <a id="__codelineno-0-38" name="__codelineno-0-38"></a><span class="sd">        It can be checked in `toqito` that the Bell states are antidistinguishable:</span>
 <a id="__codelineno-0-39" name="__codelineno-0-39"></a>
 <a id="__codelineno-0-40" name="__codelineno-0-40"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-41" name="__codelineno-0-41"></a><span class="sd">        from toqito.states import bell</span>
-<a id="__codelineno-0-42" name="__codelineno-0-42"></a><span class="sd">        from toqito.state_props import is_antidistinguishable</span>
-<a id="__codelineno-0-43" name="__codelineno-0-43"></a><span class="sd">        bell_states = [bell(0), bell(1), bell(2), bell(3)]</span>
-<a id="__codelineno-0-44" name="__codelineno-0-44"></a><span class="sd">        print(is_antidistinguishable(bell_states))</span>
+<a id="__codelineno-0-41" name="__codelineno-0-41"></a><span class="sd">    from toqito.states import bell</span>
+<a id="__codelineno-0-42" name="__codelineno-0-42"></a><span class="sd">    from toqito.state_props import is_antidistinguishable</span>
+<a id="__codelineno-0-43" name="__codelineno-0-43"></a><span class="sd">    bell_states = [bell(0), bell(1), bell(2), bell(3)]</span>
+<a id="__codelineno-0-44" name="__codelineno-0-44"></a><span class="sd">    print(is_antidistinguishable(bell_states))</span>
 <a id="__codelineno-0-45" name="__codelineno-0-45"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-46" name="__codelineno-0-46"></a>
 <a id="__codelineno-0-47" name="__codelineno-0-47"></a><span class="sd">        Consider the following measurement operators</span>

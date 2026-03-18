@@ -8856,21 +8856,18 @@ tracial state.</p>
     \end{pmatrix}
 \]</div>
 <p>as follows.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.states</span><span class="w"> </span><span class="kn">import</span> <span class="n">max_mixed</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nb">print</span><span class="p">(</span><span class="n">max_mixed</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">is_sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+<p>```python exec="1" source="above"</p>
+        <p>from toqito.states import max_mixed
+print(max_mixed(2, is_sparse=False))
+    ```</p>
+<div class="highlight"><pre><span></span><code>One may also generate a maximally mixed state returned as a sparse matrix
+
+```python exec=&quot;1&quot; source=&quot;above&quot;
 </code></pre></div>
-<p>[[0.5 0. ]
- [0.  0.5]]</p>
-<p>One may also generate a maximally mixed state returned as a sparse matrix</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.states</span><span class="w"> </span><span class="kn">import</span> <span class="n">max_mixed</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nb">print</span><span class="p">(</span><span class="n">max_mixed</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">is_sparse</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
-</code></pre></div>
-<p><DIAgonal sparse array of dtype 'float64'
-    with 2 stored elements (1 diagonals) and shape (2, 2)>
-  Coords    Values
-  (0, 0)    0.5
-  (1, 1)    0.5</p>
-        <p><strong>References</strong></p>
+<p>from toqito.states import max_mixed
+print(max_mixed(2, is_sparse=True))
+    ```</p>
+<p><strong>References</strong></p>
 <p><span id="ref-toqito-states-max_mixed-max_mixed-1"><sup><a href="#cite-toqito-states-max_mixed-max_mixed-1">1</a></sup> Aaronson, Scott. <em>Lecture 6: Mixed States</em>. <a href="https://www.scottaaronson.com/qclec/6.pdf">link</a>.</span></p>
 
 
@@ -8986,8 +8983,8 @@ tracial state.</p>
 <a id="__codelineno-0-54" name="__codelineno-0-54"></a><span class="sd">        as follows.</span>
 <a id="__codelineno-0-55" name="__codelineno-0-55"></a>
 <a id="__codelineno-0-56" name="__codelineno-0-56"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-57" name="__codelineno-0-57"></a><span class="sd">        from toqito.states import max_mixed</span>
-<a id="__codelineno-0-58" name="__codelineno-0-58"></a><span class="sd">        print(max_mixed(2, is_sparse=False))</span>
+<a id="__codelineno-0-57" name="__codelineno-0-57"></a><span class="sd">    from toqito.states import max_mixed</span>
+<a id="__codelineno-0-58" name="__codelineno-0-58"></a><span class="sd">    print(max_mixed(2, is_sparse=False))</span>
 <a id="__codelineno-0-59" name="__codelineno-0-59"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-60" name="__codelineno-0-60"></a>
 <a id="__codelineno-0-61" name="__codelineno-0-61"></a>
@@ -8995,8 +8992,8 @@ tracial state.</p>
 <a id="__codelineno-0-63" name="__codelineno-0-63"></a><span class="sd">        One may also generate a maximally mixed state returned as a sparse matrix</span>
 <a id="__codelineno-0-64" name="__codelineno-0-64"></a>
 <a id="__codelineno-0-65" name="__codelineno-0-65"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-66" name="__codelineno-0-66"></a><span class="sd">        from toqito.states import max_mixed</span>
-<a id="__codelineno-0-67" name="__codelineno-0-67"></a><span class="sd">        print(max_mixed(2, is_sparse=True))</span>
+<a id="__codelineno-0-66" name="__codelineno-0-66"></a><span class="sd">    from toqito.states import max_mixed</span>
+<a id="__codelineno-0-67" name="__codelineno-0-67"></a><span class="sd">    print(max_mixed(2, is_sparse=True))</span>
 <a id="__codelineno-0-68" name="__codelineno-0-68"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-69" name="__codelineno-0-69"></a>
 <a id="__codelineno-0-70" name="__codelineno-0-70"></a><span class="sd">    &quot;&quot;&quot;</span>

@@ -8867,16 +8867,17 @@ the result of this function computes</p>
 e_0 \otimes e_0 = [1, 0, 0, 0]^{\text{T}}.
 \]</div>
 <p>This can be accomplished in <code>|toqito⟩</code> as follows.</p>
-        <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>  <span class="n">File</span> <span class="s2">&quot;/home/runner/work/toqito/toqito/.venv/lib/python3.12/site-packages/markdown_exec/_internal/formatters/python.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">71</span><span class="p">,</span> <span class="ow">in</span> <span class="n">_run_python</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    <span class="n">exec_python</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="n">code_block_id</span><span class="p">,</span> <span class="n">exec_globals</span><span class="p">)</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>  <span class="n">File</span> <span class="s2">&quot;/home/runner/work/toqito/toqito/.venv/lib/python3.12/site-packages/markdown_exec/_internal/formatters/_exec_python.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">7</span><span class="p">,</span> <span class="ow">in</span> <span class="n">exec_python</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="n">compiled</span> <span class="o">=</span> <span class="nb">compile</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="n">filename</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;exec&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>               <span class="o">^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^</span>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>  <span class="n">File</span> <span class="s2">&quot;&lt;code block: n82&gt;&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">1</span>
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    <span class="kn">from</span><span class="w"> </span><span class="nn">toqito.states</span><span class="w"> </span><span class="kn">import</span> <span class="n">basis</span>
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="ne">IndentationError</span><span class="p">:</span> <span class="n">unexpected</span> <span class="n">indent</span>
+        <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.states</span><span class="w"> </span><span class="kn">import</span> <span class="n">basis</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.matrix_ops</span><span class="w"> </span><span class="kn">import</span> <span class="n">tensor</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">e_0</span> <span class="o">=</span> <span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="nb">print</span><span class="p">(</span><span class="n">tensor</span><span class="p">(</span><span class="n">e_0</span><span class="p">,</span> <span class="n">e_0</span><span class="p">))</span>
 </code></pre></div>
+<p>[[1]
+ [0]
+ [0]
+ [0]]</p>
 <div class="highlight"><pre><span></span><code>Tensor product one matrix \(n\) times with itself.
 
 We may also tensor some element with itself some integer number of times.
@@ -8889,12 +8890,12 @@ For instance we can compute
 in `|toqito⟩` as follows.
 </code></pre></div>
 <p><code>python exec="1" source="above"
-    from toqito.states import basis
-    from toqito.matrix_ops import tensor
+from toqito.states import basis
+from toqito.matrix_ops import tensor
 
-    e_0 = basis(2, 0)
+e_0 = basis(2, 0)
 
-    print(tensor(e_0, 3))</code></p>
+print(tensor(e_0, 3))</code></p>
 <div class="highlight"><pre><span></span><code>Perform the tensor product on a list of vectors or matrices.
 
 If we wish to compute the tensor product against more than two matrices or
@@ -8903,12 +8904,12 @@ compute \(e_0 \otimes e_1 \otimes e_0\), we can do
 so as follows.
 </code></pre></div>
 <p><code>python exec="1" source="above"
-    from toqito.states import basis
-    from toqito.matrix_ops import tensor
+from toqito.states import basis
+from toqito.matrix_ops import tensor
 
-    e_0, e_1 = basis(2, 0), basis(2, 1)
+e_0, e_1 = basis(2, 0), basis(2, 1)
 
-    print(tensor([e_0, e_1, e_0]))</code></p>
+print(tensor([e_0, e_1, e_0]))</code></p>
 <p><strong>References</strong></p>
 <p><span id="ref-toqito-matrix_ops-tensor-tensor-1"><sup><a href="#cite-toqito-matrix_ops-tensor-tensor-1">1</a></sup> Wikipedia. <em>Tensor product</em>. <a href="https://en.wikipedia.org/wiki/Tensor_product">link</a>.</span></p>
 
@@ -9127,12 +9128,12 @@ so as follows.
 <a id="__codelineno-0-66" name="__codelineno-0-66"></a>
 <a id="__codelineno-0-67" name="__codelineno-0-67"></a><span class="sd">        This can be accomplished in `|toqito⟩` as follows.</span>
 <a id="__codelineno-0-68" name="__codelineno-0-68"></a><span class="sd">    ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-69" name="__codelineno-0-69"></a><span class="sd">        from toqito.states import basis</span>
-<a id="__codelineno-0-70" name="__codelineno-0-70"></a><span class="sd">        from toqito.matrix_ops import tensor</span>
+<a id="__codelineno-0-69" name="__codelineno-0-69"></a><span class="sd">    from toqito.states import basis</span>
+<a id="__codelineno-0-70" name="__codelineno-0-70"></a><span class="sd">    from toqito.matrix_ops import tensor</span>
 <a id="__codelineno-0-71" name="__codelineno-0-71"></a>
-<a id="__codelineno-0-72" name="__codelineno-0-72"></a><span class="sd">        e_0 = basis(2, 0)</span>
+<a id="__codelineno-0-72" name="__codelineno-0-72"></a><span class="sd">    e_0 = basis(2, 0)</span>
 <a id="__codelineno-0-73" name="__codelineno-0-73"></a>
-<a id="__codelineno-0-74" name="__codelineno-0-74"></a><span class="sd">        print(tensor(e_0, e_0))</span>
+<a id="__codelineno-0-74" name="__codelineno-0-74"></a><span class="sd">    print(tensor(e_0, e_0))</span>
 <a id="__codelineno-0-75" name="__codelineno-0-75"></a><span class="sd">    ```</span>
 <a id="__codelineno-0-76" name="__codelineno-0-76"></a>
 <a id="__codelineno-0-77" name="__codelineno-0-77"></a><span class="sd">        Tensor product one matrix \(n\) times with itself.</span>
@@ -9146,12 +9147,12 @@ so as follows.
 <a id="__codelineno-0-85" name="__codelineno-0-85"></a>
 <a id="__codelineno-0-86" name="__codelineno-0-86"></a><span class="sd">        in `|toqito⟩` as follows.</span>
 <a id="__codelineno-0-87" name="__codelineno-0-87"></a><span class="sd">    ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-88" name="__codelineno-0-88"></a><span class="sd">        from toqito.states import basis</span>
-<a id="__codelineno-0-89" name="__codelineno-0-89"></a><span class="sd">        from toqito.matrix_ops import tensor</span>
+<a id="__codelineno-0-88" name="__codelineno-0-88"></a><span class="sd">    from toqito.states import basis</span>
+<a id="__codelineno-0-89" name="__codelineno-0-89"></a><span class="sd">    from toqito.matrix_ops import tensor</span>
 <a id="__codelineno-0-90" name="__codelineno-0-90"></a>
-<a id="__codelineno-0-91" name="__codelineno-0-91"></a><span class="sd">        e_0 = basis(2, 0)</span>
+<a id="__codelineno-0-91" name="__codelineno-0-91"></a><span class="sd">    e_0 = basis(2, 0)</span>
 <a id="__codelineno-0-92" name="__codelineno-0-92"></a>
-<a id="__codelineno-0-93" name="__codelineno-0-93"></a><span class="sd">        print(tensor(e_0, 3))</span>
+<a id="__codelineno-0-93" name="__codelineno-0-93"></a><span class="sd">    print(tensor(e_0, 3))</span>
 <a id="__codelineno-0-94" name="__codelineno-0-94"></a><span class="sd">    ```</span>
 <a id="__codelineno-0-95" name="__codelineno-0-95"></a>
 <a id="__codelineno-0-96" name="__codelineno-0-96"></a><span class="sd">        Perform the tensor product on a list of vectors or matrices.</span>
@@ -9161,12 +9162,12 @@ so as follows.
 <a id="__codelineno-0-100" name="__codelineno-0-100"></a><span class="sd">        compute \(e_0 \otimes e_1 \otimes e_0\), we can do</span>
 <a id="__codelineno-0-101" name="__codelineno-0-101"></a><span class="sd">        so as follows.</span>
 <a id="__codelineno-0-102" name="__codelineno-0-102"></a><span class="sd">    ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-103" name="__codelineno-0-103"></a><span class="sd">        from toqito.states import basis</span>
-<a id="__codelineno-0-104" name="__codelineno-0-104"></a><span class="sd">        from toqito.matrix_ops import tensor</span>
+<a id="__codelineno-0-103" name="__codelineno-0-103"></a><span class="sd">    from toqito.states import basis</span>
+<a id="__codelineno-0-104" name="__codelineno-0-104"></a><span class="sd">    from toqito.matrix_ops import tensor</span>
 <a id="__codelineno-0-105" name="__codelineno-0-105"></a>
-<a id="__codelineno-0-106" name="__codelineno-0-106"></a><span class="sd">        e_0, e_1 = basis(2, 0), basis(2, 1)</span>
+<a id="__codelineno-0-106" name="__codelineno-0-106"></a><span class="sd">    e_0, e_1 = basis(2, 0), basis(2, 1)</span>
 <a id="__codelineno-0-107" name="__codelineno-0-107"></a>
-<a id="__codelineno-0-108" name="__codelineno-0-108"></a><span class="sd">        print(tensor([e_0, e_1, e_0]))</span>
+<a id="__codelineno-0-108" name="__codelineno-0-108"></a><span class="sd">    print(tensor([e_0, e_1, e_0]))</span>
 <a id="__codelineno-0-109" name="__codelineno-0-109"></a><span class="sd">    ```</span>
 <a id="__codelineno-0-110" name="__codelineno-0-110"></a>
 <a id="__codelineno-0-111" name="__codelineno-0-111"></a><span class="sd">    &quot;&quot;&quot;</span>

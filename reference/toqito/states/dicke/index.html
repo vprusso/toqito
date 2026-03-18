@@ -8799,19 +8799,28 @@ Consider generating a Dicke state with 3 qubits and 1 excitation:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.states</span><span class="w"> </span><span class="kn">import</span> <span class="n">dicke</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nb">print</span><span class="p">(</span><span class="n">dicke</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
 </code></pre></div>
-<p>[0.         0.57735027 0.57735027 0.         0.57735027 0.         0.         0.        ]</p>
+<p>[0.         0.57735027 0.57735027 0.         0.57735027 0.
+ 0.         0.        ]</p>
 <p>If we request the density matrix for this state, the return value is:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.states</span><span class="w"> </span><span class="kn">import</span> <span class="n">dicke</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nb">print</span><span class="p">(</span><span class="n">dicke</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">return_dm</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
 </code></pre></div>
-<p>[[0.         0.         0.         0.         0.         0.         0.         0.        ]
- [0.         0.33333333 0.33333333 0.         0.33333333 0.         0.         0.        ]
- [0.         0.33333333 0.33333333 0.         0.33333333 0.         0.         0.        ]
- [0.         0.         0.         0.         0.         0.         0.         0.        ]
- [0.         0.33333333 0.33333333 0.         0.33333333 0.         0.         0.        ]
- [0.         0.         0.         0.         0.         0.         0.         0.        ]
- [0.         0.         0.         0.         0.         0.         0.         0.        ]
- [0.         0.         0.         0.         0.         0.         0.         0.        ]]</p>
+<p>[[0.         0.         0.         0.         0.         0.
+  0.         0.        ]
+ [0.         0.33333333 0.33333333 0.         0.33333333 0.
+  0.         0.        ]
+ [0.         0.33333333 0.33333333 0.         0.33333333 0.
+  0.         0.        ]
+ [0.         0.         0.         0.         0.         0.
+  0.         0.        ]
+ [0.         0.33333333 0.33333333 0.         0.33333333 0.
+  0.         0.        ]
+ [0.         0.         0.         0.         0.         0.
+  0.         0.        ]
+ [0.         0.         0.         0.         0.         0.
+  0.         0.        ]
+ [0.         0.         0.         0.         0.         0.
+  0.         0.        ]]</p>
 
 
 <p><span class="doc-section-title">Raises:</span></p>

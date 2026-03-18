@@ -8829,14 +8829,14 @@
 \]</div>
 <p>Calculating the rank of <span class="arithmatex">\(\rho\)</span> yields that the <span class="arithmatex">\(\rho\)</span> is a mixed state. This can be
 confirmed in <code>|toqito⟩</code> as follows:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.states</span><span class="w"> </span><span class="kn">import</span> <span class="n">basis</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.state_props</span><span class="w"> </span><span class="kn">import</span> <span class="n">is_mixed</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">e_0</span><span class="p">,</span> <span class="n">e_1</span> <span class="o">=</span> <span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">rho</span> <span class="o">=</span> <span class="mi">3</span> <span class="o">/</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">e_0</span> <span class="o">@</span> <span class="n">e_0</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">/</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">e_1</span> <span class="o">@</span> <span class="n">e_1</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">is_mixed</span><span class="p">(</span><span class="n">rho</span><span class="p">))</span>
-</code></pre></div>
-<p>True</p>
-        <p><strong>References</strong></p>
+<p>```python exec="1" source="above"</p>
+        <p>from toqito.states import basis
+from toqito.state_props import is_mixed
+e_0, e_1 = basis(2, 0), basis(2, 1)
+rho = 3 / 4 * e_0 @ e_0.conj().T + 1 / 4 * e_1 @ e_1.conj().T
+print(is_mixed(rho))
+    ```</p>
+<p><strong>References</strong></p>
 <p><span id="ref-toqito-state_props-is_mixed-is_mixed-1"><sup><a href="#cite-toqito-state_props-is_mixed-is_mixed-1">1</a></sup> Wikipedia. <em>Quantum State - Mixed States</em>. <a href="https://en.wikipedia.org/wiki/Quantum_state#Mixed_states">link</a>.</span></p>
 
 
@@ -8900,11 +8900,11 @@ confirmed in <code>|toqito⟩</code> as follows:</p>
 <a id="__codelineno-0-30" name="__codelineno-0-30"></a><span class="sd">        confirmed in `|toqito⟩` as follows:</span>
 <a id="__codelineno-0-31" name="__codelineno-0-31"></a>
 <a id="__codelineno-0-32" name="__codelineno-0-32"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-33" name="__codelineno-0-33"></a><span class="sd">        from toqito.states import basis</span>
-<a id="__codelineno-0-34" name="__codelineno-0-34"></a><span class="sd">        from toqito.state_props import is_mixed</span>
-<a id="__codelineno-0-35" name="__codelineno-0-35"></a><span class="sd">        e_0, e_1 = basis(2, 0), basis(2, 1)</span>
-<a id="__codelineno-0-36" name="__codelineno-0-36"></a><span class="sd">        rho = 3 / 4 * e_0 @ e_0.conj().T + 1 / 4 * e_1 @ e_1.conj().T</span>
-<a id="__codelineno-0-37" name="__codelineno-0-37"></a><span class="sd">        print(is_mixed(rho))</span>
+<a id="__codelineno-0-33" name="__codelineno-0-33"></a><span class="sd">    from toqito.states import basis</span>
+<a id="__codelineno-0-34" name="__codelineno-0-34"></a><span class="sd">    from toqito.state_props import is_mixed</span>
+<a id="__codelineno-0-35" name="__codelineno-0-35"></a><span class="sd">    e_0, e_1 = basis(2, 0), basis(2, 1)</span>
+<a id="__codelineno-0-36" name="__codelineno-0-36"></a><span class="sd">    rho = 3 / 4 * e_0 @ e_0.conj().T + 1 / 4 * e_1 @ e_1.conj().T</span>
+<a id="__codelineno-0-37" name="__codelineno-0-37"></a><span class="sd">    print(is_mixed(rho))</span>
 <a id="__codelineno-0-38" name="__codelineno-0-38"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-39" name="__codelineno-0-39"></a>
 <a id="__codelineno-0-40" name="__codelineno-0-40"></a><span class="sd">    &quot;&quot;&quot;</span>

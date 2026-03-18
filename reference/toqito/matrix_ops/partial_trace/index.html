@@ -8879,16 +8879,15 @@ given by the scalar or vector <code>sys</code>.</p>
 \]</div>
 <p>By default, the partial trace function in <code>|toqito⟩</code> takes the trace of the second
 subsystem.</p>
-        <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>  <span class="n">File</span> <span class="s2">&quot;/home/runner/work/toqito/toqito/.venv/lib/python3.12/site-packages/markdown_exec/_internal/formatters/python.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">71</span><span class="p">,</span> <span class="ow">in</span> <span class="n">_run_python</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    <span class="n">exec_python</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="n">code_block_id</span><span class="p">,</span> <span class="n">exec_globals</span><span class="p">)</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>  <span class="n">File</span> <span class="s2">&quot;/home/runner/work/toqito/toqito/.venv/lib/python3.12/site-packages/markdown_exec/_internal/formatters/_exec_python.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">7</span><span class="p">,</span> <span class="ow">in</span> <span class="n">exec_python</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="n">compiled</span> <span class="o">=</span> <span class="nb">compile</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="n">filename</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;exec&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>               <span class="o">^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^</span>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>  <span class="n">File</span> <span class="s2">&quot;&lt;code block: n75&gt;&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">1</span>
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="ne">IndentationError</span><span class="p">:</span> <span class="n">unexpected</span> <span class="n">indent</span>
+        <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.matrix_ops</span><span class="w"> </span><span class="kn">import</span> <span class="n">partial_trace</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">test_input_mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">17</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="nb">print</span><span class="p">(</span><span class="n">partial_trace</span><span class="p">(</span><span class="n">test_input_mat</span><span class="p">))</span>
 </code></pre></div>
+<p>[[ 7 11]
+ [23 27]]</p>
 <div class="highlight"><pre><span></span><code>By specifying the `sys = [0]` argument, we can perform the partial trace over the first
 subsystem (instead of the default second subsystem as done above). Performing the partial
 trace over the first subsystem yields the following matrix
@@ -8901,30 +8900,30 @@ trace over the first subsystem yields the following matrix
 \]
 </code></pre></div>
 <p><code>python exec="1" source="above"
-    import numpy as np
-    from toqito.matrix_ops import partial_trace
+import numpy as np
+from toqito.matrix_ops import partial_trace
 
-    test_input_mat = np.arange(1, 17).reshape(4, 4)
+test_input_mat = np.arange(1, 17).reshape(4, 4)
 
-    print(partial_trace(test_input_mat, [0]))</code></p>
+print(partial_trace(test_input_mat, [0]))</code></p>
 <div class="highlight"><pre><span></span><code>We can also specify both dimension and system size as `list` arguments. Consider the
 following \(16\)-by-\(16\) matrix.
 </code></pre></div>
 <p><code>python exec="1" source="above"
-    import numpy as np
-    from toqito.matrix_ops import partial_trace
+import numpy as np
+from toqito.matrix_ops import partial_trace
 
-    test_input_mat = np.arange(1, 257).reshape(16, 16)
-    print(test_input_mat)</code></p>
+test_input_mat = np.arange(1, 257).reshape(16, 16)
+print(test_input_mat)</code></p>
 <div class="highlight"><pre><span></span><code>We can take the partial trace on the first and third subsystems and assume that the size of
 each of the 4 systems is of dimension 2.
 </code></pre></div>
 <p><code>python exec="1" source="above"
-    import numpy as np
-    from toqito.matrix_ops import partial_trace
-    test_input_mat = np.arange(1, 257).reshape(16, 16)
+import numpy as np
+from toqito.matrix_ops import partial_trace
+test_input_mat = np.arange(1, 257).reshape(16, 16)
 
-    print(partial_trace(test_input_mat, [0, 2], [2, 2, 2, 2]))</code></p>
+print(partial_trace(test_input_mat, [0, 2], [2, 2, 2, 2]))</code></p>
 <p><strong>References</strong></p>
 <p><span id="ref-toqito-matrix_ops-partial_trace-partial_trace-1"><sup><a href="#cite-toqito-matrix_ops-partial_trace-partial_trace-1">1</a></sup> Wikipedia. <em>Partial Trace</em>. <a href="https://en.wikipedia.org/wiki/Partial_trace">link</a>.</span></p>
 
@@ -9157,12 +9156,12 @@ each of the 4 systems is of dimension 2.
 <a id="__codelineno-0-64" name="__codelineno-0-64"></a><span class="sd">        By default, the partial trace function in `|toqito⟩` takes the trace of the second</span>
 <a id="__codelineno-0-65" name="__codelineno-0-65"></a><span class="sd">        subsystem.</span>
 <a id="__codelineno-0-66" name="__codelineno-0-66"></a><span class="sd">    ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-67" name="__codelineno-0-67"></a><span class="sd">        import numpy as np</span>
-<a id="__codelineno-0-68" name="__codelineno-0-68"></a><span class="sd">        from toqito.matrix_ops import partial_trace</span>
+<a id="__codelineno-0-67" name="__codelineno-0-67"></a><span class="sd">    import numpy as np</span>
+<a id="__codelineno-0-68" name="__codelineno-0-68"></a><span class="sd">    from toqito.matrix_ops import partial_trace</span>
 <a id="__codelineno-0-69" name="__codelineno-0-69"></a>
-<a id="__codelineno-0-70" name="__codelineno-0-70"></a><span class="sd">        test_input_mat = np.arange(1, 17).reshape(4, 4)</span>
+<a id="__codelineno-0-70" name="__codelineno-0-70"></a><span class="sd">    test_input_mat = np.arange(1, 17).reshape(4, 4)</span>
 <a id="__codelineno-0-71" name="__codelineno-0-71"></a>
-<a id="__codelineno-0-72" name="__codelineno-0-72"></a><span class="sd">        print(partial_trace(test_input_mat))</span>
+<a id="__codelineno-0-72" name="__codelineno-0-72"></a><span class="sd">    print(partial_trace(test_input_mat))</span>
 <a id="__codelineno-0-73" name="__codelineno-0-73"></a><span class="sd">    ```</span>
 <a id="__codelineno-0-74" name="__codelineno-0-74"></a>
 <a id="__codelineno-0-75" name="__codelineno-0-75"></a><span class="sd">        By specifying the `sys = [0]` argument, we can perform the partial trace over the first</span>
@@ -9176,32 +9175,32 @@ each of the 4 systems is of dimension 2.
 <a id="__codelineno-0-83" name="__codelineno-0-83"></a><span class="sd">                        \end{pmatrix}</span>
 <a id="__codelineno-0-84" name="__codelineno-0-84"></a><span class="sd">        \]</span>
 <a id="__codelineno-0-85" name="__codelineno-0-85"></a><span class="sd">    ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-86" name="__codelineno-0-86"></a><span class="sd">        import numpy as np</span>
-<a id="__codelineno-0-87" name="__codelineno-0-87"></a><span class="sd">        from toqito.matrix_ops import partial_trace</span>
+<a id="__codelineno-0-86" name="__codelineno-0-86"></a><span class="sd">    import numpy as np</span>
+<a id="__codelineno-0-87" name="__codelineno-0-87"></a><span class="sd">    from toqito.matrix_ops import partial_trace</span>
 <a id="__codelineno-0-88" name="__codelineno-0-88"></a>
-<a id="__codelineno-0-89" name="__codelineno-0-89"></a><span class="sd">        test_input_mat = np.arange(1, 17).reshape(4, 4)</span>
+<a id="__codelineno-0-89" name="__codelineno-0-89"></a><span class="sd">    test_input_mat = np.arange(1, 17).reshape(4, 4)</span>
 <a id="__codelineno-0-90" name="__codelineno-0-90"></a>
-<a id="__codelineno-0-91" name="__codelineno-0-91"></a><span class="sd">        print(partial_trace(test_input_mat, [0]))</span>
+<a id="__codelineno-0-91" name="__codelineno-0-91"></a><span class="sd">    print(partial_trace(test_input_mat, [0]))</span>
 <a id="__codelineno-0-92" name="__codelineno-0-92"></a><span class="sd">    ```</span>
 <a id="__codelineno-0-93" name="__codelineno-0-93"></a>
 <a id="__codelineno-0-94" name="__codelineno-0-94"></a><span class="sd">        We can also specify both dimension and system size as `list` arguments. Consider the</span>
 <a id="__codelineno-0-95" name="__codelineno-0-95"></a><span class="sd">        following \(16\)-by-\(16\) matrix.</span>
 <a id="__codelineno-0-96" name="__codelineno-0-96"></a><span class="sd">    ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-97" name="__codelineno-0-97"></a><span class="sd">        import numpy as np</span>
-<a id="__codelineno-0-98" name="__codelineno-0-98"></a><span class="sd">        from toqito.matrix_ops import partial_trace</span>
+<a id="__codelineno-0-97" name="__codelineno-0-97"></a><span class="sd">    import numpy as np</span>
+<a id="__codelineno-0-98" name="__codelineno-0-98"></a><span class="sd">    from toqito.matrix_ops import partial_trace</span>
 <a id="__codelineno-0-99" name="__codelineno-0-99"></a>
-<a id="__codelineno-0-100" name="__codelineno-0-100"></a><span class="sd">        test_input_mat = np.arange(1, 257).reshape(16, 16)</span>
-<a id="__codelineno-0-101" name="__codelineno-0-101"></a><span class="sd">        print(test_input_mat)</span>
+<a id="__codelineno-0-100" name="__codelineno-0-100"></a><span class="sd">    test_input_mat = np.arange(1, 257).reshape(16, 16)</span>
+<a id="__codelineno-0-101" name="__codelineno-0-101"></a><span class="sd">    print(test_input_mat)</span>
 <a id="__codelineno-0-102" name="__codelineno-0-102"></a><span class="sd">    ```</span>
 <a id="__codelineno-0-103" name="__codelineno-0-103"></a>
 <a id="__codelineno-0-104" name="__codelineno-0-104"></a><span class="sd">        We can take the partial trace on the first and third subsystems and assume that the size of</span>
 <a id="__codelineno-0-105" name="__codelineno-0-105"></a><span class="sd">        each of the 4 systems is of dimension 2.</span>
 <a id="__codelineno-0-106" name="__codelineno-0-106"></a><span class="sd">    ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-107" name="__codelineno-0-107"></a><span class="sd">        import numpy as np</span>
-<a id="__codelineno-0-108" name="__codelineno-0-108"></a><span class="sd">        from toqito.matrix_ops import partial_trace</span>
-<a id="__codelineno-0-109" name="__codelineno-0-109"></a><span class="sd">        test_input_mat = np.arange(1, 257).reshape(16, 16)</span>
+<a id="__codelineno-0-107" name="__codelineno-0-107"></a><span class="sd">    import numpy as np</span>
+<a id="__codelineno-0-108" name="__codelineno-0-108"></a><span class="sd">    from toqito.matrix_ops import partial_trace</span>
+<a id="__codelineno-0-109" name="__codelineno-0-109"></a><span class="sd">    test_input_mat = np.arange(1, 257).reshape(16, 16)</span>
 <a id="__codelineno-0-110" name="__codelineno-0-110"></a>
-<a id="__codelineno-0-111" name="__codelineno-0-111"></a><span class="sd">        print(partial_trace(test_input_mat, [0, 2], [2, 2, 2, 2]))</span>
+<a id="__codelineno-0-111" name="__codelineno-0-111"></a><span class="sd">    print(partial_trace(test_input_mat, [0, 2], [2, 2, 2, 2]))</span>
 <a id="__codelineno-0-112" name="__codelineno-0-112"></a><span class="sd">    ```</span>
 <a id="__codelineno-0-113" name="__codelineno-0-113"></a>
 <a id="__codelineno-0-114" name="__codelineno-0-114"></a><span class="sd">    &quot;&quot;&quot;</span>

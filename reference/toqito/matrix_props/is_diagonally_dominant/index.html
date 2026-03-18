@@ -8841,31 +8841,31 @@ than or equal to the sum of the magnitudes of all the other (non-diagonal) entri
         \end{pmatrix}
 \]</div>
 <p>our function indicates that this is indeed a diagonally dominant matrix.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.matrix_props</span><span class="w"> </span><span class="kn">import</span> <span class="n">is_diagonally_dominant</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]])</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="nb">print</span><span class="p">(</span><span class="n">is_diagonally_dominant</span><span class="p">(</span><span class="n">A</span><span class="p">))</span>
-</code></pre></div>
-<p>True</p>
-<p>Alternatively, the following example matrix <span class="arithmatex">\(B\)</span> defined as</p>
-<div class="arithmatex">\[
+<p>```python exec="1" source="above"</p>
+        <p>import numpy as np
+from toqito.matrix_props import is_diagonally_dominant</p>
+<p>A = np.array([[2, -1, 0], [0, 2, -1], [0, -1, 2]])</p>
+<p>print(is_diagonally_dominant(A))
+    ```</p>
+<div class="highlight"><pre><span></span><code>Alternatively, the following example matrix \(B\) defined as
+
+\[
     B = \begin{pmatrix}
             -1 &amp; 2 \\
             -1 &amp; -1
         \end{pmatrix}
-\]</div>
-<p>is not diagonally dominant.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.matrix_props</span><span class="w"> </span><span class="kn">import</span> <span class="n">is_diagonally_dominant</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">B</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]])</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="nb">print</span><span class="p">(</span><span class="n">is_diagonally_dominant</span><span class="p">(</span><span class="n">B</span><span class="p">))</span>
+\]
+
+is not diagonally dominant.
+
+```python exec=&quot;1&quot; source=&quot;above&quot;
 </code></pre></div>
-<p>False</p>
-        <p><strong>References</strong></p>
+<p>import numpy as np
+from toqito.matrix_props import is_diagonally_dominant</p>
+<p>B = np.array([[-1, 2], [-1, -1]])</p>
+<p>print(is_diagonally_dominant(B))
+    ```</p>
+<p><strong>References</strong></p>
 <p><span id="ref-toqito-matrix_props-is_diagonally_dominant-is_diagonally_dominant-1"><sup><a href="#cite-toqito-matrix_props-is_diagonally_dominant-is_diagonally_dominant-1">1</a></sup> Wikipedia. <em>Diagonally dominant matrix</em>. <a href="https://en.wikipedia.org/wiki/Diagonally_dominant_matrix">link</a>.</span></p>
 
 
@@ -8962,12 +8962,12 @@ than or equal to the sum of the magnitudes of all the other (non-diagonal) entri
 <a id="__codelineno-0-33" name="__codelineno-0-33"></a><span class="sd">        our function indicates that this is indeed a diagonally dominant matrix.</span>
 <a id="__codelineno-0-34" name="__codelineno-0-34"></a>
 <a id="__codelineno-0-35" name="__codelineno-0-35"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-36" name="__codelineno-0-36"></a><span class="sd">        import numpy as np</span>
-<a id="__codelineno-0-37" name="__codelineno-0-37"></a><span class="sd">        from toqito.matrix_props import is_diagonally_dominant</span>
+<a id="__codelineno-0-36" name="__codelineno-0-36"></a><span class="sd">    import numpy as np</span>
+<a id="__codelineno-0-37" name="__codelineno-0-37"></a><span class="sd">    from toqito.matrix_props import is_diagonally_dominant</span>
 <a id="__codelineno-0-38" name="__codelineno-0-38"></a>
-<a id="__codelineno-0-39" name="__codelineno-0-39"></a><span class="sd">        A = np.array([[2, -1, 0], [0, 2, -1], [0, -1, 2]])</span>
+<a id="__codelineno-0-39" name="__codelineno-0-39"></a><span class="sd">    A = np.array([[2, -1, 0], [0, 2, -1], [0, -1, 2]])</span>
 <a id="__codelineno-0-40" name="__codelineno-0-40"></a>
-<a id="__codelineno-0-41" name="__codelineno-0-41"></a><span class="sd">        print(is_diagonally_dominant(A))</span>
+<a id="__codelineno-0-41" name="__codelineno-0-41"></a><span class="sd">    print(is_diagonally_dominant(A))</span>
 <a id="__codelineno-0-42" name="__codelineno-0-42"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-43" name="__codelineno-0-43"></a>
 <a id="__codelineno-0-44" name="__codelineno-0-44"></a><span class="sd">        Alternatively, the following example matrix \(B\) defined as</span>
@@ -8982,12 +8982,12 @@ than or equal to the sum of the magnitudes of all the other (non-diagonal) entri
 <a id="__codelineno-0-53" name="__codelineno-0-53"></a><span class="sd">        is not diagonally dominant.</span>
 <a id="__codelineno-0-54" name="__codelineno-0-54"></a>
 <a id="__codelineno-0-55" name="__codelineno-0-55"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-56" name="__codelineno-0-56"></a><span class="sd">        import numpy as np</span>
-<a id="__codelineno-0-57" name="__codelineno-0-57"></a><span class="sd">        from toqito.matrix_props import is_diagonally_dominant</span>
+<a id="__codelineno-0-56" name="__codelineno-0-56"></a><span class="sd">    import numpy as np</span>
+<a id="__codelineno-0-57" name="__codelineno-0-57"></a><span class="sd">    from toqito.matrix_props import is_diagonally_dominant</span>
 <a id="__codelineno-0-58" name="__codelineno-0-58"></a>
-<a id="__codelineno-0-59" name="__codelineno-0-59"></a><span class="sd">        B = np.array([[-1, 2], [-1, -1]])</span>
+<a id="__codelineno-0-59" name="__codelineno-0-59"></a><span class="sd">    B = np.array([[-1, 2], [-1, -1]])</span>
 <a id="__codelineno-0-60" name="__codelineno-0-60"></a>
-<a id="__codelineno-0-61" name="__codelineno-0-61"></a><span class="sd">        print(is_diagonally_dominant(B))</span>
+<a id="__codelineno-0-61" name="__codelineno-0-61"></a><span class="sd">    print(is_diagonally_dominant(B))</span>
 <a id="__codelineno-0-62" name="__codelineno-0-62"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-63" name="__codelineno-0-63"></a>
 <a id="__codelineno-0-64" name="__codelineno-0-64"></a><span class="sd">    &quot;&quot;&quot;</span>

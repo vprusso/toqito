@@ -8861,16 +8861,14 @@
 \]</div>
 <p>The trace distance between <span class="arithmatex">\(\rho\)</span> and another state <span class="arithmatex">\(\sigma\)</span> is equal to <span class="arithmatex">\(0\)</span> if any only if
 <span class="arithmatex">\(\rho = \sigma\)</span>. We can check this using the <code>|toqito⟩</code> package.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.states</span><span class="w"> </span><span class="kn">import</span> <span class="n">bell</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.state_metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">trace_distance</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">rho</span> <span class="o">=</span> <span class="n">bell</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">@</span> <span class="n">bell</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="n">sigma</span> <span class="o">=</span> <span class="n">rho</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="nb">print</span><span class="p">(</span><span class="n">trace_distance</span><span class="p">(</span><span class="n">rho</span><span class="p">,</span> <span class="n">sigma</span><span class="p">))</span>
-</code></pre></div>
-<p>0.0</p>
-        <p><strong>References</strong></p>
+<p>```python exec="1" source="above"</p>
+        <p>from toqito.states import bell
+from toqito.state_metrics import trace_distance</p>
+<p>rho = bell(0) @ bell(0).conj().T
+sigma = rho</p>
+<p>print(trace_distance(rho, sigma))
+    ```</p>
+<p><strong>References</strong></p>
 <p><span id="ref-toqito-state_metrics-trace_distance-trace_distance-1"><sup><a href="#cite-toqito-state_metrics-trace_distance-trace_distance-1">1</a></sup> Quantiki. <em>Trace distance</em>. <a href="https://www.quantiki.org/wiki/trace-distance">link</a>.</span></p>
 
 
@@ -8976,13 +8974,13 @@
 <a id="__codelineno-0-52" name="__codelineno-0-52"></a><span class="sd">        \(\rho = \sigma\). We can check this using the `|toqito⟩` package.</span>
 <a id="__codelineno-0-53" name="__codelineno-0-53"></a>
 <a id="__codelineno-0-54" name="__codelineno-0-54"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-55" name="__codelineno-0-55"></a><span class="sd">        from toqito.states import bell</span>
-<a id="__codelineno-0-56" name="__codelineno-0-56"></a><span class="sd">        from toqito.state_metrics import trace_distance</span>
+<a id="__codelineno-0-55" name="__codelineno-0-55"></a><span class="sd">    from toqito.states import bell</span>
+<a id="__codelineno-0-56" name="__codelineno-0-56"></a><span class="sd">    from toqito.state_metrics import trace_distance</span>
 <a id="__codelineno-0-57" name="__codelineno-0-57"></a>
-<a id="__codelineno-0-58" name="__codelineno-0-58"></a><span class="sd">        rho = bell(0) @ bell(0).conj().T</span>
-<a id="__codelineno-0-59" name="__codelineno-0-59"></a><span class="sd">        sigma = rho</span>
+<a id="__codelineno-0-58" name="__codelineno-0-58"></a><span class="sd">    rho = bell(0) @ bell(0).conj().T</span>
+<a id="__codelineno-0-59" name="__codelineno-0-59"></a><span class="sd">    sigma = rho</span>
 <a id="__codelineno-0-60" name="__codelineno-0-60"></a>
-<a id="__codelineno-0-61" name="__codelineno-0-61"></a><span class="sd">        print(trace_distance(rho, sigma))</span>
+<a id="__codelineno-0-61" name="__codelineno-0-61"></a><span class="sd">    print(trace_distance(rho, sigma))</span>
 <a id="__codelineno-0-62" name="__codelineno-0-62"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-63" name="__codelineno-0-63"></a>
 <a id="__codelineno-0-64" name="__codelineno-0-64"></a><span class="sd">    &quot;&quot;&quot;</span>

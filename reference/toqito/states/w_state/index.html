@@ -8843,45 +8843,27 @@ the ground state.</p>
     |001 \rangle \right)
 \]</div>
 <p>as follows.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.states</span><span class="w"> </span><span class="kn">import</span> <span class="n">w_state</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nb">print</span><span class="p">(</span><span class="n">w_state</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
-</code></pre></div>
-<p>[[0.    ]
- [0.5774]
- [0.5774]
- [0.    ]
- [0.5774]
- [0.    ]
- [0.    ]
- [0.    ]]</p>
-<p>We may also generate a generalized <span class="arithmatex">\(W\)</span>-state. For instance, here is a <span class="arithmatex">\(4\)</span>-dimensional <span class="arithmatex">\(W\)</span>-state</p>
-<div class="arithmatex">\[
+<p>```python exec="1" source="above"</p>
+        <p>from toqito.states import w_state
+print(w_state(3))
+    ```</p>
+<div class="highlight"><pre><span></span><code>We may also generate a generalized \(W\)-state. For instance, here is a \(4\)-dimensional \(W\)-state
+
+\[
     \frac{1}{\sqrt{30}} \left( |1000 \rangle + 2|0100 \rangle + 3|0010
     \rangle + 4 |0001 \rangle \right).
-\]</div>
-<p>We can generate this state in <code>|toqito⟩</code> as</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.states</span><span class="w"> </span><span class="kn">import</span> <span class="n">w_state</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">coeffs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="nb">print</span><span class="p">(</span><span class="n">w_state</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">coeffs</span><span class="p">))</span>
+\]
+
+We can generate this state in `|toqito⟩` as
+
+```python exec=&quot;1&quot; source=&quot;above&quot;
 </code></pre></div>
-<p>[[0.    ]
- [0.7303]
- [0.5477]
- [0.    ]
- [0.3651]
- [0.    ]
- [0.    ]
- [0.    ]
- [0.1826]
- [0.    ]
- [0.    ]
- [0.    ]
- [0.    ]
- [0.    ]
- [0.    ]
- [0.    ]]</p>
-        <p><strong>References</strong></p>
+<p>from toqito.states import w_state
+import numpy as np
+coeffs = np.array([1, 2, 3, 4]) / np.sqrt(30)
+print(w_state(4, coeffs))
+    ```</p>
+<p><strong>References</strong></p>
 <p><span id="ref-toqito-states-w_state-w_state-1"><sup><a href="#cite-toqito-states-w_state-w_state-1">1</a></sup> Dür, W. and Vidal, G. and Cirac, J.. <em>Three qubits can be entangled in two inequivalent ways</em>. <strong>Physical Review A</strong>. vol. 62(6). (2000). <a href="https://doi.org/10.1103/physreva.62.062314">doi:10.1103/physreva.62.062314</a>.</span></p>
 
 
@@ -8988,8 +8970,8 @@ the ground state.</p>
 <a id="__codelineno-0-37" name="__codelineno-0-37"></a><span class="sd">        as follows.</span>
 <a id="__codelineno-0-38" name="__codelineno-0-38"></a>
 <a id="__codelineno-0-39" name="__codelineno-0-39"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-40" name="__codelineno-0-40"></a><span class="sd">        from toqito.states import w_state</span>
-<a id="__codelineno-0-41" name="__codelineno-0-41"></a><span class="sd">        print(w_state(3))</span>
+<a id="__codelineno-0-40" name="__codelineno-0-40"></a><span class="sd">    from toqito.states import w_state</span>
+<a id="__codelineno-0-41" name="__codelineno-0-41"></a><span class="sd">    print(w_state(3))</span>
 <a id="__codelineno-0-42" name="__codelineno-0-42"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-43" name="__codelineno-0-43"></a>
 <a id="__codelineno-0-44" name="__codelineno-0-44"></a><span class="sd">        We may also generate a generalized \(W\)-state. For instance, here is a \(4\)-dimensional \(W\)-state</span>
@@ -9002,10 +8984,10 @@ the ground state.</p>
 <a id="__codelineno-0-51" name="__codelineno-0-51"></a><span class="sd">        We can generate this state in `|toqito⟩` as</span>
 <a id="__codelineno-0-52" name="__codelineno-0-52"></a>
 <a id="__codelineno-0-53" name="__codelineno-0-53"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-54" name="__codelineno-0-54"></a><span class="sd">        from toqito.states import w_state</span>
-<a id="__codelineno-0-55" name="__codelineno-0-55"></a><span class="sd">        import numpy as np</span>
-<a id="__codelineno-0-56" name="__codelineno-0-56"></a><span class="sd">        coeffs = np.array([1, 2, 3, 4]) / np.sqrt(30)</span>
-<a id="__codelineno-0-57" name="__codelineno-0-57"></a><span class="sd">        print(w_state(4, coeffs))</span>
+<a id="__codelineno-0-54" name="__codelineno-0-54"></a><span class="sd">    from toqito.states import w_state</span>
+<a id="__codelineno-0-55" name="__codelineno-0-55"></a><span class="sd">    import numpy as np</span>
+<a id="__codelineno-0-56" name="__codelineno-0-56"></a><span class="sd">    coeffs = np.array([1, 2, 3, 4]) / np.sqrt(30)</span>
+<a id="__codelineno-0-57" name="__codelineno-0-57"></a><span class="sd">    print(w_state(4, coeffs))</span>
 <a id="__codelineno-0-58" name="__codelineno-0-58"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-59" name="__codelineno-0-59"></a>
 <a id="__codelineno-0-60" name="__codelineno-0-60"></a><span class="sd">    &quot;&quot;&quot;</span>

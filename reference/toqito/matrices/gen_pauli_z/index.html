@@ -8841,14 +8841,11 @@ Pauli operators.</p>
         0 &amp; 0 &amp; \omega^2
     \end{pmatrix}
 \]</div>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.matrices</span><span class="w"> </span><span class="kn">import</span> <span class="n">gen_pauli_z</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">gen_pauli_z</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
-</code></pre></div>
-<p>[[ 1. +0.j         0. +0.j         0. +0.j       ]
- [ 0. +0.j        -0.5+0.8660254j  0. +0.j       ]
- [ 0. +0.j         0. +0.j        -0.5-0.8660254j]]</p>
-        <p><strong>References</strong></p>
+<p>```python exec="1" source="above"</p>
+        <p>from toqito.matrices import gen_pauli_z</p>
+<p>print(gen_pauli_z(3))
+    ```</p>
+<p><strong>References</strong></p>
 <p><span id="ref-toqito-matrices-gen_pauli_z-gen_pauli_z-1"><sup><a href="#cite-toqito-matrices-gen_pauli_z-gen_pauli_z-1">1</a></sup> Wikipedia. <em>Generalizations of Pauli matrices</em>. <a href="https://en.wikipedia.org/wiki/Generalizations_of_Pauli_matrices">link</a>.</span></p>
 
 
@@ -8940,9 +8937,9 @@ Pauli operators.</p>
 <a id="__codelineno-0-44" name="__codelineno-0-44"></a><span class="sd">        \]</span>
 <a id="__codelineno-0-45" name="__codelineno-0-45"></a>
 <a id="__codelineno-0-46" name="__codelineno-0-46"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-47" name="__codelineno-0-47"></a><span class="sd">        from toqito.matrices import gen_pauli_z</span>
+<a id="__codelineno-0-47" name="__codelineno-0-47"></a><span class="sd">    from toqito.matrices import gen_pauli_z</span>
 <a id="__codelineno-0-48" name="__codelineno-0-48"></a>
-<a id="__codelineno-0-49" name="__codelineno-0-49"></a><span class="sd">        print(gen_pauli_z(3))</span>
+<a id="__codelineno-0-49" name="__codelineno-0-49"></a><span class="sd">    print(gen_pauli_z(3))</span>
 <a id="__codelineno-0-50" name="__codelineno-0-50"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-51" name="__codelineno-0-51"></a>
 <a id="__codelineno-0-52" name="__codelineno-0-52"></a><span class="sd">    &quot;&quot;&quot;</span>

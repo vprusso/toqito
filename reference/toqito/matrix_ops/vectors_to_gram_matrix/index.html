@@ -3566,6 +3566,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label=" vectors_to_gram_matrix">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#toqito.matrix_ops.vectors_to_gram_matrix.vectors_to_gram_matrix--two-mixed-states" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Two mixed states
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -8724,6 +8741,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label=" vectors_to_gram_matrix">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#toqito.matrix_ops.vectors_to_gram_matrix.vectors_to_gram_matrix--two-mixed-states" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Two mixed states
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -8836,39 +8870,40 @@ For density matrices ρᵢ: G[i, j] = Tr(ρᵢ ρⱼ)</p>
 
 <p><span class="doc-section-title">Examples:</span></p>
     <p>Example with real vectors:</p>
-        <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>  <span class="n">File</span> <span class="s2">&quot;/home/runner/work/toqito/toqito/.venv/lib/python3.12/site-packages/markdown_exec/_internal/formatters/python.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">71</span><span class="p">,</span> <span class="ow">in</span> <span class="n">_run_python</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    <span class="n">exec_python</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="n">code_block_id</span><span class="p">,</span> <span class="n">exec_globals</span><span class="p">)</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>  <span class="n">File</span> <span class="s2">&quot;/home/runner/work/toqito/toqito/.venv/lib/python3.12/site-packages/markdown_exec/_internal/formatters/_exec_python.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">7</span><span class="p">,</span> <span class="ow">in</span> <span class="n">exec_python</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="n">compiled</span> <span class="o">=</span> <span class="nb">compile</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="n">filename</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;exec&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>               <span class="o">^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^</span>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>  <span class="n">File</span> <span class="s2">&quot;&lt;code block: n89&gt;&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">1</span>
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="ne">IndentationError</span><span class="p">:</span> <span class="n">unexpected</span> <span class="n">indent</span>
+        <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.matrix_ops</span><span class="w"> </span><span class="kn">import</span> <span class="n">vectors_to_gram_matrix</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">vectors</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])]</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="n">gram_matrix</span> <span class="o">=</span> <span class="n">vectors_to_gram_matrix</span><span class="p">(</span><span class="n">vectors</span><span class="p">)</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="nb">print</span><span class="p">(</span><span class="n">gram_matrix</span><span class="p">)</span>
 </code></pre></div>
+<p>[[ 5 11]
+ [11 25]]</p>
 <div class="highlight"><pre><span></span><code>Example with complex vectors:
 </code></pre></div>
 <p><code>python exec="1" source="above"
-    import numpy as np
-    from toqito.matrix_ops import vectors_to_gram_matrix
+import numpy as np
+from toqito.matrix_ops import vectors_to_gram_matrix
 
-    vectors = [np.array([1+1j, 2+2j]), np.array([3+3j, 4+4j])]
-    gram_matrix = vectors_to_gram_matrix(vectors)
+vectors = [np.array([1+1j, 2+2j]), np.array([3+3j, 4+4j])]
+gram_matrix = vectors_to_gram_matrix(vectors)
 
-    print(gram_matrix)</code></p>
+print(gram_matrix)</code></p>
 <div class="highlight"><pre><span></span><code>Example with density matrices (mixed states):
 </code></pre></div>
-<p><code>python exec="1" source="above"
-    import numpy as np
-    from toqito.matrix_ops import vectors_to_gram_matrix
+<p>```python exec="1" source="above"
+import numpy as np
+from toqito.matrix_ops import vectors_to_gram_matrix
+</p>
+<h3 id="toqito.matrix_ops.vectors_to_gram_matrix.vectors_to_gram_matrix--two-mixed-states">Two mixed states<a class="headerlink" href="#toqito.matrix_ops.vectors_to_gram_matrix.vectors_to_gram_matrix--two-mixed-states" title="Permanent link">&para;</a></h3>
+<p>rho1 = 0.7 * np.array([[1., 0.], [0., 0.]]) + 0.3 * np.eye(2) / 2
+rho2 = 0.7 * np.array([[0., 0.], [0., 1.]]) + 0.3 * np.eye(2) / 2
+states = [rho1, rho2]
 
-    # Two mixed states
-    rho1 = 0.7 * np.array([[1., 0.], [0., 0.]]) + 0.3 * np.eye(2) / 2
-    rho2 = 0.7 * np.array([[0., 0.], [0., 1.]]) + 0.3 * np.eye(2) / 2
-    states = [rho1, rho2]
-
-    gram_matrix = vectors_to_gram_matrix(states)
-    print(gram_matrix)</code></p>
+gram_matrix = vectors_to_gram_matrix(states)
+print(gram_matrix)
+```</p>
 <p><strong>References</strong></p>
 <p><span id="ref-toqito-matrix_ops-vectors_to_gram_matrix-vectors_to_gram_matrix-1"><sup><a href="#cite-toqito-matrix_ops-vectors_to_gram_matrix-vectors_to_gram_matrix-1">1</a></sup> Wikipedia. <em>Gram Matrix</em>. <a href="https://en.wikipedia.org/wiki/Gram_matrix">link</a>.</span></p>
 
@@ -8972,38 +9007,38 @@ For density matrices ρᵢ: G[i, j] = Tr(ρᵢ ρⱼ)</p>
 <a id="__codelineno-0-24" name="__codelineno-0-24"></a><span class="sd">    Examples:</span>
 <a id="__codelineno-0-25" name="__codelineno-0-25"></a><span class="sd">        Example with real vectors:</span>
 <a id="__codelineno-0-26" name="__codelineno-0-26"></a><span class="sd">    ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-27" name="__codelineno-0-27"></a><span class="sd">        import numpy as np</span>
-<a id="__codelineno-0-28" name="__codelineno-0-28"></a><span class="sd">        from toqito.matrix_ops import vectors_to_gram_matrix</span>
+<a id="__codelineno-0-27" name="__codelineno-0-27"></a><span class="sd">    import numpy as np</span>
+<a id="__codelineno-0-28" name="__codelineno-0-28"></a><span class="sd">    from toqito.matrix_ops import vectors_to_gram_matrix</span>
 <a id="__codelineno-0-29" name="__codelineno-0-29"></a>
-<a id="__codelineno-0-30" name="__codelineno-0-30"></a><span class="sd">        vectors = [np.array([1, 2]), np.array([3, 4])]</span>
-<a id="__codelineno-0-31" name="__codelineno-0-31"></a><span class="sd">        gram_matrix = vectors_to_gram_matrix(vectors)</span>
+<a id="__codelineno-0-30" name="__codelineno-0-30"></a><span class="sd">    vectors = [np.array([1, 2]), np.array([3, 4])]</span>
+<a id="__codelineno-0-31" name="__codelineno-0-31"></a><span class="sd">    gram_matrix = vectors_to_gram_matrix(vectors)</span>
 <a id="__codelineno-0-32" name="__codelineno-0-32"></a>
-<a id="__codelineno-0-33" name="__codelineno-0-33"></a><span class="sd">        print(gram_matrix)</span>
+<a id="__codelineno-0-33" name="__codelineno-0-33"></a><span class="sd">    print(gram_matrix)</span>
 <a id="__codelineno-0-34" name="__codelineno-0-34"></a><span class="sd">    ```</span>
 <a id="__codelineno-0-35" name="__codelineno-0-35"></a>
 <a id="__codelineno-0-36" name="__codelineno-0-36"></a><span class="sd">        Example with complex vectors:</span>
 <a id="__codelineno-0-37" name="__codelineno-0-37"></a><span class="sd">    ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-38" name="__codelineno-0-38"></a><span class="sd">        import numpy as np</span>
-<a id="__codelineno-0-39" name="__codelineno-0-39"></a><span class="sd">        from toqito.matrix_ops import vectors_to_gram_matrix</span>
+<a id="__codelineno-0-38" name="__codelineno-0-38"></a><span class="sd">    import numpy as np</span>
+<a id="__codelineno-0-39" name="__codelineno-0-39"></a><span class="sd">    from toqito.matrix_ops import vectors_to_gram_matrix</span>
 <a id="__codelineno-0-40" name="__codelineno-0-40"></a>
-<a id="__codelineno-0-41" name="__codelineno-0-41"></a><span class="sd">        vectors = [np.array([1+1j, 2+2j]), np.array([3+3j, 4+4j])]</span>
-<a id="__codelineno-0-42" name="__codelineno-0-42"></a><span class="sd">        gram_matrix = vectors_to_gram_matrix(vectors)</span>
+<a id="__codelineno-0-41" name="__codelineno-0-41"></a><span class="sd">    vectors = [np.array([1+1j, 2+2j]), np.array([3+3j, 4+4j])]</span>
+<a id="__codelineno-0-42" name="__codelineno-0-42"></a><span class="sd">    gram_matrix = vectors_to_gram_matrix(vectors)</span>
 <a id="__codelineno-0-43" name="__codelineno-0-43"></a>
-<a id="__codelineno-0-44" name="__codelineno-0-44"></a><span class="sd">        print(gram_matrix)</span>
+<a id="__codelineno-0-44" name="__codelineno-0-44"></a><span class="sd">    print(gram_matrix)</span>
 <a id="__codelineno-0-45" name="__codelineno-0-45"></a><span class="sd">    ```</span>
 <a id="__codelineno-0-46" name="__codelineno-0-46"></a>
 <a id="__codelineno-0-47" name="__codelineno-0-47"></a><span class="sd">        Example with density matrices (mixed states):</span>
 <a id="__codelineno-0-48" name="__codelineno-0-48"></a><span class="sd">    ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-49" name="__codelineno-0-49"></a><span class="sd">        import numpy as np</span>
-<a id="__codelineno-0-50" name="__codelineno-0-50"></a><span class="sd">        from toqito.matrix_ops import vectors_to_gram_matrix</span>
+<a id="__codelineno-0-49" name="__codelineno-0-49"></a><span class="sd">    import numpy as np</span>
+<a id="__codelineno-0-50" name="__codelineno-0-50"></a><span class="sd">    from toqito.matrix_ops import vectors_to_gram_matrix</span>
 <a id="__codelineno-0-51" name="__codelineno-0-51"></a>
-<a id="__codelineno-0-52" name="__codelineno-0-52"></a><span class="sd">        # Two mixed states</span>
-<a id="__codelineno-0-53" name="__codelineno-0-53"></a><span class="sd">        rho1 = 0.7 * np.array([[1., 0.], [0., 0.]]) + 0.3 * np.eye(2) / 2</span>
-<a id="__codelineno-0-54" name="__codelineno-0-54"></a><span class="sd">        rho2 = 0.7 * np.array([[0., 0.], [0., 1.]]) + 0.3 * np.eye(2) / 2</span>
-<a id="__codelineno-0-55" name="__codelineno-0-55"></a><span class="sd">        states = [rho1, rho2]</span>
+<a id="__codelineno-0-52" name="__codelineno-0-52"></a><span class="sd">    # Two mixed states</span>
+<a id="__codelineno-0-53" name="__codelineno-0-53"></a><span class="sd">    rho1 = 0.7 * np.array([[1., 0.], [0., 0.]]) + 0.3 * np.eye(2) / 2</span>
+<a id="__codelineno-0-54" name="__codelineno-0-54"></a><span class="sd">    rho2 = 0.7 * np.array([[0., 0.], [0., 1.]]) + 0.3 * np.eye(2) / 2</span>
+<a id="__codelineno-0-55" name="__codelineno-0-55"></a><span class="sd">    states = [rho1, rho2]</span>
 <a id="__codelineno-0-56" name="__codelineno-0-56"></a>
-<a id="__codelineno-0-57" name="__codelineno-0-57"></a><span class="sd">        gram_matrix = vectors_to_gram_matrix(states)</span>
-<a id="__codelineno-0-58" name="__codelineno-0-58"></a><span class="sd">        print(gram_matrix)</span>
+<a id="__codelineno-0-57" name="__codelineno-0-57"></a><span class="sd">    gram_matrix = vectors_to_gram_matrix(states)</span>
+<a id="__codelineno-0-58" name="__codelineno-0-58"></a><span class="sd">    print(gram_matrix)</span>
 <a id="__codelineno-0-59" name="__codelineno-0-59"></a><span class="sd">    ```</span>
 <a id="__codelineno-0-60" name="__codelineno-0-60"></a>
 <a id="__codelineno-0-61" name="__codelineno-0-61"></a><span class="sd">    &quot;&quot;&quot;</span>

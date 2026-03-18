@@ -8846,17 +8846,18 @@ returned.</p>
 \]</div>
 <p>We can provide the input as either the vector <span class="arithmatex">\(u\)</span> or the denisty matrix <span class="arithmatex">\(\rho\)</span>.
 In either case, this represents an entangled state (and hence a non-product state).</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.state_props</span><span class="w"> </span><span class="kn">import</span> <span class="n">is_product</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.states</span><span class="w"> </span><span class="kn">import</span> <span class="n">bell</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">rho</span> <span class="o">=</span> <span class="n">bell</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">@</span> <span class="n">bell</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">u_vec</span> <span class="o">=</span> <span class="n">bell</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">is_product</span><span class="p">(</span><span class="n">rho</span><span class="p">))</span>
+<p>```python exec="1" source="above" session="is_product_example"</p>
+        <p>from toqito.state_props import is_product
+from toqito.states import bell
+rho = bell(0) @ bell(0).conj().T
+u_vec = bell(0)
+print(is_product(rho))
+    ```</p>
+<div class="highlight"><pre><span></span><code>```python exec=&quot;1&quot; source=&quot;above&quot; session=&quot;is_product_example&quot;
 </code></pre></div>
-<p>(array([False]), None)</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nb">print</span><span class="p">(</span><span class="n">is_product</span><span class="p">(</span><span class="n">u_vec</span><span class="p">))</span>
-</code></pre></div>
-<p>(array([False]), None)</p>
-        <p><strong>References</strong></p>
+<p>print(is_product(u_vec))
+    ```</p>
+<p><strong>References</strong></p>
 <p><span id="ref-toqito-state_props-is_product-is_product-1"><sup><a href="#cite-toqito-state_props-is_product-is_product-1">1</a></sup> Wikipedia. <em>Separable state</em>. <a href="https://en.wikipedia.org/wiki/Separable_state">link</a>.</span></p>
 
 
@@ -8944,15 +8945,15 @@ In either case, this represents an entangled state (and hence a non-product stat
 <a id="__codelineno-0-41" name="__codelineno-0-41"></a><span class="sd">        In either case, this represents an entangled state (and hence a non-product state).</span>
 <a id="__codelineno-0-42" name="__codelineno-0-42"></a>
 <a id="__codelineno-0-43" name="__codelineno-0-43"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; session=&quot;is_product_example&quot;</span>
-<a id="__codelineno-0-44" name="__codelineno-0-44"></a><span class="sd">        from toqito.state_props import is_product</span>
-<a id="__codelineno-0-45" name="__codelineno-0-45"></a><span class="sd">        from toqito.states import bell</span>
-<a id="__codelineno-0-46" name="__codelineno-0-46"></a><span class="sd">        rho = bell(0) @ bell(0).conj().T</span>
-<a id="__codelineno-0-47" name="__codelineno-0-47"></a><span class="sd">        u_vec = bell(0)</span>
-<a id="__codelineno-0-48" name="__codelineno-0-48"></a><span class="sd">        print(is_product(rho))</span>
+<a id="__codelineno-0-44" name="__codelineno-0-44"></a><span class="sd">    from toqito.state_props import is_product</span>
+<a id="__codelineno-0-45" name="__codelineno-0-45"></a><span class="sd">    from toqito.states import bell</span>
+<a id="__codelineno-0-46" name="__codelineno-0-46"></a><span class="sd">    rho = bell(0) @ bell(0).conj().T</span>
+<a id="__codelineno-0-47" name="__codelineno-0-47"></a><span class="sd">    u_vec = bell(0)</span>
+<a id="__codelineno-0-48" name="__codelineno-0-48"></a><span class="sd">    print(is_product(rho))</span>
 <a id="__codelineno-0-49" name="__codelineno-0-49"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-50" name="__codelineno-0-50"></a>
 <a id="__codelineno-0-51" name="__codelineno-0-51"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; session=&quot;is_product_example&quot;</span>
-<a id="__codelineno-0-52" name="__codelineno-0-52"></a><span class="sd">        print(is_product(u_vec))</span>
+<a id="__codelineno-0-52" name="__codelineno-0-52"></a><span class="sd">    print(is_product(u_vec))</span>
 <a id="__codelineno-0-53" name="__codelineno-0-53"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-54" name="__codelineno-0-54"></a>
 <a id="__codelineno-0-55" name="__codelineno-0-55"></a><span class="sd">    &quot;&quot;&quot;</span>

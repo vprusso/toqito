@@ -8848,34 +8848,25 @@ bell(3) : gen_bell(1, 1, 2)
     |\phi_0\rangle = \frac{1}{\sqrt{2}} \left( |00 \rangle + |11 \rangle \right)
 \]</div>
 <p>is one of the four standard Bell states. This can be computed via <code>|toqito⟩</code> as follows.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.states</span><span class="w"> </span><span class="kn">import</span> <span class="n">gen_bell</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="n">dim</span> <span class="o">=</span> <span class="mi">2</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">k_1</span> <span class="o">=</span> <span class="mi">0</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">k_2</span> <span class="o">=</span> <span class="mi">0</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">gen_bell</span><span class="p">(</span><span class="n">k_1</span><span class="p">,</span> <span class="n">k_2</span><span class="p">,</span> <span class="n">dim</span><span class="p">))</span>
+<p>```python exec="1" source="above"</p>
+        <p>from toqito.states import gen_bell
+dim = 2
+k_1 = 0
+k_2 = 0
+print(gen_bell(k_1, k_2, dim))
+    ```</p>
+<div class="highlight"><pre><span></span><code>It is possible for us to consider higher dimensional Bell states. For instance, we can consider
+the \(3\)-dimensional Bell state for \(k_1 = k_2 = 0\) as follows.
+
+```python exec=&quot;1&quot; source=&quot;above&quot;
 </code></pre></div>
-<p>[[0.5+0.j 0. +0.j 0. +0.j 0.5+0.j]
- [0. +0.j 0. +0.j 0. +0.j 0. +0.j]
- [0. +0.j 0. +0.j 0. +0.j 0. +0.j]
- [0.5+0.j 0. +0.j 0. +0.j 0.5+0.j]]</p>
-<p>It is possible for us to consider higher dimensional Bell states. For instance, we can consider
-the <span class="arithmatex">\(3\)</span>-dimensional Bell state for <span class="arithmatex">\(k_1 = k_2 = 0\)</span> as follows.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.states</span><span class="w"> </span><span class="kn">import</span> <span class="n">gen_bell</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="n">dim</span> <span class="o">=</span> <span class="mi">3</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">k_1</span> <span class="o">=</span> <span class="mi">0</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">k_2</span> <span class="o">=</span> <span class="mi">0</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">gen_bell</span><span class="p">(</span><span class="n">k_1</span><span class="p">,</span> <span class="n">k_2</span><span class="p">,</span> <span class="n">dim</span><span class="p">))</span>
-</code></pre></div>
-<p>[[0.33333333+0.j 0.        +0.j 0.        +0.j 0.        +0.j 0.33333333+0.j 0.        +0.j 0.        +0.j 0.        +0.j 0.33333333+0.j]
- [0.        +0.j 0.        +0.j 0.        +0.j 0.        +0.j 0.        +0.j 0.        +0.j 0.        +0.j 0.        +0.j 0.        +0.j]
- [0.        +0.j 0.        +0.j 0.        +0.j 0.        +0.j 0.        +0.j 0.        +0.j 0.        +0.j 0.        +0.j 0.        +0.j]
- [0.        +0.j 0.        +0.j 0.        +0.j 0.        +0.j 0.        +0.j 0.        +0.j 0.        +0.j 0.        +0.j 0.        +0.j]
- [0.33333333+0.j 0.        +0.j 0.        +0.j 0.        +0.j 0.33333333+0.j 0.        +0.j 0.        +0.j 0.        +0.j 0.33333333+0.j]
- [0.        +0.j 0.        +0.j 0.        +0.j 0.        +0.j 0.        +0.j 0.        +0.j 0.        +0.j 0.        +0.j 0.        +0.j]
- [0.        +0.j 0.        +0.j 0.        +0.j 0.        +0.j 0.        +0.j 0.        +0.j 0.        +0.j 0.        +0.j 0.        +0.j]
- [0.        +0.j 0.        +0.j 0.        +0.j 0.        +0.j 0.        +0.j 0.        +0.j 0.        +0.j 0.        +0.j 0.        +0.j]
- [0.33333333+0.j 0.        +0.j 0.        +0.j 0.        +0.j 0.33333333+0.j 0.        +0.j 0.        +0.j 0.        +0.j 0.33333333+0.j]]</p>
-        <p><strong>References</strong></p>
+<p>from toqito.states import gen_bell
+dim = 3
+k_1 = 0
+k_2 = 0
+print(gen_bell(k_1, k_2, dim))
+    ```</p>
+<p><strong>References</strong></p>
 <p><span id="ref-toqito-states-gen_bell-gen_bell-1"><sup><a href="#cite-toqito-states-gen_bell-gen_bell-1">1</a></sup> Sych, Denis and Leuchs, Gerd. <em>A complete basis of generalized Bell states</em>. <strong>New Journal of Physics</strong>. vol. 11(1). (2009). <a href="https://doi.org/10.1088/1367-2630/11/1/013006">doi:10.1088/1367-2630/11/1/013006</a>.</span></p>
 
 
@@ -8981,22 +8972,22 @@ the <span class="arithmatex">\(3\)</span>-dimensional Bell state for <span class
 <a id="__codelineno-0-50" name="__codelineno-0-50"></a><span class="sd">        is one of the four standard Bell states. This can be computed via `|toqito⟩` as follows.</span>
 <a id="__codelineno-0-51" name="__codelineno-0-51"></a>
 <a id="__codelineno-0-52" name="__codelineno-0-52"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-53" name="__codelineno-0-53"></a><span class="sd">        from toqito.states import gen_bell</span>
-<a id="__codelineno-0-54" name="__codelineno-0-54"></a><span class="sd">        dim = 2</span>
-<a id="__codelineno-0-55" name="__codelineno-0-55"></a><span class="sd">        k_1 = 0</span>
-<a id="__codelineno-0-56" name="__codelineno-0-56"></a><span class="sd">        k_2 = 0</span>
-<a id="__codelineno-0-57" name="__codelineno-0-57"></a><span class="sd">        print(gen_bell(k_1, k_2, dim))</span>
+<a id="__codelineno-0-53" name="__codelineno-0-53"></a><span class="sd">    from toqito.states import gen_bell</span>
+<a id="__codelineno-0-54" name="__codelineno-0-54"></a><span class="sd">    dim = 2</span>
+<a id="__codelineno-0-55" name="__codelineno-0-55"></a><span class="sd">    k_1 = 0</span>
+<a id="__codelineno-0-56" name="__codelineno-0-56"></a><span class="sd">    k_2 = 0</span>
+<a id="__codelineno-0-57" name="__codelineno-0-57"></a><span class="sd">    print(gen_bell(k_1, k_2, dim))</span>
 <a id="__codelineno-0-58" name="__codelineno-0-58"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-59" name="__codelineno-0-59"></a>
 <a id="__codelineno-0-60" name="__codelineno-0-60"></a><span class="sd">        It is possible for us to consider higher dimensional Bell states. For instance, we can consider</span>
 <a id="__codelineno-0-61" name="__codelineno-0-61"></a><span class="sd">        the \(3\)-dimensional Bell state for \(k_1 = k_2 = 0\) as follows.</span>
 <a id="__codelineno-0-62" name="__codelineno-0-62"></a>
 <a id="__codelineno-0-63" name="__codelineno-0-63"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-64" name="__codelineno-0-64"></a><span class="sd">        from toqito.states import gen_bell</span>
-<a id="__codelineno-0-65" name="__codelineno-0-65"></a><span class="sd">        dim = 3</span>
-<a id="__codelineno-0-66" name="__codelineno-0-66"></a><span class="sd">        k_1 = 0</span>
-<a id="__codelineno-0-67" name="__codelineno-0-67"></a><span class="sd">        k_2 = 0</span>
-<a id="__codelineno-0-68" name="__codelineno-0-68"></a><span class="sd">        print(gen_bell(k_1, k_2, dim))</span>
+<a id="__codelineno-0-64" name="__codelineno-0-64"></a><span class="sd">    from toqito.states import gen_bell</span>
+<a id="__codelineno-0-65" name="__codelineno-0-65"></a><span class="sd">    dim = 3</span>
+<a id="__codelineno-0-66" name="__codelineno-0-66"></a><span class="sd">    k_1 = 0</span>
+<a id="__codelineno-0-67" name="__codelineno-0-67"></a><span class="sd">    k_2 = 0</span>
+<a id="__codelineno-0-68" name="__codelineno-0-68"></a><span class="sd">    print(gen_bell(k_1, k_2, dim))</span>
 <a id="__codelineno-0-69" name="__codelineno-0-69"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-70" name="__codelineno-0-70"></a>
 <a id="__codelineno-0-71" name="__codelineno-0-71"></a><span class="sd">    &quot;&quot;&quot;</span>

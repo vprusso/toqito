@@ -8861,32 +8861,32 @@
         \end{pmatrix}
 \]</div>
 <p>our function indicates that this is indeed a normal matrix.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.matrix_props</span><span class="w"> </span><span class="kn">import</span> <span class="n">is_normal</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="nb">print</span><span class="p">(</span><span class="n">is_normal</span><span class="p">(</span><span class="n">A</span><span class="p">))</span>
-</code></pre></div>
-<p>True</p>
-<p>Alternatively, the following example matrix <span class="arithmatex">\(B\)</span> defined as</p>
-<div class="arithmatex">\[
+<p>```python exec="1" source="above"</p>
+        <p>import numpy as np
+from toqito.matrix_props import is_normal</p>
+<p>A = np.identity(4)</p>
+<p>print(is_normal(A))
+    ```</p>
+<div class="highlight"><pre><span></span><code>Alternatively, the following example matrix \(B\) defined as
+
+\[
     B = \begin{pmatrix}
             1 &amp; 2 &amp; 3 \\
             4 &amp; 5 &amp; 6 \\
             7 &amp; 8 &amp; 9
         \end{pmatrix}
-\]</div>
-<p>is not normal.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.matrix_props</span><span class="w"> </span><span class="kn">import</span> <span class="n">is_normal</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">B</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">]])</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="nb">print</span><span class="p">(</span><span class="n">is_normal</span><span class="p">(</span><span class="n">B</span><span class="p">))</span>
+\]
+
+is not normal.
+
+```python exec=&quot;1&quot; source=&quot;above&quot;
 </code></pre></div>
-<p>False</p>
-        <p><strong>References</strong></p>
+<p>import numpy as np
+from toqito.matrix_props import is_normal</p>
+<p>B = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])</p>
+<p>print(is_normal(B))
+    ```</p>
+<p><strong>References</strong></p>
 <p><span id="ref-toqito-matrix_props-is_normal-is_normal-1"><sup><a href="#cite-toqito-matrix_props-is_normal-is_normal-1">1</a></sup> Wikipedia. <em>Normal Matrix</em>. <a href="https://en.wikipedia.org/wiki/Normal_matrix">link</a>.</span></p>
 
 
@@ -9008,12 +9008,12 @@
 <a id="__codelineno-0-47" name="__codelineno-0-47"></a><span class="sd">        our function indicates that this is indeed a normal matrix.</span>
 <a id="__codelineno-0-48" name="__codelineno-0-48"></a>
 <a id="__codelineno-0-49" name="__codelineno-0-49"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-50" name="__codelineno-0-50"></a><span class="sd">        import numpy as np</span>
-<a id="__codelineno-0-51" name="__codelineno-0-51"></a><span class="sd">        from toqito.matrix_props import is_normal</span>
+<a id="__codelineno-0-50" name="__codelineno-0-50"></a><span class="sd">    import numpy as np</span>
+<a id="__codelineno-0-51" name="__codelineno-0-51"></a><span class="sd">    from toqito.matrix_props import is_normal</span>
 <a id="__codelineno-0-52" name="__codelineno-0-52"></a>
-<a id="__codelineno-0-53" name="__codelineno-0-53"></a><span class="sd">        A = np.identity(4)</span>
+<a id="__codelineno-0-53" name="__codelineno-0-53"></a><span class="sd">    A = np.identity(4)</span>
 <a id="__codelineno-0-54" name="__codelineno-0-54"></a>
-<a id="__codelineno-0-55" name="__codelineno-0-55"></a><span class="sd">        print(is_normal(A))</span>
+<a id="__codelineno-0-55" name="__codelineno-0-55"></a><span class="sd">    print(is_normal(A))</span>
 <a id="__codelineno-0-56" name="__codelineno-0-56"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-57" name="__codelineno-0-57"></a>
 <a id="__codelineno-0-58" name="__codelineno-0-58"></a><span class="sd">        Alternatively, the following example matrix \(B\) defined as</span>
@@ -9029,12 +9029,12 @@
 <a id="__codelineno-0-68" name="__codelineno-0-68"></a><span class="sd">        is not normal.</span>
 <a id="__codelineno-0-69" name="__codelineno-0-69"></a>
 <a id="__codelineno-0-70" name="__codelineno-0-70"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-71" name="__codelineno-0-71"></a><span class="sd">        import numpy as np</span>
-<a id="__codelineno-0-72" name="__codelineno-0-72"></a><span class="sd">        from toqito.matrix_props import is_normal</span>
+<a id="__codelineno-0-71" name="__codelineno-0-71"></a><span class="sd">    import numpy as np</span>
+<a id="__codelineno-0-72" name="__codelineno-0-72"></a><span class="sd">    from toqito.matrix_props import is_normal</span>
 <a id="__codelineno-0-73" name="__codelineno-0-73"></a>
-<a id="__codelineno-0-74" name="__codelineno-0-74"></a><span class="sd">        B = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])</span>
+<a id="__codelineno-0-74" name="__codelineno-0-74"></a><span class="sd">    B = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])</span>
 <a id="__codelineno-0-75" name="__codelineno-0-75"></a>
-<a id="__codelineno-0-76" name="__codelineno-0-76"></a><span class="sd">        print(is_normal(B))</span>
+<a id="__codelineno-0-76" name="__codelineno-0-76"></a><span class="sd">    print(is_normal(B))</span>
 <a id="__codelineno-0-77" name="__codelineno-0-77"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-78" name="__codelineno-0-78"></a>
 <a id="__codelineno-0-79" name="__codelineno-0-79"></a><span class="sd">    &quot;&quot;&quot;</span>

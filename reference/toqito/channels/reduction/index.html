@@ -8839,20 +8839,11 @@ linear map: Phi(X) := K * Tr(X)I - X.</p>
 <p><span class="doc-section-title">Examples:</span></p>
     <p>Using <code>|toqito⟩</code>, we can generate the <span class="arithmatex">\(3\)</span>-dimensional (or standard) reduction map
 as follows.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.channels</span><span class="w"> </span><span class="kn">import</span> <span class="n">reduction</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">reduction</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
-</code></pre></div>
-<p>[[ 0.  0.  0.  0. -1.  0.  0.  0. -1.]
- [ 0.  1.  0.  0.  0.  0.  0.  0.  0.]
- [ 0.  0.  1.  0.  0.  0.  0.  0.  0.]
- [ 0.  0.  0.  1.  0.  0.  0.  0.  0.]
- [-1.  0.  0.  0.  0.  0.  0.  0. -1.]
- [ 0.  0.  0.  0.  0.  1.  0.  0.  0.]
- [ 0.  0.  0.  0.  0.  0.  1.  0.  0.]
- [ 0.  0.  0.  0.  0.  0.  0.  1.  0.]
- [-1.  0.  0.  0. -1.  0.  0.  0.  0.]]</p>
-        <p><strong>References</strong></p>
+<p>```python exec="1" source="above"</p>
+        <p>from toqito.channels import reduction</p>
+<p>print(reduction(3))
+    ```</p>
+<p><strong>References</strong></p>
 <p><span id="ref-toqito-channels-reduction-reduction-1"><sup><a href="#cite-toqito-channels-reduction-reduction-1">1</a></sup> Wikipedia. <em>Reduction Criterion</em>. <a href="https://en.wikipedia.org/wiki/Reduction_criterion">link</a>.</span></p>
 
 
@@ -8920,9 +8911,9 @@ as follows.</p>
 <a id="__codelineno-0-33" name="__codelineno-0-33"></a>
 <a id="__codelineno-0-34" name="__codelineno-0-34"></a>
 <a id="__codelineno-0-35" name="__codelineno-0-35"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-36" name="__codelineno-0-36"></a><span class="sd">        from toqito.channels import reduction</span>
+<a id="__codelineno-0-36" name="__codelineno-0-36"></a><span class="sd">    from toqito.channels import reduction</span>
 <a id="__codelineno-0-37" name="__codelineno-0-37"></a>
-<a id="__codelineno-0-38" name="__codelineno-0-38"></a><span class="sd">        print(reduction(3))</span>
+<a id="__codelineno-0-38" name="__codelineno-0-38"></a><span class="sd">    print(reduction(3))</span>
 <a id="__codelineno-0-39" name="__codelineno-0-39"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-40" name="__codelineno-0-40"></a>
 <a id="__codelineno-0-41" name="__codelineno-0-41"></a><span class="sd">    &quot;&quot;&quot;</span>

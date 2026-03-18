@@ -8853,18 +8853,13 @@ second row of <code>dim</code>.</p>
 map on block matrices, the realignment map takes each block of the original matrix and makes
 its vectorization the rows of the realignment matrix. This is illustrated by the following
 small example:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.channels</span><span class="w"> </span><span class="kn">import</span> <span class="n">realignment</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">test_input_mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">17</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="nb">print</span><span class="p">(</span><span class="n">realignment</span><span class="p">(</span><span class="n">test_input_mat</span><span class="p">))</span>
-</code></pre></div>
-<p>[[ 1  2  5  6]
- [ 3  4  7  8]
- [ 9 10 13 14]
- [11 12 15 16]]</p>
-        <p><strong>References</strong></p>
+<p>```python exec="1" source="above"</p>
+        <p>import numpy as np
+from toqito.channels import realignment</p>
+<p>test_input_mat = np.arange(1, 17).reshape(4, 4)</p>
+<p>print(realignment(test_input_mat))
+    ```</p>
+<p><strong>References</strong></p>
 <p><span id="ref-toqito-channels-realignment-realignment-1"><sup><a href="#cite-toqito-channels-realignment-realignment-1">1</a></sup> Lupo, Cosmo and Aniello, Paolo and Scardicchio, Antonello. <em>Bipartite quantum systems: on the realignment criterion and beyond</em>. <strong>Journal of Physics A: Mathematical and Theoretical</strong>. vol. 41(41). (2008). <a href="https://arxiv.org/abs/0802.2019">link</a>.</span></p>
 
 
@@ -8970,12 +8965,12 @@ small example:</p>
 <a id="__codelineno-0-37" name="__codelineno-0-37"></a><span class="sd">        small example:</span>
 <a id="__codelineno-0-38" name="__codelineno-0-38"></a>
 <a id="__codelineno-0-39" name="__codelineno-0-39"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-40" name="__codelineno-0-40"></a><span class="sd">        import numpy as np</span>
-<a id="__codelineno-0-41" name="__codelineno-0-41"></a><span class="sd">        from toqito.channels import realignment</span>
+<a id="__codelineno-0-40" name="__codelineno-0-40"></a><span class="sd">    import numpy as np</span>
+<a id="__codelineno-0-41" name="__codelineno-0-41"></a><span class="sd">    from toqito.channels import realignment</span>
 <a id="__codelineno-0-42" name="__codelineno-0-42"></a>
-<a id="__codelineno-0-43" name="__codelineno-0-43"></a><span class="sd">        test_input_mat = np.arange(1, 17).reshape(4, 4)</span>
+<a id="__codelineno-0-43" name="__codelineno-0-43"></a><span class="sd">    test_input_mat = np.arange(1, 17).reshape(4, 4)</span>
 <a id="__codelineno-0-44" name="__codelineno-0-44"></a>
-<a id="__codelineno-0-45" name="__codelineno-0-45"></a><span class="sd">        print(realignment(test_input_mat))</span>
+<a id="__codelineno-0-45" name="__codelineno-0-45"></a><span class="sd">    print(realignment(test_input_mat))</span>
 <a id="__codelineno-0-46" name="__codelineno-0-46"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-47" name="__codelineno-0-47"></a>
 <a id="__codelineno-0-48" name="__codelineno-0-48"></a><span class="sd">    &quot;&quot;&quot;</span>

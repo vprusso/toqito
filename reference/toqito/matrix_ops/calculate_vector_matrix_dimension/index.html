@@ -8841,16 +8841,14 @@ square 2D array (density matrix).</p>
     v = \left[ 1, 0, 0 \right]^{\text{T}}.
 \]</div>
 <p>For this case, the dimension of the vector is equal to its length.</p>
-        <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>  <span class="n">File</span> <span class="s2">&quot;/home/runner/work/toqito/toqito/.venv/lib/python3.12/site-packages/markdown_exec/_internal/formatters/python.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">71</span><span class="p">,</span> <span class="ow">in</span> <span class="n">_run_python</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    <span class="n">exec_python</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="n">code_block_id</span><span class="p">,</span> <span class="n">exec_globals</span><span class="p">)</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>  <span class="n">File</span> <span class="s2">&quot;/home/runner/work/toqito/toqito/.venv/lib/python3.12/site-packages/markdown_exec/_internal/formatters/_exec_python.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">7</span><span class="p">,</span> <span class="ow">in</span> <span class="n">exec_python</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="n">compiled</span> <span class="o">=</span> <span class="nb">compile</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="n">filename</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;exec&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>               <span class="o">^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^</span>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>  <span class="n">File</span> <span class="s2">&quot;&lt;code block: n72&gt;&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">1</span>
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="ne">IndentationError</span><span class="p">:</span> <span class="n">unexpected</span> <span class="n">indent</span>
+        <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.matrix_ops</span><span class="w"> </span><span class="kn">import</span> <span class="n">calculate_vector_matrix_dimension</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">v</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="nb">print</span><span class="p">(</span><span class="n">calculate_vector_matrix_dimension</span><span class="p">(</span><span class="n">v</span><span class="p">))</span>
 </code></pre></div>
+<p>3</p>
 <div class="highlight"><pre><span></span><code>For the density matrix of some two-dimensional quantum system
 
 \[
@@ -8862,12 +8860,12 @@ square 2D array (density matrix).</p>
 \]
 </code></pre></div>
 <p><code>python exec="1" source="above"
-    import numpy as np
-    from toqito.matrix_ops import calculate_vector_matrix_dimension
+import numpy as np
+from toqito.matrix_ops import calculate_vector_matrix_dimension
 
-    rho = np.array([[1/2, 0],[0, 1/2]])
+rho = np.array([[1/2, 0],[0, 1/2]])
 
-    print(calculate_vector_matrix_dimension(rho))</code></p>
+print(calculate_vector_matrix_dimension(rho))</code></p>
 
 
             <details class="mkdocstrings-source">
@@ -8965,12 +8963,12 @@ square 2D array (density matrix).</p>
 <a id="__codelineno-0-30" name="__codelineno-0-30"></a>
 <a id="__codelineno-0-31" name="__codelineno-0-31"></a><span class="sd">        For this case, the dimension of the vector is equal to its length.</span>
 <a id="__codelineno-0-32" name="__codelineno-0-32"></a><span class="sd">    ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-33" name="__codelineno-0-33"></a><span class="sd">        import numpy as np</span>
-<a id="__codelineno-0-34" name="__codelineno-0-34"></a><span class="sd">        from toqito.matrix_ops import calculate_vector_matrix_dimension</span>
+<a id="__codelineno-0-33" name="__codelineno-0-33"></a><span class="sd">    import numpy as np</span>
+<a id="__codelineno-0-34" name="__codelineno-0-34"></a><span class="sd">    from toqito.matrix_ops import calculate_vector_matrix_dimension</span>
 <a id="__codelineno-0-35" name="__codelineno-0-35"></a>
-<a id="__codelineno-0-36" name="__codelineno-0-36"></a><span class="sd">        v = np.array([1, 0, 0])</span>
+<a id="__codelineno-0-36" name="__codelineno-0-36"></a><span class="sd">    v = np.array([1, 0, 0])</span>
 <a id="__codelineno-0-37" name="__codelineno-0-37"></a>
-<a id="__codelineno-0-38" name="__codelineno-0-38"></a><span class="sd">        print(calculate_vector_matrix_dimension(v))</span>
+<a id="__codelineno-0-38" name="__codelineno-0-38"></a><span class="sd">    print(calculate_vector_matrix_dimension(v))</span>
 <a id="__codelineno-0-39" name="__codelineno-0-39"></a><span class="sd">    ```</span>
 <a id="__codelineno-0-40" name="__codelineno-0-40"></a>
 <a id="__codelineno-0-41" name="__codelineno-0-41"></a><span class="sd">        For the density matrix of some two-dimensional quantum system</span>
@@ -8983,12 +8981,12 @@ square 2D array (density matrix).</p>
 <a id="__codelineno-0-48" name="__codelineno-0-48"></a><span class="sd">                    \end{pmatrix}</span>
 <a id="__codelineno-0-49" name="__codelineno-0-49"></a><span class="sd">        \]</span>
 <a id="__codelineno-0-50" name="__codelineno-0-50"></a><span class="sd">    ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-51" name="__codelineno-0-51"></a><span class="sd">        import numpy as np</span>
-<a id="__codelineno-0-52" name="__codelineno-0-52"></a><span class="sd">        from toqito.matrix_ops import calculate_vector_matrix_dimension</span>
+<a id="__codelineno-0-51" name="__codelineno-0-51"></a><span class="sd">    import numpy as np</span>
+<a id="__codelineno-0-52" name="__codelineno-0-52"></a><span class="sd">    from toqito.matrix_ops import calculate_vector_matrix_dimension</span>
 <a id="__codelineno-0-53" name="__codelineno-0-53"></a>
-<a id="__codelineno-0-54" name="__codelineno-0-54"></a><span class="sd">        rho = np.array([[1/2, 0],[0, 1/2]])</span>
+<a id="__codelineno-0-54" name="__codelineno-0-54"></a><span class="sd">    rho = np.array([[1/2, 0],[0, 1/2]])</span>
 <a id="__codelineno-0-55" name="__codelineno-0-55"></a>
-<a id="__codelineno-0-56" name="__codelineno-0-56"></a><span class="sd">        print(calculate_vector_matrix_dimension(rho))</span>
+<a id="__codelineno-0-56" name="__codelineno-0-56"></a><span class="sd">    print(calculate_vector_matrix_dimension(rho))</span>
 <a id="__codelineno-0-57" name="__codelineno-0-57"></a><span class="sd">    ```</span>
 <a id="__codelineno-0-58" name="__codelineno-0-58"></a>
 <a id="__codelineno-0-59" name="__codelineno-0-59"></a><span class="sd">    &quot;&quot;&quot;</span>

@@ -8858,29 +8858,27 @@
         -1 &amp; 1
     \end{pmatrix}.
 \]</div>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.channel_props</span><span class="w"> </span><span class="kn">import</span> <span class="n">is_herm_preserving</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">unitary_mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="n">kraus_ops</span> <span class="o">=</span> <span class="p">[[</span><span class="n">np</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="mi">2</span><span class="p">)],</span> <span class="p">[</span><span class="n">unitary_mat</span><span class="p">,</span> <span class="o">-</span><span class="n">unitary_mat</span><span class="p">]]</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="nb">print</span><span class="p">(</span><span class="n">is_herm_preserving</span><span class="p">(</span><span class="n">kraus_ops</span><span class="p">))</span>
-</code></pre></div>
-<p>True</p>
-<p>We may also verify whether the corresponding Choi matrix of a given map is
+<p>```python exec="1" source="above"</p>
+        <p>import numpy as np
+from toqito.channel_props import is_herm_preserving</p>
+<p>unitary_mat = np.array([[1, 1], [-1, 1]]) / np.sqrt(2)
+kraus_ops = [[np.identity(2), np.identity(2)], [unitary_mat, -unitary_mat]]</p>
+<p>print(is_herm_preserving(kraus_ops))
+    ```</p>
+<div class="highlight"><pre><span></span><code>We may also verify whether the corresponding Choi matrix of a given map is
 Hermitian-preserving. The swap operator is the Choi matrix of the transpose map, which is
-Hermitian-preserving as can be seen as follows:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.perms</span><span class="w"> </span><span class="kn">import</span> <span class="n">swap_operator</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.channel_props</span><span class="w"> </span><span class="kn">import</span> <span class="n">is_herm_preserving</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="n">unitary_mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="n">choi_mat</span> <span class="o">=</span> <span class="n">swap_operator</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="nb">print</span><span class="p">(</span><span class="n">is_herm_preserving</span><span class="p">(</span><span class="n">choi_mat</span><span class="p">))</span>
+Hermitian-preserving as can be seen as follows:
+
+```python exec=&quot;1&quot; source=&quot;above&quot;
 </code></pre></div>
-<p>True</p>
-        <p><strong>References</strong></p>
+<p>import numpy as np
+from toqito.perms import swap_operator
+from toqito.channel_props import is_herm_preserving</p>
+<p>unitary_mat = np.array([[1, 1], [-1, 1]]) / np.sqrt(2)
+choi_mat = swap_operator(3)</p>
+<p>print(is_herm_preserving(choi_mat))
+    ```</p>
+<p><strong>References</strong></p>
 <p><span id="ref-toqito-channel_props-is_herm_preserving-is_herm_preserving-1"><sup><a href="#cite-toqito-channel_props-is_herm_preserving-is_herm_preserving-1">1</a></sup> Watrous, John. <em>The Theory of Quantum Information</em>. (2018). <a href="https://doi.org/10.1017/9781316848142">doi:10.1017/9781316848142</a>.</span></p>
 
 
@@ -9008,13 +9006,13 @@ Hermitian-preserving as can be seen as follows:</p>
 <a id="__codelineno-0-50" name="__codelineno-0-50"></a><span class="sd">        \]</span>
 <a id="__codelineno-0-51" name="__codelineno-0-51"></a>
 <a id="__codelineno-0-52" name="__codelineno-0-52"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-53" name="__codelineno-0-53"></a><span class="sd">        import numpy as np</span>
-<a id="__codelineno-0-54" name="__codelineno-0-54"></a><span class="sd">        from toqito.channel_props import is_herm_preserving</span>
+<a id="__codelineno-0-53" name="__codelineno-0-53"></a><span class="sd">    import numpy as np</span>
+<a id="__codelineno-0-54" name="__codelineno-0-54"></a><span class="sd">    from toqito.channel_props import is_herm_preserving</span>
 <a id="__codelineno-0-55" name="__codelineno-0-55"></a>
-<a id="__codelineno-0-56" name="__codelineno-0-56"></a><span class="sd">        unitary_mat = np.array([[1, 1], [-1, 1]]) / np.sqrt(2)</span>
-<a id="__codelineno-0-57" name="__codelineno-0-57"></a><span class="sd">        kraus_ops = [[np.identity(2), np.identity(2)], [unitary_mat, -unitary_mat]]</span>
+<a id="__codelineno-0-56" name="__codelineno-0-56"></a><span class="sd">    unitary_mat = np.array([[1, 1], [-1, 1]]) / np.sqrt(2)</span>
+<a id="__codelineno-0-57" name="__codelineno-0-57"></a><span class="sd">    kraus_ops = [[np.identity(2), np.identity(2)], [unitary_mat, -unitary_mat]]</span>
 <a id="__codelineno-0-58" name="__codelineno-0-58"></a>
-<a id="__codelineno-0-59" name="__codelineno-0-59"></a><span class="sd">        print(is_herm_preserving(kraus_ops))</span>
+<a id="__codelineno-0-59" name="__codelineno-0-59"></a><span class="sd">    print(is_herm_preserving(kraus_ops))</span>
 <a id="__codelineno-0-60" name="__codelineno-0-60"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-61" name="__codelineno-0-61"></a>
 <a id="__codelineno-0-62" name="__codelineno-0-62"></a>
@@ -9023,14 +9021,14 @@ Hermitian-preserving as can be seen as follows:</p>
 <a id="__codelineno-0-65" name="__codelineno-0-65"></a><span class="sd">        Hermitian-preserving as can be seen as follows:</span>
 <a id="__codelineno-0-66" name="__codelineno-0-66"></a>
 <a id="__codelineno-0-67" name="__codelineno-0-67"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-68" name="__codelineno-0-68"></a><span class="sd">        import numpy as np</span>
-<a id="__codelineno-0-69" name="__codelineno-0-69"></a><span class="sd">        from toqito.perms import swap_operator</span>
-<a id="__codelineno-0-70" name="__codelineno-0-70"></a><span class="sd">        from toqito.channel_props import is_herm_preserving</span>
+<a id="__codelineno-0-68" name="__codelineno-0-68"></a><span class="sd">    import numpy as np</span>
+<a id="__codelineno-0-69" name="__codelineno-0-69"></a><span class="sd">    from toqito.perms import swap_operator</span>
+<a id="__codelineno-0-70" name="__codelineno-0-70"></a><span class="sd">    from toqito.channel_props import is_herm_preserving</span>
 <a id="__codelineno-0-71" name="__codelineno-0-71"></a>
-<a id="__codelineno-0-72" name="__codelineno-0-72"></a><span class="sd">        unitary_mat = np.array([[1, 1], [-1, 1]]) / np.sqrt(2)</span>
-<a id="__codelineno-0-73" name="__codelineno-0-73"></a><span class="sd">        choi_mat = swap_operator(3)</span>
+<a id="__codelineno-0-72" name="__codelineno-0-72"></a><span class="sd">    unitary_mat = np.array([[1, 1], [-1, 1]]) / np.sqrt(2)</span>
+<a id="__codelineno-0-73" name="__codelineno-0-73"></a><span class="sd">    choi_mat = swap_operator(3)</span>
 <a id="__codelineno-0-74" name="__codelineno-0-74"></a>
-<a id="__codelineno-0-75" name="__codelineno-0-75"></a><span class="sd">        print(is_herm_preserving(choi_mat))</span>
+<a id="__codelineno-0-75" name="__codelineno-0-75"></a><span class="sd">    print(is_herm_preserving(choi_mat))</span>
 <a id="__codelineno-0-76" name="__codelineno-0-76"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-77" name="__codelineno-0-77"></a>
 <a id="__codelineno-0-78" name="__codelineno-0-78"></a><span class="sd">    &quot;&quot;&quot;</span>

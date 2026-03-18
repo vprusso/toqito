@@ -8849,26 +8849,24 @@ and it is unnormalized (i.e. each entry in the vector is 0 or 1 and the Euclidea
     u = \frac{1}{\sqrt{2}} \left( |00 \rangle + |11 \rangle \right)
 \]</div>
 <p>using <code>|toqito⟩</code> as follows.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.states</span><span class="w"> </span><span class="kn">import</span> <span class="n">max_entangled</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nb">print</span><span class="p">(</span><span class="n">max_entangled</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
-</code></pre></div>
-<p>[[0.70710678]
- [0.        ]
- [0.        ]
- [0.70710678]]</p>
-<p>By default, the state returned in normalized, however we can generate the unnormalized state</p>
-<div class="arithmatex">\[
+<p>```python exec="1" source="above"</p>
+        <p>from toqito.states import max_entangled
+print(max_entangled(2))
+    ```</p>
+<div class="highlight"><pre><span></span><code>By default, the state returned in normalized, however we can generate the unnormalized state
+
+\[
     v = |00\rangle + |11 \rangle
-\]</div>
-<p>using <code>|toqito⟩</code> as follows.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.states</span><span class="w"> </span><span class="kn">import</span> <span class="n">max_entangled</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nb">print</span><span class="p">(</span><span class="n">max_entangled</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">))</span>
+\]
+
+using `|toqito⟩` as follows.
+
+```python exec=&quot;1&quot; source=&quot;above&quot;
 </code></pre></div>
-<p>[[1.]
- [0.]
- [0.]
- [1.]]</p>
-        <p><strong>References</strong></p>
+<p>from toqito.states import max_entangled
+print(max_entangled(2, False, False))
+    ```</p>
+<p><strong>References</strong></p>
 <p><span id="ref-toqito-states-max_entangled-max_entangled-1"><sup><a href="#cite-toqito-states-max_entangled-max_entangled-1">1</a></sup> Wikipedia. <em>Quantum entanglement</em>. <a href="https://en.wikipedia.org/wiki/Quantum_entanglement">link</a>.</span></p>
 
 
@@ -8960,8 +8958,8 @@ and it is unnormalized (i.e. each entry in the vector is 0 or 1 and the Euclidea
 <a id="__codelineno-0-33" name="__codelineno-0-33"></a><span class="sd">        using `|toqito⟩` as follows.</span>
 <a id="__codelineno-0-34" name="__codelineno-0-34"></a>
 <a id="__codelineno-0-35" name="__codelineno-0-35"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-36" name="__codelineno-0-36"></a><span class="sd">        from toqito.states import max_entangled</span>
-<a id="__codelineno-0-37" name="__codelineno-0-37"></a><span class="sd">        print(max_entangled(2))</span>
+<a id="__codelineno-0-36" name="__codelineno-0-36"></a><span class="sd">    from toqito.states import max_entangled</span>
+<a id="__codelineno-0-37" name="__codelineno-0-37"></a><span class="sd">    print(max_entangled(2))</span>
 <a id="__codelineno-0-38" name="__codelineno-0-38"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-39" name="__codelineno-0-39"></a>
 <a id="__codelineno-0-40" name="__codelineno-0-40"></a>
@@ -8974,8 +8972,8 @@ and it is unnormalized (i.e. each entry in the vector is 0 or 1 and the Euclidea
 <a id="__codelineno-0-47" name="__codelineno-0-47"></a><span class="sd">        using `|toqito⟩` as follows.</span>
 <a id="__codelineno-0-48" name="__codelineno-0-48"></a>
 <a id="__codelineno-0-49" name="__codelineno-0-49"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-50" name="__codelineno-0-50"></a><span class="sd">        from toqito.states import max_entangled</span>
-<a id="__codelineno-0-51" name="__codelineno-0-51"></a><span class="sd">        print(max_entangled(2, False, False))</span>
+<a id="__codelineno-0-50" name="__codelineno-0-50"></a><span class="sd">    from toqito.states import max_entangled</span>
+<a id="__codelineno-0-51" name="__codelineno-0-51"></a><span class="sd">    print(max_entangled(2, False, False))</span>
 <a id="__codelineno-0-52" name="__codelineno-0-52"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-53" name="__codelineno-0-53"></a>
 <a id="__codelineno-0-54" name="__codelineno-0-54"></a><span class="sd">    &quot;&quot;&quot;</span>

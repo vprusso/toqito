@@ -8858,20 +8858,12 @@
     \frac{1}{\sqrt{2}} |0\rangle \left( |0\rangle - |1\rangle \right).
 \]</div>
 <p>Using <code>|toqito⟩</code>, we can see that this yields the proper state.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.states</span><span class="w"> </span><span class="kn">import</span> <span class="n">tile</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">tile</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
-</code></pre></div>
-<p>[[ 0.70710678]
- [-0.70710678]
- [ 0.        ]
- [ 0.        ]
- [ 0.        ]
- [ 0.        ]
- [ 0.        ]
- [ 0.        ]
- [ 0.        ]]</p>
-        <p><strong>References</strong></p>
+<p>```python exec="1" source="above"</p>
+        <p>from toqito.states import tile
+import numpy as np
+print(tile(0))
+    ```</p>
+<p><strong>References</strong></p>
 <p><span id="ref-toqito-states-tile-tile-1"><sup><a href="#cite-toqito-states-tile-tile-1">1</a></sup> Bennett, Charles and DiVincenzo, David and Mor, Tal and Shor, Peter and Smolin, John and Terhal, Barbara. <em>Unextendible Product Bases and Bound Entanglement</em>. <strong>Physical Review Letters</strong>. vol. 82(26). (1999). <a href="https://doi.org/10.1103/physrevlett.82.5385">doi:10.1103/physrevlett.82.5385</a>.</span></p>
 
 
@@ -8989,9 +8981,9 @@
 <a id="__codelineno-0-52" name="__codelineno-0-52"></a><span class="sd">        Using `|toqito⟩`, we can see that this yields the proper state.</span>
 <a id="__codelineno-0-53" name="__codelineno-0-53"></a>
 <a id="__codelineno-0-54" name="__codelineno-0-54"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-55" name="__codelineno-0-55"></a><span class="sd">        from toqito.states import tile</span>
-<a id="__codelineno-0-56" name="__codelineno-0-56"></a><span class="sd">        import numpy as np</span>
-<a id="__codelineno-0-57" name="__codelineno-0-57"></a><span class="sd">        print(tile(0))</span>
+<a id="__codelineno-0-55" name="__codelineno-0-55"></a><span class="sd">    from toqito.states import tile</span>
+<a id="__codelineno-0-56" name="__codelineno-0-56"></a><span class="sd">    import numpy as np</span>
+<a id="__codelineno-0-57" name="__codelineno-0-57"></a><span class="sd">    print(tile(0))</span>
 <a id="__codelineno-0-58" name="__codelineno-0-58"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-59" name="__codelineno-0-59"></a>
 <a id="__codelineno-0-60" name="__codelineno-0-60"></a><span class="sd">    &quot;&quot;&quot;</span>

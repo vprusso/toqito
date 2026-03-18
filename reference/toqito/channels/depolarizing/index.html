@@ -8876,31 +8876,22 @@ have that</p>
                              \end{pmatrix}.
 \]</div>
 <p>This can be observed in <code>|toqito⟩</code> as follows.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.channels</span><span class="w"> </span><span class="kn">import</span> <span class="n">depolarizing</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.channel_ops</span><span class="w"> </span><span class="kn">import</span> <span class="n">apply_channel</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="n">test_input_mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span> <span class="o">/</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span> <span class="o">/</span> <span class="mi">2</span><span class="p">]])</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="nb">print</span><span class="p">(</span><span class="n">apply_channel</span><span class="p">(</span><span class="n">test_input_mat</span><span class="p">,</span> <span class="n">depolarizing</span><span class="p">(</span><span class="mi">4</span><span class="p">)))</span>
+<p>```python exec="1" source="above"</p>
+        <p>import numpy as np
+from toqito.channels import depolarizing
+from toqito.channel_ops import apply_channel</p>
+<p>test_input_mat = np.array([[1 / 2, 0, 0, 1 / 2], [0, 0, 0, 0], [0, 0, 0, 0], [1 / 2, 0, 0, 1 / 2]])</p>
+<p>print(apply_channel(test_input_mat, depolarizing(4)))
+    ```</p>
+<div class="highlight"><pre><span></span><code>```python exec=&quot;1&quot; source=&quot;above&quot;
 </code></pre></div>
-<p>[[0.25 0.   0.   0.  ]
- [0.   0.25 0.   0.  ]
- [0.   0.   0.25 0.  ]
- [0.   0.   0.   0.25]]</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.channels</span><span class="w"> </span><span class="kn">import</span> <span class="n">depolarizing</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.channel_ops</span><span class="w"> </span><span class="kn">import</span> <span class="n">apply_channel</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="n">test_input_mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">17</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="nb">print</span><span class="p">(</span><span class="n">apply_channel</span><span class="p">(</span><span class="n">test_input_mat</span><span class="p">,</span> <span class="n">depolarizing</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)))</span>
-</code></pre></div>
-<p>[[ 4.75  1.    1.5   2.  ]
- [ 2.5   7.25  3.5   4.  ]
- [ 4.5   5.    9.75  6.  ]
- [ 6.5   7.    7.5  12.25]]</p>
-        <p><strong>References</strong></p>
+<p>import numpy as np
+from toqito.channels import depolarizing
+from toqito.channel_ops import apply_channel</p>
+<p>test_input_mat = np.arange(1, 17).reshape(4, 4)</p>
+<p>print(apply_channel(test_input_mat, depolarizing(4, 0.5)))
+    ```</p>
+<p><strong>References</strong></p>
 <p><span id="ref-toqito-channels-depolarizing-depolarizing-1"><sup><a href="#cite-toqito-channels-depolarizing-depolarizing-1">1</a></sup> Watrous, John. <em>The Theory of Quantum Information</em>. (2018). <a href="https://doi.org/10.1017/9781316848142">doi:10.1017/9781316848142</a>.</span><br>
 <span id="ref-toqito-channels-depolarizing-depolarizing-2"><sup><a href="#cite-toqito-channels-depolarizing-depolarizing-2">2</a></sup> Wikipedia. <em>Quantum Depolarizing Channel</em>. <a href="https://en.wikipedia.org/wiki/Quantum_depolarizing_channel">link</a>.</span></p>
 
@@ -9062,23 +9053,23 @@ have that</p>
 <a id="__codelineno-0-65" name="__codelineno-0-65"></a><span class="sd">        This can be observed in `|toqito⟩` as follows.</span>
 <a id="__codelineno-0-66" name="__codelineno-0-66"></a>
 <a id="__codelineno-0-67" name="__codelineno-0-67"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-68" name="__codelineno-0-68"></a><span class="sd">        import numpy as np</span>
-<a id="__codelineno-0-69" name="__codelineno-0-69"></a><span class="sd">        from toqito.channels import depolarizing</span>
-<a id="__codelineno-0-70" name="__codelineno-0-70"></a><span class="sd">        from toqito.channel_ops import apply_channel</span>
+<a id="__codelineno-0-68" name="__codelineno-0-68"></a><span class="sd">    import numpy as np</span>
+<a id="__codelineno-0-69" name="__codelineno-0-69"></a><span class="sd">    from toqito.channels import depolarizing</span>
+<a id="__codelineno-0-70" name="__codelineno-0-70"></a><span class="sd">    from toqito.channel_ops import apply_channel</span>
 <a id="__codelineno-0-71" name="__codelineno-0-71"></a>
-<a id="__codelineno-0-72" name="__codelineno-0-72"></a><span class="sd">        test_input_mat = np.array([[1 / 2, 0, 0, 1 / 2], [0, 0, 0, 0], [0, 0, 0, 0], [1 / 2, 0, 0, 1 / 2]])</span>
+<a id="__codelineno-0-72" name="__codelineno-0-72"></a><span class="sd">    test_input_mat = np.array([[1 / 2, 0, 0, 1 / 2], [0, 0, 0, 0], [0, 0, 0, 0], [1 / 2, 0, 0, 1 / 2]])</span>
 <a id="__codelineno-0-73" name="__codelineno-0-73"></a>
-<a id="__codelineno-0-74" name="__codelineno-0-74"></a><span class="sd">        print(apply_channel(test_input_mat, depolarizing(4)))</span>
+<a id="__codelineno-0-74" name="__codelineno-0-74"></a><span class="sd">    print(apply_channel(test_input_mat, depolarizing(4)))</span>
 <a id="__codelineno-0-75" name="__codelineno-0-75"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-76" name="__codelineno-0-76"></a>
 <a id="__codelineno-0-77" name="__codelineno-0-77"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-78" name="__codelineno-0-78"></a><span class="sd">        import numpy as np</span>
-<a id="__codelineno-0-79" name="__codelineno-0-79"></a><span class="sd">        from toqito.channels import depolarizing</span>
-<a id="__codelineno-0-80" name="__codelineno-0-80"></a><span class="sd">        from toqito.channel_ops import apply_channel</span>
+<a id="__codelineno-0-78" name="__codelineno-0-78"></a><span class="sd">    import numpy as np</span>
+<a id="__codelineno-0-79" name="__codelineno-0-79"></a><span class="sd">    from toqito.channels import depolarizing</span>
+<a id="__codelineno-0-80" name="__codelineno-0-80"></a><span class="sd">    from toqito.channel_ops import apply_channel</span>
 <a id="__codelineno-0-81" name="__codelineno-0-81"></a>
-<a id="__codelineno-0-82" name="__codelineno-0-82"></a><span class="sd">        test_input_mat = np.arange(1, 17).reshape(4, 4)</span>
+<a id="__codelineno-0-82" name="__codelineno-0-82"></a><span class="sd">    test_input_mat = np.arange(1, 17).reshape(4, 4)</span>
 <a id="__codelineno-0-83" name="__codelineno-0-83"></a>
-<a id="__codelineno-0-84" name="__codelineno-0-84"></a><span class="sd">        print(apply_channel(test_input_mat, depolarizing(4, 0.5)))</span>
+<a id="__codelineno-0-84" name="__codelineno-0-84"></a><span class="sd">    print(apply_channel(test_input_mat, depolarizing(4, 0.5)))</span>
 <a id="__codelineno-0-85" name="__codelineno-0-85"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-86" name="__codelineno-0-86"></a>
 <a id="__codelineno-0-87" name="__codelineno-0-87"></a><span class="sd">    &quot;&quot;&quot;</span>

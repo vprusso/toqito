@@ -8919,20 +8919,20 @@ on the interval <span class="arithmatex">\([0, 1]\)</span>.</p>
 <p><span class="doc-section-title">Examples:</span></p>
     <p>We can find the measured relative entropy between a depolarizing channel of dimension 2
 and the identity channel, constrained by a Hamiltonian and energy, as follows:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.channel_metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">channel_measured_relative_entropy</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.channels</span><span class="w"> </span><span class="kn">import</span> <span class="n">depolarizing</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">channel_1</span> <span class="o">=</span> <span class="n">depolarizing</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">)</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="n">channel_2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="n">in_dim</span> <span class="o">=</span> <span class="mi">2</span>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="n">m</span> <span class="o">=</span> <span class="mi">5</span>
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="n">k</span> <span class="o">=</span> <span class="mi">5</span>
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="n">hamiltonian</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
-<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="n">energy</span> <span class="o">=</span> <span class="mi">100</span>
-<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="nb">print</span><span class="p">(</span><span class="n">channel_measured_relative_entropy</span><span class="p">(</span><span class="n">channel_1</span><span class="p">,</span> <span class="n">channel_2</span><span class="p">,</span> <span class="n">in_dim</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">hamiltonian</span><span class="p">,</span> <span class="n">energy</span><span class="p">))</span>
-</code></pre></div>
-<p>-0.6390318854962622</p>
-        <p><strong>References</strong></p>
+<p>```python exec="1" source="above"</p>
+        <p>from toqito.channel_metrics import channel_measured_relative_entropy
+from toqito.channels import depolarizing
+import numpy as np
+channel_1 = depolarizing(2, 0.2)
+channel_2 = np.eye(4)
+in_dim = 2
+m = 5
+k = 5
+hamiltonian = np.zeros((2, 2))
+energy = 100
+print(channel_measured_relative_entropy(channel_1, channel_2, in_dim, m, k, hamiltonian, energy))
+    ```</p>
+<p><strong>References</strong></p>
 <p><span id="ref-toqito-channel_metrics-channel_measured_relative_entropy-channel_measured_relative_entropy-1"><sup><a href="#cite-toqito-channel_metrics-channel_measured_relative_entropy-channel_measured_relative_entropy-1">1</a></sup> Huang, Zixin and Wilde, Mark. <em>Semi-definite optimization of the measured relative entropies of quantum states and channels</em>. (2025). <a href="https://arxiv.org/abs/2406.19060">link</a>.</span></p>
 
 
@@ -9148,17 +9148,17 @@ and the identity channel, constrained by a Hamiltonian and energy, as follows:</
 <a id="__codelineno-0-84" name="__codelineno-0-84"></a><span class="sd">        and the identity channel, constrained by a Hamiltonian and energy, as follows:</span>
 <a id="__codelineno-0-85" name="__codelineno-0-85"></a>
 <a id="__codelineno-0-86" name="__codelineno-0-86"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-87" name="__codelineno-0-87"></a><span class="sd">        from toqito.channel_metrics import channel_measured_relative_entropy</span>
-<a id="__codelineno-0-88" name="__codelineno-0-88"></a><span class="sd">        from toqito.channels import depolarizing</span>
-<a id="__codelineno-0-89" name="__codelineno-0-89"></a><span class="sd">        import numpy as np</span>
-<a id="__codelineno-0-90" name="__codelineno-0-90"></a><span class="sd">        channel_1 = depolarizing(2, 0.2)</span>
-<a id="__codelineno-0-91" name="__codelineno-0-91"></a><span class="sd">        channel_2 = np.eye(4)</span>
-<a id="__codelineno-0-92" name="__codelineno-0-92"></a><span class="sd">        in_dim = 2</span>
-<a id="__codelineno-0-93" name="__codelineno-0-93"></a><span class="sd">        m = 5</span>
-<a id="__codelineno-0-94" name="__codelineno-0-94"></a><span class="sd">        k = 5</span>
-<a id="__codelineno-0-95" name="__codelineno-0-95"></a><span class="sd">        hamiltonian = np.zeros((2, 2))</span>
-<a id="__codelineno-0-96" name="__codelineno-0-96"></a><span class="sd">        energy = 100</span>
-<a id="__codelineno-0-97" name="__codelineno-0-97"></a><span class="sd">        print(channel_measured_relative_entropy(channel_1, channel_2, in_dim, m, k, hamiltonian, energy))</span>
+<a id="__codelineno-0-87" name="__codelineno-0-87"></a><span class="sd">    from toqito.channel_metrics import channel_measured_relative_entropy</span>
+<a id="__codelineno-0-88" name="__codelineno-0-88"></a><span class="sd">    from toqito.channels import depolarizing</span>
+<a id="__codelineno-0-89" name="__codelineno-0-89"></a><span class="sd">    import numpy as np</span>
+<a id="__codelineno-0-90" name="__codelineno-0-90"></a><span class="sd">    channel_1 = depolarizing(2, 0.2)</span>
+<a id="__codelineno-0-91" name="__codelineno-0-91"></a><span class="sd">    channel_2 = np.eye(4)</span>
+<a id="__codelineno-0-92" name="__codelineno-0-92"></a><span class="sd">    in_dim = 2</span>
+<a id="__codelineno-0-93" name="__codelineno-0-93"></a><span class="sd">    m = 5</span>
+<a id="__codelineno-0-94" name="__codelineno-0-94"></a><span class="sd">    k = 5</span>
+<a id="__codelineno-0-95" name="__codelineno-0-95"></a><span class="sd">    hamiltonian = np.zeros((2, 2))</span>
+<a id="__codelineno-0-96" name="__codelineno-0-96"></a><span class="sd">    energy = 100</span>
+<a id="__codelineno-0-97" name="__codelineno-0-97"></a><span class="sd">    print(channel_measured_relative_entropy(channel_1, channel_2, in_dim, m, k, hamiltonian, energy))</span>
 <a id="__codelineno-0-98" name="__codelineno-0-98"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-99" name="__codelineno-0-99"></a>
 <a id="__codelineno-0-100" name="__codelineno-0-100"></a><span class="sd">    &quot;&quot;&quot;</span>

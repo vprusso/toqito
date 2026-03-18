@@ -8902,18 +8902,17 @@ and the PSD operator <span class="arithmatex">\(\sigma = \frac{1}{2}(I + s \cdot
 <span class="arithmatex">\(r = (0.9, 0.05, -0.02)\)</span>, <span class="arithmatex">\(s = (-0.8, 0.1, 0.1)\)</span>, and <span class="arithmatex">\(\mathbf{\sigma} =
 (\sigma_x, \sigma_y, \sigma_z)\)</span> are the Pauli operators.</p>
 <p>Calculating the measured relative entropy can be done as follows.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.matrices</span><span class="w"> </span><span class="kn">import</span> <span class="n">pauli</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.state_metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">measured_relative_entropy</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="n">r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.9</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.02</span><span class="p">])</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="n">s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">])</span>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="n">rho</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">pauli</span><span class="p">(</span><span class="s2">&quot;I&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="n">r</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">pauli</span><span class="p">(</span><span class="s2">&quot;X&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="n">r</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">pauli</span><span class="p">(</span><span class="s2">&quot;Y&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="n">r</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="n">pauli</span><span class="p">(</span><span class="s2">&quot;Z&quot;</span><span class="p">))</span>
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="n">sigma</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">pauli</span><span class="p">(</span><span class="s2">&quot;I&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">pauli</span><span class="p">(</span><span class="s2">&quot;X&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">pauli</span><span class="p">(</span><span class="s2">&quot;Y&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="n">s</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="n">pauli</span><span class="p">(</span><span class="s2">&quot;Z&quot;</span><span class="p">))</span>
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="nb">print</span><span class="p">(</span><span class="n">measured_relative_entropy</span><span class="p">(</span><span class="n">rho</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="mf">1e-5</span><span class="p">))</span>
-</code></pre></div>
-<p>2.0275069290738936</p>
-        <p><strong>References</strong></p>
+<p>```python exec="1" source="above"</p>
+        <p>from toqito.matrices import pauli
+from toqito.state_metrics import measured_relative_entropy
+import numpy as np</p>
+<p>r = np.array([0.9, 0.05, -0.02])
+s = np.array([-0.8, 0.1, 0.1])
+rho = 0.5 * (pauli("I") + r[0] * pauli("X") + r[1] * pauli("Y") + r[2] * pauli("Z"))
+sigma = 0.5 * (pauli("I") + s[0] * pauli("X") + s[1] * pauli("Y") + s[2] * pauli("Z"))
+print(measured_relative_entropy(rho, sigma, 1e-5))
+    ```</p>
+<p><strong>References</strong></p>
 <p><span id="ref-toqito-state_metrics-measured_relative_entropy-measured_relative_entropy-1"><sup><a href="#cite-toqito-state_metrics-measured_relative_entropy-measured_relative_entropy-1">1</a></sup> Huang, Zixin and Wilde, Mark. <em>Semi-definite optimization of the measured relative entropies of quantum states and channels</em>. (2025). <a href="https://arxiv.org/abs/2406.19060">link</a>.</span></p>
 
 
@@ -9125,15 +9124,15 @@ and the PSD operator <span class="arithmatex">\(\sigma = \frac{1}{2}(I + s \cdot
 <a id="__codelineno-0-87" name="__codelineno-0-87"></a><span class="sd">        Calculating the measured relative entropy can be done as follows.</span>
 <a id="__codelineno-0-88" name="__codelineno-0-88"></a>
 <a id="__codelineno-0-89" name="__codelineno-0-89"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-90" name="__codelineno-0-90"></a><span class="sd">        from toqito.matrices import pauli</span>
-<a id="__codelineno-0-91" name="__codelineno-0-91"></a><span class="sd">        from toqito.state_metrics import measured_relative_entropy</span>
-<a id="__codelineno-0-92" name="__codelineno-0-92"></a><span class="sd">        import numpy as np</span>
+<a id="__codelineno-0-90" name="__codelineno-0-90"></a><span class="sd">    from toqito.matrices import pauli</span>
+<a id="__codelineno-0-91" name="__codelineno-0-91"></a><span class="sd">    from toqito.state_metrics import measured_relative_entropy</span>
+<a id="__codelineno-0-92" name="__codelineno-0-92"></a><span class="sd">    import numpy as np</span>
 <a id="__codelineno-0-93" name="__codelineno-0-93"></a>
-<a id="__codelineno-0-94" name="__codelineno-0-94"></a><span class="sd">        r = np.array([0.9, 0.05, -0.02])</span>
-<a id="__codelineno-0-95" name="__codelineno-0-95"></a><span class="sd">        s = np.array([-0.8, 0.1, 0.1])</span>
-<a id="__codelineno-0-96" name="__codelineno-0-96"></a><span class="sd">        rho = 0.5 * (pauli(&quot;I&quot;) + r[0] * pauli(&quot;X&quot;) + r[1] * pauli(&quot;Y&quot;) + r[2] * pauli(&quot;Z&quot;))</span>
-<a id="__codelineno-0-97" name="__codelineno-0-97"></a><span class="sd">        sigma = 0.5 * (pauli(&quot;I&quot;) + s[0] * pauli(&quot;X&quot;) + s[1] * pauli(&quot;Y&quot;) + s[2] * pauli(&quot;Z&quot;))</span>
-<a id="__codelineno-0-98" name="__codelineno-0-98"></a><span class="sd">        print(measured_relative_entropy(rho, sigma, 1e-5))</span>
+<a id="__codelineno-0-94" name="__codelineno-0-94"></a><span class="sd">    r = np.array([0.9, 0.05, -0.02])</span>
+<a id="__codelineno-0-95" name="__codelineno-0-95"></a><span class="sd">    s = np.array([-0.8, 0.1, 0.1])</span>
+<a id="__codelineno-0-96" name="__codelineno-0-96"></a><span class="sd">    rho = 0.5 * (pauli(&quot;I&quot;) + r[0] * pauli(&quot;X&quot;) + r[1] * pauli(&quot;Y&quot;) + r[2] * pauli(&quot;Z&quot;))</span>
+<a id="__codelineno-0-97" name="__codelineno-0-97"></a><span class="sd">    sigma = 0.5 * (pauli(&quot;I&quot;) + s[0] * pauli(&quot;X&quot;) + s[1] * pauli(&quot;Y&quot;) + s[2] * pauli(&quot;Z&quot;))</span>
+<a id="__codelineno-0-98" name="__codelineno-0-98"></a><span class="sd">    print(measured_relative_entropy(rho, sigma, 1e-5))</span>
 <a id="__codelineno-0-99" name="__codelineno-0-99"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-100" name="__codelineno-0-100"></a>
 <a id="__codelineno-0-101" name="__codelineno-0-101"></a><span class="sd">    &quot;&quot;&quot;</span>

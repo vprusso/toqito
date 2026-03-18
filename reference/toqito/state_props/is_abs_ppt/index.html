@@ -8920,22 +8920,24 @@ PPT (see Theorem 2 of <sup><a id="cite-toqito-state_props-is_abs_ppt-is_abs_ppt-
 
 <p><span class="doc-section-title">Examples:</span></p>
     <p>A random density matrix will likely not be absolutely PPT:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.rand</span><span class="w"> </span><span class="kn">import</span> <span class="n">random_density_matrix</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.state_props</span><span class="w"> </span><span class="kn">import</span> <span class="n">is_abs_ppt</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">rho</span> <span class="o">=</span> <span class="n">random_density_matrix</span><span class="p">(</span><span class="mi">9</span><span class="p">)</span> <span class="c1"># assumed to act on a 3 x 3 bipartite system</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ρ is absolutely PPT: </span><span class="si">{</span><span class="n">is_abs_ppt</span><span class="p">(</span><span class="n">rho</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<p>```python exec="1" source="above"</p>
+        <p>import numpy as np
+from toqito.rand import random_density_matrix
+from toqito.state_props import is_abs_ppt
+rho = random_density_matrix(9) # assumed to act on a 3 x 3 bipartite system
+print(f"ρ is absolutely PPT: {is_abs_ppt(rho, 3)}")
+    ```</p>
+<div class="highlight"><pre><span></span><code>The maximally-mixed state is an example of an absolutely PPT state:
+
+```python exec=&quot;1&quot; source=&quot;above&quot;
 </code></pre></div>
-<p>ρ is absolutely PPT: False</p>
-<p>The maximally-mixed state is an example of an absolutely PPT state:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.states</span><span class="w"> </span><span class="kn">import</span> <span class="n">max_mixed</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.state_props</span><span class="w"> </span><span class="kn">import</span> <span class="n">is_abs_ppt</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">rho</span> <span class="o">=</span> <span class="n">max_mixed</span><span class="p">(</span><span class="mi">9</span><span class="p">)</span> <span class="c1"># assumed to act on a 3 x 3 bipartite system</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ρ is absolutely PPT: </span><span class="si">{</span><span class="n">is_abs_ppt</span><span class="p">(</span><span class="n">rho</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-</code></pre></div>
-<p>ρ is absolutely PPT: True</p>
-        <p><strong>References</strong></p>
+<p>import numpy as np
+from toqito.states import max_mixed
+from toqito.state_props import is_abs_ppt
+rho = max_mixed(9) # assumed to act on a 3 x 3 bipartite system
+print(f"ρ is absolutely PPT: {is_abs_ppt(rho, 3)}")
+    ```</p>
+<p><strong>References</strong></p>
 <p><span id="ref-toqito-state_props-is_abs_ppt-is_abs_ppt-1"><sup><a href="#cite-toqito-state_props-is_abs_ppt-is_abs_ppt-1">1</a></sup> Hildebrand, Roland. <em>Positive partial transpose from spectra</em>. <strong>Phys. Rev. A</strong>. vol. 76. (2007). <a href="https://doi.org/10.1103/PhysRevA.76.052325">doi:10.1103/PhysRevA.76.052325</a>.</span><br>
 <span id="ref-toqito-state_props-is_abs_ppt-is_abs_ppt-2"><sup><a href="#cite-toqito-state_props-is_abs_ppt-is_abs_ppt-2">2</a></sup> Jivulescu, Maria and Lupa, Nicolae and Nechita, Ion and Reeb, David. <em>Positive reduction from spectra</em>. <strong>Linear Algebra and its Applications</strong>. vol. 469. (2015). <a href="https://doi.org/https://doi.org/10.1016/j.laa.2014.11.031">doi:https://doi.org/10.1016/j.laa.2014.11.031</a>.</span><br>
 <span id="ref-toqito-state_props-is_abs_ppt-is_abs_ppt-3"><sup><a href="#cite-toqito-state_props-is_abs_ppt-is_abs_ppt-3">3</a></sup> Johnston, Nathaniel. <em>{{QETLAB}: {A MATLAB} toolbox for quantum entanglement}</em>. <a href="https://doi.org/10.5281/zenodo.44637">doi:10.5281/zenodo.44637</a>.</span><br>
@@ -9130,21 +9132,21 @@ PPT (see Theorem 2 of <sup><a id="cite-toqito-state_props-is_abs_ppt-is_abs_ppt-
 <a id="__codelineno-0-64" name="__codelineno-0-64"></a><span class="sd">        A random density matrix will likely not be absolutely PPT:</span>
 <a id="__codelineno-0-65" name="__codelineno-0-65"></a>
 <a id="__codelineno-0-66" name="__codelineno-0-66"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-67" name="__codelineno-0-67"></a><span class="sd">        import numpy as np</span>
-<a id="__codelineno-0-68" name="__codelineno-0-68"></a><span class="sd">        from toqito.rand import random_density_matrix</span>
-<a id="__codelineno-0-69" name="__codelineno-0-69"></a><span class="sd">        from toqito.state_props import is_abs_ppt</span>
-<a id="__codelineno-0-70" name="__codelineno-0-70"></a><span class="sd">        rho = random_density_matrix(9) # assumed to act on a 3 x 3 bipartite system</span>
-<a id="__codelineno-0-71" name="__codelineno-0-71"></a><span class="sd">        print(f&quot;ρ is absolutely PPT: {is_abs_ppt(rho, 3)}&quot;)</span>
+<a id="__codelineno-0-67" name="__codelineno-0-67"></a><span class="sd">    import numpy as np</span>
+<a id="__codelineno-0-68" name="__codelineno-0-68"></a><span class="sd">    from toqito.rand import random_density_matrix</span>
+<a id="__codelineno-0-69" name="__codelineno-0-69"></a><span class="sd">    from toqito.state_props import is_abs_ppt</span>
+<a id="__codelineno-0-70" name="__codelineno-0-70"></a><span class="sd">    rho = random_density_matrix(9) # assumed to act on a 3 x 3 bipartite system</span>
+<a id="__codelineno-0-71" name="__codelineno-0-71"></a><span class="sd">    print(f&quot;ρ is absolutely PPT: {is_abs_ppt(rho, 3)}&quot;)</span>
 <a id="__codelineno-0-72" name="__codelineno-0-72"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-73" name="__codelineno-0-73"></a>
 <a id="__codelineno-0-74" name="__codelineno-0-74"></a><span class="sd">        The maximally-mixed state is an example of an absolutely PPT state:</span>
 <a id="__codelineno-0-75" name="__codelineno-0-75"></a>
 <a id="__codelineno-0-76" name="__codelineno-0-76"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-77" name="__codelineno-0-77"></a><span class="sd">        import numpy as np</span>
-<a id="__codelineno-0-78" name="__codelineno-0-78"></a><span class="sd">        from toqito.states import max_mixed</span>
-<a id="__codelineno-0-79" name="__codelineno-0-79"></a><span class="sd">        from toqito.state_props import is_abs_ppt</span>
-<a id="__codelineno-0-80" name="__codelineno-0-80"></a><span class="sd">        rho = max_mixed(9) # assumed to act on a 3 x 3 bipartite system</span>
-<a id="__codelineno-0-81" name="__codelineno-0-81"></a><span class="sd">        print(f&quot;ρ is absolutely PPT: {is_abs_ppt(rho, 3)}&quot;)</span>
+<a id="__codelineno-0-77" name="__codelineno-0-77"></a><span class="sd">    import numpy as np</span>
+<a id="__codelineno-0-78" name="__codelineno-0-78"></a><span class="sd">    from toqito.states import max_mixed</span>
+<a id="__codelineno-0-79" name="__codelineno-0-79"></a><span class="sd">    from toqito.state_props import is_abs_ppt</span>
+<a id="__codelineno-0-80" name="__codelineno-0-80"></a><span class="sd">    rho = max_mixed(9) # assumed to act on a 3 x 3 bipartite system</span>
+<a id="__codelineno-0-81" name="__codelineno-0-81"></a><span class="sd">    print(f&quot;ρ is absolutely PPT: {is_abs_ppt(rho, 3)}&quot;)</span>
 <a id="__codelineno-0-82" name="__codelineno-0-82"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-83" name="__codelineno-0-83"></a>
 <a id="__codelineno-0-84" name="__codelineno-0-84"></a><span class="sd">    &quot;&quot;&quot;</span>

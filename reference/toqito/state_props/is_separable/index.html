@@ -7598,6 +7598,34 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label=" is_separable">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#toqito.state_props.is_separable.is_separable--construct-a-2x3-separable-ppt-state-of-rank-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Construct a 2x3 separable PPT state of rank 2
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#toqito.state_props.is_separable.is_separable--1-00-2-11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        |ψ₁⟩ = |0⟩⊗|0⟩, |ψ₂⟩ = |1⟩⊗|1⟩
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -8724,6 +8752,34 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label=" is_separable">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#toqito.state_props.is_separable.is_separable--construct-a-2x3-separable-ppt-state-of-rank-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Construct a 2x3 separable PPT state of rank 2
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#toqito.state_props.is_separable.is_separable--1-00-2-11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        |ψ₁⟩ = |0⟩⊗|0⟩, |ψ₂⟩ = |1⟩⊗|1⟩
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -9090,40 +9146,40 @@ It also has <code>SymmetricInnerExtension</code>, which can prove separability.<
 \]</div>
 <p>We provide the input as a density matrix <span class="arithmatex">\(\rho\)</span>.</p>
 <p>On the other hand, a random density matrix will be an entangled state (a separable state).</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.rand.random_density_matrix</span><span class="w"> </span><span class="kn">import</span> <span class="n">random_density_matrix</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.state_props.is_separable</span><span class="w"> </span><span class="kn">import</span> <span class="n">is_separable</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">rho_separable</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">is_separable</span><span class="p">(</span><span class="n">rho_separable</span><span class="p">))</span>
+<p>```python exec="1" source="above" session="is_separable_example"</p>
+        <p>import numpy as np
+from toqito.rand.random_density_matrix import random_density_matrix
+from toqito.state_props.is_separable import is_separable
+rho_separable = np.array([[1, 0, 1, 0], [0, 1, 0, 1], [1, 0, 1, 0], [0, 1, 0, 1]])
+print(is_separable(rho_separable))
+    ```</p>
+<div class="highlight"><pre><span></span><code>```python exec=&quot;1&quot; source=&quot;above&quot; session=&quot;is_separable_example&quot;
 </code></pre></div>
-<p>True</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">rho_not_separable</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span> <span class="mf">0.13407875</span><span class="o">+</span><span class="mf">0.</span><span class="n">j</span>        <span class="p">,</span> <span class="o">-</span><span class="mf">0.08263926</span><span class="o">-</span><span class="mf">0.17760437</span><span class="n">j</span><span class="p">,</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>        <span class="o">-</span><span class="mf">0.0135111</span> <span class="o">-</span><span class="mf">0.12352182</span><span class="n">j</span><span class="p">,</span>  <span class="mf">0.0368423</span> <span class="o">-</span><span class="mf">0.05563985</span><span class="n">j</span><span class="p">],</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    <span class="p">[</span><span class="o">-</span><span class="mf">0.08263926</span><span class="o">+</span><span class="mf">0.17760437</span><span class="n">j</span><span class="p">,</span>  <span class="mf">0.53338542</span><span class="o">+</span><span class="mf">0.</span><span class="n">j</span>        <span class="p">,</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>        <span class="mf">0.19782968</span><span class="o">-</span><span class="mf">0.04549732</span><span class="n">j</span><span class="p">,</span>  <span class="mf">0.11287093</span><span class="o">+</span><span class="mf">0.17024249</span><span class="n">j</span><span class="p">],</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="p">[</span><span class="o">-</span><span class="mf">0.0135111</span> <span class="o">+</span><span class="mf">0.12352182</span><span class="n">j</span><span class="p">,</span>  <span class="mf">0.19782968</span><span class="o">+</span><span class="mf">0.04549732</span><span class="n">j</span><span class="p">,</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>        <span class="mf">0.21254612</span><span class="o">+</span><span class="mf">0.</span><span class="n">j</span>        <span class="p">,</span> <span class="o">-</span><span class="mf">0.00875865</span><span class="o">+</span><span class="mf">0.11144344</span><span class="n">j</span><span class="p">],</span>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    <span class="p">[</span> <span class="mf">0.0368423</span> <span class="o">+</span><span class="mf">0.05563985</span><span class="n">j</span><span class="p">,</span>  <span class="mf">0.11287093</span><span class="o">-</span><span class="mf">0.17024249</span><span class="n">j</span><span class="p">,</span>
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>        <span class="o">-</span><span class="mf">0.00875865</span><span class="o">-</span><span class="mf">0.11144344</span><span class="n">j</span><span class="p">,</span>  <span class="mf">0.11998971</span><span class="o">+</span><span class="mf">0.</span><span class="n">j</span>        <span class="p">]])</span>
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="nb">print</span><span class="p">(</span><span class="n">is_separable</span><span class="p">(</span><span class="n">rho_not_separable</span><span class="p">))</span>
+<p>rho_not_separable = np.array([[ 0.13407875+0.j        , -0.08263926-0.17760437j,
+        -0.0135111 -0.12352182j,  0.0368423 -0.05563985j],
+    [-0.08263926+0.17760437j,  0.53338542+0.j        ,
+        0.19782968-0.04549732j,  0.11287093+0.17024249j],
+    [-0.0135111 +0.12352182j,  0.19782968+0.04549732j,
+        0.21254612+0.j        , -0.00875865+0.11144344j],
+    [ 0.0368423 +0.05563985j,  0.11287093-0.17024249j,
+        -0.00875865-0.11144344j,  0.11998971+0.j        ]])
+print(is_separable(rho_not_separable))
+    ```</p>
+<div class="highlight"><pre><span></span><code>We can also detect certain PPT-entangled states. For example, a state constructed from a Breuer-Hall map
+is entangled but PPT.
+
+```python exec=&quot;1&quot; source=&quot;above&quot; session=&quot;is_separable_example&quot;
 </code></pre></div>
-<p>False</p>
-<p>We can also detect certain PPT-entangled states. For example, a state constructed from a Breuer-Hall map
-is entangled but PPT.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.state_props.is_ppt</span><span class="w"> </span><span class="kn">import</span> <span class="n">is_ppt</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="c1"># Construct a 2x3 separable PPT state of rank 2</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="c1"># |ψ₁⟩ = |0⟩⊗|0⟩, |ψ₂⟩ = |1⟩⊗|1⟩</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="n">psi1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">kron</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="n">psi2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">kron</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="n">rho</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">outer</span><span class="p">(</span><span class="n">psi1</span><span class="p">,</span> <span class="n">psi1</span><span class="o">.</span><span class="n">conj</span><span class="p">())</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">outer</span><span class="p">(</span><span class="n">psi2</span><span class="p">,</span> <span class="n">psi2</span><span class="o">.</span><span class="n">conj</span><span class="p">()))</span>
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Is the state PPT?&quot;</span><span class="p">,</span> <span class="n">is_ppt</span><span class="p">(</span><span class="n">rho</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]))</span>         <span class="c1"># True</span>
-<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Is the state separable?&quot;</span><span class="p">,</span> <span class="n">is_separable</span><span class="p">(</span><span class="n">rho</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]))</span>  <span class="c1"># True</span>
-</code></pre></div>
-<p>Is the state PPT? True
-Is the state separable? True</p>
-        <p><strong>References</strong></p>
+<p>from toqito.state_props.is_ppt import is_ppt</p>
+<h3 id="toqito.state_props.is_separable.is_separable--construct-a-2x3-separable-ppt-state-of-rank-2">Construct a 2x3 separable PPT state of rank 2<a class="headerlink" href="#toqito.state_props.is_separable.is_separable--construct-a-2x3-separable-ppt-state-of-rank-2" title="Permanent link">&para;</a></h3>
+<h3 id="toqito.state_props.is_separable.is_separable--1-00-2-11">|ψ₁⟩ = |0⟩⊗|0⟩, |ψ₂⟩ = |1⟩⊗|1⟩<a class="headerlink" href="#toqito.state_props.is_separable.is_separable--1-00-2-11" title="Permanent link">&para;</a></h3>
+<p>psi1 = np.kron([1, 0], [1, 0, 0])
+psi2 = np.kron([0, 1], [0, 1, 0])
+rho = 0.5 * (np.outer(psi1, psi1.conj()) + np.outer(psi2, psi2.conj()))</p>
+<p>print("Is the state PPT?", is_ppt(rho, dim=[2, 3]))         # True
+print("Is the state separable?", is_separable(rho, dim=[2, 3]))  # True
+    ```</p>
+<p><strong>References</strong></p>
 <p><span id="ref-toqito-state_props-is_separable-is_separable-1"><sup><a href="#cite-toqito-state_props-is_separable-is_separable-1">1</a></sup> Wikipedia. <em>Separable state</em>. <a href="https://en.wikipedia.org/wiki/Separable_state">link</a>.</span><br>
 <span id="ref-toqito-state_props-is_separable-is_separable-2"><sup><a href="#cite-toqito-state_props-is_separable-is_separable-2">2</a></sup> Johnston, Nathaniel. <em>{{QETLAB}: {A MATLAB} toolbox for quantum entanglement}</em>. <a href="https://doi.org/10.5281/zenodo.44637">doi:10.5281/zenodo.44637</a>.</span><br>
 <span id="ref-toqito-state_props-is_separable-is_separable-3"><sup><a href="#cite-toqito-state_props-is_separable-is_separable-3">3</a></sup> Wikipedia. <em>Schmidt decomposition</em>. <a href="https://en.wikipedia.org/wiki/Schmidt_decomposition">link</a>.</span><br>
@@ -10074,39 +10130,39 @@ Is the state separable? True</p>
 <a id="__codelineno-0-217" name="__codelineno-0-217"></a><span class="sd">        On the other hand, a random density matrix will be an entangled state (a separable state).</span>
 <a id="__codelineno-0-218" name="__codelineno-0-218"></a>
 <a id="__codelineno-0-219" name="__codelineno-0-219"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; session=&quot;is_separable_example&quot;</span>
-<a id="__codelineno-0-220" name="__codelineno-0-220"></a><span class="sd">        import numpy as np</span>
-<a id="__codelineno-0-221" name="__codelineno-0-221"></a><span class="sd">        from toqito.rand.random_density_matrix import random_density_matrix</span>
-<a id="__codelineno-0-222" name="__codelineno-0-222"></a><span class="sd">        from toqito.state_props.is_separable import is_separable</span>
-<a id="__codelineno-0-223" name="__codelineno-0-223"></a><span class="sd">        rho_separable = np.array([[1, 0, 1, 0], [0, 1, 0, 1], [1, 0, 1, 0], [0, 1, 0, 1]])</span>
-<a id="__codelineno-0-224" name="__codelineno-0-224"></a><span class="sd">        print(is_separable(rho_separable))</span>
+<a id="__codelineno-0-220" name="__codelineno-0-220"></a><span class="sd">    import numpy as np</span>
+<a id="__codelineno-0-221" name="__codelineno-0-221"></a><span class="sd">    from toqito.rand.random_density_matrix import random_density_matrix</span>
+<a id="__codelineno-0-222" name="__codelineno-0-222"></a><span class="sd">    from toqito.state_props.is_separable import is_separable</span>
+<a id="__codelineno-0-223" name="__codelineno-0-223"></a><span class="sd">    rho_separable = np.array([[1, 0, 1, 0], [0, 1, 0, 1], [1, 0, 1, 0], [0, 1, 0, 1]])</span>
+<a id="__codelineno-0-224" name="__codelineno-0-224"></a><span class="sd">    print(is_separable(rho_separable))</span>
 <a id="__codelineno-0-225" name="__codelineno-0-225"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-226" name="__codelineno-0-226"></a>
 <a id="__codelineno-0-227" name="__codelineno-0-227"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; session=&quot;is_separable_example&quot;</span>
-<a id="__codelineno-0-228" name="__codelineno-0-228"></a><span class="sd">        rho_not_separable = np.array([[ 0.13407875+0.j        , -0.08263926-0.17760437j,</span>
-<a id="__codelineno-0-229" name="__codelineno-0-229"></a><span class="sd">                -0.0135111 -0.12352182j,  0.0368423 -0.05563985j],</span>
-<a id="__codelineno-0-230" name="__codelineno-0-230"></a><span class="sd">            [-0.08263926+0.17760437j,  0.53338542+0.j        ,</span>
-<a id="__codelineno-0-231" name="__codelineno-0-231"></a><span class="sd">                0.19782968-0.04549732j,  0.11287093+0.17024249j],</span>
-<a id="__codelineno-0-232" name="__codelineno-0-232"></a><span class="sd">            [-0.0135111 +0.12352182j,  0.19782968+0.04549732j,</span>
-<a id="__codelineno-0-233" name="__codelineno-0-233"></a><span class="sd">                0.21254612+0.j        , -0.00875865+0.11144344j],</span>
-<a id="__codelineno-0-234" name="__codelineno-0-234"></a><span class="sd">            [ 0.0368423 +0.05563985j,  0.11287093-0.17024249j,</span>
-<a id="__codelineno-0-235" name="__codelineno-0-235"></a><span class="sd">                -0.00875865-0.11144344j,  0.11998971+0.j        ]])</span>
-<a id="__codelineno-0-236" name="__codelineno-0-236"></a><span class="sd">        print(is_separable(rho_not_separable))</span>
+<a id="__codelineno-0-228" name="__codelineno-0-228"></a><span class="sd">    rho_not_separable = np.array([[ 0.13407875+0.j        , -0.08263926-0.17760437j,</span>
+<a id="__codelineno-0-229" name="__codelineno-0-229"></a><span class="sd">            -0.0135111 -0.12352182j,  0.0368423 -0.05563985j],</span>
+<a id="__codelineno-0-230" name="__codelineno-0-230"></a><span class="sd">        [-0.08263926+0.17760437j,  0.53338542+0.j        ,</span>
+<a id="__codelineno-0-231" name="__codelineno-0-231"></a><span class="sd">            0.19782968-0.04549732j,  0.11287093+0.17024249j],</span>
+<a id="__codelineno-0-232" name="__codelineno-0-232"></a><span class="sd">        [-0.0135111 +0.12352182j,  0.19782968+0.04549732j,</span>
+<a id="__codelineno-0-233" name="__codelineno-0-233"></a><span class="sd">            0.21254612+0.j        , -0.00875865+0.11144344j],</span>
+<a id="__codelineno-0-234" name="__codelineno-0-234"></a><span class="sd">        [ 0.0368423 +0.05563985j,  0.11287093-0.17024249j,</span>
+<a id="__codelineno-0-235" name="__codelineno-0-235"></a><span class="sd">            -0.00875865-0.11144344j,  0.11998971+0.j        ]])</span>
+<a id="__codelineno-0-236" name="__codelineno-0-236"></a><span class="sd">    print(is_separable(rho_not_separable))</span>
 <a id="__codelineno-0-237" name="__codelineno-0-237"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-238" name="__codelineno-0-238"></a>
 <a id="__codelineno-0-239" name="__codelineno-0-239"></a><span class="sd">        We can also detect certain PPT-entangled states. For example, a state constructed from a Breuer-Hall map</span>
 <a id="__codelineno-0-240" name="__codelineno-0-240"></a><span class="sd">        is entangled but PPT.</span>
 <a id="__codelineno-0-241" name="__codelineno-0-241"></a>
 <a id="__codelineno-0-242" name="__codelineno-0-242"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; session=&quot;is_separable_example&quot;</span>
-<a id="__codelineno-0-243" name="__codelineno-0-243"></a><span class="sd">        from toqito.state_props.is_ppt import is_ppt</span>
+<a id="__codelineno-0-243" name="__codelineno-0-243"></a><span class="sd">    from toqito.state_props.is_ppt import is_ppt</span>
 <a id="__codelineno-0-244" name="__codelineno-0-244"></a>
-<a id="__codelineno-0-245" name="__codelineno-0-245"></a><span class="sd">        # Construct a 2x3 separable PPT state of rank 2</span>
-<a id="__codelineno-0-246" name="__codelineno-0-246"></a><span class="sd">        # |ψ₁⟩ = |0⟩⊗|0⟩, |ψ₂⟩ = |1⟩⊗|1⟩</span>
-<a id="__codelineno-0-247" name="__codelineno-0-247"></a><span class="sd">        psi1 = np.kron([1, 0], [1, 0, 0])</span>
-<a id="__codelineno-0-248" name="__codelineno-0-248"></a><span class="sd">        psi2 = np.kron([0, 1], [0, 1, 0])</span>
-<a id="__codelineno-0-249" name="__codelineno-0-249"></a><span class="sd">        rho = 0.5 * (np.outer(psi1, psi1.conj()) + np.outer(psi2, psi2.conj()))</span>
+<a id="__codelineno-0-245" name="__codelineno-0-245"></a><span class="sd">    # Construct a 2x3 separable PPT state of rank 2</span>
+<a id="__codelineno-0-246" name="__codelineno-0-246"></a><span class="sd">    # |ψ₁⟩ = |0⟩⊗|0⟩, |ψ₂⟩ = |1⟩⊗|1⟩</span>
+<a id="__codelineno-0-247" name="__codelineno-0-247"></a><span class="sd">    psi1 = np.kron([1, 0], [1, 0, 0])</span>
+<a id="__codelineno-0-248" name="__codelineno-0-248"></a><span class="sd">    psi2 = np.kron([0, 1], [0, 1, 0])</span>
+<a id="__codelineno-0-249" name="__codelineno-0-249"></a><span class="sd">    rho = 0.5 * (np.outer(psi1, psi1.conj()) + np.outer(psi2, psi2.conj()))</span>
 <a id="__codelineno-0-250" name="__codelineno-0-250"></a>
-<a id="__codelineno-0-251" name="__codelineno-0-251"></a><span class="sd">        print(&quot;Is the state PPT?&quot;, is_ppt(rho, dim=[2, 3]))         # True</span>
-<a id="__codelineno-0-252" name="__codelineno-0-252"></a><span class="sd">        print(&quot;Is the state separable?&quot;, is_separable(rho, dim=[2, 3]))  # True</span>
+<a id="__codelineno-0-251" name="__codelineno-0-251"></a><span class="sd">    print(&quot;Is the state PPT?&quot;, is_ppt(rho, dim=[2, 3]))         # True</span>
+<a id="__codelineno-0-252" name="__codelineno-0-252"></a><span class="sd">    print(&quot;Is the state separable?&quot;, is_separable(rho, dim=[2, 3]))  # True</span>
 <a id="__codelineno-0-253" name="__codelineno-0-253"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-254" name="__codelineno-0-254"></a>
 <a id="__codelineno-0-255" name="__codelineno-0-255"></a><span class="sd">    &quot;&quot;&quot;</span>

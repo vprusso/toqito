@@ -8841,21 +8841,21 @@ Finds the PSD rank of an input matrix by checking feasibility for increasing ran
     \end{pmatrix}
 \]</div>
 <p>is known to be <span class="arithmatex">\(\text{rank}_{\text{PSD}}(A) = 2\)</span>.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.matrix_props</span><span class="w"> </span><span class="kn">import</span> <span class="n">positive_semidefinite_rank</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">A</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]])</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">positive_semidefinite_rank</span><span class="p">(</span><span class="n">A</span><span class="p">))</span>
+<p>```python exec="1" source="above"</p>
+        <p>import numpy as np
+from toqito.matrix_props import positive_semidefinite_rank</p>
+<p>A = 1/2 * np.array([[0, 1, 1], [1, 0, 1], [1, 1, 0]])
+print(positive_semidefinite_rank(A))
+    ```</p>
+<div class="highlight"><pre><span></span><code>The PSD rank of the identity matrix is the dimension of the matrix &lt;sup&gt;&lt;a id=&quot;cite-toqito-matrix_props-positive_semidefinite_rank-positive_semidefinite_rank-1&quot; href=&quot;#ref-toqito-matrix_props-positive_semidefinite_rank-positive_semidefinite_rank-1&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;.
+
+```python exec=&quot;1&quot; source=&quot;above&quot;
 </code></pre></div>
-<p>2</p>
-<p>The PSD rank of the identity matrix is the dimension of the matrix <sup><a id="cite-toqito-matrix_props-positive_semidefinite_rank-positive_semidefinite_rank-1" href="#ref-toqito-matrix_props-positive_semidefinite_rank-positive_semidefinite_rank-1">1</a></sup>.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.matrix_props</span><span class="w"> </span><span class="kn">import</span> <span class="n">positive_semidefinite_rank</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="nb">print</span><span class="p">(</span><span class="n">positive_semidefinite_rank</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="mi">3</span><span class="p">)))</span>
-</code></pre></div>
-<p>3</p>
-        <p><strong>References</strong></p>
+<p>import numpy as np
+from toqito.matrix_props import positive_semidefinite_rank</p>
+<p>print(positive_semidefinite_rank(np.identity(3)))
+    ```</p>
+<p><strong>References</strong></p>
 <p><span id="ref-toqito-matrix_props-positive_semidefinite_rank-positive_semidefinite_rank-1"><sup><a href="#cite-toqito-matrix_props-positive_semidefinite_rank-positive_semidefinite_rank-1">1</a></sup> Fawzi, Hamza and Gouveia, Jo{\~a}o and Parrilo, Pablo and Robinson, Richard and Thomas, Rekha. <em>Positive semidefinite rank</em>. <strong>Mathematical Programming</strong>. vol. 153. (2015). <a href="https://arxiv.org/abs/1407.4095">link</a>.</span><br>
 <span id="ref-toqito-matrix_props-positive_semidefinite_rank-positive_semidefinite_rank-2"><sup><a href="#cite-toqito-matrix_props-positive_semidefinite_rank-positive_semidefinite_rank-2">2</a></sup> Heinosaari, Teiko and Hillery, Mark. <em>Can a qudit carry more information than a dit?</em>. <strong>arXiv preprint arXiv:2406.16566</strong>. (2024). <a href="https://arxiv.org/abs/2406.16566">link</a>.</span></p>
 
@@ -8943,20 +8943,20 @@ Finds the PSD rank of an input matrix by checking feasibility for increasing ran
 <a id="__codelineno-0-34" name="__codelineno-0-34"></a><span class="sd">        is known to be \(\text{rank}_{\text{PSD}}(A) = 2\).</span>
 <a id="__codelineno-0-35" name="__codelineno-0-35"></a>
 <a id="__codelineno-0-36" name="__codelineno-0-36"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-37" name="__codelineno-0-37"></a><span class="sd">        import numpy as np</span>
-<a id="__codelineno-0-38" name="__codelineno-0-38"></a><span class="sd">        from toqito.matrix_props import positive_semidefinite_rank</span>
+<a id="__codelineno-0-37" name="__codelineno-0-37"></a><span class="sd">    import numpy as np</span>
+<a id="__codelineno-0-38" name="__codelineno-0-38"></a><span class="sd">    from toqito.matrix_props import positive_semidefinite_rank</span>
 <a id="__codelineno-0-39" name="__codelineno-0-39"></a>
-<a id="__codelineno-0-40" name="__codelineno-0-40"></a><span class="sd">        A = 1/2 * np.array([[0, 1, 1], [1, 0, 1], [1, 1, 0]])</span>
-<a id="__codelineno-0-41" name="__codelineno-0-41"></a><span class="sd">        print(positive_semidefinite_rank(A))</span>
+<a id="__codelineno-0-40" name="__codelineno-0-40"></a><span class="sd">    A = 1/2 * np.array([[0, 1, 1], [1, 0, 1], [1, 1, 0]])</span>
+<a id="__codelineno-0-41" name="__codelineno-0-41"></a><span class="sd">    print(positive_semidefinite_rank(A))</span>
 <a id="__codelineno-0-42" name="__codelineno-0-42"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-43" name="__codelineno-0-43"></a>
 <a id="__codelineno-0-44" name="__codelineno-0-44"></a><span class="sd">        The PSD rank of the identity matrix is the dimension of the matrix [@fawzi2015positive].</span>
 <a id="__codelineno-0-45" name="__codelineno-0-45"></a>
 <a id="__codelineno-0-46" name="__codelineno-0-46"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-47" name="__codelineno-0-47"></a><span class="sd">        import numpy as np</span>
-<a id="__codelineno-0-48" name="__codelineno-0-48"></a><span class="sd">        from toqito.matrix_props import positive_semidefinite_rank</span>
+<a id="__codelineno-0-47" name="__codelineno-0-47"></a><span class="sd">    import numpy as np</span>
+<a id="__codelineno-0-48" name="__codelineno-0-48"></a><span class="sd">    from toqito.matrix_props import positive_semidefinite_rank</span>
 <a id="__codelineno-0-49" name="__codelineno-0-49"></a>
-<a id="__codelineno-0-50" name="__codelineno-0-50"></a><span class="sd">        print(positive_semidefinite_rank(np.identity(3)))</span>
+<a id="__codelineno-0-50" name="__codelineno-0-50"></a><span class="sd">    print(positive_semidefinite_rank(np.identity(3)))</span>
 <a id="__codelineno-0-51" name="__codelineno-0-51"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-52" name="__codelineno-0-52"></a>
 <a id="__codelineno-0-53" name="__codelineno-0-53"></a><span class="sd">    &quot;&quot;&quot;</span>

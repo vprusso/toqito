@@ -8885,16 +8885,27 @@ sequences with repeated indices (diagonal elements).</p>
     e_0 = \left[1, 0 \right]^{\text{T}}, e_1 = \left[0, 1 \right]^{\text{T}}.
 \]</div>
 <p>We can generate all possible tensor products for sequences of length 2.</p>
-        <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>  <span class="n">File</span> <span class="s2">&quot;/home/runner/work/toqito/toqito/.venv/lib/python3.12/site-packages/markdown_exec/_internal/formatters/python.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">71</span><span class="p">,</span> <span class="ow">in</span> <span class="n">_run_python</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    <span class="n">exec_python</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="n">code_block_id</span><span class="p">,</span> <span class="n">exec_globals</span><span class="p">)</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>  <span class="n">File</span> <span class="s2">&quot;/home/runner/work/toqito/toqito/.venv/lib/python3.12/site-packages/markdown_exec/_internal/formatters/_exec_python.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">7</span><span class="p">,</span> <span class="ow">in</span> <span class="n">exec_python</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="n">compiled</span> <span class="o">=</span> <span class="nb">compile</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="n">filename</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;exec&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>               <span class="o">^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^</span>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>  <span class="n">File</span> <span class="s2">&quot;&lt;code block: n85&gt;&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">1</span>
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    <span class="kn">from</span><span class="w"> </span><span class="nn">toqito.matrix_ops</span><span class="w"> </span><span class="kn">import</span> <span class="n">tensor_comb</span>
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="ne">IndentationError</span><span class="p">:</span> <span class="n">unexpected</span> <span class="n">indent</span>
+        <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.matrix_ops</span><span class="w"> </span><span class="kn">import</span> <span class="n">tensor_comb</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">e_0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="n">e_1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="n">result</span> <span class="o">=</span> <span class="n">tensor_comb</span><span class="p">([</span><span class="n">e_0</span><span class="p">,</span> <span class="n">e_1</span><span class="p">],</span> <span class="mi">2</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;injective&quot;</span><span class="p">,</span> <span class="n">density_matrix</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">mat</span> <span class="ow">in</span> <span class="n">result</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;tensor_comb</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2"> =</span><span class="se">\n</span><span class="si">{</span><span class="n">mat</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
 </code></pre></div>
+<p>tensor_comb(0, 1) =
+[[0 0 0 0]
+ [0 1 0 0]
+ [0 0 0 0]
+ [0 0 0 0]]</p>
+<p>tensor_comb(1, 0) =
+[[0 0 0 0]
+ [0 0 0 0]
+ [0 0 1 0]
+ [0 0 0 0]]</p>
 <p><strong>References</strong></p>
 <p><span id="ref-toqito-matrix_ops-tensor_comb-tensor_comb-1"><sup><a href="#cite-toqito-matrix_ops-tensor_comb-tensor_comb-1">1</a></sup> Gupta, Tathagata and Murshid, Shayeef and Russo, Vincent and Bandyopadhyay, Somshubhro. <em>Optimal discrimination of quantum sequences</em>. <strong>arXiv preprint arXiv:2409.08705</strong>. (2024).</span></p>
 
@@ -9025,16 +9036,16 @@ sequences with repeated indices (diagonal elements).</p>
 <a id="__codelineno-0-48" name="__codelineno-0-48"></a>
 <a id="__codelineno-0-49" name="__codelineno-0-49"></a><span class="sd">        We can generate all possible tensor products for sequences of length 2.</span>
 <a id="__codelineno-0-50" name="__codelineno-0-50"></a><span class="sd">    ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-51" name="__codelineno-0-51"></a><span class="sd">        from toqito.matrix_ops import tensor_comb</span>
-<a id="__codelineno-0-52" name="__codelineno-0-52"></a><span class="sd">        import numpy as np</span>
+<a id="__codelineno-0-51" name="__codelineno-0-51"></a><span class="sd">    from toqito.matrix_ops import tensor_comb</span>
+<a id="__codelineno-0-52" name="__codelineno-0-52"></a><span class="sd">    import numpy as np</span>
 <a id="__codelineno-0-53" name="__codelineno-0-53"></a>
-<a id="__codelineno-0-54" name="__codelineno-0-54"></a><span class="sd">        e_0 = np.array([1, 0])</span>
-<a id="__codelineno-0-55" name="__codelineno-0-55"></a><span class="sd">        e_1 = np.array([0, 1])</span>
+<a id="__codelineno-0-54" name="__codelineno-0-54"></a><span class="sd">    e_0 = np.array([1, 0])</span>
+<a id="__codelineno-0-55" name="__codelineno-0-55"></a><span class="sd">    e_1 = np.array([0, 1])</span>
 <a id="__codelineno-0-56" name="__codelineno-0-56"></a>
-<a id="__codelineno-0-57" name="__codelineno-0-57"></a><span class="sd">        result = tensor_comb([e_0, e_1], 2, mode=&quot;injective&quot;, density_matrix=True)</span>
+<a id="__codelineno-0-57" name="__codelineno-0-57"></a><span class="sd">    result = tensor_comb([e_0, e_1], 2, mode=&quot;injective&quot;, density_matrix=True)</span>
 <a id="__codelineno-0-58" name="__codelineno-0-58"></a>
-<a id="__codelineno-0-59" name="__codelineno-0-59"></a><span class="sd">        for key, mat in result.items():</span>
-<a id="__codelineno-0-60" name="__codelineno-0-60"></a><span class="sd">            print(f&quot;tensor_comb{key} =\n{mat}\n&quot;)</span>
+<a id="__codelineno-0-59" name="__codelineno-0-59"></a><span class="sd">    for key, mat in result.items():</span>
+<a id="__codelineno-0-60" name="__codelineno-0-60"></a><span class="sd">        print(f&quot;tensor_comb{key} =\n{mat}\n&quot;)</span>
 <a id="__codelineno-0-61" name="__codelineno-0-61"></a><span class="sd">    ```</span>
 <a id="__codelineno-0-62" name="__codelineno-0-62"></a>
 <a id="__codelineno-0-63" name="__codelineno-0-63"></a><span class="sd">    &quot;&quot;&quot;</span>
