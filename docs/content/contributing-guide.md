@@ -175,7 +175,7 @@ function follows the formatting specifications in [Code Style](#code-style). A s
 def my_new_function(some_parameter: parameter_type) -> return_type:
     r"""One liner description of the new function.
 
-    Detailed description of the function [@some_citation_key].
+    Detailed description of the function, citing relevant papers where appropriate [@johnston2014counting].
 
     Examples:
         Demonstrate how the function works with expected output.
@@ -196,7 +196,7 @@ def my_new_function(some_parameter: parameter_type) -> return_type:
 ```
 
 Use `\(\)` for inline math and `\[\]` for display math in docstrings.
-Use `[@ citation_key]` for citations in docstrings (e.g., `[@johnston2014counting]`).
+Use `[@citation_key]` for citations in docstrings (e.g., `[@johnston2014counting]`).
 
 To add an attribution to a paper or a book, add your reference with
 `some_ref` as the citation key to `docs/content/refs.bib`. All references in
