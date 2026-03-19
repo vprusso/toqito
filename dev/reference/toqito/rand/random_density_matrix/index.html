@@ -759,6 +759,8 @@
       
         
       
+        
+      
     
     
     
@@ -814,6 +816,34 @@
     
   
     Calculating the quantum and classical value of a two-player XOR game
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../generated/gallery/nonlocal_games/npa_hierarchy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The NPA Hierarchy
   
 
     
@@ -8892,8 +8922,8 @@ Haar measure or the Bures measure. Default value is to use the Haar measure.</p>
 <a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
 <a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">complex_dm</span><span class="p">)</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>[[0.27195961+0.j         0.4080609 -0.10268163j]
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a> [0.4080609 +0.10268163j 0.72804039+0.j        ]]
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>[[0.87016005+0.j         0.3233603 -0.04035225j]
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a> [0.3233603 +0.04035225j 0.12983995+0.j        ]]
 </code></pre></div>
 <p>We can verify that this is in fact a valid density matrix using the <code>is_density</code> function from
 <code>|toqito⟩</code> as follows</p>
@@ -8910,8 +8940,8 @@ Haar measure or the Bures measure. Default value is to use the Haar measure.</p>
 <a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
 <a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">real_dm</span><span class="p">)</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>[[0.12804506 0.32698228]
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a> [0.32698228 0.87195494]]
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>[[0.79874114 0.3418685 ]
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a> [0.3418685  0.20125886]]
 </code></pre></div>
 <p>Again, verifying that this is a valid density matrix can be done as follows.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.matrix_props</span><span class="w"> </span><span class="kn">import</span> <span class="n">is_density</span>
@@ -8928,8 +8958,8 @@ random density matrix according to the Bures metric instead as follows.</p>
 <a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
 <a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">bures_mat</span><span class="p">)</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>[[ 0.27048979+0.j         -0.09577625-0.33754248j]
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a> [-0.09577625+0.33754248j  0.72951021+0.j        ]]
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>[[ 0.38649739+0.j         -0.17927062+0.08526172j]
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a> [-0.17927062-0.08526172j  0.61350261+0.j        ]]
 </code></pre></div>
 <p>As before, we can verify that this matrix generated is a valid density matrix.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.matrix_props</span><span class="w"> </span><span class="kn">import</span> <span class="n">is_density</span>

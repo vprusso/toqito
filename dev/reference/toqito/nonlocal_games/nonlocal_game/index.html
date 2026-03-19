@@ -759,6 +759,8 @@
       
         
       
+        
+      
     
     
     
@@ -814,6 +816,34 @@
     
   
     Calculating the quantum and classical value of a two-player XOR game
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../generated/gallery/nonlocal_games/npa_hierarchy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The NPA Hierarchy
   
 
     
@@ -9675,16 +9705,27 @@ satisfied.</p>
 <p>The optimal quantum value of CHSH is
 <span class="arithmatex">\(\cos(\pi/8)^2 \approx 0.8536\)</span> where the optimal classical value
 is <span class="arithmatex">\(3/4\)</span>.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>  <span class="n">File</span> <span class="s2">&quot;/home/runner/work/toqito/toqito/.venv/lib/python3.12/site-packages/markdown_exec/_internal/formatters/python.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">71</span><span class="p">,</span> <span class="ow">in</span> <span class="n">_run_python</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    <span class="n">exec_python</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="n">code_block_id</span><span class="p">,</span> <span class="n">exec_globals</span><span class="p">)</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>  <span class="n">File</span> <span class="s2">&quot;/home/runner/work/toqito/toqito/.venv/lib/python3.12/site-packages/markdown_exec/_internal/formatters/_exec_python.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">7</span><span class="p">,</span> <span class="ow">in</span> <span class="n">exec_python</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="n">compiled</span> <span class="o">=</span> <span class="nb">compile</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="n">filename</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;exec&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>               <span class="o">^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^</span>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>  <span class="n">File</span> <span class="s2">&quot;&lt;code block: n175&gt;&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">11</span>
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    <span class="k">for</span> <span class="n">b_bob</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_bob_outputs</span><span class="p">):</span>
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>    <span class="o">^^^</span>
-<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="ne">IndentationError</span><span class="p">:</span> <span class="n">expected</span> <span class="n">an</span> <span class="n">indented</span> <span class="n">block</span> <span class="n">after</span> <span class="s1">&#39;for&#39;</span> <span class="n">statement</span> <span class="n">on</span> <span class="n">line</span> <span class="mi">10</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.nonlocal_games.nonlocal_game</span><span class="w"> </span><span class="kn">import</span> <span class="n">NonlocalGame</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">dim</span> <span class="o">=</span> <span class="mi">2</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="n">num_alice_inputs</span><span class="p">,</span> <span class="n">num_alice_outputs</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="n">num_bob_inputs</span><span class="p">,</span> <span class="n">num_bob_outputs</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="n">prob_mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span> <span class="o">/</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span> <span class="o">/</span> <span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span> <span class="o">/</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span> <span class="o">/</span> <span class="mi">4</span><span class="p">]])</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="n">pred_mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">num_alice_outputs</span><span class="p">,</span> <span class="n">num_bob_outputs</span><span class="p">,</span> <span class="n">num_alice_inputs</span><span class="p">,</span> <span class="n">num_bob_inputs</span><span class="p">))</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="k">for</span> <span class="n">a_alice</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_alice_outputs</span><span class="p">):</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>    <span class="k">for</span> <span class="n">b_bob</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_bob_outputs</span><span class="p">):</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>        <span class="k">for</span> <span class="n">x_alice</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_alice_inputs</span><span class="p">):</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>            <span class="k">for</span> <span class="n">y_bob</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_bob_inputs</span><span class="p">):</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>                <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">mod</span><span class="p">(</span><span class="n">a_alice</span> <span class="o">+</span> <span class="n">b_bob</span> <span class="o">+</span> <span class="n">x_alice</span> <span class="o">*</span> <span class="n">y_bob</span><span class="p">,</span> <span class="n">dim</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>                    <span class="n">pred_mat</span><span class="p">[</span><span class="n">a_alice</span><span class="p">,</span> <span class="n">b_bob</span><span class="p">,</span> <span class="n">x_alice</span><span class="p">,</span> <span class="n">y_bob</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="n">chsh</span> <span class="o">=</span> <span class="n">NonlocalGame</span><span class="p">(</span><span class="n">prob_mat</span><span class="p">,</span> <span class="n">pred_mat</span><span class="p">)</span>
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="nb">print</span><span class="p">(</span><span class="n">chsh</span><span class="o">.</span><span class="n">quantum_value_lower_bound</span><span class="p">())</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>0.8535520951851436
 </code></pre></div>
         <p><strong>References</strong></p>
 <p><span id="ref-toqito-nonlocal_games-nonlocal_game-NonlocalGame-quantum_value_lower_bound-1"><sup><a href="#cite-toqito-nonlocal_games-nonlocal_game-NonlocalGame-quantum_value_lower_bound-1">1</a></sup> Liang, Yeong-Cherng and Doherty, Andrew. <em>Bounds on quantum correlations in Bell-inequality experiments</em>. <strong>Physical Review A</strong>. vol. 75(4). (2007). <a href="https://doi.org/10.1103/physreva.75.042103">doi:10.1103/physreva.75.042103</a>.</span></p>
@@ -9995,11 +10036,11 @@ is <span class="arithmatex">\(3/4\)</span>.</p>
 <a id="__codelineno-0-324" name="__codelineno-0-324"></a><span class="sd">        pred_mat = np.zeros((num_alice_outputs, num_bob_outputs, num_alice_inputs, num_bob_inputs))</span>
 <a id="__codelineno-0-325" name="__codelineno-0-325"></a>
 <a id="__codelineno-0-326" name="__codelineno-0-326"></a><span class="sd">        for a_alice in range(num_alice_outputs):</span>
-<a id="__codelineno-0-327" name="__codelineno-0-327"></a><span class="sd">        for b_bob in range(num_bob_outputs):</span>
-<a id="__codelineno-0-328" name="__codelineno-0-328"></a><span class="sd">        for x_alice in range(num_alice_inputs):</span>
-<a id="__codelineno-0-329" name="__codelineno-0-329"></a><span class="sd">           for y_bob in range(num_bob_inputs):</span>
-<a id="__codelineno-0-330" name="__codelineno-0-330"></a><span class="sd">               if np.mod(a_alice + b_bob + x_alice * y_bob, dim) == 0:</span>
-<a id="__codelineno-0-331" name="__codelineno-0-331"></a><span class="sd">                   pred_mat[a_alice, b_bob, x_alice, y_bob] = 1</span>
+<a id="__codelineno-0-327" name="__codelineno-0-327"></a><span class="sd">            for b_bob in range(num_bob_outputs):</span>
+<a id="__codelineno-0-328" name="__codelineno-0-328"></a><span class="sd">                for x_alice in range(num_alice_inputs):</span>
+<a id="__codelineno-0-329" name="__codelineno-0-329"></a><span class="sd">                    for y_bob in range(num_bob_inputs):</span>
+<a id="__codelineno-0-330" name="__codelineno-0-330"></a><span class="sd">                        if np.mod(a_alice + b_bob + x_alice * y_bob, dim) == 0:</span>
+<a id="__codelineno-0-331" name="__codelineno-0-331"></a><span class="sd">                            pred_mat[a_alice, b_bob, x_alice, y_bob] = 1</span>
 <a id="__codelineno-0-332" name="__codelineno-0-332"></a>
 <a id="__codelineno-0-333" name="__codelineno-0-333"></a><span class="sd">        chsh = NonlocalGame(prob_mat, pred_mat)</span>
 <a id="__codelineno-0-334" name="__codelineno-0-334"></a>
