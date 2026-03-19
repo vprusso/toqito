@@ -2,4 +2,4 @@
 
 The following rendered tutorials demonstrate introductory concepts:
 
-- [Introductory Tutorial](../gallery/basics/intro_tutorial.md)
+- [Introductory Tutorial](intro_tutorial.md)

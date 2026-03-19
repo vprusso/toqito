@@ -8,7 +8,7 @@ Bell states and trine states.
 # %%
 # Quantum state exclusion is very closely related to the problem of quantum state
 # distinguishability.
-# It may be useful to consult the [quantum state distinguishability](../state_distinguishability)
+# It may be useful to consult the [quantum state distinguishability](state_distinguishability.md)
 # tutorial on this topic.
 #
 # Further information beyond the scope of this tutorial can be found in the text
