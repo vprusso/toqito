@@ -3,35 +3,35 @@
 import numpy as np
 
 
-def mutual_coherence(vectors: list[np.ndarray]) -> float:
+def mutual_coherence(vectors: list[np.ndarray]) -> float | np.floating:
     r"""Calculate the mutual coherence of a collection of input vectors.
 
     The mutual coherence of a collection of input vectors is defined as the maximum
     absolute value of the inner product between any two distinct vectors, divided by the
-    product of their norms :footcite:`WikiMutualCoh`. It provides a measure of how
+    product of their norms [@wikipediamutualcoherence]. It provides a measure of how
     similar the vectors are to each other.
 
-    Examples
-    =======
-    .. jupyter-execute::
+    Args:
+        vectors: A list of 1D numpy arrays.
 
+    Returns:
+        The mutual coherence of the collection of input vectors.
+
+    Raises:
+        ValueError: If arrays in list are not 1D.
+        TypeError: If input is not a list.
+
+    Examples:
+        ```python exec="1" source="above" result="text"
         import numpy as np
         from toqito.matrix_props.mutual_coherence import mutual_coherence
         example_A = [np.array([1, 0]), np.array([0, 1])]
-        print("Result for example_A = ",mutual_coherence(example_A))
+        print("Result for example_A = ", mutual_coherence(example_A))
+
         # An example with a larger set of vectors
         example_B = [np.array([1, 0, 1]), np.array([0, 1, 1]), np.array([1, 1, 0])]
-        print("Result for example_B = ",mutual_coherence(example_B))
-
-    References
-    ==========
-    .. footbibliography::
-
-
-    :param vectors: A list of 1D numpy arrays.
-    :raises ValueError: If arrays in list are not 1D.
-    :raises TypeError: If input is not a list.
-    :return: The mutual coherence of the collection of input vectors.
+        print("Result for example_B = ", mutual_coherence(example_B))
+        ```
 
     """
     # Check if the input is a valid list of 1D numpy arrays.
@@ -43,7 +43,7 @@ def mutual_coherence(vectors: list[np.ndarray]) -> float:
     # Convert input into a 2D numpy array.
     vectors = np.column_stack(vectors).astype(float)
 
-    # Normalize the the vectors.
+    # Normalize the vectors.
     vectors /= np.linalg.norm(vectors, axis=0)
 
     # Calculate the inner product between all pairs of columns.

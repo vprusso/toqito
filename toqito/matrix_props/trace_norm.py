@@ -3,52 +3,49 @@
 import numpy as np
 
 
-def trace_norm(rho: np.ndarray) -> float:
-    r"""Compute the trace norm of the state :footcite:`Quantiki_TrNorm`.
+def trace_norm(rho: np.ndarray) -> float | np.floating:
+    r"""Compute the trace norm of the state [@quantikitracenorm].
 
     Also computes the operator 1-norm when inputting an operator.
 
-    The trace norm :math:`||\rho||_1` of a density matrix :math:`\rho` is the sum of the singular
-    values of :math:`\rho`. The singular values are the roots of the eigenvalues of
-    :math:`\rho \rho^*`.
+    The trace norm \(||\rho||_1\) of a density matrix \(\rho\) is the sum of the singular
+    values of \(\rho\). The singular values are the square roots of the eigenvalues of
+    \(\rho^* \rho\).
 
-    Examples
-    ==========
+    Args:
+        rho: Density operator.
 
-    Consider the following Bell state
+    Returns:
+        The trace norm of `rho`.
 
-    .. math::
-        u = \frac{1}{\sqrt{2}} \left( |00 \rangle + |11 \rangle \right) \in \mathcal{X}.
+    Examples:
+        Consider the following Bell state
 
-    The corresponding density matrix of :math:`u` may be calculated by:
+        \[
+            u = \frac{1}{\sqrt{2}} \left( |00 \rangle + |11 \rangle \right) \in \mathcal{X}.
+        \]
 
-    .. math::
-        \rho = u u^* = \begin{pmatrix}
-                         1 & 0 & 0 & 1 \\
-                         0 & 0 & 0 & 0 \\
-                         0 & 0 & 0 & 0 \\
-                         1 & 0 & 0 & 1
-                       \end{pmatrix} \in \text{D}(\mathcal{X}).
+        The corresponding density matrix of \(u\) is calculated as \(\rho = u u^*\):
 
-    It can be observed using :code:`|toqito⟩` that :math:`||\rho||_1 = 1` as follows.
+        \[
+            \rho = \frac{1}{2} \begin{pmatrix}
+                               1 & 0 & 0 & 1 \\
+                               0 & 0 & 0 & 0 \\
+                               0 & 0 & 0 & 0 \\
+                               1 & 0 & 0 & 1
+                             \end{pmatrix} \in \text{D}(\mathcal{X}).
+        \]
 
-    .. jupyter-execute::
+        It can be observed using `toqito` that \(||\rho||_1 = 1\) as follows:
 
-     from toqito.states import bell
-     from toqito.matrix_props import trace_norm
+        ```python exec="1" source="above" result="text"
+        from toqito.states import bell
+        from toqito.matrix_props import trace_norm
 
-     rho = bell(0) @ bell(0).conj().T
+        rho = bell(0) @ bell(0).conj().T
 
-     trace_norm(rho)
-
-    References
-    ==========
-    .. footbibliography::
-
-
-
-    :param rho: Density operator.
-    :return: The trace norm of :code:`rho`.
+        print(trace_norm(rho))
+        ```
 
     """
     return np.linalg.norm(rho, ord="nuc")

@@ -4,7 +4,7 @@ import numpy as np
 
 
 def vectors_to_gram_matrix(vectors: list[np.ndarray]) -> np.ndarray:
-    r"""Construct the Gram matrix from a list of vectors or density matrices :footcite:`WikiGram`.
+    r"""Construct the Gram matrix from a list of vectors or density matrices [@wikipediagram].
 
     The Gram matrix is a matrix of inner products. This function automatically detects whether the inputs
     are vectors (pure states) or density matrices (mixed states) and computes the appropriate Gram matrix.
@@ -12,58 +12,51 @@ def vectors_to_gram_matrix(vectors: list[np.ndarray]) -> np.ndarray:
     For vectors |ψᵢ⟩: G[i, j] = ⟨ψᵢ|ψⱼ⟩
     For density matrices ρᵢ: G[i, j] = Tr(ρᵢ ρⱼ)
 
-    Examples
-    ========
+    Args:
+        vectors: A list of vectors (1D/column arrays for pure states) or density matrices (2D arrays for mixed states).
 
-    Example with real vectors:
+    Returns:
+        The Gram matrix with entries G[i,j] = ⟨vᵢ|vⱼ⟩ for vectors or Tr(ρᵢρⱼ) for density matrices.
 
-    .. jupyter-execute::
+    Raises:
+        ValueError: If the vectors are not all of the same shape.
 
-     import numpy as np
-     from toqito.matrix_ops import vectors_to_gram_matrix
+    Examples:
+        Example with real vectors:
+        ```python exec="1" source="above" result="text"
+        import numpy as np
+        from toqito.matrix_ops import vectors_to_gram_matrix
 
-     vectors = [np.array([1, 2]), np.array([3, 4])]
-     gram_matrix = vectors_to_gram_matrix(vectors)
+        vectors = [np.array([1, 2]), np.array([3, 4])]
+        gram_matrix = vectors_to_gram_matrix(vectors)
 
-     gram_matrix
+        print(gram_matrix)
+        ```
 
-    Example with complex vectors:
+        Example with complex vectors:
+        ```python exec="1" source="above" result="text"
+        import numpy as np
+        from toqito.matrix_ops import vectors_to_gram_matrix
 
-    .. jupyter-execute::
+        vectors = [np.array([1+1j, 2+2j]), np.array([3+3j, 4+4j])]
+        gram_matrix = vectors_to_gram_matrix(vectors)
 
-     import numpy as np
-     from toqito.matrix_ops import vectors_to_gram_matrix
+        print(gram_matrix)
+        ```
 
-     vectors = [np.array([1+1j, 2+2j]), np.array([3+3j, 4+4j])]
-     gram_matrix = vectors_to_gram_matrix(vectors)
+        Example with density matrices (mixed states):
+        ```python exec="1" source="above" result="text"
+        import numpy as np
+        from toqito.matrix_ops import vectors_to_gram_matrix
 
-     gram_matrix
+        # Two mixed states
+        rho1 = 0.7 * np.array([[1., 0.], [0., 0.]]) + 0.3 * np.eye(2) / 2
+        rho2 = 0.7 * np.array([[0., 0.], [0., 1.]]) + 0.3 * np.eye(2) / 2
+        states = [rho1, rho2]
 
-    Example with density matrices (mixed states):
-
-    .. jupyter-execute::
-
-     import numpy as np
-     from toqito.matrix_ops import vectors_to_gram_matrix
-
-     # Two mixed states
-     rho1 = 0.7 * np.array([[1., 0.], [0., 0.]]) + 0.3 * np.eye(2) / 2
-     rho2 = 0.7 * np.array([[0., 0.], [0., 1.]]) + 0.3 * np.eye(2) / 2
-     states = [rho1, rho2]
-
-     gram_matrix = vectors_to_gram_matrix(states)
-     gram_matrix
-
-
-    References
-    ==========
-    .. footbibliography::
-
-
-    :raises ValueError: If the vectors are not all of the same shape.
-    :param vectors: A list of vectors (1D/column arrays for pure states) or density matrices (2D arrays for
-        mixed states).
-    :return: The Gram matrix with entries G[i,j] = ⟨vᵢ|vⱼ⟩ for vectors or Tr(ρᵢρⱼ) for density matrices.
+        gram_matrix = vectors_to_gram_matrix(states)
+        print(gram_matrix)
+        ```
 
     """
     # Check that all vectors are of the same shape

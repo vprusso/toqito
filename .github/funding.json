@@ -1,0 +1,85 @@
+{
+  "$schema": "https://fundingjson.org/schema/v1.1.0.json",
+  "version": "v1.1.0",
+  "entity": {
+    "type": "individual",
+    "role": "owner",
+    "name": "Vincent Russo",
+    "email": "vincentrusso1@gmail.com",
+    "phone": "",
+    "description": "Creator and lead maintainer of toqito, an open-source Python library for quantum information theory. Researcher in quantum computing with a focus on nonlocal games, quantum state distinguishability, and semidefinite programming applications in quantum information.",
+    "webpageUrl": {
+      "url": "https://vprusso.github.io/"
+    }
+  },
+  "projects": [
+    {
+      "guid": "toqito",
+      "name": "toqito",
+      "description": "toqito is an open-source Python library for studying quantum information and quantum computing. It provides a comprehensive suite of tools for working with quantum states, channels, measurements, and nonlocal games, leveraging semidefinite programming to solve complex problems in quantum information theory. Used by researchers and students worldwide, toqito is a NumFOCUS affiliated project and has been featured in numerous academic publications.",
+      "webpageUrl": {
+        "url": "https://vprusso.github.io/toqito/"
+      },
+      "repositoryUrl": {
+        "url": "https://github.com/vprusso/toqito"
+      },
+      "licenses": [
+        "spdx:MIT"
+      ],
+      "tags": [
+        "quantum-computing",
+        "quantum-information",
+        "python",
+        "semidefinite-programming",
+        "nonlocal-games",
+        "open-source",
+        "scientific-computing",
+        "research"
+      ]
+    }
+  ],
+  "funding": {
+    "channels": [
+      {
+        "guid": "github-sponsors",
+        "type": "payment-provider",
+        "address": "https://github.com/sponsors/vprusso",
+        "description": "Support toqito via GitHub Sponsors"
+      },
+      {
+        "guid": "paypal",
+        "type": "payment-provider",
+        "address": "https://www.paypal.me/vincentrusso1",
+        "description": "Support toqito via PayPal"
+      }
+    ],
+    "plans": [
+      {
+        "guid": "one-time-any",
+        "status": "active",
+        "name": "One-Time Donation",
+        "description": "Make a one-time contribution of any amount to support toqito development and maintenance.",
+        "amount": 0,
+        "currency": "USD",
+        "frequency": "one-time",
+        "channels": [
+          "github-sponsors",
+          "paypal"
+        ]
+      },
+      {
+        "guid": "monthly-support",
+        "status": "active",
+        "name": "Monthly Support",
+        "description": "Provide recurring monthly support for ongoing toqito development, maintenance, and community building.",
+        "amount": 0,
+        "currency": "USD",
+        "frequency": "monthly",
+        "channels": [
+          "github-sponsors"
+        ]
+      }
+    ],
+    "history": []
+  }
+}

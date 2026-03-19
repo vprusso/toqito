@@ -4,62 +4,60 @@ import numpy as np
 
 
 def is_square(mat: np.ndarray) -> bool:
-    r"""Determine if a matrix is square :footcite:`WikiSqMat`.
+    r"""Determine if a matrix is square [@wikipediasquare].
 
     A matrix is square if the dimensions of the rows and columns are equivalent.
 
-    Examples
-    ==========
+    Args:
+        mat: The matrix to check.
 
-    Consider the following matrix
+    Returns:
+        Returns `True` if the matrix is square and `False` otherwise.
 
-    .. math::
-        A = \begin{pmatrix}
-                1 & 2 & 3 \\
-                4 & 5 & 6 \\
-                7 & 8 & 9
-            \end{pmatrix}
+    Raises:
+        ValueError: If variable is not a matrix.
 
-    our function indicates that this is indeed a square matrix.
+    Examples:
+        Consider the following matrix
 
-    .. jupyter-execute::
+        \[
+            A = \begin{pmatrix}
+                    1 & 2 & 3 \\
+                    4 & 5 & 6 \\
+                    7 & 8 & 9
+                \end{pmatrix}
+        \]
 
-     import numpy as np
-     from toqito.matrix_props import is_square
+        our function indicates that this is indeed a square matrix.
 
-     A = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+        ```python exec="1" source="above" result="text"
+        import numpy as np
+        from toqito.matrix_props import is_square
 
-     is_square(A)
+        A = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
 
-    Alternatively, the following example matrix :math:`B` defined as
+        print(is_square(A))
+        ```
 
-    .. math::
-        B = \begin{pmatrix}
-                1 & 2 & 3 \\
-                4 & 5 & 6
-            \end{pmatrix}
+        Alternatively, the following example matrix \(B\) defined as
 
-    is not square.
+        \[
+            B = \begin{pmatrix}
+                    1 & 2 & 3 \\
+                    4 & 5 & 6
+                \end{pmatrix}
+        \]
 
-    .. jupyter-execute::
+        is not square.
 
-     import numpy as np
-     from toqito.matrix_props import is_square
+        ```python exec="1" source="above" result="text"
+        import numpy as np
+        from toqito.matrix_props import is_square
 
-     B = np.array([[1, 2, 3], [4, 5, 6]])
+        B = np.array([[1, 2, 3], [4, 5, 6]])
 
-     is_square(B)
-
-
-    References
-    ==========
-    .. footbibliography::
-
-
-
-    :raises ValueError: If variable is not a matrix.
-    :param mat: The matrix to check.
-    :return: Returns :code:`True` if the matrix is square and :code:`False` otherwise.
+        print(is_square(B))
+        ```
 
     """
     if len(mat.shape) != 2:

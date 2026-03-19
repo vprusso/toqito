@@ -1,11 +1,11 @@
 """Two-player extended nonlocal game."""
 
+import itertools
 from collections import defaultdict
 
 import cvxpy
 import numpy as np
 
-from toqito.helper import update_odometer
 from toqito.matrix_ops import tensor
 from toqito.rand import random_unitary
 from toqito.state_opt.npa_hierarchy import npa_constraints
@@ -20,27 +20,24 @@ class ExtendedNonlocalGame:
     made by the referee, on its part of the shared quantum state, in addition
     to Alice and Bob's answers to the questions sent by the referee.
 
-    Extended nonlocal games were initially defined in :footcite:`Johnston_2016_Extended` and more
-    information on these games can be found in :footcite:`Russo_2017_Extended`.
+    Extended nonlocal games were initially defined in [@johnston2016extended] and more
+    information on these games can be found in [@russo2017extended].
 
     For a detailed walkthrough and several examples, including the BB84 and CHSH
-    games, please see the tutorial on :ref:`sphx_glr_auto_examples_extended_nonlocal_games`.
-
-    References
-    ==========
-    .. footbibliography::
-
+    games, please see the tutorial on
+    [Extended Nonlocal Games](../../../generated/gallery/extended_nonlocal_games/enlg_introduction.md).
 
     """
 
     def __init__(self, prob_mat: np.ndarray, pred_mat: np.ndarray, reps: int = 1) -> None:
         """Construct extended nonlocal game object.
 
-        :param prob_mat: A matrix whose (x, y)-entry gives the probability
-                        that the referee will give Alice the value `x` and Bob
-                        the value `y`.
-        :param pred_mat:
-        :param reps: Number of parallel repetitions to perform.
+        Args:
+            prob_mat: A matrix whose (x, y)-entry gives the probability that the referee will give Alice the value `x`
+                and Bob the value `y`.
+            pred_mat: A matrix representing the predictions for the game.
+            reps: Number of parallel repetitions to perform.
+
         """
         if reps == 1:
             self.prob_mat = prob_mat
@@ -68,25 +65,21 @@ class ExtendedNonlocalGame:
                     self.num_bob_in**reps,
                 )
             )
-            i_ind = np.zeros(reps, dtype=int)
-            j_ind = np.zeros(reps, dtype=int)
-            for i in range(self.num_alice_in**reps):
-                for j in range(self.num_bob_in**reps):
+            for i, i_ind in enumerate(itertools.product(range(self.num_alice_in), repeat=reps)):
+                for j, j_ind in enumerate(itertools.product(range(self.num_bob_in), repeat=reps)):
                     to_tensor = np.empty([reps, self.dim_x, self.dim_y, self.num_alice_out, self.num_bob_out])
                     for k in range(reps - 1, -1, -1):
                         to_tensor[k] = pred_mat[:, :, :, :, i_ind[k], j_ind[k]]
                     pred_mat2[:, :, :, :, i, j] = tensor(to_tensor)
-                    j_ind = update_odometer(j_ind, self.num_bob_in * np.ones(reps))
-                i_ind = update_odometer(i_ind, self.num_alice_in * np.ones(reps))
             self.pred_mat = pred_mat2
             self.reps = reps
         self.__get_game_dims()
 
-    def __get_game_dims(self):
+    def __get_game_dims(self) -> None:
         """Initialize game dimensions from the prediction matrix.
 
         This private method checks whether the game dimensions have already been initialized by
-        inspecting the '_dims_initialized_by_get_game_dims' flag. If not, it extracts the dimensions
+        inspecting the `_dims_initialized_by_get_game_dims` flag. If not, it extracts the dimensions
         from the shape of 'self.pred_mat' and assigns the following instance attributes:
 
           - referee_dim: The first dimension of self.pred_mat.
@@ -117,37 +110,34 @@ class ExtendedNonlocalGame:
         unentangled strategies. Due to convexity and compactness, it is possible
         to calculate the unentangled extended nonlocal game by:
 
-        .. math::
+        \[
             \omega(G) = \max_{f, g}
             \lVert
             \sum_{(x,y) \in \Sigma_A \times \Sigma_B} \pi(x,y)
             V(f(x), g(y)|x, y)
             \rVert
+        \]
 
-        where the maximum is over all functions :math:`f : \Sigma_A \rightarrow
-        \Gamma_A` and :math:`g : \Sigma_B \rightarrow \Gamma_B`.
+        where the maximum is over all functions \(f : \Sigma_A \rightarrow
+        \Gamma_A\) and \(g : \Sigma_B \rightarrow \Gamma_B\).
 
-        :return: The unentangled value of the extended nonlocal game.
+        Returns:
+            The unentangled value of the extended nonlocal game.
+
         """
         dim_x, dim_y, alice_out, bob_out, alice_in, bob_in = self.pred_mat.shape
 
         max_unent_val = float("-inf")
-        for a_out in range(alice_out):
-            for b_out in range(bob_out):
+        for f_alice in itertools.product(range(alice_out), repeat=alice_in):
+            for g_bob in itertools.product(range(bob_out), repeat=bob_in):
                 p_win = np.zeros([dim_x, dim_y], dtype=complex)
                 for x_in in range(alice_in):
                     for y_in in range(bob_in):
-                        p_win += self.prob_mat[x_in, y_in] * self.pred_mat[:, :, a_out, b_out, x_in, y_in]
+                        p_win += self.prob_mat[x_in, y_in] * self.pred_mat[:, :, f_alice[x_in], g_bob[y_in], x_in, y_in]
 
-                rho = cvxpy.Variable((dim_x, dim_y), hermitian=True)
-
-                objective = cvxpy.Maximize(cvxpy.real(cvxpy.trace(p_win.conj().T @ rho)))
-
-                constraints = [cvxpy.trace(rho) == 1, rho >> 0]
-                problem = cvxpy.Problem(objective, constraints)
-                unent_val = problem.solve()
+                unent_val = max(np.linalg.eigvalsh(p_win))
                 max_unent_val = max(max_unent_val, unent_val)
-        return max_unent_val
+        return float(max_unent_val)
 
     def nonsignaling_value(self) -> float:
         r"""Calculate the non-signaling value of an extended nonlocal game.
@@ -159,31 +149,36 @@ class ExtendedNonlocalGame:
         A *non-signaling strategy* for an extended nonlocal game consists of a
         function
 
-        .. math::
+        \[
             K : \Gamma_A \times \Gamma_B \times \Sigma_A \times \Sigma_B
             \rightarrow \text{Pos}(\mathcal{R})
+        \]
 
         such that
 
-        .. math::
+        \[
             \sum_{a \in \Gamma_A} K(a,b|x,y) = \rho_b^y
             \quad \text{and} \quad
             \sum_{b \in \Gamma_B} K(a,b|x,y) = \sigma_a^x,
+        \]
 
-        for all :math:`x \in \Sigma_A` and :math:`y \in \Sigma_B` where
-        :math:`\{\rho_b^y : y \in \Sigma_A, \ b \in \Gamma_B\}` and
-        :math:`\{\sigma_a^x : x \in \Sigma_A, \ a \in \Gamma_B\}` are
+        for all \(x \in \Sigma_A\) and \(y \in \Sigma_B\) where
+        \(\{\rho_b^y : y \in \Sigma_A, \ b \in \Gamma_B\}\) and
+        \(\{\sigma_a^x : x \in \Sigma_A, \ a \in \Gamma_B\}\) are
         collections of operators satisfying
 
-        .. math::
+        \[
             \sum_{a \in \Gamma_A} \rho_b^y =
             \tau =
             \sum_{b \in \Gamma_B} \sigma_a^x,
+        \]
 
-        for every choice of :math:`x \in \Sigma_A` and :math:`y \in \Sigma_B`
-        where :math:`\tau \in \text{D}(\mathcal{R})` is a density operator.
+        for every choice of \(x \in \Sigma_A\) and \(y \in \Sigma_B\)
+        where \(\tau \in \text{D}(\mathcal{R})\) is a density operator.
 
-        :return: The non-signaling value of the extended nonlocal game.
+        Returns:
+            The non-signaling value of the extended nonlocal game.
+
         """
         dim_x, dim_y, alice_out, bob_out, alice_in, bob_in = self.pred_mat.shape
         constraints = []
@@ -280,23 +275,28 @@ class ExtendedNonlocalGame:
         self,
         iters: int = 20,
         tol: float = 1e-8,
-        seed: int = None,
+        seed: int | None = None,
         initial_bob_is_random: bool | dict = False,
         solver: str = cvxpy.SCS,
-        solver_params: dict = None,
+        solver_params: dict | None = None,
         verbose: bool = False,
     ) -> float:
         r"""Calculate lower bound on the quantum value of an extended nonlocal game.
 
         Uses an iterative see-saw method involving two SDPs.
 
-        :param iter: Maximum number of see-saw iterations (Alice optimizes, Bob optimizes (default is 20).
-        :param tol: Tolerance for stopping see-saw iteration based on improvement (default is 1e-8).
-        :param seed: Optional seed for initializing random POVMs for reproducibility (default is None).
-        :param solver: Optional option for different solver (default is SCS).
-        :param solver_params: Optional parameters for solver (default is {"eps": 1e-8, "verbose": False}).
-        :param verbos: Optional printout for optimizer step (default is False).
-        :return: The best lower bound found on the quantum value.
+        Args:
+            iters: Maximum number of see-saw iterations (Alice optimizes, Bob optimizes (default is 20).
+            tol: Tolerance for stopping see-saw iteration based on improvement (default is 1e-8).
+            seed: Optional seed for initializing random POVMs for reproducibility (default is None).
+            initial_bob_is_random: Optional
+            solver: Optional option for different solver (default is SCS).
+            solver_params: Optional parameters for solver (default is {"eps": 1e-8, "verbose": False}).
+            verbose: Optional printout for optimizer step (default is False).
+
+        Returns:
+            The best lower bound found on the quantum value.
+
         """
         self.__get_game_dims()
         if solver_params is None:
@@ -410,7 +410,7 @@ class ExtendedNonlocalGame:
         return current_best_lower_bound if current_best_lower_bound > -float("inf") else 0.0
 
     def __optimize_alice(
-        self, fixed_bob_povms_np: dict, solver: str = cvxpy.SCS, solver_params: dict = None
+        self, fixed_bob_povms_np: dict, solver: str = cvxpy.SCS, solver_params: dict | None = None
     ) -> tuple[dict | None, cvxpy.Problem]:
         """Fix Bob's measurements and optimize over Alice's measurements."""
         # The cvxpy package does not support optimizing over 4-dimensional objects.
@@ -463,7 +463,7 @@ class ExtendedNonlocalGame:
         return rho_xa_cvxpy_vars, problem
 
     def __optimize_bob(
-        self, alice_rho_cvxpy_vars: dict | None, solver: str = cvxpy.SCS, solver_params: dict = None
+        self, alice_rho_cvxpy_vars: dict | None, solver: str = cvxpy.SCS, solver_params: dict | None = None
     ) -> tuple[dict | None, cvxpy.Problem]:
         """Fix Alice's measurements and optimize over Bob's measurements."""
         # Get number of inputs and outputs.
@@ -512,32 +512,35 @@ class ExtendedNonlocalGame:
         return bob_povm_cvxpy_vars, problem
 
     def commuting_measurement_value_upper_bound(self, k: int | str = 1, no_signaling: bool = True) -> float:
-        """Compute an upper bound on the commuting measurement value of an extended nonlocal game.
+        r"""Compute an upper bound on the commuting measurement value of an extended nonlocal game.
 
         This function calculates an upper bound on the commuting measurement value by
-        using k-levels of the NPA hierarchy :footcite:`Navascues_2008_AConvergent`. The NPA hierarchy is a uniform
-        family of semidefinite programs that converges to the commuting measurement value of
-        any extended nonlocal game.
+            using k-levels of the NPA hierarchy [@navascues2008convergent]. The NPA hierarchy is a uniform
+            family of semidefinite programs that converges to the commuting measurement value of
+            any extended nonlocal game.
 
         You can determine the level of the hierarchy by a positive integer or a string
-        of a form like '1+ab+aab', which indicates that an intermediate level of the hierarchy
-        should be used, where this example uses all products of one measurement, all products of
-        one Alice and one Bob measurement, and all products of two Alice and one Bob measurements.
+            of a form like '1+ab+aab', which indicates that an intermediate level of the hierarchy
+            should be used, where this example uses all products of one measurement, all products of
+            one Alice and one Bob measurement, and all products of two Alice and one Bob measurements.
 
-        References
-        ==========
-        .. footbibliography::
+        Args:
+            k: The level of the NPA hierarchy to use (default=1).
+            no_signaling: Whether to enforce the no-signaling constraints (default=True).
 
-
-        :param k: The level of the NPA hierarchy to use (default=1).
-        :return: The upper bound on the commuting strategy value of an extended nonlocal game.
+        Returns:
+            The upper bound on the commuting strategy value of an extended nonlocal game.
 
         """
         dR, _, A_out, B_out, A_in, B_in = self.pred_mat.shape
         K = {}
         for x in range(A_in):
             for y in range(B_in):
-                K[(x, y)] = cvxpy.Variable((A_out * dR, B_out * dR), hermitian=True, name=f"K({x},{y})")
+                blocks = [[None for _ in range(B_out)] for _ in range(A_out)]
+                for a in range(A_out):
+                    for b in range(B_out):
+                        blocks[a][b] = cvxpy.Variable((dR, dR), hermitian=True, name=f"K({x},{y})_{a}{b}")
+                K[(x, y)] = cvxpy.bmat(blocks)
         total_win = cvxpy.Constant(0)
         for x in range(A_in):
             for y in range(B_in):

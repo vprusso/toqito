@@ -6,24 +6,25 @@ A random value is added sampled from a normal distribution scaled by `eps`.
 import numpy as np
 
 
-def perturb_vectors(vectors: list[np.ndarray], eps: float = 0.1) -> list[np.ndarray]:
+def perturb_vectors(vectors: list[np.ndarray], eps: float = 0.1) -> np.ndarray:
     """Perturb the vectors by adding a small random number to each element.
 
-    :param vectors: List of vectors to perturb.
-    :param eps: Amount by which to perturb vectors.
-    :return: Resulting list of perturbed vectors by a factor of epsilon.
+    Args:
+        vectors: List of vectors to perturb.
+        eps: Amount by which to perturb vectors.
 
-    Example:
-    ==========
+    Returns:
+        Resulting list of perturbed vectors by a factor of epsilon.
 
-    .. jupyter-execute::
+    Examples:
+        ```python exec="1" source="above" result="text"
+        import numpy as np
+        from toqito.matrix_ops import perturb_vectors
 
-     import numpy as np
-     from toqito.matrix_ops import perturb_vectors
+        vectors = [np.array([1.0, 2.0]), np.array([3.0, 4.0])]
 
-     vectors = [np.array([1.0, 2.0]), np.array([3.0, 4.0])]
-
-     perturb_vectors(vectors, eps=0.1)
+        print(perturb_vectors(vectors, eps=0.1))
+        ```
 
     """
     perturbed_vectors: list[np.ndarray] = []

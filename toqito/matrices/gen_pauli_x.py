@@ -4,12 +4,12 @@ import numpy as np
 
 
 def gen_pauli_x(dim: int) -> np.ndarray:
-    r"""Produce a :code:`dim`-by-:code:`dim` gen_pauli_x matrix :footcite:`WikiPauliGen`.
+    r"""Produce a `dim`-by-`dim` gen_pauli_x matrix [@wikipediageneralizedpauli].
 
-    Returns the gen_pauli_x matrix of dimension :code:`dim` described in :footcite:`WikiPauliGen`.
-    The gen_pauli_x matrix generates the following :code:`dim`-by-:code:`dim` matrix:
+    Returns the gen_pauli_x matrix of dimension `dim` described in [@wikipediageneralizedpauli].
+    The gen_pauli_x matrix generates the following `dim`-by-`dim` matrix:
 
-    .. math::
+    \[
         \Sigma_{1, d} = \begin{pmatrix}
                         0 & 0 & 0 & \ldots & 0 & 1 \\
                         1 & 0 & 0 & \ldots & 0 & 0 \\
@@ -18,37 +18,34 @@ def gen_pauli_x(dim: int) -> np.ndarray:
                         \vdots & \vdots & \vdots & \ddots & \vdots & \vdots \\
                         0 & 0 & 0 & \ldots & 1 & 0
                     \end{pmatrix}
+    \]
 
     The gen_pauli_x matrix is primarily used in the construction of the generalized
     Pauli operators.
 
-    Examples
-    ==========
+    Args:
+        dim: Dimension of the matrix.
 
-    The gen_pauli_x matrix generated from :math:`d = 3` yields the following matrix:
+    Returns:
+        `dim`-by-`dim` gen_pauli_x matrix.
 
-    .. math::
-        \Sigma_{1, 3} =
-        \begin{pmatrix}
-            0 & 0 & 1 \\
-            1 & 0 & 0 \\
-            0 & 1 & 0
-        \end{pmatrix}
+    Examples:
+        The gen_pauli_x matrix generated from \(d = 3\) yields the following matrix:
 
-    .. jupyter-execute::
+        \[
+            \Sigma_{1, 3} =
+            \begin{pmatrix}
+                0 & 0 & 1 \\
+                1 & 0 & 0 \\
+                0 & 1 & 0
+            \end{pmatrix}
+        \]
 
-     from toqito.matrices import gen_pauli_x
+        ```python exec="1" source="above" result="text"
+        from toqito.matrices import gen_pauli_x
 
-     gen_pauli_x(3)
-
-    References
-    ==========
-    .. footbibliography::
-
-
-
-    :param dim: Dimension of the matrix.
-    :return: :code:`dim`-by-:code:`dim` gen_pauli_x matrix.
+        print(gen_pauli_x(3))
+        ```
 
     """
     # First column of the identity matrix becomes the last column due to `shift = -1` and `axis=1`

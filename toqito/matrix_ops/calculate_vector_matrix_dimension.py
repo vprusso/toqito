@@ -10,53 +10,51 @@ def calculate_vector_matrix_dimension(item: np.ndarray) -> int:
     2D arrays with one dimension being 1 as vector representations, and square 2D arrays as density matrices.
     The dimension is the length for vectors and the square of the side length for density matrices.
 
+    Args:
+        item: The item whose dimension is being calculated. Can be a 1D array (vector), a 2D array representing a vector
+            with one dimension being 1, or a square 2D array (density matrix).
 
-    :param item: The item whose dimension is being calculated. Can be a 1D array (vector), a 2D array representing
-                 a vector with one dimension being 1, or a square 2D array (density matrix).
-    :return: int
-        The dimension of the item. For vectors (1D or 2D representations), it's the length. For square
-        matrices, it's the square of the size of one side.
-    :raises ValueError:
-        If the input is not a numpy array, not a 1D array (vector), a 2D array representing a vector, or a square 2D
-        array (density matrix).
-    :return: The dimension of the vector or matrix.
+    Returns:
+        The dimension of the vector or matrix.
 
-    Example:
-    ==========
+    Raises:
+        ValueError: If the input is not a numpy array, not a 1D array (vector), a 2D array representing a vector, or a
+            square 2D array (density matrix).
 
-    Consider the following three-dimensional vector:
+    Examples:
+        Consider the following three-dimensional vector:
 
-    .. math::
-        v = \left[ 1, 0, 0 \right]^{\text{T}}.
+        \[
+            v = \left[ 1, 0, 0 \right]^{\text{T}}.
+        \]
 
-    For this case, the dimension of the vector is equal to its length
+        For this case, the dimension of the vector is equal to its length.
+        ```python exec="1" source="above" result="text"
+        import numpy as np
+        from toqito.matrix_ops import calculate_vector_matrix_dimension
 
-    .. jupyter-execute::
+        v = np.array([1, 0, 0])
 
-     import numpy as np
-     from toqito.matrix_ops import calculate_vector_matrix_dimension
+        print(calculate_vector_matrix_dimension(v))
+        ```
 
-     v = np.array([1, 0, 0])
+        For the density matrix of some two-dimensional quantum system
 
-     calculate_vector_matrix_dimension(v)
+        \[
+            \rho = \frac{1}{2}
+                    \begin{pmatrix}
+                        1 & 0 \\
+                        0 & 1
+                    \end{pmatrix}
+        \]
+        ```python exec="1" source="above" result="text"
+        import numpy as np
+        from toqito.matrix_ops import calculate_vector_matrix_dimension
 
-    For the density matrix of some two-dimensional quantum system
+        rho = np.array([[1/2, 0],[0, 1/2]])
 
-    .. math::
-        \rho = \frac{1}{2}
-                \begin{pmatrix}
-                    1 & 0 \\
-                    0 & 1
-                \end{pmatrix}
-
-    .. jupyter-execute::
-
-     import numpy as np
-     from toqito.matrix_ops import calculate_vector_matrix_dimension
-
-     rho = np.array([[1/2, 0],[0, 1/2]])
-
-     calculate_vector_matrix_dimension(rho)
+        print(calculate_vector_matrix_dimension(rho))
+        ```
 
     """
     # Check if the input is a numpy array

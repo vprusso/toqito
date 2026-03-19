@@ -9,36 +9,32 @@ def is_nonnegative(input_mat: np.ndarray, mat_type: str = "nonnegative") -> bool
     r"""Check if the matrix is nonnegative.
 
     When all the entries in the matrix are larger than or equal to zero the matrix of interest is a
-    nonnegative matrix :footcite:`WikiNonNegative`.
+    nonnegative matrix [@wikipedianonnegative].
 
-    When a matrix is nonegative and positive semidefinite :footcite:`WikiPosDef`, the matrix is doubly nonnegative.
+    When a matrix is nonegative and positive semidefinite [@wikipediadefinite], the matrix is doubly nonnegative.
 
+    Args:
+        input_mat: Matrix of interest.
+        mat_type: Type of nonnegative matrix. `"nonnegative"` for a nonnegative matrix and `"doubly"` for a doubly
+            nonnegative matrix.
 
-    Examples
-    ==========
-    We expect an identity matrix to be nonnegative.
+    Returns:
+        Return `True` if matrix is nonnegative (or doubly nonnegative if specified), and `False` otherwise.
 
-    .. jupyter-execute::
+    Raises:
+        TypeError: If something other than `"doubly"` or `"nonnegative"` is used for `mat_type`.
 
-     import numpy as np
-     from toqito.matrix_props import is_nonnegative
+    Examples:
+        We expect an identity matrix to be nonnegative.
 
-     print(is_nonnegative(np.eye(2)))
-     print(is_nonnegative(np.eye(2), "doubly"))
-     print(is_nonnegative(np.array([[1, -1], [1, 1]])))
+        ```python exec="1" source="above" result="text"
+        import numpy as np
+        from toqito.matrix_props import is_nonnegative
 
-
-    References
-    ==========
-    .. footbibliography::
-
-
-    :param input_mat: np.ndarray
-                    Matrix of interest.
-    :param mat_type: Type of nonnegative matrix. :code:`"nonnegative"` for a nonnegative matrix and :code:`"doubly"`
-                    for a doubly nonnegative matrix.
-    :raises TypeError: If something other than :code:`"doubly"`or :code:`"nonnegative"` is used for :code:`mat_type`.
-
+        print(is_nonnegative(np.eye(2)))
+        print(is_nonnegative(np.eye(2), "doubly"))
+        print(is_nonnegative(np.array([[1, -1], [1, 1]])))
+        ```
 
     """
     valid_types = {"nonnegative", "doubly"}

@@ -8,78 +8,94 @@ from toqito.states import max_entangled
 def dephasing(dim: int, param_p: float = 0) -> np.ndarray:
     r"""Produce the partially dephasing channel.
 
-    (Section: The Completely Dephasing Channel from :footcite:`Watrous_2018_TQI`).
+    (Section: The Completely Dephasing Channel from [@watrous2018theory]).
 
-    The Choi matrix of the completely dephasing channel that acts on :code:`dim`-by-:code:`dim`
+    The Choi matrix of the partially dephasing channel that acts on `dim`-by-`dim`
     matrices.
 
-    Let :math:`\Sigma` be an alphabet and let :math:`\mathcal{X} = \mathbb{C}^{\Sigma}`. The map
-    :math:`\Delta \in \text{T}(\mathcal{X})` defined as
+    The *partially dephasing channel* is defined as
 
-    .. math::
+    \[
+        \Phi_p(\rho) = (1 - p) \, \Delta(\rho) + p \, \rho
+    \]
+
+    where \(\Delta\) is the *completely dephasing channel*
+
+    \[
         \Delta(X) = \sum_{a \in \Sigma} X(a, a) E_{a,a}
+    \]
 
-    for every :math:`X \in \text{L}(\mathcal{X})` is defined as the *completely dephasing channel*.
+    which removes all off-diagonal elements. Here \(p \in [0, 1]\).
 
-    Examples
-    ==========
+    When \(p = 0\), this reduces to the completely dephasing channel \(\Delta\).
+    When \(p = 1\), this is the identity channel.
 
-    The completely dephasing channel maps kills everything off the diagonal. Consider the
-    following matrix
+    The corresponding Choi matrix is
 
-    .. math::
-        \rho = \begin{pmatrix}
-                   1 & 2 & 3 & 4 \\
-                   5 & 6 & 7 & 8 \\
-                   9 & 10 & 11 & 12 \\
-                   13 & 14 & 15 & 16
-               \end{pmatrix}.
+    \[
+        J(\Phi_p) = (1 - p) \, \text{diag}(|\psi\rangle\!\langle\psi|)
+        + p \, |\psi\rangle\!\langle\psi|
+    \]
 
-    Applying the dephasing channel to :math:`\rho` we have that
+    where \(|\psi\rangle = \sum_{i} |i\rangle \otimes |i\rangle\) is the (unnormalized)
+    maximally entangled state.
 
-    .. math::
-        \Phi(\rho) = \begin{pmatrix}
-                         1 & 0 & 0 & 0 \\
-                         0 & 6 & 0 & 0 \\
-                         0 & 0 & 11 & 0 \\
-                         0 & 0 & 0 & 16
-                     \end{pmatrix}.
+    Args:
+        dim: The dimensionality on which the channel acts.
+        param_p: Parameter \(p \in [0, 1]\) that interpolates between the completely dephasing
+            channel (\(p = 0\)) and the identity channel (\(p = 1\)). Default 0.
 
-    This can be observed in :code:`|toqito⟩` as follows.
+    Returns:
+        The Choi matrix of the partially dephasing channel.
 
-    .. jupyter-execute::
+    Examples:
+        The completely dephasing channel (\(p = 0\)) kills everything off the diagonal. Consider
+        the following matrix
 
-     import numpy as np
-     from toqito.channels import dephasing
-     from toqito.channel_ops import apply_channel
+        \[
+            \rho = \begin{pmatrix}
+                       1 & 2 & 3 & 4 \\
+                       5 & 6 & 7 & 8 \\
+                       9 & 10 & 11 & 12 \\
+                       13 & 14 & 15 & 16
+                   \end{pmatrix}.
+        \]
 
-     test_input_mat = np.arange(1, 17).reshape(4, 4)
+        Applying the dephasing channel to \(\rho\) we have that
 
-     apply_channel(test_input_mat, dephasing(4))
+        \[
+            \Phi(\rho) = \begin{pmatrix}
+                             1 & 0 & 0 & 0 \\
+                             0 & 6 & 0 & 0 \\
+                             0 & 0 & 11 & 0 \\
+                             0 & 0 & 0 & 16
+                         \end{pmatrix}.
+        \]
+
+        This can be observed in `|toqito⟩` as follows.
+
+        ```python exec="1" source="above" result="text"
+        import numpy as np
+        from toqito.channels import dephasing
+        from toqito.channel_ops import apply_channel
+
+        test_input_mat = np.arange(1, 17).reshape(4, 4)
+
+        print(apply_channel(test_input_mat, dephasing(4)))
+        ```
 
 
-    We may also consider setting the parameter :code:`p = 0.5`.
+        We may also consider setting the parameter `p = 0.5`.
 
-    .. jupyter-execute::
+        ```python exec="1" source="above" result="text"
+        import numpy as np
+        from toqito.channels import dephasing
+        from toqito.channel_ops import apply_channel
 
-     import numpy as np
-     from toqito.channels import dephasing
-     from toqito.channel_ops import apply_channel
+        test_input_mat = np.arange(1, 17).reshape(4, 4)
 
-     test_input_mat = np.arange(1, 17).reshape(4, 4)
-
-     apply_channel(test_input_mat, dephasing(4, 0.5))
-
-
-    References
-    ==========
-    .. footbibliography::
-
-
-
-    :param dim: The dimensionality on which the channel acts.
-    :param param_p: Default is 0.
-    :return: The Choi matrix of the dephasing channel.
+        print(apply_channel(test_input_mat, dephasing(4, 0.5)))
+        ```
 
     """
     # Compute the Choi matrix of the dephasing channel.

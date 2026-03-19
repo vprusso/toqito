@@ -6,69 +6,63 @@ from toqito.matrix_props.is_hermitian import is_hermitian
 
 
 def is_anti_hermitian(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08) -> bool:
-    r"""Check if matrix is anti-Hermitian (a.k.a. skew-Hermitian) :footcite:`WikiAntiHerm`.
+    r"""Check if matrix is anti-Hermitian (a.k.a. skew-Hermitian) [@wikipediaskewhermitian].
 
     An anti-Hermitian matrix is a complex square matrix that is equal to the negative of its own
     conjugate transpose.
 
-    Examples
-    ==========
+    Args:
+        mat: Matrix to check.
+        rtol: The relative tolerance parameter (default 1e-05).
+        atol: The absolute tolerance parameter (default 1e-08).
 
-    Consider the following matrix:
+    Returns:
+        Return True if matrix is anti-Hermitian, and False otherwise.
 
-    .. math::
-        A = \begin{pmatrix}
-                2j & -1 + 2j & 4j \\
-                1 + 2j & 3j & -1 \\
-                4j & 1 & 1j
-            \end{pmatrix}
+    Examples:
+        Consider the following matrix:
 
-    our function indicates that this is indeed an anti-Hermitian matrix as it holds that
+        \[
+            A = \begin{pmatrix}
+                    2j & -1 + 2j & 4j \\
+                    1 + 2j & 3j & -1 \\
+                    4j & 1 & 1j
+                \end{pmatrix}
+        \]
 
-    .. math::
-        A = -A^*.
+        our function indicates that this is indeed an anti-Hermitian matrix as it holds that
 
-    .. jupyter-execute::
+        \[
+            A = -A^*.
+        \]
+        ```python exec="1" source="above" result="text"
+        import numpy as np
+        from toqito.matrix_props import is_anti_hermitian
 
-     import numpy as np
-     from toqito.matrix_props import is_anti_hermitian
+        mat = np.array([[2j, -1 + 2j, 4j], [1 + 2j, 3j, -1], [4j, 1, 1j]])
 
-     mat = np.array([[2j, -1 + 2j, 4j], [1 + 2j, 3j, -1], [4j, 1, 1j]])
+        print(is_anti_hermitian(mat))
+        ```
 
-     is_anti_hermitian(mat)
+        Alternatively, the following example matrix \(B\) defined as
 
+        \[
+            B = \begin{pmatrix}
+                    1 & 2 & 3 \\
+                    4 & 5 & 6 \\
+                    7 & 8 & 9
+                \end{pmatrix}
+        \]
 
-    Alternatively, the following example matrix :math:`B` defined as
+        is not anti-Hermitian.
+        ```python exec="1" source="above" result="text"
+        import numpy as np
+        from toqito.matrix_props import is_anti_hermitian
 
-    .. math::
-        B = \begin{pmatrix}
-                1 & 2 & 3 \\
-                4 & 5 & 6 \\
-                7 & 8 & 9
-            \end{pmatrix}
+        mat = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
 
-    is not anti-Hermitian.
-
-    .. jupyter-execute::
-
-     import numpy as np
-     from toqito.matrix_props import is_anti_hermitian
-
-     mat = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
-
-     is_anti_hermitian(mat)
-
-    References
-    ==========
-    .. footbibliography::
-
-
-
-
-    :param mat: Matrix to check.
-    :param rtol: The relative tolerance parameter (default 1e-05).
-    :param atol: The absolute tolerance parameter (default 1e-08).
-    :return: Return True if matrix is anti-Hermitian, and False otherwise.
+        print(is_anti_hermitian(mat))
+        ```
 
     """
     return is_hermitian(mat * 1j, rtol, atol)

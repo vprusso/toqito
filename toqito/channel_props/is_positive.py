@@ -13,69 +13,67 @@ def is_positive(
 ) -> bool:
     r"""Determine whether the given channel is positive.
 
-    (Section: Linear Maps Of Square Operators from :footcite:`Watrous_2018_TQI`).
+    (Section: Linear Maps Of Square Operators from [@watrous2018theory]).
 
-    A map :math:`\Phi \in \text{T} \left(\mathcal{X}, \mathcal{Y} \right)` is *positive* if it
+    A map \(\Phi \in \text{T} \left(\mathcal{X}, \mathcal{Y} \right)\) is *positive* if it
     holds that
 
-    .. math::
+    \[
         \Phi(P) \in \text{Pos}(\mathcal{Y})
+    \]
 
-    for every positive semidefinite operator :math:`P \in \text{Pos}(\mathcal{X})`.
+    for every positive semidefinite operator \(P \in \text{Pos}(\mathcal{X})\).
 
     Alternatively, a channel is positive if the corresponding Choi matrix of the channel is both
     Hermitian-preserving and positive semidefinite.
 
-    Examples
-    ==========
+    Args:
+        phi: The channel provided as either a Choi matrix or a list of Kraus operators.
+        rtol: The relative tolerance parameter (default 1e-05).
+        atol: The absolute tolerance parameter (default 1e-08).
 
-    We can specify the input as a list of Kraus operators. Consider the map :math:`\Phi` defined as
+    Returns:
+        True if the channel is positive, and False otherwise.
 
-    .. math::
-        \Phi(X) = X - U X U^*
+    Examples:
+        We can specify the input as a list of Kraus operators. Consider the map \(\Phi\) defined as
 
-    where
+        \[
+            \Phi(X) = X - U X U^*
+        \]
 
-    .. math::
-        U = \frac{1}{\sqrt{2}}
-        \begin{pmatrix}
-            1 & 1 \\
-            -1 & -1
-        \end{pmatrix}.
+        where
 
-    This map is not completely positive, as we can verify as follows.
+        \[
+            U = \frac{1}{\sqrt{2}}
+            \begin{pmatrix}
+                1 & 1 \\
+                -1 & -1
+            \end{pmatrix}.
+        \]
 
-    .. jupyter-execute::
+        This map is not completely positive, as we can verify as follows.
 
-     import numpy as np
-     from toqito.channel_props import is_positive
+        ```python exec="1" source="above" result="text"
+        import numpy as np
+        from toqito.channel_props import is_positive
 
-     unitary_mat = np.array([[1, 1], [-1, -1]]) / np.sqrt(2)
-     kraus_ops = [[np.identity(2), np.identity(2)], [unitary_mat, -unitary_mat]]
+        unitary_mat = np.array([[1, 1], [-1, -1]]) / np.sqrt(2)
+        kraus_ops = [[np.identity(2), np.identity(2)], [unitary_mat, -unitary_mat]]
 
-     is_positive(kraus_ops)
+        print(is_positive(kraus_ops))
+        ```
 
-    We can also specify the input as a Choi matrix. For instance, consider the Choi matrix
-    corresponding to the :math:`4`-dimensional completely depolarizing channel and may verify
-    that this channel is positive.
+        We can also specify the input as a Choi matrix. For instance, consider the Choi matrix
+        corresponding to the \(4\)-dimensional completely depolarizing channel and may verify
+        that this channel is positive.
 
-    .. jupyter-execute::
+        ```python exec="1" source="above" result="text"
+        from toqito.channels import depolarizing
+        from toqito.channel_props import is_positive
 
-     from toqito.channels import depolarizing
-     from toqito.channel_props import is_positive
-
-     is_positive(depolarizing(4))
-
-    References
-    ==========
-    .. footbibliography::
-
-
-
-    :param phi: The channel provided as either a Choi matrix or a list of Kraus operators.
-    :param rtol: The relative tolerance parameter (default 1e-05).
-    :param atol: The absolute tolerance parameter (default 1e-08).
-    :return: True if the channel is positive, and False otherwise.
+        print(is_positive(depolarizing(4)))
+        ```
 
     """
     # If the variable `phi` is provided as a list, we assume this is a list

@@ -1,8 +1,0 @@
-furo >= 2024.8.6
-sphinxcontrib-bibtex >= 2.6.3
-sympy >= 1.13.3
-matplotlib >= 3.10.1
-sphinx-autoapi >= 3.5.0
-sphinx-copybutton >= 0.5.2
-jupyter-sphinx >= 0.5.3
-sphinx-gallery >= 0.19.0

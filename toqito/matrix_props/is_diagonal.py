@@ -6,76 +6,71 @@ from toqito.matrix_props import is_square
 
 
 def is_diagonal(mat: np.ndarray) -> bool:
-    r"""Determine if a matrix is diagonal :footcite:`WikiDiag`.
+    r"""Determine if a matrix is diagonal [@wikipediadiagonal].
 
     A matrix is diagonal if the matrix is square and if the diagonal of the matrix is non-zero,
     while the off-diagonal elements are all zero.
 
-    The following is an example of a 3-by-3 diagonal matrix:
+    This quick implementation is given by Daniel F. from StackOverflow in [@so43884189].
 
-    .. math::
-        \begin{equation}
-            \begin{pmatrix}
-                1 & 0 & 0 \\
-                0 & 2 & 0 \\
-                0 & 0 & 3
-            \end{pmatrix}
-        \end{equation}
+    Args:
+        mat: The matrix to check.
 
-    This quick implementation is given by Daniel F. from StackOverflow in :footcite:`SO_43884189`.
+    Returns:
+        Returns `True` if the matrix is diagonal and `False` otherwise.
 
-    Examples
-    ==========
+    Examples:
+        The following is an example of a 3-by-3 diagonal matrix:
 
-    Consider the following diagonal matrix:
+        \[
+            \begin{equation}
+                \begin{pmatrix}
+                    1 & 0 & 0 \\
+                    0 & 2 & 0 \\
+                    0 & 0 & 3
+                \end{pmatrix}
+            \end{equation}
+        \]
 
-    .. math::
-        A = \begin{pmatrix}
-                1 & 0 \\
-                0 & 1
-            \end{pmatrix}.
+        Consider the following diagonal matrix:
 
-    Our function indicates that this is indeed a diagonal matrix:
+        \[
+            A = \begin{pmatrix}
+                    1 & 0 \\
+                    0 & 1
+                \end{pmatrix}.
+        \]
 
-    .. jupyter-execute::
+        Our function indicates that this is indeed a diagonal matrix:
 
-     import numpy as np
-     from toqito.matrix_props import is_diagonal
+        ```python exec="1" source="above" result="text"
+        import numpy as np
+        from toqito.matrix_props import is_diagonal
 
-     A = np.array([[1, 0], [0, 1]])
+        A = np.array([[1, 0], [0, 1]])
 
-     is_diagonal(A)
+        print(is_diagonal(A))
+        ```
 
-    Alternatively, the following example matrix
+        Alternatively, the following example matrix
 
-    .. math::
-        B = \begin{pmatrix}
-                1 & 2 \\
-                3 & 4
-            \end{pmatrix}
+        \[
+            B = \begin{pmatrix}
+                    1 & 2 \\
+                    3 & 4
+                \end{pmatrix}
+        \]
 
-    is not diagonal, as shown using :code:`|toqito⟩`.
+        is not diagonal, as shown using `|toqito⟩`.
 
-    .. jupyter-execute::
+        ```python exec="1" source="above" result="text"
+        import numpy as np
+        from toqito.matrix_props import is_diagonal
 
-     import numpy as np
-     from toqito.matrix_props import is_diagonal
+        B = np.array([[1, 2], [3, 4]])
 
-     B = np.array([[1, 2], [3, 4]])
-
-     is_diagonal(B)
-
-
-    References
-    ==========
-    .. footbibliography::
-
-
-
-
-    :param mat: The matrix to check.
-    :return: Returns :code:`True` if the matrix is diagonal
-             and :code:`False` otherwise.
+        print(is_diagonal(B))
+        ```
 
     """
     if not is_square(mat):

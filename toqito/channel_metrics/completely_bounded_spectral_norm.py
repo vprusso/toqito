@@ -6,30 +6,27 @@ from toqito.channel_metrics import completely_bounded_trace_norm
 from toqito.channel_ops import dual_channel
 
 
-def completely_bounded_spectral_norm(phi: np.ndarray) -> float:
+def completely_bounded_spectral_norm(phi: np.ndarray) -> float | np.floating:
     r"""Compute the completely bounded spectral norm of a quantum channel.
 
-    As defined in :footcite:`Watrous_2009_Semidefinite` and :footcite:`QETLAB_link`.
+    As defined in [@watrous2009semidefinite] and [@qetlablink].
 
-    Examples
-    ========
-    To computer the completely bounded spectral norm of a depolarizing channel,
+    Args:
+        phi: superoperator
 
-    .. jupyter-execute::
+    Returns:
+        The completely bounded spectral norm of the channel
 
+    Examples:
+        To compute the completely bounded spectral norm of a depolarizing channel:
+
+        ```python exec="1" source="above" result="text"
         from toqito.channels import depolarizing
         from toqito.channel_metrics import completely_bounded_spectral_norm
         # Define the depolarizing channel
         choi_depolarizing = depolarizing(dim=2, param_p=0.2)
-        completely_bounded_spectral_norm(choi_depolarizing)
-
-    References
-    ==========
-    .. footbibliography::
-
-
-    :param phi: superoperator
-    :return: The completely bounded spectral norm of the channel
+        print(completely_bounded_spectral_norm(choi_depolarizing))
+        ```
 
     """
     return completely_bounded_trace_norm(dual_channel(phi))

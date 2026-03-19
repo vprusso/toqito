@@ -9,49 +9,46 @@ from toqito.matrix_props import is_nonnegative, is_square
 def positive_semidefinite_rank(mat: np.ndarray, max_rank: int = 10) -> int | None:
     r"""Compute the positive semidefinite rank (PSD rank) of a nonnegative matrix.
 
-    The definition of PSD rank is defined in :footcite:`Fawzi_2015_Positive`.
-
+    The definition of PSD rank is defined in [@fawzi2015positive].
     Finds the PSD rank of an input matrix by checking feasibility for increasing rank.
 
-    Examples
-    ========
-    As an example (Equation 21 from :footcite:`Heinosaari_2024_Can`), the PSD rank of the following matrix
+    Args:
+        mat: Matrix of interest.
+        max_rank: The maximum rank to check (default is 10).
 
-    .. math::
-        A = \frac{1}{2}
-        \begin{pmatrix}
-            0 & 1 & 1 \\
-            1 & 0 & 1 \\
-            1 & 1 & 0
-        \end{pmatrix}
+    Returns:
+        The positive semidefinite rank if found within `max_rank`, or `None` otherwise.
 
-    is known to be :math:`\text{rank}_{\text{PSD}}(A) = 2`.
+    Examples:
+        As an example (Equation 21 from [@heinosaari2024can]), the PSD rank of the following matrix
 
-    .. jupyter-execute::
+        \[
+            A = \frac{1}{2}
+            \begin{pmatrix}
+                0 & 1 & 1 \\
+                1 & 0 & 1 \\
+                1 & 1 & 0
+            \end{pmatrix}
+        \]
 
-     import numpy as np
-     from toqito.matrix_props import positive_semidefinite_rank
+        is known to be \(\text{rank}_{\text{PSD}}(A) = 2\).
 
-     positive_semidefinite_rank(1/2 * np.array([[0, 1, 1], [1,0,1], [1,1,0]]))
+        ```python exec="1" source="above" result="text"
+        import numpy as np
+        from toqito.matrix_props import positive_semidefinite_rank
 
+        A = 1/2 * np.array([[0, 1, 1], [1, 0, 1], [1, 1, 0]])
+        print(positive_semidefinite_rank(A))
+        ```
 
-    The PSD rank of the identity matrix is the dimension of the matrix :footcite:`Fawzi_2015_Positive`.
+        The PSD rank of the identity matrix is the dimension of the matrix [@fawzi2015positive].
 
-    .. jupyter-execute::
+        ```python exec="1" source="above" result="text"
+        import numpy as np
+        from toqito.matrix_props import positive_semidefinite_rank
 
-     import numpy as np
-     from toqito.matrix_props import positive_semidefinite_rank
-
-     positive_semidefinite_rank(np.identity(3))
-
-    References
-    ==========
-    .. footbibliography::
-
-
-    :param mat: 2D numpy ndarray.
-    :param max_rank: The maximum rank to check.
-    :return: The PSD rank of the input matrix, or None if not found within `max_rank`.
+        print(positive_semidefinite_rank(np.identity(3)))
+        ```
 
     """
     if not is_nonnegative(mat):
@@ -68,9 +65,13 @@ def positive_semidefinite_rank(mat: np.ndarray, max_rank: int = 10) -> int | Non
 def _check_psd_rank(mat: np.ndarray, max_rank: int) -> bool:
     """Check if the given PSD rank k is feasible for matrix M.
 
-    :param mat: 2D numpy ndarray
-    :param max_rank: The maximum rank to check.
-    :return: True if `max_rank` is a feasible PSD rank, False otherwise.
+    Args:
+        mat: 2D numpy ndarray.
+        max_rank: The maximum rank to check.
+
+    Returns:
+        True if `max_rank` is a feasible PSD rank, False otherwise.
+
     """
     m, n = mat.shape
 

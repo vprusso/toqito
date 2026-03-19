@@ -7,84 +7,95 @@ def depolarizing(dim: int, param_p: float = 0) -> np.ndarray:
     r"""Produce the partially depolarizing channel.
 
     (Section: Replacement Channels and the Completely Depolarizing Channel from
-    :footcite:`Watrous_2018_TQI`).
+    [@watrous2018theory]).
 
-    The Choi matrix of the completely depolarizing channel :footcite:`WikiDepo` that acts on
-    :code:`dim`-by-:code:`dim` matrices.
+    The Choi matrix of the partially depolarizing channel [@wikipediadepolarizing] that acts on
+    `dim`-by-`dim` matrices.
 
-    The *completely depolarizing channel* is defined as
+    The *partially depolarizing channel* is defined as
 
-    .. math::
-        \Omega(X) = \text{Tr}(X) \omega
+    \[
+        \Phi_p(\rho) = (1 - p) \text{Tr}(\rho) \frac{\mathbb{I}}{d} + p \, \rho
+    \]
 
-    for all :math:`X \in \text{L}(\mathcal{X})`, where
+    for all \(\rho \in \text{L}(\mathcal{X})\), where \(d = \text{dim}(\mathcal{X})\)
+    and \(p \in [0, 1]\).
 
-    .. math::
-        \omega = \frac{\mathbb{I}_{\mathcal{X}}}{\text{dim}(\mathcal{X})}
+    When \(p = 0\), this reduces to the *completely depolarizing channel*
+    \(\Omega(\rho) = \text{Tr}(\rho) \frac{\mathbb{I}}{d}\), which maps every state to the
+    maximally mixed state. When \(p = 1\), this is the identity channel.
 
-    denotes the completely mixed stated defined with respect to the space :math:`\mathcal{X}`.
+    The corresponding Choi matrix is
 
-    Examples
-    ==========
+    \[
+        J(\Phi_p) = \frac{1 - p}{d} \, \mathbb{I} \otimes \mathbb{I}
+        + p \, |\psi\rangle\!\langle\psi|
+    \]
 
-    The completely depolarizing channel maps every density matrix to the maximally-mixed state.
-    For example, consider the density operator
+    where \(|\psi\rangle = \sum_{i} |i\rangle \otimes |i\rangle\) is the (unnormalized)
+    maximally entangled state.
 
-    .. math::
-        \rho = \frac{1}{2} \begin{pmatrix}
-                             1 & 0 & 0 & 1 \\
-                             0 & 0 & 0 & 0 \\
-                             0 & 0 & 0 & 0 \\
-                             1 & 0 & 0 & 1
-                           \end{pmatrix}
+    Note:
+        This follows the QETLAB convention where \(p = 0\) gives the completely depolarizing
+        channel and \(p = 1\) gives the identity channel.
 
-    corresponding to one of the Bell states. Applying the depolarizing channel to :math:`\rho` we
-    have that
+    Args:
+        dim: The dimensionality on which the channel acts.
+        param_p: Parameter \(p \in [0, 1]\) that interpolates between the completely depolarizing
+            channel (\(p = 0\)) and the identity channel (\(p = 1\)). Default 0.
 
-    .. math::
-        \Phi(\rho) = \frac{1}{4} \begin{pmatrix}
-                                    1 & 0 & 0 & 0 \\
-                                    0 & 1 & 0 & 0 \\
-                                    0 & 0 & 1 & 0 \\
-                                    0 & 0 & 0 & 1
-                                 \end{pmatrix}.
+    Returns:
+        The Choi matrix of the partially depolarizing channel.
 
-    This can be observed in :code:`|toqito⟩` as follows.
+    Raises:
+        ValueError: If `param_p` is outside the interval [0,1].
 
-    .. jupyter-execute::
+    Examples:
+        The completely depolarizing channel (\(p = 0\)) maps every density matrix to the
+        maximally-mixed state. For example, consider the density operator
 
-     import numpy as np
-     from toqito.channels import depolarizing
-     from toqito.channel_ops import apply_channel
+        \[
+            \rho = \frac{1}{2} \begin{pmatrix}
+                                 1 & 0 & 0 & 1 \\
+                                 0 & 0 & 0 & 0 \\
+                                 0 & 0 & 0 & 0 \\
+                                 1 & 0 & 0 & 1
+                               \end{pmatrix}
+        \]
 
-     test_input_mat = np.array([[1 / 2, 0, 0, 1 / 2], [0, 0, 0, 0], [0, 0, 0, 0], [1 / 2, 0, 0, 1 / 2]])
+        corresponding to one of the Bell states. Applying the depolarizing channel to \(\rho\) we
+        have that
 
-     apply_channel(test_input_mat, depolarizing(4))
+        \[
+            \Phi(\rho) = \frac{1}{4} \begin{pmatrix}
+                                        1 & 0 & 0 & 0 \\
+                                        0 & 1 & 0 & 0 \\
+                                        0 & 0 & 1 & 0 \\
+                                        0 & 0 & 0 & 1
+                                     \end{pmatrix}.
+        \]
 
-    .. jupyter-execute::
+        This can be observed in `|toqito⟩` as follows.
 
-     import numpy as np
-     from toqito.channels import depolarizing
-     from toqito.channel_ops import apply_channel
+        ```python exec="1" source="above" result="text"
+        import numpy as np
+        from toqito.channels import depolarizing
+        from toqito.channel_ops import apply_channel
 
-     test_input_mat = np.arange(1, 17).reshape(4, 4)
+        test_input_mat = np.array([[1 / 2, 0, 0, 1 / 2], [0, 0, 0, 0], [0, 0, 0, 0], [1 / 2, 0, 0, 1 / 2]])
 
-     apply_channel(test_input_mat, depolarizing(4, 0.5))
+        print(apply_channel(test_input_mat, depolarizing(4)))
+        ```
 
+        ```python exec="1" source="above" result="text"
+        import numpy as np
+        from toqito.channels import depolarizing
+        from toqito.channel_ops import apply_channel
 
+        test_input_mat = np.arange(1, 17).reshape(4, 4)
 
-    References
-    ==========
-    .. footbibliography::
-
-
-
-
-    :param dim: The dimensionality on which the channel acts.
-    :param param_p: Depolarizing probability \(p \) \in [0,1] that mixes the input state
-                    with the maximally mixed state. Default 0.
-    :return: The Choi matrix of the completely depolarizing channel.
-    :raises ValueError: If `param_p` is outside the interval [0,1].
+        print(apply_channel(test_input_mat, depolarizing(4, 0.5)))
+        ```
 
     """
     # Compute the Choi matrix of the depolarizing channel.

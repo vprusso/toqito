@@ -13,11 +13,11 @@ def optimal_clone(
     num_reps: int = 1,
     strategy: bool = False,
 ) -> float | np.ndarray:
-    r"""Compute probability of counterfeiting quantum money :footcite:`Molina_2012_Optimal`.
+    r"""Compute probability of counterfeiting quantum money [@molina2012optimal].
 
-    The primal problem for the :math:`n`-fold parallel repetition is given as follows:
+    The primal problem for the \(n\)-fold parallel repetition is given as follows:
 
-    .. math::
+    \[
         \begin{equation}
             \begin{aligned}
                 \text{maximize:} \quad &
@@ -32,10 +32,11 @@ def optimal_clone(
                                            \otimes \mathcal{X}^{\otimes n}).
             \end{aligned}
         \end{equation}
+    \]
 
-    The dual problem for the :math:`n`-fold parallel repetition is given as follows:
+    The dual problem for the \(n\)-fold parallel repetition is given as follows:
 
-    .. math::
+    \[
         \begin{equation}
             \begin{aligned}
                 \text{minimize:} \quad & \text{Tr}(Y) \\
@@ -45,60 +46,58 @@ def optimal_clone(
                 & Y \in \text{Herm} \left(\mathcal{X}^{\otimes n} \right).
             \end{aligned}
         \end{equation}
+    \]
 
-    Examples
-    ==========
+    Args:
+        states: A list of states provided as either matrices or vectors.
+        probs: Respective list of probabilities each state is selected.
+        num_reps: Number of parallel repetitions to perform.
+        strategy: Boolean that denotes whether to return strategy.
 
-    Wiesner's original quantum money scheme :footcite:`Wiesner_1983_Conjugate` was shown in
-    :footcite:`Molina_2012_Optimal` to have an optimal probability of 3/4 for succeeding a counterfeiting attack.
+    Returns:
+        The optimal probability with of counterfeiting quantum money.
 
-    Specifically, in the single-qubit case, Wiesner's quantum money scheme corresponds to the
-    following ensemble:
+    Examples:
+        Wiesner's original quantum money scheme [@wiesner1983conjugate] was shown in
+        [@molina2012optimal] to have an optimal probability of 3/4 for succeeding a counterfeiting attack.
 
-    .. math::
-        \left\{
-            \left( \frac{1}{4}, |0\rangle \right),
-            \left( \frac{1}{4}, |1\rangle \right),
-            \left( \frac{1}{4}, |+\rangle \right),
-            \left( \frac{1}{4}, |-\rangle \right)
-        \right\},
+        Specifically, in the single-qubit case, Wiesner's quantum money scheme corresponds to the
+        following ensemble:
 
-    which yields the operator
+        \[
+            \left\{
+                \left( \frac{1}{4}, |0\rangle \right),
+                \left( \frac{1}{4}, |1\rangle \right),
+                \left( \frac{1}{4}, |+\rangle \right),
+                \left( \frac{1}{4}, |-\rangle \right)
+            \right\},
+        \]
 
-    .. math::
-        \begin{equation}
-            Q = \frac{1}{4} \left(|000 \rangle \langle 000| + |111 \rangle \langle 111| +
-                                  |+++ \rangle + \langle +++| + |--- \rangle \langle ---| \right).
-        \end{equation}
+        which yields the operator
 
-    We can see that the optimal value we obtain in solving the SDP is 3/4.
+        \[
+            \begin{equation}
+                Q = \frac{1}{4} \left(|000 \rangle \langle 000| + |111 \rangle \langle 111| +
+                                      |+++ \rangle + \langle +++| + |--- \rangle \langle ---| \right).
+            \end{equation}
+        \]
 
-    .. jupyter-execute::
+        We can see that the optimal value we obtain in solving the SDP is 3/4.
 
-     import numpy as np
-     from toqito.states import basis
-     from toqito.state_opt import optimal_clone
+        ```python exec="1" source="above" result="text"
+        import numpy as np
+        from toqito.states import basis
+        from toqito.state_opt import optimal_clone
 
-     e_0, e_1 = basis(2, 0), basis(2, 1)
-     e_p = (e_0 + e_1) / np.sqrt(2)
-     e_m = (e_0 - e_1) / np.sqrt(2)
+        e_0, e_1 = basis(2, 0), basis(2, 1)
+        e_p = (e_0 + e_1) / np.sqrt(2)
+        e_m = (e_0 - e_1) / np.sqrt(2)
 
-     states = [e_0, e_1, e_p, e_m]
-     probs = [1 / 4, 1 / 4, 1 / 4, 1 / 4]
+        states = [e_0, e_1, e_p, e_m]
+        probs = [1 / 4, 1 / 4, 1 / 4, 1 / 4]
 
-     np.around(optimal_clone(states, probs), decimals=2)
-
-    References
-    ==========
-    .. footbibliography::
-
-
-
-    :param states: A list of states provided as either matrices or vectors.
-    :param probs: Respective list of probabilities each state is selected.
-    :param num_reps: Number of parallel repetitions to perform.
-    :param strategy: Boolean that denotes whether to return strategy.
-    :return: The optimal probability with of counterfeiting quantum money.
+        print(np.around(optimal_clone(states, probs), decimals=2))
+        ```
 
     """
     dim = len(states[0]) ** 3
@@ -137,13 +136,15 @@ def optimal_clone(
 
 
 def primal_problem(q_a: np.ndarray, pperm: np.ndarray, num_reps: int) -> float:
-    """Primal problem for counterfeit attack.
+    r"""Primal problem for counterfeit attack.
 
     As the primal problem takes longer to solve than the dual problem (as
     the variables are of larger dimension), the primal problem is only here
     for reference.
 
-    :return: The optimal value of performing a counterfeit attack.
+    Returns:
+        The optimal value of performing a counterfeit attack.
+
     """
     num_spaces = 3
 
@@ -152,8 +153,7 @@ def primal_problem(q_a: np.ndarray, pperm: np.ndarray, num_reps: int) -> float:
     sys = [elem - 1 for elem in sys]
 
     # The dimension of each subsystem is assumed to be of dimension 2.
-    dim = 2 * np.ones((1, num_spaces * num_reps)).astype(int).flatten()
-    dim = dim.tolist()
+    dim = [2] * (num_spaces * num_reps)
 
     x_var = cvxpy.Variable((8**num_reps, 8**num_reps), hermitian=True)
     if num_reps == 1:
@@ -166,13 +166,15 @@ def primal_problem(q_a: np.ndarray, pperm: np.ndarray, num_reps: int) -> float:
     ]
     problem = cvxpy.Problem(objective, constraints)
 
-    return problem.solve()
+    return problem.solve(verbose=False)
 
 
 def dual_problem(q_a: np.ndarray, pperm: np.ndarray, num_reps: int) -> float:
-    """Dual problem for counterfeit attack.
+    r"""Dual problem for counterfeit attack.
 
-    :return: The optimal value of performing a counterfeit attack.
+    Returns:
+        The optimal value of performing a counterfeit attack.
+
     """
     y_var = cvxpy.Variable((2**num_reps, 2**num_reps), hermitian=True)
     objective = cvxpy.Minimize(cvxpy.trace(cvxpy.real(y_var)))
@@ -185,4 +187,4 @@ def dual_problem(q_a: np.ndarray, pperm: np.ndarray, num_reps: int) -> float:
         constraints = [cvxpy.real(kron_var) >> pperm @ q_a @ pperm.conj().T]
     problem = cvxpy.Problem(objective, constraints)
 
-    return problem.solve()
+    return problem.solve(verbose=False)

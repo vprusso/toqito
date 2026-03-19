@@ -1,48 +1,53 @@
 """Calculates the vectors associated to a Gram matrix."""
 
+import warnings
+
 import numpy as np
 import scipy
 
 
 def vectors_from_gram_matrix(gram: np.ndarray) -> list[np.ndarray]:
-    r"""Obtain the corresponding ensemble of states from the Gram matrix :footcite:`WikiGram`.
+    r"""Obtain the corresponding ensemble of states from the Gram matrix [@wikipediagram].
 
     The function attempts to compute the Cholesky decomposition of the given Gram matrix. If the matrix is positive
     definite, the Cholesky decomposition is returned. If the matrix is not positive definite, the function falls back to
     eigendecomposition.
 
-    Examples
-    ========
+    Args:
+        gram: A square, symmetric matrix representing the Gram matrix.
 
-    # Example of a positive definite matrix:
+    Returns:
+        A list of vectors (np.ndarray) corresponding to the ensemble of states.
+    =======
+        print(vectors)
+    ```
+    >>>>>>> d965b901 (Fix: Reorder docstring sections in matrix_ops (#1455))
 
-    .. jupyter-execute::
+    Raises:
+        LinAlgError: If the Gram matrix is not square.
 
-     import numpy as np
-     from toqito.matrix_ops import vectors_from_gram_matrix
+    Examples:
+        Example of a positive definite matrix:
+        ```python exec="1" source="above" result="text"
+        import numpy as np
+        from toqito.matrix_ops import vectors_from_gram_matrix
 
-     gram_matrix = np.array([[2, -1], [-1, 2]])
-     vectors = vectors_from_gram_matrix(gram_matrix)
+        gram_matrix = np.array([[2, -1], [-1, 2]])
+        vectors = vectors_from_gram_matrix(gram_matrix)
 
-     vectors
+        print(vectors)
+        ```
 
-    # Example of a matrix that is not positive definite:
+        Example of a matrix that is not positive definite:
+        ```python exec="1" source="above" result="text"
+        import numpy as np
+        from toqito.matrix_ops import vectors_from_gram_matrix
 
-    .. jupyter-execute::
+        gram_matrix = np.array([[0, 1], [1, 0]])
+        vectors = vectors_from_gram_matrix(gram_matrix)
 
-     gram_matrix = np.array([[0, 1], [1, 0]])
-     vectors = vectors_from_gram_matrix(gram_matrix)
-
-     vectors #Matrix is not positive semidefinite. Using eigendecomposition as alternative.
-
-    References
-    ==========
-    .. footbibliography::
-
-
-    :raises LinAlgError: If the Gram matrix is not square.
-    :param gram: A square, symmetric matrix representing the Gram matrix.
-    :return: A list of vectors (np.ndarray) corresponding to the ensemble of states.
+            <<<<<<< HEAD
+        ```
 
     """
     dim = gram.shape[0]
@@ -55,6 +60,6 @@ def vectors_from_gram_matrix(gram: np.ndarray) -> list[np.ndarray]:
         return [decomp[i][:] for i in range(dim)]
     # Otherwise, need to do eigendecomposition:
     except np.linalg.LinAlgError:
-        print("Matrix is not positive semidefinite. Using eigendecomposition as alternative.")
+        warnings.warn("Matrix is not positive semidefinite. Using eigendecomposition as alternative.")
         d, v = np.linalg.eig(gram)
         return [scipy.linalg.sqrtm(np.diag(d)) @ v[i].conj().T for i in range(dim)]

@@ -6,71 +6,69 @@ from toqito.matrix_props import is_positive_semidefinite
 
 
 def is_density(mat: np.ndarray) -> bool:
-    r"""Check if matrix is a density matrix :footcite:`WikiDen`.
+    r"""Check if matrix is a density matrix [@wikipediadensity].
 
     A matrix is a density matrix if its trace is equal to one and it has the
     property of being positive semidefinite (PSD).
 
-    Examples
-    ==========
+    Args:
+        mat: Matrix to check.
 
-    Consider the Bell state:
+    Returns:
+        Return `True` if matrix is a density matrix, and `False` otherwise.
 
-    .. math::
-       u = \frac{1}{\sqrt{2}} |00 \rangle + \frac{1}{\sqrt{2}} |11 \rangle.
+    Examples:
+        Consider the Bell state:
 
-    Constructing the matrix :math:`\rho = u u^*` defined as
+        \[
+            u = \frac{1}{\sqrt{2}} |00 \rangle + \frac{1}{\sqrt{2}} |11 \rangle.
+        \]
 
-    .. math::
-        \rho = \frac{1}{2} \begin{pmatrix}
-                                1 & 0 & 0 & 1 \\
-                                0 & 0 & 0 & 0 \\
-                                0 & 0 & 0 & 0 \\
-                                1 & 0 & 0 & 1
-                           \end{pmatrix}
+        Constructing the matrix \(\rho = u u^*\) defined as
 
-    our function indicates that this is indeed a density operator as the trace
-    of :math:`\rho` is equal to :math:`1` and the matrix is positive
-    semidefinite.
+        \[
+            \rho = \frac{1}{2} \begin{pmatrix}
+                                    1 & 0 & 0 & 1 \\
+                                    0 & 0 & 0 & 0 \\
+                                    0 & 0 & 0 & 0 \\
+                                    1 & 0 & 0 & 1
+                               \end{pmatrix}
+        \]
 
-    .. jupyter-execute::
+        our function indicates that this is indeed a density operator as the trace
+        of \(\rho\) is equal to \(1\) and the matrix is positive
+        semidefinite.
 
-     from toqito.matrix_props import is_density
-     from toqito.states import bell
-     import numpy as np
-     rho = bell(0) @ bell(0).conj().T
-     is_density(rho)
+        ```python exec="1" source="above" result="text"
+        from toqito.matrix_props import is_density
+        from toqito.states import bell
+        import numpy as np
+        rho = bell(0) @ bell(0).conj().T
+        print(is_density(rho))
+        ```
 
-    Alternatively, the following example matrix :math:`\sigma` defined as
+        Alternatively, the following example matrix \(\sigma\) defined as
 
-    .. math::
-        \sigma = \frac{1}{2} \begin{pmatrix}
-                                1 & 2 \\
-                                3 & 1
-                             \end{pmatrix}
+        \[
+            \sigma = \frac{1}{2} \begin{pmatrix}
+                                    1 & 2 \\
+                                    3 & 1
+                                 \end{pmatrix}
+        \]
 
-    does satisfy :math:`\text{Tr}(\sigma) = 1`, however fails to be positive
-    semidefinite, and is therefore not a density operator. This can be
-    illustrated using :code:`|toqito⟩` as follows.
+        does satisfy \(\text{Tr}(\sigma) = 1\), however fails to be positive
+        semidefinite, and is therefore not a density operator. This can be
+        illustrated using `|toqito⟩` as follows.
 
-    .. jupyter-execute::
+        ```python exec="1" source="above" result="text"
+        import numpy as np
+        from toqito.states import bell
+        from toqito.matrix_props import is_density
 
-     import numpy as np
-     from toqito.states import bell
-     from toqito.matrix_props import is_density
+        sigma = 1/2 * np.array([[1, 2], [3, 1]])
 
-     sigma = 1/2 * np.array([[1, 2], [3, 1]])
-
-     is_density(sigma)
-
-    References
-    ==========
-    .. footbibliography::
-
-
-    :param mat: Matrix to check.
-    :return: Return :code:`True` if matrix is a density matrix,
-             and :code:`False` otherwise.
+        print(is_density(sigma))
+        ```
 
     """
     return bool(is_positive_semidefinite(mat) and np.isclose(np.trace(mat), 1))

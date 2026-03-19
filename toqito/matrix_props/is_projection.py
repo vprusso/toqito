@@ -6,69 +6,66 @@ from toqito.matrix_props import is_square
 
 
 def is_projection(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08) -> bool:
-    r"""Check if matrix is a projection matrix :footcite:`WikiProjMat`.
+    r"""Check if matrix is a projection matrix [@wikipediaprojection].
 
     A matrix is a projection matrix if it is positive semidefinite (PSD) and if
 
-    .. math::
+    \[
         \begin{equation}
             X^2 = X
         \end{equation}
+    \]
 
-    where :math:`X` is the matrix in question.
+    where \(X\) is the matrix in question.
 
-    Examples
-    ==========
+    Args:
+        mat: Matrix to check.
+        rtol: The relative tolerance parameter (default 1e-05).
+        atol: The absolute tolerance parameter (default 1e-08).
 
-    Consider the following matrix
+    Returns:
+        Return `True` if matrix is a projection matrix, and `False` otherwise.
 
-    .. math::
-        A = \begin{pmatrix}
-                0 & 1 \\
-                0 & 1
-            \end{pmatrix}
+    Examples:
+        Consider the following matrix
 
-    our function indicates that this is indeed a projection matrix.
+        \[
+            A = \begin{pmatrix}
+                    0 & 1 \\
+                    0 & 1
+                \end{pmatrix}
+        \]
 
-    .. jupyter-execute::
+        our function indicates that this is indeed a projection matrix.
 
-     import numpy as np
-     from toqito.matrix_props import is_projection
+        ```python exec="1" source="above" result="text"
+        import numpy as np
+        from toqito.matrix_props import is_projection
 
-     A = np.array([[0, 1], [0, 1]])
+        A = np.array([[0, 1], [0, 1]])
 
-     is_projection(A)
+        print(is_projection(A))
+        ```
 
-    Alternatively, the following example matrix :math:`B` defined as
+        Alternatively, the following example matrix \(B\) defined as
 
-    .. math::
-        B = \begin{pmatrix}
-                -1 & -1 \\
-                -1 & -1
-            \end{pmatrix}
+        \[
+            B = \begin{pmatrix}
+                    -1 & -1 \\
+                    -1 & -1
+                \end{pmatrix}
+        \]
 
-    is not positive definite.
+        is not a projection matrix.
 
-    .. jupyter-execute::
+        ```python exec="1" source="above" result="text"
+        import numpy as np
+        from toqito.matrix_props import is_projection
 
-     import numpy as np
-     from toqito.matrix_props import is_projection
+        B = np.array([[-1, -1], [-1, -1]])
 
-     B = np.array([[-1, -1], [-1, -1]])
-
-     is_projection(B)
-
-
-    References
-    ==========
-    .. footbibliography::
-
-
-
-    :param mat: Matrix to check.
-    :param rtol: The relative tolerance parameter (default 1e-05).
-    :param atol: The absolute tolerance parameter (default 1e-08).
-    :return: Return :code:`True` if matrix is a projection matrix, and :code:`False` otherwise.
+        print(is_projection(B))
+        ```
 
     """
     if not is_square(mat):

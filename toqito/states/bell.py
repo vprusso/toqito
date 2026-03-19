@@ -1,4 +1,4 @@
-"""Bell states represent teh simplest examples of quantum entanglement of two qubits.
+"""Bell states represent the simplest examples of quantum entanglement of two qubits.
 
 Also known as EPR pairs, Bell states comprise of four quantum states in a superposition of 0 and 1.
 """
@@ -7,11 +7,11 @@ import numpy as np
 
 
 def bell(idx: int) -> np.ndarray:
-    r"""Produce a Bell state :footcite:`WikiBellSt`.
+    r"""Produce a Bell state [@wikipediabellstate].
 
-    Returns one of the following four Bell states depending on the value of :code:`idx`:
+    Returns one of the following four Bell states depending on the value of `idx`:
 
-    .. math::
+    \[
         \begin{equation}
             \begin{aligned}
                 u_0 = \frac{1}{\sqrt{2}} \left( |00 \rangle + |11 \rangle \right), &
@@ -22,32 +22,31 @@ def bell(idx: int) -> np.ndarray:
                 u_3 = \frac{1}{\sqrt{2}} \left( |01 \rangle - |10 \rangle \right).
             \end{aligned}
         \end{equation}
+    \]
 
-    Examples
-    ==========
+    Args:
+        idx: A parameter in [0, 1, 2, 3]
 
-    When :code:`idx = 0`, this produces the following Bell state:
+    Returns:
+        Bell state with index `idx`.
 
-    .. math::
-        u_0 = \frac{1}{\sqrt{2}} \left( |00 \rangle + |11 \rangle \right).
+    Raises:
+        ValueError: If `idx` is not an integer.
 
-    Using :code:`|toqito⟩`, we can see that this yields the proper state.
+    Examples:
+        When `idx = 0`, this produces the following Bell state:
 
-    .. jupyter-execute::
+        \[
+            u_0 = \frac{1}{\sqrt{2}} \left( |00 \rangle + |11 \rangle \right).
+        \]
 
+        Using `|toqito⟩`, we can see that this yields the proper state.
+
+        ```python exec="1" source="above" result="text"
         from toqito.states import bell
         import numpy as np
-        bell(0)
-
-
-    References
-    ==========
-    .. footbibliography::
-
-
-    :raises ValueError: If :code:`idx` is not an integer.
-    :param idx: A parameter in [0, 1, 2, 3]
-    :return: Bell state with index :code:`idx`.
+        print(bell(0))
+        ```
 
     """
     match idx:

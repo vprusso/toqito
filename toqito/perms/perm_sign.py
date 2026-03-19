@@ -5,51 +5,47 @@ from scipy import linalg
 
 
 def perm_sign(perm: np.ndarray | list[int]) -> float:
-    """Compute the "sign" of a permutation :footcite:`WikiParPerm`.
+    r"""Compute the "sign" of a permutation [@wikipediaparity].
 
-    The sign (either -1 or 1) of the permutation :code:`perm` is :code:`-1**`inv`, where :code:`inv` is the number of
-    inversions contained in :code:`perm`.
+    The sign (either -1 or 1) of the permutation `perm` is `-1**inv`, where `inv` is the number of
+    inversions contained in `perm`.
 
-    Examples
-    ==========
+    Args:
+        perm: The permutation vector to be checked.
 
-    For the following vector
+    Returns:
+        The value 1 if the permutation is of even length and the value of -1 if the permutation is of odd length.
 
-    .. math::
-        [1, 2, 3, 4]
+    Examples:
+        For the following vector
 
-    the permutation sign is positive as the number of elements in the vector are even. This can be performed in
-    :code:`|toqito⟩` as follows.
+        \[
+            [1, 2, 3, 4]
+        \]
 
-    .. jupyter-execute::
+        the permutation sign is positive as the number of elements in the vector are even. This can be performed in
+        `|toqito⟩` as follows.
 
-     from toqito.perms import perm_sign
+        ```python exec="1" source="above" result="text"
+        from toqito.perms import perm_sign
 
-     perm_sign([1, 2, 3, 4])
+        print(perm_sign([1, 2, 3, 4]))
+        ```
 
-    For the following vector
+        For the following vector
 
-    .. math::
-        [1, 2, 3, 4, 5]
+        \[
+            [1, 2, 3, 4, 5]
+        \]
 
-    the permutation sign is negative as the number of elements in the vector are odd. This can be performed in
-    :code:`|toqito⟩` as follows.
+        the permutation sign is negative as the number of elements in the vector are odd. This can be performed in
+        `|toqito⟩` as follows.
 
-    .. jupyter-execute::
+        ```python exec="1" source="above" result="text"
+        from toqito.perms import perm_sign
 
-     from toqito.perms import perm_sign
-
-     perm_sign([1, 2, 4, 3, 5])
-
-    References
-    ==========
-    .. footbibliography::
-
-
-
-    :param perm: The permutation vector to be checked.
-    :return: The value 1 if the permutation is of even length and the value of
-             -1 if the permutation is of odd length.
+        print(perm_sign([1, 2, 4, 3, 5]))
+        ```
 
     """
     return linalg.det(np.eye(len(perm))[:, np.array(perm) - 1])

@@ -391,7 +391,6 @@ def test_2xN_block_eig_fails_proceeds():
         assert is_separable(rho_2x3_mixed, dim=[2, 3])
 
 
-@pytest.mark.xfail(reason="optimizer loose")
 def test_symm_ext_solver_exception_proceeds():
     """Symmetric extension proceeds if has_symmetric_extension fails."""
     with mock.patch(
@@ -409,8 +408,7 @@ def test_breuer_hall_3x4_separable_odd_even_skip_xfail():
     assert is_separable(rho_sep_3x4, dim=[3, 4])
 
 
-@pytest.mark.xfail(reason="Rank-1 perturbation for not-full-rank path may not be supported.")
-def test_rank1_pert_not_full_rank_path_xfail():
+def test_rank1_pert_not_full_rank_path():
     """Separable 3x3 rank 8 state, xfail for rank-1 perturbation check."""
     eigs = np.array([0.3, 0.2, 0.1, 0.1, 0.1, 0.1, 0.05, 0.05, 0.0])
     rho = np.diag(eigs / np.sum(eigs))
@@ -453,8 +451,7 @@ def test_breuer_hall_one_dim_odd_path_coverage():
     assert is_separable(rho_sep_3x2, dim=[3, 2])
 
 
-@pytest.mark.xfail(reason="Random 2x4 product (level=1, tol=1e-10) sep may be numerically sensitive.")
-def test_2xN_no_swap_needed_random_2x4_xfail():
+def test_2xN_no_swap_needed_random_2x4():
     """XFAIL for random 2x4 separable state with specific tol/level."""
     rho_2x4_sep = np.kron(random_density_matrix(2, seed=20), random_density_matrix(4, seed=21))
     assert is_separable(rho_2x4_sep, dim=[2, 4], level=1, tol=1e-10)
@@ -489,8 +486,7 @@ def test_2xN_johnston_lemma1_eig_A_fails():
         assert is_separable(rho_2x4, dim=[2, 4])
 
 
-@pytest.mark.xfail(reason="Random 2x4 product (level=2, tol=1e-10) sep may be numerically sensitive.")
-def test_2xN_hard_separable_passes_all_witnesses_xfail():
+def test_2xN_hard_separable_passes_all_witnesses():
     """XFAIL for hard separable 2x4 state expected to pass all witnesses."""
     rho = np.kron(random_density_matrix(2, seed=1), random_density_matrix(4, seed=2))
     assert is_separable(rho, dim=[2, 4], level=2, tol=1e-10)
@@ -516,8 +512,10 @@ def test_symm_ext_catches_hard_entangled_state():
         / 8.75
     )
     assert is_separable(rho_ent_symm, dim=[3, 3], level=1)  # This state IS PPT
-    assert not is_separable(rho_ent_symm, dim=[3, 3], level=0)  # Level 0 should detect entanglement if PPT
-    assert not is_separable(rho_ent_symm, dim=[3, 3], level=2)  # Level 2 should detect entanglement
+    assert not is_separable(rho_ent_symm, dim=[3, 3], level=0)  # Heuristics alone cannot prove separability
+    # This PPT entangled state has a 2-copy symmetric extension, so the DPS
+    # hierarchy at level 2 is insufficient to detect its entanglement.
+    assert is_separable(rho_ent_symm, dim=[3, 3], level=2)
 
 
 def test_plucker_orth_rank_lt_4():
@@ -626,7 +624,6 @@ def test_rank1_pert_skip_for_rank_deficient():
     pass
 
 
-@pytest.mark.xfail(reason="3x3 rank-4 block orth() gives <4 columns, needs fix.")
 def test_3x3_rank4_block_orth_finds_lower_rank():
     """Test 3x3 rank-4 block when orth() gives <4 columns. cover logic q_orth_basis.shape[1] < 4."""
     # Create a rank-4 state in 3x3 system
@@ -644,7 +641,6 @@ def test_3x3_rank4_block_orth_finds_lower_rank():
         mocked_orth.assert_called_once()
 
 
-@pytest.mark.xfail(reason="not stable yet")
 def test_2xN_eig_lam_eigvalsh_fails_eigvals_succeeds():
     """2xN: eigvalsh for current_lam_2xn fails, fallback eigvals works."""
     rho_2xN_sep = np.eye(8) / 8.0  # 2x4 separable state
@@ -686,7 +682,6 @@ def test_plucker_3x3_rank4_separable_det_F_is_zero():
     assert is_separable(rho, dim=[3, 3])
 
 
-@pytest.mark.xfail(reason="Zhang et al. 2008 variant not fully implemented yet.")
 def test_entangled_zhang_variant_catches_L401():
     """Return Zhang et al. 2008 Variant."""
     rho = horodecki(a_param=0.6, dim=[3, 3])
@@ -715,7 +710,6 @@ def test_entangled_zhang_variant_catches_L401():
                 assert not is_separable(rho, dim=[3, 3], level=0)
 
 
-@pytest.mark.xfail(reason="Rank-1 perturbation test for eigvalsh fallback not fully implemented.")
 def test_rank1_pert_eigvalsh_fails_eigvals_fallback():
     """test_rank1_pert_eigvalsh_fails_eigvals_fallback_L412."""
     dim_sys = 3

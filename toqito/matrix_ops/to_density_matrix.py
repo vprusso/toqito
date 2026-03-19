@@ -9,21 +9,23 @@ def to_density_matrix(input_array: np.ndarray) -> np.ndarray:
     If the input is a vector, this function computes the outer product to form a density matrix.
     If the input is already a density matrix (square matrix), it returns the matrix as is.
 
-    Examples
-    ==========
+    Args:
+        input_array: Input array which could be a vector or a density matrix.
 
-    As an example, consider one of the Bell states.
+    Returns:
+        The computed or provided density matrix.
 
-    .. jupyter-execute::
+    Raises:
+        ValueError: If the input is not a vector or a square matrix.
 
-     from toqito.states import bell
-     from toqito.matrix_ops import to_density_matrix
+    Examples:
+        As an example, consider one of the Bell states.
+        ```python exec="1" source="above" result="text"
+        from toqito.states import bell
+        from toqito.matrix_ops import to_density_matrix
 
-     to_density_matrix(bell(0))
-
-    :raises ValueError: If the input is not a vector or a square matrix.
-    :param input_array: Input array which could be a vector or a density matrix.
-    :return: The computed or provided density matrix.
+        print(to_density_matrix(bell(0)))
+        ```
 
     """
     # Check if the input is a vector (1D array) or a 2D array

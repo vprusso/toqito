@@ -1,21 +1,21 @@
 """Calculates the optimal value of symmetric extension hierarchy SDP (semi definite programs)."""
 
+import warnings
+
 import cvxpy
 import numpy as np
 
 from toqito.matrix_ops import partial_trace, partial_transpose
 from toqito.perms import symmetric_projection
 
-from .state_helper import __is_probs_valid, __is_states_valid
-
 
 def symmetric_extension_hierarchy(
     states: list[np.ndarray],
-    probs: list[float] = None,
+    probs: list[float] | None = None,
     level: int = 2,
-    dim: int | list[int] = None,
+    dim: int | list[int] | None = None,
 ) -> float:
-    r"""Compute optimal value of the symmetric extension hierarchy SDP :footcite:`Navascues_2008_Pure`.
+    r"""Compute optimal value of the symmetric extension hierarchy SDP [@navascues2008pure].
 
     The probability of distinguishing a given set of states via PPT measurements serves as a natural
     upper bound to the value of obtaining via separable measurements. Due to the nature of separable
@@ -23,13 +23,12 @@ def symmetric_extension_hierarchy(
     programming techniques.
 
     We can, however, construct a hierarchy of semidefinite programs that attains closer and closer
-    approximations at the separable value via the techniques described in :footcite:`Navascues_2008_Pure`.
+    approximations at the separable value via the techniques described in [@navascues2008pure].
 
     The mathematical form of this hierarchy implemented here is explicitly given from equation 4.55
-    in :footcite:`Cosentino_2015_QuantumState`.
+    in [@cosentino2015quantum].
 
-    .. math::
-
+    \[
         \begin{equation}
             \begin{aligned}
                 \text{maximize:} \quad & \sum_{k=1}^N p_k \langle \rho_k, \mu(k) \rangle, \\
@@ -57,30 +56,39 @@ def symmetric_extension_hierarchy(
                                           \right).
             \end{aligned}
         \end{equation}
+    \]
 
-    Examples
-    ==========
+    Args:
+        states: A list of states provided as either matrices or vectors.
+        probs: Respective list of probabilities each state is selected.
+        level: Level of the hierarchy to compute.
+        dim: The default has both subsystems of equal dimension.
 
-    It is known from :footcite:`Cosentino_2015_QuantumState` that distinguishing three Bell states along with a resource
-    state :math:`|\tau_{\epsilon}\rangle` via separable measurements has the following closed form
+    Returns:
+        The optimal probability of the symmetric extension hierarchy SDP for level `level`.
 
-    .. math::
-        \frac{1}{3} \left(2 + \sqrt{1 - \epsilon^2} \right)
+    Examples:
+        It is known from [@cosentino2015quantum] that distinguishing three Bell states along with a resource
+        state \(|\tau_{\epsilon}\rangle\) via separable measurements has the following closed form
 
-    where the resource state is defined as
+        \[
+            \frac{1}{3} \left(2 + \sqrt{1 - \epsilon^2} \right)
+        \]
 
-    .. math::
-        |\tau_{\epsilon} \rangle = \sqrt{\frac{1+\epsilon}{2}} |00\rangle +
-                                   \sqrt{\frac{1-\epsilon}{2}} |11\rangle.
+        where the resource state is defined as
 
-    The value of optimally distinguishing these states via PPT measurements is strictly larger than
-    the value one obtains from separable measurements. Calculating the first level of the hierarchy
-    provides for us the optimal value of PPT measurements.
+        \[
+            |\tau_{\epsilon} \rangle = \sqrt{\frac{1+\epsilon}{2}} |00\rangle +
+                                       \sqrt{\frac{1-\epsilon}{2}} |11\rangle.
+        \]
 
-    Consider a fixed value of :math:`\epsilon = 0.5`.
+        The value of optimally distinguishing these states via PPT measurements is strictly larger than
+        the value one obtains from separable measurements. Calculating the first level of the hierarchy
+        provides for us the optimal value of PPT measurements.
 
-    .. jupyter-execute::
+        Consider a fixed value of \(\epsilon = 0.5\).
 
+        ```python exec="1" source="above" result="text"
         from toqito.states import basis, bell
         from toqito.perms import swap
         from toqito.state_opt import symmetric_extension_hierarchy
@@ -97,17 +105,17 @@ def symmetric_extension_hierarchy(
 
         # Define the ensemble of Bell states tensored with the resource state.
         states = [
-            np.kron(bell(0) @ bell(0).conj().T, eps_dm),
-            np.kron(bell(1) @ bell(1).conj().T, eps_dm),
-            np.kron(bell(2) @ bell(2).conj().T, eps_dm),
-            np.kron(bell(3) @ bell(3).conj().T, eps_dm),
+        np.kron(bell(0) @ bell(0).conj().T, eps_dm),
+        np.kron(bell(1) @ bell(1).conj().T, eps_dm),
+        np.kron(bell(2) @ bell(2).conj().T, eps_dm),
+        np.kron(bell(3) @ bell(3).conj().T, eps_dm),
         ]
 
         # Ensure correct ordering of subsystems.
         states = [
-            swap(states[0], [2, 3], [2, 2, 2, 2]),
-            swap(states[1], [2, 3], [2, 2, 2, 2]),
-            swap(states[2], [2, 3], [2, 2, 2, 2]),
+        swap(states[0], [2, 3], [2, 2, 2, 2]),
+        swap(states[1], [2, 3], [2, 2, 2, 2]),
+        swap(states[2], [2, 3], [2, 2, 2, 2]),
         ]
 
         # Calculate the first and second levels of the symmetric extension hierarchy.
@@ -120,19 +128,7 @@ def symmetric_extension_hierarchy(
         print(f"Level 1 symmetric extension value: {np.around(val_lvl_1, decimals=2)}")
         print(f"Level 2 symmetric extension value: {np.around(val_lvl_2, decimals=2)}")
         print(f"True separable value: {np.around(true_sep_val, decimals=2)}")
-
-    References
-    ==========
-    .. footbibliography::
-
-
-
-    :param states: A list of states provided as either matrices or vectors.
-    :param probs: Respective list of probabilities each state is selected.
-    :param level: Level of the hierarchy to compute.
-    :param dim: The default has both subsystems of equal dimension.
-    :return: The optimal probability of the symmetric extension hierarchy SDP for level
-            :code:`level`.
+        ```
 
     """
     obj_func = []
@@ -140,10 +136,12 @@ def symmetric_extension_hierarchy(
     x_var = []
     constraints = []
 
-    __is_states_valid(states)
+    if not states:
+        raise ValueError("At least one state must be provided.")
     if probs is None:
         probs = [1 / len(states)] * len(states)
-    __is_probs_valid(probs)
+    if not np.isclose(sum(probs), 1):
+        raise ValueError("Probabilities must sum to 1.")
 
     dim_xy, n_cols = states[0].shape
 
@@ -166,8 +164,7 @@ def symmetric_extension_hierarchy(
 
     dim_x, dim_y = int(dim[0]), int(dim[1])
 
-    dim_list = [dim_x] + [dim_y] * level
-    dim_list = np.int_(dim_list)
+    dim_list = np.array([dim_x] + [dim_y] * level, dtype=int)
     # The `sys_list` variable contains the numbering pertaining to the symmetrically extended
     # spaces.
     sys_list = list(range(2, 2 + level - 1))
@@ -190,7 +187,9 @@ def symmetric_extension_hierarchy(
     constraints.append(sum(meas) == np.identity(dim_xy))
 
     objective = cvxpy.Maximize(cvxpy.real(sum(obj_func)))
-    problem = cvxpy.Problem(objective, constraints)
-    sol_default = problem.solve()
+    with warnings.catch_warnings():
+        warnings.filterwarnings("ignore", message="Constraint.*subexpressions")
+        problem = cvxpy.Problem(objective, constraints)
+        sol_default = problem.solve()
 
     return sol_default

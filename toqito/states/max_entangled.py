@@ -7,53 +7,49 @@ import numpy as np
 from scipy.sparse import coo_array
 
 
-def max_entangled(dim: int, is_sparse: bool = False, is_normalized: bool = True) -> [np.ndarray, coo_array]:
-    r"""Produce a maximally entangled bipartite pure state :footcite:`WikiMaxEnt`.
+def max_entangled(dim: int, is_sparse: bool = False, is_normalized: bool = True) -> np.ndarray | coo_array:
+    r"""Produce a maximally entangled bipartite pure state [@wikipediamaximallyentangled].
 
-    Produces a maximally entangled pure state as above that is sparse if :code:`is_sparse = True` and is full if
-    :code:`is_sparse = False`. The pure state is normalized to have Euclidean norm 1 if :code:`is_normalized = True`,
+    Produces a maximally entangled pure state as above that is sparse if `is_sparse = True` and is full if
+    `is_sparse = False`. The pure state is normalized to have Euclidean norm 1 if `is_normalized = True`,
     and it is unnormalized (i.e. each entry in the vector is 0 or 1 and the Euclidean norm of the vector is
-    :code:`sqrt(dim)` if :code:`is_normalized = False`.
+    `sqrt(dim)` if `is_normalized = False`.
 
-    Examples
-    ==========
+    Args:
+        dim: Dimension of the entangled state.
+        is_sparse: `True` if vector is sparse and `False` otherwise.
+        is_normalized: `True` if vector is normalized and `False` otherwise.
 
-    We can generate the canonical :math:`2`-dimensional maximally entangled state
+    Returns:
+        The maximally entangled state of dimension `dim`.
 
-    .. math::
-        u = \frac{1}{\sqrt{2}} \left( |00 \rangle + |11 \rangle \right)
+    Examples:
+        We can generate the canonical \(2\)-dimensional maximally entangled state
 
-    using :code:`|toqito⟩` as follows.
+        \[
+            u = \frac{1}{\sqrt{2}} \left( |00 \rangle + |11 \rangle \right)
+        \]
 
-    .. jupyter-execute::
+        using `|toqito⟩` as follows.
 
+        ```python exec="1" source="above" result="text"
         from toqito.states import max_entangled
-        max_entangled(2)
+        print(max_entangled(2))
+        ```
 
 
-    By default, the state returned in normalized, however we can generate the unnormalized state
+        By default, the state returned in normalized, however we can generate the unnormalized state
 
-    .. math::
-        v = |00\rangle + |11 \rangle
+        \[
+            v = |00\rangle + |11 \rangle
+        \]
 
-    using :code:`|toqito⟩` as follows.
+        using `|toqito⟩` as follows.
 
-    .. jupyter-execute::
-
+        ```python exec="1" source="above" result="text"
         from toqito.states import max_entangled
-        max_entangled(2, False, False)
-
-
-    References
-    ==========
-    .. footbibliography::
-
-
-
-    :param dim: Dimension of the entangled state.
-    :param is_sparse: `True` if vector is sparse and `False` otherwise.
-    :param is_normalized: `True` if vector is normalized and `False` otherwise.
-    :return: The maximally entangled state of dimension :code:`dim`.
+        print(max_entangled(2, False, False))
+        ```
 
     """
     # Allow both standard int and numpy integer types

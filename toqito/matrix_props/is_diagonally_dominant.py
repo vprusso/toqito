@@ -6,63 +6,60 @@ from toqito.matrix_props import is_square
 
 
 def is_diagonally_dominant(mat: np.ndarray, is_strict: bool = True) -> bool:
-    r"""Check if matrix is diagnal dominant (DD) :footcite:`WikiDiagDom`.
+    r"""Check if matrix is diagnal dominant (DD) [@wikipediadiagonallydominant].
 
     A matrix is diagonally dominant if the matrix is square
     and if for every row of the matrix, the magnitude of the diagonal entry in a row is greater
     than or equal to the sum of the magnitudes of all the other (non-diagonal) entries in that row.
 
-    Examples
-    ==========
+    Args:
+        mat: Matrix to check.
+        is_strict: Whether the inequality is strict.
 
-    The following is an example of a 3-by-3 diagonal matrix:
+    Returns:
+        Return `True` if matrix is diagnally dominant, and `False` otherwise.
 
-       .. math::
-           A = \begin{pmatrix}
-                   2 & -1 & 0 \\
-                   0 & 2 & -1 \\
-                   0 & -1 & 2
-               \end{pmatrix}
+    Examples:
+        The following is an example of a 3-by-3 diagonal matrix:
 
-    our function indicates that this is indeed a diagonally dominant matrix.
+        \[
+            A = \begin{pmatrix}
+                    2 & -1 & 0 \\
+                    0 & 2 & -1 \\
+                    0 & -1 & 2
+                \end{pmatrix}
+        \]
 
-    .. jupyter-execute::
+        our function indicates that this is indeed a diagonally dominant matrix.
 
-     import numpy as np
-     from toqito.matrix_props import is_diagonally_dominant
+        ```python exec="1" source="above" result="text"
+        import numpy as np
+        from toqito.matrix_props import is_diagonally_dominant
 
-     A = np.array([[2, -1, 0], [0, 2, -1], [0, -1, 2]])
+        A = np.array([[2, -1, 0], [0, 2, -1], [0, -1, 2]])
 
-     is_diagonally_dominant(A)
+        print(is_diagonally_dominant(A))
+        ```
 
-    Alternatively, the following example matrix :math:`B` defined as
+        Alternatively, the following example matrix \(B\) defined as
 
-       .. math::
-           B = \begin{pmatrix}
-                   -1 & 2 \\
-                   -1 & -1
-               \end{pmatrix}
+        \[
+            B = \begin{pmatrix}
+                    -1 & 2 \\
+                    -1 & -1
+                \end{pmatrix}
+        \]
 
-    is not diagonally dominant.
+        is not diagonally dominant.
 
-    .. jupyter-execute::
+        ```python exec="1" source="above" result="text"
+        import numpy as np
+        from toqito.matrix_props import is_diagonally_dominant
 
-     import numpy as np
-     from toqito.matrix_props import is_diagonally_dominant
+        B = np.array([[-1, 2], [-1, -1]])
 
-     B = np.array([[-1, 2], [-1, -1]])
-
-     is_diagonally_dominant(B)
-
-    References
-    ==========
-    .. footbibliography::
-
-
-
-    :param mat: Matrix to check.
-    :param is_strict: Whether the inequality is strict.
-    :return: Return :code:`True` if matrix is diagnally dominant, and :code:`False` otherwise.
+        print(is_diagonally_dominant(B))
+        ```
 
     """
     if not is_square(mat):

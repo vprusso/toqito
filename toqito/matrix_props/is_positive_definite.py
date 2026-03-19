@@ -4,62 +4,58 @@ import numpy as np
 
 
 def is_positive_definite(mat: np.ndarray) -> bool:
-    r"""Check if matrix is positive definite (PD) :footcite:`WikiPosDef`.
+    r"""Check if matrix is positive definite (PD) [@wikipediadefinite].
 
-    Examples
-    ==========
+    Args:
+        mat: Matrix to check.
 
-    Consider the following matrix
+    Returns:
+        Return `True` if matrix is positive definite, and `False` otherwise.
 
-    .. math::
-        A = \begin{pmatrix}
-                2 & -1 & 0 \\
-                -1 & 2 & -1 \\
-                0 & -1 & 2
-            \end{pmatrix}
+    Examples:
+        Consider the following matrix
 
-    our function indicates that this is indeed a positive definite matrix.
+        \[
+            A = \begin{pmatrix}
+                    2 & -1 & 0 \\
+                    -1 & 2 & -1 \\
+                    0 & -1 & 2
+                \end{pmatrix}
+        \]
 
-    .. jupyter-execute::
+        our function indicates that this is indeed a positive definite matrix.
 
-     import numpy as np
-     from toqito.matrix_props import is_positive_definite
+        ```python exec="1" source="above" result="text"
+        import numpy as np
+        from toqito.matrix_props import is_positive_definite
 
-     A = np.array([[2, -1, 0], [-1, 2, -1], [0, -1, 2]])
+        A = np.array([[2, -1, 0], [-1, 2, -1], [0, -1, 2]])
 
-     is_positive_definite(A)
+        print(is_positive_definite(A))
+        ```
 
-    Alternatively, the following example matrix :math:`B` defined as
+        Alternatively, the following example matrix \(B\) defined as
 
-    .. math::
-        B = \begin{pmatrix}
-                -1 & -1 \\
-                -1 & -1
-            \end{pmatrix}
+        \[
+            B = \begin{pmatrix}
+                    -1 & -1 \\
+                    -1 & -1
+                \end{pmatrix}
+        \]
 
-    is not positive definite.
+        is not positive definite.
 
-    .. jupyter-execute::
+        ```python exec="1" source="above" result="text"
+        import numpy as np
+        from toqito.matrix_props import is_positive_definite
 
-     import numpy as np
-     from toqito.matrix_props import is_positive_definite
+        B = np.array([[-1, -1], [-1, -1]])
 
-     B = np.array([[-1, -1], [-1, -1]])
+        print(is_positive_definite(B))
+        ```
 
-     is_positive_definite(B)
-
-    See Also
-    ========
-    :py:func:`~toqito.matrix_props.is_positive_semidefinite.is_positive_semidefinite`
-
-    References
-    ==========
-    .. footbibliography::
-
-
-
-    :param mat: Matrix to check.
-    :return: Return :code:`True` if matrix is positive definite, and :code:`False` otherwise.
+        !!! See Also
+            [`is_positive_semidefinite`][toqito.matrix_props.is_positive_semidefinite.is_positive_semidefinite]
 
     """
     if np.array_equal(mat, mat.conj().T):

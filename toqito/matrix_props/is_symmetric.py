@@ -6,70 +6,59 @@ from toqito.matrix_props import is_square
 
 
 def is_symmetric(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08) -> bool:
-    r"""Determine if a matrix is symmetric :footcite:`WikiSymMat`.
+    r"""Determine if a matrix is symmetric [@wikipediasymmetric].
 
-    The following 3x3 matrix is an example of a symmetric matrix:
+    A matrix is symmetric if it is equal to its own transpose ($A = A^T$).
 
-    .. math::
+    Args:
+        mat: The matrix to check.
+        rtol: The relative tolerance parameter (default 1e-05).
+        atol: The absolute tolerance parameter (default 1e-08).
 
-        \begin{pmatrix}
-            1 & 7 & 3 \\
-            7 & 4 & -5 \\
-            3 &-5 & 6
-        \end{pmatrix}
+    Returns:
+        Returns `True` if the matrix is symmetric and `False` otherwise.
 
-    Examples
-    ==========
+    Examples:
+        The following 3x3 matrix is an example of a symmetric matrix:
 
-    Consider the following matrix
-
-    .. math::
-        A = \begin{pmatrix}
+        \[
+            A = \begin{pmatrix}
                 1 & 7 & 3 \\
                 7 & 4 & -5 \\
-                3 & -5 & 6
+                3 &-5 & 6
             \end{pmatrix}
+        \]
 
-    our function indicates that this is indeed a symmetric matrix.
+        our function indicates that this is indeed a symmetric matrix.
 
-    .. jupyter-execute::
+        ```python exec="1" source="above" result="text"
+        import numpy as np
+        from toqito.matrix_props import is_symmetric
 
-     import numpy as np
-     from toqito.matrix_props import is_symmetric
+        A = np.array([[1, 7, 3], [7, 4, -5], [3, -5, 6]])
 
-     A = np.array([[1, 7, 3], [7, 4, -5], [3, -5, 6]])
+        print(is_symmetric(A))
+        ```
 
-     is_symmetric(A)
+        Alternatively, the following example matrix \(B\) defined as
 
-    Alternatively, the following example matrix :math:`B` defined as
+        \[
+            B = \begin{pmatrix}
+                    1 & 2 \\
+                    4 & 5
+                \end{pmatrix}
+        \]
 
-    .. math::
-        B = \begin{pmatrix}
-                1 & 2 \\
-                4 & 5
-            \end{pmatrix}
+        is not symmetric.
 
-    is not symmetric.
+        ```python exec="1" source="above" result="text"
+        import numpy as np
+        from toqito.matrix_props import is_symmetric
 
-    .. jupyter-execute::
+        B = np.array([[1, 2], [3, 4]])
 
-     import numpy as np
-     from toqito.matrix_props import is_symmetric
-
-     B = np.array([[1, 2], [3, 4]])
-
-     is_symmetric(B)
-
-    References
-    ==========
-    .. footbibliography::
-
-
-
-    :param mat: The matrix to check.
-    :param rtol: The relative tolerance parameter (default 1e-05).
-    :param atol: The absolute tolerance parameter (default 1e-08).
-    :return: Returns :code:`True` if the matrix is symmetric and :code:`False` otherwise.
+        print(is_symmetric(B))
+        ```
 
     """
     if not is_square(mat):

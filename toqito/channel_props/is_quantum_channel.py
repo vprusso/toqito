@@ -14,66 +14,64 @@ def is_quantum_channel(
     r"""Determine whether the given input is a quantum channel.
 
     For more info, see Section 2.2.1: Definitions and Basic Notions Concerning Channels from
-    :footcite:`Watrous_2018_TQI`.
+    [@watrous2018theory].
 
-    A map :math:`\Phi \in \text{T} \left(\mathcal{X}, \mathcal{Y} \right)` is a *quantum
-    channel* for some choice of complex Euclidean spaces :math:`\mathcal{X}`
-    and :math:`\mathcal{Y}`, if it holds that:
+    A map \(\Phi \in \text{T} \left(\mathcal{X}, \mathcal{Y} \right)\) is a *quantum
+    channel* for some choice of complex Euclidean spaces \(\mathcal{X}\)
+    and \(\mathcal{Y}\), if it holds that:
 
-    1. :math:`\Phi` is completely positive.
-    2. :math:`\Phi` is trace preserving.
+    1. \(\Phi\) is completely positive.
+    2. \(\Phi\) is trace preserving.
 
-    Examples
-    ========
-    We can specify the input as a list of Kraus operators. Consider the map :math:`\Phi` defined as
+    Args:
+        phi: The channel provided as either a Choi matrix or a list of Kraus operators.
+        rtol: The relative tolerance parameter (default 1e-05).
+        atol: The absolute tolerance parameter (default 1e-08).
 
-    .. math::
-        \Phi(X) = X - U X U^*
+    Returns:
+        `True` if the channel is a quantum channel, and `False` otherwise.
 
-    where
+    Examples:
+        We can specify the input as a list of Kraus operators. Consider the map \(\Phi\) defined as
 
-    .. math::
-        U = \frac{1}{\sqrt{2}}
-        \begin{pmatrix}
-            1 & 1 \\
-            -1 & 1
-        \end{pmatrix}.
+        \[
+            \Phi(X) = X - U X U^*
+        \]
 
-    To check if this is a valid quantum channel or not,
+        where
 
-    .. jupyter-execute::
+        \[
+            U = \frac{1}{\sqrt{2}}
+            \begin{pmatrix}
+                1 & 1 \\
+                -1 & 1
+            \end{pmatrix}.
+        \]
 
-     import numpy as np
-     from toqito.matrices import pauli
-     from toqito.channel_props import is_quantum_channel
+        To check if this is a valid quantum channel or not,
 
-     U = (1/np.sqrt(2))*np.array([[1, 1],[-1, 1]])
-     X = pauli("X")
-     phi = X - np.matmul(U, np.matmul(X, np.conjugate(U)))
+        ```python exec="1" source="above" result="text"
+        import numpy as np
+        from toqito.matrices import pauli
+        from toqito.channel_props import is_quantum_channel
 
-     is_quantum_channel(phi)
+        U = (1/np.sqrt(2))*np.array([[1, 1],[-1, 1]])
+        X = pauli("X")
+        phi = X - np.matmul(U, np.matmul(X, np.conjugate(U)))
 
-    If we instead check for the validity of depolarizing channel being a valid quantum channel,
+        print(is_quantum_channel(phi))
+        ```
 
-    .. jupyter-execute::
+        If we instead check for the validity of depolarizing channel being a valid quantum channel,
 
-     from toqito.channels import depolarizing
-     from toqito.channel_props import is_quantum_channel
+        ```python exec="1" source="above" result="text"
+        from toqito.channels import depolarizing
+        from toqito.channel_props import is_quantum_channel
 
-     choi_depolarizing = depolarizing(dim=2, param_p=0.2)
+        choi_depolarizing = depolarizing(dim=2, param_p=0.2)
 
-     is_quantum_channel(choi_depolarizing)
-
-    References
-    ==========
-    .. footbibliography::
-
-
-
-    :param phi: The channel provided as either a Choi matrix or a list of Kraus operators.
-    :param rtol: The relative tolerance parameter (default 1e-05).
-    :param atol: The absolute tolerance parameter (default 1e-08).
-    :return: :code:`True` if the channel is a quantum channel, and :code:`False` otherwise.
+        print(is_quantum_channel(choi_depolarizing))
+        ```
 
     """
     # If the variable `phi` is provided as a list, we assume this is a list
