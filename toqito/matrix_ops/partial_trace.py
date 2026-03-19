@@ -110,11 +110,18 @@ def partial_trace(
 
 
 
-    :raises ValueError: If matrix dimension is not equal to the number of subsystems.
+    :raises ValueError: If :code:`input_mat` is not a 2D square matrix.
+    :raises ValueError: If :code:`dim` is not an :code:`int`, :code:`list`, :code:`tuple`, or
+                        :code:`numpy.ndarray` of ints.
+    :raises ValueError: If :code:`dim` is a scalar that does not evenly divide the matrix dimension.
+    :raises ValueError: If the product of :code:`dim` does not match the matrix dimension.
+    :raises ValueError: If any index in :code:`sys` is negative or out of bounds.
+    :raises ValueError: If :code:`sys` is not an :code:`int` or a list of ints.
     :param input_mat: A square matrix.
     :param sys: Scalar or vector specifying the size of the subsystems.
     :param dim: Dimension of the subsystems. If :code:`None`, all dimensions are assumed to be
-                equal.
+                equal. Accepted types are :code:`int`, :code:`list`, :code:`tuple`, or
+                :code:`numpy.ndarray`.
     :return: The partial trace of matrix :code:`input_mat`.
 
     """
@@ -137,11 +144,15 @@ def partial_trace(
     if dim is None:
         d = int(round(np.sqrt(n)))
         if d * d != n:
-            raise ValueError("Cannot infer subsystem dimensions directly. Please provide `dim`.")
+            raise ValueError(
+                "Cannot infer subsystem dimensions directly. Please provide `dim`."
+            )
         dim = np.array([d, d])
     elif isinstance(dim, int):
         if n % dim != 0:
-            raise ValueError("Invalid: If `dim` is a scalar, it must evenly divide matrix dimension.")
+            raise ValueError(
+                "Invalid: If `dim` is a scalar, it must evenly divide matrix dimension."
+            )
         dim = np.array([dim, n // dim])
     elif isinstance(dim, (list, tuple, np.ndarray)):
         dim = np.array(dim)
@@ -150,7 +161,9 @@ def partial_trace(
         if len(dim) == 1:
             d = dim[0]
             if n % d != 0:
-                raise ValueError("Invalid: If `dim` is a scalar, it must evenly divide matrix dimension.")
+                raise ValueError(
+                    "Invalid: If `dim` is a scalar, it must evenly divide matrix dimension."
+                )
 
             dim = np.array([d, n // d])
     else:
@@ -176,7 +189,9 @@ def partial_trace(
         sys = np.array(sys)
 
     else:
-        raise ValueError("Invalid: The variable `sys` must either be of type int or of a list of ints.")
+        raise ValueError(
+            "Invalid: The variable `sys` must either be of type int or of a list of ints."
+        )
 
     sub_prod = prod_dim // prod_dim_sys
     sub_sys_size = prod_dim_sys
