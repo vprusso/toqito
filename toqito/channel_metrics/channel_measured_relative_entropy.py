@@ -88,7 +88,7 @@ def channel_measured_relative_entropy(
         from toqito.channels import depolarizing
         import numpy as np
         channel_1 = depolarizing(2, 0.2)
-        channel_2 = np.eye(4)
+        channel_2 = depolarizing(2, 1)  # Identity channel Choi matrix
         in_dim = 2
         m = 5
         k = 5

@@ -29,8 +29,8 @@ def random_states(n: int, d: int, seed: int | None = None) -> list[np.ndarray]:
         print(f"Shape of each state vector: {states[0].shape}")
 
         for idx, state in enumerate(states):
-        print(f"\nState {idx}:")
-        print(state)
+            print(f"\nState {idx}:")
+            print(state)
         ```
 
         It is also possible to pass a seed to this function for reproducibility.
@@ -41,8 +41,8 @@ def random_states(n: int, d: int, seed: int | None = None) -> list[np.ndarray]:
         states = random_states(3, 4, seed=42)
 
         for idx, state in enumerate(states):
-        print(f"\nState {idx}:")
-        print(state)
+            print(f"\nState {idx}:")
+            print(state)
         ```
 
 

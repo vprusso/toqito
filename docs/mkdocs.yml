@@ -90,6 +90,7 @@ plugins:
       
   - bibtex:
       bib_dir: content
+      full_bib_command: \disable_full_bibliography
 
 markdown_extensions:
   - footnotes
