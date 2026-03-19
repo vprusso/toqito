@@ -9873,20 +9873,7 @@ is entangled but PPT.</p>
 <span class="normal"><a href="#__codelineno-0-730">730</a></span>
 <span class="normal"><a href="#__codelineno-0-731">731</a></span>
 <span class="normal"><a href="#__codelineno-0-732">732</a></span>
-<span class="normal"><a href="#__codelineno-0-733">733</a></span>
-<span class="normal"><a href="#__codelineno-0-734">734</a></span>
-<span class="normal"><a href="#__codelineno-0-735">735</a></span>
-<span class="normal"><a href="#__codelineno-0-736">736</a></span>
-<span class="normal"><a href="#__codelineno-0-737">737</a></span>
-<span class="normal"><a href="#__codelineno-0-738">738</a></span>
-<span class="normal"><a href="#__codelineno-0-739">739</a></span>
-<span class="normal"><a href="#__codelineno-0-740">740</a></span>
-<span class="normal"><a href="#__codelineno-0-741">741</a></span>
-<span class="normal"><a href="#__codelineno-0-742">742</a></span>
-<span class="normal"><a href="#__codelineno-0-743">743</a></span>
-<span class="normal"><a href="#__codelineno-0-744">744</a></span>
-<span class="normal"><a href="#__codelineno-0-745">745</a></span>
-<span class="normal"><a href="#__codelineno-0-746">746</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-20" name="__codelineno-0-20"></a><span class="k">def</span><span class="w"> </span><span class="nf">is_separable</span><span class="p">(</span><span class="n">state</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">dim</span><span class="p">:</span> <span class="kc">None</span> <span class="o">|</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">level</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">tol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-8</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="normal"><a href="#__codelineno-0-733">733</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-20" name="__codelineno-0-20"></a><span class="k">def</span><span class="w"> </span><span class="nf">is_separable</span><span class="p">(</span><span class="n">state</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">dim</span><span class="p">:</span> <span class="kc">None</span> <span class="o">|</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">level</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">tol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-8</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <a id="__codelineno-0-21" name="__codelineno-0-21"></a><span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Determine if a given state (given as a density matrix) is a separable state [@wikipediaseparable].</span>
 <a id="__codelineno-0-22" name="__codelineno-0-22"></a>
 <a id="__codelineno-0-23" name="__codelineno-0-23"></a><span class="sd">    A multipartite quantum state:</span>
@@ -10572,47 +10559,34 @@ is entangled but PPT.</p>
 <a id="__codelineno-0-703" name="__codelineno-0-703"></a>
 <a id="__codelineno-0-704" name="__codelineno-0-704"></a>    <span class="c1"># --- 13. Symmetric Extension Hierarchy (DPS) ---</span>
 <a id="__codelineno-0-705" name="__codelineno-0-705"></a>    <span class="c1"># A state is separable iff it has a k-symmetric extension for all k [@doherty2004complete].</span>
-<a id="__codelineno-0-706" name="__codelineno-0-706"></a>    <span class="c1"># We check up to the specified `level`.</span>
-<a id="__codelineno-0-707" name="__codelineno-0-707"></a>    <span class="k">if</span> <span class="n">level</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="p">:</span>  <span class="c1"># Level 1 (PPT) is already confirmed if we reach here.</span>
-<a id="__codelineno-0-708" name="__codelineno-0-708"></a>        <span class="c1"># Loop for k from 2 up to `level` specified by user.</span>
-<a id="__codelineno-0-709" name="__codelineno-0-709"></a>        <span class="c1"># If `has_symmetric_extension` returns True for any k in this loop,</span>
-<a id="__codelineno-0-710" name="__codelineno-0-710"></a>        <span class="c1"># it means the state *is* k-extendible. This implementation interprets this as</span>
-<a id="__codelineno-0-711" name="__codelineno-0-711"></a>        <span class="c1"># passing the DPS test up to that level, and thus returns True (separable).</span>
-<a id="__codelineno-0-712" name="__codelineno-0-712"></a>        <span class="c1"># TODO: #1247 A stricter interpretation for proving entanglement would be: if for *any* k in this loop,</span>
-<a id="__codelineno-0-713" name="__codelineno-0-713"></a>        <span class="c1"># `has_symmetric_extension` returns False, then it&#39;s entangled.</span>
-<a id="__codelineno-0-714" name="__codelineno-0-714"></a>        <span class="c1"># QETLAB&#39;s `SymmetricExtension` returns 0 if *not* k-PPT-extendible (entangled).</span>
-<a id="__codelineno-0-715" name="__codelineno-0-715"></a>        <span class="c1"># QETLAB&#39;s `SymmetricInnerExtension` returns 1 if separable by that method.</span>
-<a id="__codelineno-0-716" name="__codelineno-0-716"></a>        <span class="c1"># The current Python loop `if has_symmetric_extension(...): return True` means if it passes</span>
-<a id="__codelineno-0-717" name="__codelineno-0-717"></a>        <span class="c1"># for k=2 (and level &gt;=2), it declares separable.</span>
-<a id="__codelineno-0-718" name="__codelineno-0-718"></a>        <span class="k">for</span> <span class="n">k_actual_level_check</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">level</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>  <span class="c1"># Ensure level is int for range</span>
-<a id="__codelineno-0-719" name="__codelineno-0-719"></a>            <span class="k">try</span><span class="p">:</span>
-<a id="__codelineno-0-720" name="__codelineno-0-720"></a>                <span class="k">if</span> <span class="n">has_symmetric_extension</span><span class="p">(</span><span class="n">rho</span><span class="o">=</span><span class="n">current_state</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">k_actual_level_check</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="n">dims_list</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="n">tol</span><span class="p">):</span>
-<a id="__codelineno-0-721" name="__codelineno-0-721"></a>                    <span class="c1"># State has a k-symmetric extension, considered separable by this test level.</span>
-<a id="__codelineno-0-722" name="__codelineno-0-722"></a>                    <span class="k">return</span> <span class="kc">True</span>
-<a id="__codelineno-0-723" name="__codelineno-0-723"></a>                <span class="c1"># If it does NOT have a k-symmetric extension, it is entangled.</span>
-<a id="__codelineno-0-724" name="__codelineno-0-724"></a>                <span class="c1"># The current loop structure means if has_symmetric_extension for k=2 is False,</span>
-<a id="__codelineno-0-725" name="__codelineno-0-725"></a>                <span class="c1"># it will continue to k=3 (if level &gt;=3), etc. It only returns True if an extension is found.</span>
-<a id="__codelineno-0-726" name="__codelineno-0-726"></a>                <span class="c1"># To match &quot;if not extendible -&gt; entangled&quot;:</span>
-<a id="__codelineno-0-727" name="__codelineno-0-727"></a>                <span class="c1"># if not has_symmetric_extension(...): return False; # This would be a change.</span>
-<a id="__codelineno-0-728" name="__codelineno-0-728"></a>                <span class="c1"># The current logic is: &quot;if extendible at any k up to level, then separable&quot;.</span>
-<a id="__codelineno-0-729" name="__codelineno-0-729"></a>            <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
-<a id="__codelineno-0-730" name="__codelineno-0-730"></a>                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Warning: CVXPY or a solver is not installed; cannot perform symmetric extension check.&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-731" name="__codelineno-0-731"></a>                <span class="k">break</span>  <span class="c1"># Stop trying symmetric extensions if dependencies are missing</span>
-<a id="__codelineno-0-732" name="__codelineno-0-732"></a>            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-<a id="__codelineno-0-733" name="__codelineno-0-733"></a>                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Warning: Symmetric extension check failed at level </span><span class="si">{</span><span class="n">k_actual_level_check</span><span class="si">}</span><span class="s2"> with an error: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-734" name="__codelineno-0-734"></a>                <span class="c1"># Decide whether to break or continue to next k_level if solver fails for one.</span>
-<a id="__codelineno-0-735" name="__codelineno-0-735"></a>                <span class="c1"># Current: proceeds to next k or finishes loop.</span>
-<a id="__codelineno-0-736" name="__codelineno-0-736"></a>                <span class="k">pass</span>  <span class="c1"># Proceed, may not be able to determine via this method.</span>
-<a id="__codelineno-0-737" name="__codelineno-0-737"></a>    <span class="k">elif</span> <span class="n">level</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">is_state_ppt</span><span class="p">:</span>  <span class="c1"># is_state_ppt is True at this point</span>
-<a id="__codelineno-0-738" name="__codelineno-0-738"></a>        <span class="c1"># 1-extendibility is equivalent to PPT.</span>
-<a id="__codelineno-0-739" name="__codelineno-0-739"></a>        <span class="k">return</span> <span class="kc">True</span>
-<a id="__codelineno-0-740" name="__codelineno-0-740"></a>
-<a id="__codelineno-0-741" name="__codelineno-0-741"></a>    <span class="c1"># If all implemented checks are inconclusive, and the state passed PPT (the most basic necessary condition checked),</span>
-<a id="__codelineno-0-742" name="__codelineno-0-742"></a>    <span class="c1"># it implies that the state is either separable but not caught by the simpler sufficient conditions,</span>
-<a id="__codelineno-0-743" name="__codelineno-0-743"></a>    <span class="c1"># or it&#39;s a PPT entangled state that also wasn&#39;t caught by other implemented witnesses</span>
-<a id="__codelineno-0-744" name="__codelineno-0-744"></a>    <span class="c1"># or the DPS hierarchy up to `level`.</span>
-<a id="__codelineno-0-745" name="__codelineno-0-745"></a>    <span class="c1"># Defaulting to False implies we couldn&#39;t definitively prove separability with the implemented tests.</span>
-<a id="__codelineno-0-746" name="__codelineno-0-746"></a>    <span class="k">return</span> <span class="kc">False</span>
+<a id="__codelineno-0-706" name="__codelineno-0-706"></a>    <span class="c1"># The hierarchy is increasingly restrictive: k-extendible ⊃ (k+1)-extendible ⊃ ... ⊃ separable.</span>
+<a id="__codelineno-0-707" name="__codelineno-0-707"></a>    <span class="c1"># - If the state is NOT k-extendible at any level, it is definitively entangled.</span>
+<a id="__codelineno-0-708" name="__codelineno-0-708"></a>    <span class="c1"># - If the state IS k-extendible for all k up to `level`, it passes the DPS test at that level.</span>
+<a id="__codelineno-0-709" name="__codelineno-0-709"></a>    <span class="k">if</span> <span class="n">level</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="p">:</span>  <span class="c1"># Level 1 (PPT) is already confirmed if we reach here.</span>
+<a id="__codelineno-0-710" name="__codelineno-0-710"></a>        <span class="k">for</span> <span class="n">k_actual_level_check</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">level</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+<a id="__codelineno-0-711" name="__codelineno-0-711"></a>            <span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-0-712" name="__codelineno-0-712"></a>                <span class="k">if</span> <span class="ow">not</span> <span class="n">has_symmetric_extension</span><span class="p">(</span><span class="n">rho</span><span class="o">=</span><span class="n">current_state</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">k_actual_level_check</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="n">dims_list</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="n">tol</span><span class="p">):</span>
+<a id="__codelineno-0-713" name="__codelineno-0-713"></a>                    <span class="c1"># No k-symmetric extension exists — state is entangled.</span>
+<a id="__codelineno-0-714" name="__codelineno-0-714"></a>                    <span class="k">return</span> <span class="kc">False</span>
+<a id="__codelineno-0-715" name="__codelineno-0-715"></a>            <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+<a id="__codelineno-0-716" name="__codelineno-0-716"></a>                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Warning: CVXPY or a solver is not installed; cannot perform symmetric extension check.&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-717" name="__codelineno-0-717"></a>                <span class="k">break</span>
+<a id="__codelineno-0-718" name="__codelineno-0-718"></a>            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+<a id="__codelineno-0-719" name="__codelineno-0-719"></a>                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Warning: Symmetric extension check failed at level </span><span class="si">{</span><span class="n">k_actual_level_check</span><span class="si">}</span><span class="s2"> with an error: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-720" name="__codelineno-0-720"></a>                <span class="k">break</span>
+<a id="__codelineno-0-721" name="__codelineno-0-721"></a>        <span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-0-722" name="__codelineno-0-722"></a>            <span class="c1"># All levels from 2 to `level` passed — state has a k-symmetric extension at every tested level.</span>
+<a id="__codelineno-0-723" name="__codelineno-0-723"></a>            <span class="k">return</span> <span class="kc">True</span>
+<a id="__codelineno-0-724" name="__codelineno-0-724"></a>    <span class="k">elif</span> <span class="n">level</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">is_state_ppt</span><span class="p">:</span>  <span class="c1"># is_state_ppt is True at this point</span>
+<a id="__codelineno-0-725" name="__codelineno-0-725"></a>        <span class="c1"># 1-extendibility is equivalent to PPT.</span>
+<a id="__codelineno-0-726" name="__codelineno-0-726"></a>        <span class="k">return</span> <span class="kc">True</span>
+<a id="__codelineno-0-727" name="__codelineno-0-727"></a>
+<a id="__codelineno-0-728" name="__codelineno-0-728"></a>    <span class="c1"># If all implemented checks are inconclusive, and the state passed PPT (the most basic necessary condition checked),</span>
+<a id="__codelineno-0-729" name="__codelineno-0-729"></a>    <span class="c1"># it implies that the state is either separable but not caught by the simpler sufficient conditions,</span>
+<a id="__codelineno-0-730" name="__codelineno-0-730"></a>    <span class="c1"># or it&#39;s a PPT entangled state that also wasn&#39;t caught by other implemented witnesses</span>
+<a id="__codelineno-0-731" name="__codelineno-0-731"></a>    <span class="c1"># or the DPS hierarchy up to `level`.</span>
+<a id="__codelineno-0-732" name="__codelineno-0-732"></a>    <span class="c1"># Defaulting to False implies we couldn&#39;t definitively prove separability with the implemented tests.</span>
+<a id="__codelineno-0-733" name="__codelineno-0-733"></a>    <span class="k">return</span> <span class="kc">False</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>

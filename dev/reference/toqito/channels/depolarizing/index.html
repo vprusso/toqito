@@ -8797,18 +8797,31 @@
         <p>Produce the partially depolarizing channel.</p>
 <p>(Section: Replacement Channels and the Completely Depolarizing Channel from
 <sup><a id="cite-toqito-channels-depolarizing-depolarizing-1" href="#ref-toqito-channels-depolarizing-depolarizing-1">1</a></sup>).</p>
-<p>The Choi matrix of the completely depolarizing channel <sup><a id="cite-toqito-channels-depolarizing-depolarizing-2" href="#ref-toqito-channels-depolarizing-depolarizing-2">2</a></sup> that acts on
+<p>The Choi matrix of the partially depolarizing channel <sup><a id="cite-toqito-channels-depolarizing-depolarizing-2" href="#ref-toqito-channels-depolarizing-depolarizing-2">2</a></sup> that acts on
 <code>dim</code>-by-<code>dim</code> matrices.</p>
-<p>The <em>completely depolarizing channel</em> is defined as</p>
+<p>The <em>partially depolarizing channel</em> is defined as</p>
 <div class="arithmatex">\[
-    \Omega(X) = \text{Tr}(X) \omega
+    \Phi_p(\rho) = (1 - p) \text{Tr}(\rho) \frac{\mathbb{I}}{d} + p \, \rho
 \]</div>
-<p>for all <span class="arithmatex">\(X \in \text{L}(\mathcal{X})\)</span>, where</p>
+<p>for all <span class="arithmatex">\(\rho \in \text{L}(\mathcal{X})\)</span>, where <span class="arithmatex">\(d = \text{dim}(\mathcal{X})\)</span>
+and <span class="arithmatex">\(p \in [0, 1]\)</span>.</p>
+<p>When <span class="arithmatex">\(p = 0\)</span>, this reduces to the <em>completely depolarizing channel</em>
+<span class="arithmatex">\(\Omega(\rho) = \text{Tr}(\rho) \frac{\mathbb{I}}{d}\)</span>, which maps every state to the
+maximally mixed state. When <span class="arithmatex">\(p = 1\)</span>, this is the identity channel.</p>
+<p>The corresponding Choi matrix is</p>
 <div class="arithmatex">\[
-    \omega = \frac{\mathbb{I}_{\mathcal{X}}}{\text{dim}(\mathcal{X})}
+    J(\Phi_p) = \frac{1 - p}{d} \, \mathbb{I} \otimes \mathbb{I}
+    + p \, |\psi\rangle\!\langle\psi|
 \]</div>
-<p>denotes the completely mixed stated defined with respect to the space <span class="arithmatex">\(\mathcal{X}\)</span>.</p>
+<p>where <span class="arithmatex">\(|\psi\rangle = \sum_{i} |i\rangle \otimes |i\rangle\)</span> is the (unnormalized)
+maximally entangled state.</p>
 
+
+<details class="note" open>
+  <summary>Note</summary>
+  <p>This follows the QETLAB convention where <span class="arithmatex">\(p = 0\)</span> gives the completely depolarizing
+channel and <span class="arithmatex">\(p = 1\)</span> gives the identity channel.</p>
+</details>
 
 <p><span class="doc-section-title">Parameters:</span></p>
     <ul>
@@ -8827,8 +8840,8 @@
 )
           –
           <div class="doc-md-description">
-            <p>Depolarizing probability <span class="arithmatex">\(p \)</span> \in [0,1] that mixes the input state with the maximally mixed state.
-Default 0.</p>
+            <p>Parameter <span class="arithmatex">\(p \in [0, 1]\)</span> that interpolates between the completely depolarizing
+channel (<span class="arithmatex">\(p = 0\)</span>) and the identity channel (<span class="arithmatex">\(p = 1\)</span>). Default 0.</p>
           </div>
         </li>
     </ul>
@@ -8840,7 +8853,7 @@ Default 0.</p>
               <code><span title="numpy.ndarray">ndarray</span></code>
           –
           <div class="doc-md-description">
-            <p>The Choi matrix of the completely depolarizing channel.</p>
+            <p>The Choi matrix of the partially depolarizing channel.</p>
           </div>
         </li>
     </ul>
@@ -8859,8 +8872,8 @@ Default 0.</p>
 
 
 <p><span class="doc-section-title">Examples:</span></p>
-    <p>The completely depolarizing channel maps every density matrix to the maximally-mixed state.
-For example, consider the density operator</p>
+    <p>The completely depolarizing channel (<span class="arithmatex">\(p = 0\)</span>) maps every density matrix to the
+maximally-mixed state. For example, consider the density operator</p>
 <div class="arithmatex">\[
     \rho = \frac{1}{2} \begin{pmatrix}
                          1 &amp; 0 &amp; 0 &amp; 1 \\
@@ -8913,193 +8926,219 @@ have that</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>toqito/channels/depolarizing.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-0-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-0-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-0-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-0-10">10</a></span>
-<span class="normal"><a href="#__codelineno-0-11">11</a></span>
-<span class="normal"><a href="#__codelineno-0-12">12</a></span>
-<span class="normal"><a href="#__codelineno-0-13">13</a></span>
-<span class="normal"><a href="#__codelineno-0-14">14</a></span>
-<span class="normal"><a href="#__codelineno-0-15">15</a></span>
-<span class="normal"><a href="#__codelineno-0-16">16</a></span>
-<span class="normal"><a href="#__codelineno-0-17">17</a></span>
-<span class="normal"><a href="#__codelineno-0-18">18</a></span>
-<span class="normal"><a href="#__codelineno-0-19">19</a></span>
-<span class="normal"><a href="#__codelineno-0-20">20</a></span>
-<span class="normal"><a href="#__codelineno-0-21">21</a></span>
-<span class="normal"><a href="#__codelineno-0-22">22</a></span>
-<span class="normal"><a href="#__codelineno-0-23">23</a></span>
-<span class="normal"><a href="#__codelineno-0-24">24</a></span>
-<span class="normal"><a href="#__codelineno-0-25">25</a></span>
-<span class="normal"><a href="#__codelineno-0-26">26</a></span>
-<span class="normal"><a href="#__codelineno-0-27">27</a></span>
-<span class="normal"><a href="#__codelineno-0-28">28</a></span>
-<span class="normal"><a href="#__codelineno-0-29">29</a></span>
-<span class="normal"><a href="#__codelineno-0-30">30</a></span>
-<span class="normal"><a href="#__codelineno-0-31">31</a></span>
-<span class="normal"><a href="#__codelineno-0-32">32</a></span>
-<span class="normal"><a href="#__codelineno-0-33">33</a></span>
-<span class="normal"><a href="#__codelineno-0-34">34</a></span>
-<span class="normal"><a href="#__codelineno-0-35">35</a></span>
-<span class="normal"><a href="#__codelineno-0-36">36</a></span>
-<span class="normal"><a href="#__codelineno-0-37">37</a></span>
-<span class="normal"><a href="#__codelineno-0-38">38</a></span>
-<span class="normal"><a href="#__codelineno-0-39">39</a></span>
-<span class="normal"><a href="#__codelineno-0-40">40</a></span>
-<span class="normal"><a href="#__codelineno-0-41">41</a></span>
-<span class="normal"><a href="#__codelineno-0-42">42</a></span>
-<span class="normal"><a href="#__codelineno-0-43">43</a></span>
-<span class="normal"><a href="#__codelineno-0-44">44</a></span>
-<span class="normal"><a href="#__codelineno-0-45">45</a></span>
-<span class="normal"><a href="#__codelineno-0-46">46</a></span>
-<span class="normal"><a href="#__codelineno-0-47">47</a></span>
-<span class="normal"><a href="#__codelineno-0-48">48</a></span>
-<span class="normal"><a href="#__codelineno-0-49">49</a></span>
-<span class="normal"><a href="#__codelineno-0-50">50</a></span>
-<span class="normal"><a href="#__codelineno-0-51">51</a></span>
-<span class="normal"><a href="#__codelineno-0-52">52</a></span>
-<span class="normal"><a href="#__codelineno-0-53">53</a></span>
-<span class="normal"><a href="#__codelineno-0-54">54</a></span>
-<span class="normal"><a href="#__codelineno-0-55">55</a></span>
-<span class="normal"><a href="#__codelineno-0-56">56</a></span>
-<span class="normal"><a href="#__codelineno-0-57">57</a></span>
-<span class="normal"><a href="#__codelineno-0-58">58</a></span>
-<span class="normal"><a href="#__codelineno-0-59">59</a></span>
-<span class="normal"><a href="#__codelineno-0-60">60</a></span>
-<span class="normal"><a href="#__codelineno-0-61">61</a></span>
-<span class="normal"><a href="#__codelineno-0-62">62</a></span>
-<span class="normal"><a href="#__codelineno-0-63">63</a></span>
-<span class="normal"><a href="#__codelineno-0-64">64</a></span>
-<span class="normal"><a href="#__codelineno-0-65">65</a></span>
-<span class="normal"><a href="#__codelineno-0-66">66</a></span>
-<span class="normal"><a href="#__codelineno-0-67">67</a></span>
-<span class="normal"><a href="#__codelineno-0-68">68</a></span>
-<span class="normal"><a href="#__codelineno-0-69">69</a></span>
-<span class="normal"><a href="#__codelineno-0-70">70</a></span>
-<span class="normal"><a href="#__codelineno-0-71">71</a></span>
-<span class="normal"><a href="#__codelineno-0-72">72</a></span>
-<span class="normal"><a href="#__codelineno-0-73">73</a></span>
-<span class="normal"><a href="#__codelineno-0-74">74</a></span>
-<span class="normal"><a href="#__codelineno-0-75">75</a></span>
-<span class="normal"><a href="#__codelineno-0-76">76</a></span>
-<span class="normal"><a href="#__codelineno-0-77">77</a></span>
-<span class="normal"><a href="#__codelineno-0-78">78</a></span>
-<span class="normal"><a href="#__codelineno-0-79">79</a></span>
-<span class="normal"><a href="#__codelineno-0-80">80</a></span>
-<span class="normal"><a href="#__codelineno-0-81">81</a></span>
-<span class="normal"><a href="#__codelineno-0-82">82</a></span>
-<span class="normal"><a href="#__codelineno-0-83">83</a></span>
-<span class="normal"><a href="#__codelineno-0-84">84</a></span>
-<span class="normal"><a href="#__codelineno-0-85">85</a></span>
-<span class="normal"><a href="#__codelineno-0-86">86</a></span>
-<span class="normal"><a href="#__codelineno-0-87">87</a></span>
-<span class="normal"><a href="#__codelineno-0-88">88</a></span>
-<span class="normal"><a href="#__codelineno-0-89">89</a></span>
-<span class="normal"><a href="#__codelineno-0-90">90</a></span>
-<span class="normal"><a href="#__codelineno-0-91">91</a></span>
-<span class="normal"><a href="#__codelineno-0-92">92</a></span>
-<span class="normal"><a href="#__codelineno-0-93">93</a></span>
-<span class="normal"><a href="#__codelineno-0-94">94</a></span>
-<span class="normal"><a href="#__codelineno-0-95">95</a></span>
-<span class="normal"><a href="#__codelineno-0-96">96</a></span>
-<span class="normal"><a href="#__codelineno-0-97">97</a></span>
-<span class="normal"><a href="#__codelineno-0-98">98</a></span>
-<span class="normal"><a href="#__codelineno-0-99">99</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-6" name="__codelineno-0-6"></a><span class="k">def</span><span class="w"> </span><span class="nf">depolarizing</span><span class="p">(</span><span class="n">dim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">param_p</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-6">  6</a></span>
+<span class="normal"><a href="#__codelineno-0-7">  7</a></span>
+<span class="normal"><a href="#__codelineno-0-8">  8</a></span>
+<span class="normal"><a href="#__codelineno-0-9">  9</a></span>
+<span class="normal"><a href="#__codelineno-0-10"> 10</a></span>
+<span class="normal"><a href="#__codelineno-0-11"> 11</a></span>
+<span class="normal"><a href="#__codelineno-0-12"> 12</a></span>
+<span class="normal"><a href="#__codelineno-0-13"> 13</a></span>
+<span class="normal"><a href="#__codelineno-0-14"> 14</a></span>
+<span class="normal"><a href="#__codelineno-0-15"> 15</a></span>
+<span class="normal"><a href="#__codelineno-0-16"> 16</a></span>
+<span class="normal"><a href="#__codelineno-0-17"> 17</a></span>
+<span class="normal"><a href="#__codelineno-0-18"> 18</a></span>
+<span class="normal"><a href="#__codelineno-0-19"> 19</a></span>
+<span class="normal"><a href="#__codelineno-0-20"> 20</a></span>
+<span class="normal"><a href="#__codelineno-0-21"> 21</a></span>
+<span class="normal"><a href="#__codelineno-0-22"> 22</a></span>
+<span class="normal"><a href="#__codelineno-0-23"> 23</a></span>
+<span class="normal"><a href="#__codelineno-0-24"> 24</a></span>
+<span class="normal"><a href="#__codelineno-0-25"> 25</a></span>
+<span class="normal"><a href="#__codelineno-0-26"> 26</a></span>
+<span class="normal"><a href="#__codelineno-0-27"> 27</a></span>
+<span class="normal"><a href="#__codelineno-0-28"> 28</a></span>
+<span class="normal"><a href="#__codelineno-0-29"> 29</a></span>
+<span class="normal"><a href="#__codelineno-0-30"> 30</a></span>
+<span class="normal"><a href="#__codelineno-0-31"> 31</a></span>
+<span class="normal"><a href="#__codelineno-0-32"> 32</a></span>
+<span class="normal"><a href="#__codelineno-0-33"> 33</a></span>
+<span class="normal"><a href="#__codelineno-0-34"> 34</a></span>
+<span class="normal"><a href="#__codelineno-0-35"> 35</a></span>
+<span class="normal"><a href="#__codelineno-0-36"> 36</a></span>
+<span class="normal"><a href="#__codelineno-0-37"> 37</a></span>
+<span class="normal"><a href="#__codelineno-0-38"> 38</a></span>
+<span class="normal"><a href="#__codelineno-0-39"> 39</a></span>
+<span class="normal"><a href="#__codelineno-0-40"> 40</a></span>
+<span class="normal"><a href="#__codelineno-0-41"> 41</a></span>
+<span class="normal"><a href="#__codelineno-0-42"> 42</a></span>
+<span class="normal"><a href="#__codelineno-0-43"> 43</a></span>
+<span class="normal"><a href="#__codelineno-0-44"> 44</a></span>
+<span class="normal"><a href="#__codelineno-0-45"> 45</a></span>
+<span class="normal"><a href="#__codelineno-0-46"> 46</a></span>
+<span class="normal"><a href="#__codelineno-0-47"> 47</a></span>
+<span class="normal"><a href="#__codelineno-0-48"> 48</a></span>
+<span class="normal"><a href="#__codelineno-0-49"> 49</a></span>
+<span class="normal"><a href="#__codelineno-0-50"> 50</a></span>
+<span class="normal"><a href="#__codelineno-0-51"> 51</a></span>
+<span class="normal"><a href="#__codelineno-0-52"> 52</a></span>
+<span class="normal"><a href="#__codelineno-0-53"> 53</a></span>
+<span class="normal"><a href="#__codelineno-0-54"> 54</a></span>
+<span class="normal"><a href="#__codelineno-0-55"> 55</a></span>
+<span class="normal"><a href="#__codelineno-0-56"> 56</a></span>
+<span class="normal"><a href="#__codelineno-0-57"> 57</a></span>
+<span class="normal"><a href="#__codelineno-0-58"> 58</a></span>
+<span class="normal"><a href="#__codelineno-0-59"> 59</a></span>
+<span class="normal"><a href="#__codelineno-0-60"> 60</a></span>
+<span class="normal"><a href="#__codelineno-0-61"> 61</a></span>
+<span class="normal"><a href="#__codelineno-0-62"> 62</a></span>
+<span class="normal"><a href="#__codelineno-0-63"> 63</a></span>
+<span class="normal"><a href="#__codelineno-0-64"> 64</a></span>
+<span class="normal"><a href="#__codelineno-0-65"> 65</a></span>
+<span class="normal"><a href="#__codelineno-0-66"> 66</a></span>
+<span class="normal"><a href="#__codelineno-0-67"> 67</a></span>
+<span class="normal"><a href="#__codelineno-0-68"> 68</a></span>
+<span class="normal"><a href="#__codelineno-0-69"> 69</a></span>
+<span class="normal"><a href="#__codelineno-0-70"> 70</a></span>
+<span class="normal"><a href="#__codelineno-0-71"> 71</a></span>
+<span class="normal"><a href="#__codelineno-0-72"> 72</a></span>
+<span class="normal"><a href="#__codelineno-0-73"> 73</a></span>
+<span class="normal"><a href="#__codelineno-0-74"> 74</a></span>
+<span class="normal"><a href="#__codelineno-0-75"> 75</a></span>
+<span class="normal"><a href="#__codelineno-0-76"> 76</a></span>
+<span class="normal"><a href="#__codelineno-0-77"> 77</a></span>
+<span class="normal"><a href="#__codelineno-0-78"> 78</a></span>
+<span class="normal"><a href="#__codelineno-0-79"> 79</a></span>
+<span class="normal"><a href="#__codelineno-0-80"> 80</a></span>
+<span class="normal"><a href="#__codelineno-0-81"> 81</a></span>
+<span class="normal"><a href="#__codelineno-0-82"> 82</a></span>
+<span class="normal"><a href="#__codelineno-0-83"> 83</a></span>
+<span class="normal"><a href="#__codelineno-0-84"> 84</a></span>
+<span class="normal"><a href="#__codelineno-0-85"> 85</a></span>
+<span class="normal"><a href="#__codelineno-0-86"> 86</a></span>
+<span class="normal"><a href="#__codelineno-0-87"> 87</a></span>
+<span class="normal"><a href="#__codelineno-0-88"> 88</a></span>
+<span class="normal"><a href="#__codelineno-0-89"> 89</a></span>
+<span class="normal"><a href="#__codelineno-0-90"> 90</a></span>
+<span class="normal"><a href="#__codelineno-0-91"> 91</a></span>
+<span class="normal"><a href="#__codelineno-0-92"> 92</a></span>
+<span class="normal"><a href="#__codelineno-0-93"> 93</a></span>
+<span class="normal"><a href="#__codelineno-0-94"> 94</a></span>
+<span class="normal"><a href="#__codelineno-0-95"> 95</a></span>
+<span class="normal"><a href="#__codelineno-0-96"> 96</a></span>
+<span class="normal"><a href="#__codelineno-0-97"> 97</a></span>
+<span class="normal"><a href="#__codelineno-0-98"> 98</a></span>
+<span class="normal"><a href="#__codelineno-0-99"> 99</a></span>
+<span class="normal"><a href="#__codelineno-0-100">100</a></span>
+<span class="normal"><a href="#__codelineno-0-101">101</a></span>
+<span class="normal"><a href="#__codelineno-0-102">102</a></span>
+<span class="normal"><a href="#__codelineno-0-103">103</a></span>
+<span class="normal"><a href="#__codelineno-0-104">104</a></span>
+<span class="normal"><a href="#__codelineno-0-105">105</a></span>
+<span class="normal"><a href="#__codelineno-0-106">106</a></span>
+<span class="normal"><a href="#__codelineno-0-107">107</a></span>
+<span class="normal"><a href="#__codelineno-0-108">108</a></span>
+<span class="normal"><a href="#__codelineno-0-109">109</a></span>
+<span class="normal"><a href="#__codelineno-0-110">110</a></span>
+<span class="normal"><a href="#__codelineno-0-111">111</a></span>
+<span class="normal"><a href="#__codelineno-0-112">112</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-6" name="__codelineno-0-6"></a><span class="k">def</span><span class="w"> </span><span class="nf">depolarizing</span><span class="p">(</span><span class="n">dim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">param_p</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
 <a id="__codelineno-0-7" name="__codelineno-0-7"></a><span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Produce the partially depolarizing channel.</span>
 <a id="__codelineno-0-8" name="__codelineno-0-8"></a>
 <a id="__codelineno-0-9" name="__codelineno-0-9"></a><span class="sd">    (Section: Replacement Channels and the Completely Depolarizing Channel from</span>
 <a id="__codelineno-0-10" name="__codelineno-0-10"></a><span class="sd">    [@watrous2018theory]).</span>
 <a id="__codelineno-0-11" name="__codelineno-0-11"></a>
-<a id="__codelineno-0-12" name="__codelineno-0-12"></a><span class="sd">    The Choi matrix of the completely depolarizing channel [@wikipediadepolarizing] that acts on</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12"></a><span class="sd">    The Choi matrix of the partially depolarizing channel [@wikipediadepolarizing] that acts on</span>
 <a id="__codelineno-0-13" name="__codelineno-0-13"></a><span class="sd">    `dim`-by-`dim` matrices.</span>
 <a id="__codelineno-0-14" name="__codelineno-0-14"></a>
-<a id="__codelineno-0-15" name="__codelineno-0-15"></a><span class="sd">    The *completely depolarizing channel* is defined as</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15"></a><span class="sd">    The *partially depolarizing channel* is defined as</span>
 <a id="__codelineno-0-16" name="__codelineno-0-16"></a>
 <a id="__codelineno-0-17" name="__codelineno-0-17"></a><span class="sd">    \[</span>
-<a id="__codelineno-0-18" name="__codelineno-0-18"></a><span class="sd">        \Omega(X) = \text{Tr}(X) \omega</span>
+<a id="__codelineno-0-18" name="__codelineno-0-18"></a><span class="sd">        \Phi_p(\rho) = (1 - p) \text{Tr}(\rho) \frac{\mathbb{I}}{d} + p \, \rho</span>
 <a id="__codelineno-0-19" name="__codelineno-0-19"></a><span class="sd">    \]</span>
 <a id="__codelineno-0-20" name="__codelineno-0-20"></a>
-<a id="__codelineno-0-21" name="__codelineno-0-21"></a><span class="sd">    for all \(X \in \text{L}(\mathcal{X})\), where</span>
-<a id="__codelineno-0-22" name="__codelineno-0-22"></a>
-<a id="__codelineno-0-23" name="__codelineno-0-23"></a><span class="sd">    \[</span>
-<a id="__codelineno-0-24" name="__codelineno-0-24"></a><span class="sd">        \omega = \frac{\mathbb{I}_{\mathcal{X}}}{\text{dim}(\mathcal{X})}</span>
-<a id="__codelineno-0-25" name="__codelineno-0-25"></a><span class="sd">    \]</span>
-<a id="__codelineno-0-26" name="__codelineno-0-26"></a>
-<a id="__codelineno-0-27" name="__codelineno-0-27"></a><span class="sd">    denotes the completely mixed stated defined with respect to the space \(\mathcal{X}\).</span>
-<a id="__codelineno-0-28" name="__codelineno-0-28"></a>
-<a id="__codelineno-0-29" name="__codelineno-0-29"></a><span class="sd">    Args:</span>
-<a id="__codelineno-0-30" name="__codelineno-0-30"></a><span class="sd">        dim: The dimensionality on which the channel acts.</span>
-<a id="__codelineno-0-31" name="__codelineno-0-31"></a><span class="sd">        param_p: Depolarizing probability \(p \) \in [0,1] that mixes the input state with the maximally mixed state.</span>
-<a id="__codelineno-0-32" name="__codelineno-0-32"></a><span class="sd">            Default 0.</span>
-<a id="__codelineno-0-33" name="__codelineno-0-33"></a>
-<a id="__codelineno-0-34" name="__codelineno-0-34"></a><span class="sd">    Returns:</span>
-<a id="__codelineno-0-35" name="__codelineno-0-35"></a><span class="sd">        The Choi matrix of the completely depolarizing channel.</span>
-<a id="__codelineno-0-36" name="__codelineno-0-36"></a>
-<a id="__codelineno-0-37" name="__codelineno-0-37"></a><span class="sd">    Raises:</span>
-<a id="__codelineno-0-38" name="__codelineno-0-38"></a><span class="sd">        ValueError: If `param_p` is outside the interval [0,1].</span>
-<a id="__codelineno-0-39" name="__codelineno-0-39"></a>
-<a id="__codelineno-0-40" name="__codelineno-0-40"></a><span class="sd">    Examples:</span>
-<a id="__codelineno-0-41" name="__codelineno-0-41"></a><span class="sd">        The completely depolarizing channel maps every density matrix to the maximally-mixed state.</span>
-<a id="__codelineno-0-42" name="__codelineno-0-42"></a><span class="sd">        For example, consider the density operator</span>
-<a id="__codelineno-0-43" name="__codelineno-0-43"></a>
-<a id="__codelineno-0-44" name="__codelineno-0-44"></a><span class="sd">        \[</span>
-<a id="__codelineno-0-45" name="__codelineno-0-45"></a><span class="sd">            \rho = \frac{1}{2} \begin{pmatrix}</span>
-<a id="__codelineno-0-46" name="__codelineno-0-46"></a><span class="sd">                                 1 &amp; 0 &amp; 0 &amp; 1 \\</span>
-<a id="__codelineno-0-47" name="__codelineno-0-47"></a><span class="sd">                                 0 &amp; 0 &amp; 0 &amp; 0 \\</span>
-<a id="__codelineno-0-48" name="__codelineno-0-48"></a><span class="sd">                                 0 &amp; 0 &amp; 0 &amp; 0 \\</span>
-<a id="__codelineno-0-49" name="__codelineno-0-49"></a><span class="sd">                                 1 &amp; 0 &amp; 0 &amp; 1</span>
-<a id="__codelineno-0-50" name="__codelineno-0-50"></a><span class="sd">                               \end{pmatrix}</span>
-<a id="__codelineno-0-51" name="__codelineno-0-51"></a><span class="sd">        \]</span>
+<a id="__codelineno-0-21" name="__codelineno-0-21"></a><span class="sd">    for all \(\rho \in \text{L}(\mathcal{X})\), where \(d = \text{dim}(\mathcal{X})\)</span>
+<a id="__codelineno-0-22" name="__codelineno-0-22"></a><span class="sd">    and \(p \in [0, 1]\).</span>
+<a id="__codelineno-0-23" name="__codelineno-0-23"></a>
+<a id="__codelineno-0-24" name="__codelineno-0-24"></a><span class="sd">    When \(p = 0\), this reduces to the *completely depolarizing channel*</span>
+<a id="__codelineno-0-25" name="__codelineno-0-25"></a><span class="sd">    \(\Omega(\rho) = \text{Tr}(\rho) \frac{\mathbb{I}}{d}\), which maps every state to the</span>
+<a id="__codelineno-0-26" name="__codelineno-0-26"></a><span class="sd">    maximally mixed state. When \(p = 1\), this is the identity channel.</span>
+<a id="__codelineno-0-27" name="__codelineno-0-27"></a>
+<a id="__codelineno-0-28" name="__codelineno-0-28"></a><span class="sd">    The corresponding Choi matrix is</span>
+<a id="__codelineno-0-29" name="__codelineno-0-29"></a>
+<a id="__codelineno-0-30" name="__codelineno-0-30"></a><span class="sd">    \[</span>
+<a id="__codelineno-0-31" name="__codelineno-0-31"></a><span class="sd">        J(\Phi_p) = \frac{1 - p}{d} \, \mathbb{I} \otimes \mathbb{I}</span>
+<a id="__codelineno-0-32" name="__codelineno-0-32"></a><span class="sd">        + p \, |\psi\rangle\!\langle\psi|</span>
+<a id="__codelineno-0-33" name="__codelineno-0-33"></a><span class="sd">    \]</span>
+<a id="__codelineno-0-34" name="__codelineno-0-34"></a>
+<a id="__codelineno-0-35" name="__codelineno-0-35"></a><span class="sd">    where \(|\psi\rangle = \sum_{i} |i\rangle \otimes |i\rangle\) is the (unnormalized)</span>
+<a id="__codelineno-0-36" name="__codelineno-0-36"></a><span class="sd">    maximally entangled state.</span>
+<a id="__codelineno-0-37" name="__codelineno-0-37"></a>
+<a id="__codelineno-0-38" name="__codelineno-0-38"></a><span class="sd">    Note:</span>
+<a id="__codelineno-0-39" name="__codelineno-0-39"></a><span class="sd">        This follows the QETLAB convention where \(p = 0\) gives the completely depolarizing</span>
+<a id="__codelineno-0-40" name="__codelineno-0-40"></a><span class="sd">        channel and \(p = 1\) gives the identity channel.</span>
+<a id="__codelineno-0-41" name="__codelineno-0-41"></a>
+<a id="__codelineno-0-42" name="__codelineno-0-42"></a><span class="sd">    Args:</span>
+<a id="__codelineno-0-43" name="__codelineno-0-43"></a><span class="sd">        dim: The dimensionality on which the channel acts.</span>
+<a id="__codelineno-0-44" name="__codelineno-0-44"></a><span class="sd">        param_p: Parameter \(p \in [0, 1]\) that interpolates between the completely depolarizing</span>
+<a id="__codelineno-0-45" name="__codelineno-0-45"></a><span class="sd">            channel (\(p = 0\)) and the identity channel (\(p = 1\)). Default 0.</span>
+<a id="__codelineno-0-46" name="__codelineno-0-46"></a>
+<a id="__codelineno-0-47" name="__codelineno-0-47"></a><span class="sd">    Returns:</span>
+<a id="__codelineno-0-48" name="__codelineno-0-48"></a><span class="sd">        The Choi matrix of the partially depolarizing channel.</span>
+<a id="__codelineno-0-49" name="__codelineno-0-49"></a>
+<a id="__codelineno-0-50" name="__codelineno-0-50"></a><span class="sd">    Raises:</span>
+<a id="__codelineno-0-51" name="__codelineno-0-51"></a><span class="sd">        ValueError: If `param_p` is outside the interval [0,1].</span>
 <a id="__codelineno-0-52" name="__codelineno-0-52"></a>
-<a id="__codelineno-0-53" name="__codelineno-0-53"></a><span class="sd">        corresponding to one of the Bell states. Applying the depolarizing channel to \(\rho\) we</span>
-<a id="__codelineno-0-54" name="__codelineno-0-54"></a><span class="sd">        have that</span>
-<a id="__codelineno-0-55" name="__codelineno-0-55"></a>
-<a id="__codelineno-0-56" name="__codelineno-0-56"></a><span class="sd">        \[</span>
-<a id="__codelineno-0-57" name="__codelineno-0-57"></a><span class="sd">            \Phi(\rho) = \frac{1}{4} \begin{pmatrix}</span>
-<a id="__codelineno-0-58" name="__codelineno-0-58"></a><span class="sd">                                        1 &amp; 0 &amp; 0 &amp; 0 \\</span>
-<a id="__codelineno-0-59" name="__codelineno-0-59"></a><span class="sd">                                        0 &amp; 1 &amp; 0 &amp; 0 \\</span>
-<a id="__codelineno-0-60" name="__codelineno-0-60"></a><span class="sd">                                        0 &amp; 0 &amp; 1 &amp; 0 \\</span>
-<a id="__codelineno-0-61" name="__codelineno-0-61"></a><span class="sd">                                        0 &amp; 0 &amp; 0 &amp; 1</span>
-<a id="__codelineno-0-62" name="__codelineno-0-62"></a><span class="sd">                                     \end{pmatrix}.</span>
-<a id="__codelineno-0-63" name="__codelineno-0-63"></a><span class="sd">        \]</span>
-<a id="__codelineno-0-64" name="__codelineno-0-64"></a>
-<a id="__codelineno-0-65" name="__codelineno-0-65"></a><span class="sd">        This can be observed in `|toqito⟩` as follows.</span>
-<a id="__codelineno-0-66" name="__codelineno-0-66"></a>
-<a id="__codelineno-0-67" name="__codelineno-0-67"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;</span>
-<a id="__codelineno-0-68" name="__codelineno-0-68"></a><span class="sd">        import numpy as np</span>
-<a id="__codelineno-0-69" name="__codelineno-0-69"></a><span class="sd">        from toqito.channels import depolarizing</span>
-<a id="__codelineno-0-70" name="__codelineno-0-70"></a><span class="sd">        from toqito.channel_ops import apply_channel</span>
-<a id="__codelineno-0-71" name="__codelineno-0-71"></a>
-<a id="__codelineno-0-72" name="__codelineno-0-72"></a><span class="sd">        test_input_mat = np.array([[1 / 2, 0, 0, 1 / 2], [0, 0, 0, 0], [0, 0, 0, 0], [1 / 2, 0, 0, 1 / 2]])</span>
-<a id="__codelineno-0-73" name="__codelineno-0-73"></a>
-<a id="__codelineno-0-74" name="__codelineno-0-74"></a><span class="sd">        print(apply_channel(test_input_mat, depolarizing(4)))</span>
-<a id="__codelineno-0-75" name="__codelineno-0-75"></a><span class="sd">        ```</span>
-<a id="__codelineno-0-76" name="__codelineno-0-76"></a>
-<a id="__codelineno-0-77" name="__codelineno-0-77"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;</span>
-<a id="__codelineno-0-78" name="__codelineno-0-78"></a><span class="sd">        import numpy as np</span>
-<a id="__codelineno-0-79" name="__codelineno-0-79"></a><span class="sd">        from toqito.channels import depolarizing</span>
-<a id="__codelineno-0-80" name="__codelineno-0-80"></a><span class="sd">        from toqito.channel_ops import apply_channel</span>
-<a id="__codelineno-0-81" name="__codelineno-0-81"></a>
-<a id="__codelineno-0-82" name="__codelineno-0-82"></a><span class="sd">        test_input_mat = np.arange(1, 17).reshape(4, 4)</span>
-<a id="__codelineno-0-83" name="__codelineno-0-83"></a>
-<a id="__codelineno-0-84" name="__codelineno-0-84"></a><span class="sd">        print(apply_channel(test_input_mat, depolarizing(4, 0.5)))</span>
-<a id="__codelineno-0-85" name="__codelineno-0-85"></a><span class="sd">        ```</span>
+<a id="__codelineno-0-53" name="__codelineno-0-53"></a><span class="sd">    Examples:</span>
+<a id="__codelineno-0-54" name="__codelineno-0-54"></a><span class="sd">        The completely depolarizing channel (\(p = 0\)) maps every density matrix to the</span>
+<a id="__codelineno-0-55" name="__codelineno-0-55"></a><span class="sd">        maximally-mixed state. For example, consider the density operator</span>
+<a id="__codelineno-0-56" name="__codelineno-0-56"></a>
+<a id="__codelineno-0-57" name="__codelineno-0-57"></a><span class="sd">        \[</span>
+<a id="__codelineno-0-58" name="__codelineno-0-58"></a><span class="sd">            \rho = \frac{1}{2} \begin{pmatrix}</span>
+<a id="__codelineno-0-59" name="__codelineno-0-59"></a><span class="sd">                                 1 &amp; 0 &amp; 0 &amp; 1 \\</span>
+<a id="__codelineno-0-60" name="__codelineno-0-60"></a><span class="sd">                                 0 &amp; 0 &amp; 0 &amp; 0 \\</span>
+<a id="__codelineno-0-61" name="__codelineno-0-61"></a><span class="sd">                                 0 &amp; 0 &amp; 0 &amp; 0 \\</span>
+<a id="__codelineno-0-62" name="__codelineno-0-62"></a><span class="sd">                                 1 &amp; 0 &amp; 0 &amp; 1</span>
+<a id="__codelineno-0-63" name="__codelineno-0-63"></a><span class="sd">                               \end{pmatrix}</span>
+<a id="__codelineno-0-64" name="__codelineno-0-64"></a><span class="sd">        \]</span>
+<a id="__codelineno-0-65" name="__codelineno-0-65"></a>
+<a id="__codelineno-0-66" name="__codelineno-0-66"></a><span class="sd">        corresponding to one of the Bell states. Applying the depolarizing channel to \(\rho\) we</span>
+<a id="__codelineno-0-67" name="__codelineno-0-67"></a><span class="sd">        have that</span>
+<a id="__codelineno-0-68" name="__codelineno-0-68"></a>
+<a id="__codelineno-0-69" name="__codelineno-0-69"></a><span class="sd">        \[</span>
+<a id="__codelineno-0-70" name="__codelineno-0-70"></a><span class="sd">            \Phi(\rho) = \frac{1}{4} \begin{pmatrix}</span>
+<a id="__codelineno-0-71" name="__codelineno-0-71"></a><span class="sd">                                        1 &amp; 0 &amp; 0 &amp; 0 \\</span>
+<a id="__codelineno-0-72" name="__codelineno-0-72"></a><span class="sd">                                        0 &amp; 1 &amp; 0 &amp; 0 \\</span>
+<a id="__codelineno-0-73" name="__codelineno-0-73"></a><span class="sd">                                        0 &amp; 0 &amp; 1 &amp; 0 \\</span>
+<a id="__codelineno-0-74" name="__codelineno-0-74"></a><span class="sd">                                        0 &amp; 0 &amp; 0 &amp; 1</span>
+<a id="__codelineno-0-75" name="__codelineno-0-75"></a><span class="sd">                                     \end{pmatrix}.</span>
+<a id="__codelineno-0-76" name="__codelineno-0-76"></a><span class="sd">        \]</span>
+<a id="__codelineno-0-77" name="__codelineno-0-77"></a>
+<a id="__codelineno-0-78" name="__codelineno-0-78"></a><span class="sd">        This can be observed in `|toqito⟩` as follows.</span>
+<a id="__codelineno-0-79" name="__codelineno-0-79"></a>
+<a id="__codelineno-0-80" name="__codelineno-0-80"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;</span>
+<a id="__codelineno-0-81" name="__codelineno-0-81"></a><span class="sd">        import numpy as np</span>
+<a id="__codelineno-0-82" name="__codelineno-0-82"></a><span class="sd">        from toqito.channels import depolarizing</span>
+<a id="__codelineno-0-83" name="__codelineno-0-83"></a><span class="sd">        from toqito.channel_ops import apply_channel</span>
+<a id="__codelineno-0-84" name="__codelineno-0-84"></a>
+<a id="__codelineno-0-85" name="__codelineno-0-85"></a><span class="sd">        test_input_mat = np.array([[1 / 2, 0, 0, 1 / 2], [0, 0, 0, 0], [0, 0, 0, 0], [1 / 2, 0, 0, 1 / 2]])</span>
 <a id="__codelineno-0-86" name="__codelineno-0-86"></a>
-<a id="__codelineno-0-87" name="__codelineno-0-87"></a><span class="sd">    &quot;&quot;&quot;</span>
-<a id="__codelineno-0-88" name="__codelineno-0-88"></a>    <span class="c1"># Compute the Choi matrix of the depolarizing channel.</span>
-<a id="__codelineno-0-89" name="__codelineno-0-89"></a>    <span class="k">if</span> <span class="n">param_p</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">or</span> <span class="n">param_p</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
-<a id="__codelineno-0-90" name="__codelineno-0-90"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The depolarizing probability must be between 0 and 1.&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-91" name="__codelineno-0-91"></a>
-<a id="__codelineno-0-92" name="__codelineno-0-92"></a>    <span class="n">result</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">dim</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">dim</span><span class="o">**</span><span class="mi">2</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
-<a id="__codelineno-0-93" name="__codelineno-0-93"></a>    <span class="n">np</span><span class="o">.</span><span class="n">fill_diagonal</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">param_p</span><span class="p">)</span> <span class="o">/</span> <span class="n">dim</span><span class="p">)</span>
+<a id="__codelineno-0-87" name="__codelineno-0-87"></a><span class="sd">        print(apply_channel(test_input_mat, depolarizing(4)))</span>
+<a id="__codelineno-0-88" name="__codelineno-0-88"></a><span class="sd">        ```</span>
+<a id="__codelineno-0-89" name="__codelineno-0-89"></a>
+<a id="__codelineno-0-90" name="__codelineno-0-90"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;</span>
+<a id="__codelineno-0-91" name="__codelineno-0-91"></a><span class="sd">        import numpy as np</span>
+<a id="__codelineno-0-92" name="__codelineno-0-92"></a><span class="sd">        from toqito.channels import depolarizing</span>
+<a id="__codelineno-0-93" name="__codelineno-0-93"></a><span class="sd">        from toqito.channel_ops import apply_channel</span>
 <a id="__codelineno-0-94" name="__codelineno-0-94"></a>
-<a id="__codelineno-0-95" name="__codelineno-0-95"></a>    <span class="k">if</span> <span class="n">param_p</span> <span class="o">!=</span> <span class="mf">0.0</span><span class="p">:</span>
-<a id="__codelineno-0-96" name="__codelineno-0-96"></a>        <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">dim</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">dim</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
-<a id="__codelineno-0-97" name="__codelineno-0-97"></a>        <span class="n">result</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ix_</span><span class="p">(</span><span class="n">idx</span><span class="p">,</span> <span class="n">idx</span><span class="p">)]</span> <span class="o">+=</span> <span class="n">param_p</span>
-<a id="__codelineno-0-98" name="__codelineno-0-98"></a>
-<a id="__codelineno-0-99" name="__codelineno-0-99"></a>    <span class="k">return</span> <span class="n">result</span>
+<a id="__codelineno-0-95" name="__codelineno-0-95"></a><span class="sd">        test_input_mat = np.arange(1, 17).reshape(4, 4)</span>
+<a id="__codelineno-0-96" name="__codelineno-0-96"></a>
+<a id="__codelineno-0-97" name="__codelineno-0-97"></a><span class="sd">        print(apply_channel(test_input_mat, depolarizing(4, 0.5)))</span>
+<a id="__codelineno-0-98" name="__codelineno-0-98"></a><span class="sd">        ```</span>
+<a id="__codelineno-0-99" name="__codelineno-0-99"></a>
+<a id="__codelineno-0-100" name="__codelineno-0-100"></a><span class="sd">    &quot;&quot;&quot;</span>
+<a id="__codelineno-0-101" name="__codelineno-0-101"></a>    <span class="c1"># Compute the Choi matrix of the depolarizing channel.</span>
+<a id="__codelineno-0-102" name="__codelineno-0-102"></a>    <span class="k">if</span> <span class="n">param_p</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">or</span> <span class="n">param_p</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+<a id="__codelineno-0-103" name="__codelineno-0-103"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The depolarizing probability must be between 0 and 1.&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-104" name="__codelineno-0-104"></a>
+<a id="__codelineno-0-105" name="__codelineno-0-105"></a>    <span class="n">result</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">dim</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">dim</span><span class="o">**</span><span class="mi">2</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+<a id="__codelineno-0-106" name="__codelineno-0-106"></a>    <span class="n">np</span><span class="o">.</span><span class="n">fill_diagonal</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">param_p</span><span class="p">)</span> <span class="o">/</span> <span class="n">dim</span><span class="p">)</span>
+<a id="__codelineno-0-107" name="__codelineno-0-107"></a>
+<a id="__codelineno-0-108" name="__codelineno-0-108"></a>    <span class="k">if</span> <span class="n">param_p</span> <span class="o">!=</span> <span class="mf">0.0</span><span class="p">:</span>
+<a id="__codelineno-0-109" name="__codelineno-0-109"></a>        <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">dim</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">dim</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+<a id="__codelineno-0-110" name="__codelineno-0-110"></a>        <span class="n">result</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ix_</span><span class="p">(</span><span class="n">idx</span><span class="p">,</span> <span class="n">idx</span><span class="p">)]</span> <span class="o">+=</span> <span class="n">param_p</span>
+<a id="__codelineno-0-111" name="__codelineno-0-111"></a>
+<a id="__codelineno-0-112" name="__codelineno-0-112"></a>    <span class="k">return</span> <span class="n">result</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
