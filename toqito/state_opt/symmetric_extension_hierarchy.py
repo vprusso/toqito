@@ -8,8 +8,6 @@ import numpy as np
 from toqito.matrix_ops import partial_trace, partial_transpose
 from toqito.perms import symmetric_projection
 
-from .state_helper import __is_probs_valid, __is_states_valid
-
 
 def symmetric_extension_hierarchy(
     states: list[np.ndarray],
@@ -138,10 +136,12 @@ def symmetric_extension_hierarchy(
     x_var = []
     constraints = []
 
-    __is_states_valid(states)
+    if not states:
+        raise ValueError("At least one state must be provided.")
     if probs is None:
         probs = [1 / len(states)] * len(states)
-    __is_probs_valid(probs)
+    if not np.isclose(sum(probs), 1):
+        raise ValueError("Probabilities must sum to 1.")
 
     dim_xy, n_cols = states[0].shape
 
