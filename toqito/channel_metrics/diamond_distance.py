@@ -9,7 +9,7 @@ def diamond_distance(choi_1: np.ndarray, choi_2: np.ndarray) -> float | np.float
     This function is a wrapper around
     [`completely_bounded_trace_norm`]
     [toqito.channel_metrics.completely_bounded_trace_norm.completely_bounded_trace_norm],
-    in that it returns half of the completely bounded trace norm of the difference of its arguments.
+    in that it returns the completely bounded trace norm of the difference of its arguments.
 
     !!! note
         This calculation becomes very slow for 4 or more qubits.
@@ -32,19 +32,19 @@ def diamond_distance(choi_1: np.ndarray, choi_2: np.ndarray) -> float | np.float
         from toqito.channels import depolarizing
         from toqito.channel_metrics import diamond_distance
         choi_depolarizing = depolarizing(dim=2, param_p=0.2)
-        choi_identity = np.identity(2**2)
+        choi_identity = depolarizing(dim=2, param_p=1)  # Identity channel Choi matrix
         print(diamond_distance(choi_depolarizing, choi_identity))
         ```
 
-        Similarly, we can compute the diamond norm between the dephasing channel (with parameter 0.3) and the identity
+        Similarly, we can compute the diamond norm between the dephasing channel and the identity
         channel:
 
         ```python exec="1" source="above" result="text"
         import numpy as np
-        from toqito.channels import dephasing
+        from toqito.channels import dephasing, depolarizing
         from toqito.channel_metrics import diamond_distance
         choi_dephasing = dephasing(dim=2)
-        choi_identity = np.identity(2**2)
+        choi_identity = depolarizing(dim=2, param_p=1)  # Identity channel Choi matrix
         print(diamond_distance(choi_dephasing, choi_identity))
         ```
 

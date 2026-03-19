@@ -324,11 +324,11 @@ class NonlocalGame:
             pred_mat = np.zeros((num_alice_outputs, num_bob_outputs, num_alice_inputs, num_bob_inputs))
 
             for a_alice in range(num_alice_outputs):
-            for b_bob in range(num_bob_outputs):
-            for x_alice in range(num_alice_inputs):
-               for y_bob in range(num_bob_inputs):
-                   if np.mod(a_alice + b_bob + x_alice * y_bob, dim) == 0:
-                       pred_mat[a_alice, b_bob, x_alice, y_bob] = 1
+                for b_bob in range(num_bob_outputs):
+                    for x_alice in range(num_alice_inputs):
+                        for y_bob in range(num_bob_inputs):
+                            if np.mod(a_alice + b_bob + x_alice * y_bob, dim) == 0:
+                                pred_mat[a_alice, b_bob, x_alice, y_bob] = 1
 
             chsh = NonlocalGame(prob_mat, pred_mat)
 
