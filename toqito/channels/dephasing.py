@@ -10,28 +10,47 @@ def dephasing(dim: int, param_p: float = 0) -> np.ndarray:
 
     (Section: The Completely Dephasing Channel from [@watrous2018theory]).
 
-    The Choi matrix of the completely dephasing channel that acts on `dim`-by-`dim`
+    The Choi matrix of the partially dephasing channel that acts on `dim`-by-`dim`
     matrices.
 
-    Let \(\Sigma\) be an alphabet and let \(\mathcal{X} = \mathbb{C}^{\Sigma}\). The map
-    \(\Delta \in \text{T}(\mathcal{X})\) defined as
+    The *partially dephasing channel* is defined as
+
+    \[
+        \Phi_p(\rho) = (1 - p) \, \Delta(\rho) + p \, \rho
+    \]
+
+    where \(\Delta\) is the *completely dephasing channel*
 
     \[
         \Delta(X) = \sum_{a \in \Sigma} X(a, a) E_{a,a}
     \]
 
-    for every \(X \in \text{L}(\mathcal{X})\) is defined as the *completely dephasing channel*.
+    which removes all off-diagonal elements. Here \(p \in [0, 1]\).
+
+    When \(p = 0\), this reduces to the completely dephasing channel \(\Delta\).
+    When \(p = 1\), this is the identity channel.
+
+    The corresponding Choi matrix is
+
+    \[
+        J(\Phi_p) = (1 - p) \, \text{diag}(|\psi\rangle\!\langle\psi|)
+        + p \, |\psi\rangle\!\langle\psi|
+    \]
+
+    where \(|\psi\rangle = \sum_{i} |i\rangle \otimes |i\rangle\) is the (unnormalized)
+    maximally entangled state.
 
     Args:
         dim: The dimensionality on which the channel acts.
-        param_p: Default is 0.
+        param_p: Parameter \(p \in [0, 1]\) that interpolates between the completely dephasing
+            channel (\(p = 0\)) and the identity channel (\(p = 1\)). Default 0.
 
     Returns:
-        The Choi matrix of the dephasing channel.
+        The Choi matrix of the partially dephasing channel.
 
     Examples:
-        The completely dephasing channel maps kills everything off the diagonal. Consider the
-        following matrix
+        The completely dephasing channel (\(p = 0\)) kills everything off the diagonal. Consider
+        the following matrix
 
         \[
             \rho = \begin{pmatrix}
