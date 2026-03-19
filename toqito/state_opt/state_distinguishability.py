@@ -26,6 +26,9 @@ def state_distinguishability(
     vectors: list[np.ndarray],
     probs: list[float] | None = None,
     strategy: str = "min_error",
+    measurement: str = "positive",
+    subsystems: list[int] | None = None,
+    dimensions: list[int] | None = None,
     solver: str = "cvxopt",
     primal_dual: str = "dual",
     **kwargs: Any,
@@ -100,6 +103,11 @@ def state_distinguishability(
             probability distribution is assumed.
         strategy: Whether to perform unambiguous or minimal error discrimination task. Possible values are "min_error"
             and "unambiguous". Default option is `strategy="min_error"`. Both strategies support pure and mixed states.
+        measurement: The type of measurement to use. Possible values are "positive" (default) for standard positive
+            measurements and "ppt" for PPT (positive partial transpose) measurements.
+        subsystems: A list of integers specifying which subsystems to transpose for PPT measurements. Required when
+            `measurement="ppt"`.
+        dimensions: A list of integers specifying the dimensions of each subsystem. Required when `measurement="ppt"`.
         solver: Optimization option for `picos` solver. Default option is `solver="cvxopt"`.
         primal_dual: Option for the optimization problem. Default option is `"dual"`.
         kwargs: Additional arguments to pass to picos' solve method.
@@ -181,6 +189,18 @@ def state_distinguishability(
     n = len(vectors)
     probs = [1 / n] * n if probs is None else probs
     dim = calculate_vector_matrix_dimension(vectors[0])
+
+    if measurement == "ppt":
+        if subsystems is None or dimensions is None:
+            raise ValueError("The 'subsystems' and 'dimensions' parameters are required for PPT measurements.")
+        if primal_dual == "primal":
+            return _ppt_primal(
+                vectors=vectors, subsystems=subsystems, dimensions=dimensions,
+                probs=probs, solver=solver, strategy=strategy,
+            )
+        return _ppt_dual(
+            vectors=vectors, subsystems=subsystems, dimensions=dimensions, probs=probs, solver=solver, strategy=strategy
+        )
 
     if strategy == "min_error":
         if primal_dual == "primal":
@@ -406,3 +426,86 @@ def _unambiguous_dual(
     problem.solve(solver=solver, **kwargs)
 
     return float(problem.value), (lagrangian_variable_big_z,)
+
+
+def _ppt_primal(
+    vectors: list[np.ndarray],
+    subsystems: list[int],
+    dimensions: list[int],
+    probs: list[float],
+    solver: str = "cvxopt",
+    strategy: str = "min_error",
+):
+    """Primal problem for the SDP with PPT constraints."""
+    n = len(vectors)
+    d = calculate_vector_matrix_dimension(vectors[0])
+
+    problem = picos.Problem()
+    num_measurements = n if strategy == "min_error" else n + 1
+    measurements = [picos.HermitianVariable(f"M[{i}]", (d, d)) for i in range(num_measurements)]
+
+    problem.add_list_of_constraints([meas >> 0 for meas in measurements])
+    problem.add_constraint(picos.sum(measurements) == picos.I(d))
+
+    # Add PPT constraint.
+    problem.add_list_of_constraints(
+        [
+            picos.partial_transpose(
+                meas,
+                subsystems=subsystems,
+                dimensions=dimensions,
+            )
+            >> 0
+            for meas in measurements
+        ]
+    )
+
+    dms = [to_density_matrix(vector) for vector in vectors]
+    if strategy == "unambiguous":
+        for i in range(n):
+            for j in range(n):
+                if i != j:
+                    problem.add_constraint(probs[j] * dms[j] | measurements[i] == 0)
+
+    problem.set_objective("max", np.real(picos.sum([probs[i] * (dms[i] | measurements[i]) for i in range(n)])))
+    solution = problem.solve(solver=solver)
+
+    return solution.value, measurements
+
+
+def _ppt_dual(
+    vectors: list[np.ndarray],
+    subsystems: list[int],
+    dimensions: list[int],
+    probs: list[float],
+    solver: str = "cvxopt",
+    strategy: str = "min_error",
+):
+    """Semidefinite program with PPT constraints (dual problem)."""
+    d = vectors[0].shape[0]
+
+    if strategy != "min_error":
+        raise ValueError("Only min_error strategy is supported for PPT dual.")
+
+    problem = picos.Problem()
+    q_vars = [picos.HermitianVariable(f"Q[{i}]", (d, d)) for i in range(len(vectors))]
+
+    y_var = picos.HermitianVariable("Y", (d, d))
+    problem.add_list_of_constraints(
+        [
+            y_var - probs[i] * to_density_matrix(vectors[i])
+            >> picos.partial_transpose(
+                q_var,
+                subsystems=subsystems,
+                dimensions=dimensions,
+            )
+            for i, q_var in enumerate(q_vars)
+        ]
+    )
+    problem.add_list_of_constraints([q_var >> 0 for q_var in q_vars])
+
+    problem.set_objective("min", picos.trace(y_var))
+    solution = problem.solve(solver=solver)
+
+    measurements = [problem.get_constraint(k).dual for k in range(len(vectors))]
+    return solution.value, measurements
