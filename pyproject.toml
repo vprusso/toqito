@@ -73,6 +73,7 @@ docs = [
     "markdown-exec[ansi]>=1.7",
     "pybtex>=0.24",
     "mike>=2.0",
+    "ruff>=0.1.0",
 ]
 
 [tool.uv]
