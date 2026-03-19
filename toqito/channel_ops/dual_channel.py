@@ -60,8 +60,8 @@ def dual_channel(
         kraus_list = [kraus_1, kraus_2]
         dual_kraus = dual_channel(kraus_list)
         for i, op in enumerate(dual_kraus, start=1):
-        print(f"\nDual Kraus operator {i}:")
-        print(op)
+            print(f"\nDual Kraus operator {i}:")
+            print(op)
         ```
 
 

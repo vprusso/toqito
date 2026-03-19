@@ -64,8 +64,8 @@ def abs_ppt_constraints(
         eigs = np.linalg.eigvalsh(rho)
         constraints = abs_ppt_constraints(eigs, 3)
         for i, cons in enumerate(constraints, 1):
-        print(f"Constraint {i}:")
-        print(cons)
+            print(f"Constraint {i}:")
+            print(cons)
         ```
 
     """
