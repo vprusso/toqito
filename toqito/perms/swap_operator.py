@@ -12,6 +12,13 @@ def swap_operator(dim: list[int] | int, is_sparse: bool = False) -> np.ndarray:
     Provides the unitary operator that swaps two copies of `dim`-dimensional space. If the two subsystems are not
     of the same dimension, `dim` should be a 1-by-2 vector containing the dimension of the subsystems.
 
+    Args:
+        dim: The dimensions of the subsystems.
+        is_sparse: Sparse if `True` and non-sparse if `False`.
+
+    Returns:
+        The swap operator of dimension `dim`.
+
     Examples:
         The \(2\)-dimensional swap operator is given by the following matrix
 
@@ -27,7 +34,7 @@ def swap_operator(dim: list[int] | int, is_sparse: bool = False) -> np.ndarray:
 
         Using `|toqito⟩` we can obtain this matrix as follows.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         from toqito.perms import swap_operator
 
         print(swap_operator(2))
@@ -35,20 +42,13 @@ def swap_operator(dim: list[int] | int, is_sparse: bool = False) -> np.ndarray:
 
         The \(3\)-dimensional operator may be obtained using `|toqito⟩` as follows.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         from toqito.perms import swap_operator
 
         print(swap_operator(3))
         ```
 
 
-
-    Args:
-        dim: The dimensions of the subsystems.
-        is_sparse: Sparse if `True` and non-sparse if `False`.
-
-    Returns:
-        The swap operator of dimension `dim`.
 
     """
     # Allow the user to enter a single number for dimension.

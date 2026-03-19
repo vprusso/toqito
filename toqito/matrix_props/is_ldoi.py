@@ -22,24 +22,35 @@ def is_ldoi(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08) -> bool:
     and mixtures of Dicke states. This function efficiently checks the LDOI property using the
     standard basis representation.
 
+    Args:
+        mat: A matrix representing a quantum state.
+        rtol: Relative tolerance parameter (default: 1e-05).
+        atol: Absolute tolerance parameter (default: 1e-08).
+
+    Returns:
+        True if the matrix is LDOI, False otherwise.
+
+    Raises:
+        ValueError: If input matrix is not square.
+
     Examples:
         X-states are examples of 2-qubit LDOI states:
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         from toqito.matrix_props import is_ldoi
         import numpy as np
 
         # Example X-state
         x_state = np.array([[1, 0, 0, 2],
-                             [0, 3, 4, 0],
-                             [0, 5, 6, 0],
-                             [7, 0, 0, 8]])
+                         [0, 3, 4, 0],
+                         [0, 5, 6, 0],
+                         [7, 0, 0, 8]])
         print(is_ldoi(x_state))
         ```
 
         All diagonal states are LDOI:
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         from toqito.matrix_props import is_ldoi
         import numpy as np
 
@@ -49,25 +60,17 @@ def is_ldoi(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08) -> bool:
 
         Non-LDOI states return False:
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         from toqito.matrix_props import is_ldoi
         import numpy as np
 
         # Random non-LDOI state
         non_ldoi = np.array([[1, 2, 3, 4],
-                              [5, 6, 7, 8],
-                              [9, 10, 11, 12],
-                              [13, 14, 15, 16]])
+                          [5, 6, 7, 8],
+                          [9, 10, 11, 12],
+                          [13, 14, 15, 16]])
         print(is_ldoi(non_ldoi))
         ```
-
-    Args:
-        mat: A matrix representing a quantum state.
-        rtol: Relative tolerance parameter (default: 1e-05).
-        atol: Absolute tolerance parameter (default: 1e-08).
-
-    Returns:
-        True if the matrix is LDOI, False otherwise.
 
     """
     if mat.ndim != 2 or mat.shape[0] != mat.shape[1]:

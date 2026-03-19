@@ -8,6 +8,14 @@ from toqito.matrix_props import is_hermitian
 def is_positive_semidefinite(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08) -> bool:
     r"""Check if matrix is positive semidefinite (PSD) [@wikipediadefinite].
 
+    Args:
+        mat: Matrix to check.
+        rtol: The relative tolerance parameter (default 1e-05).
+        atol: The absolute tolerance parameter (default 1e-08).
+
+    Returns:
+        Return `True` if matrix is PSD, and `False` otherwise.
+
     Examples:
         Consider the following matrix
 
@@ -20,7 +28,7 @@ def is_positive_semidefinite(mat: np.ndarray, rtol: float = 1e-05, atol: float =
 
         our function indicates that this is indeed a positive semidefinite matrix.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         import numpy as np
         from toqito.matrix_props import is_positive_semidefinite
 
@@ -40,7 +48,7 @@ def is_positive_semidefinite(mat: np.ndarray, rtol: float = 1e-05, atol: float =
 
         is not positive semidefinite.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         import numpy as np
         from toqito.matrix_props import is_positive_semidefinite
 
@@ -48,14 +56,6 @@ def is_positive_semidefinite(mat: np.ndarray, rtol: float = 1e-05, atol: float =
 
         print(is_positive_semidefinite(B))
         ```
-
-    Args:
-        mat: Matrix to check.
-        rtol: The relative tolerance parameter (default 1e-05).
-        atol: The absolute tolerance parameter (default 1e-08).
-
-    Returns:
-        Return `True` if matrix is PSD, and `False` otherwise.
 
     """
     if not is_hermitian(mat, rtol, atol):

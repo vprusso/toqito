@@ -19,6 +19,18 @@ def is_pseudo_hermitian(mat: np.ndarray, signature: np.ndarray, rtol: float = 1e
     - \(H^{\dagger}\) is the conjugate transpose (Hermitian transpose) of \(H\),
     - \(\eta\) is a Hermitian, invertible matrix.
 
+    Args:
+        mat: The matrix to check.
+        signature: The signature matrix \(\eta\), which must be Hermitian and invertible.
+        rtol: The relative tolerance parameter (default 1e-05).
+        atol: The absolute tolerance parameter (default 1e-08).
+
+    Returns:
+        Return `True` if the matrix is pseudo-Hermitian, and `False` otherwise.
+
+    Raises:
+        ValueError: If `signature` is not Hermitian or not invertible.
+
     Examples:
         Consider the following matrix:
 
@@ -40,7 +52,7 @@ def is_pseudo_hermitian(mat: np.ndarray, signature: np.ndarray, rtol: float = 1e
 
         Our function confirms that \(H\) is pseudo-Hermitian:
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         import numpy as np
         from toqito.matrix_props import is_pseudo_hermitian
 
@@ -61,7 +73,7 @@ def is_pseudo_hermitian(mat: np.ndarray, signature: np.ndarray, rtol: float = 1e
 
         is not pseudo-Hermitian with respect to the same signature matrix.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         import numpy as np
         from toqito.matrix_props import is_pseudo_hermitian
         eta = np.array([[1, 0], [0, -1]])
@@ -69,18 +81,6 @@ def is_pseudo_hermitian(mat: np.ndarray, signature: np.ndarray, rtol: float = 1e
 
         print(is_pseudo_hermitian(A, eta))
         ```
-
-    Raises:
-        ValueError: If `signature` is not Hermitian or not invertible.
-
-    Args:
-        mat: The matrix to check.
-        signature: The signature matrix \(\eta\), which must be Hermitian and invertible.
-        rtol: The relative tolerance parameter (default 1e-05).
-        atol: The absolute tolerance parameter (default 1e-08).
-
-    Returns:
-        Return `True` if the matrix is pseudo-Hermitian, and `False` otherwise.
 
     """
     if not is_hermitian(signature):

@@ -20,6 +20,15 @@ def permutation_operator(
     If `inv_perm` = True, it implements the inverse permutation of `perm`. The permutation operator return
     is full is `is_sparse` is `False` and sparse if `is_sparse` is `True`.
 
+    Args:
+        dim: The dimensions of the subsystems to be permuted.
+        perm: A permutation vector.
+        inv_perm: Boolean dictating if `perm` is inverse or not.
+        is_sparse: Boolean indicating if return is sparse or not.
+
+    Returns:
+        Permutation operator of dimension `dim`.
+
     Examples:
         The permutation operator obtained with dimension \(d = 2\) is equivalent to the standard swap operator on two
         qubits
@@ -36,21 +45,12 @@ def permutation_operator(
 
         Using `|toqito⟩`, this can be achieved in the following manner.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         from toqito.perms import permutation_operator
 
         print(permutation_operator(2, [1, 0]))
         ```
 
-
-    Args:
-        dim: The dimensions of the subsystems to be permuted.
-        perm: A permutation vector.
-        inv_perm: Boolean dictating if `perm` is inverse or not.
-        is_sparse: Boolean indicating if return is sparse or not.
-
-    Returns:
-        Permutation operator of dimension `dim`.
 
     """
     # Allow the user to enter a single number for `dim`.

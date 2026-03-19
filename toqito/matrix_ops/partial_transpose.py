@@ -43,6 +43,17 @@ def partial_transpose(
     different row and column dimensions can be specified by putting the row dimensions in the
     first row of `dim` and the column dimensions in the second row of `dim`.
 
+    Args:
+        rho: A matrix.
+        sys: Scalar or vector specifying the size of the subsystems.
+        dim: Dimension of the subsystems. If `None`, all dimensions are assumed to be equal.
+
+    Returns:
+        The partial transpose of matrix `rho`.
+
+    Raises:
+        ValueError: If matrix dimensions are not square.
+
     Examples:
         Consider the following matrix
 
@@ -69,8 +80,7 @@ def partial_transpose(
 
         By default, in `|toqito⟩`, the partial transpose function performs the transposition on
         the second subsystem as follows.
-
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         import numpy as np
         from toqito.matrix_ops import partial_transpose
 
@@ -91,8 +101,7 @@ def partial_transpose(
                             7 & 8 & 15 & 16
                         \end{pmatrix}.
         \]
-
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         import numpy as np
         from toqito.matrix_ops import partial_transpose
 
@@ -100,17 +109,6 @@ def partial_transpose(
 
         print(partial_transpose(test_input_mat, 1))
         ```
-
-    Raises:
-        ValueError: If matrix dimensions are not square.
-
-    Args:
-        rho: A matrix.
-        sys: Scalar or vector specifying the size of the subsystems.
-        dim: Dimension of the subsystems. If `None`, all dimensions are assumed to be equal.
-
-    Returns:
-        The partial transpose of matrix `rho`.
 
     """
     if not isinstance(sys, int):

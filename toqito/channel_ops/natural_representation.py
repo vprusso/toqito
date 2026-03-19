@@ -13,7 +13,7 @@ def natural_representation(kraus_ops: list[np.ndarray]) -> np.ndarray:
     where \(K_i^*\) is the complex conjugate of \(K_i\).
 
     Examples:
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         import numpy as np
         from toqito.channel_ops import natural_representation
         k0 = np.sqrt(1/2) * np.array([[1, 0], [0, 1]])

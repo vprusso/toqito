@@ -24,25 +24,25 @@ def l1_norm_coherence(rho: np.ndarray) -> float:
 
     This function was adapted from QETLAB.
 
+    Args:
+        rho: A matrix or vector.
+
+    Returns:
+        The l1-norm coherence of `rho`.
+
     Examples:
         The largest possible value of the \(\ell_1\)-norm of coherence on
         \(d\)-dimensional states is \(d-1\), and is attained exactly by
         the "maximally coherent states": pure states whose entries all have the
         same absolute value.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         from toqito.state_props import l1_norm_coherence
         import numpy as np
         # Maximally coherent state.
         v = np.ones((3,1))/np.sqrt(3)
         print(l1_norm_coherence(v))
         ```
-
-    Args:
-        rho: A matrix or vector.
-
-    Returns:
-        The l1-norm coherence of `rho`.
 
     """
     rho = to_density_matrix(rho)

@@ -21,6 +21,14 @@ def is_unitary(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08) -> boo
 
     where \(\mathbb{I}\) is the identity matrix.
 
+    Args:
+        mat: Matrix to check.
+        rtol: The relative tolerance parameter (default 1e-05).
+        atol: The absolute tolerance parameter (default 1e-08).
+
+    Returns:
+        Return `True` if matrix is unitary, and `False` otherwise.
+
     Examples:
         Consider the following matrix
 
@@ -33,7 +41,7 @@ def is_unitary(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08) -> boo
 
         our function indicates that this is indeed a unitary matrix.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         import numpy as np
         from toqito.matrix_props import is_unitary
 
@@ -45,7 +53,7 @@ def is_unitary(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08) -> boo
         We may also use the `random_unitary` function from `toqito`, and can verify that a randomly
         generated matrix is unitary
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         from toqito.matrix_props import is_unitary
         from toqito.rand import random_unitary
 
@@ -65,7 +73,7 @@ def is_unitary(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08) -> boo
 
         is not unitary.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         import numpy as np
         from toqito.matrix_props import is_unitary
 
@@ -73,14 +81,6 @@ def is_unitary(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08) -> boo
 
         print(is_unitary(B))
         ```
-
-    Args:
-        mat: Matrix to check.
-        rtol: The relative tolerance parameter (default 1e-05).
-        atol: The absolute tolerance parameter (default 1e-08).
-
-    Returns:
-        Return `True` if matrix is unitary, and `False` otherwise.
 
     """
     if not is_square(mat):
@@ -92,5 +92,6 @@ def is_unitary(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08) -> boo
 
     # If U^* @ U = I U @ U^*, the matrix "U" is unitary.
     return bool(
-        np.allclose(uc_u_mat, id_mat, rtol=rtol, atol=atol) and np.allclose(u_uc_mat, id_mat, rtol=rtol, atol=atol)
+        np.allclose(uc_u_mat, id_mat, rtol=rtol, atol=atol)
+        and np.allclose(u_uc_mat, id_mat, rtol=rtol, atol=atol)
     )

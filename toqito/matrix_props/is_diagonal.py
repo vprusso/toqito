@@ -11,21 +11,27 @@ def is_diagonal(mat: np.ndarray) -> bool:
     A matrix is diagonal if the matrix is square and if the diagonal of the matrix is non-zero,
     while the off-diagonal elements are all zero.
 
-    The following is an example of a 3-by-3 diagonal matrix:
-
-    \[
-        \begin{equation}
-            \begin{pmatrix}
-                1 & 0 & 0 \\
-                0 & 2 & 0 \\
-                0 & 0 & 3
-            \end{pmatrix}
-        \end{equation}
-    \]
-
     This quick implementation is given by Daniel F. from StackOverflow in [@so43884189].
 
+    Args:
+        mat: The matrix to check.
+
+    Returns:
+        Returns `True` if the matrix is diagonal and `False` otherwise.
+
     Examples:
+        The following is an example of a 3-by-3 diagonal matrix:
+
+        \[
+            \begin{equation}
+                \begin{pmatrix}
+                    1 & 0 & 0 \\
+                    0 & 2 & 0 \\
+                    0 & 0 & 3
+                \end{pmatrix}
+            \end{equation}
+        \]
+
         Consider the following diagonal matrix:
 
         \[
@@ -37,7 +43,7 @@ def is_diagonal(mat: np.ndarray) -> bool:
 
         Our function indicates that this is indeed a diagonal matrix:
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         import numpy as np
         from toqito.matrix_props import is_diagonal
 
@@ -57,7 +63,7 @@ def is_diagonal(mat: np.ndarray) -> bool:
 
         is not diagonal, as shown using `|toqito⟩`.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         import numpy as np
         from toqito.matrix_props import is_diagonal
 
@@ -65,12 +71,6 @@ def is_diagonal(mat: np.ndarray) -> bool:
 
         print(is_diagonal(B))
         ```
-
-    Args:
-        mat: The matrix to check.
-
-    Returns:
-        Returns `True` if the matrix is diagonal and `False` otherwise.
 
     """
     if not is_square(mat):

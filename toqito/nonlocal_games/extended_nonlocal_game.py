@@ -26,6 +26,7 @@ class ExtendedNonlocalGame:
     For a detailed walkthrough and several examples, including the BB84 and CHSH
     games, please see the tutorial on
     [Extended Nonlocal Games](../../../generated/gallery/extended_nonlocal_games/enlg_introduction.md).
+
     """
 
     def __init__(self, prob_mat: np.ndarray, pred_mat: np.ndarray, reps: int = 1) -> None:

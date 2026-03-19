@@ -22,6 +22,17 @@ def ghz(dim: int, num_qubits: int, coeff: list[int] | None = None) -> np.ndarray
         |1 \rangle^{\otimes n} \right)).
     \]
 
+    Args:
+        dim: The local dimension.
+        num_qubits: The number of parties (qubits/qudits)
+        coeff: (default `[1, 1, ..., 1])/sqrt(dim)`: a 1-by-`dim` vector of coefficients.
+
+    Returns:
+        Numpy vector array as GHZ state.
+
+    Raises:
+        ValueError: Number of qubits is not a positive integer.
+
     Examples:
         When `dim = 2`, and `num_qubits = 3` this produces the standard GHZ state
 
@@ -31,7 +42,7 @@ def ghz(dim: int, num_qubits: int, coeff: list[int] | None = None) -> np.ndarray
 
         Using `|toqito⟩`, we can see that this yields the proper state.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         from toqito.states import ghz
         print(ghz(2, 3))
         ```
@@ -44,17 +55,6 @@ def ghz(dim: int, num_qubits: int, coeff: list[int] | None = None) -> np.ndarray
             \frac{1}{\sqrt{30}} \left(|0000000 \rangle + 2|1111111 \rangle +
             3|2222222 \rangle + 4|3333333\rangle \right).
         \]
-
-    Raises:
-        ValueError: Number of qubits is not a positive integer.
-
-    Args:
-        dim: The local dimension.
-        num_qubits: The number of parties (qubits/qudits)
-        coeff: (default `[1, 1, ..., 1])/sqrt(dim)`: a 1-by-`dim` vector of coefficients.
-
-    Returns:
-        Numpy vector array as GHZ state.
 
     """
     if dim < 1:

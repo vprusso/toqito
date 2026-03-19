@@ -27,10 +27,19 @@ def is_mutually_orthogonal(vec_list: list[np.ndarray | list[float | Any]]) -> bo
     is orthogonal with \(\mathcal{B}_x^{\prime}\) for all \(x \not= x^{\prime}\) with
     \(x, x^{\prime} \in \Sigma\).
 
+    Args:
+        vec_list: The list of vectors to check.
+
+    Returns:
+        `True` if `vec_list` are mutually orthogonal, and `False` otherwise.
+
+    Raises:
+        ValueError: If at least two vectors are not provided.
+
     Examples:
         The Bell states constitute a set of mutually orthogonal vectors.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         from toqito.states import bell
         from toqito.state_props import is_mutually_orthogonal
         states = [bell(0), bell(1), bell(2), bell(3)]
@@ -40,22 +49,13 @@ def is_mutually_orthogonal(vec_list: list[np.ndarray | list[float | Any]]) -> bo
 
         The following is an example of a list of vectors that are not mutually orthogonal.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         import numpy as np
         from toqito.states import bell
         from toqito.state_props import is_mutually_orthogonal
         states = [np.array([1, 0]), np.array([1, 1])]
         print(is_mutually_orthogonal(states))
         ```
-
-    Raises:
-        ValueError: If at least two vectors are not provided.
-
-    Args:
-        vec_list: The list of vectors to check.
-
-    Returns:
-        `True` if `vec_list` are mutually orthogonal, and `False` otherwise.
 
     """
     if len(vec_list) <= 1:

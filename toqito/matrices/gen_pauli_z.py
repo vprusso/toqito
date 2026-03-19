@@ -26,6 +26,12 @@ def gen_pauli_z(dim: int) -> np.ndarray:
     The gen_pauli_z matrix is primarily used in the construction of the generalized
     Pauli operators.
 
+    Args:
+        dim: Dimension of the matrix.
+
+    Returns:
+        `dim`-by-`dim` gen_pauli_z matrix.
+
     Examples:
         The gen_pauli_z matrix generated from \(d = 3\) yields the following matrix:
 
@@ -37,17 +43,11 @@ def gen_pauli_z(dim: int) -> np.ndarray:
             \end{pmatrix}
         \]
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         from toqito.matrices import gen_pauli_z
 
         print(gen_pauli_z(3))
         ```
-
-    Args:
-        dim: Dimension of the matrix.
-
-    Returns:
-        `dim`-by-`dim` gen_pauli_z matrix.
 
     """
     c_var = 2j * pi / dim

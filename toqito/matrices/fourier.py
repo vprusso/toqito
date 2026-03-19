@@ -24,6 +24,12 @@ def fourier(dim: int) -> np.ndarray:
         \end{pmatrix}
     \]
 
+    Args:
+        dim: The size of the Fourier matrix.
+
+    Returns:
+        The Fourier matrix of dimension `dim`.
+
     Examples:
         The Fourier matrix generated from \(d = 3\) yields the following matrix:
 
@@ -36,17 +42,11 @@ def fourier(dim: int) -> np.ndarray:
             \end{pmatrix}
         \]
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         from toqito.matrices import fourier
 
         print(fourier(3))
         ```
-
-    Args:
-        dim: The size of the Fourier matrix.
-
-    Returns:
-        The Fourier matrix of dimension `dim`.
 
     """
     # Primitive root of unity.

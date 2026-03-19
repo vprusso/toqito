@@ -10,10 +10,19 @@ def has_same_dimension(items: list[np.ndarray]) -> bool:
     number of elements (rows x columns) for non-square matrices, or simply the number of rows (or columns) for square
     matrices. The function iterates through the provided list and ensures that every item has the same dimension.
 
+    Args:
+        items: A list containing vectors or matrices. Vectors are represented as 1D numpy arrays, and matrices are
+            represented as 2D numpy arrays.
+
+    Returns:
+        Returns `True` if all items in the list have the same dimension, `False` otherwise.
+
+    Raises:
+        ValueError: If the input list is empty.
+
     Examples:
         Check a list of vectors with the same dimension:
-
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         import numpy as np
         from toqito.matrix_props import has_same_dimension
 
@@ -22,10 +31,8 @@ def has_same_dimension(items: list[np.ndarray]) -> bool:
         print(has_same_dimension(vectors))
         ```
 
-
         Check a list of matrices with the same dimension:
-
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         import numpy as np
         from toqito.matrix_props import has_same_dimension
 
@@ -35,8 +42,7 @@ def has_same_dimension(items: list[np.ndarray]) -> bool:
         ```
 
         Check a list containing items of different dimensions:
-
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         import numpy as np
         from toqito.matrix_props import has_same_dimension
 
@@ -44,16 +50,6 @@ def has_same_dimension(items: list[np.ndarray]) -> bool:
 
         print(has_same_dimension(mixed))
         ```
-
-    Raises:
-        ValueError: If the input list is empty.
-
-    Args:
-        items: A list containing vectors or matrices. Vectors are represented as 1D numpy arrays, and matrices are
-            represented as 2D numpy arrays.
-
-    Returns:
-        Returns `True` if all items in the list have the same dimension, `False` otherwise.
 
     """
     if len(items) == 0:

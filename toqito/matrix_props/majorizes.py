@@ -6,7 +6,7 @@ import numpy as np
 def majorizes(a_var: np.ndarray | list[int], b_var: np.ndarray | list[int]) -> bool:
     r"""Determine if one vector or matrix majorizes another [@wikipediamajorization].
 
-    Given \(a, b \in \mathbb{R}^d\), we say that \(a\) **weakly majorizes** (or dominates)
+    Given \(a, b \in \mathbb{R}^d\), we say that \(a\) **majorizes**
     \(b\) from below if and only if
 
     \[
@@ -17,11 +17,18 @@ def majorizes(a_var: np.ndarray | list[int], b_var: np.ndarray | list[int]) -> b
 
     This function was adapted from the QETLAB package.
 
+    Args:
+        a_var: Matrix or vector provided as list or np.array.
+        b_var: Matrix or vector provided as list or np.array.
+
+    Returns:
+        Return `True` if `a_var` majorizes `b_var` and `False` otherwise.
+
     Examples:
         Simple example illustrating that the vector \((3, 0, 0)\) majorizes the vector
         \((1, 1, 1)\).
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         from toqito.matrix_props import majorizes
 
         print(majorizes([3, 0, 0], [1, 1, 1]))
@@ -33,7 +40,7 @@ def majorizes(a_var: np.ndarray | list[int], b_var: np.ndarray | list[int]) -> b
         \(\text{Tr}_{\mathcal{B}}(\rho)\) majorizes
         \(\text{Tr}_{\mathcal{A}}(\rho)\).
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         from toqito.matrix_props import majorizes
         from toqito.states import max_entangled
         from toqito.matrix_ops import partial_trace
@@ -43,13 +50,6 @@ def majorizes(a_var: np.ndarray | list[int], b_var: np.ndarray | list[int]) -> b
 
         print(majorizes(partial_trace(rho, [1]), rho))
         ```
-
-    Args:
-        a_var: Matrix or vector provided as list or np.array.
-        b_var: Matrix or vector provided as list or np.array.
-
-    Returns:
-        Return `True` if `a_var` majorizes `b_var` and `False` otherwise.
 
     """
     # If input if provided as list, convert to np.array.

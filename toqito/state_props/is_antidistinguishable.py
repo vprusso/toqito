@@ -17,6 +17,12 @@ def is_antidistinguishable(states: list[np.ndarray]) -> bool | np.bool_:
     exclusion SDP [@bandyopadhyay2014conclusive] such that we ignore the associated probabilities with which
     the states are chosen from the set of vectors.
 
+    Args:
+        states: A set of vectors consisting of quantum states to determine the antidistinguishability of.
+
+    Returns:
+        `True` if the vectors are antidistinguishable; `False` otherwise.
+
     Examples:
         The set of Bell states are an example of antidistinguishable states. Recall that the Bell states are defined as:
 
@@ -31,7 +37,7 @@ def is_antidistinguishable(states: list[np.ndarray]) -> bool | np.bool_:
 
         It can be checked in `toqito` that the Bell states are antidistinguishable:
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         from toqito.states import bell
         from toqito.state_props import is_antidistinguishable
         bell_states = [bell(0), bell(1), bell(2), bell(3)]
@@ -53,12 +59,6 @@ def is_antidistinguishable(states: list[np.ndarray]) -> bool | np.bool_:
         \]
 
         and hence, the Bell states are antidistinguishable.
-
-    Args:
-        states: A set of vectors consisting of quantum states to determine the antidistinguishability of.
-
-    Returns:
-        `True` if the vectors are antidistinguishable; `False` otherwise.
 
     """
     probs = [1] * len(states)

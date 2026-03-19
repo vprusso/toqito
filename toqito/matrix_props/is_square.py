@@ -8,6 +8,15 @@ def is_square(mat: np.ndarray) -> bool:
 
     A matrix is square if the dimensions of the rows and columns are equivalent.
 
+    Args:
+        mat: The matrix to check.
+
+    Returns:
+        Returns `True` if the matrix is square and `False` otherwise.
+
+    Raises:
+        ValueError: If variable is not a matrix.
+
     Examples:
         Consider the following matrix
 
@@ -21,7 +30,7 @@ def is_square(mat: np.ndarray) -> bool:
 
         our function indicates that this is indeed a square matrix.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         import numpy as np
         from toqito.matrix_props import is_square
 
@@ -41,7 +50,7 @@ def is_square(mat: np.ndarray) -> bool:
 
         is not square.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         import numpy as np
         from toqito.matrix_props import is_square
 
@@ -49,15 +58,6 @@ def is_square(mat: np.ndarray) -> bool:
 
         print(is_square(B))
         ```
-
-    Raises:
-        ValueError: If variable is not a matrix.
-
-    Args:
-        mat: The matrix to check.
-
-    Returns:
-        Returns `True` if the matrix is square and `False` otherwise.
 
     """
     if len(mat.shape) != 2:

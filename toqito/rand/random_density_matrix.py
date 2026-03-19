@@ -25,11 +25,22 @@ def random_density_matrix(
     - `bures`:
         The Bures measure.
 
+    Args:
+        dim: The number of rows (and columns) of the density matrix.
+        is_real: Boolean denoting whether the returned matrix will have all real entries or not.
+        k_param: Default value is equal to `dim`.
+        distance_metric: The distance metric used to randomly generate the density matrix. This metric is either the
+            Haar measure or the Bures measure. Default value is to use the Haar measure.
+        seed: A seed used to instantiate numpy's random number generator.
+
+    Returns:
+        A `dim`-by-`dim` random density matrix.
+
     Examples:
         Using `|toqito⟩`, we may generate a random complex-valued \(n\)- dimensional density matrix. For
         \(d=2\), this can be accomplished as follows.
 
-        ```python exec="1" source="above" session="complex_dm_example"
+        ```python exec="1" source="above" result="text" session="complex_dm_example"
         from toqito.rand import random_density_matrix
 
         complex_dm = random_density_matrix(2)
@@ -41,7 +52,7 @@ def random_density_matrix(
         We can verify that this is in fact a valid density matrix using the `is_density` function from
         `|toqito⟩` as follows
 
-        ```python exec="1" source="above" session="complex_dm_example"
+        ```python exec="1" source="above" result="text" session="complex_dm_example"
         from toqito.matrix_props import is_density
 
         print(is_density(complex_dm))
@@ -50,7 +61,7 @@ def random_density_matrix(
 
         We can also generate random density matrices that are real-valued as follows.
 
-        ```python exec="1" source="above" session="real_dm_example"
+        ```python exec="1" source="above" result="text" session="real_dm_example"
         from toqito.rand import random_density_matrix
 
         real_dm = random_density_matrix(2, is_real=True)
@@ -62,7 +73,7 @@ def random_density_matrix(
 
         Again, verifying that this is a valid density matrix can be done as follows.
 
-        ```python exec="1" source="above" session="real_dm_example"
+        ```python exec="1" source="above" result="text" session="real_dm_example"
         from toqito.matrix_props import is_density
 
         print(is_density(real_dm))
@@ -71,7 +82,7 @@ def random_density_matrix(
         By default, the random density operators are constructed using the Haar measure. We can select to generate the
         random density matrix according to the Bures metric instead as follows.
 
-        ```python exec="1" source="above" session="bures_dm_example"
+        ```python exec="1" source="above" result="text" session="bures_dm_example"
         from toqito.rand import random_density_matrix
 
         bures_mat = random_density_matrix(2, distance_metric="bures")
@@ -82,14 +93,14 @@ def random_density_matrix(
 
         As before, we can verify that this matrix generated is a valid density matrix.
 
-        ```python exec="1" source="above" session="bures_dm_example"
+        ```python exec="1" source="above" result="text" session="bures_dm_example"
         from toqito.matrix_props import is_density
 
         print(is_density(bures_mat))
         ```
 
         It is also possible to pass a seed to this function for reproducibility.
-        ```python exec="1" source="above" session="seeded_dm_example"
+        ```python exec="1" source="above" result="text" session="seeded_dm_example"
         from toqito.rand import random_density_matrix
 
         seeded = random_density_matrix(2, seed=42)
@@ -100,7 +111,7 @@ def random_density_matrix(
         We can once again verify that this is in fact a valid density matrix using the
         `is_density` function from `|toqito⟩` as follows
 
-        ```python exec="1" source="above" session="seeded_dm_example"
+        ```python exec="1" source="above" result="text" session="seeded_dm_example"
         from toqito.matrix_props import is_density
 
         seeded = random_density_matrix(2, seed=42)
@@ -109,17 +120,6 @@ def random_density_matrix(
         ```
 
 
-
-    Args:
-        dim: The number of rows (and columns) of the density matrix.
-        is_real: Boolean denoting whether the returned matrix will have all real entries or not.
-        k_param: Default value is equal to `dim`.
-        distance_metric: The distance metric used to randomly generate the density matrix. This metric is either the
-            Haar measure or the Bures measure. Default value is to use the Haar measure.
-        seed: A seed used to instantiate numpy's random number generator.
-
-    Returns:
-        A `dim`-by-`dim` random density matrix.
 
     """
     gen = np.random.default_rng(seed=seed)

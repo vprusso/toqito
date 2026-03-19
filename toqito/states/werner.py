@@ -33,10 +33,20 @@ def werner(dim: int, alpha: float | list[float]) -> np.ndarray:
     they are written in lexicographical order (for example, the lexicographical ordering when p = 3 is: `[1, 2, 3], [1,
     3, 2], [2, 1,3], [2, 3, 1], [3, 1, 2], [3, 2, 1],` so P(4) in this case equals permutation_operator(dim, [2, 3, 1]).
 
+    Args:
+        dim: The dimension of the Werner state.
+        alpha: Parameter to specify Werner state.
+
+    Returns:
+        A Werner state of dimension `dim`.
+
+    Raises:
+        ValueError: Alpha vector does not have the correct length.
+
     Examples:
         Computing the qutrit Werner state with \(\alpha = 1/2\) can be done in `|toqito⟩` as
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         from toqito.states import werner
         print(werner(3, 1 / 2))
         ```
@@ -44,20 +54,10 @@ def werner(dim: int, alpha: float | list[float]) -> np.ndarray:
 
         We may also compute multipartite Werner states in `|toqito⟩` as well.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         from toqito.states import werner
         print(werner(2, [0.01, 0.02, 0.03, 0.04, 0.05]))
         ```
-
-    Raises:
-        ValueError: Alpha vector does not have the correct length.
-
-    Args:
-        dim: The dimension of the Werner state.
-        alpha: Parameter to specify Werner state.
-
-    Returns:
-        A Werner state of dimension `dim`.
 
     """
     # Multipartite Werner state.

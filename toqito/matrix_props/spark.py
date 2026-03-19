@@ -11,14 +11,23 @@ def spark(mat: np.ndarray) -> int:
     The spark of a matrix A is the smallest number of columns from A that are linearly
     dependent [@elad2010sparse].
 
+    Args:
+        mat: The input matrix as a 2D NumPy array.
+
+    Returns:
+        The spark of the input matrix `mat`.
+
+    Raises:
+        ValueError: If the input is not a 2D NumPy array.
+
     Examples:
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         import numpy as np
         from toqito.matrix_props import spark
 
         A = np.array([[1, 0, 1, 2],
-                      [0, 1, 1, 3],
-                      [1, 1, 2, 5]])
+                  [0, 1, 1, 3],
+                  [1, 1, 2, 5]])
 
         print(spark(A))
         ```
@@ -32,15 +41,6 @@ def spark(mat: np.ndarray) -> int:
             - If spark(A) = m + 1, then rank(A) = m (full rank).
             - If spark(A) = 1, then the matrix has a zero column.
             - If spark(A) <= rank(A) + 1, then the matrix has dependent columns.
-
-    Raises:
-        ValueError: If the input is not a 2D NumPy array.
-
-    Args:
-        mat: The input matrix as a 2D NumPy array.
-
-    Returns:
-        The spark of the input matrix `mat`.
 
     """
     if not isinstance(mat, np.ndarray) or mat.ndim != 2:

@@ -29,25 +29,6 @@ def is_k_incoherent(mat: np.ndarray, k: int, tol: float = 1e-15) -> bool:
     and a dephasing channel. If no decision is reached, the function recurses by checking incoherence for k-1.  Finally,
     if still indeterminate, an SDP is formulated to decide incoherence.
 
-    Examples:
-        If \(n = 3\) and \(k = 2\), then the following matrix is \(2\)-incoherent:
-
-        ```python exec="1" source="above"
-        import numpy as np
-        from toqito.matrix_props import is_k_incoherent
-        mat = np.array([[2, 1, 2],
-                    [1, 2, -1],
-                    [2, -1, 5]])
-        print(is_k_incoherent(mat, 2))
-        ```
-
-        !!! See
-            [is_antidistinguishable()][toqito.state_props.is_antidistinguishable.is_antidistinguishable],
-            [is_absolutely_k_incoherent()][toqito.matrix_props.is_absolutely_k_incoherent.is_absolutely_k_incoherent]
-
-    Raises:
-        ValueError: If k ≤ 0 or if `mat` is not square.
-
     Args:
         mat: Density matrix to test.
         k: The positive integer coherence level.
@@ -55,6 +36,25 @@ def is_k_incoherent(mat: np.ndarray, k: int, tol: float = 1e-15) -> bool:
 
     Returns:
         True if `mat` is k-incoherent, False otherwise.
+
+    Raises:
+        ValueError: If k ≤ 0 or if `mat` is not square.
+
+    Examples:
+        If \(n = 3\) and \(k = 2\), then the following matrix is \(2\)-incoherent:
+
+        ```python exec="1" source="above" result="text"
+        import numpy as np
+        from toqito.matrix_props import is_k_incoherent
+        mat = np.array([[2, 1, 2],
+                [1, 2, -1],
+                [2, -1, 5]])
+        print(is_k_incoherent(mat, 2))
+        ```
+
+        !!! See
+            [is_antidistinguishable()][toqito.state_props.is_antidistinguishable.is_antidistinguishable],
+            [is_absolutely_k_incoherent()][toqito.matrix_props.is_absolutely_k_incoherent.is_absolutely_k_incoherent]
 
     """
     if k <= 0:

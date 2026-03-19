@@ -9,6 +9,12 @@ def is_permutation(mat: np.ndarray) -> bool:
     A matrix is a permutation matrix if each row and column has a
     single element of 1 and all others are 0.
 
+    Args:
+        mat: The matrix to check.
+
+    Returns:
+        Returns `True` if the matrix is a permutation matrix and `False` otherwise.
+
     Examples:
         Consider the following permutation matrix
 
@@ -22,7 +28,7 @@ def is_permutation(mat: np.ndarray) -> bool:
 
         which is indeed a permutation matrix.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         import numpy as np
         from toqito.matrix_props import is_permutation
 
@@ -45,7 +51,7 @@ def is_permutation(mat: np.ndarray) -> bool:
         has 2 columns with all zero values and is thus not a
         permutation matrix.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         import numpy as np
         from toqito.matrix_props import is_permutation
 
@@ -53,12 +59,6 @@ def is_permutation(mat: np.ndarray) -> bool:
 
         print(is_permutation(B))
         ```
-
-    Args:
-        mat: The matrix to check.
-
-    Returns:
-        Returns `True` if the matrix is a permutation matrix and `False` otherwise.
 
     """
     for i in np.nditer(mat):

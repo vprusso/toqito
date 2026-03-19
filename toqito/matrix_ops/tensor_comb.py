@@ -23,32 +23,6 @@ def tensor_comb(
 
     For one definition and usage of a quantum sequence, refer to [@gupta2024optimal].
 
-    Examples:
-        Consider the following basis vectors for a 2-dimensional quantum system.
-
-        \[
-            e_0 = \left[1, 0 \right]^{\text{T}}, e_1 = \left[0, 1 \right]^{\text{T}}.
-        \]
-
-        We can generate all possible tensor products for sequences of length 2.
-
-        ```python exec="1" source="above"
-        from toqito.matrix_ops import tensor_comb
-        import numpy as np
-
-        e_0 = np.array([1, 0])
-        e_1 = np.array([0, 1])
-
-        result = tensor_comb([e_0, e_1], 2, mode="injective", density_matrix=True)
-
-        for key, mat in result.items():
-            print(f"tensor_comb{key} =\n{mat}\n")
-        ```
-
-
-    Raises:
-        ValueError: If the input list of states is empty.
-
     Args:
         states: A list of state vectors.
         k: The length of the sequence.
@@ -61,6 +35,30 @@ def tensor_comb(
         A dictionary where keys are tuples representing sequences of state indices, and values are density matrices of
         the tensor products of the corresponding state vectors or tensor products of the corresponding state vectors
         based on input `density_matrix` being either ``True`` or ``False``.
+
+    Raises:
+        ValueError: If the input list of states is empty.
+
+    Examples:
+        Consider the following basis vectors for a 2-dimensional quantum system.
+
+        \[
+            e_0 = \left[1, 0 \right]^{\text{T}}, e_1 = \left[0, 1 \right]^{\text{T}}.
+        \]
+
+        We can generate all possible tensor products for sequences of length 2.
+        ```python exec="1" source="above" result="text"
+        from toqito.matrix_ops import tensor_comb
+        import numpy as np
+
+        e_0 = np.array([1, 0])
+        e_1 = np.array([0, 1])
+
+        result = tensor_comb([e_0, e_1], 2, mode="injective", density_matrix=True)
+
+        for key, mat in result.items():
+            print(f"tensor_comb{key} =\n{mat}\n")
+        ```
 
     """
     if not states:

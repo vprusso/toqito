@@ -23,6 +23,18 @@ def swap(
     If `row_only` is set to `True`, then only the rows of `rho` are swapped, but not the columns --
     this is equivalent to multiplying `rho` on the left by the corresponding swap operator, but not on the right.
 
+    Args:
+        rho: A vector or matrix to have its subsystems swapped.
+        sys: Default: [1, 2]
+        dim: Default: `[sqrt(len(X), sqrt(len(X)))]`
+        row_only: Default: `False`
+
+    Returns:
+        The swapped matrix.
+
+    Raises:
+        ValueError: If dimension does not match the number of subsystems.
+
     Examples:
         Consider the following matrix
 
@@ -51,7 +63,7 @@ def swap(
 
         This can be observed by the following example in `|toqito⟩`.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         import numpy as np
         from toqito.perms import swap
 
@@ -76,19 +88,19 @@ def swap(
 
         Using `|toqito⟩` we can see this gives the proper result.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         import numpy as np
         from toqito.perms import swap
 
         test_mat = np.array(
-            [[1, 5, 9, 13], [2, 6, 10, 14], [3, 7, 11, 15], [4, 8, 12, 16]]
+        [[1, 5, 9, 13], [2, 6, 10, 14], [3, 7, 11, 15], [4, 8, 12, 16]]
         )
         print(swap(test_mat, [1, 2], 2))
         ```
 
         It is also possible to perform the `swap` function on vectors in addition to matrices.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         import numpy as np
         from toqito.perms import swap
 
@@ -99,18 +111,6 @@ def swap(
 
 
 
-
-    Raises:
-        ValueError: If dimension does not match the number of subsystems.
-
-    Args:
-        rho: A vector or matrix to have its subsystems swapped.
-        sys: Default: [1, 2]
-        dim: Default: `[sqrt(len(X), sqrt(len(X)))]`
-        row_only: Default: `False`
-
-    Returns:
-        The swapped matrix.
 
     """
     if dim is not None and not isinstance(dim, (int, list, np.ndarray)):

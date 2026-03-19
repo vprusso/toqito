@@ -68,34 +68,6 @@ def fidelity_of_separability(
 
     These other constraints are due to the PPT condition [@peres1996separability].
 
-    Examples:
-        Let's consider a density matrix of a state that we know is pure & separable.
-        $|000 \rangle = |0 \rangle \otimes |0 \rangle \otimes |0 \rangle$.
-
-        The expected approximation of fidelity of separability is the maximum
-        value possible i.e. very close to 1.
-
-        $$
-        \rho_{AB} = |000 \rangle \langle 000|
-        $$
-
-        ```python exec="1" source="above"
-        import numpy as np
-        from toqito.state_metrics import fidelity_of_separability
-        from toqito.matrix_ops import tensor
-        from toqito.states import basis
-        state = tensor(basis(2, 0), basis(2, 0))
-        rho = state @ state.conj().T
-        print(fidelity_of_separability(rho, [2, 2]))
-        ```
-
-    Raises:
-        AssertionError: If the provided dimensions are not for a tripartite density matrix.
-        ValueError: If the matrix is not a density matrix (square matrix that
-            is PSD with trace 1).
-        ValueError: the input state is entangled.
-        ValueError: the input state is a mixed state.
-
     Args:
         psi: the density matrix for the tripartite state of interest psi_{BAR}
         psi_dims: the dimensions of System A, B, & R in the input state density matrix. It is assumed that the first
@@ -110,6 +82,34 @@ def fidelity_of_separability(
 
     Returns:
         Optimized value of the SDP when maximized over a set of linear operators subject to some constraints.
+
+    Raises:
+        AssertionError: If the provided dimensions are not for a tripartite density matrix.
+        ValueError: If the matrix is not a density matrix (square matrix that
+            is PSD with trace 1).
+        ValueError: the input state is entangled.
+        ValueError: the input state is a mixed state.
+
+    Examples:
+        Let's consider a density matrix of a state that we know is pure & separable.
+        $|000 \rangle = |0 \rangle \otimes |0 \rangle \otimes |0 \rangle$.
+
+        The expected approximation of fidelity of separability is the maximum
+        value possible i.e. very close to 1.
+
+        $$
+        \rho_{AB} = |000 \rangle \langle 000|
+        $$
+
+        ```python exec="1" source="above" result="text"
+        import numpy as np
+        from toqito.state_metrics import fidelity_of_separability
+        from toqito.matrix_ops import tensor
+        from toqito.states import basis
+        state = tensor(basis(2, 0), basis(2, 0))
+        rho = state @ state.conj().T
+        print(fidelity_of_separability(rho, [2, 2]))
+        ```
 
     """
     if not is_density(psi):

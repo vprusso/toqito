@@ -33,19 +33,6 @@ def amplitude_damping(
     These operators describe the evolution of a quantum state under the generalized amplitude
     damping process.
 
-    Examples:
-        Apply the generalized amplitude damping channel to a qubit state:
-
-        ```python exec="1" source="above"
-        import numpy as np
-        from toqito.channels import amplitude_damping
-
-        rho = np.array([[1, 0], [0, 0]])  # |0><0|
-        result = amplitude_damping(rho, gamma=0.1, prob=0.5)
-
-        print(result)
-        ```
-
     Args:
         input_mat: The input matrix to which the channel is applied. If `None`, the function returns the Kraus operators
             of the channel.
@@ -55,6 +42,19 @@ def amplitude_damping(
     Returns:
         The evolved quantum state after applying the generalized amplitude damping channel. If `input_mat` is `None`, it
         returns the list of Kraus operators.
+
+    Examples:
+        Apply the generalized amplitude damping channel to a qubit state:
+
+        ```python exec="1" source="above" result="text"
+        import numpy as np
+        from toqito.channels import amplitude_damping
+
+        rho = np.array([[1, 0], [0, 0]])  # |0><0|
+        result = amplitude_damping(rho, gamma=0.1, prob=0.5)
+
+        print(result)
+        ```
 
     """
     if not (0 <= prob <= 1):

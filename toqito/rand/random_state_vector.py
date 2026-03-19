@@ -24,51 +24,6 @@ def random_state_vector(
     integer) with Schmidt rank at most ``k_param``.  This is achieved by drawing local factors and
     combining them with a maximally entangled resource state.
 
-    Examples:
-        We may generate a random state vector. For instance, here is an example where we can generate a
-        \(2\)-dimensional random state vector.
-
-        ```python exec="1" source="above" session="vec_example"
-        from toqito.rand import random_state_vector
-
-        vec = random_state_vector(2)
-
-        print(vec)
-        ```
-
-        We can verify that this is in fact a valid state vector by computing the corresponding density
-        matrix of the vector and checking if the density matrix is pure.
-
-        ```python exec="1" source="above" session="vec_example"
-        from toqito.state_props import is_pure
-
-        dm = vec @ vec.conj().T
-
-        print(is_pure(dm))
-        ```
-
-        It is also possible to pass a seed for reproducibility.
-
-        ```python exec="1" source="above" session="vec_example"
-        from toqito.rand import random_state_vector
-
-        vec = random_state_vector(2, seed=42)
-
-        print(vec)
-        ```
-
-        We can once again verify that this is in fact a valid state vector by computing the
-        corresponding density matrix of the vector and checking if the density matrix is pure.
-
-        ```python exec="1" source="above" session="vec_example"
-        from toqito.state_props import is_pure
-
-        dm = vec @ vec.conj().T
-
-        print(is_pure(dm))
-        ```
-
-
     Args:
         dim: Either a positive integer giving the total Hilbert-space dimension, or a length-2 sequence specifying the
             individual subsystem dimensions for bipartite sampling.
@@ -82,6 +37,51 @@ def random_state_vector(
     Returns:
         A normalized column vector of shape ``(total_dim, 1)`` where ``total_dim`` equals `dim` if ``dim`` is an integer
         and equals the product of entries in ``dim`` otherwise.
+
+    Examples:
+        We may generate a random state vector. For instance, here is an example where we can generate a
+        \(2\)-dimensional random state vector.
+
+        ```python exec="1" source="above" result="text" session="vec_example"
+        from toqito.rand import random_state_vector
+
+        vec = random_state_vector(2)
+
+        print(vec)
+        ```
+
+        We can verify that this is in fact a valid state vector by computing the corresponding density
+        matrix of the vector and checking if the density matrix is pure.
+
+        ```python exec="1" source="above" result="text" session="vec_example"
+        from toqito.state_props import is_pure
+
+        dm = vec @ vec.conj().T
+
+        print(is_pure(dm))
+        ```
+
+        It is also possible to pass a seed for reproducibility.
+
+        ```python exec="1" source="above" result="text" session="vec_example"
+        from toqito.rand import random_state_vector
+
+        vec = random_state_vector(2, seed=42)
+
+        print(vec)
+        ```
+
+        We can once again verify that this is in fact a valid state vector by computing the
+        corresponding density matrix of the vector and checking if the density matrix is pure.
+
+        ```python exec="1" source="above" result="text" session="vec_example"
+        from toqito.state_props import is_pure
+
+        dm = vec @ vec.conj().T
+
+        print(is_pure(dm))
+        ```
+
 
     """
     gen = np.random.default_rng(seed=seed)

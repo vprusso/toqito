@@ -22,6 +22,13 @@ def dephasing(dim: int, param_p: float = 0) -> np.ndarray:
 
     for every \(X \in \text{L}(\mathcal{X})\) is defined as the *completely dephasing channel*.
 
+    Args:
+        dim: The dimensionality on which the channel acts.
+        param_p: Default is 0.
+
+    Returns:
+        The Choi matrix of the dephasing channel.
+
     Examples:
         The completely dephasing channel maps kills everything off the diagonal. Consider the
         following matrix
@@ -48,7 +55,7 @@ def dephasing(dim: int, param_p: float = 0) -> np.ndarray:
 
         This can be observed in `|toqito⟩` as follows.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         import numpy as np
         from toqito.channels import dephasing
         from toqito.channel_ops import apply_channel
@@ -61,7 +68,7 @@ def dephasing(dim: int, param_p: float = 0) -> np.ndarray:
 
         We may also consider setting the parameter `p = 0.5`.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         import numpy as np
         from toqito.channels import dephasing
         from toqito.channel_ops import apply_channel
@@ -70,13 +77,6 @@ def dephasing(dim: int, param_p: float = 0) -> np.ndarray:
 
         print(apply_channel(test_input_mat, dephasing(4, 0.5)))
         ```
-
-    Args:
-        dim: The dimensionality on which the channel acts.
-        param_p: Default is 0.
-
-    Returns:
-        The Choi matrix of the dephasing channel.
 
     """
     # Compute the Choi matrix of the dephasing channel.

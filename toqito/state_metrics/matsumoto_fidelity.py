@@ -34,6 +34,16 @@ def matsumoto_fidelity(rho: np.ndarray, sigma: np.ndarray) -> float | np.floatin
     `sigma` with orthogonal support, and \(1\) corresponding to the case `rho = sigma`. The Matsumoto
     fidelity is a lower bound for the fidelity.
 
+    Args:
+        rho: Density operator.
+        sigma: Density operator.
+
+    Returns:
+        The Matsumoto fidelity between `rho` and `sigma`.
+
+    Raises:
+        ValueError: If matrices are not of equal dimension.
+
     Examples:
         Consider the following Bell state
 
@@ -56,30 +66,20 @@ def matsumoto_fidelity(rho: np.ndarray, sigma: np.ndarray) -> float | np.floatin
         the value
         of \(1\). This can be observed in `|toqito⟩` as follows.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         import numpy as np
         from toqito.state_metrics import matsumoto_fidelity
 
         rho = 1 / 2 * np.array(
-            [[1, 0, 0, 1],
-             [0, 0, 0, 0],
-             [0, 0, 0, 0],
-             [1, 0, 0, 1]]
+        [[1, 0, 0, 1],
+         [0, 0, 0, 0],
+         [0, 0, 0, 0],
+         [1, 0, 0, 1]]
         )
         sigma = rho
 
         print(np.around(matsumoto_fidelity(rho, sigma), decimals=2))
         ```
-
-    Raises:
-        ValueError: If matrices are not of equal dimension.
-
-    Args:
-        rho: Density operator.
-        sigma: Density operator.
-
-    Returns:
-        The Matsumoto fidelity between `rho` and `sigma`.
 
     """
     if not np.all(rho.shape == sigma.shape):

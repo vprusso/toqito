@@ -15,6 +15,16 @@ def helstrom_holevo(rho: np.ndarray, sigma: np.ndarray) -> float | np.floating:
         \frac{1}{2}+\frac{1}{2} \left(\frac{1}{2} \left|\rho - \sigma \right|_1\right).
     \]
 
+    Args:
+        rho: Density operator.
+        sigma: Density operator.
+
+    Returns:
+        The Helstrom-Holevo distance between `rho` and `sigma`.
+
+    Raises:
+        ValueError: If matrices are not density operators.
+
     Examples:
         Consider the following Bell state
 
@@ -36,7 +46,7 @@ def helstrom_holevo(rho: np.ndarray, sigma: np.ndarray) -> float | np.floating:
         Calculating the Helstrom-Holevo distance of states that are identical yield a value of
         \(1/2\). This can be verified in `|toqito⟩` as follows.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         import numpy as np
         from toqito.states import basis
         from toqito.state_metrics import helstrom_holevo
@@ -51,16 +61,6 @@ def helstrom_holevo(rho: np.ndarray, sigma: np.ndarray) -> float | np.floating:
 
         print(helstrom_holevo(rho, sigma))
         ```
-
-    Raises:
-        ValueError: If matrices are not density operators.
-
-    Args:
-        rho: Density operator.
-        sigma: Density operator.
-
-    Returns:
-        The Helstrom-Holevo distance between `rho` and `sigma`.
 
     """
     if not is_density(rho) or not is_density(sigma):

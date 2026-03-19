@@ -39,42 +39,6 @@ def channel_distinguishability(
     QETLAB's functionality inspired the Bayesian option [@qetlablink]
     and the minimax option is adapted from QuTIpy [@qutipylink].
 
-    Examples:
-        Optimal probability of distinguishing two amplitude damping channels in the Bayesian setting:
-
-        ```python exec="1" source="above"
-        from toqito.channels import amplitude_damping
-        from toqito.channel_ops import kraus_to_choi
-        from toqito.channel_metrics import channel_distinguishability
-        # Define two amplitude damping channels with gamma=0.25 and gamma=0.5
-        choi_ch_1 = kraus_to_choi(amplitude_damping(gamma=0.25))
-        choi_ch_2 = kraus_to_choi(amplitude_damping(gamma=0.5))
-
-        p = [0.5, 0.5]
-
-        print(channel_distinguishability(choi_ch_1, choi_ch_2, p))
-        ```
-
-        Optimal probability of distinguishing two amplitude damping channels in the minimax setting:
-
-        ```python exec="1" source="above"
-        from toqito.channels import amplitude_damping
-        from toqito.channel_ops import kraus_to_choi
-        from toqito.channel_metrics import channel_distinguishability
-        # Define two amplitude damping channels with gamma=0.25 and gamma=0.5
-        choi_ch_1 = kraus_to_choi(amplitude_damping(gamma=0.25))
-        choi_ch_2 = kraus_to_choi(amplitude_damping(gamma=0.5))
-
-        print(channel_distinguishability(choi_ch_1, choi_ch_2, None, [2, 2], strategy="minimax",primal_dual="primal"))
-        ```
-
-    Raises:
-        ValueError: If prior probabilities not provided at all for Bayesian strategy.
-        ValueError: If strategy is neither Bayesian nor minimax.
-        ValueError: If channels have different input or output dimensions.
-        ValueError: If prior probabilities do not add up to 1.
-        ValueError: If number of prior probabilities not equal to 2.
-
     Args:
         phi: A superoperator. It should be provided either as a Choi matrix,
              or as a (1d or 2d) list of numpy arrays whose entries are its Kraus operators.
@@ -90,6 +54,42 @@ def channel_distinguishability(
 
     Returns:
         The optimal probability of discriminating two quantum channels.
+
+    Raises:
+        ValueError: If prior probabilities not provided at all for Bayesian strategy.
+        ValueError: If strategy is neither Bayesian nor minimax.
+        ValueError: If channels have different input or output dimensions.
+        ValueError: If prior probabilities do not add up to 1.
+        ValueError: If number of prior probabilities not equal to 2.
+
+    Examples:
+        Optimal probability of distinguishing two amplitude damping channels in the Bayesian setting:
+
+        ```python exec="1" source="above" result="text"
+        from toqito.channels import amplitude_damping
+        from toqito.channel_ops import kraus_to_choi
+        from toqito.channel_metrics import channel_distinguishability
+        # Define two amplitude damping channels with gamma=0.25 and gamma=0.5
+        choi_ch_1 = kraus_to_choi(amplitude_damping(gamma=0.25))
+        choi_ch_2 = kraus_to_choi(amplitude_damping(gamma=0.5))
+
+        p = [0.5, 0.5]
+
+        print(channel_distinguishability(choi_ch_1, choi_ch_2, p))
+        ```
+
+        Optimal probability of distinguishing two amplitude damping channels in the minimax setting:
+
+        ```python exec="1" source="above" result="text"
+        from toqito.channels import amplitude_damping
+        from toqito.channel_ops import kraus_to_choi
+        from toqito.channel_metrics import channel_distinguishability
+        # Define two amplitude damping channels with gamma=0.25 and gamma=0.5
+        choi_ch_1 = kraus_to_choi(amplitude_damping(gamma=0.25))
+        choi_ch_2 = kraus_to_choi(amplitude_damping(gamma=0.5))
+
+        print(channel_distinguishability(choi_ch_1, choi_ch_2, None, [2, 2], strategy="minimax",primal_dual="primal"))
+        ```
 
     """
     # Get the input, output and environment dimensions of phi and psi.

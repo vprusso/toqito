@@ -11,6 +11,14 @@ def is_idempotent(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-8) -> b
     An *idempotent matrix* is a square matrix, which, when multiplied by itself, yields itself.
     That is, the matrix \(A\) is idempotent if and only if \(A^2 = A\).
 
+    Args:
+        mat: Matrix to check.
+        rtol: The relative tolerance parameter (default 1e-05).
+        atol: The absolute tolerance parameter (default 1e-08).
+
+    Returns:
+        Return `True` if matrix is the idempotent matrix, and `False` otherwise.
+
     Examples:
         The following is an example of a \(2 x 2\) idempotent matrix:
 
@@ -21,7 +29,7 @@ def is_idempotent(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-8) -> b
             \end{pmatrix}
         \]
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         import numpy as np
         from toqito.matrix_props import is_idempotent
 
@@ -43,7 +51,7 @@ def is_idempotent(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-8) -> b
 
         is not idempotent.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         import numpy as np
         from toqito.matrix_props import is_idempotent
 
@@ -51,14 +59,6 @@ def is_idempotent(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-8) -> b
 
         print(is_idempotent(mat))
         ```
-
-    Args:
-        mat: Matrix to check.
-        rtol: The relative tolerance parameter (default 1e-05).
-        atol: The absolute tolerance parameter (default 1e-08).
-
-    Returns:
-        Return `True` if matrix is the idempotent matrix, and `False` otherwise.
 
     """
     if not is_square(mat):

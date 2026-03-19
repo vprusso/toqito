@@ -10,8 +10,18 @@ def normalize(vector: Sequence[complex] | np.ndarray, *, tol: float = 1e-8) -> n
 
     The input may be a one-dimensional array or a column/row vector. A zero vector raises `ValueError`.
 
+    Args:
+        vector: State vector expressed as a 1D array or column/row vector.
+        tol: Numerical tolerance used to detect zero-norm inputs.
+
+    Returns:
+        Normalized vector as a 1D NumPy array.
+
+    Raises:
+        ValueError: If the input is not vector-shaped or has vanishing norm.
+
     Examples:
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         import numpy as np
         from toqito.state_ops import normalize
 
@@ -19,16 +29,6 @@ def normalize(vector: Sequence[complex] | np.ndarray, *, tol: float = 1e-8) -> n
         print(normalize(v))
         ```
 
-
-    Raises:
-        ValueError: If the input is not vector-shaped or has vanishing norm.
-
-    Args:
-        vector: State vector expressed as a 1D array or column/row vector.
-        tol: Numerical tolerance used to detect zero-norm inputs.
-
-    Returns:
-        Normalized vector as a 1D NumPy array.
 
     """
     array = np.asarray(vector, dtype=np.complex128)

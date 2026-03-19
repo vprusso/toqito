@@ -53,6 +53,13 @@ def unvec(vector: np.ndarray, shape: list[int] | None = None) -> np.ndarray:
 
     This function has been adapted from [@rigetti2022forest].
 
+    Args:
+        vector: A (`shape[0] * shape[1]`)-by-1 numpy array.
+        shape: The shape of the output matrix; by default, the matrix is assumed to be square.
+
+    Returns:
+        Returns a `shape[0]`-by-`shape[1]` matrix.
+
     Examples:
         Consider the following vector
 
@@ -65,8 +72,7 @@ def unvec(vector: np.ndarray, shape: list[int] | None = None) -> np.ndarray:
         \[
             \text{unvec}(u) = \begin{pmatrix} 1 & 2 \\ 3 & 4 \end{pmatrix}
         \]
-
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         import numpy as np
         from toqito.matrix_ops import unvec
 
@@ -77,13 +83,6 @@ def unvec(vector: np.ndarray, shape: list[int] | None = None) -> np.ndarray:
 
         !!! See Also
             [vec][toqito.perms.vec.vec]
-
-    Args:
-        vector: A (`shape[0] * shape[1]`)-by-1 numpy array.
-        shape: The shape of the output matrix; by default, the matrix is assumed to be square.
-
-    Returns:
-        Returns a `shape[0]`-by-`shape[1]` matrix.
 
     """
     vector = np.asarray(vector)

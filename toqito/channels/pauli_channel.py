@@ -34,31 +34,6 @@ def pauli_channel(
     The length of the probability vector (if provided) must be \(4^q\) for some
     integer \(q\) (number of qubits).
 
-    Examples:
-        Generate a random single-qubit Pauli channel:
-
-        ```python exec="1" source="above"
-        from toqito.channels import pauli_channel
-
-        print(pauli_channel(prob=1))
-        ```
-
-        Apply a specific two-qubit Pauli channel to an input matrix:
-
-        ```python exec="1" source="above"
-        import numpy as np
-        from toqito.channels import pauli_channel
-
-        _, output = pauli_channel(
-            prob=np.array([0.1, 0.2, 0.3, 0.4]), input_mat=np.eye(2)
-        )
-        print(output)
-        ```
-
-    Raises:
-        ValueError: If probabilities are negative or don't sum to 1.
-        ValueError: If length of probability vector is not ``4^q`` for some integer ``q``.
-
     Args:
         prob: Probability vector for Pauli operators. If scalar, generates random probabilities for \(q =\) `prob`
             qubits. The probabilities correspond to Pauli operators in lexographical order of length strictly equal to
@@ -69,6 +44,31 @@ def pauli_channel(
     Returns:
         The Choi matrix of the channel. If ``input_mat`` is provided, also returns the output matrix.
         If ``return_kraus_ops`` is ``True``, returns Kraus operators as well.
+
+    Raises:
+        ValueError: If probabilities are negative or don't sum to 1.
+        ValueError: If length of probability vector is not ``4^q`` for some integer ``q``.
+
+    Examples:
+        Generate a random single-qubit Pauli channel:
+
+        ```python exec="1" source="above" result="text"
+        from toqito.channels import pauli_channel
+
+        print(pauli_channel(prob=1))
+        ```
+
+        Apply a specific two-qubit Pauli channel to an input matrix:
+
+        ```python exec="1" source="above" result="text"
+        import numpy as np
+        from toqito.channels import pauli_channel
+
+        _, output = pauli_channel(
+        prob=np.array([0.1, 0.2, 0.3, 0.4]), input_mat=np.eye(2)
+        )
+        print(output)
+        ```
 
     """
     if not isinstance(prob, np.ndarray):

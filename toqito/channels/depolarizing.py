@@ -26,6 +26,17 @@ def depolarizing(dim: int, param_p: float = 0) -> np.ndarray:
 
     denotes the completely mixed stated defined with respect to the space \(\mathcal{X}\).
 
+    Args:
+        dim: The dimensionality on which the channel acts.
+        param_p: Depolarizing probability \(p \) \in [0,1] that mixes the input state with the maximally mixed state.
+            Default 0.
+
+    Returns:
+        The Choi matrix of the completely depolarizing channel.
+
+    Raises:
+        ValueError: If `param_p` is outside the interval [0,1].
+
     Examples:
         The completely depolarizing channel maps every density matrix to the maximally-mixed state.
         For example, consider the density operator
@@ -53,7 +64,7 @@ def depolarizing(dim: int, param_p: float = 0) -> np.ndarray:
 
         This can be observed in `|toqito⟩` as follows.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         import numpy as np
         from toqito.channels import depolarizing
         from toqito.channel_ops import apply_channel
@@ -63,7 +74,7 @@ def depolarizing(dim: int, param_p: float = 0) -> np.ndarray:
         print(apply_channel(test_input_mat, depolarizing(4)))
         ```
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         import numpy as np
         from toqito.channels import depolarizing
         from toqito.channel_ops import apply_channel
@@ -72,17 +83,6 @@ def depolarizing(dim: int, param_p: float = 0) -> np.ndarray:
 
         print(apply_channel(test_input_mat, depolarizing(4, 0.5)))
         ```
-
-    Raises:
-        ValueError: If `param_p` is outside the interval [0,1].
-
-    Args:
-        dim: The dimensionality on which the channel acts.
-        param_p: Depolarizing probability \(p \) \in [0,1] that mixes the input state with the maximally mixed state.
-            Default 0.
-
-    Returns:
-        The Choi matrix of the completely depolarizing channel.
 
     """
     # Compute the Choi matrix of the depolarizing channel.

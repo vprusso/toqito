@@ -13,11 +13,21 @@ def is_nonnegative(input_mat: np.ndarray, mat_type: str = "nonnegative") -> bool
 
     When a matrix is nonegative and positive semidefinite [@wikipediadefinite], the matrix is doubly nonnegative.
 
+    Args:
+        input_mat: Matrix of interest.
+        mat_type: Type of nonnegative matrix. `"nonnegative"` for a nonnegative matrix and `"doubly"` for a doubly
+            nonnegative matrix.
+
+    Returns:
+        Return `True` if matrix is nonnegative (or doubly nonnegative if specified), and `False` otherwise.
+
+    Raises:
+        TypeError: If something other than `"doubly"` or `"nonnegative"` is used for `mat_type`.
 
     Examples:
         We expect an identity matrix to be nonnegative.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         import numpy as np
         from toqito.matrix_props import is_nonnegative
 
@@ -25,15 +35,6 @@ def is_nonnegative(input_mat: np.ndarray, mat_type: str = "nonnegative") -> bool
         print(is_nonnegative(np.eye(2), "doubly"))
         print(is_nonnegative(np.array([[1, -1], [1, 1]])))
         ```
-
-
-    Raises:
-        TypeError: If something other than `"doubly"`or `"nonnegative"` is used for `mat_type`.
-
-    Args:
-        input_mat: np.ndarray Matrix of interest.
-        mat_type: Type of nonnegative matrix. `"nonnegative"` for a nonnegative matrix and `"doubly"` for a doubly
-            nonnegative matrix.
 
     """
     valid_types = {"nonnegative", "doubly"}

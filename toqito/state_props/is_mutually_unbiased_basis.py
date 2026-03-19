@@ -27,6 +27,15 @@ def is_mutually_unbiased_basis(vectors: list[np.ndarray | list[float | Any]]) ->
     is mutually unbiased with \(\mathcal{B}_x^{\prime}\) for all \(x \not= x^{\prime}\) with
     \(x, x^{\prime} \in \Sigma\).
 
+    Args:
+        vectors: The list of vectors to check.
+
+    Returns:
+        `True` if `vec_list` constitutes a mutually unbiased basis, and `False` otherwise.
+
+    Raises:
+        ValueError: If at least two vectors are not provided.
+
     Examples:
         MUB of dimension \(2\).
 
@@ -44,7 +53,7 @@ def is_mutually_unbiased_basis(vectors: list[np.ndarray | list[float | Any]]) ->
             \end{equation}
         \]
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         import numpy as np
         from toqito.states import basis
         from toqito.state_props import is_mutually_unbiased_basis
@@ -59,7 +68,7 @@ def is_mutually_unbiased_basis(vectors: list[np.ndarray | list[float | Any]]) ->
 
         Non-MUB of dimension \(2\).
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         import numpy as np
         from toqito.states import basis
         from toqito.state_props import is_mutually_unbiased_basis
@@ -70,15 +79,6 @@ def is_mutually_unbiased_basis(vectors: list[np.ndarray | list[float | Any]]) ->
         mubs = [mub_1, mub_2, mub_3]
         print(is_mutually_unbiased_basis(mubs))
         ```
-
-    Raises:
-        ValueError: If at least two vectors are not provided.
-
-    Args:
-        vectors: The list of vectors to check.
-
-    Returns:
-        `True` if `vec_list` constitutes a mutually unbiased basis, and `False` otherwise.
 
     """
     num_vectors = len(vectors)

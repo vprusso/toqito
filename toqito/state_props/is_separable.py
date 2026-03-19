@@ -153,6 +153,39 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
             It also has `SymmetricInnerExtension`, which can prove separability.
 
 
+    Args:
+        state: The density matrix to check.
+        dim: The dimension of the input state, e.g., [dim_A, dim_B]. Optional; inferred if None.
+        level:
+            - The level for symmetric extension (DPS) hierarchy (default: 2)
+            - If 1, only PPT is checked.
+            - If >=2, checks for k-symmetric extension up to this level.
+            - If -1, attempts all implemented checks exhaustively (not all possible checks are implemented).
+        tol: Numerical tolerance (default: 1e-8).
+
+    Returns:
+        `True` if separable, `False` if entangled or inconclusive by implemented checks.
+
+    Raises:
+        Warning: If the symmetric extension check is attempted but CVXPY or a suitable solver is not available.
+        TypeError: If the input `state` is not a NumPy array.
+        RuntimeError: If the symmetric extension check is attempted but fails due to CVXPY solver issues.
+        NotImplementedError: If the symmetric extension check is attempted but the level is not implemented
+            (e.g., level < 1).
+        ValueError:
+            - If the input `state` is not a square matrix.
+            - If the input `state` is not positive semidefinite.
+            - If the input `state` has a trace close to zero but contains significant non-zero elements.
+            - If the input `state` has a numerically insignificant trace but significant elements;
+                cannot normalize reliably.
+            - If the `dim` parameter has an invalid type (not None, int, or list).
+            - If `dim` is provided as an integer that does not evenly divide the state's dimension.
+            - If `dim` is provided as a list with a number of elements other than two.
+            - If `dim` is provided as a list with non-integer or negative elements.
+            - If the product of the dimensions in the `dim` list does not match the state's dimension.
+            - If a dimension of zero is provided for a non-empty state (or vice-versa).
+
+
     Examples:
         Consider the following separable (by construction) state:
 
@@ -183,7 +216,7 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
 
         On the other hand, a random density matrix will be an entangled state (a separable state).
 
-        ```python exec="1" source="above" session="is_separable_example"
+        ```python exec="1" source="above" result="text" session="is_separable_example"
         import numpy as np
         from toqito.rand.random_density_matrix import random_density_matrix
         from toqito.state_props.is_separable import is_separable
@@ -191,22 +224,22 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
         print(is_separable(rho_separable))
         ```
 
-        ```python exec="1" source="above" session="is_separable_example"
+        ```python exec="1" source="above" result="text" session="is_separable_example"
         rho_not_separable = np.array([[ 0.13407875+0.j        , -0.08263926-0.17760437j,
-                -0.0135111 -0.12352182j,  0.0368423 -0.05563985j],
-            [-0.08263926+0.17760437j,  0.53338542+0.j        ,
-                0.19782968-0.04549732j,  0.11287093+0.17024249j],
-            [-0.0135111 +0.12352182j,  0.19782968+0.04549732j,
-                0.21254612+0.j        , -0.00875865+0.11144344j],
-            [ 0.0368423 +0.05563985j,  0.11287093-0.17024249j,
-                -0.00875865-0.11144344j,  0.11998971+0.j        ]])
+            -0.0135111 -0.12352182j,  0.0368423 -0.05563985j],
+        [-0.08263926+0.17760437j,  0.53338542+0.j        ,
+            0.19782968-0.04549732j,  0.11287093+0.17024249j],
+        [-0.0135111 +0.12352182j,  0.19782968+0.04549732j,
+            0.21254612+0.j        , -0.00875865+0.11144344j],
+        [ 0.0368423 +0.05563985j,  0.11287093-0.17024249j,
+            -0.00875865-0.11144344j,  0.11998971+0.j        ]])
         print(is_separable(rho_not_separable))
         ```
 
         We can also detect certain PPT-entangled states. For example, a state constructed from a Breuer-Hall map
         is entangled but PPT.
 
-        ```python exec="1" source="above" session="is_separable_example"
+        ```python exec="1" source="above" result="text" session="is_separable_example"
         from toqito.state_props.is_ppt import is_ppt
 
         # Construct a 2x3 separable PPT state of rank 2
@@ -218,39 +251,6 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
         print("Is the state PPT?", is_ppt(rho, dim=[2, 3]))         # True
         print("Is the state separable?", is_separable(rho, dim=[2, 3]))  # True
         ```
-
-    Raises:
-        Warning: If the symmetric extension check is attempted but CVXPY or a suitable solver is not available.
-        TypeError: If the input `state` is not a NumPy array.
-        RuntimeError: If the symmetric extension check is attempted but fails due to CVXPY solver issues.
-        NotImplementedError: If the symmetric extension check is attempted but the level is not implemented
-            (e.g., level < 1).
-        ValueError:
-            - If the input `state` is not a square matrix.
-            - If the input `state` is not positive semidefinite.
-            - If the input `state` has a trace close to zero but contains significant non-zero elements.
-            - If the input `state` has a numerically insignificant trace but significant elements;
-                cannot normalize reliably.
-            - If the `dim` parameter has an invalid type (not None, int, or list).
-            - If `dim` is provided as an integer that does not evenly divide the state's dimension.
-            - If `dim` is provided as a list with a number of elements other than two.
-            - If `dim` is provided as a list with non-integer or negative elements.
-            - If the product of the dimensions in the `dim` list does not match the state's dimension.
-            - If a dimension of zero is provided for a non-empty state (or vice-versa).
-
-
-    Args:
-        state: The density matrix to check.
-        dim: The dimension of the input state, e.g., [dim_A, dim_B]. Optional; inferred if None.
-        level:
-            - The level for symmetric extension (DPS) hierarchy (default: 2)
-            - If 1, only PPT is checked.
-            - If >=2, checks for k-symmetric extension up to this level.
-            - If -1, attempts all implemented checks exhaustively (not all possible checks are implemented).
-        tol: Numerical tolerance (default: 1e-8).
-
-    Returns:
-        `True` if separable, `False` if entangled or inconclusive by implemented checks.
 
     """
     # --- 1. Input Validation, Normalization, Dimension Setup ---
@@ -703,37 +703,24 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
 
     # --- 13. Symmetric Extension Hierarchy (DPS) ---
     # A state is separable iff it has a k-symmetric extension for all k [@doherty2004complete].
-    # We check up to the specified `level`.
+    # The hierarchy is increasingly restrictive: k-extendible ⊃ (k+1)-extendible ⊃ ... ⊃ separable.
+    # - If the state is NOT k-extendible at any level, it is definitively entangled.
+    # - If the state IS k-extendible for all k up to `level`, it passes the DPS test at that level.
     if level >= 2:  # Level 1 (PPT) is already confirmed if we reach here.
-        # Loop for k from 2 up to `level` specified by user.
-        # If `has_symmetric_extension` returns True for any k in this loop,
-        # it means the state *is* k-extendible. This implementation interprets this as
-        # passing the DPS test up to that level, and thus returns True (separable).
-        # TODO: #1247 A stricter interpretation for proving entanglement would be: if for *any* k in this loop,
-        # `has_symmetric_extension` returns False, then it's entangled.
-        # QETLAB's `SymmetricExtension` returns 0 if *not* k-PPT-extendible (entangled).
-        # QETLAB's `SymmetricInnerExtension` returns 1 if separable by that method.
-        # The current Python loop `if has_symmetric_extension(...): return True` means if it passes
-        # for k=2 (and level >=2), it declares separable.
-        for k_actual_level_check in range(2, int(level) + 1):  # Ensure level is int for range
+        for k_actual_level_check in range(2, int(level) + 1):
             try:
-                if has_symmetric_extension(rho=current_state, level=k_actual_level_check, dim=dims_list, tol=tol):
-                    # State has a k-symmetric extension, considered separable by this test level.
-                    return True
-                # If it does NOT have a k-symmetric extension, it is entangled.
-                # The current loop structure means if has_symmetric_extension for k=2 is False,
-                # it will continue to k=3 (if level >=3), etc. It only returns True if an extension is found.
-                # To match "if not extendible -> entangled":
-                # if not has_symmetric_extension(...): return False; # This would be a change.
-                # The current logic is: "if extendible at any k up to level, then separable".
+                if not has_symmetric_extension(rho=current_state, level=k_actual_level_check, dim=dims_list, tol=tol):
+                    # No k-symmetric extension exists — state is entangled.
+                    return False
             except ImportError:
                 print("Warning: CVXPY or a solver is not installed; cannot perform symmetric extension check.")
-                break  # Stop trying symmetric extensions if dependencies are missing
+                break
             except Exception as e:
                 print(f"Warning: Symmetric extension check failed at level {k_actual_level_check} with an error: {e}")
-                # Decide whether to break or continue to next k_level if solver fails for one.
-                # Current: proceeds to next k or finishes loop.
-                pass  # Proceed, may not be able to determine via this method.
+                break
+        else:
+            # All levels from 2 to `level` passed — state has a k-symmetric extension at every tested level.
+            return True
     elif level == 1 and is_state_ppt:  # is_state_ppt is True at this point
         # 1-extendibility is equivalent to PPT.
         return True

@@ -10,7 +10,7 @@ entanglement and PPT.
 # introduction to quantum information. For more information, please consult the book [@nielsen2011quantum] or the freely available lecture notes [@watrous2018theory].
 #
 # This tutorial assumes you have `|toqito⟩` installed on your machine. If you
-# do not, please consult the installation instructions in [Getting Started](/toqito/getting-started/).
+# do not, please consult the installation instructions in [Getting Started](../../../getting-started.md).
 #
 # ## States
 #

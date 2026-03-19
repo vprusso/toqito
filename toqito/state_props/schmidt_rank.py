@@ -36,10 +36,17 @@ def schmidt_rank(rho: np.ndarray, dim: int | list[int] | np.ndarray | None = Non
     The dimension may be specified by the 1-by-2 vector `dim` and the rank in that case is
     determined as the number of Schmidt coefficients larger than `tol`.
 
+    Args:
+        rho: A bipartite vector or matrix to have its Schmidt rank computed.
+        dim: A 1-by-2 vector or matrix.
+
+    Returns:
+        The Schmidt rank of `rho`.
+
     Examples:
         Computing the Schmidt rank of the entangled Bell state should yield a value greater than one.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         from toqito.states import bell
         from toqito.state_props import schmidt_rank
         rho = bell(0) @ bell(0).conj().T
@@ -50,7 +57,7 @@ def schmidt_rank(rho: np.ndarray, dim: int | list[int] | np.ndarray | None = Non
         Computing the Schmidt rank of the entangled singlet state should yield a value greater than
         \(1\).
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         from toqito.states import bell
         from toqito.state_props import schmidt_rank
         u = bell(2) @ bell(2).conj().T
@@ -60,7 +67,7 @@ def schmidt_rank(rho: np.ndarray, dim: int | list[int] | np.ndarray | None = Non
 
         Computing the Schmidt rank of a separable state should yield a value equal to \(1\).
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         from toqito.states import basis
         from toqito.state_props import schmidt_rank
         import numpy as np
@@ -73,13 +80,6 @@ def schmidt_rank(rho: np.ndarray, dim: int | list[int] | np.ndarray | None = Non
         rho = rho @ rho.conj().T
         print(schmidt_rank(rho))
         ```
-
-    Args:
-        rho: A bipartite vector or matrix to have its Schmidt rank computed.
-        dim: A 1-by-2 vector or matrix.
-
-    Returns:
-        The Schmidt rank of `rho`.
 
     """
     # If the input is provided as a matrix, compute the operator Schmidt rank.

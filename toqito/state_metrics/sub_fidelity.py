@@ -21,6 +21,16 @@ def sub_fidelity(rho: np.ndarray, sigma: np.ndarray) -> float:
     where \(\sigma\) and \(\rho\) are density matrices. The sub-fidelity serves as an lower bound for the
     fidelity.
 
+    Args:
+        rho: Density operator.
+        sigma: Density operator.
+
+    Returns:
+        The sub-fidelity between `rho` and `sigma`.
+
+    Raises:
+        ValueError: If matrices are not of equal dimension.
+
     Examples:
         Consider the following pair of states:
 
@@ -35,7 +45,7 @@ def sub_fidelity(rho: np.ndarray, sigma: np.ndarray) -> float:
         Calculating the fidelity between the states \(\rho\) and \(\sigma\) as \(F(\rho, \sigma) \approx
         0.774\). This can be observed in `|toqito⟩` as
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         from toqito.states import basis
         from toqito.state_metrics import fidelity
 
@@ -49,7 +59,7 @@ def sub_fidelity(rho: np.ndarray, sigma: np.ndarray) -> float:
         As the sub-fidelity is a lower bound on the fidelity, that is \(E(\rho, \sigma) \leq F(\rho, \sigma)\), we can
         use `|toqito⟩` to observe that \(E(\rho, \sigma) \approx 0.599\leq F(\rho, \sigma \approx 0.774\).
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         from toqito.states import basis
         from toqito.state_metrics import sub_fidelity
 
@@ -59,16 +69,6 @@ def sub_fidelity(rho: np.ndarray, sigma: np.ndarray) -> float:
 
         print(sub_fidelity(rho, sigma))
         ```
-
-    Raises:
-        ValueError: If matrices are not of equal dimension.
-
-    Args:
-        rho: Density operator.
-        sigma: Density operator.
-
-    Returns:
-        The sub-fidelity between `rho` and `sigma`.
 
     """
     # Perform some error checking.

@@ -12,6 +12,13 @@ def is_diagonally_dominant(mat: np.ndarray, is_strict: bool = True) -> bool:
     and if for every row of the matrix, the magnitude of the diagonal entry in a row is greater
     than or equal to the sum of the magnitudes of all the other (non-diagonal) entries in that row.
 
+    Args:
+        mat: Matrix to check.
+        is_strict: Whether the inequality is strict.
+
+    Returns:
+        Return `True` if matrix is diagnally dominant, and `False` otherwise.
+
     Examples:
         The following is an example of a 3-by-3 diagonal matrix:
 
@@ -25,7 +32,7 @@ def is_diagonally_dominant(mat: np.ndarray, is_strict: bool = True) -> bool:
 
         our function indicates that this is indeed a diagonally dominant matrix.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         import numpy as np
         from toqito.matrix_props import is_diagonally_dominant
 
@@ -45,7 +52,7 @@ def is_diagonally_dominant(mat: np.ndarray, is_strict: bool = True) -> bool:
 
         is not diagonally dominant.
 
-        ```python exec="1" source="above"
+        ```python exec="1" source="above" result="text"
         import numpy as np
         from toqito.matrix_props import is_diagonally_dominant
 
@@ -53,13 +60,6 @@ def is_diagonally_dominant(mat: np.ndarray, is_strict: bool = True) -> bool:
 
         print(is_diagonally_dominant(B))
         ```
-
-    Args:
-        mat: Matrix to check.
-        is_strict: Whether the inequality is strict.
-
-    Returns:
-        Return `True` if matrix is diagnally dominant, and `False` otherwise.
 
     """
     if not is_square(mat):
