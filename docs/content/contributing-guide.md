@@ -198,7 +198,7 @@ def my_new_function(some_parameter: parameter_type) -> return_type:
 ```
 
 Use `\(\)` for inline math and `\[\]` for display math in docstrings. To cite an entry in `refs.bib` in a docstring, 
-use, for example, `[@johnston2014counting]`.
+use, for example, <code>\[@johnston2014counting\]</code>.
 
 To add an attribution to a paper or a book, add your reference with
 `some_ref` as the citation key to `docs/content/refs.bib`. All references in
