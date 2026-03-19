@@ -42,3 +42,4 @@ from toqito.matrix_props.is_k_incoherent import is_k_incoherent
 from toqito.matrix_props.is_ldoi import is_ldoi
 from toqito.matrix_props.is_tight_frame import is_tight_frame
 from toqito.matrix_props.is_equiangular_tight_frame import is_equiangular_tight_frame
+from toqito.matrix_props.nonnegative_rank import nonnegative_rank
