@@ -10,7 +10,7 @@ semidefinite programming.
 # For readers who are already familiar with XOR games and who simply want to see
 # how to use `|toqito⟩` to study these objects, they are welcome to consult the
 # documentation page, and more specifically the function
-# [xor_game_value](../).
+# [xor_game_value](xor_quantum_value.md).
 #
 # Further information beyond the scope of this tutorial on the notion of XOR
 # games along with the method of computing their quantum value may be found in
@@ -21,7 +21,7 @@ semidefinite programming.
 # A two-player XOR game is a nonlocal game in which the winning condition is
 # predicated on an XOR function. For more information on the more general class
 # of nonlocal games along with how one defines classical and quantum strategies
-# for these games, please refer to the example in [Nonlocal games](../nonlocal_game)
+# for these games, please refer to the example in [Nonlocal games](nonlocal_game.md)
 #
 # !!! note
 #

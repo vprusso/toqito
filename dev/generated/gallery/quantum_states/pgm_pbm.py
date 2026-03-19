@@ -86,7 +86,7 @@ results and figures from the paper using `|toqito⟩`.
 # Figure 3 from McIrvin et.al [@mcirvin2024pretty] analyzes the performance
 # of these measurements for the three **trine states** with a uniform prior
 # probability. The trine states are a classic example of a set that is
-# antidistinguishable but not distinguishable, a property demonstrated in the [Quantum state exclusion](../state_exclusion) tutorial.
+# antidistinguishable but not distinguishable, a property demonstrated in the [Quantum state exclusion](state_exclusion.md) tutorial.
 #
 # Our plan is to:
 #
