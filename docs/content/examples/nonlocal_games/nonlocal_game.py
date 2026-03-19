@@ -174,7 +174,58 @@ games defined by binary constraint systems.
 # information.
 #
 # ## Calculating the classical value
-# (Coming soon)
+#
+# The *classical value* of a nonlocal game is the maximum winning probability
+# over all deterministic strategies. Since probabilistic classical strategies
+# cannot outperform deterministic ones, computing the classical value reduces to
+# a brute-force search over all possible deterministic strategy pairs
+# $(f, g)$ where $f: \Sigma_A \to \Gamma_A$ and
+# $g: \Sigma_B \to \Gamma_B$.
+#
+# Formally, the classical value is:
+#
+# $$
+# \omega(G) = \max_{f, g} \sum_{(x,y) \in \Sigma} \pi(x,y) \, V(f(x), g(y) | x, y)
+# $$
+#
+# where $\pi$ is the probability distribution over questions and $V$ is the
+# predicate function. This optimization is NP-hard in general, as the number of
+# strategy pairs grows exponentially: $|\Gamma_A|^{|\Sigma_A|} \times
+# |\Gamma_B|^{|\Sigma_B|}$.
+#
+# ### Example: Classical value of the CHSH game
+#
+# For the CHSH game, the classical value is $\omega(G_{\text{CHSH}}) = 3/4$.
+# This means no classical strategy can win with probability greater than 75%.
+# Let us verify this using `|toqito⟩`.
+
+# %%
+import numpy as np
+from toqito.nonlocal_games.nonlocal_game import NonlocalGame
+
+# Define the CHSH game.
+prob_mat = np.array([[1 / 4, 1 / 4], [1 / 4, 1 / 4]])
+num_alice_out, num_bob_out = 2, 2
+num_alice_in, num_bob_in = 2, 2
+pred_mat = np.zeros((num_alice_out, num_bob_out, num_alice_in, num_bob_in))
+for a in range(num_alice_out):
+    for b in range(num_bob_out):
+        for x in range(num_alice_in):
+            for y in range(num_bob_in):
+                if a ^ b == x * y:
+                    pred_mat[a, b, x, y] = 1
+
+chsh = NonlocalGame(prob_mat, pred_mat)
+print(f"Classical value of CHSH: {chsh.classical_value()}")
+
+# %%
+# As expected, the classical value is $3/4 = 0.75$. This means that no matter
+# what deterministic strategy Alice and Bob use, they cannot win the CHSH game
+# with probability greater than 75% using only classical resources.
+#
+# The fact that quantum strategies can achieve $\cos^2(\pi/8) \approx 0.854$
+# demonstrates a *quantum advantage* — quantum resources allow the players to
+# win with higher probability than any classical strategy permits.
 #
 # ## Calculating the quantum value
 #
