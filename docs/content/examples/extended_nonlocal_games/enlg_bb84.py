@@ -210,5 +210,5 @@ print(
 #
 # for $r = 2$.
 #
-# Next, we will explore another well-known example, [The CHSH extended nonlocal game](../enlg_chsh), and see how its properties compare.
+# Next, we will explore another well-known example, [The CHSH extended nonlocal game](enlg_chsh.md), and see how its properties compare.
 #

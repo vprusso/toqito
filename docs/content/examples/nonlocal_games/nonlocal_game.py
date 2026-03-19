@@ -264,7 +264,7 @@ games defined by binary constraint systems.
 #     exists a specific SDP formulation that one can use to directly compute the
 #     quantum value of an XOR game. More information on how one defines the CHSH
 #     game as well as this method to directly calculate the quantum value of an
-#     XOR game is provided in [Calculating the Quantum and Classical Value of a Two-Player XOR Game](../xor_quantum_value)
+#     XOR game is provided in [Calculating the Quantum and Classical Value of a Two-Player XOR Game](xor_quantum_value.md)
 #
 # We will use the CHSH game here as an illustrative example as we already know
 # what the optimal quantum value should be.

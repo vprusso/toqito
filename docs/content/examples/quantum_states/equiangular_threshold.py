@@ -6,7 +6,7 @@ numerically verify a tight bound presented in the paper by Johnson et.al
 [@johnston2025tight] and visualize the "sharp cliff" where this
 property changes.
 
-This tutorial builds upon the concepts introduced in the [Quantum state exclusion](../state_exclusion) tutorial.
+This tutorial builds upon the concepts introduced in the [Quantum state exclusion](state_exclusion.md) tutorial.
 """
 
 # %%
