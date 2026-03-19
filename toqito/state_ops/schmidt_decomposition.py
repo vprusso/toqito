@@ -47,13 +47,13 @@ def schmidt_decomposition(
         singular_vals, u_mat, vt_mat = schmidt_decomposition(max_entangled(3))
 
         matrices = {
-        "Singular values": singular_vals,
-        "U matrix": u_mat,
-        "V^T matrix": vt_mat,
+            "Singular values": singular_vals,
+            "U matrix": u_mat,
+            "V^T matrix": vt_mat,
         }
 
         for name, mat in matrices.items():
-        print(f"{name}:\n{mat}\n")
+            print(f"{name}:\n{mat}\n")
         ```
 
     """

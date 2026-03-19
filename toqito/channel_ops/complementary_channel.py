@@ -62,8 +62,8 @@ def complementary_channel(kraus_ops: list[np.ndarray]) -> list[np.ndarray]:
         ]
         comp_kraus_ops = complementary_channel(kraus_ops_Phi)
         for i, op in enumerate(comp_kraus_ops):
-        print(f"Kraus operator {i + 1}:")
-        print(op)
+            print(f"Kraus operator {i + 1}:")
+            print(op)
         ```
 
     """
