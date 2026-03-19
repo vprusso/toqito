@@ -425,6 +425,10 @@
          <lastmod>2026-03-19</lastmod>
     </url>
     <url>
+         <loc>https://vprusso.github.io/toqito/dev/reference/toqito/matrix_props/is_equiangular_tight_frame/</loc>
+         <lastmod>2026-03-19</lastmod>
+    </url>
+    <url>
          <loc>https://vprusso.github.io/toqito/dev/reference/toqito/matrix_props/is_hermitian/</loc>
          <lastmod>2026-03-19</lastmod>
     </url>
@@ -502,6 +506,10 @@
     </url>
     <url>
          <loc>https://vprusso.github.io/toqito/dev/reference/toqito/matrix_props/is_symmetric/</loc>
+         <lastmod>2026-03-19</lastmod>
+    </url>
+    <url>
+         <loc>https://vprusso.github.io/toqito/dev/reference/toqito/matrix_props/is_tight_frame/</loc>
          <lastmod>2026-03-19</lastmod>
     </url>
     <url>
