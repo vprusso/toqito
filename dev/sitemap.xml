@@ -53,6 +53,10 @@
          <lastmod>2026-03-19</lastmod>
     </url>
     <url>
+         <loc>https://vprusso.github.io/toqito/dev/generated/gallery/extended_nonlocal_games/parallel_repetition/</loc>
+         <lastmod>2026-03-19</lastmod>
+    </url>
+    <url>
          <loc>https://vprusso.github.io/toqito/dev/generated/gallery/nonlocal_games/mg_execution_times/</loc>
          <lastmod>2026-03-19</lastmod>
     </url>
@@ -646,6 +650,10 @@
     </url>
     <url>
          <loc>https://vprusso.github.io/toqito/dev/reference/toqito/rand/random_ginibre/</loc>
+         <lastmod>2026-03-19</lastmod>
+    </url>
+    <url>
+         <loc>https://vprusso.github.io/toqito/dev/reference/toqito/rand/random_linearly_independent_vectors/</loc>
          <lastmod>2026-03-19</lastmod>
     </url>
     <url>

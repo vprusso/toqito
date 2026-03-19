@@ -17,6 +17,20 @@ Examples using ``toqito.ExtendedNonlocalGame``
     <!--/div-->
 </div>
 
+<div class="mkd-glr-thumbcontainer" tooltip="Explores parallel repetition for extended nonlocal games, demonstrating that strong parallel re...">
+    <!--div class="figure align-default" id="id1"-->
+        <img alt="Parallel Repetition of Extended Nonlocal Games" src="extended_nonlocal_games/images/thumb/mkd_glr_parallel_repetition_thumb.svg" />
+        <p class="caption">
+            <span class="caption-text">
+                <a class="reference internal" href="extended_nonlocal_games/parallel_repetition">
+                    <span class="std std-ref">Parallel Repetition of Extended Nonlocal Games</span>
+                </a>
+            </span>
+            <!--a class="headerlink" href="#id1" title="Permalink to this image"></a-->
+        </p>
+    <!--/div-->
+</div>
+
 <div class="mkd-glr-thumbcontainer" tooltip="Constructs an extended nonlocal game based on mutually unbiased bases (MUBs) where the standard...">
     <!--div class="figure align-default" id="id1"-->
         <img alt="An extended nonlocal game with quantum advantage" src="extended_nonlocal_games/images/thumb/mkd_glr_enlg_mub_thumb.png" />
