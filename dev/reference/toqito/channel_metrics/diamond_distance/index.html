@@ -5932,6 +5932,8 @@
       
         
       
+        
+      
     
     
     
@@ -6220,6 +6222,34 @@
     
   
     <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code>random_states
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rand/random_superoperator/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code>random_superoperator
   
 
     
@@ -8919,7 +8949,7 @@
         <p>Return the diamond norm distance between two quantum channels.</p>
 <p>This function is a wrapper around
 <a class="autorefs autorefs-internal" title="            completely_bounded_trace_norm" href="../completely_bounded_trace_norm/#toqito.channel_metrics.completely_bounded_trace_norm.completely_bounded_trace_norm"><code>completely_bounded_trace_norm</code></a>,
-in that it returns half of the completely bounded trace norm of the difference of its arguments.</p>
+in that it returns the completely bounded trace norm of the difference of its arguments.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>This calculation becomes very slow for 4 or more qubits.</p>
@@ -8973,21 +9003,21 @@ set to 0.2:</p>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.channels</span><span class="w"> </span><span class="kn">import</span> <span class="n">depolarizing</span>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.channel_metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">diamond_distance</span>
 <a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">choi_depolarizing</span> <span class="o">=</span> <span class="n">depolarizing</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">param_p</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="n">choi_identity</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="mi">2</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="n">choi_identity</span> <span class="o">=</span> <span class="n">depolarizing</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">param_p</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># Identity channel Choi matrix</span>
 <a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="nb">print</span><span class="p">(</span><span class="n">diamond_distance</span><span class="p">(</span><span class="n">choi_depolarizing</span><span class="p">,</span> <span class="n">choi_identity</span><span class="p">))</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>1.0000000000261728
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>1.1999999996963553
 </code></pre></div>
-<p>Similarly, we can compute the diamond norm between the dephasing channel (with parameter 0.3) and the identity
+<p>Similarly, we can compute the diamond norm between the dephasing channel and the identity
 channel:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.channels</span><span class="w"> </span><span class="kn">import</span> <span class="n">dephasing</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.channels</span><span class="w"> </span><span class="kn">import</span> <span class="n">dephasing</span><span class="p">,</span> <span class="n">depolarizing</span>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.channel_metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">diamond_distance</span>
 <a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">choi_dephasing</span> <span class="o">=</span> <span class="n">dephasing</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="n">choi_identity</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="mi">2</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="n">choi_identity</span> <span class="o">=</span> <span class="n">depolarizing</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">param_p</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># Identity channel Choi matrix</span>
 <a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="nb">print</span><span class="p">(</span><span class="n">diamond_distance</span><span class="p">(</span><span class="n">choi_dephasing</span><span class="p">,</span> <span class="n">choi_identity</span><span class="p">))</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>1.0000000000273865
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>1.0000000000273874
 </code></pre></div>
 
 
@@ -9047,7 +9077,7 @@ channel:</p>
 <a id="__codelineno-0-9" name="__codelineno-0-9"></a><span class="sd">    This function is a wrapper around</span>
 <a id="__codelineno-0-10" name="__codelineno-0-10"></a><span class="sd">    [`completely_bounded_trace_norm`]</span>
 <a id="__codelineno-0-11" name="__codelineno-0-11"></a><span class="sd">    [toqito.channel_metrics.completely_bounded_trace_norm.completely_bounded_trace_norm],</span>
-<a id="__codelineno-0-12" name="__codelineno-0-12"></a><span class="sd">    in that it returns half of the completely bounded trace norm of the difference of its arguments.</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12"></a><span class="sd">    in that it returns the completely bounded trace norm of the difference of its arguments.</span>
 <a id="__codelineno-0-13" name="__codelineno-0-13"></a>
 <a id="__codelineno-0-14" name="__codelineno-0-14"></a><span class="sd">    !!! note</span>
 <a id="__codelineno-0-15" name="__codelineno-0-15"></a><span class="sd">        This calculation becomes very slow for 4 or more qubits.</span>
@@ -9070,19 +9100,19 @@ channel:</p>
 <a id="__codelineno-0-32" name="__codelineno-0-32"></a><span class="sd">        from toqito.channels import depolarizing</span>
 <a id="__codelineno-0-33" name="__codelineno-0-33"></a><span class="sd">        from toqito.channel_metrics import diamond_distance</span>
 <a id="__codelineno-0-34" name="__codelineno-0-34"></a><span class="sd">        choi_depolarizing = depolarizing(dim=2, param_p=0.2)</span>
-<a id="__codelineno-0-35" name="__codelineno-0-35"></a><span class="sd">        choi_identity = np.identity(2**2)</span>
+<a id="__codelineno-0-35" name="__codelineno-0-35"></a><span class="sd">        choi_identity = depolarizing(dim=2, param_p=1)  # Identity channel Choi matrix</span>
 <a id="__codelineno-0-36" name="__codelineno-0-36"></a><span class="sd">        print(diamond_distance(choi_depolarizing, choi_identity))</span>
 <a id="__codelineno-0-37" name="__codelineno-0-37"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-38" name="__codelineno-0-38"></a>
-<a id="__codelineno-0-39" name="__codelineno-0-39"></a><span class="sd">        Similarly, we can compute the diamond norm between the dephasing channel (with parameter 0.3) and the identity</span>
+<a id="__codelineno-0-39" name="__codelineno-0-39"></a><span class="sd">        Similarly, we can compute the diamond norm between the dephasing channel and the identity</span>
 <a id="__codelineno-0-40" name="__codelineno-0-40"></a><span class="sd">        channel:</span>
 <a id="__codelineno-0-41" name="__codelineno-0-41"></a>
 <a id="__codelineno-0-42" name="__codelineno-0-42"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;</span>
 <a id="__codelineno-0-43" name="__codelineno-0-43"></a><span class="sd">        import numpy as np</span>
-<a id="__codelineno-0-44" name="__codelineno-0-44"></a><span class="sd">        from toqito.channels import dephasing</span>
+<a id="__codelineno-0-44" name="__codelineno-0-44"></a><span class="sd">        from toqito.channels import dephasing, depolarizing</span>
 <a id="__codelineno-0-45" name="__codelineno-0-45"></a><span class="sd">        from toqito.channel_metrics import diamond_distance</span>
 <a id="__codelineno-0-46" name="__codelineno-0-46"></a><span class="sd">        choi_dephasing = dephasing(dim=2)</span>
-<a id="__codelineno-0-47" name="__codelineno-0-47"></a><span class="sd">        choi_identity = np.identity(2**2)</span>
+<a id="__codelineno-0-47" name="__codelineno-0-47"></a><span class="sd">        choi_identity = depolarizing(dim=2, param_p=1)  # Identity channel Choi matrix</span>
 <a id="__codelineno-0-48" name="__codelineno-0-48"></a><span class="sd">        print(diamond_distance(choi_dephasing, choi_identity))</span>
 <a id="__codelineno-0-49" name="__codelineno-0-49"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-50" name="__codelineno-0-50"></a>
