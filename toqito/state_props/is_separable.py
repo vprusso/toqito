@@ -703,37 +703,24 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
 
     # --- 13. Symmetric Extension Hierarchy (DPS) ---
     # A state is separable iff it has a k-symmetric extension for all k [@doherty2004complete].
-    # We check up to the specified `level`.
+    # The hierarchy is increasingly restrictive: k-extendible ⊃ (k+1)-extendible ⊃ ... ⊃ separable.
+    # - If the state is NOT k-extendible at any level, it is definitively entangled.
+    # - If the state IS k-extendible for all k up to `level`, it passes the DPS test at that level.
     if level >= 2:  # Level 1 (PPT) is already confirmed if we reach here.
-        # Loop for k from 2 up to `level` specified by user.
-        # If `has_symmetric_extension` returns True for any k in this loop,
-        # it means the state *is* k-extendible. This implementation interprets this as
-        # passing the DPS test up to that level, and thus returns True (separable).
-        # TODO: #1247 A stricter interpretation for proving entanglement would be: if for *any* k in this loop,
-        # `has_symmetric_extension` returns False, then it's entangled.
-        # QETLAB's `SymmetricExtension` returns 0 if *not* k-PPT-extendible (entangled).
-        # QETLAB's `SymmetricInnerExtension` returns 1 if separable by that method.
-        # The current Python loop `if has_symmetric_extension(...): return True` means if it passes
-        # for k=2 (and level >=2), it declares separable.
-        for k_actual_level_check in range(2, int(level) + 1):  # Ensure level is int for range
+        for k_actual_level_check in range(2, int(level) + 1):
             try:
-                if has_symmetric_extension(rho=current_state, level=k_actual_level_check, dim=dims_list, tol=tol):
-                    # State has a k-symmetric extension, considered separable by this test level.
-                    return True
-                # If it does NOT have a k-symmetric extension, it is entangled.
-                # The current loop structure means if has_symmetric_extension for k=2 is False,
-                # it will continue to k=3 (if level >=3), etc. It only returns True if an extension is found.
-                # To match "if not extendible -> entangled":
-                # if not has_symmetric_extension(...): return False; # This would be a change.
-                # The current logic is: "if extendible at any k up to level, then separable".
+                if not has_symmetric_extension(rho=current_state, level=k_actual_level_check, dim=dims_list, tol=tol):
+                    # No k-symmetric extension exists — state is entangled.
+                    return False
             except ImportError:
                 print("Warning: CVXPY or a solver is not installed; cannot perform symmetric extension check.")
-                break  # Stop trying symmetric extensions if dependencies are missing
+                break
             except Exception as e:
                 print(f"Warning: Symmetric extension check failed at level {k_actual_level_check} with an error: {e}")
-                # Decide whether to break or continue to next k_level if solver fails for one.
-                # Current: proceeds to next k or finishes loop.
-                pass  # Proceed, may not be able to determine via this method.
+                break
+        else:
+            # All levels from 2 to `level` passed — state has a k-symmetric extension at every tested level.
+            return True
     elif level == 1 and is_state_ppt:  # is_state_ppt is True at this point
         # 1-extendibility is equivalent to PPT.
         return True
