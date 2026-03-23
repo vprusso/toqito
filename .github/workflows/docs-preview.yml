@@ -40,7 +40,7 @@ jobs:
           uv run mkdocs build --strict 2>&1 | tee build.log || true
 
       - name: Upload docs artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: docs-preview
           path: docs/site/
