@@ -8,7 +8,12 @@ on:
       - "toqito/**"
       - ".github/workflows/docs-preview.yml"
 
-concurrency: preview-${{ github.ref }}
+# Shared with .github/workflows/docs.yml — mike deploys and preview cleanups
+# both write to gh-pages, so they must not run concurrently or one push will
+# be rejected as non-fast-forward.
+concurrency:
+  group: gh-pages-deploy
+  cancel-in-progress: false
 
 permissions:
   contents: write

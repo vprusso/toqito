@@ -15,6 +15,13 @@ on:
 permissions:
   contents: write
 
+# Serialize all writers of the gh-pages branch (this workflow + Docs Preview)
+# so mike's deploy and rossjrw/pr-preview-action cleanup don't race each other
+# and lose one of the pushes to a non-fast-forward rejection.
+concurrency:
+  group: gh-pages-deploy
+  cancel-in-progress: false
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
