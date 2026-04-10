@@ -2,87 +2,57 @@ name: Docs Preview
 
 on:
   pull_request:
+    types: [opened, reopened, synchronize, closed]
     paths:
       - "docs/**"
       - "toqito/**"
       - ".github/workflows/docs-preview.yml"
 
+concurrency: preview-${{ github.ref }}
+
 permissions:
-  contents: read
+  contents: write
   pull-requests: write
 
 jobs:
   preview:
     runs-on: ubuntu-latest
+    # Fork PRs cannot push to gh-pages; they must build docs locally.
+    if: github.event.pull_request.head.repo.full_name == github.repository
 
     steps:
       - uses: actions/checkout@v6
 
       - name: Set up Python
+        if: github.event.action != 'closed'
         uses: actions/setup-python@v6
         with:
           python-version: '3.12'
 
       - name: Install system dependencies for BLAS/LAPACK
+        if: github.event.action != 'closed'
         run: |
           sudo apt-get update
           sudo apt-get install -y libblas-dev liblapack-dev gfortran libatlas-base-dev
 
       - name: Install uv
+        if: github.event.action != 'closed'
         uses: astral-sh/setup-uv@v7
 
       - name: Install dependencies with uv
+        if: github.event.action != 'closed'
         run: uv sync --group docs
 
       - name: Build docs
+        if: github.event.action != 'closed'
         run: |
           cd docs
-          uv run mkdocs build --strict 2>&1 | tee build.log || true
+          uv run mkdocs build --strict
 
-      - name: Upload docs artifact
-        uses: actions/upload-artifact@v7
+      - name: Deploy PR preview
+        uses: rossjrw/pr-preview-action@v1
         with:
-          name: docs-preview
-          path: docs/site/
-          retention-days: 14
-
-      - name: Comment on PR
-        uses: actions/github-script@v8
-        with:
-          script: |
-            const runUrl = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
-            const body = [
-              '### 📖 Docs Preview',
-              '',
-              `The docs have been built for this PR. Download the preview artifact from the [workflow run](${runUrl}).`,
-              '',
-              'To view locally, download and extract the `docs-preview` artifact, then open `index.html` in your browser.',
-              '',
-              '*This comment is automatically updated on each push.*'
-            ].join('\n');
-
-            // Find existing comment
-            const { data: comments } = await github.rest.issues.listComments({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: context.issue.number,
-            });
-            const botComment = comments.find(c =>
-              c.user.type === 'Bot' && c.body.includes('Docs Preview')
-            );
-
-            if (botComment) {
-              await github.rest.issues.updateComment({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                comment_id: botComment.id,
-                body,
-              });
-            } else {
-              await github.rest.issues.createComment({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                issue_number: context.issue.number,
-                body,
-              });
-            }
+          source-dir: docs/site/
+          preview-branch: gh-pages
+          umbrella-dir: pr-preview
+          action: auto
