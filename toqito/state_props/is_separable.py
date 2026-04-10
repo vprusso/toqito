@@ -17,7 +17,12 @@ from toqito.state_props.schmidt_rank import schmidt_rank
 from toqito.states.max_entangled import max_entangled
 
 
-def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: int = 2, tol: float = 1e-8) -> bool:
+def is_separable(
+    state: np.ndarray,
+    dim: None | int | list[int] = None,
+    level: int = 2,
+    tol: float = 1e-8,
+) -> tuple[bool, str]:
     r"""Determine if a given state (given as a density matrix) is a separable state [@wikipediaseparable].
 
     A multipartite quantum state:
@@ -164,7 +169,11 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
         tol: Numerical tolerance (default: 1e-8).
 
     Returns:
-        `True` if separable, `False` if entangled or inconclusive by implemented checks.
+        A 2-tuple `(separable, reason)` where `separable` is `True` if a sufficient
+        separability criterion fired and `False` if an entanglement witness fired
+        or no criterion proved separability, and `reason` is a short human-readable
+        string naming the criterion that produced the verdict. Every return path
+        provides a non-empty reason, including trivial and inconclusive cases.
 
     Raises:
         Warning: If the symmetric extension check is attempted but CVXPY or a suitable solver is not available.
@@ -221,7 +230,8 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
         from toqito.rand.random_density_matrix import random_density_matrix
         from toqito.state_props.is_separable import is_separable
         rho_separable = np.array([[1, 0, 1, 0], [0, 1, 0, 1], [1, 0, 1, 0], [0, 1, 0, 1]])
-        print(is_separable(rho_separable))
+        sep, reason = is_separable(rho_separable)
+        print(f"separable={sep}, reason={reason}")
         ```
 
         ```python exec="1" source="above" result="text" session="is_separable_example"
@@ -233,7 +243,8 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
             0.21254612+0.j        , -0.00875865+0.11144344j],
         [ 0.0368423 +0.05563985j,  0.11287093-0.17024249j,
             -0.00875865-0.11144344j,  0.11998971+0.j        ]])
-        print(is_separable(rho_not_separable))
+        sep, reason = is_separable(rho_not_separable)
+        print(f"separable={sep}, reason={reason}")
         ```
 
         We can also detect certain PPT-entangled states. For example, a state constructed from a Breuer-Hall map
@@ -249,7 +260,8 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
         rho = 0.5 * (np.outer(psi1, psi1.conj()) + np.outer(psi2, psi2.conj()))
 
         print("Is the state PPT?", is_ppt(rho, dim=[2, 3]))         # True
-        print("Is the state separable?", is_separable(rho, dim=[2, 3]))  # True
+        sep, reason = is_separable(rho, dim=[2, 3])
+        print(f"Is the state separable? {sep} (reason: {reason})")
         ```
 
     """
@@ -347,7 +359,7 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
         raise ValueError("Non-zero state with zero-dim subsystem is inconsistent.")
 
     if state_len == 0:
-        return True
+        return True, "trivial: empty state"
 
     state_rank = np.linalg.matrix_rank(current_state, tol=tol)
     min_dim_val, max_dim_val = min(dA, dB), max(dA, dB)
@@ -361,7 +373,7 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
     # --- 2. Trivial Cases for Separability ---
     if min_dim_val == 1:
         # Every positive semidefinite matrix is separable when one of the local dimensions is 1.
-        return True
+        return True, "trivial: one subsystem has dimension 1"
 
     # --- 3. Pure State Check (Schmidt Rank) ---
     # A pure state (rank 1) is separable if and only if its Schmidt rank is 1.
@@ -372,19 +384,21 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
     # and QETLAB's implementation. This is distinct from this pure state check.)
     if state_rank == 1:
         s_rank = schmidt_rank(current_state, dims_list)
-        return bool(s_rank == 1)
+        if s_rank == 1:
+            return True, "pure state with Schmidt rank 1"
+        return False, f"pure state with Schmidt rank {int(s_rank)} > 1"
 
     # --- 4. Gurvits-Barnum Separable Ball ---
     if in_separable_ball(current_state):
         # Determined to be separable by closeness to the maximally mixed state [@gurvits2002largest].
-        return True
+        return True, "lies within the Gurvits-Barnum separable ball"
 
     # --- 5. PPT (Peres-Horodecki) Criterion ---
     is_state_ppt = is_ppt(state, 2, dim, tol)  # sys=2 implies partial transpose on the second system by default
     if not is_state_ppt:
         # Determined to be entangled via the PPT criterion [@peres1996separability].
         # Also, see Horodecki Theorem in [@guhne2009entanglement].
-        return False
+        return False, "NPT (Peres-Horodecki PPT criterion)"
 
     # ----- From here on, the state is known to be PPT -----
 
@@ -392,7 +406,7 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
     if prod_dim_val <= 6:  # e.g., 2x2 or 2x3 systems
         # For dA * dB <= 6, PPT is necessary and sufficient for separability
         # [@horodecki1996separability].
-        return True
+        return True, "PPT with d_A * d_B <= 6 (Horodecki 1996)"
 
     # --- 6. 3x3 Rank-4 PPT N&S Check (Plucker/Breuer/Chen&Djokovic) ---
     # This checks if a 3x3 PPT state of rank 4 is separable.
@@ -491,10 +505,13 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
             ]
             try:
                 F_det_val = np.linalg.det(np.array(F_det_matrix_elements, dtype=complex))
-                # This condition (abs(det(F)) ~ 0 for separability) is used by QETLAB for this specific test.
-                return bool(
-                    abs(F_det_val) < max(tol**2, machine_eps ** (3 / 4))
-                )  # Separable by this 3x3 rank-4 condition
+                # QETLAB uses `|det(F)| ~ 0` as the separability condition for this test.
+                # Preserve the historical behavior: small det => separable, otherwise => entangled.
+                # (Note: Breuer's original PRL gives the sharper criterion "F indefinite or zero",
+                # tracked in issue #1251.)
+                if abs(F_det_val) < max(tol**2, machine_eps ** (3 / 4)):
+                    return True, "3x3 rank-4 PPT: |det(F)| ~ 0 via Plucker coordinates (Breuer/Chen-Djokovic)"
+                return False, "3x3 rank-4 PPT: |det(F)| not ~ 0 via Plucker coordinates (Breuer/Chen-Djokovic)"
                 # Proceeding from 3x3 rank 4 block.")
                 # If det(F) is not close to zero, the state is entangled by this criterion.
                 # TODO: #1251 Breuer's PRL indicates separability if F is indefinite or zero. Entangled if F is
@@ -515,14 +532,14 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
     # --- 7. Operational Criteria for Low-Rank PPT States (Horodecki et al. 2000) ---
     # These are sufficient conditions for separability of PPT states [@horodecki2000constructive].
     if state_rank <= max_dim_val:  # rank(rho) <= max(dA, dB)
-        return True
+        return True, "rank(rho) <= max(d_A, d_B) (Horodecki et al. 2000)"
 
     rho_pt_A = partial_transpose(current_state, sys=0, dim=dims_list)  # Partial transpose on system A
     rank_pt_A = np.linalg.matrix_rank(rho_pt_A, tol=tol)
     threshold_horodecki = 2 * prod_dim_val - dA - dB + 2  # Threshold for sum of ranks
 
     if state_rank + rank_pt_A <= threshold_horodecki:  # rank(rho) + rank(rho^T_A) <= threshold
-        return True
+        return True, "rank(rho) + rank(rho^T_A) <= 2 d_A d_B - d_A - d_B + 2 (Horodecki et al. 2000)"
     # TODO: #1251 Add check for rank(rho) <= rank(marginal_A) or rank(rho) <= rank(marginal_B) as in QETLAB.
 
     # --- 8. Reduction Criterion (Horodecki & Horodecki 1999) ---
@@ -536,12 +553,12 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
         is_positive_semidefinite(op_reduct1, atol=tol, rtol=tol)
         and is_positive_semidefinite(op_reduct2, atol=tol, rtol=tol)
     ):  #  (should not be hit for PPT states)
-        return False  # Entangled by reduction criterion
+        return False, "reduction criterion violated (Horodecki 1999)"
 
     # --- 9. Realignment/CCNR Criteria ---
     # Basic Realignment Criterion [@chen2003matrix]. If > 1, entangled.
     if trace_norm(realignment(current_state, dims_list)) > 1 + tol:
-        return False
+        return False, "realignment/CCNR: ||R(rho)||_1 > 1 (Chen-Wu 2003)"
 
     # Zhang et al. 2008 Variant [@zhang2008entanglement].
     # If ||R(rho - rho_A \otimes rho_B)||_1 > sqrt((1-Tr(rho_A^2))(1-Tr(rho_B^2))), entangled.
@@ -551,7 +568,7 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
     val_B = max(0, 1 - tr_rho_B_sq)
     bound_zhang = np.sqrt(val_A * val_B) if (val_A * val_B >= 0) else 0
     if trace_norm(realignment(current_state - np.kron(rho_A_marginal, rho_B_marginal), dims_list)) > bound_zhang + tol:
-        return False
+        return False, "Zhang realignment variant: ||R(rho - rho_A (x) rho_B)||_1 exceeds purity bound (Zhang 2008)"
     # TODO: #1246 Consider adding Filter CMC criterion from Gittsovich et al. 2008, which is stronger.
 
     # --- 10. Rank-1 Perturbation of Identity for PPT States (Vidal & Tarrach 1999) ---
@@ -567,7 +584,7 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
             diff_pert = lam[1] - lam[prod_dim_val - 1]
             threshold_pert = tol**2 + 2 * machine_eps
             if diff_pert < threshold_pert:
-                return True
+                return True, "PPT state close to rank-1 identity perturbation (Vidal-Tarrach 1999)"
     except np.linalg.LinAlgError:  # If all eigenvalue computations fail #
         pass  # Proceed to other tests
 
@@ -609,7 +626,7 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
                 if (current_lam_2xn[0] - current_lam_2xn[2 * d_N_val - 2]) ** 2 <= 4 * current_lam_2xn[
                     2 * d_N_val - 3
                 ] * current_lam_2xn[2 * d_N_val - 1] + tol**2:  # Added tolerance
-                    return True
+                    return True, "Johnston spectral condition for 2xN PPT states (2013)"
 
             # Hildebrand's Conditions for 2xN PPT states (various papers, e.g.,
             # [@hildebrand2005comparison], [@hildebrand2008semidefinite])
@@ -620,7 +637,7 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
 
             # If rank of anti-Hermitian part of B is small (related to "perturbed block Hankel" in QETLAB)
             if B_block.size > 0 and np.linalg.matrix_rank(B_block - B_block.conj().T, tol=tol) <= 1:
-                return True
+                return True, "Hildebrand 2xN condition: rank(B - B^dagger) <= 1"
 
             # Hildebrand's homothetic images approach / X_2n_ppt_check
             if A_block.size > 0 and B_block.size > 0 and C_block.size > 0:  # Ensure blocks are not empty #
@@ -640,14 +657,14 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
                     dim=dim_for_hildebrand_map,
                     tol=tol,
                 ):  # Check PPT of this map's Choi matrix basically
-                    return True
+                    return True, "Hildebrand 2xN homothetic-image condition (PSD and PPT)"
 
                 # Johnston Lemma 1 variant / norm B condition
                 try:
                     eig_A_real, eig_C_real = np.real(np.linalg.eigvals(A_block)), np.real(np.linalg.eigvals(C_block))
                     if eig_A_real.size > 0 and eig_C_real.size > 0 and B_block.size > 0:
                         if np.linalg.norm(B_block) ** 2 <= np.min(eig_A_real) * np.min(eig_C_real) + tol**2:
-                            return True
+                            return True, "Johnston Lemma 1 for 2xN PPT states: ||B||^2 <= lambda_min(A) * lambda_min(C)"
                 except np.linalg.LinAlgError:
                     pass  # Eigenvalue computation failed
 
@@ -676,7 +693,7 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
                 if not is_positive_semidefinite(
                     partial_channel(current_state, Phi_map_ha, sys=1, dim=dims_list), atol=tol, rtol=tol
                 ):
-                    return False  # Entangled if map application results in non-PSD state #
+                    return False, f"Ha-Kye positive-map witness (3x3, t={t_iter_ha:.4g})"
 
     # Breuer-Hall Maps (for even dimensional subsystems) [@breuer2006optimal],
     # [@hall2006indecomposable]
@@ -699,7 +716,7 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
             )
             mapped_state_bh = partial_channel(current_state, Phi_bh_map_choi, sys=p_idx_bh, dim=dims_list)
             if not is_positive_semidefinite(mapped_state_bh, atol=tol, rtol=tol):
-                return False  # Entangled if map application results in non-PSD state
+                return False, f"Breuer-Hall positive-map witness (on subsystem {p_idx_bh}, dim={current_dim_bh})"
 
     # --- 13. Symmetric Extension Hierarchy (DPS) ---
     # A state is separable iff it has a k-symmetric extension for all k [@doherty2004complete].
@@ -711,7 +728,7 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
             try:
                 if not has_symmetric_extension(rho=current_state, level=k_actual_level_check, dim=dims_list, tol=tol):
                     # No k-symmetric extension exists — state is entangled.
-                    return False
+                    return False, f"no {k_actual_level_check}-symmetric extension (DPS hierarchy)"
             except ImportError:
                 print("Warning: CVXPY or a solver is not installed; cannot perform symmetric extension check.")
                 break
@@ -720,14 +737,14 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
                 break
         else:
             # All levels from 2 to `level` passed — state has a k-symmetric extension at every tested level.
-            return True
+            return True, f"passed DPS symmetric extension hierarchy up to level={int(level)}"
     elif level == 1 and is_state_ppt:  # is_state_ppt is True at this point
         # 1-extendibility is equivalent to PPT.
-        return True
+        return True, "1-extendible (PPT) accepted at level=1"
 
     # If all implemented checks are inconclusive, and the state passed PPT (the most basic necessary condition checked),
     # it implies that the state is either separable but not caught by the simpler sufficient conditions,
     # or it's a PPT entangled state that also wasn't caught by other implemented witnesses
     # or the DPS hierarchy up to `level`.
     # Defaulting to False implies we couldn't definitively prove separability with the implemented tests.
-    return False
+    return False, "inconclusive: PPT but no implemented sufficient condition proved separability"

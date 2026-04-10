@@ -127,8 +127,9 @@ def fidelity_of_separability(
         raise AssertionError("For State SDP: require bipartite state dims.")
     if not is_pure(input_state_rho):
         raise ValueError("This function only works for pure states.")
-    if not is_separable(input_state_rho):
-        raise ValueError("Provided input state is entangled.")
+    is_sep, sep_reason = is_separable(input_state_rho)
+    if not is_sep:
+        raise ValueError(f"Provided input state is entangled ({sep_reason}).")
 
     # Infer the dimension of Alice and Bob's system. subsystem-dimensions in rho_AB
     dim_a, dim_b = input_state_rho_dims

@@ -84,7 +84,7 @@ simple_separable_cases = [
 @pytest.mark.parametrize("state, kwargs", simple_separable_cases)
 def test_simple_separable_states(state, kwargs):
     """Test various simple states known to be separable."""
-    assert is_separable(state, **kwargs)
+    assert is_separable(state, **kwargs)[0]
 
 
 # --- Parameterized Tests for Simple Entangled States ---
@@ -157,7 +157,7 @@ simple_entangled_params = [
 @pytest.mark.parametrize("state_input, is_bool, kwargs", simple_entangled_params)
 def test_entangled_states(state_input, is_bool, kwargs, request):
     """Test simple entangled states, using indirect fixtures where appropriate."""
-    assert is_separable(request.getfixturevalue(state_input), **kwargs) is is_bool
+    assert is_separable(request.getfixturevalue(state_input), **kwargs)[0] is is_bool
 
 
 # --- Individual Tests for Separable States (more complex or specific criteria) ---
@@ -171,7 +171,7 @@ def test_ppt_small_dimensions():
     psi_sysA = 1 / np.sqrt(2) * e_0_2d + 1 / np.sqrt(2) * e_1_2d
     phi = np.kron(psi_sysA, psi_sysB)
     sigma = phi @ phi.conj().T
-    assert is_separable(sigma)
+    assert is_separable(sigma)[0]
 
 
 def test_horodecki_rank_le_max_dim_criterion():
@@ -188,7 +188,7 @@ def test_horodecki_rank_le_max_dim_criterion():
     current_rank = np.linalg.matrix_rank(rho, tol=test_tol)
     assert np.isclose(current_rank, 3)  # Test state rank is expected to be 3"
     assert current_rank <= max_d
-    assert is_separable(rho, dim=dims)
+    assert is_separable(rho, dim=dims)[0]
 
 
 def test_separable_closeness_to_maximally_mixed_state():
@@ -209,7 +209,7 @@ def test_separable_closeness_to_maximally_mixed_state():
         )
         / 36
     )
-    assert is_separable(rho)
+    assert is_separable(rho)[0]
 
 
 def test_separable_small_rank1_perturbation_of_maximally_mixed_state():
@@ -230,7 +230,7 @@ def test_separable_small_rank1_perturbation_of_maximally_mixed_state():
         )
         / 45
     )
-    assert is_separable(rho)
+    assert is_separable(rho)[0]
 
 
 def test_separable_schmidt_rank():  # This state construction appears to be Schmidt rank > 1
@@ -254,7 +254,7 @@ def test_separable_schmidt_rank():  # This state construction appears to be Schm
     )
     # Ensure rho is a density matrix
     rho = rho / np.trace(rho)
-    assert is_separable(rho, level=1)  # level=1 often relates to PPT check
+    assert is_separable(rho, level=1)[0]  # level=1 often relates to PPT check
 
 
 def test_separable_based_on_eigenvalues():
@@ -267,7 +267,7 @@ def test_separable_based_on_eigenvalues():
             [2 / 22, -1 / 22, -2 / 22, 7 / 22],
         ]
     )
-    assert is_separable(rho)
+    assert is_separable(rho)[0]
 
 
 def test_ppt_2x2_mixed_separable():
@@ -275,7 +275,7 @@ def test_ppt_2x2_mixed_separable():
     psi1 = np.kron(basis(2, 0), basis(2, 0))
     psi2 = np.kron(basis(2, 1), basis(2, 1))
     rho = 0.5 * (np.outer(psi1, psi1.conj()) + np.outer(psi2, psi2.conj()))
-    assert is_separable(rho, dim=[2, 2])
+    assert is_separable(rho, dim=[2, 2])[0]
 
 
 def test_3x3_ppt_rank3_separable_skips_plucker():
@@ -284,7 +284,7 @@ def test_3x3_ppt_rank3_separable_skips_plucker():
     p2 = np.kron(basis(3, 1), basis(3, 1))
     p3 = np.kron(basis(3, 2), basis(3, 2))
     rho = (np.outer(p1, p1.conj()) + np.outer(p2, p2.conj()) + np.outer(p3, p3.conj())) / 3
-    assert is_separable(rho, dim=[3, 3])
+    assert is_separable(rho, dim=[3, 3])[0]
 
 
 # --- Individual Tests for Entangled States ---
@@ -297,7 +297,7 @@ def test_entangled_realignment_criterion_bound_entangled():
         rho = rho - tile(i) @ tile(i).conj().T
     rho = rho / 4
     assert is_density(rho)  # Constructed tile state should be a density matrix
-    assert not is_separable(rho)
+    assert not is_separable(rho)[0]
 
 
 def test_entangled_cross_norm_realignment_criterion():
@@ -312,7 +312,7 @@ def test_entangled_cross_norm_realignment_criterion():
         ]
     )
     rho = rho / np.trace(rho)  # Ensure trace 1
-    assert not is_separable(rho)
+    assert not is_separable(rho)[0]
 
 
 def test_skip_horodecki_if_not_applicable_proceeds_entangled_tiles():
@@ -326,7 +326,7 @@ def test_skip_horodecki_if_not_applicable_proceeds_entangled_tiles():
     calculated_rank = np.linalg.matrix_rank(rho_tiles, tol=1e-8)  # Use a consistent tolerance
     assert calculated_rank == 4
 
-    assert not is_separable(rho_tiles, dim=[3, 3])
+    assert not is_separable(rho_tiles, dim=[3, 3])[0]
 
 
 # --- Specialized Tests (Edge Cases, Mocking, XFAIL for Incomplete Features) ---
@@ -353,7 +353,7 @@ def test_entangled_by_reduction_criterion_non_psd_choi_T():
             rho += ket_ij @ bra_ji_conj_T
     rho /= d
     with pytest.raises(ValueError, match="non-positive semidefinite"):
-        is_separable(rho, dim=[d, d])
+        is_separable(rho, dim=[d, d])[0]
 
 
 def test_plucker_linalg_error_in_det_fallthrough():
@@ -367,28 +367,28 @@ def test_plucker_linalg_error_in_det_fallthrough():
         rho = (
             np.outer(p1, p1.conj()) + np.outer(p2, p2.conj()) + np.outer(p3, p3.conj()) + np.outer(p4, p4.conj())
         ) / 4.0
-        assert is_separable(rho, dim=[3, 3])
+        assert is_separable(rho, dim=[3, 3])[0]
 
 
 def test_eig_calc_fails_rank1_pert_check_skipped():
     """Rank-1 perturbation check skipped if eigenvalue calculation fails."""
     with mock.patch("numpy.linalg.eigvalsh", side_effect=np.linalg.LinAlgError("mocked eig error")):
         with mock.patch("numpy.linalg.eigvals", side_effect=np.linalg.LinAlgError("mocked eig error")):
-            assert is_separable(np.eye(8) / 8.0, dim=[2, 4])
+            assert is_separable(np.eye(8) / 8.0, dim=[2, 4])[0]
 
 
 def test_2xN_swapped_eig_calc_fails_fallback():
     """Fallback eigenvalue calculation in 2xN if eigvalsh fails."""
     rho_3x2_prod = np.kron(np.eye(3) / 3.0, np.eye(2) / 2.0)
     with mock.patch("numpy.linalg.eigvalsh", side_effect=np.linalg.LinAlgError("mocked eigvalsh error")):
-        assert is_separable(rho_3x2_prod, dim=[3, 2])
+        assert is_separable(rho_3x2_prod, dim=[3, 2])[0]
 
 
 def test_2xN_block_eig_fails_proceeds():
     """2xN checks proceed if block eigenvalue calculation fails."""
     rho_2x3_mixed = np.eye(6) / 6.0
     with mock.patch("numpy.linalg.eigvals", side_effect=np.linalg.LinAlgError("mocked eig error")):
-        assert is_separable(rho_2x3_mixed, dim=[2, 3])
+        assert is_separable(rho_2x3_mixed, dim=[2, 3])[0]
 
 
 def test_symm_ext_solver_exception_proceeds():
@@ -396,7 +396,7 @@ def test_symm_ext_solver_exception_proceeds():
     with mock.patch(
         "toqito.state_props.is_separable.has_symmetric_extension", side_effect=RuntimeError("Solver failed")
     ):
-        assert is_separable(np.eye(4) / 4.0, dim=[2, 2], level=1)
+        assert is_separable(np.eye(4) / 4.0, dim=[2, 2], level=1)[0]
 
 
 @pytest.mark.xfail(reason="3x4 separability may not be fully supported.")
@@ -405,14 +405,14 @@ def test_breuer_hall_3x4_separable_odd_even_skip_xfail():
     rhoA = random_density_matrix(3, seed=42)
     rhoB = random_density_matrix(4, seed=43)
     rho_sep_3x4 = np.kron(rhoA, rhoB)
-    assert is_separable(rho_sep_3x4, dim=[3, 4])
+    assert is_separable(rho_sep_3x4, dim=[3, 4])[0]
 
 
 def test_rank1_pert_not_full_rank_path():
     """Separable 3x3 rank 8 state, xfail for rank-1 perturbation check."""
     eigs = np.array([0.3, 0.2, 0.1, 0.1, 0.1, 0.1, 0.05, 0.05, 0.0])
     rho = np.diag(eigs / np.sum(eigs))
-    assert is_separable(rho, dim=[3, 3], level=1)
+    assert is_separable(rho, dim=[3, 3], level=1)[0]
 
 
 @pytest.mark.xfail(reason="Rank-1 perturbation for full-rank path may be numerically sensitive.")
@@ -430,7 +430,7 @@ def test_separable_rank1_perturbation_full_rank_catches_xfail():
     eig_vals = eig_vals / np.sum(eig_vals)
     eig_vals = np.sort(eig_vals)[::-1]
     rho = np.diag(eig_vals)
-    assert is_separable(rho, dim=[dim_sys, dim_sys])
+    assert is_separable(rho, dim=[dim_sys, dim_sys])[0]
 
 
 def test_2xN_hildebrand_rank_B_minus_BT_is_zero_true():
@@ -440,7 +440,7 @@ def test_2xN_hildebrand_rank_B_minus_BT_is_zero_true():
     rho_B_diag = np.diag(rho_B_diag_vals / np.sum(rho_B_diag_vals))
     rho_test = np.kron(rho_A_diag, rho_B_diag)
 
-    assert is_separable(rho_test, dim=[2, 4])
+    assert is_separable(rho_test, dim=[2, 4])[0]
 
 
 def test_breuer_hall_one_dim_odd_path_coverage():
@@ -448,20 +448,20 @@ def test_breuer_hall_one_dim_odd_path_coverage():
     rho_A = random_density_matrix(3, seed=10)
     rho_B = random_density_matrix(2, seed=11)
     rho_sep_3x2 = np.kron(rho_A, rho_B)
-    assert is_separable(rho_sep_3x2, dim=[3, 2])
+    assert is_separable(rho_sep_3x2, dim=[3, 2])[0]
 
 
 def test_2xN_no_swap_needed_random_2x4():
     """XFAIL for random 2x4 separable state with specific tol/level."""
     rho_2x4_sep = np.kron(random_density_matrix(2, seed=20), random_density_matrix(4, seed=21))
-    assert is_separable(rho_2x4_sep, dim=[2, 4], level=1, tol=1e-10)
+    assert is_separable(rho_2x4_sep, dim=[2, 4], level=1, tol=1e-10)[0]
 
 
 @mock.patch("numpy.linalg.eigvals", return_value=np.array([0.5, 0.5, 0.0, 0.0]))
 def test_2xN_johnston_spectrum_lam_too_short_skips_proceeds(mock_eig):
     """2xN Johnston spectrum proceeds (skips check) with short eigenvalues list."""
     rho_2x4 = np.eye(8) / 8
-    assert is_separable(rho_2x4, dim=[2, 4])
+    assert is_separable(rho_2x4, dim=[2, 4])[0]
 
 
 @pytest.mark.skip(reason="Needs specific state that evades criteria but is known entangled for `final return False`.")
@@ -483,13 +483,13 @@ def test_2xN_johnston_lemma1_eig_A_fails():
         return original_eigvals(mat_input)
 
     with mock.patch("numpy.linalg.eigvals", side_effect=mock_eigvals_for_A):
-        assert is_separable(rho_2x4, dim=[2, 4])
+        assert is_separable(rho_2x4, dim=[2, 4])[0]
 
 
 def test_2xN_hard_separable_passes_all_witnesses():
     """XFAIL for hard separable 2x4 state expected to pass all witnesses."""
     rho = np.kron(random_density_matrix(2, seed=1), random_density_matrix(4, seed=2))
-    assert is_separable(rho, dim=[2, 4], level=2, tol=1e-10)
+    assert is_separable(rho, dim=[2, 4], level=2, tol=1e-10)[0]
 
 
 def test_symm_ext_catches_hard_entangled_state():
@@ -511,11 +511,11 @@ def test_symm_ext_catches_hard_entangled_state():
         )
         / 8.75
     )
-    assert is_separable(rho_ent_symm, dim=[3, 3], level=1)  # This state IS PPT
-    assert not is_separable(rho_ent_symm, dim=[3, 3], level=0)  # Heuristics alone cannot prove separability
+    assert is_separable(rho_ent_symm, dim=[3, 3], level=1)[0]  # This state IS PPT
+    assert not is_separable(rho_ent_symm, dim=[3, 3], level=0)[0]  # Heuristics alone cannot prove separability
     # This PPT entangled state has a 2-copy symmetric extension, so the DPS
     # hierarchy at level 2 is insufficient to detect its entanglement.
-    assert is_separable(rho_ent_symm, dim=[3, 3], level=2)
+    assert is_separable(rho_ent_symm, dim=[3, 3], level=2)[0]
 
 
 def test_plucker_orth_rank_lt_4():
@@ -527,7 +527,7 @@ def test_plucker_orth_rank_lt_4():
     # Small perturbation to ensure it's still PSD and trace 1, but rank might increase slightly depending on tol
     # The primary state is rank 3. Orth basis of such a state will have < 4 columns.
     assert np.linalg.matrix_rank(rho_rank3) < 4  # Precondition for this test's intent
-    assert is_separable(rho_rank3, dim=[3, 3])
+    assert is_separable(rho_rank3, dim=[3, 3])[0]
 
 
 def test_horodecki_sum_of_ranks_true_specific():
@@ -552,7 +552,7 @@ def test_horodecki_sum_of_ranks_true_specific():
     if not (4.9 < state_r < 5.1):
         pytest.skip(f"State not rank ~5, actual rank {state_r}")  # Should be rank 5
     # rank(rho_pt_A) for this should also be low enough for criterion to pass
-    assert is_separable(rho, dim=[dA, dB], tol=1e-8)
+    assert is_separable(rho, dim=[dA, dB], tol=1e-8)[0]
 
 
 @pytest.mark.xfail(reason="Behavior for 2x4 sep state past Hildebrand rank fail not fully confirmed.")
@@ -560,7 +560,7 @@ def test_2xN_HildebrandRank_Fails_Proceeds_xfail():
     """XFAIL for separable 2x4 state, Hildebrand rank section."""
     dim_A, dim_N = 2, 4
     rho = np.kron(random_density_matrix(dim_A, seed=50), random_density_matrix(dim_N, seed=51))
-    assert is_separable(rho, dim=[dim_A, dim_N], tol=1e-10)  # Tightened tol from 1e-20
+    assert is_separable(rho, dim=[dim_A, dim_N], tol=1e-10)[0]  # Tightened tol from 1e-20
 
 
 def test_johnston_spectrum_true_returns_true_v3():
@@ -575,7 +575,7 @@ def test_johnston_spectrum_true_returns_true_v3():
         "numpy.linalg.matrix_rank",
         side_effect=lambda mat, tol: 5 if mat.shape == (8, 8) else np.linalg.matrix_rank(mat, tol),
     ):
-        assert is_separable(rho, dim=[2, 4], tol=1e-8)
+        assert is_separable(rho, dim=[2, 4], tol=1e-8)[0]
 
 
 @pytest.mark.skip(reason="Requires specific 2xN state from Hildebrand paper for homothetic criterion.")
@@ -604,7 +604,7 @@ def test_breuer_hall_on_dB_only_mocked_first_xfail(mock_pc):
 
     mock_pc.side_effect = side_effect_func
 
-    assert not is_separable(rho_ent_2x4, dim=[2, 4])  # Expected to be entangled
+    assert not is_separable(rho_ent_2x4, dim=[2, 4])[0]  # Expected to be entangled
     assert mock_info["first_bh_sys0_called_and_passed"]  # Check if our mock was hit
 
 
@@ -615,7 +615,7 @@ def test_breuer_hall_on_dA_detects_entangled_2x2werner():
     # Werner states are PPT iff alpha >= 0. For alpha=0.8, it's PPT.
     # If this fails, Werner state construction or is_ppt is an issue.
     pytest.skip("Werner state (alpha=0.8) unexpectedly not PPT.")
-    # assert not is_separable(rho_w_ent_2x2, dim=[2, 2], tol=1e-8)
+    # assert not is_separable(rho_w_ent_2x2, dim=[2, 2], tol=1e-8)[0]
 
 
 @pytest.mark.skip(reason="Requires specific rank-deficient state for perturbation test.")
@@ -637,7 +637,7 @@ def test_3x3_rank4_block_orth_finds_lower_rank():
     # Mock orth to return only 3 columns (simulating numerical rank deficiency)
     with mock.patch("toqito.state_props.is_separable.orth") as mocked_orth:
         mocked_orth.return_value = np.eye(9, 3)  # 9x3 matrix
-        assert is_separable(rho, dim=[3, 3])  # Should proceed past Plücker check
+        assert is_separable(rho, dim=[3, 3])[0]  # Should proceed past Plücker check
         mocked_orth.assert_called_once()
 
 
@@ -645,7 +645,7 @@ def test_2xN_eig_lam_eigvalsh_fails_eigvals_succeeds():
     """2xN: eigvalsh for current_lam_2xn fails, fallback eigvals works."""
     rho_2xN_sep = np.eye(8) / 8.0  # 2x4 separable state
     with mock.patch("numpy.linalg.eigvalsh", side_effect=np.linalg.LinAlgError("mocked error")):
-        assert is_separable(rho_2xN_sep, dim=[2, 4])  # Should use eigvals fallback
+        assert is_separable(rho_2xN_sep, dim=[2, 4])[0]  # Should use eigvals fallback
 
 
 def test_full_rank_ppt_state_above_threshold():
@@ -659,7 +659,7 @@ def test_full_rank_ppt_state_above_threshold():
     with mock.patch("numpy.linalg.matrix_rank") as mock_rank:
         mock_rank.side_effect = [8, 7]  # state_rank=8, rank_pt_A=7
         with mock.patch("toqito.state_props.in_separable_ball", return_value=False):
-            assert not is_separable(rho, dim=[3, 3], level=1)
+            assert not is_separable(rho, dim=[3, 3], level=1)[0]
 
 
 def test_plucker_3x3_rank4_separable_det_F_is_zero():
@@ -679,7 +679,7 @@ def test_plucker_3x3_rank4_separable_det_F_is_zero():
     rho = rho / np.trace(rho)
     assert np.linalg.matrix_rank(rho, tol=1e-7) == 4  # Constructed state should be rank 4
     assert is_ppt(rho, dim=[3, 3])  # Constructed state should be PPT
-    assert is_separable(rho, dim=[3, 3])
+    assert is_separable(rho, dim=[3, 3])[0]
 
 
 def test_entangled_zhang_variant_catches_L401():
@@ -707,7 +707,7 @@ def test_entangled_zhang_variant_catches_L401():
     with mock.patch("toqito.state_props.is_separable.in_separable_ball", return_value=False):
         with mock.patch("numpy.linalg.matrix_rank", side_effect=matrix_rank_zhang_side_effect):
             with mock.patch("toqito.state_props.is_separable.trace_norm", side_effect=mocked_trace_norm_for_zhang):
-                assert not is_separable(rho, dim=[3, 3], level=0)
+                assert not is_separable(rho, dim=[3, 3], level=0)[0]
 
 
 def test_rank1_pert_eigvalsh_fails_eigvals_fallback():
@@ -807,7 +807,7 @@ def test_rank1_pert_eigvalsh_fails_eigvals_fallback():
         with mock.patch("numpy.linalg.matrix_rank", side_effect=matrix_rank_rank1_side_effect):
             with mock.patch("toqito.state_props.is_separable.trace_norm", return_value=0.5):
                 with mock.patch("numpy.linalg.eigvalsh", side_effect=np.linalg.LinAlgError("mocked eigvalsh fail")):
-                    assert is_separable(rho, dim=[dim_sys, dim_sys], tol=test_tol)
+                    assert is_separable(rho, dim=[dim_sys, dim_sys], tol=test_tol)[0]
 
 
 # --- attempt to Targeted Tests for Coverage ---
@@ -909,5 +909,43 @@ def test_path_ha_kye_fallthrough_to_final_false_L534_to_L580(tiles_state_3x3_ppt
                         # The loop L570-L574 finishes.
                         # L576 `elif level == 1` is false.
                         # Final L580 `return False` is hit.
-                        assert not is_separable(rho, dim=dims, tol=test_tol, level=2)
+                        assert not is_separable(rho, dim=dims, tol=test_tol, level=2)[0]
                         assert mock_plucker_det_call_info["called"]  # Plucker det mock need be to called
+
+
+# --- Tests for the (separable, reason) return tuple ---
+
+
+def test_return_tuple_shape():
+    """is_separable returns a 2-tuple of (bool, non-empty str)."""
+    result = is_separable(np.eye(4) / 4, dim=[2, 2])
+    assert isinstance(result, tuple) and len(result) == 2
+    sep, reason = result
+    assert isinstance(sep, bool)
+    assert isinstance(reason, str) and reason
+
+
+def test_return_reason_on_separable_verdict():
+    """A separable verdict carries a non-empty criterion string."""
+    sep, reason = is_separable(np.eye(4) / 4, dim=[2, 2])
+    assert sep is True
+    assert reason and isinstance(reason, str)
+
+
+def test_return_reason_on_entangled_verdict():
+    """An entanglement witness produces a non-empty criterion string."""
+    rho_bell = bell(0) @ bell(0).conj().T
+    sep, reason = is_separable(rho_bell)
+    assert sep is False
+    assert reason and isinstance(reason, str)
+
+
+def test_return_reason_tracks_npt_branch():
+    """An NPT mixed state is flagged specifically by the NPT branch."""
+    rho_bell = bell(0) @ bell(0).conj().T
+    rho_npt_mixed = 0.9 * rho_bell + 0.1 * np.eye(4) / 4  # rank 4, still NPT
+    sep, reason = is_separable(rho_npt_mixed)
+    assert sep is False
+    # Match on "NPT" / "Peres-Horodecki" specifically — "PPT" alone would also
+    # match the inconclusive fallback reason and wouldn't catch a regression.
+    assert "NPT" in reason and "Peres-Horodecki" in reason
