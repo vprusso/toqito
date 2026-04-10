@@ -917,12 +917,12 @@ def test_path_ha_kye_fallthrough_to_final_false_L534_to_L580(tiles_state_3x3_ppt
 
 
 def test_return_tuple_shape():
-    """is_separable returns a 2-tuple of (bool, str)."""
+    """is_separable returns a 2-tuple of (bool, non-empty str)."""
     result = is_separable(np.eye(4) / 4, dim=[2, 2])
     assert isinstance(result, tuple) and len(result) == 2
     sep, reason = result
     assert isinstance(sep, bool)
-    assert isinstance(reason, str)
+    assert isinstance(reason, str) and reason
 
 
 def test_return_reason_on_separable_verdict():
@@ -941,9 +941,11 @@ def test_return_reason_on_entangled_verdict():
 
 
 def test_return_reason_tracks_npt_branch():
-    """An NPT mixed state is flagged via the PPT criterion."""
+    """An NPT mixed state is flagged specifically by the NPT branch."""
     rho_bell = bell(0) @ bell(0).conj().T
     rho_npt_mixed = 0.9 * rho_bell + 0.1 * np.eye(4) / 4  # rank 4, still NPT
     sep, reason = is_separable(rho_npt_mixed)
     assert sep is False
-    assert "PPT" in reason
+    # Match on "NPT" / "Peres-Horodecki" specifically — "PPT" alone would also
+    # match the inconclusive fallback reason and wouldn't catch a regression.
+    assert "NPT" in reason and "Peres-Horodecki" in reason

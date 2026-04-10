@@ -22,7 +22,7 @@ def is_separable(
     dim: None | int | list[int] = None,
     level: int = 2,
     tol: float = 1e-8,
-) -> tuple[bool, str | None]:
+) -> tuple[bool, str]:
     r"""Determine if a given state (given as a density matrix) is a separable state [@wikipediaseparable].
 
     A multipartite quantum state:
@@ -172,8 +172,8 @@ def is_separable(
         A 2-tuple `(separable, reason)` where `separable` is `True` if a sufficient
         separability criterion fired and `False` if an entanglement witness fired
         or no criterion proved separability, and `reason` is a short human-readable
-        string naming the criterion that produced the verdict (or `None` for trivial
-        cases).
+        string naming the criterion that produced the verdict. Every return path
+        provides a non-empty reason, including trivial and inconclusive cases.
 
     Raises:
         Warning: If the symmetric extension check is attempted but CVXPY or a suitable solver is not available.
