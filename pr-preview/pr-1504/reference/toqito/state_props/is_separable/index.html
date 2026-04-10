@@ -9004,7 +9004,7 @@
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    <span class="n">dim</span><span class="p">:</span> <span class="kc">None</span> <span class="o">|</span> <span class="n"><span title="int">int</span></span> <span class="o">|</span> <span class="n"><span title="list">list</span></span><span class="p">[</span><span class="n"><span title="int">int</span></span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    <span class="n">level</span><span class="p">:</span> <span class="n"><span title="int">int</span></span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
 <a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="n">tol</span><span class="p">:</span> <span class="n"><span title="float">float</span></span> <span class="o">=</span> <span class="mf">1e-08</span><span class="p">,</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><span title="tuple">tuple</span></span><span class="p">[</span><span class="n"><span title="bool">bool</span></span><span class="p">,</span> <span class="n"><span title="str">str</span></span> <span class="o">|</span> <span class="kc">None</span><span class="p">]</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><span title="tuple">tuple</span></span><span class="p">[</span><span class="n"><span title="bool">bool</span></span><span class="p">,</span> <span class="n"><span title="str">str</span></span><span class="p">]</span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
@@ -9231,31 +9231,31 @@ It also has <code>SymmetricInnerExtension</code>, which can prove separability.<
           </div>
         </li>
         <li class="doc-section-item field-body">
-              <code><span title="str">str</span> | None</code>
+              <code><span title="str">str</span></code>
           –
           <div class="doc-md-description">
             <p>separability criterion fired and <code>False</code> if an entanglement witness fired</p>
           </div>
         </li>
         <li class="doc-section-item field-body">
-              <code><span title="tuple">tuple</span>[<span title="bool">bool</span>, <span title="str">str</span> | None]</code>
+              <code><span title="tuple">tuple</span>[<span title="bool">bool</span>, <span title="str">str</span>]</code>
           –
           <div class="doc-md-description">
             <p>or no criterion proved separability, and <code>reason</code> is a short human-readable</p>
           </div>
         </li>
         <li class="doc-section-item field-body">
-              <code><span title="tuple">tuple</span>[<span title="bool">bool</span>, <span title="str">str</span> | None]</code>
+              <code><span title="tuple">tuple</span>[<span title="bool">bool</span>, <span title="str">str</span>]</code>
           –
           <div class="doc-md-description">
-            <p>string naming the criterion that produced the verdict (or <code>None</code> for trivial</p>
+            <p>string naming the criterion that produced the verdict. Every return path</p>
           </div>
         </li>
         <li class="doc-section-item field-body">
-              <code><span title="tuple">tuple</span>[<span title="bool">bool</span>, <span title="str">str</span> | None]</code>
+              <code><span title="tuple">tuple</span>[<span title="bool">bool</span>, <span title="str">str</span>]</code>
           –
           <div class="doc-md-description">
-            <p>cases).</p>
+            <p>provides a non-empty reason, including trivial and inconclusive cases.</p>
           </div>
         </li>
     </ul>
@@ -10136,7 +10136,7 @@ is entangled but PPT.</p>
 <a id="__codelineno-0-22" name="__codelineno-0-22"></a>    <span class="n">dim</span><span class="p">:</span> <span class="kc">None</span> <span class="o">|</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <a id="__codelineno-0-23" name="__codelineno-0-23"></a>    <span class="n">level</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
 <a id="__codelineno-0-24" name="__codelineno-0-24"></a>    <span class="n">tol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-8</span><span class="p">,</span>
-<a id="__codelineno-0-25" name="__codelineno-0-25"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">]:</span>
+<a id="__codelineno-0-25" name="__codelineno-0-25"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
 <a id="__codelineno-0-26" name="__codelineno-0-26"></a><span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Determine if a given state (given as a density matrix) is a separable state [@wikipediaseparable].</span>
 <a id="__codelineno-0-27" name="__codelineno-0-27"></a>
 <a id="__codelineno-0-28" name="__codelineno-0-28"></a><span class="sd">    A multipartite quantum state:</span>
@@ -10286,8 +10286,8 @@ is entangled but PPT.</p>
 <a id="__codelineno-0-172" name="__codelineno-0-172"></a><span class="sd">        A 2-tuple `(separable, reason)` where `separable` is `True` if a sufficient</span>
 <a id="__codelineno-0-173" name="__codelineno-0-173"></a><span class="sd">        separability criterion fired and `False` if an entanglement witness fired</span>
 <a id="__codelineno-0-174" name="__codelineno-0-174"></a><span class="sd">        or no criterion proved separability, and `reason` is a short human-readable</span>
-<a id="__codelineno-0-175" name="__codelineno-0-175"></a><span class="sd">        string naming the criterion that produced the verdict (or `None` for trivial</span>
-<a id="__codelineno-0-176" name="__codelineno-0-176"></a><span class="sd">        cases).</span>
+<a id="__codelineno-0-175" name="__codelineno-0-175"></a><span class="sd">        string naming the criterion that produced the verdict. Every return path</span>
+<a id="__codelineno-0-176" name="__codelineno-0-176"></a><span class="sd">        provides a non-empty reason, including trivial and inconclusive cases.</span>
 <a id="__codelineno-0-177" name="__codelineno-0-177"></a>
 <a id="__codelineno-0-178" name="__codelineno-0-178"></a><span class="sd">    Raises:</span>
 <a id="__codelineno-0-179" name="__codelineno-0-179"></a><span class="sd">        Warning: If the symmetric extension check is attempted but CVXPY or a suitable solver is not available.</span>
