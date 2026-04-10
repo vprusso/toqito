@@ -60,7 +60,8 @@ rho_a = np.array([[1, 1], [1, 1]]) / 2
 rho_b = np.eye(2) / 2
 rho_product = np.kron(rho_a, rho_b)
 
-print(f"Product state is separable: {is_separable(rho_product)}")
+sep, reason = is_separable(rho_product)
+print(f"Product state is separable: {sep} (reason: {reason})")
 
 # %%
 # ## Example: Entangled Bell state
@@ -72,7 +73,8 @@ print(f"Product state is separable: {is_separable(rho_product)}")
 from toqito.states import bell
 
 rho_bell = bell(0) @ bell(0).conj().T
-print(f"Bell state is separable: {is_separable(rho_bell)}")
+sep, reason = is_separable(rho_bell)
+print(f"Bell state is separable: {sep} (reason: {reason})")
 
 # %%
 # ## Example: Werner states
@@ -95,11 +97,13 @@ identity_4 = np.eye(4) / 4
 
 # Separable Werner state (p = 0.2)
 werner_sep = 0.2 * phi_plus + 0.8 * identity_4
-print(f"Werner(p=0.2) is separable: {is_separable(werner_sep)}")
+sep, reason = is_separable(werner_sep)
+print(f"Werner(p=0.2) is separable: {sep} (reason: {reason})")
 
 # Entangled Werner state (p = 0.5)
 werner_ent = 0.5 * phi_plus + 0.5 * identity_4
-print(f"Werner(p=0.5) is separable: {is_separable(werner_ent)}")
+sep, reason = is_separable(werner_ent)
+print(f"Werner(p=0.5) is separable: {sep} (reason: {reason})")
 
 # %%
 # ## Example: Random density matrices
@@ -113,7 +117,8 @@ from toqito.rand import random_density_matrix
 
 # Random 4x4 density matrix (2-qubit system)
 rho_random = random_density_matrix(4, seed=42)
-print(f"Random state is separable: {is_separable(rho_random)}")
+sep, reason = is_separable(rho_random)
+print(f"Random state is separable: {sep} (reason: {reason})")
 
 # %%
 # ## Example: States near the maximally mixed state
@@ -125,12 +130,14 @@ print(f"Random state is separable: {is_separable(rho_random)}")
 # %%
 # Maximally mixed state
 rho_mixed = np.eye(4) / 4
-print(f"Maximally mixed state is separable: {is_separable(rho_mixed)}")
+sep, reason = is_separable(rho_mixed)
+print(f"Maximally mixed state is separable: {sep} (reason: {reason})")
 
 # Small perturbation of maximally mixed — still in the separable ball
 rho_near_mixed = np.eye(4) / 4 + 0.001 * np.diag([1, -1, -1, 1])
 rho_near_mixed = rho_near_mixed / np.trace(rho_near_mixed)
-print(f"Near-mixed state is separable: {is_separable(rho_near_mixed)}")
+sep, reason = is_separable(rho_near_mixed)
+print(f"Near-mixed state is separable: {sep} (reason: {reason})")
 
 # %%
 # ## The symmetric extension hierarchy
