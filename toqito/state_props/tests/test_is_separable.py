@@ -9,7 +9,7 @@ from toqito.channel_ops.partial_channel import partial_channel
 from toqito.matrix_props import is_density, is_positive_semidefinite
 from toqito.matrix_props.trace_norm import trace_norm
 from toqito.rand import random_density_matrix
-from toqito.state_props import is_separable
+from toqito.state_props import SeparabilityResult, is_separable
 from toqito.state_props.is_ppt import is_ppt
 from toqito.states import basis, bell, horodecki, isotropic, tile
 
@@ -157,7 +157,7 @@ simple_entangled_params = [
 @pytest.mark.parametrize("state_input, is_bool, kwargs", simple_entangled_params)
 def test_entangled_states(state_input, is_bool, kwargs, request):
     """Test simple entangled states, using indirect fixtures where appropriate."""
-    assert is_separable(request.getfixturevalue(state_input), **kwargs) is is_bool
+    assert is_separable(request.getfixturevalue(state_input), **kwargs).separable is is_bool
 
 
 # --- Individual Tests for Separable States (more complex or specific criteria) ---
@@ -911,3 +911,42 @@ def test_path_ha_kye_fallthrough_to_final_false_L534_to_L580(tiles_state_3x3_ppt
                         # Final L580 `return False` is hit.
                         assert not is_separable(rho, dim=dims, tol=test_tol, level=2)
                         assert mock_plucker_det_call_info["called"]  # Plucker det mock need be to called
+
+
+# --- Tests for the SeparabilityResult return type ---
+
+
+def test_separability_result_is_truthy_on_separable():
+    """Bool override returns True when the verdict is separable."""
+    result = is_separable(np.eye(4) / 4, dim=[2, 2])
+    assert bool(result) is True
+    assert result.separable is True
+    assert result.reason is not None and isinstance(result.reason, str)
+
+
+def test_separability_result_is_falsy_on_entangled():
+    """Bool override returns False when an entanglement witness fires."""
+    rho_bell = bell(0) @ bell(0).conj().T
+    result = is_separable(rho_bell)
+    assert bool(result) is False
+    assert result.separable is False
+    assert result.reason is not None and isinstance(result.reason, str)
+
+
+def test_separability_result_tuple_unpacking_and_indexing():
+    """Tuple unpacking and index access both continue to work."""
+    result = is_separable(np.eye(4) / 4, dim=[2, 2])
+    sep, reason = result
+    assert sep is True
+    assert reason == result.reason
+    assert result[0] is True and result[1] == result.reason
+    assert isinstance(result, SeparabilityResult) and isinstance(result, tuple)
+
+
+def test_separability_result_reason_tracks_npt_branch():
+    """Sanity-check that an NPT mixed state produces a 'PPT'-flavored reason."""
+    rho_bell = bell(0) @ bell(0).conj().T
+    rho_npt_mixed = 0.9 * rho_bell + 0.1 * np.eye(4) / 4  # rank 4, still NPT
+    result = is_separable(rho_npt_mixed)
+    assert result.separable is False
+    assert "PPT" in result.reason
