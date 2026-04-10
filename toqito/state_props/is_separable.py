@@ -22,6 +22,7 @@ def is_separable(
     dim: None | int | list[int] = None,
     level: int = 2,
     tol: float = 1e-8,
+    strength: int = 1,
 ) -> tuple[bool, str]:
     r"""Determine if a given state (given as a density matrix) is a separable state [@wikipediaseparable].
 
@@ -162,11 +163,36 @@ def is_separable(
         state: The density matrix to check.
         dim: The dimension of the input state, e.g., [dim_A, dim_B]. Optional; inferred if None.
         level:
-            - The level for symmetric extension (DPS) hierarchy (default: 2)
+            - The level for symmetric extension (DPS) hierarchy (default: 2).
             - If 1, only PPT is checked.
             - If >=2, checks for k-symmetric extension up to this level.
-            - If -1, attempts all implemented checks exhaustively (not all possible checks are implemented).
+            - `level` only controls how deep the DPS check runs; whether DPS runs
+              at all is gated by `strength` (see below).
         tol: Numerical tolerance (default: 1e-8).
+        strength:
+            Controls how thoroughly the function checks for separability. `strength`
+            picks *which* families of checks run; `level` continues to pick *how
+            deep* the DPS hierarchy goes once DPS is running.
+
+            - `strength = 0` — quick-check mode. Runs only the fast
+              pre-checks (trivial cases, pure-state Schmidt rank,
+              Gurvits-Barnum separable ball, PPT, and the PPT <= 6 dimension
+              sufficiency), then returns an inconclusive verdict. All later
+              checks (3x3 rank-4 Plucker, Horodecki rank bounds, reduction,
+              realignment/CCNR, Vidal-Tarrach, 2xN Johnston/Hildebrand,
+              Ha-Kye and Breuer-Hall witnesses, DPS hierarchy) are skipped.
+              Useful when you want a cheap answer or are batch-processing
+              many states and only care about the easy cases.
+            - `strength = 1` (default) — runs everything implemented today,
+              matching the function's behavior prior to the `strength`
+              parameter existing.
+            - `strength >= 2` — reserved for future expensive criteria
+              (Filter CMC, iterative product-state subtraction, additional
+              positive maps, refined Breuer/Horodecki conditions); currently
+              equivalent to `strength = 1`.
+            - `strength = -1` — alias for "run every implemented check".
+              Currently equivalent to `strength = 1`, will grow with future
+              additions.
 
     Returns:
         A 2-tuple `(separable, reason)` where `separable` is `True` if a sufficient
@@ -407,6 +433,16 @@ def is_separable(
         # For dA * dB <= 6, PPT is necessary and sufficient for separability
         # [@horodecki1996separability].
         return True, "PPT with d_A * d_B <= 6 (Horodecki 1996)"
+
+    # ----- Strength cutoff -----
+    # At `strength == 0`, only the fast pre-checks above (trivial, pure state,
+    # separable ball, PPT, PPT <= 6) run. Everything below this point — the
+    # 3x3 rank-4 Plucker determinant, Horodecki rank bounds, reduction,
+    # realignment/CCNR, Vidal-Tarrach, 2xN conditions, Ha-Kye/Breuer-Hall
+    # witnesses, and the DPS hierarchy — is skipped, and the function returns
+    # an inconclusive verdict. This is the "quick check" mode.
+    if strength == 0:
+        return False, "inconclusive: strength=0 capped after PPT pre-checks"
 
     # --- 6. 3x3 Rank-4 PPT N&S Check (Plucker/Breuer/Chen&Djokovic) ---
     # This checks if a 3x3 PPT state of rank 4 is separable.
