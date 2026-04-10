@@ -163,11 +163,16 @@ def is_separable(
         state: The density matrix to check.
         dim: The dimension of the input state, e.g., [dim_A, dim_B]. Optional; inferred if None.
         level:
-            - The level for symmetric extension (DPS) hierarchy (default: 2).
-            - If 1, only PPT is checked.
-            - If >=2, checks for k-symmetric extension up to this level.
-            - `level` only controls how deep the DPS check runs; whether DPS runs
-              at all is gated by `strength` (see below).
+            - Controls only the depth of the DPS symmetric-extension hierarchy
+              (default: 2). All other post-PPT checks run regardless of
+              `level` (provided `strength` does not cut them off early).
+            - If `level == 1` and the state is PPT, the function accepts the
+              state at the DPS stage via the "1-extendible" branch.
+            - If `level >= 2`, the function checks for a k-symmetric extension
+              for every k from 2 up to `level`.
+            - `strength == 0` triggers an early inconclusive return before the
+              DPS block is reached, so `level` is effectively ignored in that
+              mode (see `strength` below).
         tol: Numerical tolerance (default: 1e-8).
         strength:
             Controls how thoroughly the function checks for separability. `strength`
@@ -296,6 +301,19 @@ def is_separable(
         raise TypeError("Input state must be a NumPy array.")
     if state.ndim != 2 or state.shape[0] != state.shape[1]:
         raise ValueError("Input state must be a square matrix.")
+
+    # Validate and normalize `strength`. Documented values are -1, 0, and any
+    # integer >= 1; anything else (including bools, floats, and other negatives)
+    # is rejected so typos don't silently behave like the full run.
+    if isinstance(strength, bool) or not isinstance(strength, (int, np.integer)):
+        raise ValueError(f"`strength` must be an int; got {type(strength).__name__}.")
+    if strength < -1:
+        raise ValueError(f"`strength` must be -1, 0, or a positive integer; got {strength}.")
+    # Normalize: -1 and any value >= 1 all mean "run every implemented check",
+    # which today is identical behavior. Collapse them to 1 so downstream logic
+    # only has to distinguish 0 vs non-0.
+    if strength != 0:
+        strength = 1
 
     # Define the smallest number computer can represent to avoid numerical issues.
     # This is used to determine the machine epsilon for numerical significance checks.
