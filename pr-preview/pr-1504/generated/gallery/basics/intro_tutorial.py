@@ -217,8 +217,8 @@ for i in range(5):
     rho -= tile(i) @ tile(i).conj().T
 
 rho /= 4
-result = is_separable(rho)
-print(f"separable={result.separable}, reason={result.reason}")
+sep, reason = is_separable(rho)
+print(f"separable={sep}, reason={reason}")
 
 
 # %%
