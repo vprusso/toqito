@@ -294,12 +294,9 @@ def test_3x3_ppt_rank3_separable_skips_plucker():
 # --- Individual Tests for Entangled States ---
 
 
-def test_entangled_realignment_criterion_bound_entangled():
+def test_entangled_realignment_criterion_bound_entangled(tiles_state_3x3_ppt_entangled):
     """Entangled via realignment criterion (UPB tile state)."""
-    rho = np.identity(9)
-    for i in range(5):
-        rho = rho - tile(i) @ tile(i).conj().T
-    rho = rho / 4
+    rho = tiles_state_3x3_ppt_entangled
     assert is_density(rho)  # Constructed tile state should be a density matrix
     assert not is_separable(rho)[0]
 
@@ -319,12 +316,9 @@ def test_entangled_cross_norm_realignment_criterion():
     assert not is_separable(rho)[0]
 
 
-def test_skip_horodecki_if_not_applicable_proceeds_entangled_tiles():
+def test_skip_horodecki_if_not_applicable_proceeds_entangled_tiles(tiles_state_3x3_ppt_entangled):
     """Entangled Tiles state (PPT entangled), testing paths beyond simple Horodecki."""
-    rho_tiles = np.identity(9)
-    for i in range(5):  # Ensure tile(i) is correctly defined
-        rho_tiles = rho_tiles - tile(i) @ tile(i).conj().T
-    rho_tiles = rho_tiles / 4
+    rho_tiles = tiles_state_3x3_ppt_entangled
 
     # Debugging rank
     calculated_rank = np.linalg.matrix_rank(rho_tiles, tol=1e-8)  # Use a consistent tolerance
@@ -834,33 +828,35 @@ def test_rank1_pert_eigvalsh_fails_eigvals_fallback():
 
 @pytest.fixture
 def tiles_state_3x3_ppt_entangled():
-    """tiles_state_3x3_ppt_entangled."""
-    v = [basis(3, i) for i in range(3)]
+    """3x3 PPT-entangled state built from the tile UPB (#1507).
 
-    psi_vecs = [
-        np.kron(v[0], (v[0] + v[1]) / np.sqrt(2)),  # |0> (|0>+|1>)/sqrt(2)
-        np.kron((v[0] + v[1]) / np.sqrt(2), v[2]),  # (|0>+|1>)/sqrt(2) |2>
-        np.kron(v[1], (v[1] + v[2]) / np.sqrt(2)),  # |1> (|1>+|2>)/sqrt(2)
-        np.kron((v[1] + v[2]) / np.sqrt(2), v[0]),  # (|1>+|2>)/sqrt(2) |0>
-        np.kron(v[2], (v[2] + v[0]) / np.sqrt(2)),  # |2> (|2>+|0>)/sqrt(2)
-    ]
-    # This set of 5 vectors IS the standard one for the Horodecki Tiles UPB.
+    `rho = (I_9 - sum_i |psi_i><psi_i|) / 4` where {|psi_i>}_{i=0..4} are the
+    five tile UPB vectors. The resulting density matrix is rank 4 (projector
+    onto the complement of the UPB span), PPT, and entangled — a canonical
+    example of a bound-entangled state.
 
-    sum_projectors = np.zeros((9, 9), dtype=complex)
-    for psi in psi_vecs:
-        sum_projectors += np.outer(psi, psi.conj())
-
-    rho = (np.identity(9) - sum_projectors) / 4.0
-    # This formula for rho is correct.
-    # Normalization: Each |psi_i><psi_i| is rank 1, trace 1.
-    # Sum of 5 projectors. Tr(sum_projectors) = 5.
-    # Tr(I_9 - sum_projectors) = Tr(I_9) - Tr(sum_projectors) = 9 - 5 = 4.
-    # Tr(rho) = Tr(I_9 - sum_projectors) / 4 = 4 / 4 = 1.  So normalization is correct.
-    # The state rho is the projector onto the 4-dimensional subspace orthogonal to the span of {psi_i}.
-    return rho
+    The tile UPB vectors are *not* mutually orthogonal, so the earlier version
+    of this fixture that summed their bare rank-1 projectors and wrote
+    `(I - sum) / 4` did not produce a positive-semidefinite matrix. Instead,
+    we use `toqito.states.tile`, which returns an orthonormal basis for the
+    UPB span so the formula holds.
+    """
+    rho = np.identity(9)
+    for i in range(5):
+        rho = rho - tile(i) @ tile(i).conj().T
+    return rho / 4.0
 
 
-@pytest.mark.skip(reason="partial_transpose or is_ppt issue")
+@pytest.mark.skip(
+    reason=(
+        "Stale test expectations after section 6 (Plucker) was given an explicit "
+        "return False branch; the mock chain here was written for an older flow "
+        "where Plucker fell through to the final 'inconclusive' fallback. The "
+        "fixture this test consumed used to be broken (see #1507); the fixture "
+        "is now correct but the mock scaffolding below needs a rewrite before "
+        "the test can be re-enabled."
+    )
+)
 def test_path_ha_kye_fallthrough_to_final_false_L534_to_L580(tiles_state_3x3_ppt_entangled):
     """Test a 3x3 PPT entangled state (Tiles).
 
@@ -973,27 +969,14 @@ def test_return_reason_tracks_npt_branch():
 # --- Tests for the `strength` parameter ---
 
 
-def _upb_tile_state() -> np.ndarray:
-    """3x3 rank-4 PPT-entangled state built from the tile UPB (I - sum of tile projectors) / 4.
-
-    Used by the strength-parameter tests to exercise the Plucker branch at
-    strength=1 vs. the early-cutoff at strength=0. Not a fixture so a couple
-    of small tests can call it directly without indirection.
-    """
-    rho = np.identity(9)
-    for i in range(5):
-        rho = rho - tile(i) @ tile(i).conj().T
-    return rho / 4
-
-
-def test_strength_zero_caps_after_ppt_prechecks_on_upb_tile():
+def test_strength_zero_caps_after_ppt_prechecks_on_upb_tile(tiles_state_3x3_ppt_entangled):
     """strength=0 stops early on a UPB tile PPT-entangled state.
 
     At strength=1 the 3x3 rank-4 Plucker check catches it as entangled; at
     strength=0 everything after PPT <= 6 is skipped, so the function returns
     the 'strength=0 capped' inconclusive fallback.
     """
-    rho = _upb_tile_state()
+    rho = tiles_state_3x3_ppt_entangled
 
     sep_default, reason_default = is_separable(rho, dim=[3, 3])
     assert sep_default is False
@@ -1023,9 +1006,9 @@ def test_strength_zero_still_catches_tier_zero_criteria():
     assert "NPT" in reason_bell
 
 
-def test_strength_minus_one_matches_default():
+def test_strength_minus_one_matches_default(tiles_state_3x3_ppt_entangled):
     """strength=-1 ('everything') is equivalent to strength=1 today."""
-    rho = _upb_tile_state()
+    rho = tiles_state_3x3_ppt_entangled
     assert is_separable(rho, dim=[3, 3], strength=1) == is_separable(rho, dim=[3, 3], strength=-1)
 
 
@@ -1214,12 +1197,9 @@ def test_iter_sub_rejects_bell_state():
     assert _iterative_product_state_subtraction(rho, [2, 2], tol=1e-8, rng=_rng()) is False
 
 
-def test_iter_sub_rejects_upb_tile_ppt_entangled():
+def test_iter_sub_rejects_upb_tile_ppt_entangled(tiles_state_3x3_ppt_entangled):
     """The UPB tile state is PPT entangled; the algorithm should fail to decompose it."""
-    rho = np.identity(9)
-    for i in range(5):
-        rho = rho - tile(i) @ tile(i).conj().T
-    rho = rho / 4
+    rho = tiles_state_3x3_ppt_entangled
     assert _iterative_product_state_subtraction(rho, [3, 3], tol=1e-8, rng=_rng()) is False
 
 
