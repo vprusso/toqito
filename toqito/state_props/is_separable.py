@@ -15,6 +15,7 @@ from toqito.state_props.has_symmetric_extension import has_symmetric_extension
 from toqito.state_props.in_separable_ball import in_separable_ball
 from toqito.state_props.schmidt_rank import schmidt_rank
 from toqito.states.max_entangled import max_entangled
+from toqito.states.tile import tile
 
 
 def _choi_1975_choi_matrix() -> np.ndarray:
@@ -49,6 +50,108 @@ def _choi_1975_choi_matrix() -> np.ndarray:
             if i != j:
                 choi[3 * i + i, 3 * j + j] = -1.0
     return choi
+
+
+def _terhal_2000_tile_witness() -> np.ndarray:
+    r"""Terhal 2000 indecomposable positive-map witness built on the 3x3 tile UPB.
+
+    Implements Theorem 3 of [@terhal2000family]: given the five tile UPB
+    product vectors :math:`\{|\alpha_i\rangle \otimes |\beta_i\rangle\}_{i=0}^4`
+    spanning a 5-dimensional subspace of :math:`\mathbb{C}^3 \otimes
+    \mathbb{C}^3`, the Hermitian operator
+
+    .. math::
+
+        H = \sum_{i=0}^{4} |\alpha_i\rangle\langle\alpha_i| \otimes
+            |\beta_i\rangle\langle\beta_i|
+            - d \varepsilon |\Psi\rangle\langle\Psi|
+
+    is an indecomposable entanglement witness, where :math:`d = 3`,
+
+    .. math::
+
+        \varepsilon = \min_{|\phi_A\rangle, |\phi_B\rangle}
+            \sum_{i=0}^{4} |\langle\phi_A|\alpha_i\rangle|^2
+                           |\langle\phi_B|\beta_i\rangle|^2,
+
+    and :math:`|\Psi\rangle` is a maximally entangled state with
+    :math:`\langle\Psi|\rho_{\text{tile}}|\Psi\rangle > 0` (the ``standard''
+    max-ent state :math:`(|00\rangle+|11\rangle+|22\rangle)/\sqrt{3}` fails
+    this condition for the tile UPB because :math:`|\Psi\rangle` happens to
+    lie in the UPB span; we use :math:`(|10\rangle+|21\rangle+|02\rangle)/\sqrt{3}`
+    instead, which satisfies it).
+
+    A state :math:`\rho` is detected as entangled iff
+    :math:`\mathrm{tr}(H\rho) < 0`. Positivity on product states follows from
+    :math:`|\langle\Psi|\phi_A\otimes\phi_B\rangle|^2 \le 1/d` for maximally
+    entangled :math:`|\Psi\rangle` (Lemma 1 of the paper) combined with the
+    definition of :math:`\varepsilon`.
+    """
+    # Factor each tile(i) vector into its A and B factors via SVD.
+    alpha_vecs = []
+    beta_vecs = []
+    for i in range(5):
+        psi = np.asarray(tile(i)).flatten()
+        u_mat, s_vals, vh_mat = np.linalg.svd(psi.reshape(3, 3))
+        # Each tile(i) is a genuine product state, so one singular value dominates.
+        alpha = u_mat[:, 0]
+        beta = np.conjugate(vh_mat[0])
+        alpha_vecs.append(alpha / np.linalg.norm(alpha))
+        beta_vecs.append(beta / np.linalg.norm(beta))
+
+    h_sum = np.zeros((9, 9), dtype=complex)
+    for a, b in zip(alpha_vecs, beta_vecs):
+        h_sum += np.kron(np.outer(a, a.conj()), np.outer(b, b.conj()))
+
+    # Alternating minimization for epsilon. For fixed phi_B the function is
+    # <phi_A|M_A|phi_A> with M_A = sum_i |<phi_B|beta_i>|^2 |alpha_i><alpha_i|,
+    # minimized by the eigenvector of M_A's smallest eigenvalue. Flip subsystems
+    # and repeat. Several random restarts handle non-convexity.
+    rng = np.random.default_rng(seed=20260415)
+    best_eps = np.inf
+    for _ in range(20):
+        p_a = rng.standard_normal(3) + 1j * rng.standard_normal(3)
+        p_a /= np.linalg.norm(p_a)
+        p_b = rng.standard_normal(3) + 1j * rng.standard_normal(3)
+        p_b /= np.linalg.norm(p_b)
+        prev_val = np.inf
+        for _ in range(100):
+            m_a = sum(
+                abs(p_b.conj() @ b) ** 2 * np.outer(a, a.conj())
+                for a, b in zip(alpha_vecs, beta_vecs)
+            )
+            _, vecs = np.linalg.eigh((m_a + m_a.conj().T) / 2)
+            p_a = vecs[:, 0]
+            m_b = sum(
+                abs(p_a.conj() @ a) ** 2 * np.outer(b, b.conj())
+                for a, b in zip(alpha_vecs, beta_vecs)
+            )
+            _, vecs = np.linalg.eigh((m_b + m_b.conj().T) / 2)
+            p_b = vecs[:, 0]
+            val = sum(
+                abs(p_a.conj() @ a) ** 2 * abs(p_b.conj() @ b) ** 2
+                for a, b in zip(alpha_vecs, beta_vecs)
+            )
+            if abs(val - prev_val) < 1e-14:
+                break
+            prev_val = val
+        best_eps = min(best_eps, float(np.real(val)))
+    epsilon = best_eps
+
+    # |Psi> = (|10> + |21> + |02>)/sqrt(3); indices 3, 7, 2 in the flat basis.
+    psi_vec = np.zeros(9, dtype=complex)
+    psi_vec[3] = 1.0 / np.sqrt(3)
+    psi_vec[7] = 1.0 / np.sqrt(3)
+    psi_vec[2] = 1.0 / np.sqrt(3)
+    psi_proj = np.outer(psi_vec, psi_vec.conj())
+
+    return h_sum - 3 * epsilon * psi_proj
+
+
+# Cached module-level witness matrix: construction is deterministic (the ε
+# optimization uses a fixed seed) and only depends on constants, so we pay
+# for the alternating minimization exactly once per process.
+_TERHAL_2000_TILE_WITNESS_3X3: np.ndarray = _terhal_2000_tile_witness()
 
 
 def _hermitian_inverse_sqrt(herm: np.ndarray, eig_floor: float) -> np.ndarray | None:
@@ -443,6 +546,16 @@ def is_separable(
           indecomposable positive map on \(M_3\), applied to both subsystems
           in turn. Distinct from (and complementary to) the Ha-Kye parametric
           family below.
+        - **UPB-based Witness (Terhal 2000, tile UPB)** [@terhal2000family]:
+          Hermitian entanglement witness constructed directly from the tile
+          UPB product vectors in \(\mathbb{C}^3 \otimes \mathbb{C}^3\), of
+          the form
+          \(H = \sum_i |\alpha_i\rangle\langle\alpha_i|\otimes|\beta_i\rangle\langle\beta_i|
+          - d\varepsilon|\Psi\rangle\langle\Psi|\)
+          where \(\varepsilon\) is the minimum of
+          \(\sum_i |\langle\phi_A|\alpha_i\rangle|^2 |\langle\phi_B|\beta_i\rangle|^2\)
+          over unit product states. Evaluated as \(\mathrm{tr}(H\rho) < 0\),
+          not via `partial_channel`.
         - **Ha-Kye Maps (3x3 systems)** [@ha2011positive]: Specific maps
           for qutrit-qutrit systems.
         - **Breuer-Hall Maps (even dimensions)** [@breuer2006optimal], [@hall2006indecomposable]:
@@ -1126,6 +1239,18 @@ def is_separable(
                 rtol=tol,
             ):
                 return False, f"Choi 1975 positive-map witness (on subsystem {p_idx_choi}, 3x3)"
+
+        # UPB-based witness from Terhal 2000 [@terhal2000family], built on the
+        # tile UPB. Evaluated as a trace: rho is entangled iff tr(H * rho) < 0.
+        # The witness matrix is cached at module level; see
+        # `_terhal_2000_tile_witness` for the construction (UPB projector minus
+        # d * epsilon * |Psi><Psi| with epsilon found by non-convex alternating
+        # minimization over product states).
+        tr_h_rho = float(np.real(np.trace(_TERHAL_2000_TILE_WITNESS_3X3 @ current_state)))
+        if tr_h_rho < -tol:
+            return False, (
+                f"UPB-based witness on tile UPB (Terhal 2000): tr(H*rho)={tr_h_rho:.4g} < 0"
+            )
 
     # Ha-Kye Maps for 3x3 systems [@ha2011positive]
     if dA == 3 and dB == 3:

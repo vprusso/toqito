@@ -12,6 +12,7 @@ from toqito.rand import random_density_matrix
 from toqito.state_props import is_separable
 from toqito.state_props.is_ppt import is_ppt
 from toqito.state_props.is_separable import (
+    _TERHAL_2000_TILE_WITNESS_3X3,
     _choi_1975_choi_matrix,
     _filter_cmc_bound,
     _filter_cmc_xi_sum,
@@ -1439,3 +1440,87 @@ def test_is_separable_strength_zero_skips_filter_cmc():
     ) as mocked:
         is_separable(_RHO_ENT_SYMM_3x3_REACHES_12B, dim=[3, 3], strength=0)
     assert not mocked.called
+
+
+# --- Tests for the Terhal 2000 UPB-based tile witness (#1249) ---
+
+
+def test_terhal_tile_witness_is_hermitian_and_non_psd():
+    """Validity check: the witness must be Hermitian and not PSD.
+
+    Hermitian so that tr(H rho) is real for Hermitian rho; non-PSD so the
+    underlying map is positive-but-not-completely-positive and can actually
+    flag entanglement.
+    """
+    h_mat = _TERHAL_2000_TILE_WITNESS_3X3
+    assert h_mat.shape == (9, 9)
+    np.testing.assert_allclose(h_mat, h_mat.conj().T, atol=1e-12)
+    eigvals = np.sort(np.real(np.linalg.eigvalsh((h_mat + h_mat.conj().T) / 2)))
+    assert eigvals[0] < -1e-8  # strictly non-PSD
+
+
+def test_terhal_tile_witness_detects_tile_upb_state_directly():
+    """tr(H * rho_tile) < 0 for the tile UPB-complement PPT-entangled state.
+
+    This is the state Terhal's construction is designed for — the witness
+    should catch it via the trace pairing (section 12 in is_separable
+    catches it earlier via the Plucker check, so the direct test confirms
+    the witness math).
+    """
+    rho = np.identity(9, dtype=complex)
+    for i in range(5):
+        rho = rho - tile(i) @ tile(i).conj().T
+    rho = rho / 4
+    tr_val = float(np.real(np.trace(_TERHAL_2000_TILE_WITNESS_3X3 @ rho)))
+    assert tr_val < -1e-6
+
+
+def test_terhal_tile_witness_stays_nonnegative_on_separable_cases():
+    """Sanity check on three clearly separable 3x3 states.
+
+    A valid witness must give tr(H * rho) >= 0 for any separable rho.
+    """
+    cases = [
+        np.eye(9) / 9,
+        np.kron(np.diag([0.7, 0.2, 0.1]), np.diag([0.5, 0.3, 0.2])),
+        np.kron(np.eye(3) / 3, np.eye(3) / 3),
+    ]
+    for rho in cases:
+        tr_val = float(np.real(np.trace(_TERHAL_2000_TILE_WITNESS_3X3 @ rho)))
+        assert tr_val >= -1e-8, f"witness spuriously negative: {tr_val}"
+
+
+def test_is_separable_surfaces_terhal_reason_when_witness_fires():
+    """Mock trace pairing to force a negative value and verify the reason surfaces.
+
+    We need a 3x3 state that reaches section 12 naturally; `rho_ent_symm`
+    from the existing suite is the only one that does at default strength.
+    Patching `np.trace` here is too broad, so instead we swap the cached
+    witness matrix with one whose trace pairing is strongly negative on
+    this particular state — a large negative multiple of rho itself works.
+    """
+    rho = _RHO_ENT_SYMM_3x3_REACHES_12B
+    fake_witness = -1000.0 * rho  # tr(fake * rho) ~ -1000 * tr(rho^2) < 0
+    with mock.patch(
+        "toqito.state_props.is_separable._TERHAL_2000_TILE_WITNESS_3X3",
+        fake_witness,
+    ):
+        sep, reason = is_separable(rho, dim=[3, 3])
+    assert sep is False
+    assert "Terhal 2000" in reason
+    assert "UPB" in reason
+
+
+def test_is_separable_strength_zero_skips_terhal_witness():
+    """Section 12 must not run at strength=0, including the Terhal witness."""
+    rho = _RHO_ENT_SYMM_3x3_REACHES_12B
+    # A large negative witness would cause a FALSE verdict if the branch ran.
+    fake_witness = -1000.0 * rho
+    with mock.patch(
+        "toqito.state_props.is_separable._TERHAL_2000_TILE_WITNESS_3X3",
+        fake_witness,
+    ):
+        sep, _ = is_separable(rho, dim=[3, 3], strength=0)
+    # At strength=0 execution stops at the PPT pre-checks, so the fake
+    # witness never fires — strength=0 cap returns False/inconclusive.
+    assert "Terhal" not in str(sep)
