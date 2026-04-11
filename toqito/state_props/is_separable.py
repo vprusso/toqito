@@ -5,7 +5,7 @@ from scipy.linalg import orth
 
 from toqito.channel_ops import partial_channel
 from toqito.channels.realignment import realignment
-from toqito.matrix_ops import partial_trace, partial_transpose
+from toqito.matrix_ops import partial_trace
 from toqito.matrix_props.is_positive_semidefinite import is_positive_semidefinite
 from toqito.matrix_props.trace_norm import trace_norm
 from toqito.perms.swap import swap
@@ -236,13 +236,26 @@ def is_separable(
 
         For PPT states (especially when \(d_A d_B > 6\)):
 
-        - If \(\text{rank}(\rho) \le \max(d_A, d_B)\), the state is separable.
-        - If \(\text{rank}(\rho) + \text{rank}(\rho^{T_A}) \le 2 d_A d_B - d_A - d_B + 2\),
-          the state is separable.
+        - If \(\text{rank}(\rho) \le \max(d_A, d_B)\), the state is separable
+          (Theorem 1 of the paper).
         - If \(\text{rank}(\rho) \le \text{rank}(\rho_A)\) or
           \(\text{rank}(\rho) \le \text{rank}(\rho_B)\), the state is separable.
-          This is the "rank-marginal" Horodecki condition from the same paper
-          and matches QETLAB's corresponding check in `IsSeparable`.
+          This is the "rank-marginal" corollary of Theorem 1 obtained by
+          viewing \(\rho\) as a state on its reduced support
+          \(\text{supp}(\rho_A) \otimes \text{supp}(\rho_B)\); matches QETLAB.
+
+        !!! Note
+            The rank-sum bound \(\text{rank}(\rho) + \text{rank}(\rho^{T_A}) \le
+            2 d_A d_B - d_A - d_B + 2\) from Section IV of the same paper is
+            *not* by itself a sufficient condition for separability (see issue
+            #1506). It is the regime in which the range of \(\rho\) has a
+            finite number of product-vector candidates, enumerable via a
+            system of polynomial equations, after which an algorithmic check
+            (Theorem 2 of the paper) decides separability. The earlier
+            versions of this function short-circuited to "separable" on just
+            the bound, giving false positives on e.g. UPB-tile states. The
+            full algorithmic check is not implemented here; the bound is no
+            longer used.
 
     8.  **Reduction Criterion (Horodecki & Horodecki 1999)** [@horodecki1998reduction]:
 
@@ -780,12 +793,24 @@ def is_separable(
     if state_rank <= max_dim_val:  # rank(rho) <= max(dA, dB)
         return True, "rank(rho) <= max(d_A, d_B) (Horodecki et al. 2000)"
 
-    rho_pt_A = partial_transpose(current_state, sys=0, dim=dims_list)  # Partial transpose on system A
-    rank_pt_A = np.linalg.matrix_rank(rho_pt_A, tol=tol)
-    threshold_horodecki = 2 * prod_dim_val - dA - dB + 2  # Threshold for sum of ranks
-
-    if state_rank + rank_pt_A <= threshold_horodecki:  # rank(rho) + rank(rho^T_A) <= threshold
-        return True, "rank(rho) + rank(rho^T_A) <= 2 d_A d_B - d_A - d_B + 2 (Horodecki et al. 2000)"
+    # Note on the rank-sum bound `rank(rho) + rank(rho^T_A) <= 2 d_A d_B - d_A - d_B + 2`
+    # from Horodecki et al. 2000 (Section IV): this bound is NOT by itself a
+    # sufficient condition for separability, contrary to how earlier versions of
+    # this function treated it (see issue #1506). The paper establishes it as
+    # the regime in which the number of product vectors in the range of rho can
+    # be enumerated in a *finite* number via a system of polynomial equations.
+    # Separability then requires running the algorithmic check (Theorem 2,
+    # Section IV.C) on those candidates. Treating the bound alone as sufficient
+    # gives false positives — most starkly, UPB-tile-like 3x3 rank-4 PPT states
+    # satisfy the bound but are bound-entangled (their range is a completely
+    # entangled subspace, so the paper's check would find zero candidates and
+    # correctly return False).
+    #
+    # We drop the unconditional `return True` here. The algorithmic check is a
+    # substantial separate implementation and is not attempted in this pass;
+    # states that would previously have been (wrongly) returned separable by
+    # this branch now fall through to the reduction / realignment / 2xN /
+    # witness / DPS / iterative-subtraction stages below.
 
     # Rank-marginal condition [@horodecki2000constructive]: for a PPT state,
     # if rank(rho) <= rank(rho_A) or rank(rho) <= rank(rho_B), then rho is
@@ -942,7 +967,9 @@ def is_separable(
     # so this check is complementary rather than redundant.
     if dA == 3 and dB == 3:
         phi_choi_1975 = _choi_1975_choi_matrix()
-        for p_idx_choi in range(2):
+        # `partial_channel` uses 1-indexed `sys` (sys=1 is the first subsystem,
+        # sys=2 is the second). Iterate 1..2, not 0..1.
+        for p_idx_choi in (1, 2):
             if not is_positive_semidefinite(
                 partial_channel(current_state, phi_choi_1975, sys=p_idx_choi, dim=dims_list),
                 atol=tol,
@@ -978,8 +1005,10 @@ def is_separable(
 
     # Breuer-Hall Maps (for even dimensional subsystems) [@breuer2006optimal],
     # [@hall2006indecomposable]
-    for p_idx_bh in range(2):  # Apply map to subsystem 0 (A), then subsystem 1 (B)
-        current_dim_bh = dims_list[p_idx_bh]  # Dimension of the subsystem map acts on
+    # `partial_channel` uses 1-indexed `sys` (sys=1 is the first subsystem,
+    # sys=2 is the second). Iterate 1..2 and index `dims_list` with `sys-1`.
+    for p_idx_bh in (1, 2):  # Apply map to subsystem 1 (A), then subsystem 2 (B)
+        current_dim_bh = dims_list[p_idx_bh - 1]  # Dimension of the subsystem map acts on
         if current_dim_bh > 0 and current_dim_bh % 2 == 0:  # Map defined for even dimensions
             phi_me_bh = max_entangled(current_dim_bh, False, False)
             phi_proj_bh = phi_me_bh @ phi_me_bh.conj().T
