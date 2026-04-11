@@ -58,6 +58,7 @@ def _iterative_product_state_subtraction(
     max_outer_iter: int = 50,
     n_restarts: int = 5,
     max_inner_iter: int = 25,
+    rng: np.random.Generator | None = None,
 ) -> bool:
     r"""Try to prove separability by iteratively subtracting product states.
 
@@ -74,12 +75,18 @@ def _iterative_product_state_subtraction(
     zero) or the iteration budget is exhausted — callers should treat
     ``False`` as inconclusive rather than as an entanglement verdict.
 
+    The `rng` parameter accepts a `numpy.random.Generator` for reproducible
+    restarts in tests. Callers that don't supply one get a fresh
+    non-deterministic generator, so production calls genuinely randomize
+    across restarts.
+
     This is a *one-sided* witness: the algorithm can prove separability
     constructively, but cannot disprove it.
     """
     dA, dB = dims[0], dims[1]
     residual = state.astype(complex, copy=True)
-    rng = np.random.default_rng(seed=0)
+    if rng is None:
+        rng = np.random.default_rng()
 
     for _outer in range(max_outer_iter):
         residual_trace = float(np.real(np.trace(residual)))
@@ -91,6 +98,12 @@ def _iterative_product_state_subtraction(
         tensor = residual.reshape(dA, dB, dA, dB)
         best_overlap = 0.0
         best_prod_vec: np.ndarray | None = None
+        # Both the inner-loop convergence threshold and the outer "stuck"
+        # threshold scale with the current residual trace, so a small
+        # residual (or a high-dimension diffuse residual) doesn't get
+        # spuriously declared stuck when the best achievable overlap is
+        # naturally below an absolute `tol`.
+        scaled_tol = tol * max(1.0, residual_trace)
         for _ in range(n_restarts):
             psi = rng.standard_normal(dA) + 1j * rng.standard_normal(dA)
             psi /= np.linalg.norm(psi)
@@ -116,7 +129,7 @@ def _iterative_product_state_subtraction(
 
                 prod_vec = np.kron(psi, phi)
                 overlap = float(np.real(prod_vec.conj() @ residual @ prod_vec))
-                if abs(overlap - prev_overlap) < tol:
+                if abs(overlap - prev_overlap) < scaled_tol:
                     break
                 prev_overlap = overlap
 
@@ -124,7 +137,7 @@ def _iterative_product_state_subtraction(
                 best_overlap = overlap
                 best_prod_vec = prod_vec
 
-        if best_prod_vec is None or best_overlap < tol:
+        if best_prod_vec is None or best_overlap < scaled_tol:
             return False  # Stuck: no product state with non-trivial overlap.
 
         # Subtract as much of |prod><prod| as keeps the residual PSD.
@@ -351,13 +364,14 @@ def is_separable(
               Ha-Kye and Breuer-Hall witnesses, DPS hierarchy) are skipped.
               Useful when you want a cheap answer or are batch-processing
               many states and only care about the easy cases.
-            - `strength = 1` (default) — runs everything implemented today,
-              matching the function's behavior prior to the `strength`
-              parameter existing.
+            - `strength = 1` (default) — runs every check currently
+              implemented in the function, including the iterative
+              product-state subtraction constructive witness (section 12b)
+              that was added alongside this parameter's expansion.
             - `strength >= 2` — reserved for future expensive criteria
-              (Filter CMC, iterative product-state subtraction, additional
-              positive maps, refined Breuer/Horodecki conditions); currently
-              equivalent to `strength = 1`.
+              (Filter CMC, additional positive maps, refined
+              Breuer/Horodecki conditions); currently equivalent to
+              `strength = 1`.
             - `strength = -1` — alias for "run every implemented check".
               Currently equivalent to `strength = 1`, will grow with future
               additions.
