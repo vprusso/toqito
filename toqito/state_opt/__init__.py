@@ -4,7 +4,7 @@ These optimizations over the quantum states return optimal results. They are lis
 """
 
 from toqito.state_opt.optimal_clone import optimal_clone
-from toqito.state_opt.ppt_distinguishability import ppt_distinguishability
+from toqito.matrix_props import has_same_dimension as _has_same_dimension  # noqa: F401
 from toqito.state_opt.state_distinguishability import state_distinguishability
 from toqito.state_opt.state_exclusion import state_exclusion
 from toqito.state_opt.npa_hierarchy import npa_constraints, bell_npa_constraints

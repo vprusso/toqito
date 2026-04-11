@@ -4,6 +4,7 @@ The following tutorials cover quantum state analysis:
 
 - [Quantum state distinguishability](quantum_states/state_distinguishability.md)
 - [Quantum state exclusion](quantum_states/state_exclusion.md)
+- [Separability and entanglement testing](quantum_states/separability.md)
 - [Quantum classification, factor width, k-incoherence](quantum_states/classification.md)
 - [Antidistinguishability of Circulant States and the Eigenvalue Criterion](quantum_states/circulant_states.md)
 - [Equiangular States and the Antidistinguishability Threshold](quantum_states/equiangular_threshold.md)
