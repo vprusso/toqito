@@ -10,8 +10,8 @@ from toqito.perms import permute_systems
 
 def partial_trace(
     input_mat: np.ndarray | Variable,
-    sys: int | list[int] | None = None,
-    dim: int | list[int] | np.ndarray | None = None,
+    sys: int | list[int] | tuple | None = None,
+    dim: int | list[int] | tuple | np.ndarray | None = None,
 ) -> np.ndarray | Expression:
     r"""Compute the partial trace of a matrix [@wikipediapartialtrace].
 
@@ -26,104 +26,6 @@ def partial_trace(
     operators over complex Euclidean spaces \(\mathcal{X}\) and \(\mathcal{Y}\).
 
     Gives the partial trace of the matrix X, where the dimensions of the (possibly more than 2)
-    subsystems are given by the vector :code:`dim` and the subsystems to take the trace on are
-    given by the scalar or vector :code:`sys`.
-
-    Examples
-    ==========
-
-    Consider the following matrix
-
-    .. math::
-        X = \begin{pmatrix}
-                1 & 2 & 3 & 4 \\
-                5 & 6 & 7 & 8 \\
-                9 & 10 & 11 & 12 \\
-                13 & 14 & 15 & 16
-            \end{pmatrix}.
-
-    Taking the partial trace over the second subsystem of :math:`X` yields the following matrix
-
-    .. math::
-        X_{pt, 2} = \begin{pmatrix}
-                    7 & 11 \\
-                    23 & 27
-                 \end{pmatrix}.
-
-    By default, the partial trace function in :code:`|toqito⟩` takes the trace of the second
-    subsystem.
-
-    .. jupyter-execute::
-
-     import numpy as np
-     from toqito.matrix_ops import partial_trace
-
-     test_input_mat = np.arange(1, 17).reshape(4, 4)
-
-     partial_trace(test_input_mat)
-
-
-    By specifying the :code:`sys = [0]` argument, we can perform the partial trace over the first
-    subsystem (instead of the default second subsystem as done above). Performing the partial
-    trace over the first subsystem yields the following matrix
-
-    .. math::
-        X_{pt, 1} = \begin{pmatrix}
-                        12 & 14 \\
-                        20 & 22
-                    \end{pmatrix}
-
-    .. jupyter-execute::
-
-     import numpy as np
-     from toqito.matrix_ops import partial_trace
-
-     test_input_mat = np.arange(1, 17).reshape(4, 4)
-
-     partial_trace(test_input_mat, [0])
-
-    We can also specify both dimension and system size as :code:`list` arguments. Consider the
-    following :math:`16`-by-:math:`16` matrix.
-
-    .. jupyter-execute::
-
-     import numpy as np
-     from toqito.matrix_ops import partial_trace
-
-     test_input_mat = np.arange(1, 257).reshape(16, 16)
-     test_input_mat
-
-
-    We can take the partial trace on the first and third subsystems and assume that the size of
-    each of the 4 systems is of dimension 2.
-
-    .. jupyter-execute::
-
-     import numpy as np
-     from toqito.matrix_ops import partial_trace
-
-     partial_trace(test_input_mat, [0, 2], [2, 2, 2, 2])
-
-
-    References
-    ==========
-    .. footbibliography::
-
-
-
-    :raises ValueError: If :code:`input_mat` is not a 2D square matrix.
-    :raises ValueError: If :code:`dim` is not an :code:`int`, :code:`list`, :code:`tuple`, or
-                        :code:`numpy.ndarray` of ints.
-    :raises ValueError: If :code:`dim` is a scalar that does not evenly divide the matrix dimension.
-    :raises ValueError: If the product of :code:`dim` does not match the matrix dimension.
-    :raises ValueError: If any index in :code:`sys` is negative or out of bounds.
-    :raises ValueError: If :code:`sys` is not an :code:`int` or a list of ints.
-    :param input_mat: A square matrix.
-    :param sys: Scalar or vector specifying the size of the subsystems.
-    :param dim: Dimension of the subsystems. If :code:`None`, all dimensions are assumed to be
-                equal. Accepted types are :code:`int`, :code:`list`, :code:`tuple`, or
-                :code:`numpy.ndarray`.
-    :return: The partial trace of matrix :code:`input_mat`.
     subsystems are given by the vector `dim` and the subsystems to take the trace on are
     given by the scalar or vector `sys`.
 
@@ -131,12 +33,18 @@ def partial_trace(
         input_mat: A square matrix.
         sys: Scalar or vector specifying the size of the subsystems.
         dim: Dimension of the subsystems. If `None`, all dimensions are assumed to be equal.
+            Accepted types are `int`, `list`, `tuple`, or `numpy.ndarray`.
 
     Returns:
         The partial trace of matrix `input_mat`.
 
     Raises:
-        ValueError: If matrix dimension is not equal to the number of subsystems.
+        ValueError: If `input_mat` is not a 2D square matrix.
+        ValueError: If `dim` is not an `int`, `list`, `tuple`, or `numpy.ndarray` of ints.
+        ValueError: If `dim` is a scalar that does not evenly divide the matrix dimension.
+        ValueError: If the product of `dim` does not match the matrix dimension.
+        ValueError: If any index in `sys` is negative or out of bounds.
+        ValueError: If `sys` is not an `int`, `list`, `tuple`, or `numpy.ndarray` of ints.
 
     Examples:
         Consider the following matrix
@@ -229,27 +137,20 @@ def partial_trace(
     if dim is None:
         d = int(round(np.sqrt(n)))
         if d * d != n:
-            raise ValueError(
-                "Cannot infer subsystem dimensions directly. Please provide `dim`."
-            )
+            raise ValueError("Cannot infer subsystem dimensions directly. Please provide `dim`.")
         dim = np.array([d, d])
     elif isinstance(dim, int):
         if n % dim != 0:
-            raise ValueError(
-                "Invalid: If `dim` is a scalar, it must evenly divide matrix dimension."
-            )
+            raise ValueError("Invalid: If `dim` is a scalar, it must evenly divide matrix dimension.")
         dim = np.array([dim, n // dim])
     elif isinstance(dim, (list, tuple, np.ndarray)):
-        dim = np.array(dim)
+        dim = np.asarray(dim)
         if dim.ndim != 1:
             raise ValueError("Invalid: `dim` must be a 1D array-like of ints.")
         if len(dim) == 1:
             d = dim[0]
             if n % d != 0:
-                raise ValueError(
-                    "Invalid: If `dim` is a scalar, it must evenly divide matrix dimension."
-                )
-
+                raise ValueError("Invalid: If `dim` is a scalar, it must evenly divide matrix dimension.")
             dim = np.array([d, n // d])
     else:
         raise ValueError("Invalid: `dim` must be int or array-like of ints.")
@@ -267,16 +168,14 @@ def partial_trace(
         prod_dim_sys = dim[sys]
         sys = np.array([sys])
 
-    elif isinstance(sys, (list, np.ndarray)):
+    elif isinstance(sys, (list, tuple, np.ndarray)):
         if any(s < 0 or s >= num_sys for s in sys):
             raise ValueError("Subsystem indices in `sys` are out of bounds.")
         prod_dim_sys = int(np.prod([dim[i] for i in sys]))
         sys = np.array(sys)
 
     else:
-        raise ValueError(
-            "Invalid: The variable `sys` must either be of type int or of a list of ints."
-        )
+        raise ValueError("Invalid: The variable `sys` must either be of type int or of a list of ints.")
 
     sub_prod = prod_dim // prod_dim_sys
     sub_sys_size = prod_dim_sys
