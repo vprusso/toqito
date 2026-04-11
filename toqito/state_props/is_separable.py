@@ -22,6 +22,7 @@ def is_separable(
     dim: None | int | list[int] = None,
     level: int = 2,
     tol: float = 1e-8,
+    strength: int = 1,
 ) -> tuple[bool, str]:
     r"""Determine if a given state (given as a density matrix) is a separable state [@wikipediaseparable].
 
@@ -162,11 +163,41 @@ def is_separable(
         state: The density matrix to check.
         dim: The dimension of the input state, e.g., [dim_A, dim_B]. Optional; inferred if None.
         level:
-            - The level for symmetric extension (DPS) hierarchy (default: 2)
-            - If 1, only PPT is checked.
-            - If >=2, checks for k-symmetric extension up to this level.
-            - If -1, attempts all implemented checks exhaustively (not all possible checks are implemented).
+            - Controls only the depth of the DPS symmetric-extension hierarchy
+              (default: 2). All other post-PPT checks run regardless of
+              `level` (provided `strength` does not cut them off early).
+            - If `level == 1` and the state is PPT, the function accepts the
+              state at the DPS stage via the "1-extendible" branch.
+            - If `level >= 2`, the function checks for a k-symmetric extension
+              for every k from 2 up to `level`.
+            - `strength == 0` triggers an early inconclusive return before the
+              DPS block is reached, so `level` is effectively ignored in that
+              mode (see `strength` below).
         tol: Numerical tolerance (default: 1e-8).
+        strength:
+            Controls how thoroughly the function checks for separability. `strength`
+            picks *which* families of checks run; `level` continues to pick *how
+            deep* the DPS hierarchy goes once DPS is running.
+
+            - `strength = 0` — quick-check mode. Runs only the fast
+              pre-checks (trivial cases, pure-state Schmidt rank,
+              Gurvits-Barnum separable ball, PPT, and the PPT <= 6 dimension
+              sufficiency), then returns an inconclusive verdict. All later
+              checks (3x3 rank-4 Plucker, Horodecki rank bounds, reduction,
+              realignment/CCNR, Vidal-Tarrach, 2xN Johnston/Hildebrand,
+              Ha-Kye and Breuer-Hall witnesses, DPS hierarchy) are skipped.
+              Useful when you want a cheap answer or are batch-processing
+              many states and only care about the easy cases.
+            - `strength = 1` (default) — runs everything implemented today,
+              matching the function's behavior prior to the `strength`
+              parameter existing.
+            - `strength >= 2` — reserved for future expensive criteria
+              (Filter CMC, iterative product-state subtraction, additional
+              positive maps, refined Breuer/Horodecki conditions); currently
+              equivalent to `strength = 1`.
+            - `strength = -1` — alias for "run every implemented check".
+              Currently equivalent to `strength = 1`, will grow with future
+              additions.
 
     Returns:
         A 2-tuple `(separable, reason)` where `separable` is `True` if a sufficient
@@ -270,6 +301,19 @@ def is_separable(
         raise TypeError("Input state must be a NumPy array.")
     if state.ndim != 2 or state.shape[0] != state.shape[1]:
         raise ValueError("Input state must be a square matrix.")
+
+    # Validate and normalize `strength`. Documented values are -1, 0, and any
+    # integer >= 1; anything else (including bools, floats, and other negatives)
+    # is rejected so typos don't silently behave like the full run.
+    if isinstance(strength, bool) or not isinstance(strength, (int, np.integer)):
+        raise ValueError(f"`strength` must be an int; got {type(strength).__name__}.")
+    if strength < -1:
+        raise ValueError(f"`strength` must be -1, 0, or a positive integer; got {strength}.")
+    # Normalize: -1 and any value >= 1 all mean "run every implemented check",
+    # which today is identical behavior. Collapse them to 1 so downstream logic
+    # only has to distinguish 0 vs non-0.
+    if strength != 0:
+        strength = 1
 
     # Define the smallest number computer can represent to avoid numerical issues.
     # This is used to determine the machine epsilon for numerical significance checks.
@@ -407,6 +451,16 @@ def is_separable(
         # For dA * dB <= 6, PPT is necessary and sufficient for separability
         # [@horodecki1996separability].
         return True, "PPT with d_A * d_B <= 6 (Horodecki 1996)"
+
+    # ----- Strength cutoff -----
+    # At `strength == 0`, only the fast pre-checks above (trivial, pure state,
+    # separable ball, PPT, PPT <= 6) run. Everything below this point — the
+    # 3x3 rank-4 Plucker determinant, Horodecki rank bounds, reduction,
+    # realignment/CCNR, Vidal-Tarrach, 2xN conditions, Ha-Kye/Breuer-Hall
+    # witnesses, and the DPS hierarchy — is skipped, and the function returns
+    # an inconclusive verdict. This is the "quick check" mode.
+    if strength == 0:
+        return False, "inconclusive: strength=0 capped after PPT pre-checks"
 
     # --- 6. 3x3 Rank-4 PPT N&S Check (Plucker/Breuer/Chen&Djokovic) ---
     # This checks if a 3x3 PPT state of rank 4 is separable.

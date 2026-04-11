@@ -949,3 +949,79 @@ def test_return_reason_tracks_npt_branch():
     # Match on "NPT" / "Peres-Horodecki" specifically — "PPT" alone would also
     # match the inconclusive fallback reason and wouldn't catch a regression.
     assert "NPT" in reason and "Peres-Horodecki" in reason
+
+
+# --- Tests for the `strength` parameter ---
+
+
+def _upb_tile_state() -> np.ndarray:
+    """3x3 rank-4 PPT-entangled state built from the tile UPB (I - sum of tile projectors) / 4.
+
+    Used by the strength-parameter tests to exercise the Plucker branch at
+    strength=1 vs. the early-cutoff at strength=0. Not a fixture so a couple
+    of small tests can call it directly without indirection.
+    """
+    rho = np.identity(9)
+    for i in range(5):
+        rho = rho - tile(i) @ tile(i).conj().T
+    return rho / 4
+
+
+def test_strength_zero_caps_after_ppt_prechecks_on_upb_tile():
+    """strength=0 stops early on a UPB tile PPT-entangled state.
+
+    At strength=1 the 3x3 rank-4 Plucker check catches it as entangled; at
+    strength=0 everything after PPT <= 6 is skipped, so the function returns
+    the 'strength=0 capped' inconclusive fallback.
+    """
+    rho = _upb_tile_state()
+
+    sep_default, reason_default = is_separable(rho, dim=[3, 3])
+    assert sep_default is False
+    assert "Plucker" in reason_default
+
+    sep_fast, reason_fast = is_separable(rho, dim=[3, 3], strength=0)
+    assert sep_fast is False
+    assert "strength=0 capped" in reason_fast
+
+
+def test_strength_zero_still_catches_tier_zero_criteria():
+    """strength=0 must still catch the fast sufficient/necessary conditions.
+
+    The maximally mixed 2x2 state is separable and hits one of the tier-0
+    branches (Gurvits-Barnum ball or PPT<=6); a mixed NPT state is entangled
+    and hits the PPT criterion — both must fire regardless of strength.
+    """
+    sep_mixed, reason_mixed = is_separable(np.eye(4) / 4, dim=[2, 2], strength=0)
+    assert sep_mixed is True
+    assert "strength=0 capped" not in reason_mixed  # should NOT be the fallback
+
+    # Use a mixed NPT state (not a pure Bell) so PPT fires, not Schmidt rank.
+    rho_bell = bell(0) @ bell(0).conj().T
+    rho_npt_mixed = 0.9 * rho_bell + 0.1 * np.eye(4) / 4
+    sep_bell, reason_bell = is_separable(rho_npt_mixed, strength=0)
+    assert sep_bell is False
+    assert "NPT" in reason_bell
+
+
+def test_strength_minus_one_matches_default():
+    """strength=-1 ('everything') is equivalent to strength=1 today."""
+    rho = _upb_tile_state()
+    assert is_separable(rho, dim=[3, 3], strength=1) == is_separable(rho, dim=[3, 3], strength=-1)
+
+
+@pytest.mark.parametrize(
+    "bad_strength, match",
+    [
+        (1.5, "must be an int"),
+        ("fast", "must be an int"),
+        (None, "must be an int"),
+        (True, "must be an int"),
+        (-2, "must be -1, 0, or a positive integer"),
+        (-10, "must be -1, 0, or a positive integer"),
+    ],
+)
+def test_strength_validation_rejects_invalid(bad_strength, match):
+    """Invalid `strength` values are rejected rather than silently treated as the full run."""
+    with pytest.raises(ValueError, match=match):
+        is_separable(np.eye(4) / 4, dim=[2, 2], strength=bad_strength)
