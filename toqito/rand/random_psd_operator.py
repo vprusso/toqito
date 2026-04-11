@@ -1,6 +1,7 @@
 """Generates a random positive semidefinite operator."""
 
 import warnings
+from typing import Literal
 
 import numpy as np
 
@@ -11,7 +12,7 @@ def random_psd_operator(
     dim: int,
     is_real: bool = False,
     seed: int | None = None,
-    distribution: str = "uniform",
+    distribution: Literal["uniform", "wishart"] = "uniform",
     scale: np.ndarray | None = None,
     num_degrees: int | None = None,
 ) -> np.ndarray:
@@ -122,6 +123,7 @@ def random_psd_operator(
         if scale is None:
             scale = np.eye(dim)
         else:
+            scale = np.asarray(scale)
             if scale.shape != (dim, dim):
                 raise ValueError(f"scale must be a {dim}x{dim} matrix, got {scale.shape}.")
             if not is_positive_semidefinite(scale):
@@ -129,7 +131,7 @@ def random_psd_operator(
 
         if num_degrees is None:
             num_degrees = dim
-        if num_degrees < 1:
+        if not isinstance(num_degrees, (int, np.integer)) or num_degrees < 1:
             raise ValueError("num_degrees must be a positive integer.")
         if num_degrees < dim:
             warnings.warn(

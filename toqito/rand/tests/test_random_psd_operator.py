@@ -134,14 +134,14 @@ def test_random_psd_operator(dim, is_real, distribution):
 )
 def test_random_psd_operator_with_seed(dim, is_real, seed, distribution, expected_mat):
     """Test that random_psd_operator function returns the expected output when seeded."""
-    # rtol=1e-6 used due to floating-point accumulation in Wishart matrix construction.
+    # rtol=1e-6 used due to cross-platform BLAS/LAPACK nondeterminism.
     matrix = random_psd_operator(dim, is_real, seed, distribution=distribution)
     assert_allclose(matrix, expected_mat, rtol=1e-6)
 
 
 def test_random_psd_operator_invalid_distribution():
     """Test that invalid distribution raises ValueError."""
-    with pytest.raises(ValueError):
+    with pytest.raises(ValueError, match="Supported options"):
         random_psd_operator(4, distribution="invalid")
 
 
