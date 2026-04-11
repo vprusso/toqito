@@ -11,7 +11,10 @@ from toqito.matrix_props.trace_norm import trace_norm
 from toqito.rand import random_density_matrix
 from toqito.state_props import is_separable
 from toqito.state_props.is_ppt import is_ppt
-from toqito.state_props.is_separable import _choi_1975_choi_matrix
+from toqito.state_props.is_separable import (
+    _choi_1975_choi_matrix,
+    _iterative_product_state_subtraction,
+)
 from toqito.states import basis, bell, horodecki, isotropic, max_entangled, tile
 
 # --- Parameterized Tests for Invalid Inputs ---
@@ -1165,3 +1168,61 @@ def test_rank_marginal_horodecki_is_separable_3x4_low_rank():
     # exact partial-transpose rank; we just need the verdict to be correct and
     # the Horodecki family to have flagged it.
     assert "Horodecki" in reason
+
+
+# --- Tests for iterative product-state subtraction (#1244) ---
+
+
+def test_iter_sub_decomposes_product_state_2x2():
+    """A plain product state should be decomposed constructively."""
+    rho = np.kron(np.eye(2) / 2, np.diag([0.7, 0.3]))
+    assert _iterative_product_state_subtraction(rho, [2, 2], tol=1e-8) is True
+
+
+def test_iter_sub_decomposes_classical_mixture_2x2():
+    """A diagonal classical-correlation state is separable and decomposable."""
+    e0, e1 = basis(2, 0), basis(2, 1)
+    p00 = np.kron(e0, e0)
+    p11 = np.kron(e1, e1)
+    rho = 0.6 * (p00 @ p00.conj().T) + 0.4 * (p11 @ p11.conj().T)
+    assert _iterative_product_state_subtraction(rho, [2, 2], tol=1e-8) is True
+
+
+def test_iter_sub_decomposes_mixture_of_four_product_states_3x3():
+    """A rank-4 separable mixture in 3x3 is decomposed constructively."""
+    e = [basis(3, i) for i in range(3)]
+    projs = [np.outer(np.kron(e[i], e[j]), np.kron(e[i], e[j]).conj()) for (i, j) in [(0, 0), (1, 1), (2, 2), (0, 1)]]
+    rho = sum(projs) / 4
+    assert _iterative_product_state_subtraction(rho, [3, 3], tol=1e-8) is True
+
+
+def test_iter_sub_decomposes_maximally_mixed_via_separable_ball():
+    """The maximally mixed state is inside the Gurvits-Barnum ball on the very first outer iteration."""
+    assert _iterative_product_state_subtraction(np.eye(9) / 9, [3, 3], tol=1e-8) is True
+
+
+def test_iter_sub_rejects_bell_state():
+    """A maximally entangled state cannot be constructively decomposed."""
+    rho = bell(0) @ bell(0).conj().T
+    assert _iterative_product_state_subtraction(rho, [2, 2], tol=1e-8) is False
+
+
+def test_iter_sub_rejects_upb_tile_ppt_entangled():
+    """The UPB tile state is PPT entangled; the algorithm should fail to decompose it."""
+    rho = np.identity(9)
+    for i in range(5):
+        rho = rho - tile(i) @ tile(i).conj().T
+    rho = rho / 4
+    assert _iterative_product_state_subtraction(rho, [3, 3], tol=1e-8) is False
+
+
+def test_iter_sub_respects_iteration_budget_on_entangled_state():
+    """Budget exhaustion returns False without hanging or raising."""
+    rho = bell(0) @ bell(0).conj().T
+    # Run with a tighter budget and confirm we still get a clean False.
+    assert (
+        _iterative_product_state_subtraction(
+            rho, [2, 2], tol=1e-8, max_outer_iter=5, n_restarts=2, max_inner_iter=5
+        )
+        is False
+    )

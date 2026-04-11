@@ -51,6 +51,106 @@ def _choi_1975_choi_matrix() -> np.ndarray:
     return choi
 
 
+def _iterative_product_state_subtraction(
+    state: np.ndarray,
+    dims: list[int],
+    tol: float,
+    max_outer_iter: int = 50,
+    n_restarts: int = 5,
+    max_inner_iter: int = 25,
+) -> bool:
+    r"""Try to prove separability by iteratively subtracting product states.
+
+    Loosely modelled on QETLAB's ``sk_iterate`` (with ``s = 1``) and the
+    Gühne method [@guhne2009entanglement]. At each outer iteration, run
+    alternating rank-1 maximization (with a handful of random restarts) to
+    find a product state :math:`|\psi\rangle|\phi\rangle` with high overlap
+    on the residual state, then subtract as much of
+    :math:`|\psi\rangle\langle\psi| \otimes |\phi\rangle\langle\phi|` as
+    positivity allows (via a geometric backoff search). Returns ``True`` if
+    the residual eventually enters the Gurvits-Barnum separable ball or
+    shrinks to numerical zero. Returns ``False`` if the loop stalls
+    (no product state with non-trivial overlap, or subtraction driven to
+    zero) or the iteration budget is exhausted — callers should treat
+    ``False`` as inconclusive rather than as an entanglement verdict.
+
+    This is a *one-sided* witness: the algorithm can prove separability
+    constructively, but cannot disprove it.
+    """
+    dA, dB = dims[0], dims[1]
+    residual = state.astype(complex, copy=True)
+    rng = np.random.default_rng(seed=0)
+
+    for _outer in range(max_outer_iter):
+        residual_trace = float(np.real(np.trace(residual)))
+        if residual_trace < tol:
+            return True  # Fully decomposed into product states.
+        if in_separable_ball(residual / residual_trace):
+            return True  # Residual fell into the Gurvits-Barnum ball.
+
+        tensor = residual.reshape(dA, dB, dA, dB)
+        best_overlap = 0.0
+        best_prod_vec: np.ndarray | None = None
+        for _ in range(n_restarts):
+            psi = rng.standard_normal(dA) + 1j * rng.standard_normal(dA)
+            psi /= np.linalg.norm(psi)
+            phi = rng.standard_normal(dB) + 1j * rng.standard_normal(dB)
+            phi /= np.linalg.norm(phi)
+
+            prev_overlap = -np.inf
+            overlap = 0.0
+            for _inner in range(max_inner_iter):
+                # Fix phi, maximize over psi: top eigenvector of
+                # M_psi[i, k] = sum_{j, l} conj(phi_j) T[i, j, k, l] phi_l.
+                m_psi = np.einsum("j,ijkl,l->ik", np.conj(phi), tensor, phi)
+                m_psi = (m_psi + m_psi.conj().T) / 2.0
+                _, vecs = np.linalg.eigh(m_psi)
+                psi = vecs[:, -1]
+
+                # Fix psi, maximize over phi: top eigenvector of
+                # M_phi[j, l] = sum_{i, k} conj(psi_i) T[i, j, k, l] psi_k.
+                m_phi = np.einsum("i,ijkl,k->jl", np.conj(psi), tensor, psi)
+                m_phi = (m_phi + m_phi.conj().T) / 2.0
+                _, vecs = np.linalg.eigh(m_phi)
+                phi = vecs[:, -1]
+
+                prod_vec = np.kron(psi, phi)
+                overlap = float(np.real(prod_vec.conj() @ residual @ prod_vec))
+                if abs(overlap - prev_overlap) < tol:
+                    break
+                prev_overlap = overlap
+
+            if overlap > best_overlap:
+                best_overlap = overlap
+                best_prod_vec = prod_vec
+
+        if best_prod_vec is None or best_overlap < tol:
+            return False  # Stuck: no product state with non-trivial overlap.
+
+        # Subtract as much of |prod><prod| as keeps the residual PSD.
+        # Start with the full overlap and back off geometrically on PSD failure.
+        # If the product state has a component in the null space of the residual,
+        # no positive subtraction is possible and the backoff drives s below tol.
+        prod_proj = np.outer(best_prod_vec, best_prod_vec.conj())
+        s_subtract = best_overlap
+        accepted = False
+        for _backoff in range(40):
+            candidate = residual - s_subtract * prod_proj
+            candidate = (candidate + candidate.conj().T) / 2.0
+            min_eig = float(np.linalg.eigvalsh(candidate)[0])
+            if min_eig >= -tol:
+                residual = candidate
+                accepted = True
+                break
+            s_subtract *= 0.5
+            if s_subtract < tol:
+                break
+        if not accepted:
+            return False  # Backoff exhausted; algorithm is stuck.
+
+    return False  # Iteration budget exhausted.
+
+
 def is_separable(
     state: np.ndarray,
     dim: None | int | list[int] = None,
@@ -188,6 +288,19 @@ def is_separable(
         - **Breuer-Hall Maps (even dimensions)** [@breuer2006optimal], [@hall2006indecomposable]:
           Maps based on antisymmetric unitary matrices, applicable when a subsystem
           has even dimension.
+
+    12b. **Iterative Product-State Subtraction (Gühne / sk_iterate)**:
+
+        A constructive sufficient test for separability. Uses alternating
+        rank-1 maximization (with a handful of random restarts) to find a
+        product state \(|\psi\rangle|\phi\rangle\) with high overlap on
+        the residual density matrix, then subtracts as much of
+        \(|\psi\rangle\langle\psi| \otimes |\phi\rangle\langle\phi|\) as
+        positivity allows and repeats. If the residual shrinks into the
+        Gurvits-Barnum separable ball or to numerical zero, the state is
+        declared separable. Otherwise the algorithm falls through silently
+        to the DPS hierarchy below — this is a *one-sided* witness and
+        never returns an entanglement verdict.
 
     13. **Symmetric Extension Hierarchy (DPS)** [@doherty2004complete]:
 
@@ -871,6 +984,16 @@ def is_separable(
             mapped_state_bh = partial_channel(current_state, Phi_bh_map_choi, sys=p_idx_bh, dim=dims_list)
             if not is_positive_semidefinite(mapped_state_bh, atol=tol, rtol=tol):
                 return False, f"Breuer-Hall positive-map witness (on subsystem {p_idx_bh}, dim={current_dim_bh})"
+
+    # --- 12b. Iterative Product-State Subtraction (Guhne / sk_iterate) ---
+    # Try to constructively prove separability by iteratively finding and
+    # subtracting product states from the residual. This is a one-sided
+    # witness: if it succeeds, the state is separable; if it stalls, the
+    # caller falls through to DPS. We run it before DPS because a successful
+    # constructive proof is cheaper than a full SDP solve, and because DPS
+    # gives only a hierarchy-level verdict rather than a decomposition.
+    if _iterative_product_state_subtraction(current_state, dims_list, tol):
+        return True, "iterative product-state subtraction decomposed the state (Guhne / sk_iterate)"
 
     # --- 13. Symmetric Extension Hierarchy (DPS) ---
     # A state is separable iff it has a k-symmetric extension for all k [@doherty2004complete].
