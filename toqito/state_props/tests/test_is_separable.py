@@ -1100,15 +1100,17 @@ def test_choi_1975_choi_matrix_structure():
             assert J[r, c] == 0.0
 
 
-def test_choi_1975_map_is_positive_but_not_completely_positive():
-    """Choi matrix has a negative eigenvalue, confirming the map is not CP."""
+def test_choi_1975_choi_matrix_is_not_psd():
+    """Choi matrix has a negative eigenvalue, so the map is not completely positive.
+
+    (Positivity of the underlying map is a separate property — block positivity
+    of the Choi matrix — which this test does not check.)
+    """
     J = _choi_1975_choi_matrix()
     eigvals = np.sort(np.real(np.linalg.eigvalsh((J + J.conj().T) / 2)))
-    # Expect one -1 eigenvalue and positive eigenvalues above; in particular,
-    # the smallest eigenvalue must be strictly negative (non-CP).
+    # Not PSD: smallest eigenvalue must be strictly negative.
     assert eigvals[0] < -0.5
-    # Map is positive overall (it has some positive eigenvalues), confirming
-    # the Choi matrix isn't identically zero.
+    # Nonzero: largest eigenvalue must be strictly positive.
     assert eigvals[-1] > 0.5
 
 

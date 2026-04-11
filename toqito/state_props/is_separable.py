@@ -173,11 +173,13 @@ def is_separable(
             - A condition based on the Frobenius norm of block \(B\) compared to
               eigenvalues of blocks \(A\) and \(C\).
 
-    12. **Decomposable Maps / Entanglement Witnesses**:
-        These tests apply positive but not completely positive (NCP) maps. If the resulting state is not PSD,
-        the original state is entangled.
+    12. **Positive (but not completely positive) Maps / Entanglement Witnesses**:
+        These tests apply positive but not completely positive maps. If the resulting state is not PSD,
+        the original state is entangled. Both decomposable and indecomposable maps appear in this section
+        (e.g. Choi's 1975 map and Breuer-Hall are indecomposable; the Ha-Kye family contains both
+        decomposable and indecomposable members depending on its parameter).
 
-        - **Choi's 1975 Map (3x3 systems)** [@choi1975]: The canonical
+        - **Choi's 1975 Map (3x3 systems)** [@choi1975]: A canonical
           indecomposable positive map on \(M_3\), applied to both subsystems
           in turn. Distinct from (and complementary to) the Ha-Kye parametric
           family below.
@@ -795,7 +797,12 @@ def is_separable(
                 except np.linalg.LinAlgError:
                     pass  # Eigenvalue computation failed
 
-    # --- 12. Decomposable Maps (Positive but not Completely Positive Maps as Witnesses) ---
+    # --- 12. Positive (but not Completely Positive) Map Witnesses ---
+    # This section mixes decomposable and indecomposable positive maps — Choi's
+    # 1975 map and Breuer-Hall are indecomposable, while the Ha-Kye family
+    # contains both decomposable and indecomposable members depending on its
+    # parameter. They are all used as entanglement witnesses via partial_channel.
+    #
     # Choi's 1975 indecomposable positive map on M_3 [@choi1975].
     # The map Phi_Choi: M_3 -> M_3 acts as
     #     Phi(A)_{00} = A_{00} + A_{22},
