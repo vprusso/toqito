@@ -11,7 +11,10 @@ from toqito.matrix_props.trace_norm import trace_norm
 from toqito.rand import random_density_matrix
 from toqito.state_props import is_separable
 from toqito.state_props.is_ppt import is_ppt
-from toqito.state_props.is_separable import _choi_1975_choi_matrix
+from toqito.state_props.is_separable import (
+    _choi_1975_choi_matrix,
+    _iterative_product_state_subtraction,
+)
 from toqito.states import basis, bell, horodecki, isotropic, max_entangled, tile
 
 # --- Parameterized Tests for Invalid Inputs ---
@@ -1165,3 +1168,148 @@ def test_rank_marginal_horodecki_is_separable_3x4_low_rank():
     # exact partial-transpose rank; we just need the verdict to be correct and
     # the Horodecki family to have flagged it.
     assert "Horodecki" in reason
+
+
+# --- Tests for iterative product-state subtraction (#1244) ---
+# The helper defaults to a fresh non-deterministic Generator; tests pass a
+# fixed-seed rng for reproducibility so a single rare unlucky restart can't
+# flake the suite.
+
+
+def _rng():
+    return np.random.default_rng(seed=20260601)
+
+
+def test_iter_sub_decomposes_product_state_2x2():
+    """A plain product state should be decomposed constructively."""
+    rho = np.kron(np.eye(2) / 2, np.diag([0.7, 0.3]))
+    assert _iterative_product_state_subtraction(rho, [2, 2], tol=1e-8, rng=_rng()) is True
+
+
+def test_iter_sub_decomposes_classical_mixture_2x2():
+    """A diagonal classical-correlation state is separable and decomposable."""
+    e0, e1 = basis(2, 0), basis(2, 1)
+    p00 = np.kron(e0, e0)
+    p11 = np.kron(e1, e1)
+    rho = 0.6 * (p00 @ p00.conj().T) + 0.4 * (p11 @ p11.conj().T)
+    assert _iterative_product_state_subtraction(rho, [2, 2], tol=1e-8, rng=_rng()) is True
+
+
+def test_iter_sub_decomposes_mixture_of_four_product_states_3x3():
+    """A rank-4 separable mixture in 3x3 is decomposed constructively."""
+    e = [basis(3, i) for i in range(3)]
+    projs = [np.outer(np.kron(e[i], e[j]), np.kron(e[i], e[j]).conj()) for (i, j) in [(0, 0), (1, 1), (2, 2), (0, 1)]]
+    rho = sum(projs) / 4
+    assert _iterative_product_state_subtraction(rho, [3, 3], tol=1e-8, rng=_rng()) is True
+
+
+def test_iter_sub_decomposes_maximally_mixed_via_separable_ball():
+    """The maximally mixed state is inside the Gurvits-Barnum ball on the very first outer iteration."""
+    assert _iterative_product_state_subtraction(np.eye(9) / 9, [3, 3], tol=1e-8, rng=_rng()) is True
+
+
+def test_iter_sub_rejects_bell_state():
+    """A maximally entangled state cannot be constructively decomposed."""
+    rho = bell(0) @ bell(0).conj().T
+    assert _iterative_product_state_subtraction(rho, [2, 2], tol=1e-8, rng=_rng()) is False
+
+
+def test_iter_sub_rejects_upb_tile_ppt_entangled():
+    """The UPB tile state is PPT entangled; the algorithm should fail to decompose it."""
+    rho = np.identity(9)
+    for i in range(5):
+        rho = rho - tile(i) @ tile(i).conj().T
+    rho = rho / 4
+    assert _iterative_product_state_subtraction(rho, [3, 3], tol=1e-8, rng=_rng()) is False
+
+
+def test_iter_sub_respects_iteration_budget_on_entangled_state():
+    """Budget exhaustion returns False without hanging or raising."""
+    rho = bell(0) @ bell(0).conj().T
+    # Run with a tighter budget and confirm we still get a clean False.
+    assert (
+        _iterative_product_state_subtraction(
+            rho, [2, 2], tol=1e-8, max_outer_iter=5, n_restarts=2, max_inner_iter=5, rng=_rng()
+        )
+        is False
+    )
+
+
+def test_iter_sub_helper_is_deterministic_when_seeded():
+    """Reproducibility: two calls with the same seeded rng produce the same verdict."""
+    rho = bell(0) @ bell(0).conj().T
+    r1 = _iterative_product_state_subtraction(rho, [2, 2], tol=1e-8, rng=np.random.default_rng(seed=1))
+    r2 = _iterative_product_state_subtraction(rho, [2, 2], tol=1e-8, rng=np.random.default_rng(seed=1))
+    assert r1 == r2
+
+
+# --- Integration tests for is_separable's section 12b gating ---
+#
+# These tests use `rho_ent_symm`, a 3x3 PPT-entangled-looking state from the
+# existing `test_symm_ext_catches_hard_entangled_state` above, which fails all
+# earlier sufficient checks at default strength and reaches DPS naturally --
+# making it the only state in the suite that actually flows through section
+# 12b. The helper is mocked so the tests exercise the *wiring*, not the
+# algorithm itself (that's covered by the direct helper tests above).
+
+
+_RHO_ENT_SYMM_3x3_REACHES_12B = (
+    np.array(
+        [
+            [1.0, 0.67, 0.91, 0.67, 0.45, 0.61, 0.88, 0.59, 0.79],
+            [0.67, 1.0, 0.5, 0.45, 0.67, 0.34, 0.59, 0.88, 0.44],
+            [0.91, 0.5, 1.0, 0.61, 0.34, 0.68, 0.81, 0.44, 0.88],
+            [0.67, 0.45, 0.61, 1.0, 0.67, 0.91, 0.5, 0.33, 0.45],
+            [0.45, 0.67, 0.34, 0.67, 1.0, 0.5, 0.33, 0.5, 0.25],
+            [0.61, 0.34, 0.68, 0.91, 0.5, 1.0, 0.45, 0.26, 0.5],
+            [0.88, 0.59, 0.81, 0.5, 0.33, 0.45, 1.0, 0.66, 0.91],
+            [0.59, 0.88, 0.44, 0.33, 0.5, 0.26, 0.66, 1.0, 0.48],
+            [0.79, 0.44, 0.88, 0.45, 0.25, 0.5, 0.91, 0.48, 1.0],
+        ]
+    )
+    / 8.75
+)
+
+
+def test_is_separable_returns_iter_sub_reason_when_helper_succeeds():
+    """Surface the section 12b reason when the helper returns True.
+
+    This verifies that a successful iterative-subtraction run short-circuits
+    the DPS hierarchy and produces the expected reason string.
+    """
+    with mock.patch(
+        "toqito.state_props.is_separable._iterative_product_state_subtraction",
+        return_value=True,
+    ) as mocked:
+        sep, reason = is_separable(_RHO_ENT_SYMM_3x3_REACHES_12B, dim=[3, 3], level=2)
+    assert sep is True
+    assert "iterative product-state subtraction" in reason
+    assert mocked.called
+
+
+def test_is_separable_strength_zero_skips_iter_sub():
+    """Section 12b must not run at strength=0: the helper should never be called."""
+    with mock.patch(
+        "toqito.state_props.is_separable._iterative_product_state_subtraction",
+        return_value=True,
+    ) as mocked:
+        is_separable(_RHO_ENT_SYMM_3x3_REACHES_12B, dim=[3, 3], strength=0)
+    assert not mocked.called
+
+
+def test_is_separable_falls_through_when_iter_sub_returns_false():
+    """Section 12b returning False must be treated as inconclusive, not entangled.
+
+    When the helper returns False, is_separable must continue to DPS rather
+    than spuriously declaring the state entangled from section 12b.
+    """
+    with mock.patch(
+        "toqito.state_props.is_separable._iterative_product_state_subtraction",
+        return_value=False,
+    ):
+        sep, reason = is_separable(_RHO_ENT_SYMM_3x3_REACHES_12B, dim=[3, 3], level=2)
+    # The helper returning False is inconclusive, not an entanglement verdict,
+    # and DPS catches this state at level=2 via the "passed DPS ... up to
+    # level=2" branch. Either way, the 12b reason must not appear.
+    assert "iterative product-state subtraction" not in reason
+    assert sep is True  # DPS handles it at level=2
