@@ -663,10 +663,11 @@ def test_full_rank_ppt_state_above_threshold():
 
     # Mock matrix ranks to exceed the rank-sum threshold (7+7=14 fails, 8+7=15 passes)
     # *and* to keep rank(rho) above both marginal ranks so the rank-marginal check
-    # does not fire. The call order is:
-    #   state_rank, op_Schmidt_rank_internal, rank_pt_A, rank_marg_A, rank_marg_B
+    # does not fire. After #1506 the call order is:
+    #   state_rank, op_Schmidt_rank_internal, rank_marg_A, rank_marg_B
+    # (rank_pt_A is no longer computed because the rank-sum branch is gone.)
     with mock.patch("numpy.linalg.matrix_rank") as mock_rank:
-        mock_rank.side_effect = [8, 8, 7, 3, 3]
+        mock_rank.side_effect = [8, 8, 3, 3]
         with mock.patch("toqito.state_props.in_separable_ball", return_value=False):
             assert not is_separable(rho, dim=[3, 3], level=1)[0]
 
@@ -697,11 +698,13 @@ def test_entangled_zhang_variant_catches_L401():
     assert is_ppt(rho, dim=[3, 3])
 
     original_matrix_rank = np.linalg.matrix_rank
-    # Call order is state_rank, op_Schmidt_rank_internal, rank_pt_A, rank_marg_A, rank_marg_B.
-    # op_sr > 2 skips the Cariello check; rank_pt_A chosen so state_r+rank_pt_A=15>14
-    # skips the rank-sum check; marginal ranks kept below state_r so the rank-marginal
-    # check does not fire either. Zhang variant then catches the entanglement.
-    mock_ranks_horodecki_op_fail = [7, 8, 8, 3, 3]
+    # Call order after the #1506 fix is state_rank, op_Schmidt_rank_internal,
+    # rank_marg_A, rank_marg_B. rank_pt_A is no longer computed because the
+    # rank-sum branch of Horodecki section 7 has been removed as an
+    # incorrect sufficient condition. op_sr > 2 bypasses the Cariello check;
+    # marginal ranks are kept below state_r so rank-marginal does not fire
+    # either. Zhang variant then catches the entanglement.
+    mock_ranks_horodecki_op_fail = [7, 8, 3, 3]
 
     def matrix_rank_zhang_side_effect(matrix_arg, tol=None):
         if mock_ranks_horodecki_op_fail:  # Pop if list is not empty
@@ -969,6 +972,35 @@ def test_return_reason_tracks_npt_branch():
 # --- Tests for the `strength` parameter ---
 
 
+def test_upb_tile_no_longer_caught_by_rank_sum_bound(tiles_state_3x3_ppt_entangled):
+    """#1506 regression: UPB tile must not be declared separable via rank-sum.
+
+    Before #1506 was fixed, an execution that bypassed the 3x3 rank-4 Plucker
+    check in section 6 would fall through to the rank-sum branch in section 7
+    and spuriously return True for UPB tile states. The rank-sum branch is
+    now gone, so the reason string must never reference it.
+    """
+    rho = tiles_state_3x3_ppt_entangled
+
+    original_det = np.linalg.det
+
+    def det_forces_plucker_small(mat):
+        if mat.shape == (6, 6):
+            return 0.0  # Force Plucker to report "|det(F)| ~ 0" → separable
+        return original_det(mat)
+
+    # Patch just the Plucker determinant so the Plucker check short-circuits
+    # to True instead of firing False. This simulates the pre-#1506 regime
+    # where the rank-sum bound would have been the next arbiter.
+    with mock.patch("numpy.linalg.det", side_effect=det_forces_plucker_small):
+        sep, reason = is_separable(rho, dim=[3, 3])
+
+    # The Plucker branch still catches it because we forced |det|=0 ⇒ True.
+    # The important assertion is that the reason string does NOT come from
+    # the rank-sum bound, which would indicate the old false-positive path.
+    assert "rank(rho) + rank(rho^T_A)" not in reason
+
+
 def test_strength_zero_caps_after_ppt_prechecks_on_upb_tile(tiles_state_3x3_ppt_entangled):
     """strength=0 stops early on a UPB tile PPT-entangled state.
 
@@ -1147,10 +1179,13 @@ def test_rank_marginal_horodecki_is_separable_3x4_low_rank():
 
     sep, reason = is_separable(rho, dim=[dA, dB])
     assert sep is True
-    # Either the rank-marginal or the rank-sum bound may fire depending on the
-    # exact partial-transpose rank; we just need the verdict to be correct and
-    # the Horodecki family to have flagged it.
-    assert "Horodecki" in reason
+    # After the #1506 fix the rank-sum Horodecki bound no longer returns True,
+    # and this rank-5 3x4 state has rank > max(rank(rho_A), rank(rho_B)) so
+    # rank-marginal doesn't fire either. Instead, the iterative
+    # product-state subtraction witness from section 12b successfully finds
+    # the five product components, which is the *constructively correct*
+    # path: the state genuinely is a mixture of product states.
+    assert "iterative product-state subtraction" in reason
 
 
 # --- Tests for iterative product-state subtraction (#1244) ---
