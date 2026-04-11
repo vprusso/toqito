@@ -399,13 +399,14 @@ def test_symm_ext_solver_exception_proceeds():
         assert is_separable(np.eye(4) / 4.0, dim=[2, 2], level=1)[0]
 
 
-@pytest.mark.xfail(reason="3x4 separability may not be fully supported.")
-def test_breuer_hall_3x4_separable_odd_even_skip_xfail():
-    """Separable 3x4 state, Breuer-Hall skips odd dim. XFAIL for now."""
+def test_breuer_hall_3x4_separable():
+    """Product 3x4 state: the Cariello operator Schmidt rank = 1 branch fires."""
     rhoA = random_density_matrix(3, seed=42)
     rhoB = random_density_matrix(4, seed=43)
     rho_sep_3x4 = np.kron(rhoA, rhoB)
-    assert is_separable(rho_sep_3x4, dim=[3, 4])[0]
+    sep, reason = is_separable(rho_sep_3x4, dim=[3, 4])
+    assert sep is True
+    assert "operator Schmidt rank" in reason
 
 
 def test_rank1_pert_not_full_rank_path():
@@ -555,24 +556,29 @@ def test_horodecki_sum_of_ranks_true_specific():
     assert is_separable(rho, dim=[dA, dB], tol=1e-8)[0]
 
 
-@pytest.mark.xfail(reason="Behavior for 2x4 sep state past Hildebrand rank fail not fully confirmed.")
-def test_2xN_HildebrandRank_Fails_Proceeds_xfail():
-    """XFAIL for separable 2x4 state, Hildebrand rank section."""
+def test_2xN_separable_product_state():
+    """Product 2x4 state: the Cariello operator Schmidt rank = 1 branch fires."""
     dim_A, dim_N = 2, 4
     rho = np.kron(random_density_matrix(dim_A, seed=50), random_density_matrix(dim_N, seed=51))
-    assert is_separable(rho, dim=[dim_A, dim_N], tol=1e-10)[0]  # Tightened tol from 1e-20
+    sep, reason = is_separable(rho, dim=[dim_A, dim_N], tol=1e-10)
+    assert sep is True
+    assert "operator Schmidt rank" in reason
 
 
 def test_johnston_spectrum_true_returns_true_v3():
-    """Separable 2x4 state via Johnston spectrum, with mocked rank."""
+    """Separable 2x4 diagonal state is classified as separable.
+
+    Note: despite the historical name, this test does not actually exercise the
+    Johnston spectral-condition branch. The diagonal state below has operator
+    Schmidt rank 2, so it is now caught by the Cariello ``op_sr <= 2`` branch
+    (section 5b). Even before section 5b existed, the state was being caught
+    by the Horodecki rank-sum branch under the mocked ranks rather than by
+    Johnston. Getting this test to actually exercise section 11 would require
+    rewriting it; leaving that for a separate cleanup pass.
+    """
     eigs = np.array([0.3, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1])
     rho = np.diag(eigs)
     assert np.isclose(np.sum(eigs), 1.0)
-    # Mock matrix_rank to ensure it hits the Johnston spectrum check specifically,
-    # assuming it might pass earlier due to low rank if not mocked.
-    # Here, we mock it to be rank 5 (which is > max_dim=4), to bypass earlier rank checks.
-    # tol=None default is required because the operator-Schmidt-rank path calls
-    # matrix_rank without a `tol` keyword.
     real_matrix_rank = np.linalg.matrix_rank
     with mock.patch(
         "numpy.linalg.matrix_rank",
@@ -1064,35 +1070,34 @@ def test_operator_schmidt_rank_two_classical_correlation_3x3_is_separable():
 
 
 def test_rank_marginal_horodecki_is_separable_3x4_low_rank():
-    """rank(rho) <= rank(rho_A) triggers the rank-marginal Horodecki branch.
+    """A deterministic rank-5 separable 3x4 state is caught by a Horodecki-family check.
 
-    A 3x4 state built as a mixture of three product states has rank 3, and its
-    reduced density matrix on the 3-dim subsystem has rank 3 as well, so
-    rank(rho) == rank(rho_A). The PPT pre-checks fall through (prod_dim=12 > 6
-    and the state is rank 3 > max_dim_val=4 is False... wait, 3 <= 4 would fire
-    the earlier rank<=max branch). Use 4 product states in 3x4 so rank=4, max=4
-    again hits the earlier branch. We need rank(rho) > max(dA,dB) to bypass the
-    first Horodecki check. Use a rank-5 mixture in 3x4 system.
+    Five fixed, linearly independent product vectors give a rank-5 separable state in
+    C^3 (x) C^4. Rank 5 > max(dA, dB) = 4 so the first Horodecki branch does not fire;
+    the rank-sum or rank-marginal branch must.
     """
-    # Build a rank-5 product-state mixture in C^3 (x) C^4. Each component is
-    # |a_i>|b_i> with a_i in C^3 and b_i in C^4; 5 random product pairs give
-    # rank 5 generically.
-    rng = np.random.default_rng(seed=20260501)
     dA, dB = 3, 4
-    states = []
-    for _ in range(5):
-        a = rng.standard_normal(dA) + 1j * rng.standard_normal(dA)
-        a /= np.linalg.norm(a)
-        b = rng.standard_normal(dB) + 1j * rng.standard_normal(dB)
-        b /= np.linalg.norm(b)
-        psi = np.kron(a, b)
-        states.append(np.outer(psi, psi.conj()))
-    rho = sum(states) / len(states)
-    assert np.linalg.matrix_rank(rho) == 5  # rank 5 > max(dA, dB) = 4
+    e0 = np.array([1, 0, 0], dtype=complex)
+    e1 = np.array([0, 1, 0], dtype=complex)
+    e2 = np.array([0, 0, 1], dtype=complex)
+    f0 = np.array([1, 0, 0, 0], dtype=complex)
+    f1 = np.array([0, 1, 0, 0], dtype=complex)
+    f2 = np.array([0, 0, 1, 0], dtype=complex)
+    f3 = np.array([0, 0, 0, 1], dtype=complex)
+    f_plus = np.array([1, 1, 1, 1], dtype=complex) / 2
+    product_vectors = [
+        np.kron(e0, f0),
+        np.kron(e0, f1),
+        np.kron(e1, f2),
+        np.kron(e1, f3),
+        np.kron(e2, f_plus),
+    ]
+    rho = sum(np.outer(psi, psi.conj()) for psi in product_vectors) / len(product_vectors)
+    assert np.linalg.matrix_rank(rho) == 5  # rank 5 > max(dA, dB) = 4, by construction
 
     sep, reason = is_separable(rho, dim=[dA, dB])
     assert sep is True
     # Either the rank-marginal or the rank-sum bound may fire depending on the
-    # exact partial-transpose rank of this random mixture; we just need the
-    # verdict to be correct and the Horodecki family to have flagged it.
+    # exact partial-transpose rank; we just need the verdict to be correct and
+    # the Horodecki family to have flagged it.
     assert "Horodecki" in reason

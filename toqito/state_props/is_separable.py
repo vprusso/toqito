@@ -478,7 +478,12 @@ def is_separable(
     # <= 2, the state is separable [@cariello2013separability]. This generalizes
     # the pure-state Schmidt rank check in section 3 to mixed states, and
     # matches QETLAB's `IsSeparable` use of `OperatorSchmidtRank(X, dim) <= 2`.
-    op_schmidt_rank = schmidt_rank(current_state, dims_list)
+    #
+    # The operator Schmidt coefficients of `rho` are exactly the singular
+    # values of its realignment, so the operator Schmidt rank equals
+    # `matrix_rank(R(rho))`. We compute it directly with `matrix_rank(..., tol=tol)`
+    # instead of calling `schmidt_rank`, which ignores the caller's tolerance.
+    op_schmidt_rank = np.linalg.matrix_rank(realignment(current_state, dim=dims_list), tol=tol)
     if op_schmidt_rank <= 2:
         return True, f"operator Schmidt rank = {int(op_schmidt_rank)} <= 2 (Cariello 2013)"
 
