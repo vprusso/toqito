@@ -11,7 +11,8 @@ from toqito.matrix_props.trace_norm import trace_norm
 from toqito.rand import random_density_matrix
 from toqito.state_props import is_separable
 from toqito.state_props.is_ppt import is_ppt
-from toqito.states import basis, bell, horodecki, isotropic, tile
+from toqito.state_props.is_separable import _choi_1975_choi_matrix
+from toqito.states import basis, bell, horodecki, isotropic, max_entangled, tile
 
 # --- Parameterized Tests for Invalid Inputs ---
 """
@@ -1067,6 +1068,67 @@ def test_operator_schmidt_rank_two_classical_correlation_3x3_is_separable():
 
 
 # --- Tests for the Horodecki rank-marginal check (#1251b) ---
+
+
+# --- Tests for Choi's 1975 positive-map witness (#1249) ---
+
+
+def test_choi_1975_choi_matrix_structure():
+    """The Choi matrix of Choi's 1975 map has the expected block structure.
+
+    Diagonal blocks are Phi(E_ii) along the (3i, 3i) diagonal; off-diagonal
+    blocks contain a single -1 at the (i, j) position.
+    """
+    J = _choi_1975_choi_matrix()
+    assert J.shape == (9, 9)
+
+    # Diagonal of J matches (Phi(E_00)_00, Phi(E_00)_11, ..., Phi(E_22)_22).
+    expected_diag = np.array([1, 1, 0, 0, 1, 1, 1, 0, 1], dtype=complex)
+    np.testing.assert_array_equal(np.diag(J), expected_diag)
+
+    # Off-diagonal -1 entries at (3i+i, 3j+j) for i != j, zero elsewhere.
+    for i in range(3):
+        for j in range(3):
+            if i != j:
+                assert J[3 * i + i, 3 * j + j] == -1.0
+    # Everything outside those positions and the diagonal is zero.
+    off_diag_positions = {(3 * i + i, 3 * j + j) for i in range(3) for j in range(3) if i != j}
+    for r in range(9):
+        for c in range(9):
+            if r == c or (r, c) in off_diag_positions:
+                continue
+            assert J[r, c] == 0.0
+
+
+def test_choi_1975_map_is_positive_but_not_completely_positive():
+    """Choi matrix has a negative eigenvalue, confirming the map is not CP."""
+    J = _choi_1975_choi_matrix()
+    eigvals = np.sort(np.real(np.linalg.eigvalsh((J + J.conj().T) / 2)))
+    # Expect one -1 eigenvalue and positive eigenvalues above; in particular,
+    # the smallest eigenvalue must be strictly negative (non-CP).
+    assert eigvals[0] < -0.5
+    # Map is positive overall (it has some positive eigenvalues), confirming
+    # the Choi matrix isn't identically zero.
+    assert eigvals[-1] > 0.5
+
+
+def test_choi_1975_map_detects_npt_isotropic_3x3_via_partial_channel():
+    """Applying Choi's map to an NPT 3x3 isotropic state gives a non-PSD image.
+
+    This is the entanglement-witness signature used in section 12 of
+    :func:`is_separable`. We exercise the same `partial_channel` path directly
+    rather than routing through :func:`is_separable`, because the PPT criterion
+    would catch this state earlier.
+    """
+    me_vec = max_entangled(3, False, False)
+    rho_iso = 0.6 * np.eye(9) / 9 + 0.4 * (me_vec @ me_vec.conj().T)
+    J_choi = _choi_1975_choi_matrix()
+
+    for sys in (0, 1):
+        mapped = partial_channel(rho_iso, J_choi, sys=sys, dim=[3, 3])
+        assert not is_positive_semidefinite(mapped), (
+            f"Choi 1975 map should produce a non-PSD image on sys={sys}"
+        )
 
 
 def test_rank_marginal_horodecki_is_separable_3x4_low_rank():

@@ -17,6 +17,40 @@ from toqito.state_props.schmidt_rank import schmidt_rank
 from toqito.states.max_entangled import max_entangled
 
 
+def _choi_1975_choi_matrix() -> np.ndarray:
+    r"""Return the Choi matrix of Choi's 1975 indecomposable positive map on :math:`M_3`.
+
+    The map :math:`\Phi: M_3 \to M_3` is defined by
+
+    .. math::
+
+        \Phi(A)_{00} = A_{00} + A_{22}, \quad
+        \Phi(A)_{11} = A_{00} + A_{11}, \quad
+        \Phi(A)_{22} = A_{11} + A_{22}, \quad
+        \Phi(A)_{ij} = -A_{ij} \text{ for } i \neq j.
+
+    It is a standard example from [@choi1975] of a positive but not
+    completely positive map — its Choi matrix has a negative eigenvalue — and
+    is used in :func:`is_separable` as an entanglement witness.
+    """
+    # Diagonal blocks carry Phi(E_ii) along the block diagonal.
+    diag_action = [
+        np.diag([1.0, 1.0, 0.0]),
+        np.diag([0.0, 1.0, 1.0]),
+        np.diag([1.0, 0.0, 1.0]),
+    ]
+    choi = np.zeros((9, 9), dtype=complex)
+    for i in range(3):
+        choi[3 * i : 3 * i + 3, 3 * i : 3 * i + 3] = diag_action[i]
+    # Off-diagonal blocks carry Phi(E_ij) = -E_ij for i != j,
+    # i.e. a single -1 at position (i, j) inside the (i, j) block.
+    for i in range(3):
+        for j in range(3):
+            if i != j:
+                choi[3 * i + i, 3 * j + j] = -1.0
+    return choi
+
+
 def is_separable(
     state: np.ndarray,
     dim: None | int | list[int] = None,
@@ -143,6 +177,10 @@ def is_separable(
         These tests apply positive but not completely positive (NCP) maps. If the resulting state is not PSD,
         the original state is entangled.
 
+        - **Choi's 1975 Map (3x3 systems)** [@choi1975]: The canonical
+          indecomposable positive map on \(M_3\), applied to both subsystems
+          in turn. Distinct from (and complementary to) the Ha-Kye parametric
+          family below.
         - **Ha-Kye Maps (3x3 systems)** [@ha2011positive]: Specific maps
           for qutrit-qutrit systems.
         - **Breuer-Hall Maps (even dimensions)** [@breuer2006optimal], [@hall2006indecomposable]:
@@ -758,6 +796,26 @@ def is_separable(
                     pass  # Eigenvalue computation failed
 
     # --- 12. Decomposable Maps (Positive but not Completely Positive Maps as Witnesses) ---
+    # Choi's 1975 indecomposable positive map on M_3 [@choi1975].
+    # The map Phi_Choi: M_3 -> M_3 acts as
+    #     Phi(A)_{00} = A_{00} + A_{22},
+    #     Phi(A)_{11} = A_{00} + A_{11},
+    #     Phi(A)_{22} = A_{11} + A_{22},
+    #     Phi(A)_{ij} = -A_{ij}  for i != j,
+    # and is the canonical example of a positive but not completely positive
+    # map that is *not* a scalar of the generalized Choi maps from the Ha-Kye
+    # family below — the Ha-Kye loop sweeps a different parametric family,
+    # so this check is complementary rather than redundant.
+    if dA == 3 and dB == 3:
+        phi_choi_1975 = _choi_1975_choi_matrix()
+        for p_idx_choi in range(2):
+            if not is_positive_semidefinite(
+                partial_channel(current_state, phi_choi_1975, sys=p_idx_choi, dim=dims_list),
+                atol=tol,
+                rtol=tol,
+            ):
+                return False, f"Choi 1975 positive-map witness (on subsystem {p_idx_choi}, 3x3)"
+
     # Ha-Kye Maps for 3x3 systems [@ha2011positive]
     if dA == 3 and dB == 3:
         phi_me3 = max_entangled(3, False, False)  # Maximally entangled state vector in C^3 x C^3
