@@ -51,6 +51,130 @@ def _choi_1975_choi_matrix() -> np.ndarray:
     return choi
 
 
+def _hermitian_inverse_sqrt(herm: np.ndarray, eig_floor: float) -> np.ndarray | None:
+    """Return the inverse square root of a Hermitian PSD matrix, or None if rank-deficient.
+
+    `eig_floor` is the smallest eigenvalue we're willing to invert; below that we
+    consider the matrix effectively rank-deficient and return None so the caller
+    can skip the filtering step.
+    """
+    eigvals, eigvecs = np.linalg.eigh((herm + herm.conj().T) / 2)
+    if np.min(eigvals) < eig_floor:
+        return None
+    return eigvecs @ np.diag(eigvals ** -0.5) @ eigvecs.conj().T
+
+
+def _filter_normal_form(
+    rho: np.ndarray,
+    dims: list[int],
+    tol: float,
+    max_iter: int = 50,
+) -> np.ndarray | None:
+    r"""Bring rho to its filter normal form via local SLOCC filtering.
+
+    Implements the iterative algorithm of Verstraete, Dehaene, and De Moor
+    (PRA 64, 010101 (2001)) used in Gittsovich et al. [@gittsovich2008unifying]
+    Section IV.D: alternate applying :math:`T_A = (d_A \rho_A)^{-1/2}` on
+    subsystem A and :math:`T_B = (d_B \rho_B)^{-1/2}` on subsystem B until both
+    marginals become proportional to the identity. In normal form
+    :math:`\tilde\rho_A = I/d_A` and :math:`\tilde\rho_B = I/d_B`, so the
+    reduced states carry no separability information and the correlations
+    live entirely in the off-diagonal block of the covariance matrix.
+
+    Each filter step preserves the trace exactly:
+
+    .. math::
+
+        \mathrm{tr}\big[(T_A \otimes I) \rho (T_A^\dagger \otimes I)\big]
+        = \mathrm{tr}\big[(d_A \rho_A)^{-1} \rho_A\big] = 1/d_A \cdot d_A = 1,
+
+    so no renormalization is needed.
+
+    Returns the filter normal form, or `None` if the iteration encounters a
+    rank-deficient marginal (filtering requires invertible marginals) or fails
+    to converge within `max_iter` passes.
+    """
+    dA, dB = dims[0], dims[1]
+    id_a = np.eye(dA, dtype=complex)
+    id_b = np.eye(dB, dtype=complex)
+    target_a = id_a / dA
+    target_b = id_b / dB
+
+    rho_tilde = rho.astype(complex, copy=True)
+    eig_floor = tol
+
+    for _ in range(max_iter):
+        rho_a = partial_trace(rho_tilde, sys=[1], dim=dims)
+        rho_b = partial_trace(rho_tilde, sys=[0], dim=dims)
+
+        err = max(
+            np.linalg.norm(rho_a - target_a, ord="fro"),
+            np.linalg.norm(rho_b - target_b, ord="fro"),
+        )
+        if err < tol:
+            return rho_tilde
+
+        t_a = _hermitian_inverse_sqrt(dA * rho_a, eig_floor)
+        if t_a is None:
+            return None
+        rho_tilde = np.kron(t_a, id_b) @ rho_tilde @ np.kron(t_a.conj().T, id_b)
+
+        rho_b_new = partial_trace(rho_tilde, sys=[0], dim=dims)
+        t_b = _hermitian_inverse_sqrt(dB * rho_b_new, eig_floor)
+        if t_b is None:
+            return None
+        rho_tilde = np.kron(id_a, t_b) @ rho_tilde @ np.kron(id_a, t_b.conj().T)
+
+    # Iteration budget exhausted. Accept whatever we have if the marginals
+    # are sufficiently close to the targets; otherwise report failure.
+    rho_a = partial_trace(rho_tilde, sys=[1], dim=dims)
+    rho_b = partial_trace(rho_tilde, sys=[0], dim=dims)
+    err = max(
+        np.linalg.norm(rho_a - target_a, ord="fro"),
+        np.linalg.norm(rho_b - target_b, ord="fro"),
+    )
+    if err < 10 * tol:
+        return rho_tilde
+    return None
+
+
+def _filter_cmc_xi_sum(rho_normal: np.ndarray, dims: list[int]) -> float:
+    r"""Compute :math:`\sum_i \xi_i` for a state already in filter normal form.
+
+    The :math:`\xi_i` are the coefficients in the operator-basis expansion
+
+    .. math::
+
+        \tilde\rho = \frac{1}{d_A d_B} \left(I + \sum_k \xi_k G^A_k \otimes G^B_k\right),
+
+    equal to :math:`d_A d_B` times the operator Schmidt coefficients of
+    :math:`\tilde\rho - I/(d_A d_B)` (which in turn are the singular values
+    of the realignment of that trace-zero operator). See Gittsovich et al.
+    2008, Eq. (66).
+    """
+    dA, dB = dims[0], dims[1]
+    sigma = rho_normal - np.eye(dA * dB, dtype=complex) / (dA * dB)
+    r_sigma = realignment(sigma, dim=dims)
+    singular_values = np.linalg.svd(r_sigma, compute_uv=False)
+    return float(dA * dB * np.sum(np.real(singular_values)))
+
+
+def _filter_cmc_bound(dA: int, dB: int) -> float:
+    r"""Return the Filter CMC separability bound for a :math:`d_A \times d_B` system.
+
+    From Gittsovich et al. 2008, Proposition IV.15, Eq. (72):
+
+    .. math::
+
+        \sum_k \xi_k \le \sqrt{d_A d_B (d_A - 1)(d_B - 1)}.
+
+    This generalizes Proposition IV.13 (:math:`d^2 - d` for the symmetric
+    :math:`d_A = d_B = d` case) and, in practice, is tighter than Eq. (71)
+    across the dimensions of interest here.
+    """
+    return float(np.sqrt(dA * dB * (dA - 1) * (dB - 1)))
+
+
 def _iterative_product_state_subtraction(
     state: np.ndarray,
     dims: list[int],
@@ -269,6 +393,16 @@ def is_separable(
 
         - **Basic Realignment (Chen & Wu 2003)** [@chen2003matrix]:
           If the trace norm of the realigned matrix is greater than 1, the state is entangled.
+        - **Zhang variant (Zhang et al. 2008)** [@zhang2008entanglement]:
+          Uses the purity-based bound on \(\|R(\rho - \rho_A \otimes \rho_B)\|_1\).
+        - **Filter Covariance Matrix Criterion (Gittsovich et al. 2008)**
+          [@gittsovich2008unifying]: strictly stronger than the basic CCNR.
+          First brings \(\rho\) to its filter normal form with maximally mixed
+          marginals via iterative local SLOCC filtering (Verstraete-Dehaene-
+          De Moor algorithm), then checks Eq. (72) of Proposition IV.15:
+          \(\sum_k \xi_k \le \sqrt{d_A d_B (d_A - 1)(d_B - 1)}\). Violation
+          implies \(\rho\) is entangled. For two qubits the filter CMC is a
+          necessary and sufficient separability test (Remark IV.14).
 
     10. **Rank-1 Perturbation of Identity for PPT States (Vidal & Tarrach 1999)** [@vidal1999robustness]:
 
@@ -382,9 +516,8 @@ def is_separable(
               product-state subtraction constructive witness (section 12b)
               that was added alongside this parameter's expansion.
             - `strength >= 2` — reserved for future expensive criteria
-              (Filter CMC, additional positive maps, refined
-              Breuer/Horodecki conditions); currently equivalent to
-              `strength = 1`.
+              (additional positive maps from the UPB/Terhal family, refined
+              Breuer rank-4 check); currently equivalent to `strength = 1`.
             - `strength = -1` — alias for "run every implemented check".
               Currently equivalent to `strength = 1`, will grow with future
               additions.
@@ -850,7 +983,24 @@ def is_separable(
     bound_zhang = np.sqrt(val_A * val_B) if (val_A * val_B >= 0) else 0
     if trace_norm(realignment(current_state - np.kron(rho_A_marginal, rho_B_marginal), dims_list)) > bound_zhang + tol:
         return False, "Zhang realignment variant: ||R(rho - rho_A (x) rho_B)||_1 exceeds purity bound (Zhang 2008)"
-    # TODO: #1246 Consider adding Filter CMC criterion from Gittsovich et al. 2008, which is stronger.
+
+    # --- 9b. Filter Covariance Matrix Criterion (Gittsovich et al. 2008) ---
+    # Strictly stronger than the basic CCNR/realignment criterion; for two qubits
+    # (Remark IV.14 of the paper) it is a necessary and sufficient separability
+    # test. We first transport rho to its filter normal form with maximally
+    # mixed marginals via local SLOCC filtering, then check the paper's
+    # Proposition IV.15 Eq. (72) bound on the sum of the filter-CMC coefficients.
+    # Skipped silently (no verdict) when the filtering iteration can't converge
+    # — e.g., when a marginal is rank-deficient and no invertible filter exists.
+    rho_normal = _filter_normal_form(current_state, dims_list, tol)
+    if rho_normal is not None:
+        xi_sum = _filter_cmc_xi_sum(rho_normal, dims_list)
+        xi_bound = _filter_cmc_bound(dA, dB)
+        if xi_sum > xi_bound + tol:
+            return False, (
+                f"Filter CMC: sum xi = {xi_sum:.4g} > bound {xi_bound:.4g} "
+                f"(Gittsovich et al. 2008, Prop. IV.15)"
+            )
 
     # --- 10. Rank-1 Perturbation of Identity for PPT States (Vidal & Tarrach 1999) ---
     # PPT states close to identity are separable [@vidal1999robustness].
