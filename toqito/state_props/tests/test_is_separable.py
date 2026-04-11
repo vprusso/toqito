@@ -13,6 +13,9 @@ from toqito.state_props import is_separable
 from toqito.state_props.is_ppt import is_ppt
 from toqito.state_props.is_separable import (
     _choi_1975_choi_matrix,
+    _filter_cmc_bound,
+    _filter_cmc_xi_sum,
+    _filter_normal_form,
     _iterative_product_state_subtraction,
 )
 from toqito.states import basis, bell, horodecki, isotropic, max_entangled, tile
@@ -1328,3 +1331,111 @@ def test_is_separable_falls_through_when_iter_sub_returns_false():
     # level=2" branch. Either way, the 12b reason must not appear.
     assert "iterative product-state subtraction" not in reason
     assert sep is True  # DPS handles it at level=2
+
+
+# --- Tests for the Filter Covariance Matrix Criterion (#1246) ---
+
+
+def test_filter_normal_form_leaves_bell_unchanged():
+    """Bell state already has maximally mixed marginals, so one iteration suffices."""
+    rho = bell(0) @ bell(0).conj().T
+    nf = _filter_normal_form(rho, [2, 2], tol=1e-10)
+    assert nf is not None
+    # Bell state is already its own normal form; marginals should be I/2.
+    rho_a = np.trace(nf.reshape(2, 2, 2, 2), axis1=1, axis2=3)
+    rho_b = np.trace(nf.reshape(2, 2, 2, 2), axis1=0, axis2=2)
+    np.testing.assert_allclose(rho_a, np.eye(2) / 2, atol=1e-10)
+    np.testing.assert_allclose(rho_b, np.eye(2) / 2, atol=1e-10)
+
+
+def test_filter_normal_form_brings_biased_product_to_max_mixed_marginals():
+    """A biased product state gets filtered to maximally mixed marginals."""
+    rho = np.kron(np.diag([0.7, 0.3]), np.diag([0.4, 0.6]))
+    nf = _filter_normal_form(rho, [2, 2], tol=1e-10)
+    assert nf is not None
+    rho_a = np.trace(nf.reshape(2, 2, 2, 2), axis1=1, axis2=3)
+    rho_b = np.trace(nf.reshape(2, 2, 2, 2), axis1=0, axis2=2)
+    np.testing.assert_allclose(rho_a, np.eye(2) / 2, atol=1e-10)
+    np.testing.assert_allclose(rho_b, np.eye(2) / 2, atol=1e-10)
+
+
+def test_filter_normal_form_returns_none_on_rank_deficient_state():
+    """Pure product state has rank-1 marginals; filtering should bail out."""
+    psi = np.kron([1, 0], [1, 0])
+    rho = np.outer(psi, psi.conj())  # rank 1, marginals rank 1
+    nf = _filter_normal_form(rho, [2, 2], tol=1e-10)
+    assert nf is None
+
+
+def test_filter_cmc_xi_sum_on_bell_matches_paper():
+    """For a Bell state, sum(xi_k) = d^2 - d + 2 = 6 at d = 2."""
+    rho = bell(0) @ bell(0).conj().T
+    xi_sum = _filter_cmc_xi_sum(rho, [2, 2])
+    # Bell state saturates the maximum at d^2 - d + 2 = 6; from Pauli-basis
+    # expansion of |Phi+><Phi+| = (I + XX + YY + ZZ) / 4.
+    assert abs(xi_sum - 6.0) < 1e-9
+
+
+def test_filter_cmc_xi_sum_on_max_mixed_is_zero():
+    """I/d^2 has zero off-identity component; xi_sum must be 0."""
+    assert _filter_cmc_xi_sum(np.eye(4) / 4, [2, 2]) < 1e-12
+    assert _filter_cmc_xi_sum(np.eye(9) / 9, [3, 3]) < 1e-12
+
+
+@pytest.mark.parametrize(
+    "dA, dB, expected",
+    [
+        (2, 2, 2.0),  # d^2 - d = 2
+        (3, 3, 6.0),  # d^2 - d = 6
+        (2, 4, float(np.sqrt(24.0))),  # sqrt(d_A d_B (d_A-1)(d_B-1))
+        (3, 4, float(np.sqrt(72.0))),
+    ],
+)
+def test_filter_cmc_bound_matches_proposition_iv_15(dA, dB, expected):
+    """Gittsovich 2008 Prop IV.15 Eq (72) bound for a few (d_A, d_B)."""
+    assert abs(_filter_cmc_bound(dA, dB) - expected) < 1e-12
+
+
+def test_filter_cmc_detects_upb_tile_state_directly():
+    """Filter CMC's xi_sum exceeds the 3x3 bound for the UPB tile PPT-entangled state.
+
+    In `is_separable` this state is caught earlier at the Plucker check
+    (section 6), so Filter CMC never runs on it in the normal flow. The
+    direct helper call confirms the math: xi_sum > d^2 - d = 6.
+    """
+    rho = np.identity(9)
+    for i in range(5):
+        rho = rho - tile(i) @ tile(i).conj().T
+    rho = rho / 4
+    nf = _filter_normal_form(rho, [3, 3], tol=1e-10)
+    assert nf is not None
+    xi_sum = _filter_cmc_xi_sum(nf, [3, 3])
+    assert xi_sum > _filter_cmc_bound(3, 3) + 1e-6
+
+
+def test_is_separable_surfaces_filter_cmc_reason_when_helper_fires():
+    """is_separable surfaces the Filter CMC reason when the helper fires.
+
+    Mocks `_filter_cmc_xi_sum` to exceed the bound and asserts the reason
+    string comes from section 9b. Uses `_RHO_ENT_SYMM_3x3_REACHES_12B`
+    because it is the only state in the suite that naturally reaches
+    section 9b at default strength.
+    """
+    with mock.patch(
+        "toqito.state_props.is_separable._filter_cmc_xi_sum",
+        return_value=100.0,
+    ) as mocked:
+        sep, reason = is_separable(_RHO_ENT_SYMM_3x3_REACHES_12B, dim=[3, 3])
+    assert sep is False
+    assert "Filter CMC" in reason
+    assert mocked.called
+
+
+def test_is_separable_strength_zero_skips_filter_cmc():
+    """Section 9b must not run at strength=0."""
+    with mock.patch(
+        "toqito.state_props.is_separable._filter_cmc_xi_sum",
+        return_value=100.0,
+    ) as mocked:
+        is_separable(_RHO_ENT_SYMM_3x3_REACHES_12B, dim=[3, 3], strength=0)
+    assert not mocked.called
