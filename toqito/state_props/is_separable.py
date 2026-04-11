@@ -48,10 +48,9 @@ def is_separable(
           A pure state is separable if and only if its Schmidt rank is 1 [@wikipediaschmidt].
 
         !!! Note
-            QETLAB also considers a more general Operator Schmidt Rank condition from
-            [@cariello2013separability] for weak irreducible matrices. This
-            is not explicitly separated in this function but might be covered if such
-            matrices are rank 1 (see issue #1245).
+            The more general Operator Schmidt Rank \(\le 2\) condition from
+            [@cariello2013separability] is applied after PPT in section 5b
+            (below), matching QETLAB's `IsSeparable` behavior.
 
 
     4.  **Gurvits-Barnum Separable Ball**:
@@ -68,6 +67,13 @@ def is_separable(
         - If the state is PPT and the total dimension \(d_A d_B \le 6\),
           then PPT is also a *sufficient* condition for separability
           [@horodecki1996separability].
+
+    5b. **Operator Schmidt Rank \(\le 2\)** [@cariello2013separability]:
+
+        - For a PPT state, if the operator Schmidt rank of the density matrix is
+          \(\le 2\), the state is separable. This generalizes the pure-state
+          Schmidt rank check from section 3 to mixed states and matches QETLAB's
+          `OperatorSchmidtRank(X, dim) <= 2` check in `IsSeparable`.
 
     6.  **3x3 Rank-4 PPT N&S Check (Plücker Coordinates / Breuer / Chen & Djokovic)**:
 
@@ -86,6 +92,10 @@ def is_separable(
         - If \(\text{rank}(\rho) \le \max(d_A, d_B)\), the state is separable.
         - If \(\text{rank}(\rho) + \text{rank}(\rho^{T_A}) \le 2 d_A d_B - d_A - d_B + 2\),
           the state is separable.
+        - If \(\text{rank}(\rho) \le \text{rank}(\rho_A)\) or
+          \(\text{rank}(\rho) \le \text{rank}(\rho_B)\), the state is separable.
+          This is the "rank-marginal" Horodecki condition from the same paper
+          and matches QETLAB's corresponding check in `IsSeparable`.
 
     8.  **Reduction Criterion (Horodecki & Horodecki 1999)** [@horodecki1998reduction]:
 
@@ -455,12 +465,22 @@ def is_separable(
     # ----- Strength cutoff -----
     # At `strength == 0`, only the fast pre-checks above (trivial, pure state,
     # separable ball, PPT, PPT <= 6) run. Everything below this point — the
-    # 3x3 rank-4 Plucker determinant, Horodecki rank bounds, reduction,
-    # realignment/CCNR, Vidal-Tarrach, 2xN conditions, Ha-Kye/Breuer-Hall
-    # witnesses, and the DPS hierarchy — is skipped, and the function returns
-    # an inconclusive verdict. This is the "quick check" mode.
+    # operator Schmidt rank check, 3x3 rank-4 Plucker determinant, Horodecki
+    # rank bounds, reduction, realignment/CCNR, Vidal-Tarrach, 2xN conditions,
+    # Ha-Kye/Breuer-Hall witnesses, and the DPS hierarchy — is skipped, and
+    # the function returns an inconclusive verdict. This is the "quick check"
+    # mode.
     if strength == 0:
         return False, "inconclusive: strength=0 capped after PPT pre-checks"
+
+    # --- 5b. Operator Schmidt Rank <= 2 (Cariello 2013) ---
+    # For PPT states, if the operator Schmidt rank of the density matrix is
+    # <= 2, the state is separable [@cariello2013separability]. This generalizes
+    # the pure-state Schmidt rank check in section 3 to mixed states, and
+    # matches QETLAB's `IsSeparable` use of `OperatorSchmidtRank(X, dim) <= 2`.
+    op_schmidt_rank = schmidt_rank(current_state, dims_list)
+    if op_schmidt_rank <= 2:
+        return True, f"operator Schmidt rank = {int(op_schmidt_rank)} <= 2 (Cariello 2013)"
 
     # --- 6. 3x3 Rank-4 PPT N&S Check (Plucker/Breuer/Chen&Djokovic) ---
     # This checks if a 3x3 PPT state of rank 4 is separable.
@@ -594,13 +614,23 @@ def is_separable(
 
     if state_rank + rank_pt_A <= threshold_horodecki:  # rank(rho) + rank(rho^T_A) <= threshold
         return True, "rank(rho) + rank(rho^T_A) <= 2 d_A d_B - d_A - d_B + 2 (Horodecki et al. 2000)"
-    # TODO: #1251 Add check for rank(rho) <= rank(marginal_A) or rank(rho) <= rank(marginal_B) as in QETLAB.
+
+    # Rank-marginal condition [@horodecki2000constructive]: for a PPT state,
+    # if rank(rho) <= rank(rho_A) or rank(rho) <= rank(rho_B), then rho is
+    # separable. Matches QETLAB's corresponding check in `IsSeparable`.
+    rho_A_marginal = partial_trace(current_state, sys=[1], dim=dims_list)
+    rho_B_marginal = partial_trace(current_state, sys=[0], dim=dims_list)
+    rank_marg_A = np.linalg.matrix_rank(rho_A_marginal, tol=tol)
+    rank_marg_B = np.linalg.matrix_rank(rho_B_marginal, tol=tol)
+    if state_rank <= rank_marg_A:
+        return True, f"rank(rho)={state_rank} <= rank(rho_A)={rank_marg_A} (Horodecki et al. 2000)"
+    if state_rank <= rank_marg_B:
+        return True, f"rank(rho)={state_rank} <= rank(rho_B)={rank_marg_B} (Horodecki et al. 2000)"
 
     # --- 8. Reduction Criterion (Horodecki & Horodecki 1999) ---
     # If state is PPT (which it is at this point), this criterion is always satisfied.
     # Its main use is for NPT states. Included for completeness of listed criteria.
-    rho_A_marginal = partial_trace(current_state, sys=[1], dim=dims_list)
-    rho_B_marginal = partial_trace(current_state, sys=[0], dim=dims_list)
+    # rho_A_marginal and rho_B_marginal were already computed in section 7 above.
     op_reduct1 = np.kron(np.eye(dA), rho_B_marginal) - current_state
     op_reduct2 = np.kron(rho_A_marginal, np.eye(dB)) - current_state
     if not (
