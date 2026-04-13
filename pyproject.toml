@@ -27,7 +27,7 @@ classifiers = [
 ]
 dependencies = [
     "cvxpy==1.8.1",
-    "more-itertools==10.8.0",
+    "more-itertools==11.0.2",
     "numpy==2.4.1",
     "scipy==1.17.1",
     "scs==3.2.11",
