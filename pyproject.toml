@@ -72,7 +72,7 @@ docs = [
     # pymdown-extensions 10.20.1 passes `filename=None` to pygments'
     # HtmlFormatter, which pygments 2.20.0 no longer accepts (crashes in
     # html.escape). Cap until an upstream fix ships.
-    "pygments<2.20",
+    "pygments<2.21",
     "mkdocs-api-autonav>=0.4.0",
     "markdown-exec[ansi]>=1.7",
     "pybtex>=0.24",
