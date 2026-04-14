@@ -42,7 +42,7 @@ repository = "https://github.com/vprusso/toqito"
 
 [dependency-groups]
 dev = [
-    "pytest==9.0.0",
+    "pytest==9.0.3",
     "pytest-cov==7.1.0",
     "coverage==7.13.0",
     "distlib==0.4.0",
