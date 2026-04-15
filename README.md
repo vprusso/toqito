@@ -168,6 +168,9 @@ helpful in probing. Feel free to add to this list and/or contribute solutions!
 
 The |toqito⟩ project has been used or referenced in the following works:
 
+- [![a](https://img.shields.io/static/v1?label=arXiv&message=2604.12808&color=inactive&style=flat-square)](https://arxiv.org/abs/2604.12808) Johnston, Nathaniel and Russo, Vincent
+*"Distinguishability of locally diagonal orthogonally invariant quantum states"*, arXiv:2606.12808, (2026).
+
 - [![a](https://img.shields.io/static/v1?label=arXiv&message=2603.05452&color=inactive&style=flat-square)](https://arxiv.org/abs/2603.05452) Gupta, Tathagata and Mohan, Ankith and Murshid, Shayeef and Russo, Vincent and Sikora, Jamie and Zeng, Alice
 *"Local strategies are pretty good at computing Boolean properties of quantum sequences"*, arXiv:2603.05452, (2026).
 
