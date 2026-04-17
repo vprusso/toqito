@@ -10,8 +10,8 @@ from toqito.perms import permute_systems
 
 def partial_trace(
     input_mat: np.ndarray | Variable,
-    sys: int | list[int] | None = None,
-    dim: int | list[int] | np.ndarray | None = None,
+    sys: int | list[int] | tuple | None = None,
+    dim: int | list[int] | tuple | np.ndarray | None = None,
 ) -> np.ndarray | Expression:
     r"""Compute the partial trace of a matrix [@wikipediapartialtrace].
 
@@ -33,12 +33,18 @@ def partial_trace(
         input_mat: A square matrix.
         sys: Scalar or vector specifying the size of the subsystems.
         dim: Dimension of the subsystems. If `None`, all dimensions are assumed to be equal.
+            Accepted types are `int`, `list`, `tuple`, or `numpy.ndarray`.
 
     Returns:
         The partial trace of matrix `input_mat`.
 
     Raises:
-        ValueError: If matrix dimension is not equal to the number of subsystems.
+        ValueError: If `input_mat` is not a 2D square matrix.
+        ValueError: If `dim` is not an `int`, `list`, `tuple`, or `numpy.ndarray` of ints.
+        ValueError: If `dim` is a scalar that does not evenly divide the matrix dimension.
+        ValueError: If the product of `dim` does not match the matrix dimension.
+        ValueError: If any index in `sys` is negative or out of bounds.
+        ValueError: If `sys` is not an `int`, `list`, `tuple`, or `numpy.ndarray` of ints.
 
     Examples:
         Consider the following matrix
@@ -123,7 +129,11 @@ def partial_trace(
         traced_rho = np_array_as_expr(traced_rho)
         return traced_rho
 
+    # Ensure input_mat is square.
+    if input_mat.ndim != 2 or input_mat.shape[0] != input_mat.shape[1]:
+        raise ValueError("input_mat must be a 2D square matrix.")
     n = input_mat.shape[0]
+
     if dim is None:
         d = int(round(np.sqrt(n)))
         if d * d != n:
@@ -133,23 +143,37 @@ def partial_trace(
         if n % dim != 0:
             raise ValueError("Invalid: If `dim` is a scalar, it must evenly divide matrix dimension.")
         dim = np.array([dim, n // dim])
-    elif isinstance(dim, list):
+    elif isinstance(dim, (list, tuple, np.ndarray)):
+        dim = np.asarray(dim)
+        if dim.ndim != 1:
+            raise ValueError("Invalid: `dim` must be a 1D array-like of ints.")
         if len(dim) == 1:
             d = dim[0]
             if n % d != 0:
                 raise ValueError("Invalid: If `dim` is a scalar, it must evenly divide matrix dimension.")
             dim = np.array([d, n // d])
-        else:
-            dim = np.array(dim)
+    else:
+        raise ValueError("Invalid: `dim` must be int or array-like of ints.")
 
     num_sys = len(dim)
     prod_dim = np.prod(dim)
+    # Ensure product of dim matches matrix dimension.
+    if prod_dim != n:
+        raise ValueError("Product of `dim` must match the dimension of input_mat.")
+
+    # Validate sys indices and compute subsystem product.
     if isinstance(sys, int):
+        if sys < 0 or sys >= num_sys:
+            raise ValueError("Subsystem indices in `sys` are out of bounds.")
         prod_dim_sys = dim[sys]
         sys = np.array([sys])
-    elif isinstance(sys, (list, np.ndarray)):
+
+    elif isinstance(sys, (list, tuple, np.ndarray)):
+        if any(s < 0 or s >= num_sys for s in sys):
+            raise ValueError("Subsystem indices in `sys` are out of bounds.")
         prod_dim_sys = int(np.prod([dim[i] for i in sys]))
         sys = np.array(sys)
+
     else:
         raise ValueError("Invalid: The variable `sys` must either be of type int or of a list of ints.")
 
