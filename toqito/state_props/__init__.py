@@ -20,6 +20,7 @@ from toqito.state_props.entanglement_of_formation import entanglement_of_formati
 from toqito.state_props.l1_norm_coherence import l1_norm_coherence
 from toqito.state_props.in_separable_ball import in_separable_ball
 from toqito.state_props.is_separable import is_separable
+from toqito.state_props.has_symmetric_inner_extension import has_symmetric_inner_extension
 from toqito.state_props.has_symmetric_extension import has_symmetric_extension
 from toqito.state_props.sk_vec_norm import sk_vector_norm
 from toqito.state_props.is_antidistinguishable import is_antidistinguishable

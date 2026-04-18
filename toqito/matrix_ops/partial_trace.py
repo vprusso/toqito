@@ -117,7 +117,7 @@ def partial_trace(
             sys = [1]
     # If the input matrix is a CVX variable for an SDP, we convert it to a numpy array,
     # perform the partial trace, and convert it back to a CVX variable.
-    if isinstance(input_mat, Variable):
+    if isinstance(input_mat, (Expression, Variable)):
         rho_np = expr_as_np_array(input_mat)
         traced_rho = partial_trace(rho_np, sys, dim)
         traced_rho = np_array_as_expr(traced_rho)

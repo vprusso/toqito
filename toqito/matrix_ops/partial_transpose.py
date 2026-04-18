@@ -117,7 +117,7 @@ def partial_transpose(
     # If the input matrix is a CVX variable for an SDP, we convert it to a
     # numpy array, perform the partial transpose, and convert it back to a CVX
     # variable.
-    if isinstance(rho, Variable):
+    if isinstance(rho, (Expression, Variable)):
         rho_np = expr_as_np_array(rho)
         transposed_rho = partial_transpose(rho_np, sys, dim)
         transposed_rho = np_array_as_expr(transposed_rho)

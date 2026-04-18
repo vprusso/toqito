@@ -12,6 +12,7 @@ from toqito.perms.swap import swap
 from toqito.perms.swap_operator import swap_operator
 from toqito.state_props import is_ppt
 from toqito.state_props.has_symmetric_extension import has_symmetric_extension
+from toqito.state_props.has_symmetric_inner_extension import has_symmetric_inner_extension
 from toqito.state_props.in_separable_ball import in_separable_ball
 from toqito.state_props.schmidt_rank import schmidt_rank
 from toqito.states.max_entangled import max_entangled
@@ -578,21 +579,23 @@ def is_separable(
     13. **Symmetric Extension Hierarchy (DPS)** [@doherty2004complete]:
 
         - A state is separable if and only if it has a k-symmetric extension for all \(k \ge 1\).
-        - This function checks for k-extendibility up to the specified `level`.
-        - If `level=1` and the state is PPT (which it is at this stage),
-          it's 1-extendible and thus considered separable by this specific test level.
-        - For `level >= 2`, if a k-symmetric extension exists for all k up
-          to `level` (specifically, if `has_symmetric_extension` returns
-          `True` for the highest `k_actual_level_check` in the loop, which is
-          `level`), the current implementation returns `True`.
+        - Failing to find a k-symmetric extension at any tested level proves
+          entanglement.
+        - Passing a finite number of extension levels does **not** by itself
+          prove separability; finite k-extendibility is only a relaxation.
+        - To prove separability at finite `level`, this function additionally
+          checks the Navascués-Owari-Plenio inner cone via
+          `has_symmetric_inner_extension`, which is a sufficient test for
+          separability based on bosonic symmetric extensions.
 
         !!! Note
             The symmetric extension check requires CVXPY and a suitable solver. If these are not installed,
             or if the solver fails, a warning is printed to the console and this check is skipped.
 
         !!! Note
-            QETLAB's `SymmetricExtension` typically tests k-PPT-extendibility, where failure means entangled.
-            It also has `SymmetricInnerExtension`, which can prove separability.
+            This matches QETLAB's split: `SymmetricExtension` is used as a
+            one-sided entanglement test, while `SymmetricInnerExtension`
+            supplies the one-sided separability proof.
 
 
     Args:
@@ -602,10 +605,11 @@ def is_separable(
             - Controls only the depth of the DPS symmetric-extension hierarchy
               (default: 2). All other post-PPT checks run regardless of
               `level` (provided `strength` does not cut them off early).
-            - If `level == 1` and the state is PPT, the function accepts the
-              state at the DPS stage via the "1-extendible" branch.
+            - If `level == 1`, no DPS SDP is run; finite 1-extendibility adds
+              no information beyond the earlier PPT checks.
             - If `level >= 2`, the function checks for a k-symmetric extension
-              for every k from 2 up to `level`.
+              and the corresponding inner-extension relaxation for every k from
+              2 up to `level`.
             - `strength == 0` triggers an early inconclusive return before the
               DPS block is reached, so `level` is effectively ignored in that
               mode (see `strength` below).
@@ -1314,28 +1318,26 @@ def is_separable(
         return True, "iterative product-state subtraction decomposed the state (Guhne / sk_iterate)"
 
     # --- 13. Symmetric Extension Hierarchy (DPS) ---
-    # A state is separable iff it has a k-symmetric extension for all k [@doherty2004complete].
-    # The hierarchy is increasingly restrictive: k-extendible ⊃ (k+1)-extendible ⊃ ... ⊃ separable.
-    # - If the state is NOT k-extendible at any level, it is definitively entangled.
-    # - If the state IS k-extendible for all k up to `level`, it passes the DPS test at that level.
-    if level >= 2:  # Level 1 (PPT) is already confirmed if we reach here.
+    # A state is separable iff it has a k-symmetric extension for all k [@doherty2004complete],
+    # but finite k-extendibility is only a relaxation. Thus:
+    # - if the state is NOT k-extendible at any tested level, it is entangled;
+    # - if it lies in the corresponding inner cone, it is separable;
+    # - otherwise, passing the tested k-extendibility levels is only inconclusive.
+    if level >= 2:
         for k_actual_level_check in range(2, int(level) + 1):
             try:
                 if not has_symmetric_extension(rho=current_state, level=k_actual_level_check, dim=dims_list, tol=tol):
-                    # No k-symmetric extension exists — state is entangled.
                     return False, f"no {k_actual_level_check}-symmetric extension (DPS hierarchy)"
+                if has_symmetric_inner_extension(
+                    rho=current_state, level=k_actual_level_check, dim=dims_list, ppt=True, tol=tol
+                ):
+                    return True, f"passed inner DPS symmetric extension cone at level={k_actual_level_check}"
             except ImportError:
                 print("Warning: CVXPY or a solver is not installed; cannot perform symmetric extension check.")
                 break
             except Exception as e:
                 print(f"Warning: Symmetric extension check failed at level {k_actual_level_check} with an error: {e}")
                 break
-        else:
-            # All levels from 2 to `level` passed — state has a k-symmetric extension at every tested level.
-            return True, f"passed DPS symmetric extension hierarchy up to level={int(level)}"
-    elif level == 1 and is_state_ppt:  # is_state_ppt is True at this point
-        # 1-extendibility is equivalent to PPT.
-        return True, "1-extendible (PPT) accepted at level=1"
 
     # If all implemented checks are inconclusive, and the state passed PPT (the most basic necessary condition checked),
     # it implies that the state is either separable but not caught by the simpler sufficient conditions,
