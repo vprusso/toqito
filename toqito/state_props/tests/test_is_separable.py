@@ -369,7 +369,10 @@ def test_plucker_linalg_error_in_det_fallthrough():
         rho = (
             np.outer(p1, p1.conj()) + np.outer(p2, p2.conj()) + np.outer(p3, p3.conj()) + np.outer(p4, p4.conj())
         ) / 4.0
-        sep, reason = is_separable(rho, dim=[3, 3])
+        with mock.patch("toqito.state_props.is_separable._iterative_product_state_subtraction", return_value=False):
+            with mock.patch("toqito.state_props.is_separable.has_symmetric_extension", return_value=True):
+                with mock.patch("toqito.state_props.is_separable.has_symmetric_inner_extension", return_value=False):
+                    sep, reason = is_separable(rho, dim=[3, 3])
         assert sep is False
         assert "inconclusive" in reason
 
@@ -680,7 +683,10 @@ def test_3x3_rank4_block_orth_finds_lower_rank():
     # Mock orth to return only 3 columns (simulating numerical rank deficiency)
     with mock.patch("toqito.state_props.is_separable.orth") as mocked_orth:
         mocked_orth.return_value = np.eye(9, 3)  # 9x3 matrix
-        sep, reason = is_separable(rho, dim=[3, 3])  # Should proceed past Plücker check
+        with mock.patch("toqito.state_props.is_separable._iterative_product_state_subtraction", return_value=False):
+            with mock.patch("toqito.state_props.is_separable.has_symmetric_extension", return_value=True):
+                with mock.patch("toqito.state_props.is_separable.has_symmetric_inner_extension", return_value=False):
+                    sep, reason = is_separable(rho, dim=[3, 3])  # Should proceed past Plücker check
         assert sep is False
         assert "inconclusive" in reason
         mocked_orth.assert_called_once()

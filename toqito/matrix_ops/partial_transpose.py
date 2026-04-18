@@ -9,7 +9,7 @@ from toqito.perms import permute_systems
 
 
 def partial_transpose(
-    rho: np.ndarray | Variable,
+    rho: np.ndarray | Expression | Variable,
     sys: list[int] | np.ndarray | int | None = None,
     dim: list[int] | np.ndarray | None = None,
 ) -> np.ndarray | Expression:
@@ -114,9 +114,9 @@ def partial_transpose(
     if not isinstance(sys, int):
         if sys is None:
             sys = [1]
-    # If the input matrix is a CVX variable for an SDP, we convert it to a
-    # numpy array, perform the partial transpose, and convert it back to a CVX
-    # variable.
+    # If the input matrix is a CVXPY expression for an SDP, we convert it to a
+    # NumPy object array, perform the partial transpose recursively, and
+    # convert it back to a CVXPY expression.
     if isinstance(rho, (Expression, Variable)):
         rho_np = expr_as_np_array(rho)
         transposed_rho = partial_transpose(rho_np, sys, dim)

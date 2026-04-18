@@ -167,4 +167,4 @@ def has_symmetric_extension(
         problem = cvxpy.Problem(cvxpy.Minimize(0), constraints)
         problem.solve()
 
-    return problem.status == "optimal"
+    return problem.status in {"optimal", "optimal_inaccurate"}
