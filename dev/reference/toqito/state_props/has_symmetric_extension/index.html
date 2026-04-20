@@ -16,7 +16,7 @@
         <link rel="prev" href="../entanglement_of_formation/">
       
       
-        <link rel="next" href="../in_separable_ball/">
+        <link rel="next" href="../has_symmetric_inner_extension/">
       
       
         
@@ -7212,6 +7212,8 @@
       
         
       
+        
+      
     
     
     
@@ -7454,6 +7456,34 @@
   
 </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../has_symmetric_inner_extension/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code>has_symmetric_inner_extension
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -9462,7 +9492,7 @@ level. We see this being the case for a relatively low level of the hierarchy.</
 <a id="__codelineno-0-167" name="__codelineno-0-167"></a>        <span class="n">problem</span> <span class="o">=</span> <span class="n">cvxpy</span><span class="o">.</span><span class="n">Problem</span><span class="p">(</span><span class="n">cvxpy</span><span class="o">.</span><span class="n">Minimize</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">constraints</span><span class="p">)</span>
 <a id="__codelineno-0-168" name="__codelineno-0-168"></a>        <span class="n">problem</span><span class="o">.</span><span class="n">solve</span><span class="p">()</span>
 <a id="__codelineno-0-169" name="__codelineno-0-169"></a>
-<a id="__codelineno-0-170" name="__codelineno-0-170"></a>    <span class="k">return</span> <span class="n">problem</span><span class="o">.</span><span class="n">status</span> <span class="o">==</span> <span class="s2">&quot;optimal&quot;</span>
+<a id="__codelineno-0-170" name="__codelineno-0-170"></a>    <span class="k">return</span> <span class="n">problem</span><span class="o">.</span><span class="n">status</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;optimal&quot;</span><span class="p">,</span> <span class="s2">&quot;optimal_inaccurate&quot;</span><span class="p">}</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
