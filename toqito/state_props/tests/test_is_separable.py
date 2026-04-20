@@ -18,6 +18,7 @@ from toqito.state_props.is_separable import (
     _filter_cmc_xi_sum,
     _filter_normal_form,
     _iterative_product_state_subtraction,
+    _range_projector_product_overlap_3x3_rank4,
 )
 from toqito.states import basis, bell, horodecki, isotropic, max_entangled, tile
 
@@ -358,23 +359,22 @@ def test_entangled_by_reduction_criterion_non_psd_choi_T():
         is_separable(rho, dim=[d, d])[0]
 
 
-def test_plucker_linalg_error_in_det_fallthrough():
-    """Plucker LinAlgError falls through without producing a false separability proof."""
-    with mock.patch("numpy.linalg.det", side_effect=np.linalg.LinAlgError("mocked error")):
-        p1 = np.kron(basis(3, 0), basis(3, 0))
-        p2 = np.kron(basis(3, 1), basis(3, 1))
-        p3 = np.kron(basis(3, 2), basis(3, 2))
-        p4_v = (basis(3, 0) + basis(3, 1)) / np.sqrt(2)
-        p4 = np.kron(p4_v, p4_v)
-        rho = (
-            np.outer(p1, p1.conj()) + np.outer(p2, p2.conj()) + np.outer(p3, p3.conj()) + np.outer(p4, p4.conj())
-        ) / 4.0
+def test_rank4_range_overlap_inconclusive_falls_through():
+    """An inconclusive rank-4 range check must not create a false verdict."""
+    p1 = np.kron(basis(3, 0), basis(3, 0))
+    p2 = np.kron(basis(3, 1), basis(3, 1))
+    p3 = np.kron(basis(3, 2), basis(3, 2))
+    p4_v = (basis(3, 0) + basis(3, 1)) / np.sqrt(2)
+    p4 = np.kron(p4_v, p4_v)
+    rho = (np.outer(p1, p1.conj()) + np.outer(p2, p2.conj()) + np.outer(p3, p3.conj()) + np.outer(p4, p4.conj())) / 4.0
+
+    with mock.patch("toqito.state_props.is_separable._range_projector_product_overlap_3x3_rank4", return_value=None):
         with mock.patch("toqito.state_props.is_separable._iterative_product_state_subtraction", return_value=False):
             with mock.patch("toqito.state_props.is_separable.has_symmetric_extension", return_value=True):
                 with mock.patch("toqito.state_props.is_separable.has_symmetric_inner_extension", return_value=False):
                     sep, reason = is_separable(rho, dim=[3, 3])
-        assert sep is False
-        assert "inconclusive" in reason
+    assert sep is False
+    assert "inconclusive" in reason
 
 
 def test_eig_calc_fails_rank1_pert_check_skipped():
@@ -716,8 +716,8 @@ def test_full_rank_ppt_state_above_threshold():
             assert not is_separable(rho, dim=[3, 3], level=1)[0]
 
 
-def test_plucker_3x3_rank4_separable_det_F_is_zero():
-    """Covers L305 (Plucker loop) and L331 (det(F)~0 -> separable)."""
+def test_rank4_range_projector_finds_product_vector_for_separable_state():
+    """A separable 3x3 rank-4 PPT state's range should contain a product vector."""
     v0, v1, v2 = basis(3, 0), basis(3, 1), basis(3, 2)
     p1_vec = np.kron(v0, v0)
     p2_vec = np.kron(v1, v1)
@@ -733,7 +733,28 @@ def test_plucker_3x3_rank4_separable_det_F_is_zero():
     rho = rho / np.trace(rho)
     assert np.linalg.matrix_rank(rho, tol=1e-7) == 4  # Constructed state should be rank 4
     assert is_ppt(rho, dim=[3, 3])  # Constructed state should be PPT
+    best_overlap = _range_projector_product_overlap_3x3_rank4(rho, tol=1e-8)
+    assert best_overlap is not None
+    assert best_overlap > 1 - 1e-8
     assert is_separable(rho, dim=[3, 3])[0]
+
+
+def test_rank4_range_projector_rejects_tile_upb_state():
+    """The 3x3 UPB tile PPT-entangled state has no product vector in its range."""
+    rho = np.identity(9, dtype=complex)
+    for i in range(5):
+        rho = rho - tile(i) @ tile(i).conj().T
+    rho = rho / 4
+    assert np.linalg.matrix_rank(rho, tol=1e-7) == 4
+    assert is_ppt(rho, dim=[3, 3])
+
+    best_overlap = _range_projector_product_overlap_3x3_rank4(rho, tol=1e-8)
+    assert best_overlap is not None
+    assert best_overlap < 0.99
+
+    sep, reason = is_separable(rho, dim=[3, 3])
+    assert sep is False
+    assert "range-optimization found no product vector" in reason
 
 
 def test_entangled_zhang_variant_catches_L401():
@@ -1048,15 +1069,15 @@ def test_upb_tile_no_longer_caught_by_rank_sum_bound(tiles_state_3x3_ppt_entangl
 def test_strength_zero_caps_after_ppt_prechecks_on_upb_tile(tiles_state_3x3_ppt_entangled):
     """strength=0 stops early on a UPB tile PPT-entangled state.
 
-    At strength=1 the 3x3 rank-4 Plucker check catches it as entangled; at
-    strength=0 everything after PPT <= 6 is skipped, so the function returns
-    the 'strength=0 capped' inconclusive fallback.
+    At default strength the 3x3 rank-4 range-product-vector check catches it
+    as entangled; at strength=0 everything after PPT <= 6 is skipped, so the
+    function returns the 'strength=0 capped' inconclusive fallback.
     """
     rho = tiles_state_3x3_ppt_entangled
 
     sep_default, reason_default = is_separable(rho, dim=[3, 3])
     assert sep_default is False
-    assert "Plucker" in reason_default
+    assert "range-optimization found no product vector" in reason_default
 
     sep_fast, reason_fast = is_separable(rho, dim=[3, 3], strength=0)
     assert sep_fast is False
