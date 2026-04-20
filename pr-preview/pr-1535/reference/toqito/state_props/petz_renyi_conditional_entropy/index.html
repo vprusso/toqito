@@ -9165,79 +9165,150 @@ invalid, or if <code>dim</code> does not describe a bipartite decomposition of <
     </ul>
 
 
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>Compute the downarrow variant for a Bell state using a scalar subsystem
+dimension:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.state_props</span><span class="w"> </span><span class="kn">import</span> <span class="n">petz_renyi_conditional_entropy</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">psi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="n">rho</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">outer</span><span class="p">(</span><span class="n">psi</span><span class="p">,</span> <span class="n">psi</span><span class="o">.</span><span class="n">conj</span><span class="p">())</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="nb">print</span><span class="p">(</span><span class="n">petz_renyi_conditional_entropy</span><span class="p">(</span><span class="n">rho</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">variant</span><span class="o">=</span><span class="s2">&quot;downarrow&quot;</span><span class="p">))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>-0.9999999999999993
+</code></pre></div>
+<p>Compute the uparrow variant for the same state using a 2-element list for
+<code>dim</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.state_props</span><span class="w"> </span><span class="kn">import</span> <span class="n">petz_renyi_conditional_entropy</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">psi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="n">rho</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">outer</span><span class="p">(</span><span class="n">psi</span><span class="p">,</span> <span class="n">psi</span><span class="o">.</span><span class="n">conj</span><span class="p">())</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="nb">print</span><span class="p">(</span><span class="n">petz_renyi_conditional_entropy</span><span class="p">(</span><span class="n">rho</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">variant</span><span class="o">=</span><span class="s2">&quot;uparrow&quot;</span><span class="p">))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>-0.9999999999999989
+</code></pre></div>
+<p>For a product state, the conditional entropy matches the entropy of the
+first subsystem:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.state_props</span><span class="w"> </span><span class="kn">import</span> <span class="n">petz_renyi_conditional_entropy</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">rho</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">([</span><span class="mi">1</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">petz_renyi_conditional_entropy</span><span class="p">(</span><span class="n">rho</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">variant</span><span class="o">=</span><span class="s2">&quot;downarrow&quot;</span><span class="p">))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>-0.0
+</code></pre></div>
+
+
             <details class="mkdocstrings-source">
               <summary>Source code in <code>toqito/state_props/petz_renyi_conditional_entropy.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-10">10</a></span>
-<span class="normal"><a href="#__codelineno-0-11">11</a></span>
-<span class="normal"><a href="#__codelineno-0-12">12</a></span>
-<span class="normal"><a href="#__codelineno-0-13">13</a></span>
-<span class="normal"><a href="#__codelineno-0-14">14</a></span>
-<span class="normal"><a href="#__codelineno-0-15">15</a></span>
-<span class="normal"><a href="#__codelineno-0-16">16</a></span>
-<span class="normal"><a href="#__codelineno-0-17">17</a></span>
-<span class="normal"><a href="#__codelineno-0-18">18</a></span>
-<span class="normal"><a href="#__codelineno-0-19">19</a></span>
-<span class="normal"><a href="#__codelineno-0-20">20</a></span>
-<span class="normal"><a href="#__codelineno-0-21">21</a></span>
-<span class="normal"><a href="#__codelineno-0-22">22</a></span>
-<span class="normal"><a href="#__codelineno-0-23">23</a></span>
-<span class="normal"><a href="#__codelineno-0-24">24</a></span>
-<span class="normal"><a href="#__codelineno-0-25">25</a></span>
-<span class="normal"><a href="#__codelineno-0-26">26</a></span>
-<span class="normal"><a href="#__codelineno-0-27">27</a></span>
-<span class="normal"><a href="#__codelineno-0-28">28</a></span>
-<span class="normal"><a href="#__codelineno-0-29">29</a></span>
-<span class="normal"><a href="#__codelineno-0-30">30</a></span>
-<span class="normal"><a href="#__codelineno-0-31">31</a></span>
-<span class="normal"><a href="#__codelineno-0-32">32</a></span>
-<span class="normal"><a href="#__codelineno-0-33">33</a></span>
-<span class="normal"><a href="#__codelineno-0-34">34</a></span>
-<span class="normal"><a href="#__codelineno-0-35">35</a></span>
-<span class="normal"><a href="#__codelineno-0-36">36</a></span>
-<span class="normal"><a href="#__codelineno-0-37">37</a></span>
-<span class="normal"><a href="#__codelineno-0-38">38</a></span>
-<span class="normal"><a href="#__codelineno-0-39">39</a></span>
-<span class="normal"><a href="#__codelineno-0-40">40</a></span>
-<span class="normal"><a href="#__codelineno-0-41">41</a></span>
-<span class="normal"><a href="#__codelineno-0-42">42</a></span>
-<span class="normal"><a href="#__codelineno-0-43">43</a></span>
-<span class="normal"><a href="#__codelineno-0-44">44</a></span>
-<span class="normal"><a href="#__codelineno-0-45">45</a></span>
-<span class="normal"><a href="#__codelineno-0-46">46</a></span>
-<span class="normal"><a href="#__codelineno-0-47">47</a></span>
-<span class="normal"><a href="#__codelineno-0-48">48</a></span>
-<span class="normal"><a href="#__codelineno-0-49">49</a></span>
-<span class="normal"><a href="#__codelineno-0-50">50</a></span>
-<span class="normal"><a href="#__codelineno-0-51">51</a></span>
-<span class="normal"><a href="#__codelineno-0-52">52</a></span>
-<span class="normal"><a href="#__codelineno-0-53">53</a></span>
-<span class="normal"><a href="#__codelineno-0-54">54</a></span>
-<span class="normal"><a href="#__codelineno-0-55">55</a></span>
-<span class="normal"><a href="#__codelineno-0-56">56</a></span>
-<span class="normal"><a href="#__codelineno-0-57">57</a></span>
-<span class="normal"><a href="#__codelineno-0-58">58</a></span>
-<span class="normal"><a href="#__codelineno-0-59">59</a></span>
-<span class="normal"><a href="#__codelineno-0-60">60</a></span>
-<span class="normal"><a href="#__codelineno-0-61">61</a></span>
-<span class="normal"><a href="#__codelineno-0-62">62</a></span>
-<span class="normal"><a href="#__codelineno-0-63">63</a></span>
-<span class="normal"><a href="#__codelineno-0-64">64</a></span>
-<span class="normal"><a href="#__codelineno-0-65">65</a></span>
-<span class="normal"><a href="#__codelineno-0-66">66</a></span>
-<span class="normal"><a href="#__codelineno-0-67">67</a></span>
-<span class="normal"><a href="#__codelineno-0-68">68</a></span>
-<span class="normal"><a href="#__codelineno-0-69">69</a></span>
-<span class="normal"><a href="#__codelineno-0-70">70</a></span>
-<span class="normal"><a href="#__codelineno-0-71">71</a></span>
-<span class="normal"><a href="#__codelineno-0-72">72</a></span>
-<span class="normal"><a href="#__codelineno-0-73">73</a></span>
-<span class="normal"><a href="#__codelineno-0-74">74</a></span>
-<span class="normal"><a href="#__codelineno-0-75">75</a></span>
-<span class="normal"><a href="#__codelineno-0-76">76</a></span>
-<span class="normal"><a href="#__codelineno-0-77">77</a></span>
-<span class="normal"><a href="#__codelineno-0-78">78</a></span>
-<span class="normal"><a href="#__codelineno-0-79">79</a></span>
-<span class="normal"><a href="#__codelineno-0-80">80</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-10" name="__codelineno-0-10"></a><span class="k">def</span><span class="w"> </span><span class="nf">petz_renyi_conditional_entropy</span><span class="p">(</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-10"> 10</a></span>
+<span class="normal"><a href="#__codelineno-0-11"> 11</a></span>
+<span class="normal"><a href="#__codelineno-0-12"> 12</a></span>
+<span class="normal"><a href="#__codelineno-0-13"> 13</a></span>
+<span class="normal"><a href="#__codelineno-0-14"> 14</a></span>
+<span class="normal"><a href="#__codelineno-0-15"> 15</a></span>
+<span class="normal"><a href="#__codelineno-0-16"> 16</a></span>
+<span class="normal"><a href="#__codelineno-0-17"> 17</a></span>
+<span class="normal"><a href="#__codelineno-0-18"> 18</a></span>
+<span class="normal"><a href="#__codelineno-0-19"> 19</a></span>
+<span class="normal"><a href="#__codelineno-0-20"> 20</a></span>
+<span class="normal"><a href="#__codelineno-0-21"> 21</a></span>
+<span class="normal"><a href="#__codelineno-0-22"> 22</a></span>
+<span class="normal"><a href="#__codelineno-0-23"> 23</a></span>
+<span class="normal"><a href="#__codelineno-0-24"> 24</a></span>
+<span class="normal"><a href="#__codelineno-0-25"> 25</a></span>
+<span class="normal"><a href="#__codelineno-0-26"> 26</a></span>
+<span class="normal"><a href="#__codelineno-0-27"> 27</a></span>
+<span class="normal"><a href="#__codelineno-0-28"> 28</a></span>
+<span class="normal"><a href="#__codelineno-0-29"> 29</a></span>
+<span class="normal"><a href="#__codelineno-0-30"> 30</a></span>
+<span class="normal"><a href="#__codelineno-0-31"> 31</a></span>
+<span class="normal"><a href="#__codelineno-0-32"> 32</a></span>
+<span class="normal"><a href="#__codelineno-0-33"> 33</a></span>
+<span class="normal"><a href="#__codelineno-0-34"> 34</a></span>
+<span class="normal"><a href="#__codelineno-0-35"> 35</a></span>
+<span class="normal"><a href="#__codelineno-0-36"> 36</a></span>
+<span class="normal"><a href="#__codelineno-0-37"> 37</a></span>
+<span class="normal"><a href="#__codelineno-0-38"> 38</a></span>
+<span class="normal"><a href="#__codelineno-0-39"> 39</a></span>
+<span class="normal"><a href="#__codelineno-0-40"> 40</a></span>
+<span class="normal"><a href="#__codelineno-0-41"> 41</a></span>
+<span class="normal"><a href="#__codelineno-0-42"> 42</a></span>
+<span class="normal"><a href="#__codelineno-0-43"> 43</a></span>
+<span class="normal"><a href="#__codelineno-0-44"> 44</a></span>
+<span class="normal"><a href="#__codelineno-0-45"> 45</a></span>
+<span class="normal"><a href="#__codelineno-0-46"> 46</a></span>
+<span class="normal"><a href="#__codelineno-0-47"> 47</a></span>
+<span class="normal"><a href="#__codelineno-0-48"> 48</a></span>
+<span class="normal"><a href="#__codelineno-0-49"> 49</a></span>
+<span class="normal"><a href="#__codelineno-0-50"> 50</a></span>
+<span class="normal"><a href="#__codelineno-0-51"> 51</a></span>
+<span class="normal"><a href="#__codelineno-0-52"> 52</a></span>
+<span class="normal"><a href="#__codelineno-0-53"> 53</a></span>
+<span class="normal"><a href="#__codelineno-0-54"> 54</a></span>
+<span class="normal"><a href="#__codelineno-0-55"> 55</a></span>
+<span class="normal"><a href="#__codelineno-0-56"> 56</a></span>
+<span class="normal"><a href="#__codelineno-0-57"> 57</a></span>
+<span class="normal"><a href="#__codelineno-0-58"> 58</a></span>
+<span class="normal"><a href="#__codelineno-0-59"> 59</a></span>
+<span class="normal"><a href="#__codelineno-0-60"> 60</a></span>
+<span class="normal"><a href="#__codelineno-0-61"> 61</a></span>
+<span class="normal"><a href="#__codelineno-0-62"> 62</a></span>
+<span class="normal"><a href="#__codelineno-0-63"> 63</a></span>
+<span class="normal"><a href="#__codelineno-0-64"> 64</a></span>
+<span class="normal"><a href="#__codelineno-0-65"> 65</a></span>
+<span class="normal"><a href="#__codelineno-0-66"> 66</a></span>
+<span class="normal"><a href="#__codelineno-0-67"> 67</a></span>
+<span class="normal"><a href="#__codelineno-0-68"> 68</a></span>
+<span class="normal"><a href="#__codelineno-0-69"> 69</a></span>
+<span class="normal"><a href="#__codelineno-0-70"> 70</a></span>
+<span class="normal"><a href="#__codelineno-0-71"> 71</a></span>
+<span class="normal"><a href="#__codelineno-0-72"> 72</a></span>
+<span class="normal"><a href="#__codelineno-0-73"> 73</a></span>
+<span class="normal"><a href="#__codelineno-0-74"> 74</a></span>
+<span class="normal"><a href="#__codelineno-0-75"> 75</a></span>
+<span class="normal"><a href="#__codelineno-0-76"> 76</a></span>
+<span class="normal"><a href="#__codelineno-0-77"> 77</a></span>
+<span class="normal"><a href="#__codelineno-0-78"> 78</a></span>
+<span class="normal"><a href="#__codelineno-0-79"> 79</a></span>
+<span class="normal"><a href="#__codelineno-0-80"> 80</a></span>
+<span class="normal"><a href="#__codelineno-0-81"> 81</a></span>
+<span class="normal"><a href="#__codelineno-0-82"> 82</a></span>
+<span class="normal"><a href="#__codelineno-0-83"> 83</a></span>
+<span class="normal"><a href="#__codelineno-0-84"> 84</a></span>
+<span class="normal"><a href="#__codelineno-0-85"> 85</a></span>
+<span class="normal"><a href="#__codelineno-0-86"> 86</a></span>
+<span class="normal"><a href="#__codelineno-0-87"> 87</a></span>
+<span class="normal"><a href="#__codelineno-0-88"> 88</a></span>
+<span class="normal"><a href="#__codelineno-0-89"> 89</a></span>
+<span class="normal"><a href="#__codelineno-0-90"> 90</a></span>
+<span class="normal"><a href="#__codelineno-0-91"> 91</a></span>
+<span class="normal"><a href="#__codelineno-0-92"> 92</a></span>
+<span class="normal"><a href="#__codelineno-0-93"> 93</a></span>
+<span class="normal"><a href="#__codelineno-0-94"> 94</a></span>
+<span class="normal"><a href="#__codelineno-0-95"> 95</a></span>
+<span class="normal"><a href="#__codelineno-0-96"> 96</a></span>
+<span class="normal"><a href="#__codelineno-0-97"> 97</a></span>
+<span class="normal"><a href="#__codelineno-0-98"> 98</a></span>
+<span class="normal"><a href="#__codelineno-0-99"> 99</a></span>
+<span class="normal"><a href="#__codelineno-0-100">100</a></span>
+<span class="normal"><a href="#__codelineno-0-101">101</a></span>
+<span class="normal"><a href="#__codelineno-0-102">102</a></span>
+<span class="normal"><a href="#__codelineno-0-103">103</a></span>
+<span class="normal"><a href="#__codelineno-0-104">104</a></span>
+<span class="normal"><a href="#__codelineno-0-105">105</a></span>
+<span class="normal"><a href="#__codelineno-0-106">106</a></span>
+<span class="normal"><a href="#__codelineno-0-107">107</a></span>
+<span class="normal"><a href="#__codelineno-0-108">108</a></span>
+<span class="normal"><a href="#__codelineno-0-109">109</a></span>
+<span class="normal"><a href="#__codelineno-0-110">110</a></span>
+<span class="normal"><a href="#__codelineno-0-111">111</a></span>
+<span class="normal"><a href="#__codelineno-0-112">112</a></span>
+<span class="normal"><a href="#__codelineno-0-113">113</a></span>
+<span class="normal"><a href="#__codelineno-0-114">114</a></span>
+<span class="normal"><a href="#__codelineno-0-115">115</a></span>
+<span class="normal"><a href="#__codelineno-0-116">116</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-10" name="__codelineno-0-10"></a><span class="k">def</span><span class="w"> </span><span class="nf">petz_renyi_conditional_entropy</span><span class="p">(</span>
 <a id="__codelineno-0-11" name="__codelineno-0-11"></a>    <span class="n">rho</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
 <a id="__codelineno-0-12" name="__codelineno-0-12"></a>    <span class="n">alpha</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
 <a id="__codelineno-0-13" name="__codelineno-0-13"></a>    <span class="n">dim</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="nb">tuple</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -9292,22 +9363,58 @@ invalid, or if <code>dim</code> does not describe a bipartite decomposition of <
 <a id="__codelineno-0-62" name="__codelineno-0-62"></a><span class="sd">        ValueError: If `rho` is not a density matrix, if `alpha &lt;= 0`, if `variant` is</span>
 <a id="__codelineno-0-63" name="__codelineno-0-63"></a><span class="sd">            invalid, or if `dim` does not describe a bipartite decomposition of `rho`.</span>
 <a id="__codelineno-0-64" name="__codelineno-0-64"></a>
-<a id="__codelineno-0-65" name="__codelineno-0-65"></a><span class="sd">    &quot;&quot;&quot;</span>
-<a id="__codelineno-0-66" name="__codelineno-0-66"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">is_density</span><span class="p">(</span><span class="n">rho</span><span class="p">):</span>
-<a id="__codelineno-0-67" name="__codelineno-0-67"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Petz conditional Rényi entropy is only defined for density operators.&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-68" name="__codelineno-0-68"></a>    <span class="k">if</span> <span class="n">alpha</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
-<a id="__codelineno-0-69" name="__codelineno-0-69"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Petz conditional Rényi entropy is only defined for positive orders.&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-70" name="__codelineno-0-70"></a>    <span class="k">if</span> <span class="n">variant</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;downarrow&quot;</span><span class="p">,</span> <span class="s2">&quot;uparrow&quot;</span><span class="p">}:</span>
-<a id="__codelineno-0-71" name="__codelineno-0-71"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;`variant` must be either &#39;downarrow&#39; or &#39;uparrow&#39;.&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-65" name="__codelineno-0-65"></a><span class="sd">    Examples:</span>
+<a id="__codelineno-0-66" name="__codelineno-0-66"></a><span class="sd">        Compute the downarrow variant for a Bell state using a scalar subsystem</span>
+<a id="__codelineno-0-67" name="__codelineno-0-67"></a><span class="sd">        dimension:</span>
+<a id="__codelineno-0-68" name="__codelineno-0-68"></a>
+<a id="__codelineno-0-69" name="__codelineno-0-69"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;</span>
+<a id="__codelineno-0-70" name="__codelineno-0-70"></a><span class="sd">        import numpy as np</span>
+<a id="__codelineno-0-71" name="__codelineno-0-71"></a><span class="sd">        from toqito.state_props import petz_renyi_conditional_entropy</span>
 <a id="__codelineno-0-72" name="__codelineno-0-72"></a>
-<a id="__codelineno-0-73" name="__codelineno-0-73"></a>    <span class="n">dims</span> <span class="o">=</span> <span class="n">_validate_bipartite_dim</span><span class="p">(</span><span class="n">rho</span><span class="p">,</span> <span class="n">dim</span><span class="p">)</span>
-<a id="__codelineno-0-74" name="__codelineno-0-74"></a>    <span class="n">rho_b</span> <span class="o">=</span> <span class="n">partial_trace</span><span class="p">(</span><span class="n">rho</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">dims</span><span class="p">)</span>
-<a id="__codelineno-0-75" name="__codelineno-0-75"></a>
-<a id="__codelineno-0-76" name="__codelineno-0-76"></a>    <span class="k">if</span> <span class="n">alpha</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-<a id="__codelineno-0-77" name="__codelineno-0-77"></a>        <span class="k">return</span> <span class="n">von_neumann_entropy</span><span class="p">(</span><span class="n">rho</span><span class="p">)</span> <span class="o">-</span> <span class="n">von_neumann_entropy</span><span class="p">(</span><span class="n">rho_b</span><span class="p">)</span>
-<a id="__codelineno-0-78" name="__codelineno-0-78"></a>    <span class="k">if</span> <span class="n">variant</span> <span class="o">==</span> <span class="s2">&quot;uparrow&quot;</span><span class="p">:</span>
-<a id="__codelineno-0-79" name="__codelineno-0-79"></a>        <span class="k">return</span> <span class="n">_petz_renyi_conditional_entropy_uparrow</span><span class="p">(</span><span class="n">rho</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">dims</span><span class="p">)</span>
-<a id="__codelineno-0-80" name="__codelineno-0-80"></a>    <span class="k">return</span> <span class="n">_petz_renyi_conditional_entropy_downarrow</span><span class="p">(</span><span class="n">rho</span><span class="p">,</span> <span class="n">rho_b</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">dims</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<a id="__codelineno-0-73" name="__codelineno-0-73"></a><span class="sd">        psi = np.array([1, 0, 0, 1]) / np.sqrt(2)</span>
+<a id="__codelineno-0-74" name="__codelineno-0-74"></a><span class="sd">        rho = np.outer(psi, psi.conj())</span>
+<a id="__codelineno-0-75" name="__codelineno-0-75"></a><span class="sd">        print(petz_renyi_conditional_entropy(rho, alpha=2, dim=2, variant=&quot;downarrow&quot;))</span>
+<a id="__codelineno-0-76" name="__codelineno-0-76"></a><span class="sd">        ```</span>
+<a id="__codelineno-0-77" name="__codelineno-0-77"></a>
+<a id="__codelineno-0-78" name="__codelineno-0-78"></a><span class="sd">        Compute the uparrow variant for the same state using a 2-element list for</span>
+<a id="__codelineno-0-79" name="__codelineno-0-79"></a><span class="sd">        `dim`:</span>
+<a id="__codelineno-0-80" name="__codelineno-0-80"></a>
+<a id="__codelineno-0-81" name="__codelineno-0-81"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;</span>
+<a id="__codelineno-0-82" name="__codelineno-0-82"></a><span class="sd">        import numpy as np</span>
+<a id="__codelineno-0-83" name="__codelineno-0-83"></a><span class="sd">        from toqito.state_props import petz_renyi_conditional_entropy</span>
+<a id="__codelineno-0-84" name="__codelineno-0-84"></a>
+<a id="__codelineno-0-85" name="__codelineno-0-85"></a><span class="sd">        psi = np.array([1, 0, 0, 1]) / np.sqrt(2)</span>
+<a id="__codelineno-0-86" name="__codelineno-0-86"></a><span class="sd">        rho = np.outer(psi, psi.conj())</span>
+<a id="__codelineno-0-87" name="__codelineno-0-87"></a><span class="sd">        print(petz_renyi_conditional_entropy(rho, alpha=2, dim=[2, 2], variant=&quot;uparrow&quot;))</span>
+<a id="__codelineno-0-88" name="__codelineno-0-88"></a><span class="sd">        ```</span>
+<a id="__codelineno-0-89" name="__codelineno-0-89"></a>
+<a id="__codelineno-0-90" name="__codelineno-0-90"></a><span class="sd">        For a product state, the conditional entropy matches the entropy of the</span>
+<a id="__codelineno-0-91" name="__codelineno-0-91"></a><span class="sd">        first subsystem:</span>
+<a id="__codelineno-0-92" name="__codelineno-0-92"></a>
+<a id="__codelineno-0-93" name="__codelineno-0-93"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;</span>
+<a id="__codelineno-0-94" name="__codelineno-0-94"></a><span class="sd">        import numpy as np</span>
+<a id="__codelineno-0-95" name="__codelineno-0-95"></a><span class="sd">        from toqito.state_props import petz_renyi_conditional_entropy</span>
+<a id="__codelineno-0-96" name="__codelineno-0-96"></a>
+<a id="__codelineno-0-97" name="__codelineno-0-97"></a><span class="sd">        rho = np.diag([1 / 2, 1 / 2, 0, 0])</span>
+<a id="__codelineno-0-98" name="__codelineno-0-98"></a><span class="sd">        print(petz_renyi_conditional_entropy(rho, alpha=2, dim=2, variant=&quot;downarrow&quot;))</span>
+<a id="__codelineno-0-99" name="__codelineno-0-99"></a><span class="sd">        ```</span>
+<a id="__codelineno-0-100" name="__codelineno-0-100"></a>
+<a id="__codelineno-0-101" name="__codelineno-0-101"></a><span class="sd">    &quot;&quot;&quot;</span>
+<a id="__codelineno-0-102" name="__codelineno-0-102"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">is_density</span><span class="p">(</span><span class="n">rho</span><span class="p">):</span>
+<a id="__codelineno-0-103" name="__codelineno-0-103"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Petz conditional Rényi entropy is only defined for density operators.&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-104" name="__codelineno-0-104"></a>    <span class="k">if</span> <span class="n">alpha</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+<a id="__codelineno-0-105" name="__codelineno-0-105"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Petz conditional Rényi entropy is only defined for positive orders.&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-106" name="__codelineno-0-106"></a>    <span class="k">if</span> <span class="n">variant</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;downarrow&quot;</span><span class="p">,</span> <span class="s2">&quot;uparrow&quot;</span><span class="p">}:</span>
+<a id="__codelineno-0-107" name="__codelineno-0-107"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;`variant` must be either &#39;downarrow&#39; or &#39;uparrow&#39;.&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-108" name="__codelineno-0-108"></a>
+<a id="__codelineno-0-109" name="__codelineno-0-109"></a>    <span class="n">dims</span> <span class="o">=</span> <span class="n">_validate_bipartite_dim</span><span class="p">(</span><span class="n">rho</span><span class="p">,</span> <span class="n">dim</span><span class="p">)</span>
+<a id="__codelineno-0-110" name="__codelineno-0-110"></a>    <span class="n">rho_b</span> <span class="o">=</span> <span class="n">partial_trace</span><span class="p">(</span><span class="n">rho</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">dims</span><span class="p">)</span>
+<a id="__codelineno-0-111" name="__codelineno-0-111"></a>
+<a id="__codelineno-0-112" name="__codelineno-0-112"></a>    <span class="k">if</span> <span class="n">alpha</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+<a id="__codelineno-0-113" name="__codelineno-0-113"></a>        <span class="k">return</span> <span class="n">von_neumann_entropy</span><span class="p">(</span><span class="n">rho</span><span class="p">)</span> <span class="o">-</span> <span class="n">von_neumann_entropy</span><span class="p">(</span><span class="n">rho_b</span><span class="p">)</span>
+<a id="__codelineno-0-114" name="__codelineno-0-114"></a>    <span class="k">if</span> <span class="n">variant</span> <span class="o">==</span> <span class="s2">&quot;uparrow&quot;</span><span class="p">:</span>
+<a id="__codelineno-0-115" name="__codelineno-0-115"></a>        <span class="k">return</span> <span class="n">_petz_renyi_conditional_entropy_uparrow</span><span class="p">(</span><span class="n">rho</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">dims</span><span class="p">)</span>
+<a id="__codelineno-0-116" name="__codelineno-0-116"></a>    <span class="k">return</span> <span class="n">_petz_renyi_conditional_entropy_downarrow</span><span class="p">(</span><span class="n">rho</span><span class="p">,</span> <span class="n">rho_b</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">dims</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
