@@ -451,6 +451,303 @@ def _iterative_product_state_subtraction(
     return False  # Iteration budget exhausted.
 
 
+def _operator_schmidt_rank_ppt_criterion(
+    state: np.ndarray,
+    dims: list[int],
+    tol: float,
+) -> tuple[bool, str] | None:
+    """Return the Cariello PPT criterion verdict, if it fires."""
+    op_schmidt_rank = np.linalg.matrix_rank(realignment(state, dim=dims), tol=tol)
+    if op_schmidt_rank <= 2:
+        return True, f"operator Schmidt rank = {int(op_schmidt_rank)} <= 2 (Cariello 2013)"
+    return None
+
+
+def _rank4_ppt_3x3_criterion(
+    state: np.ndarray,
+    d_a: int,
+    d_b: int,
+    state_rank: int,
+    tol: float,
+) -> tuple[bool, str] | None:
+    """Return the 3x3 PPT rank-4 separability verdict, if certified."""
+    if d_a != 3 or d_b != 3 or state_rank != 4:
+        return None
+
+    best_overlap = _range_projector_product_overlap_3x3_rank4(state, tol)
+    if best_overlap is not None and 1.0 - best_overlap < 10 * tol:
+        return True, "3x3 rank-4 PPT: range contains a product vector (Chen-Djokovic 2013)"
+    return None
+
+
+def _horodecki_low_rank_ppt_criteria(
+    state: np.ndarray,
+    dims: list[int],
+    state_rank: int,
+    max_dim_val: int,
+    tol: float,
+) -> tuple[tuple[bool, str] | None, np.ndarray | None, np.ndarray | None]:
+    """Run the Horodecki low-rank PPT criteria and return cached marginals."""
+    if state_rank <= max_dim_val:
+        return (True, "rank(rho) <= max(d_A, d_B) (Horodecki et al. 2000)"), None, None
+
+    rho_a_marginal = partial_trace(state, sys=[1], dim=dims)
+    rho_b_marginal = partial_trace(state, sys=[0], dim=dims)
+    rank_marg_a = np.linalg.matrix_rank(rho_a_marginal, tol=tol)
+    rank_marg_b = np.linalg.matrix_rank(rho_b_marginal, tol=tol)
+    if state_rank <= rank_marg_a:
+        return (
+            (True, f"rank(rho)={state_rank} <= rank(rho_A)={rank_marg_a} (Horodecki et al. 2000)"),
+            rho_a_marginal,
+            rho_b_marginal,
+        )
+    if state_rank <= rank_marg_b:
+        return (
+            (True, f"rank(rho)={state_rank} <= rank(rho_B)={rank_marg_b} (Horodecki et al. 2000)"),
+            rho_a_marginal,
+            rho_b_marginal,
+        )
+    return None, rho_a_marginal, rho_b_marginal
+
+
+def _reduction_ppt_criterion(
+    state: np.ndarray,
+    rho_a_marginal: np.ndarray,
+    rho_b_marginal: np.ndarray,
+    d_a: int,
+    d_b: int,
+    tol: float,
+) -> tuple[bool, str] | None:
+    """Return the reduction-criterion verdict, if violated."""
+    op_reduct1 = np.kron(np.eye(d_a), rho_b_marginal) - state
+    op_reduct2 = np.kron(rho_a_marginal, np.eye(d_b)) - state
+    if not (
+        is_positive_semidefinite(op_reduct1, atol=tol, rtol=tol)
+        and is_positive_semidefinite(op_reduct2, atol=tol, rtol=tol)
+    ):
+        return False, "reduction criterion violated (Horodecki 1999)"
+    return None
+
+
+def _realignment_ppt_criteria(
+    state: np.ndarray,
+    dims: list[int],
+    rho_a_marginal: np.ndarray,
+    rho_b_marginal: np.ndarray,
+    d_a: int,
+    d_b: int,
+    tol: float,
+) -> tuple[bool, str] | None:
+    """Return the first realignment/filter-CMC witness verdict that fires."""
+    if trace_norm(realignment(state, dims)) > 1 + tol:
+        return False, "realignment/CCNR: ||R(rho)||_1 > 1 (Chen-Wu 2003)"
+
+    tr_rho_a_sq = np.real(np.trace(rho_a_marginal @ rho_a_marginal))
+    tr_rho_b_sq = np.real(np.trace(rho_b_marginal @ rho_b_marginal))
+    val_a = max(0, 1 - tr_rho_a_sq)
+    val_b = max(0, 1 - tr_rho_b_sq)
+    bound_zhang = np.sqrt(val_a * val_b) if val_a * val_b >= 0 else 0
+    centered_state = state - np.kron(rho_a_marginal, rho_b_marginal)
+    if trace_norm(realignment(centered_state, dims)) > bound_zhang + tol:
+        return False, "Zhang realignment variant: ||R(rho - rho_A (x) rho_B)||_1 exceeds purity bound (Zhang 2008)"
+
+    rho_normal = _filter_normal_form(state, dims, tol)
+    if rho_normal is not None:
+        xi_sum = _filter_cmc_xi_sum(rho_normal, dims)
+        xi_bound = _filter_cmc_bound(d_a, d_b)
+        if xi_sum > xi_bound + tol:
+            return (
+                False,
+                f"Filter CMC: sum xi = {xi_sum:.4g} > bound {xi_bound:.4g} (Gittsovich et al. 2008, Prop. IV.15)",
+            )
+
+    return None
+
+
+def _vidal_tarrach_ppt_criterion(
+    sorted_eigs_desc: np.ndarray,
+    prod_dim_val: int,
+    tol: float,
+    machine_eps: float,
+) -> tuple[bool, str] | None:
+    """Return the Vidal-Tarrach perturbation criterion verdict, if it fires."""
+    if len(sorted_eigs_desc) == prod_dim_val and prod_dim_val > 1:
+        diff_pert = sorted_eigs_desc[1] - sorted_eigs_desc[prod_dim_val - 1]
+        threshold_pert = tol**2 + 2 * machine_eps
+        if diff_pert < threshold_pert:
+            return True, "PPT state close to rank-1 identity perturbation (Vidal-Tarrach 1999)"
+
+    return None
+
+
+def _qubit_qudit_ppt_criteria(
+    state: np.ndarray,
+    dims: list[int],
+    d_a: int,
+    d_b: int,
+    min_dim_val: int,
+    max_dim_val: int,
+    prod_dim_val: int,
+    tol: float,
+    sorted_eigs_desc: np.ndarray,
+) -> tuple[bool, str] | None:
+    """Return the first 2xN PPT criterion verdict that fires."""
+    if min_dim_val != 2 or prod_dim_val == 0:
+        return None
+
+    state_t_2xn = state
+    d_n_val = max_dim_val
+    dim_for_hildebrand_map = [2, d_n_val]
+
+    if d_a != 2 and d_b == 2:
+        state_t_2xn = swap(state, sys=[0, 1], dim=dims)
+        dim_for_hildebrand_map = [d_b, d_a]
+    elif d_a != 2:
+        return None
+
+    if state_t_2xn is state:
+        current_lam_2xn = sorted_eigs_desc
+    else:
+        try:
+            current_lam_2xn = np.linalg.eigvalsh(state_t_2xn)[::-1]
+        except np.linalg.LinAlgError:
+            current_lam_2xn = np.sort(np.real(np.linalg.eigvals(state_t_2xn)))[::-1]
+
+    if (
+        len(current_lam_2xn) >= 2 * d_n_val
+        and (2 * d_n_val - 1) < len(current_lam_2xn)
+        and (2 * d_n_val - 2) >= 0
+        and (2 * d_n_val - 3) >= 0
+    ):
+        lhs = (current_lam_2xn[0] - current_lam_2xn[2 * d_n_val - 2]) ** 2
+        rhs = 4 * current_lam_2xn[2 * d_n_val - 3] * current_lam_2xn[2 * d_n_val - 1] + tol**2
+        if lhs <= rhs:
+            return True, "Johnston spectral condition for 2xN PPT states (2013)"
+
+    a_block = state_t_2xn[:d_n_val, :d_n_val]
+    b_block = state_t_2xn[:d_n_val, d_n_val : 2 * d_n_val]
+    c_block = state_t_2xn[d_n_val : 2 * d_n_val, d_n_val : 2 * d_n_val]
+
+    if b_block.size > 0 and np.linalg.matrix_rank(b_block - b_block.conj().T, tol=tol) <= 1:
+        return True, "Hildebrand 2xN condition: rank(B - B^dagger) <= 1"
+
+    if a_block.size > 0 and b_block.size > 0 and c_block.size > 0:
+        x_2n_ppt_check = np.vstack(
+            (
+                np.hstack(((5 / 6) * a_block - c_block / 6, b_block)),
+                np.hstack((b_block.conj().T, (5 / 6) * c_block - a_block / 6)),
+            )
+        )
+        if is_positive_semidefinite(x_2n_ppt_check, atol=tol, rtol=tol) and is_ppt(
+            x_2n_ppt_check, sys=1, dim=dim_for_hildebrand_map, tol=tol
+        ):
+            return True, "Hildebrand 2xN homothetic-image condition (PSD and PPT)"
+
+        try:
+            eig_a_real = np.real(np.linalg.eigvals(a_block))
+            eig_c_real = np.real(np.linalg.eigvals(c_block))
+            if eig_a_real.size > 0 and eig_c_real.size > 0 and b_block.size > 0:
+                if np.linalg.norm(b_block) ** 2 <= np.min(eig_a_real) * np.min(eig_c_real) + tol**2:
+                    return True, "Johnston Lemma 1 for 2xN PPT states: ||B||^2 <= lambda_min(A) * lambda_min(C)"
+        except np.linalg.LinAlgError:
+            return None
+
+    return None
+
+
+def _positive_map_witness_criteria(
+    state: np.ndarray,
+    dims: list[int],
+    d_a: int,
+    d_b: int,
+    tol: float,
+) -> tuple[bool, str] | None:
+    """Return the first positive-map or witness verdict that fires."""
+    if d_a == 3 and d_b == 3:
+        phi_choi_1975 = _choi_1975_choi_matrix()
+        for p_idx_choi in (1, 2):
+            mapped = partial_channel(state, phi_choi_1975, sys=p_idx_choi, dim=dims)
+            if not is_positive_semidefinite(mapped, atol=tol, rtol=tol):
+                return False, f"Choi 1975 positive-map witness (on subsystem {p_idx_choi}, 3x3)"
+
+        tr_h_rho = float(np.real(np.trace(_TERHAL_2000_TILE_WITNESS_3X3 @ state)))
+        if tr_h_rho < -tol:
+            return False, f"UPB-based witness on tile UPB (Terhal 2000): tr(H*rho)={tr_h_rho:.4g} < 0"
+
+        phi_me3 = max_entangled(3, False, False)
+        phi_proj3 = phi_me3 @ phi_me3.conj().T
+        for t_raw_ha in np.arange(0.1, 1.0, 0.1):
+            for t_iter_ha in (t_raw_ha, 1 / t_raw_ha):
+                denom_ha = 1 - t_iter_ha + t_iter_ha**2
+                if abs(denom_ha) < np.finfo(float).eps:
+                    continue
+
+                a_hk = (1 - t_iter_ha) ** 2 / denom_ha
+                b_hk = t_iter_ha**2 / denom_ha
+                c_hk = 1 / denom_ha
+                phi_map_ha = np.diag([a_hk + 1, c_hk, b_hk, b_hk, a_hk + 1, c_hk, c_hk, b_hk, a_hk + 1]) - phi_proj3
+                mapped = partial_channel(state, phi_map_ha, sys=1, dim=dims)
+                if not is_positive_semidefinite(mapped, atol=tol, rtol=tol):
+                    return False, f"Ha-Kye positive-map witness (3x3, t={t_iter_ha:.4g})"
+
+    for p_idx_bh in (1, 2):
+        current_dim_bh = dims[p_idx_bh - 1]
+        if current_dim_bh > 0 and current_dim_bh % 2 == 0:
+            phi_me_bh = max_entangled(current_dim_bh, False, False)
+            phi_proj_bh = phi_me_bh @ phi_me_bh.conj().T
+            half_dim_bh = current_dim_bh // 2
+            diag_u_elems_bh = np.concatenate([np.ones(half_dim_bh), -np.ones(half_dim_bh)])
+            u_bh_kron_part = np.fliplr(np.diag(diag_u_elems_bh))
+            u_for_phi_constr = np.kron(np.eye(current_dim_bh), u_bh_kron_part)
+            phi_bh_map_choi = (
+                np.eye(current_dim_bh**2)
+                - phi_proj_bh
+                - u_for_phi_constr @ swap_operator(current_dim_bh) @ u_for_phi_constr.conj().T
+            )
+            mapped_state_bh = partial_channel(state, phi_bh_map_choi, sys=p_idx_bh, dim=dims)
+            if not is_positive_semidefinite(mapped_state_bh, atol=tol, rtol=tol):
+                return False, f"Breuer-Hall positive-map witness (on subsystem {p_idx_bh}, dim={current_dim_bh})"
+
+    return None
+
+
+def _dps_hierarchy_criterion(
+    state: np.ndarray,
+    dims: list[int],
+    level: int,
+    tol: float,
+) -> tuple[bool, str] | None:
+    """Return the first DPS verdict that fires."""
+    if level < 2:
+        return None
+
+    for k_actual_level_check in range(2, int(level) + 1):
+        try:
+            if not has_symmetric_extension(rho=state, level=k_actual_level_check, dim=dims, tol=tol):
+                return False, f"no {k_actual_level_check}-symmetric extension (DPS hierarchy)"
+            if has_symmetric_inner_extension(rho=state, level=k_actual_level_check, dim=dims, ppt=True, tol=tol):
+                return True, f"passed inner DPS symmetric extension cone at level={k_actual_level_check}"
+        except ImportError:
+            print("Warning: CVXPY or a solver is not installed; cannot perform symmetric extension check.")
+            return None
+        except Exception as exc:
+            print(f"Warning: Symmetric extension check failed at level {k_actual_level_check} with an error: {exc}")
+            return None
+
+    return None
+
+
+def _sorted_real_eigs_desc(state: np.ndarray) -> np.ndarray | None:
+    """Return eigenvalues sorted descending, or None if both solvers fail."""
+    try:
+        return np.linalg.eigvalsh(state)[::-1]
+    except np.linalg.LinAlgError:
+        try:
+            return np.sort(np.real(np.linalg.eigvals(state)))[::-1]
+        except np.linalg.LinAlgError:
+            return None
+
+
 def is_separable(
     state: np.ndarray,
     dim: None | int | list[int] = None,
@@ -963,34 +1260,21 @@ def is_separable(
         return False, "inconclusive: strength=0 capped after PPT pre-checks"
 
     # --- 5b. Operator Schmidt Rank <= 2 (Cariello 2013) ---
-    # For PPT states, if the operator Schmidt rank of the density matrix is
-    # <= 2, the state is separable [@cariello2013separability]. This generalizes
-    # the pure-state Schmidt rank check in section 3 to mixed states, and
-    # matches QETLAB's `IsSeparable` use of `OperatorSchmidtRank(X, dim) <= 2`.
-    #
-    # The operator Schmidt coefficients of `rho` are exactly the singular
-    # values of its realignment, so the operator Schmidt rank equals
-    # `matrix_rank(R(rho))`. We compute it directly with `matrix_rank(..., tol=tol)`
-    # instead of calling `schmidt_rank`, which ignores the caller's tolerance.
-    op_schmidt_rank = np.linalg.matrix_rank(realignment(current_state, dim=dims_list), tol=tol)
-    if op_schmidt_rank <= 2:
-        return True, f"operator Schmidt rank = {int(op_schmidt_rank)} <= 2 (Cariello 2013)"
+    verdict = _operator_schmidt_rank_ppt_criterion(current_state, dims_list, tol)
+    if verdict is not None:
+        return verdict
 
     # --- 6. 3x3 Rank-4 PPT N&S Check (Chen-Djokovic 2013) ---
-    # For 3x3 PPT states of rank 4, separability is equivalent to the range
-    # containing a product vector [@chen2013separability]. Use a direct
-    # range-projector optimization rather than the brittle determinant-only
-    # shortcut that previously lived here.
-    if dA == 3 and dB == 3 and state_rank == 4:
-        best_overlap = _range_projector_product_overlap_3x3_rank4(current_state, tol)
-        if best_overlap is not None:
-            if 1.0 - best_overlap < 10 * tol:
-                return True, "3x3 rank-4 PPT: range contains a product vector (Chen-Djokovic 2013)"
+    verdict = _rank4_ppt_3x3_criterion(current_state, dA, dB, state_rank, tol)
+    if verdict is not None:
+        return verdict
 
     # --- 7. Operational Criteria for Low-Rank PPT States (Horodecki et al. 2000) ---
-    # These are sufficient conditions for separability of PPT states [@horodecki2000constructive].
-    if state_rank <= max_dim_val:  # rank(rho) <= max(dA, dB)
-        return True, "rank(rho) <= max(d_A, d_B) (Horodecki et al. 2000)"
+    verdict, rho_A_marginal, rho_B_marginal = _horodecki_low_rank_ppt_criteria(
+        current_state, dims_list, state_rank, max_dim_val, tol
+    )
+    if verdict is not None:
+        return verdict
 
     # Note on the rank-sum bound `rank(rho) + rank(rho^T_A) <= 2 d_A d_B - d_A - d_B + 2`
     # from Horodecki et al. 2000 (Section IV): this bound is NOT by itself a
@@ -1011,250 +1295,44 @@ def is_separable(
     # this branch now fall through to the reduction / realignment / 2xN /
     # witness / DPS / iterative-subtraction stages below.
 
-    # Rank-marginal condition [@horodecki2000constructive]: for a PPT state,
-    # if rank(rho) <= rank(rho_A) or rank(rho) <= rank(rho_B), then rho is
-    # separable. Matches QETLAB's corresponding check in `IsSeparable`.
-    rho_A_marginal = partial_trace(current_state, sys=[1], dim=dims_list)
-    rho_B_marginal = partial_trace(current_state, sys=[0], dim=dims_list)
-    rank_marg_A = np.linalg.matrix_rank(rho_A_marginal, tol=tol)
-    rank_marg_B = np.linalg.matrix_rank(rho_B_marginal, tol=tol)
-    if state_rank <= rank_marg_A:
-        return True, f"rank(rho)={state_rank} <= rank(rho_A)={rank_marg_A} (Horodecki et al. 2000)"
-    if state_rank <= rank_marg_B:
-        return True, f"rank(rho)={state_rank} <= rank(rho_B)={rank_marg_B} (Horodecki et al. 2000)"
-
     # --- 8. Reduction Criterion (Horodecki & Horodecki 1999) ---
-    # If state is PPT (which it is at this point), this criterion is always satisfied.
-    # Its main use is for NPT states. Included for completeness of listed criteria.
-    # rho_A_marginal and rho_B_marginal were already computed in section 7 above.
-    op_reduct1 = np.kron(np.eye(dA), rho_B_marginal) - current_state
-    op_reduct2 = np.kron(rho_A_marginal, np.eye(dB)) - current_state
-    if not (
-        is_positive_semidefinite(op_reduct1, atol=tol, rtol=tol)
-        and is_positive_semidefinite(op_reduct2, atol=tol, rtol=tol)
-    ):  #  (should not be hit for PPT states)
-        return False, "reduction criterion violated (Horodecki 1999)"
+    verdict = _reduction_ppt_criterion(current_state, rho_A_marginal, rho_B_marginal, dA, dB, tol)
+    if verdict is not None:
+        return verdict
 
     # --- 9. Realignment/CCNR Criteria ---
-    # Basic Realignment Criterion [@chen2003matrix]. If > 1, entangled.
-    if trace_norm(realignment(current_state, dims_list)) > 1 + tol:
-        return False, "realignment/CCNR: ||R(rho)||_1 > 1 (Chen-Wu 2003)"
+    verdict = _realignment_ppt_criteria(current_state, dims_list, rho_A_marginal, rho_B_marginal, dA, dB, tol)
+    if verdict is not None:
+        return verdict
 
-    # Zhang et al. 2008 Variant [@zhang2008entanglement].
-    # If ||R(rho - rho_A \otimes rho_B)||_1 > sqrt((1-Tr(rho_A^2))(1-Tr(rho_B^2))), entangled.
-    tr_rho_A_sq = np.real(np.trace(rho_A_marginal @ rho_A_marginal))
-    tr_rho_B_sq = np.real(np.trace(rho_B_marginal @ rho_B_marginal))
-    val_A = max(0, 1 - tr_rho_A_sq)  # Ensure non-negativity from (1 - purity)
-    val_B = max(0, 1 - tr_rho_B_sq)
-    bound_zhang = np.sqrt(val_A * val_B) if (val_A * val_B >= 0) else 0
-    if trace_norm(realignment(current_state - np.kron(rho_A_marginal, rho_B_marginal), dims_list)) > bound_zhang + tol:
-        return False, "Zhang realignment variant: ||R(rho - rho_A (x) rho_B)||_1 exceeds purity bound (Zhang 2008)"
-
-    # --- 9b. Filter Covariance Matrix Criterion (Gittsovich et al. 2008) ---
-    # Strictly stronger than the basic CCNR/realignment criterion; for two qubits
-    # (Remark IV.14 of the paper) it is a necessary and sufficient separability
-    # test. We first transport rho to its filter normal form with maximally
-    # mixed marginals via local SLOCC filtering, then check the paper's
-    # Proposition IV.15 Eq. (72) bound on the sum of the filter-CMC coefficients.
-    # Skipped silently (no verdict) when the filtering iteration can't converge
-    # — e.g., when a marginal is rank-deficient and no invertible filter exists.
-    rho_normal = _filter_normal_form(current_state, dims_list, tol)
-    if rho_normal is not None:
-        xi_sum = _filter_cmc_xi_sum(rho_normal, dims_list)
-        xi_bound = _filter_cmc_bound(dA, dB)
-        if xi_sum > xi_bound + tol:
-            return False, (
-                f"Filter CMC: sum xi = {xi_sum:.4g} > bound {xi_bound:.4g} "
-                f"(Gittsovich et al. 2008, Prop. IV.15)"
-            )
+    assert rho_A_marginal is not None and rho_B_marginal is not None
 
     # --- 10. Rank-1 Perturbation of Identity for PPT States (Vidal & Tarrach 1999) ---
-    # PPT states close to identity are separable [@vidal1999robustness].
-    try:
-        try:
-            lam = np.linalg.eigvalsh(current_state)[::-1]  # Eigenvalues sorted descending
-        except np.linalg.LinAlgError:  # Fallback if eigvalsh fails
-            lam = np.sort(np.real(np.linalg.eigvals(current_state)))[::-1]
-
-        if len(lam) == prod_dim_val and prod_dim_val > 1:
-            # If (lambda_2 - lambda_d) is very small for a PPT state.
-            diff_pert = lam[1] - lam[prod_dim_val - 1]
-            threshold_pert = tol**2 + 2 * machine_eps
-            if diff_pert < threshold_pert:
-                return True, "PPT state close to rank-1 identity perturbation (Vidal-Tarrach 1999)"
-    except np.linalg.LinAlgError:  # If all eigenvalue computations fail #
-        pass  # Proceed to other tests
+    sorted_eigs_desc = _sorted_real_eigs_desc(current_state)
+    if sorted_eigs_desc is not None:
+        verdict = _vidal_tarrach_ppt_criterion(sorted_eigs_desc, prod_dim_val, tol, machine_eps)
+        if verdict is not None:
+            return verdict
 
     # --- 11. 2xN Specific Checks for PPT States ---
-    if min_dim_val == 2 and prod_dim_val > 0:  # One system is a qubit
-        state_t_2xn = current_state
-        d_N_val = max_dim_val  # Dimension of the N-level system
-        # Ensure the qubit system is the first one for consistent block matrix decomposition
-        # sys_to_pt_for_hildebrand_map = 1 (PT on system B, the N-level one)
-        # dim_for_hildebrand_map = [2, d_N_val]
-        dim_for_hildebrand_map = [2, d_N_val]
-
-        if dA != 2 and dB == 2:  # If system A is N-level and B is qubit, swap them
-            state_t_2xn = swap(current_state, sys=[0, 1], dim=dims_list)
-            # d_N_val remains max_dim_val. Dimensions for map are now [qubit_dim, N_dim]
-            dim_for_hildebrand_map = [dB, dA]
-        elif dA == 2:  # System A is already the qubit
-            pass  # state_t_2xn and d_N_val are correctly set
-        else:  # This case should not be reached if min_dim_val == 2
-            state_t_2xn = None  # Defensive #
-
-        if state_t_2xn is not None:
-            current_lam_2xn = lam  # Use eigenvalues of original state if no swap
-            if state_t_2xn is not current_state:  # If swap occurred, recompute eigenvalues
-                try:
-                    current_lam_2xn = np.linalg.eigvalsh(state_t_2xn)[::-1]
-                except np.linalg.LinAlgError:
-                    current_lam_2xn = np.sort(np.real(np.linalg.eigvals(state_t_2xn)))[::-1]
-
-            # Johnston's Spectral Condition [@johnston2013separability]
-            if (
-                len(current_lam_2xn) >= 2 * d_N_val  # Check if enough eigenvalues exist
-                and (2 * d_N_val - 1) < len(current_lam_2xn)  # Index validity
-                and (2 * d_N_val - 2) >= 0
-                and (2 * d_N_val - 3) >= 0
-            ):
-                # Condition: (lambda_1 - lambda_{2N-1})^2 <= 4 * lambda_{2N-2} * lambda_{2N}
-                # (Using 0-based indexing: (lam[0]-lam[2N-2])^2 <= 4*lam[2N-3]*lam[2N-1])
-                if (current_lam_2xn[0] - current_lam_2xn[2 * d_N_val - 2]) ** 2 <= 4 * current_lam_2xn[
-                    2 * d_N_val - 3
-                ] * current_lam_2xn[2 * d_N_val - 1] + tol**2:  # Added tolerance
-                    return True, "Johnston spectral condition for 2xN PPT states (2013)"
-
-            # Hildebrand's Conditions for 2xN PPT states (various papers, e.g.,
-            # [@hildebrand2005comparison], [@hildebrand2008semidefinite])
-            # Block matrix form: rho_2xn = [[A, B], [B^dagger, C]]
-            A_block = state_t_2xn[:d_N_val, :d_N_val]
-            B_block = state_t_2xn[:d_N_val, d_N_val : 2 * d_N_val]
-            C_block = state_t_2xn[d_N_val : 2 * d_N_val, d_N_val : 2 * d_N_val]
-
-            # If rank of anti-Hermitian part of B is small (related to "perturbed block Hankel" in QETLAB)
-            if B_block.size > 0 and np.linalg.matrix_rank(B_block - B_block.conj().T, tol=tol) <= 1:
-                return True, "Hildebrand 2xN condition: rank(B - B^dagger) <= 1"
-
-            # Hildebrand's homothetic images approach / X_2n_ppt_check
-            if A_block.size > 0 and B_block.size > 0 and C_block.size > 0:  # Ensure blocks are not empty #
-                X_2n_ppt_check = np.vstack(
-                    (
-                        np.hstack(((5 / 6) * A_block - C_block / 6, B_block)),
-                        np.hstack((B_block.conj().T, (5 / 6) * C_block - A_block / 6)),
-                    )
-                )
-                # The dimensions for partial_transpose of X_2n_ppt_check should be [2, d_N_val]
-                # if the map is applied on the "qubit part" of this transformed 2N x 2N space.
-                # QETLAB uses IsPPT(X_2n_ppt_check,2,[2,xD]), implying PT on 2nd system of a 2xD structure.
-                # Here, sys_to_pt_for_hildebrand_map=1 and dim_for_hildebrand_map=[2,d_N_val] seems correct.
-                if is_positive_semidefinite(X_2n_ppt_check, atol=tol, rtol=tol) and is_ppt(
-                    X_2n_ppt_check,
-                    sys=1,
-                    dim=dim_for_hildebrand_map,
-                    tol=tol,
-                ):  # Check PPT of this map's Choi matrix basically
-                    return True, "Hildebrand 2xN homothetic-image condition (PSD and PPT)"
-
-                # Johnston Lemma 1 variant / norm B condition
-                try:
-                    eig_A_real, eig_C_real = np.real(np.linalg.eigvals(A_block)), np.real(np.linalg.eigvals(C_block))
-                    if eig_A_real.size > 0 and eig_C_real.size > 0 and B_block.size > 0:
-                        if np.linalg.norm(B_block) ** 2 <= np.min(eig_A_real) * np.min(eig_C_real) + tol**2:
-                            return True, "Johnston Lemma 1 for 2xN PPT states: ||B||^2 <= lambda_min(A) * lambda_min(C)"
-                except np.linalg.LinAlgError:
-                    pass  # Eigenvalue computation failed
+    verdict = _qubit_qudit_ppt_criteria(
+        current_state,
+        dims_list,
+        dA,
+        dB,
+        min_dim_val,
+        max_dim_val,
+        prod_dim_val,
+        tol,
+        sorted_eigs_desc if sorted_eigs_desc is not None else np.array([], dtype=float),
+    )
+    if verdict is not None:
+        return verdict
 
     # --- 12. Positive (but not Completely Positive) Map Witnesses ---
-    # This section mixes decomposable and indecomposable positive maps — Choi's
-    # 1975 map and Breuer-Hall are indecomposable, while the Ha-Kye family
-    # contains both decomposable and indecomposable members depending on its
-    # parameter. They are all used as entanglement witnesses via partial_channel.
-    #
-    # Choi's 1975 indecomposable positive map on M_3 [@choi1975].
-    # The map Phi_Choi: M_3 -> M_3 acts as
-    #     Phi(A)_{00} = A_{00} + A_{22},
-    #     Phi(A)_{11} = A_{00} + A_{11},
-    #     Phi(A)_{22} = A_{11} + A_{22},
-    #     Phi(A)_{ij} = -A_{ij}  for i != j,
-    # and is the canonical example of a positive but not completely positive
-    # map that is *not* a scalar of the generalized Choi maps from the Ha-Kye
-    # family below — the Ha-Kye loop sweeps a different parametric family,
-    # so this check is complementary rather than redundant.
-    if dA == 3 and dB == 3:
-        phi_choi_1975 = _choi_1975_choi_matrix()
-        # `partial_channel` uses 1-indexed `sys` (sys=1 is the first subsystem,
-        # sys=2 is the second). Iterate 1..2, not 0..1.
-        for p_idx_choi in (1, 2):
-            if not is_positive_semidefinite(
-                partial_channel(current_state, phi_choi_1975, sys=p_idx_choi, dim=dims_list),
-                atol=tol,
-                rtol=tol,
-            ):
-                return False, f"Choi 1975 positive-map witness (on subsystem {p_idx_choi}, 3x3)"
-
-        # UPB-based witness from Terhal 2000 [@terhal2000family], built on the
-        # tile UPB. Evaluated as a trace: rho is entangled iff tr(H * rho) < 0.
-        # The witness matrix is cached at module level; see
-        # `_terhal_2000_tile_witness` for the construction (UPB projector minus
-        # d * epsilon * |Psi><Psi| with epsilon found by non-convex alternating
-        # minimization over product states).
-        tr_h_rho = float(np.real(np.trace(_TERHAL_2000_TILE_WITNESS_3X3 @ current_state)))
-        if tr_h_rho < -tol:
-            return False, (
-                f"UPB-based witness on tile UPB (Terhal 2000): tr(H*rho)={tr_h_rho:.4g} < 0"
-            )
-
-    # Ha-Kye Maps for 3x3 systems [@ha2011positive]
-    if dA == 3 and dB == 3:
-        phi_me3 = max_entangled(3, False, False)  # Maximally entangled state vector in C^3 x C^3
-        phi_proj3 = phi_me3 @ phi_me3.conj().T  # Projector onto it
-        for t_raw_ha in np.arange(0.1, 1.0, 0.1):  # Parameter 't' for map construction
-            t_iter_ha = t_raw_ha
-            for j_ha_loop in range(2):  # Iterate for t and 1/t (common symmetry in these maps)
-                if j_ha_loop == 1:
-                    # if abs(t_raw_ha) < machine_eps: #  (t_raw_ha always >= 0.1)
-                    #     break  # Should not happen with arange
-                    t_iter_ha = 1 / t_raw_ha
-
-                denom_ha = 1 - t_iter_ha + t_iter_ha**2  # Denominator from Ha-Kye map parameters
-                if abs(denom_ha) < machine_eps:
-                    continue  #  (denom_ha = 1-t+t^2 > 0 for t>0)
-
-                a_hk = (1 - t_iter_ha) ** 2 / denom_ha
-                b_hk = t_iter_ha**2 / denom_ha
-                c_hk = 1 / denom_ha
-                # Choi matrix of a generalized Choi map (related to Ha-Kye constructions)
-                Phi_map_ha = np.diag([a_hk + 1, c_hk, b_hk, b_hk, a_hk + 1, c_hk, c_hk, b_hk, a_hk + 1]) - phi_proj3
-                if not is_positive_semidefinite(
-                    partial_channel(current_state, Phi_map_ha, sys=1, dim=dims_list), atol=tol, rtol=tol
-                ):
-                    return False, f"Ha-Kye positive-map witness (3x3, t={t_iter_ha:.4g})"
-
-    # Breuer-Hall Maps (for even dimensional subsystems) [@breuer2006optimal],
-    # [@hall2006indecomposable]
-    # `partial_channel` uses 1-indexed `sys` (sys=1 is the first subsystem,
-    # sys=2 is the second). Iterate 1..2 and index `dims_list` with `sys-1`.
-    for p_idx_bh in (1, 2):  # Apply map to subsystem 1 (A), then subsystem 2 (B)
-        current_dim_bh = dims_list[p_idx_bh - 1]  # Dimension of the subsystem map acts on
-        if current_dim_bh > 0 and current_dim_bh % 2 == 0:  # Map defined for even dimensions
-            phi_me_bh = max_entangled(current_dim_bh, False, False)
-            phi_proj_bh = phi_me_bh @ phi_me_bh.conj().T
-            half_dim_bh = current_dim_bh // 2
-            # Construct an antisymmetric unitary U_bh_kron_part
-            diag_U_elems_bh = np.concatenate([np.ones(half_dim_bh), -np.ones(half_dim_bh)])
-            U_bh_kron_part = np.fliplr(np.diag(diag_U_elems_bh))  # U = -U^T
-            # Choi matrix of the Breuer-Hall witness map W_U(X) = Tr(X)I - X - U X^T U^dagger
-            # The Choi matrix used here is I - P_max_ent - (I kron U) SWAP (I kron U^dagger)
-            U_for_phi_constr = np.kron(np.eye(current_dim_bh), U_bh_kron_part)
-            Phi_bh_map_choi = (  # This is Choi(W_U)
-                np.eye(current_dim_bh**2)
-                - phi_proj_bh
-                - U_for_phi_constr @ swap_operator(current_dim_bh) @ U_for_phi_constr.conj().T
-            )
-            mapped_state_bh = partial_channel(current_state, Phi_bh_map_choi, sys=p_idx_bh, dim=dims_list)
-            if not is_positive_semidefinite(mapped_state_bh, atol=tol, rtol=tol):
-                return False, f"Breuer-Hall positive-map witness (on subsystem {p_idx_bh}, dim={current_dim_bh})"
+    verdict = _positive_map_witness_criteria(current_state, dims_list, dA, dB, tol)
+    if verdict is not None:
+        return verdict
 
     # --- 12b. Iterative Product-State Subtraction (Guhne / sk_iterate) ---
     # Try to constructively prove separability by iteratively finding and
@@ -1272,21 +1350,9 @@ def is_separable(
     # - if the state is NOT k-extendible at any tested level, it is entangled;
     # - if it lies in the corresponding inner cone, it is separable;
     # - otherwise, passing the tested k-extendibility levels is only inconclusive.
-    if level >= 2:
-        for k_actual_level_check in range(2, int(level) + 1):
-            try:
-                if not has_symmetric_extension(rho=current_state, level=k_actual_level_check, dim=dims_list, tol=tol):
-                    return False, f"no {k_actual_level_check}-symmetric extension (DPS hierarchy)"
-                if has_symmetric_inner_extension(
-                    rho=current_state, level=k_actual_level_check, dim=dims_list, ppt=True, tol=tol
-                ):
-                    return True, f"passed inner DPS symmetric extension cone at level={k_actual_level_check}"
-            except ImportError:
-                print("Warning: CVXPY or a solver is not installed; cannot perform symmetric extension check.")
-                break
-            except Exception as e:
-                print(f"Warning: Symmetric extension check failed at level {k_actual_level_check} with an error: {e}")
-                break
+    verdict = _dps_hierarchy_criterion(current_state, dims_list, level, tol)
+    if verdict is not None:
+        return verdict
 
     # If all implemented checks are inconclusive, and the state passed PPT (the most basic necessary condition checked),
     # it implies that the state is either separable but not caught by the simpler sufficient conditions,
