@@ -565,25 +565,17 @@ def _realignment_ppt_criteria(
 
 
 def _vidal_tarrach_ppt_criterion(
-    state: np.ndarray,
+    sorted_eigs_desc: np.ndarray,
     prod_dim_val: int,
     tol: float,
     machine_eps: float,
 ) -> tuple[bool, str] | None:
     """Return the Vidal-Tarrach perturbation criterion verdict, if it fires."""
-    try:
-        try:
-            lam = np.linalg.eigvalsh(state)[::-1]
-        except np.linalg.LinAlgError:
-            lam = np.sort(np.real(np.linalg.eigvals(state)))[::-1]
-
-        if len(lam) == prod_dim_val and prod_dim_val > 1:
-            diff_pert = lam[1] - lam[prod_dim_val - 1]
-            threshold_pert = tol**2 + 2 * machine_eps
-            if diff_pert < threshold_pert:
-                return True, "PPT state close to rank-1 identity perturbation (Vidal-Tarrach 1999)"
-    except np.linalg.LinAlgError:
-        return None
+    if len(sorted_eigs_desc) == prod_dim_val and prod_dim_val > 1:
+        diff_pert = sorted_eigs_desc[1] - sorted_eigs_desc[prod_dim_val - 1]
+        threshold_pert = tol**2 + 2 * machine_eps
+        if diff_pert < threshold_pert:
+            return True, "PPT state close to rank-1 identity perturbation (Vidal-Tarrach 1999)"
 
     return None
 
@@ -597,6 +589,7 @@ def _qubit_qudit_ppt_criteria(
     max_dim_val: int,
     prod_dim_val: int,
     tol: float,
+    sorted_eigs_desc: np.ndarray,
 ) -> tuple[bool, str] | None:
     """Return the first 2xN PPT criterion verdict that fires."""
     if min_dim_val != 2 or prod_dim_val == 0:
@@ -612,10 +605,13 @@ def _qubit_qudit_ppt_criteria(
     elif d_a != 2:
         return None
 
-    try:
-        current_lam_2xn = np.linalg.eigvalsh(state_t_2xn)[::-1]
-    except np.linalg.LinAlgError:
-        current_lam_2xn = np.sort(np.real(np.linalg.eigvals(state_t_2xn)))[::-1]
+    if state_t_2xn is state:
+        current_lam_2xn = sorted_eigs_desc
+    else:
+        try:
+            current_lam_2xn = np.linalg.eigvalsh(state_t_2xn)[::-1]
+        except np.linalg.LinAlgError:
+            current_lam_2xn = np.sort(np.real(np.linalg.eigvals(state_t_2xn)))[::-1]
 
     if (
         len(current_lam_2xn) >= 2 * d_n_val
@@ -739,6 +735,17 @@ def _dps_hierarchy_criterion(
             return None
 
     return None
+
+
+def _sorted_real_eigs_desc(state: np.ndarray) -> np.ndarray | None:
+    """Return eigenvalues sorted descending, or None if both solvers fail."""
+    try:
+        return np.linalg.eigvalsh(state)[::-1]
+    except np.linalg.LinAlgError:
+        try:
+            return np.sort(np.real(np.linalg.eigvals(state)))[::-1]
+        except np.linalg.LinAlgError:
+            return None
 
 
 def is_separable(
@@ -1298,13 +1305,27 @@ def is_separable(
     if verdict is not None:
         return verdict
 
+    assert rho_A_marginal is not None and rho_B_marginal is not None
+
     # --- 10. Rank-1 Perturbation of Identity for PPT States (Vidal & Tarrach 1999) ---
-    verdict = _vidal_tarrach_ppt_criterion(current_state, prod_dim_val, tol, machine_eps)
-    if verdict is not None:
-        return verdict
+    sorted_eigs_desc = _sorted_real_eigs_desc(current_state)
+    if sorted_eigs_desc is not None:
+        verdict = _vidal_tarrach_ppt_criterion(sorted_eigs_desc, prod_dim_val, tol, machine_eps)
+        if verdict is not None:
+            return verdict
 
     # --- 11. 2xN Specific Checks for PPT States ---
-    verdict = _qubit_qudit_ppt_criteria(current_state, dims_list, dA, dB, min_dim_val, max_dim_val, prod_dim_val, tol)
+    verdict = _qubit_qudit_ppt_criteria(
+        current_state,
+        dims_list,
+        dA,
+        dB,
+        min_dim_val,
+        max_dim_val,
+        prod_dim_val,
+        tol,
+        sorted_eigs_desc if sorted_eigs_desc is not None else np.array([], dtype=float),
+    )
     if verdict is not None:
         return verdict
 
