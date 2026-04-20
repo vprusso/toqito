@@ -1,7 +1,6 @@
 """Checks if a quantum state is a separable state."""
 
 import numpy as np
-from scipy.linalg import orth
 
 from toqito.channel_ops import partial_channel
 from toqito.channels.realignment import realignment
@@ -153,6 +152,66 @@ def _terhal_2000_tile_witness() -> np.ndarray:
 # optimization uses a fixed seed) and only depends on constants, so we pay
 # for the alternating minimization exactly once per process.
 _TERHAL_2000_TILE_WITNESS_3X3: np.ndarray = _terhal_2000_tile_witness()
+
+
+def _range_projector_product_overlap_3x3_rank4(
+    state: np.ndarray,
+    tol: float,
+    n_restarts: int = 64,
+    max_iter: int = 100,
+) -> float | None:
+    r"""Estimate the best product overlap with the range projector of a 3x3 rank-4 state.
+
+    For the projector :math:`P` onto :math:`\operatorname{range}(\rho)`, compute
+
+    .. math::
+
+        \max_{\|a\|=\|b\|=1} \langle a \otimes b | P | a \otimes b \rangle
+
+    by alternating maximization with deterministic random restarts.
+
+    When the optimum is numerically 1, the range contains a product vector.
+    Chen and Djokovic show that for 3x3 PPT states of rank 4 this is
+    equivalent to separability.
+    """
+    eigvals, eigvecs = np.linalg.eigh((state + state.conj().T) / 2)
+    range_basis = eigvecs[:, eigvals > tol]
+    if range_basis.shape[1] < 4:
+        return None
+
+    projector = range_basis @ range_basis.conj().T
+    tensor = projector.reshape(3, 3, 3, 3)
+
+    rng = np.random.default_rng(seed=20260420)
+    best_overlap = 0.0
+    for _ in range(n_restarts):
+        vec_a = rng.standard_normal(3) + 1j * rng.standard_normal(3)
+        vec_a /= np.linalg.norm(vec_a)
+        vec_b = rng.standard_normal(3) + 1j * rng.standard_normal(3)
+        vec_b /= np.linalg.norm(vec_b)
+
+        prev_overlap = -np.inf
+        overlap = 0.0
+        for _ in range(max_iter):
+            mat_a = np.einsum("ikjl,k,l->ij", tensor, vec_b.conj(), vec_b)
+            _, eigvecs_a = np.linalg.eigh((mat_a + mat_a.conj().T) / 2)
+            vec_a = eigvecs_a[:, -1]
+
+            mat_b = np.einsum("ikjl,i,j->kl", tensor, vec_a.conj(), vec_a)
+            _, eigvecs_b = np.linalg.eigh((mat_b + mat_b.conj().T) / 2)
+            vec_b = eigvecs_b[:, -1]
+
+            prod_vec = np.kron(vec_a, vec_b)
+            overlap = float(np.real(np.vdot(prod_vec, projector @ prod_vec)))
+            if abs(overlap - prev_overlap) < tol:
+                break
+            prev_overlap = overlap
+
+        best_overlap = max(best_overlap, overlap)
+        if 1.0 - best_overlap < 10 * tol:
+            return best_overlap
+
+    return best_overlap
 
 
 def _hermitian_inverse_sqrt(herm: np.ndarray, eig_floor: float) -> np.ndarray | None:
@@ -917,126 +976,16 @@ def is_separable(
     if op_schmidt_rank <= 2:
         return True, f"operator Schmidt rank = {int(op_schmidt_rank)} <= 2 (Cariello 2013)"
 
-    # --- 6. 3x3 Rank-4 PPT N&S Check (Plucker/Breuer/Chen&Djokovic) ---
-    # This checks if a 3x3 PPT state of rank 4 is separable.
-    # The condition involves the determinant of a matrix F constructed from Plücker coordinates.
-    # Separability is linked to det(F) being (close to) zero [@breuer2006optimal],
-    # [@chen2013separability].
-    # (Note: Breuer's original PRL also relates it to F being indefinite or zero).
+    # --- 6. 3x3 Rank-4 PPT N&S Check (Chen-Djokovic 2013) ---
+    # For 3x3 PPT states of rank 4, separability is equivalent to the range
+    # containing a product vector [@chen2013separability]. Use a direct
+    # range-projector optimization rather than the brittle determinant-only
+    # shortcut that previously lived here.
     if dA == 3 and dB == 3 and state_rank == 4:
-        q_orth_basis = orth(current_state)  # Orthonormal basis for the range of rho
-        if q_orth_basis.shape[1] < 4:  # Should not happen if rank is indeed 4
-            pass  # Proceed, as condition for this check is not strictly met
-        else:
-            # Code for calculating Plucker coordinates p_np_arr and F_det_matrix_elements
-            p_np_arr = np.zeros((6, 7, 8, 9), dtype=complex)  # Stores Plucker coordinates
-            for j_breuer in range(6, 0, -1):
-                for k_breuer in range(7, 0, -1):
-                    for n_breuer in range(8, 0, -1):
-                        for m_breuer in range(9, 0, -1):
-                            if j_breuer < k_breuer < n_breuer < m_breuer:
-                                selected_rows = [idx - 1 for idx in [j_breuer, k_breuer, n_breuer, m_breuer]]
-                                if all(0 <= r_idx < q_orth_basis.shape[0] for r_idx in selected_rows):
-                                    sub_matrix = q_orth_basis[selected_rows, :]
-                                    if sub_matrix.shape[0] == 4 and sub_matrix.shape[1] == 4:
-                                        try:
-                                            p_np_arr[j_breuer - 1, k_breuer - 1, n_breuer - 1, m_breuer - 1] = (
-                                                np.linalg.det(sub_matrix)
-                                            )
-                                        except np.linalg.LinAlgError:  # Should be rare with orth basis
-                                            p_np_arr[j_breuer - 1, k_breuer - 1, n_breuer - 1, m_breuer - 1] = np.nan
-
-            def get_p(t_tuple: tuple[int, ...]) -> float:
-                # Ensure indices are within bounds of p_np_arr before accessing
-                if not (
-                    0 <= t_tuple[0] - 1 < p_np_arr.shape[0]
-                    and 0 <= t_tuple[1] - 1 < p_np_arr.shape[1]
-                    and 0 <= t_tuple[2] - 1 < p_np_arr.shape[2]
-                    and 0 <= t_tuple[3] - 1 < p_np_arr.shape[3]
-                ):
-                    # This case should ideally not happen if t_tuple values are
-                    # from the F_det_matrix_elements construction
-                    # and p_np_arr is sized for 1-based indices up to 9.
-                    # However, being defensive:
-                    return 0.0  # Or handle as an error/warning #
-                val = p_np_arr[t_tuple[0] - 1, t_tuple[1] - 1, t_tuple[2] - 1, t_tuple[3] - 1]
-                return val if not np.isnan(val) else 0.0
-
-            F_det_matrix_elements = [
-                [
-                    get_p((1, 2, 4, 5)),
-                    get_p((1, 3, 4, 6)),
-                    get_p((2, 3, 5, 6)),
-                    get_p((1, 2, 4, 6)) + get_p((1, 3, 4, 5)),
-                    get_p((1, 2, 5, 6)) + get_p((2, 3, 4, 5)),
-                    get_p((1, 3, 5, 6)) + get_p((2, 3, 4, 6)),
-                ],
-                [
-                    get_p((1, 2, 7, 8)),
-                    get_p((1, 3, 7, 9)),
-                    get_p((2, 3, 8, 9)),
-                    get_p((1, 2, 7, 9)) + get_p((1, 3, 7, 8)),
-                    get_p((1, 2, 8, 9)) + get_p((2, 3, 7, 8)),
-                    get_p((1, 3, 8, 9)) + get_p((2, 3, 7, 9)),
-                ],
-                [
-                    get_p((4, 5, 7, 8)),
-                    get_p((4, 6, 7, 9)),
-                    get_p((5, 6, 8, 9)),
-                    get_p((4, 5, 7, 9)) + get_p((4, 6, 7, 8)),
-                    get_p((4, 5, 8, 9)) + get_p((5, 6, 7, 8)),
-                    get_p((4, 6, 8, 9)) + get_p((5, 6, 7, 9)),
-                ],
-                [
-                    get_p((1, 2, 4, 8)) - get_p((1, 2, 5, 7)),
-                    get_p((1, 3, 4, 9)) - get_p((1, 3, 6, 7)),
-                    get_p((2, 3, 5, 9)) - get_p((2, 3, 6, 8)),
-                    get_p((1, 2, 4, 9)) - get_p((1, 2, 6, 7)) + get_p((1, 3, 4, 8)) - get_p((1, 3, 5, 7)),
-                    get_p((1, 2, 5, 9)) - get_p((1, 2, 6, 8)) + get_p((2, 3, 4, 8)) - get_p((2, 3, 5, 7)),
-                    get_p((1, 3, 5, 9)) - get_p((1, 3, 6, 8)) + get_p((2, 3, 4, 9)) - get_p((2, 3, 6, 7)),
-                ],
-                [
-                    get_p((1, 4, 5, 8)) - get_p((2, 4, 5, 7)),
-                    get_p((1, 4, 6, 9)) - get_p((3, 4, 6, 7)),
-                    get_p((2, 5, 6, 9)) - get_p((3, 5, 6, 8)),
-                    get_p((1, 4, 5, 9)) - get_p((2, 4, 6, 7)) + get_p((1, 4, 6, 8)) - get_p((3, 4, 5, 7)),
-                    get_p((1, 5, 6, 8)) - get_p((2, 5, 6, 7)) + get_p((2, 4, 5, 9)) - get_p((3, 4, 5, 8)),
-                    get_p((1, 5, 6, 9)) - get_p((3, 4, 6, 8)) + get_p((2, 4, 6, 9)) - get_p((3, 5, 6, 7)),
-                ],
-                [
-                    get_p((1, 5, 7, 8)) - get_p((2, 4, 7, 8)),
-                    get_p((1, 6, 7, 9)) - get_p((3, 4, 7, 9)),
-                    get_p((2, 6, 8, 9)) - get_p((3, 5, 8, 9)),
-                    get_p((1, 5, 7, 9)) - get_p((2, 4, 7, 9)) + get_p((1, 6, 7, 8)) - get_p((3, 4, 7, 8)),
-                    get_p((1, 5, 8, 9)) - get_p((2, 4, 8, 9)) + get_p((2, 6, 7, 8)) - get_p((3, 5, 7, 8)),
-                    get_p((1, 6, 8, 9)) - get_p((3, 4, 8, 9)) + get_p((2, 6, 7, 9)) - get_p((3, 5, 7, 9)),
-                ],
-            ]
-            try:
-                F_det_val = np.linalg.det(np.array(F_det_matrix_elements, dtype=complex))
-                # QETLAB uses `|det(F)| ~ 0` as the separability condition for this test.
-                # Preserve the historical behavior: small det => separable, otherwise => entangled.
-                # (Note: Breuer's original PRL gives the sharper criterion "F indefinite or zero",
-                # tracked in issue #1251.)
-                if abs(F_det_val) < max(tol**2, machine_eps ** (3 / 4)):
-                    return True, "3x3 rank-4 PPT: |det(F)| ~ 0 via Plucker coordinates (Breuer/Chen-Djokovic)"
-                return False, "3x3 rank-4 PPT: |det(F)| not ~ 0 via Plucker coordinates (Breuer/Chen-Djokovic)"
-                # Proceeding from 3x3 rank 4 block.")
-                # If det(F) is not close to zero, the state is entangled by this criterion.
-                # TODO: #1251 Breuer's PRL indicates separability if F is indefinite or zero. Entangled if F is
-                # definite (and det(F) real).
-                # The current check `abs(F_det_val) < tol_check` might only capture the `F=0` part or if
-                # F is singular due to indefiniteness.
-                # If this F_det_val is not small, it implies entangled.
-                # However, your original code structure implies if this `return True` is not hit, it just proceeds.
-                # For consistency with QETLAB for this specific test: if abs(F_det_val) is NOT small, it
-                # implies entangled.
-                # This function would need to return False here if abs(F_det_val) is NOT small.
-                # Current structure: if det is small, sep=T. If det is not small, or LinAlgError, proceeds.
-                # For UPB tile states (3x3, rank 4, PPT entangled), det(F) is typically non-zero. So this
-                # `return True` isn't hit.
-            except np.linalg.LinAlgError:  # If determinant calculation fails
-                pass  # Proceed to other tests
+        best_overlap = _range_projector_product_overlap_3x3_rank4(current_state, tol)
+        if best_overlap is not None:
+            if 1.0 - best_overlap < 10 * tol:
+                return True, "3x3 rank-4 PPT: range contains a product vector (Chen-Djokovic 2013)"
 
     # --- 7. Operational Criteria for Low-Rank PPT States (Horodecki et al. 2000) ---
     # These are sufficient conditions for separability of PPT states [@horodecki2000constructive].
