@@ -1,7 +1,6 @@
 """Checks if a quantum state is a separable state."""
 
 import numpy as np
-from scipy.linalg import orth
 
 from toqito.channel_ops import partial_channel
 from toqito.channels.realignment import realignment
@@ -175,7 +174,8 @@ def _range_projector_product_overlap_3x3_rank4(
     Chen and Djokovic show that for 3x3 PPT states of rank 4 this is
     equivalent to separability.
     """
-    range_basis = orth(state)
+    eigvals, eigvecs = np.linalg.eigh((state + state.conj().T) / 2)
+    range_basis = eigvecs[:, eigvals > tol]
     if range_basis.shape[1] < 4:
         return None
 
@@ -193,11 +193,11 @@ def _range_projector_product_overlap_3x3_rank4(
         prev_overlap = -np.inf
         overlap = 0.0
         for _ in range(max_iter):
-            mat_a = np.einsum("ibjb,b,j->ij", tensor, vec_b.conj(), vec_b)
+            mat_a = np.einsum("ikjl,k,l->ij", tensor, vec_b.conj(), vec_b)
             _, eigvecs_a = np.linalg.eigh((mat_a + mat_a.conj().T) / 2)
             vec_a = eigvecs_a[:, -1]
 
-            mat_b = np.einsum("iajb,a,i->jb", tensor, vec_a.conj(), vec_a)
+            mat_b = np.einsum("ikjl,i,j->kl", tensor, vec_a.conj(), vec_a)
             _, eigvecs_b = np.linalg.eigh((mat_b + mat_b.conj().T) / 2)
             vec_b = eigvecs_b[:, -1]
 
@@ -986,11 +986,6 @@ def is_separable(
         if best_overlap is not None:
             if 1.0 - best_overlap < 10 * tol:
                 return True, "3x3 rank-4 PPT: range contains a product vector (Chen-Djokovic 2013)"
-            if 1.0 - best_overlap > 1e-3:
-                return (
-                    False,
-                    f"3x3 rank-4 PPT: range-optimization found no product vector (best overlap={best_overlap:.6f})",
-                )
 
     # --- 7. Operational Criteria for Low-Rank PPT States (Horodecki et al. 2000) ---
     # These are sufficient conditions for separability of PPT states [@horodecki2000constructive].
