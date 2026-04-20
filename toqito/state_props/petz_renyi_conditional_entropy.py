@@ -62,6 +62,42 @@ def petz_renyi_conditional_entropy(
         ValueError: If `rho` is not a density matrix, if `alpha <= 0`, if `variant` is
             invalid, or if `dim` does not describe a bipartite decomposition of `rho`.
 
+    Examples:
+        Compute the downarrow variant for a Bell state using a scalar subsystem
+        dimension:
+
+        ```python exec="1" source="above" result="text"
+        import numpy as np
+        from toqito.state_props import petz_renyi_conditional_entropy
+
+        psi = np.array([1, 0, 0, 1]) / np.sqrt(2)
+        rho = np.outer(psi, psi.conj())
+        print(petz_renyi_conditional_entropy(rho, alpha=2, dim=2, variant="downarrow"))
+        ```
+
+        Compute the uparrow variant for the same state using a 2-element list for
+        `dim`:
+
+        ```python exec="1" source="above" result="text"
+        import numpy as np
+        from toqito.state_props import petz_renyi_conditional_entropy
+
+        psi = np.array([1, 0, 0, 1]) / np.sqrt(2)
+        rho = np.outer(psi, psi.conj())
+        print(petz_renyi_conditional_entropy(rho, alpha=2, dim=[2, 2], variant="uparrow"))
+        ```
+
+        For a product state, the conditional entropy matches the entropy of the
+        first subsystem:
+
+        ```python exec="1" source="above" result="text"
+        import numpy as np
+        from toqito.state_props import petz_renyi_conditional_entropy
+
+        rho = np.diag([1 / 2, 1 / 2, 0, 0])
+        print(petz_renyi_conditional_entropy(rho, alpha=2, dim=2, variant="downarrow"))
+        ```
+
     """
     if not is_density(rho):
         raise ValueError("Petz conditional Rényi entropy is only defined for density operators.")
