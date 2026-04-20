@@ -9,7 +9,7 @@ from toqito.perms import permute_systems
 
 
 def partial_trace(
-    input_mat: np.ndarray | Variable,
+    input_mat: np.ndarray | Expression | Variable,
     sys: int | list[int] | tuple | None = None,
     dim: int | list[int] | tuple | np.ndarray | None = None,
 ) -> np.ndarray | Expression:
@@ -121,9 +121,10 @@ def partial_trace(
     if not isinstance(sys, int):
         if sys is None:
             sys = [1]
-    # If the input matrix is a CVX variable for an SDP, we convert it to a numpy array,
-    # perform the partial trace, and convert it back to a CVX variable.
-    if isinstance(input_mat, Variable):
+    # If the input matrix is a CVXPY expression for an SDP, we convert it to a
+    # NumPy object array, perform the partial trace recursively, and convert it
+    # back to a CVXPY expression.
+    if isinstance(input_mat, (Expression, Variable)):
         rho_np = expr_as_np_array(input_mat)
         traced_rho = partial_trace(rho_np, sys, dim)
         traced_rho = np_array_as_expr(traced_rho)

@@ -359,7 +359,7 @@ def test_entangled_by_reduction_criterion_non_psd_choi_T():
 
 
 def test_plucker_linalg_error_in_det_fallthrough():
-    """Plucker check falls through on LinAlgError; state remains separable."""
+    """Plucker LinAlgError falls through without producing a false separability proof."""
     with mock.patch("numpy.linalg.det", side_effect=np.linalg.LinAlgError("mocked error")):
         p1 = np.kron(basis(3, 0), basis(3, 0))
         p2 = np.kron(basis(3, 1), basis(3, 1))
@@ -369,7 +369,12 @@ def test_plucker_linalg_error_in_det_fallthrough():
         rho = (
             np.outer(p1, p1.conj()) + np.outer(p2, p2.conj()) + np.outer(p3, p3.conj()) + np.outer(p4, p4.conj())
         ) / 4.0
-        assert is_separable(rho, dim=[3, 3])[0]
+        with mock.patch("toqito.state_props.is_separable._iterative_product_state_subtraction", return_value=False):
+            with mock.patch("toqito.state_props.is_separable.has_symmetric_extension", return_value=True):
+                with mock.patch("toqito.state_props.is_separable.has_symmetric_inner_extension", return_value=False):
+                    sep, reason = is_separable(rho, dim=[3, 3])
+        assert sep is False
+        assert "inconclusive" in reason
 
 
 def test_eig_calc_fails_rank1_pert_check_skipped():
@@ -496,7 +501,7 @@ def test_2xN_hard_separable_passes_all_witnesses():
 
 
 def test_symm_ext_catches_hard_entangled_state():
-    """Test level=1 behavior for a PPT entangled state."""
+    """Finite DPS levels are inconclusive on a PPT entangled state with extensions."""
     # This appear to pass to last final False sometimes
     rho_ent_symm = (
         np.array(
@@ -514,11 +519,41 @@ def test_symm_ext_catches_hard_entangled_state():
         )
         / 8.75
     )
-    assert is_separable(rho_ent_symm, dim=[3, 3], level=1)[0]  # This state IS PPT
+    assert not is_separable(rho_ent_symm, dim=[3, 3], level=1)[0]
     assert not is_separable(rho_ent_symm, dim=[3, 3], level=0)[0]  # Heuristics alone cannot prove separability
     # This PPT entangled state has a 2-copy symmetric extension, so the DPS
-    # hierarchy at level 2 is insufficient to detect its entanglement.
-    assert is_separable(rho_ent_symm, dim=[3, 3], level=2)[0]
+    # outer relaxation at level 2 is insufficient to detect its entanglement.
+    # A finite passed extension level is now treated as inconclusive unless the
+    # inner-extension SDP certifies separability.
+    assert not is_separable(rho_ent_symm, dim=[3, 3], level=2)[0]
+
+
+def test_symmetric_inner_extension_branch_surfaces_separable_reason():
+    """DPS stage returns separable only when the inner-extension cone succeeds."""
+    rho = (
+        np.array(
+            [
+                [1.0, 0.67, 0.91, 0.67, 0.45, 0.61, 0.88, 0.59, 0.79],
+                [0.67, 1.0, 0.5, 0.45, 0.67, 0.34, 0.59, 0.88, 0.44],
+                [0.91, 0.5, 1.0, 0.61, 0.34, 0.68, 0.81, 0.44, 0.88],
+                [0.67, 0.45, 0.61, 1.0, 0.67, 0.91, 0.5, 0.33, 0.45],
+                [0.45, 0.67, 0.34, 0.67, 1.0, 0.5, 0.33, 0.5, 0.25],
+                [0.61, 0.34, 0.68, 0.91, 0.5, 1.0, 0.45, 0.26, 0.5],
+                [0.88, 0.59, 0.81, 0.5, 0.33, 0.45, 1.0, 0.66, 0.91],
+                [0.59, 0.88, 0.44, 0.33, 0.5, 0.26, 0.66, 1.0, 0.48],
+                [0.79, 0.44, 0.88, 0.45, 0.25, 0.5, 0.91, 0.48, 1.0],
+            ]
+        )
+        / 8.75
+    )
+
+    with mock.patch("toqito.state_props.is_separable._iterative_product_state_subtraction", return_value=False):
+        with mock.patch("toqito.state_props.is_separable.has_symmetric_extension", return_value=True):
+            with mock.patch("toqito.state_props.is_separable.has_symmetric_inner_extension", return_value=True):
+                sep, reason = is_separable(rho, dim=[3, 3], level=2)
+
+    assert sep is True
+    assert "inner DPS symmetric extension cone" in reason
 
 
 def test_plucker_orth_rank_lt_4():
@@ -636,7 +671,7 @@ def test_rank1_pert_skip_for_rank_deficient():
 
 
 def test_3x3_rank4_block_orth_finds_lower_rank():
-    """Test 3x3 rank-4 block when orth() gives <4 columns. cover logic q_orth_basis.shape[1] < 4."""
+    """If the 3x3 rank-4 orth basis is too small, the flow stays inconclusive."""
     # Create a rank-4 state in 3x3 system
     p1 = np.kron(basis(3, 0), basis(3, 0))
     p2 = np.kron(basis(3, 1), basis(3, 1))
@@ -648,7 +683,12 @@ def test_3x3_rank4_block_orth_finds_lower_rank():
     # Mock orth to return only 3 columns (simulating numerical rank deficiency)
     with mock.patch("toqito.state_props.is_separable.orth") as mocked_orth:
         mocked_orth.return_value = np.eye(9, 3)  # 9x3 matrix
-        assert is_separable(rho, dim=[3, 3])[0]  # Should proceed past Plücker check
+        with mock.patch("toqito.state_props.is_separable._iterative_product_state_subtraction", return_value=False):
+            with mock.patch("toqito.state_props.is_separable.has_symmetric_extension", return_value=True):
+                with mock.patch("toqito.state_props.is_separable.has_symmetric_inner_extension", return_value=False):
+                    sep, reason = is_separable(rho, dim=[3, 3])  # Should proceed past Plücker check
+        assert sep is False
+        assert "inconclusive" in reason
         mocked_orth.assert_called_once()
 
 
@@ -1327,11 +1367,12 @@ def test_is_separable_falls_through_when_iter_sub_returns_false():
         return_value=False,
     ):
         sep, reason = is_separable(_RHO_ENT_SYMM_3x3_REACHES_12B, dim=[3, 3], level=2)
-    # The helper returning False is inconclusive, not an entanglement verdict,
-    # and DPS catches this state at level=2 via the "passed DPS ... up to
-    # level=2" branch. Either way, the 12b reason must not appear.
+    # The helper returning False is inconclusive, not an entanglement verdict.
+    # Finite DPS outer relaxations are also only inconclusive unless the inner
+    # cone succeeds, so the final answer remains inconclusive.
     assert "iterative product-state subtraction" not in reason
-    assert sep is True  # DPS handles it at level=2
+    assert sep is False
+    assert "inconclusive" in reason
 
 
 # --- Tests for the Filter Covariance Matrix Criterion (#1246) ---
