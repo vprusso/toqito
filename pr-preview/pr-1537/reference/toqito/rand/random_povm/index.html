@@ -9213,25 +9213,25 @@ POVMs of dimension with <span class="arithmatex">\(2\)</span> inputs and <span c
 <a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>
 <a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="nb">print</span><span class="p">(</span><span class="n">povms</span><span class="p">)</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>[[[[ 0.34175131+0.j  0.65824869+0.j]
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>   [ 0.67536495+0.j  0.32463505+0.j]]
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>[[[[ 0.61440932+0.j  0.38559068+0.j]
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>   [ 0.14760194+0.j  0.85239806+0.j]]
 <a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>  [[ 0.10998552+0.j -0.10998552+0.j]
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>   [ 0.39235325+0.j -0.39235325+0.j]]]
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>  [[-0.09939383+0.j  0.09939383+0.j]
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>   [-0.20076862+0.j  0.20076862+0.j]]]
 <a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>
 <a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>
-<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a> [[[ 0.10998552+0.j -0.10998552+0.j]
-<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>   [ 0.39235325+0.j -0.39235325+0.j]]
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a> [[[-0.09939383+0.j  0.09939383+0.j]
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>   [-0.20076862+0.j  0.20076862+0.j]]
 <a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>
-<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>  [[ 0.04853647+0.j  0.95146353+0.j]
-<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>   [ 0.28812992+0.j  0.71187008+0.j]]]]
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>  [[ 0.04266511+0.j  0.95733489+0.j]
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>   [ 0.85980674+0.j  0.14019326+0.j]]]]
 </code></pre></div>
 <p>We can verify that this constitutes a valid set of POVM elements as checking that these operators all sum to the
 identity operator.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">povms</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">povms</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]))</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>[[1.+0.j 0.+0.j]
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a> [0.+0.j 1.+0.j]]
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>[[ 1.+0.j -0.+0.j]
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a> [-0.+0.j  1.+0.j]]
 </code></pre></div>
 <p>It is also possible to add a seed for reproducibility.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>

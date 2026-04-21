@@ -9157,8 +9157,8 @@ random <span class="arithmatex">\(2\)</span>-dimensional random unitary matrix w
 <a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
 <a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">complex_dm</span><span class="p">)</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>[[0.28927911+0.90399717j 0.08502229-0.30311372j]
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a> [0.29547347-0.10863768j 0.92397723+0.21716208j]]
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>[[-0.4193289 +0.10813139j -0.78328367+0.44602417j]
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a> [ 0.68931872+0.58078444j -0.39273778-0.18244495j]]
 </code></pre></div>
 <p>We can verify that this is in fact a valid unitary matrix using the <code>is_unitary</code> function
 from <code>|toqito⟩</code> as follows</p>
@@ -9175,8 +9175,8 @@ from <code>|toqito⟩</code> as follows</p>
 <a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
 <a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">real_dm</span><span class="p">)</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>[[ 0.53603706  0.84419445]
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a> [ 0.84419445 -0.53603706]]
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>[[ 0.19761372  0.98027997]
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a> [-0.98027997  0.19761372]]
 </code></pre></div>
 <p>Again, verifying that this is a valid unitary matrix can be done as follows.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.matrix_props</span><span class="w"> </span><span class="kn">import</span> <span class="n">is_unitary</span>
@@ -9193,10 +9193,10 @@ opposed to an <code>int</code>. Here is an example of a random unitary matrix of
 <a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
 <a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">mat</span><span class="p">)</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>[[ 0.02399366 -0.59864181  0.76465951 -0.23737758]
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a> [ 0.41735442 -0.7141475  -0.56076069  0.03682497]
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a> [-0.59441506 -0.31239831  0.00410786  0.74098661]
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a> [ 0.6869573   0.18446848  0.31753174  0.62708424]]
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>[[-0.75938646  0.59302544 -0.15069192  0.2212351 ]
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a> [-0.50748597 -0.40980373  0.74576373 -0.13548195]
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a> [-0.04947141  0.2801132  -0.05363172 -0.95719006]
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a> [ 0.40415687  0.63397029  0.64672409  0.12840116]]
 </code></pre></div>
 <p>As before, we can verify that this matrix generated is a valid unitary matrix.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.matrix_props</span><span class="w"> </span><span class="kn">import</span> <span class="n">is_unitary</span>
