@@ -4,11 +4,11 @@ import numpy as np
 
 from toqito.matrix_ops.partial_trace import partial_trace
 from toqito.matrix_props import is_density
-from toqito.state_props.petz_renyi_conditional_entropy import (
-    _psd_matrix_power,
-    _support_is_subset,
-    _support_overlap,
-    _validate_bipartite_dim,
+from toqito.state_props._renyi_utils import (
+    psd_matrix_power,
+    support_is_subset,
+    support_overlap,
+    validate_bipartite_dim,
 )
 from toqito.state_props.von_neumann_entropy import von_neumann_entropy
 
@@ -101,7 +101,7 @@ def sandwiched_renyi_conditional_entropy(
     if variant != "downarrow":
         raise ValueError("Only the 'downarrow' sandwiched conditional Rényi entropy is currently supported.")
 
-    dims = _validate_bipartite_dim(rho, dim)
+    dims = validate_bipartite_dim(rho, dim)
     rho_b = partial_trace(rho, [0], dims)
 
     if alpha == 1:
@@ -116,14 +116,14 @@ def _sandwiched_renyi_conditional_entropy_downarrow(
     """Compute the downarrow sandwiched conditional Rényi entropy."""
     sigma = np.kron(np.eye(dim_a), rho_b)
 
-    if alpha < 1 and _support_overlap(rho, sigma) <= 0:
+    if alpha < 1 and support_overlap(rho, sigma) <= 0:
         return float("-inf")
-    if alpha > 1 and not _support_is_subset(rho, sigma):
+    if alpha > 1 and not support_is_subset(rho, sigma):
         return float("-inf")
 
     sandwiched_power = (1 - alpha) / (2 * alpha)
-    sigma_power = _psd_matrix_power(sigma, sandwiched_power)
+    sigma_power = psd_matrix_power(sigma, sandwiched_power)
     sandwiched = sigma_power @ rho @ sigma_power
-    trace_term = np.trace(_psd_matrix_power(sandwiched, alpha))
+    trace_term = np.trace(psd_matrix_power(sandwiched, alpha))
     trace_term = float(np.real_if_close(trace_term))
     return -np.log2(trace_term) / (alpha - 1)
