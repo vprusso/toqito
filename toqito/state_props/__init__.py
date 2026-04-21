@@ -30,4 +30,5 @@ from toqito.state_props.is_sic_povm import is_sic_povm
 from toqito.state_props.common_quantum_overlap import common_quantum_overlap
 from toqito.state_props.petz_renyi_conditional_entropy import petz_renyi_conditional_entropy
 from toqito.state_props.renyi_entropy import renyi_entropy
+from toqito.state_props.sandwiched_renyi_conditional_entropy import sandwiched_renyi_conditional_entropy
 from toqito.state_props.learnability import learnability
