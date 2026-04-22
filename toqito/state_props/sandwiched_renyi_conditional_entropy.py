@@ -196,7 +196,7 @@ def _sandwiched_renyi_conditional_entropy_uparrow(
         a_imag = params[n_real:].reshape(dim_b, dim_b)
         a_mat = a_real + 1j * a_imag
         mat = a_mat @ a_mat.conj().T
-        trace_val = float(np.real(np.trace(mat)))
+        trace_val = float(np.real_if_close(np.trace(mat)))
         if trace_val < 1e-15:
             return np.eye(dim_b) / dim_b
         return mat / trace_val
@@ -235,9 +235,10 @@ def _sandwiched_renyi_conditional_entropy_uparrow(
         options={"gtol": tol, "ftol": tol, "maxiter": max_iters},
     )
 
-    if not result.success and float(result.fun) >= penalty / 2:
+    result_fun = float(result.fun)
+    if not np.isfinite(result_fun) or result_fun >= penalty / 2:
         raise RuntimeError(
             f"Uparrow sandwiched conditional Rényi entropy optimizer failed to converge: {result.message}"
         )
 
-    return -float(result.fun)
+    return -result_fun
