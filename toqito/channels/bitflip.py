@@ -35,7 +35,7 @@ def bitflip(
     Args:
         input_mat: Deprecated. Passing a matrix here applies the channel to that matrix; this
             convenience path will be removed in a future release. Prefer
-            `apply_channel(bitflip(prob=...), input_mat)`.
+            `apply_channel(input_mat, bitflip(prob=...))`.
         prob: The probability of a bitflip occurring.
 
     Returns:
@@ -78,7 +78,7 @@ def bitflip(
 
     warnings.warn(
         "Passing `input_mat` to `bitflip` is deprecated; "
-        "use `apply_channel(bitflip(...), input_mat)` instead.",
+        "use `apply_channel(input_mat, bitflip(...))` instead.",
         DeprecationWarning,
         stacklevel=2,
     )

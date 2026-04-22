@@ -24,7 +24,7 @@ def phase_damping(
     Args:
         input_mat: Deprecated. Passing a matrix here applies the channel to that matrix; this
             convenience path will be removed in a future release. Prefer
-            `apply_channel(phase_damping(gamma=...), input_mat)`.
+            `apply_channel(input_mat, phase_damping(gamma=...))`.
         gamma: The dephasing rate (between 0 and 1), representing the probability of phase decoherence.
 
     Returns:
@@ -60,7 +60,7 @@ def phase_damping(
 
     warnings.warn(
         "Passing `input_mat` to `phase_damping` is deprecated; "
-        "use `apply_channel(phase_damping(...), input_mat)` instead.",
+        "use `apply_channel(input_mat, phase_damping(...))` instead.",
         DeprecationWarning,
         stacklevel=2,
     )

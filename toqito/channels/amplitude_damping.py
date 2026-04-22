@@ -38,7 +38,7 @@ def amplitude_damping(
     Args:
         input_mat: Deprecated. Passing a matrix here applies the channel to that matrix; this
             convenience path will be removed in a future release. Prefer
-            `apply_channel(amplitude_damping(gamma=..., prob=...), input_mat)`.
+            `apply_channel(input_mat, amplitude_damping(gamma=..., prob=...))`.
         gamma: The damping rate, a float between 0 and 1. Represents the probability of energy dissipation.
         prob: The probability of energy loss, a float between 0 and 1.
 
@@ -80,7 +80,7 @@ def amplitude_damping(
 
     warnings.warn(
         "Passing `input_mat` to `amplitude_damping` is deprecated; "
-        "use `apply_channel(amplitude_damping(...), input_mat)` instead.",
+        "use `apply_channel(input_mat, amplitude_damping(...))` instead.",
         DeprecationWarning,
         stacklevel=2,
     )
