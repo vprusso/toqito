@@ -5,13 +5,14 @@ import re
 import numpy as np
 import pytest
 
+from toqito.channel_ops import apply_channel
 from toqito.channels import phase_damping
 
 
 @pytest.mark.parametrize("gamma", [0.0, 0.3, 0.5, 0.7, 1.0])
 def test_kraus_operators(gamma):
     """Test if the function returns correct Kraus operators for given gamma."""
-    kraus_ops = phase_damping(None, gamma=gamma)
+    kraus_ops = phase_damping(gamma=gamma)
 
     k0_expected = np.diag([1, np.sqrt(1 - gamma)])
     k1_expected = np.diag([0, np.sqrt(gamma)])
@@ -31,7 +32,7 @@ def test_kraus_operators(gamma):
     [
         # Ground state |0⟩⟨0|.
         (np.array([[1, 0], [0, 0]]), 0.3),
-        # Exfootcited state |1⟩⟨1|.
+        # Excited state |1⟩⟨1|.
         (np.array([[0, 0], [0, 1]]), 0.4),
         # Superposition state (|0⟩+|1⟩)(⟨0|+⟨1|)/2.
         (np.array([[0.5, 0.5], [0.5, 0.5]]), 0.5),
@@ -43,13 +44,13 @@ def test_kraus_operators(gamma):
 )
 def test_apply_to_states(rho, gamma):
     """Apply the channel to various input states rho."""
-    kraus_ops = phase_damping(None, gamma=gamma)
+    kraus_ops = phase_damping(gamma=gamma)
 
     expected_output = np.zeros((2, 2), dtype=complex)
     for k in kraus_ops:
         expected_output += k @ rho @ k.conj().T
 
-    result = phase_damping(rho, gamma=gamma)
+    result = apply_channel(rho, kraus_ops)
 
     np.testing.assert_almost_equal(result, expected_output)
     np.testing.assert_almost_equal(np.trace(result), np.trace(rho))
@@ -90,13 +91,16 @@ def test_invalid_dimension(rho):
 
 def test_input_and_return_type():
     """Test for input handling and return types."""
-    # Test Kraus operators when input_mat is None.
-    kraus_ops = phase_damping(None, gamma=0.4)
+    kraus_ops = phase_damping(gamma=0.4)
     assert len(kraus_ops) == 2
     for op in kraus_ops:
         assert op.shape == (2, 2)
 
-    # Test integer input matrix conversion to complex.
-    input_mat = np.array([[1, 0], [0, 0]], dtype=int)
-    result = phase_damping(input_mat, gamma=0.4)
-    assert result.dtype == complex
+
+def test_input_mat_is_deprecated():
+    """Passing `input_mat` still works but emits a DeprecationWarning."""
+    rho = np.array([[1.0, 0.0], [0.0, 0.0]])
+    with pytest.warns(DeprecationWarning, match="apply_channel"):
+        legacy = phase_damping(rho, gamma=0.4)
+    modern = apply_channel(rho, phase_damping(gamma=0.4))
+    np.testing.assert_almost_equal(legacy, modern)

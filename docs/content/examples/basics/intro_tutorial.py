@@ -497,13 +497,14 @@ print(output_state)
 
 import numpy as np
 
+from toqito.channel_ops import apply_channel
 from toqito.channels import phase_damping
 
 # Create a density matrix with coherence.
 rho = np.array([[1, 0.5], [0.5, 1]])
 
 # Apply phase damping with γ = 0.2.
-result = phase_damping(rho, gamma=0.2)
+result = apply_channel(rho, phase_damping(gamma=0.2))
 print(result)
 
 # %%
@@ -522,13 +523,14 @@ print(result)
 
 import numpy as np
 
+from toqito.channel_ops import apply_channel
 from toqito.channels import amplitude_damping
 
 # Create a quantum state.
 rho = np.array([[0.5, 0.5], [0.5, 0.5]])
 
 # Apply amplitude damping with γ = 0.3.
-result = amplitude_damping(rho, gamma=0.3)
+result = apply_channel(rho, amplitude_damping(gamma=0.3))
 print(result)
 
 # %%
@@ -543,13 +545,14 @@ print(result)
 
 import numpy as np
 
+from toqito.channel_ops import apply_channel
 from toqito.channels import bitflip
 
 # Create a quantum state |0⟩⟨0|.
 rho = np.array([[1, 0], [0, 0]])
 
 # Apply bit-flip with probability = 0.25.
-result = bitflip(rho, prob=0.25)
+result = apply_channel(rho, bitflip(prob=0.25))
 print(result)
 
 # %%
@@ -582,6 +585,7 @@ print(result)
 
 import numpy as np
 
+from toqito.channel_ops import apply_channel
 from toqito.channels import pauli_channel
 
 # Define probabilities for single-qubit Pauli operators.
@@ -591,7 +595,7 @@ probabilities = np.array([0.5, 0.2, 0.2, 0.1])
 rho = np.array([[1, 0], [0, 0]])
 
 # Apply the Pauli channel.
-_, result = pauli_channel(prob=probabilities, input_mat=rho)
+result = apply_channel(rho, pauli_channel(prob=probabilities))
 print(result)
 
 # %%

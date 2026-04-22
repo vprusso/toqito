@@ -1,5 +1,7 @@
 """phase damping channel."""
 
+import warnings
+
 import numpy as np
 
 
@@ -7,7 +9,7 @@ def phase_damping(
     input_mat: np.ndarray | None = None,
     gamma: float = 0,
 ) -> np.ndarray | list[np.ndarray]:
-    r"""Apply the phase damping channel to a quantum state [@nielsen2011quantum].
+    r"""Return the Kraus operators of the phase damping channel [@nielsen2011quantum].
 
     The phase damping channel describes how quantum information is lost due to environmental interactions,
     causing dephasing in the computational basis without losing energy.
@@ -20,22 +22,25 @@ def phase_damping(
     \]
 
     Args:
-        input_mat: The input matrix to apply the channel to. If `None`, the function returns the Kraus operators.
+        input_mat: Deprecated. Passing a matrix here applies the channel to that matrix; this
+            convenience path will be removed in a future release. Prefer
+            `apply_channel(input_mat, phase_damping(gamma=...))`.
         gamma: The dephasing rate (between 0 and 1), representing the probability of phase decoherence.
 
     Returns:
-        The transformed quantum state after applying the phase damping channel. If `input_mat` is `None`, returns the
-        list of Kraus operators.
+        The list of Kraus operators describing the channel. When the deprecated `input_mat`
+        argument is provided, the channel applied to that input is returned instead.
 
     Examples:
-        Applying the phase damping channel to a qubit state:
+        Obtain the Kraus operators and apply the channel via `apply_channel`:
 
         ```python exec="1" source="above" result="text"
         import numpy as np
         from toqito.channels.phase_damping import phase_damping
+        from toqito.channel_ops import apply_channel
 
         rho = np.array([[1, 0.5], [0.5, 1]])
-        result = phase_damping(rho, gamma=0.2)
+        result = apply_channel(rho, phase_damping(gamma=0.2))
 
         print(result)
         ```
@@ -47,10 +52,18 @@ def phase_damping(
     k0 = np.diag([1, np.sqrt(1 - gamma)])
     k1 = np.diag([0, np.sqrt(gamma)])
 
-    if input_mat is not None and input_mat.shape != (2, 2):
-        raise ValueError("Input matrix must be 2x2 for the phase damping channel.")
-    elif input_mat is None:
+    if input_mat is None:
         return [k0, k1]
+
+    if input_mat.shape != (2, 2):
+        raise ValueError("Input matrix must be 2x2 for the phase damping channel.")
+
+    warnings.warn(
+        "Passing `input_mat` to `phase_damping` is deprecated; "
+        "use `apply_channel(input_mat, phase_damping(...))` instead.",
+        DeprecationWarning,
+        stacklevel=2,
+    )
 
     input_mat = np.asarray(input_mat, dtype=complex)
 
