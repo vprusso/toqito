@@ -9125,7 +9125,7 @@ It is defined by the following operation:</p>
           <div class="doc-md-description">
             <p>Deprecated. Passing a matrix here applies the channel to that matrix; this
 convenience path will be removed in a future release. Prefer
-<code>apply_channel(bitflip(prob=...), input_mat)</code>.</p>
+<code>apply_channel(input_mat, bitflip(prob=...))</code>.</p>
           </div>
         </li>
         <li class="doc-section-item field-body">
@@ -9295,7 +9295,7 @@ convenience path will be removed in a future release. Prefer
 <a id="__codelineno-0-35" name="__codelineno-0-35"></a><span class="sd">    Args:</span>
 <a id="__codelineno-0-36" name="__codelineno-0-36"></a><span class="sd">        input_mat: Deprecated. Passing a matrix here applies the channel to that matrix; this</span>
 <a id="__codelineno-0-37" name="__codelineno-0-37"></a><span class="sd">            convenience path will be removed in a future release. Prefer</span>
-<a id="__codelineno-0-38" name="__codelineno-0-38"></a><span class="sd">            `apply_channel(bitflip(prob=...), input_mat)`.</span>
+<a id="__codelineno-0-38" name="__codelineno-0-38"></a><span class="sd">            `apply_channel(input_mat, bitflip(prob=...))`.</span>
 <a id="__codelineno-0-39" name="__codelineno-0-39"></a><span class="sd">        prob: The probability of a bitflip occurring.</span>
 <a id="__codelineno-0-40" name="__codelineno-0-40"></a>
 <a id="__codelineno-0-41" name="__codelineno-0-41"></a><span class="sd">    Returns:</span>
@@ -9338,7 +9338,7 @@ convenience path will be removed in a future release. Prefer
 <a id="__codelineno-0-78" name="__codelineno-0-78"></a>
 <a id="__codelineno-0-79" name="__codelineno-0-79"></a>    <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
 <a id="__codelineno-0-80" name="__codelineno-0-80"></a>        <span class="s2">&quot;Passing `input_mat` to `bitflip` is deprecated; &quot;</span>
-<a id="__codelineno-0-81" name="__codelineno-0-81"></a>        <span class="s2">&quot;use `apply_channel(bitflip(...), input_mat)` instead.&quot;</span><span class="p">,</span>
+<a id="__codelineno-0-81" name="__codelineno-0-81"></a>        <span class="s2">&quot;use `apply_channel(input_mat, bitflip(...))` instead.&quot;</span><span class="p">,</span>
 <a id="__codelineno-0-82" name="__codelineno-0-82"></a>        <span class="ne">DeprecationWarning</span><span class="p">,</span>
 <a id="__codelineno-0-83" name="__codelineno-0-83"></a>        <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
 <a id="__codelineno-0-84" name="__codelineno-0-84"></a>    <span class="p">)</span>
