@@ -93,7 +93,7 @@ def _is_prime_power(n: int) -> bool:
         return False
     for p in range(2, math.isqrt(n) + 1):
         if n % p == 0:
-            if not _is_prime(p):
+            if not _is_prime(p):  # pragma: no cover - unreachable: smallest divisor of n is always prime
                 continue
             while n % p == 0:
                 n //= p

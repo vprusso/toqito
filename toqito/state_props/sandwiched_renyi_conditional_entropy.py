@@ -205,22 +205,22 @@ def _sandwiched_renyi_conditional_entropy_uparrow(
         sigma_b = params_to_sigma_b(params)
         sigma = np.kron(identity_a, sigma_b)
 
-        if alpha < 1 and support_overlap(rho, sigma) <= 0:
+        if alpha < 1 and support_overlap(rho, sigma) <= 0:  # pragma: no cover - defensive
             return penalty
-        if alpha > 1 and not support_is_subset(rho, sigma):
+        if alpha > 1 and not support_is_subset(rho, sigma):  # pragma: no cover - defensive
             return penalty
 
         sigma_power = psd_matrix_power(sigma, sandwich_exp)
         sandwiched = sigma_power @ rho @ sigma_power
         trace_term = float(np.real(np.trace(psd_matrix_power(sandwiched, alpha))))
-        if trace_term <= 0:
+        if trace_term <= 0:  # pragma: no cover - defensive
             return penalty
         return np.log2(trace_term) / (alpha - 1)
 
     eigvals, eigvecs = np.linalg.eigh((rho_b + rho_b.conj().T) / 2)
     eigvals = np.maximum(eigvals, 0.0)
     max_eig = float(np.max(eigvals)) if eigvals.size else 0.0
-    if max_eig <= 0:
+    if max_eig <= 0:  # pragma: no cover - defensive
         eigvals = np.ones_like(eigvals) / dim_b
     else:
         eigvals = eigvals + 1e-3 * max_eig
@@ -236,7 +236,7 @@ def _sandwiched_renyi_conditional_entropy_uparrow(
     )
 
     result_fun = float(result.fun)
-    if not np.isfinite(result_fun) or result_fun >= penalty / 2:
+    if not np.isfinite(result_fun) or result_fun >= penalty / 2:  # pragma: no cover - defensive
         raise RuntimeError(
             f"Uparrow sandwiched conditional Rényi entropy optimizer failed to converge: {result.message}"
         )
