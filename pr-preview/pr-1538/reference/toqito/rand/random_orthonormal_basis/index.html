@@ -61,13 +61,13 @@
     
       <link rel="stylesheet" href="../../../../assets/extra.css">
     
-      <link rel="stylesheet" href="../../../../sg_gallery-binder.css">
-    
-      <link rel="stylesheet" href="../../../../sg_gallery-dataframe.css">
+      <link rel="stylesheet" href="../../../../sg_gallery-rendered-html.css">
     
       <link rel="stylesheet" href="../../../../sg_gallery.css">
     
-      <link rel="stylesheet" href="../../../../sg_gallery-rendered-html.css">
+      <link rel="stylesheet" href="../../../../sg_gallery-dataframe.css">
+    
+      <link rel="stylesheet" href="../../../../sg_gallery-binder.css">
     
     <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -9140,7 +9140,7 @@ as the columns of a unitary matrix typically form an orthonormal basis <sup><a i
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">random_orthonormal_basis</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">is_real</span> <span class="o">=</span> <span class="kc">True</span><span class="p">))</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>[array([-0.82013683,  0.31350039,  0.15869405,  0.45156315]), array([-0.43621485, -0.34701371, -0.78295454, -0.27618885]), array([-0.14072958,  0.66518056,  0.04184288, -0.73210599]), array([ 0.34247243,  0.58209434, -0.60003964,  0.42875547])]
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>[array([-0.85662356,  0.11971602, -0.28038714, -0.41622975]), array([-0.40443403,  0.09089536,  0.86784957,  0.27387637]), array([-0.31774831, -0.54441852, -0.31497111,  0.70953342]), array([ 0.0408069 , -0.82523607,  0.26270395, -0.49830397])]
 </code></pre></div>
 <p>It is also possible to add a seed for reproducibility.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.rand</span><span class="w"> </span><span class="kn">import</span> <span class="n">random_orthonormal_basis</span>
