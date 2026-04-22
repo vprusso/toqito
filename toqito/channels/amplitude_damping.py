@@ -1,5 +1,7 @@
 """Generates the (generalized) amplitude damping channel."""
 
+import warnings
+
 import numpy as np
 
 
@@ -8,12 +10,12 @@ def amplitude_damping(
     gamma: float = 0,
     prob: float = 1,
 ) -> np.ndarray | list[np.ndarray]:
-    r"""Apply the generalized amplitude damping channel to a quantum state.
+    r"""Return the Kraus operators of the generalized amplitude damping channel.
 
-    The generalized amplitude damping channel is a quantum channel that models energy dissipation
-    in a quantum system, where the system can lose energy to its environment with a certain
-    probability. This channel is defined by two parameters: `gamma` (the damping rate) and `prob`
-    (the probability of energy loss).
+    The generalized amplitude damping channel models energy dissipation in a quantum system,
+    where the system can lose energy to its environment with a certain probability. The
+    channel is defined by two parameters: `gamma` (the damping rate) and `prob` (the
+    probability of energy loss).
 
     To also include standard implementation of amplitude damping, we have set `prob = 1` as the default implementation.
 
@@ -34,24 +36,26 @@ def amplitude_damping(
     damping process.
 
     Args:
-        input_mat: The input matrix to which the channel is applied. If `None`, the function returns the Kraus operators
-            of the channel.
+        input_mat: Deprecated. Passing a matrix here applies the channel to that matrix; this
+            convenience path will be removed in a future release. Prefer
+            `apply_channel(amplitude_damping(gamma=..., prob=...), input_mat)`.
         gamma: The damping rate, a float between 0 and 1. Represents the probability of energy dissipation.
         prob: The probability of energy loss, a float between 0 and 1.
 
     Returns:
-        The evolved quantum state after applying the generalized amplitude damping channel. If `input_mat` is `None`, it
-        returns the list of Kraus operators.
+        The list of Kraus operators describing the channel. When the deprecated `input_mat`
+        argument is provided, the channel applied to that input is returned instead.
 
     Examples:
-        Apply the generalized amplitude damping channel to a qubit state:
+        Obtain the Kraus operators and apply the channel via `apply_channel`:
 
         ```python exec="1" source="above" result="text"
         import numpy as np
         from toqito.channels import amplitude_damping
+        from toqito.channel_ops import apply_channel
 
         rho = np.array([[1, 0], [0, 0]])  # |0><0|
-        result = amplitude_damping(rho, gamma=0.1, prob=0.5)
+        result = apply_channel(rho, amplitude_damping(gamma=0.1, prob=0.5))
 
         print(result)
         ```
@@ -68,10 +72,18 @@ def amplitude_damping(
     k2 = np.sqrt(1 - prob) * np.array([[np.sqrt(1 - gamma), 0], [0, 1]])
     k3 = np.sqrt(1 - prob) * np.sqrt(gamma) * np.array([[0, 0], [1, 0]])
 
-    if input_mat is not None and input_mat.shape != (2, 2):
-        raise ValueError("Input matrix must be 2x2 for the generalized amplitude damping channel.")
-    elif input_mat is None:
+    if input_mat is None:
         return [k0, k1, k2, k3]
+
+    if input_mat.shape != (2, 2):
+        raise ValueError("Input matrix must be 2x2 for the generalized amplitude damping channel.")
+
+    warnings.warn(
+        "Passing `input_mat` to `amplitude_damping` is deprecated; "
+        "use `apply_channel(amplitude_damping(...), input_mat)` instead.",
+        DeprecationWarning,
+        stacklevel=2,
+    )
 
     input_mat = np.asarray(input_mat, dtype=complex)
 

@@ -3,13 +3,14 @@
 import numpy as np
 import pytest
 
+from toqito.channel_ops import apply_channel
 from toqito.channels import bitflip
 
 
 @pytest.mark.parametrize("prob", [0.0, 0.3, 0.5, 1.0])
 def test_kraus_operators(prob):
     """Test if the function returns correct Kraus operators for given probability."""
-    kraus_ops = bitflip(None, prob=prob)  # Get Kraus operators
+    kraus_ops = bitflip(prob=prob)
     expected_kraus_ops = [
         np.sqrt(1 - prob) * np.eye(2),
         np.sqrt(prob) * np.array([[0, 1], [1, 0]]),
@@ -27,7 +28,7 @@ def test_kraus_operators(prob):
 )
 def test_apply_to_state(rho, expected_output, prob):
     """Test bitflip application to |0><0| and |1><1| states."""
-    result = bitflip(rho, prob=prob)
+    result = apply_channel(rho, bitflip(prob=prob))
     np.testing.assert_almost_equal(result, expected_output)
 
 
@@ -42,7 +43,7 @@ def test_apply_to_state(rho, expected_output, prob):
 )
 def test_bitflip_probabilities(rho, prob, expected_output):
     """Test bitflip channel with probabilities 0 and 1."""
-    result = bitflip(rho, prob=prob)
+    result = apply_channel(rho, bitflip(prob=prob))
     np.testing.assert_almost_equal(result, expected_output)
 
 
@@ -78,6 +79,15 @@ def test_apply_to_mixed_state():
     prob = 0.4
     rho = np.array([[0.7, 0.2], [0.2, 0.3]])
     expected_output = (1 - prob) * rho + prob * np.array([[0.3, 0.2], [0.2, 0.7]])
-    result = bitflip(rho, prob=prob)
+    result = apply_channel(rho, bitflip(prob=prob))
 
     np.testing.assert_almost_equal(result, expected_output)
+
+
+def test_input_mat_is_deprecated():
+    """Passing `input_mat` still works but emits a DeprecationWarning."""
+    rho = np.array([[1.0, 0.0], [0.0, 0.0]])
+    with pytest.warns(DeprecationWarning, match="apply_channel"):
+        legacy = bitflip(rho, prob=0.4)
+    modern = apply_channel(rho, bitflip(prob=0.4))
+    np.testing.assert_almost_equal(legacy, modern)

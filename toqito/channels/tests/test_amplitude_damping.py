@@ -5,6 +5,7 @@ import re
 import numpy as np
 import pytest
 
+from toqito.channel_ops import apply_channel
 from toqito.channels import amplitude_damping
 
 
@@ -28,37 +29,32 @@ from toqito.channels import amplitude_damping
 )
 def test_amplitude_damping(rho, prob, gamma, expected_kraus):
     """Test amplitude damping for both Kraus operators and application to states."""
-    result = amplitude_damping(rho, prob=prob, gamma=gamma)
-
     if expected_kraus:
-        # Test Kraus operators.
+        result = amplitude_damping(prob=prob, gamma=gamma)
         k0_expected = np.sqrt(prob) * np.array([[1, 0], [0, np.sqrt(1 - gamma)]])
         k1_expected = np.sqrt(prob) * np.sqrt(gamma) * np.array([[0, 1], [0, 0]])
         k2_expected = np.sqrt(1 - prob) * np.array([[np.sqrt(1 - gamma), 0], [0, 1]])
         k3_expected = np.sqrt(1 - prob) * np.sqrt(gamma) * np.array([[0, 0], [1, 0]])
         expected_kraus_ops = [k0_expected, k1_expected, k2_expected, k3_expected]
 
-        # Check if returned operators match expected ones.
         for i in range(4):
             np.testing.assert_almost_equal(result[i], expected_kraus_ops[i])
 
-        # Check completeness relation.
         completeness_sum = np.zeros((2, 2), dtype=complex)
         for k in result:
             completeness_sum += k.conj().T @ k
         np.testing.assert_almost_equal(completeness_sum, np.eye(2))
     else:
-        # Test application to density matrix.
-        kraus_ops = amplitude_damping(None, prob=prob, gamma=gamma)
+        kraus_ops = amplitude_damping(prob=prob, gamma=gamma)
+        result = apply_channel(rho, kraus_ops)
 
-        # Compute expected output by applying Kraus operators manually.
         expected_output = np.zeros((2, 2), dtype=complex)
         for k in kraus_ops:
             expected_output += k @ rho @ k.conj().T
 
         np.testing.assert_almost_equal(result, expected_output)
         np.testing.assert_almost_equal(np.trace(result), np.trace(rho))
-        np.testing.assert_almost_equal(result, result.conj().T)  # Check hermiticity
+        np.testing.assert_almost_equal(result, result.conj().T)
 
 
 @pytest.mark.parametrize(
@@ -100,13 +96,16 @@ def test_invalid_dimension(rho):
 
 def test_input_and_return_type():
     """Test for input handling and return types."""
-    # Test Kraus operators when input_mat is None.
-    kraus_ops = amplitude_damping(None, prob=0.3, gamma=0.4)
+    kraus_ops = amplitude_damping(prob=0.3, gamma=0.4)
     assert len(kraus_ops) == 4
     for op in kraus_ops:
         assert op.shape == (2, 2)
 
-    # Test integer input matrix conversion to complex.
-    input_mat = np.array([[1, 0], [0, 0]], dtype=int)
-    result = amplitude_damping(input_mat, prob=0.3, gamma=0.4)
-    assert result.dtype == complex
+
+def test_input_mat_is_deprecated():
+    """Passing `input_mat` still works but emits a DeprecationWarning."""
+    rho = np.array([[1.0, 0.0], [0.0, 0.0]])
+    with pytest.warns(DeprecationWarning, match="apply_channel"):
+        legacy = amplitude_damping(rho, prob=0.3, gamma=0.4)
+    modern = apply_channel(rho, amplitude_damping(prob=0.3, gamma=0.4))
+    np.testing.assert_almost_equal(legacy, modern)
