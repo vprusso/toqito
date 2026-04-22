@@ -16,19 +16,21 @@ PRODUCT_STATE = np.kron(RHO_A, RHO_B)
 MAX_ENTANGLED_STATE = bell(0) @ bell(0).conj().T
 
 
+@pytest.mark.parametrize("variant", ["downarrow", "uparrow"])
 @pytest.mark.parametrize("alpha", [0.5, 1.0, 1.5, 2.0])
-def test_sandwiched_renyi_conditional_entropy_product_state(alpha: float):
+def test_sandwiched_renyi_conditional_entropy_product_state(variant: str, alpha: float):
     """For a product state, conditioning on B should recover the entropy of A."""
     expected = renyi_entropy(RHO_A, alpha) if alpha != 1 else von_neumann_entropy(RHO_A)
-    result = sandwiched_renyi_conditional_entropy(PRODUCT_STATE, alpha, dim=[2, 2])
-    np.testing.assert_allclose(result, expected, atol=1e-8)
+    result = sandwiched_renyi_conditional_entropy(PRODUCT_STATE, alpha, dim=[2, 2], variant=variant)
+    np.testing.assert_allclose(result, expected, atol=1e-6)
 
 
+@pytest.mark.parametrize("variant", ["downarrow", "uparrow"])
 @pytest.mark.parametrize("alpha", [0.5, 1.0, 1.5, 2.0])
-def test_sandwiched_renyi_conditional_entropy_maximally_entangled(alpha: float):
+def test_sandwiched_renyi_conditional_entropy_maximally_entangled(variant: str, alpha: float):
     """For a maximally entangled two-qubit pure state, the entropy should be -1."""
-    result = sandwiched_renyi_conditional_entropy(MAX_ENTANGLED_STATE, alpha)
-    np.testing.assert_allclose(result, -1.0, atol=1e-8)
+    result = sandwiched_renyi_conditional_entropy(MAX_ENTANGLED_STATE, alpha, variant=variant)
+    np.testing.assert_allclose(result, -1.0, atol=1e-6)
 
 
 def test_sandwiched_renyi_conditional_entropy_scalar_dim():
@@ -37,10 +39,68 @@ def test_sandwiched_renyi_conditional_entropy_scalar_dim():
     np.testing.assert_allclose(result, 1.0, atol=1e-8)
 
 
-def test_sandwiched_renyi_conditional_entropy_unsupported_uparrow():
-    """The uparrow variant should fail clearly until the optimization is implemented."""
+@pytest.mark.parametrize("alpha", [0.7, 1.5, 2.0, 3.0])
+def test_sandwiched_renyi_conditional_entropy_uparrow_dominates_downarrow(alpha: float):
+    """The uparrow variant is a supremum, so it is at least the downarrow variant."""
+    np.random.seed(42)
+    mat = np.random.randn(4, 4) + 1j * np.random.randn(4, 4)
+    rho = mat @ mat.conj().T
+    rho = rho / np.trace(rho)
+
+    down = sandwiched_renyi_conditional_entropy(rho, alpha, dim=[2, 2], variant="downarrow")
+    up = sandwiched_renyi_conditional_entropy(rho, alpha, dim=[2, 2], variant="uparrow")
+    assert up >= down - 1e-6
+
+
+def test_sandwiched_renyi_conditional_entropy_uparrow_classical_quantum():
+    """On a classical-quantum state the uparrow variant matches a reference calculation.
+
+    For rho_AB = sum_x p(x) |x><x|_A ⊗ rho_B^x with orthogonal |x>,
+    the optimal sigma_B equals the conditional Rényi mixture
+        sigma_B* ∝ (sum_x p(x)^alpha (rho_B^x)^alpha)^{1/alpha},
+    and the uparrow value has a closed form that we cross-check numerically.
+    """
+    p = np.array([0.6, 0.4])
+    rho_b_1 = np.diag([0.9, 0.1])
+    rho_b_2 = np.diag([0.2, 0.8])
+    rho = p[0] * np.kron(np.diag([1, 0]), rho_b_1) + p[1] * np.kron(np.diag([0, 1]), rho_b_2)
+    alpha = 2.0
+
+    up = sandwiched_renyi_conditional_entropy(rho, alpha, dim=[2, 2], variant="uparrow")
+
+    # Closed form for classical-quantum states: H^↑_α(A|B) = α/(1-α) · log2 Tr[(sum_x p_x^α (rho_B^x)^α)^{1/α}]
+    mixture = p[0] ** alpha * np.linalg.matrix_power(rho_b_1, int(alpha)) + p[1] ** alpha * np.linalg.matrix_power(
+        rho_b_2, int(alpha)
+    )
+    expected = alpha / (1 - alpha) * np.log2(np.trace(_fractional_power(mixture, 1 / alpha)))
+    np.testing.assert_allclose(up, expected, atol=1e-6)
+
+
+def _fractional_power(mat: np.ndarray, power: float) -> np.ndarray:
+    """Apply a fractional power to a PSD matrix."""
+    eigs, vecs = np.linalg.eigh((mat + mat.conj().T) / 2)
+    eigs = np.maximum(eigs, 0.0)
+    return vecs @ np.diag(eigs**power) @ vecs.conj().T
+
+
+@pytest.mark.parametrize("variant", ["downarrow", "uparrow"])
+def test_sandwiched_renyi_conditional_entropy_alpha_one_is_conditional_vn(variant: str):
+    """At alpha=1 both variants reduce to the conditional von Neumann entropy."""
+    expected = von_neumann_entropy(PRODUCT_STATE) - von_neumann_entropy(RHO_B)
+    result = sandwiched_renyi_conditional_entropy(PRODUCT_STATE, 1.0, dim=[2, 2], variant=variant)
+    np.testing.assert_allclose(result, expected, atol=1e-8)
+
+
+def test_sandwiched_renyi_conditional_entropy_uparrow_rejects_small_alpha():
+    """The uparrow variant requires alpha >= 1/2 for a convex formulation."""
+    with pytest.raises(ValueError, match="alpha >= 1/2"):
+        sandwiched_renyi_conditional_entropy(PRODUCT_STATE, 0.25, dim=[2, 2], variant="uparrow")
+
+
+def test_sandwiched_renyi_conditional_entropy_rejects_unknown_variant():
+    """An unknown variant should raise a clear ValueError."""
     with pytest.raises(ValueError, match="downarrow"):
-        sandwiched_renyi_conditional_entropy(PRODUCT_STATE, 1.5, dim=[2, 2], variant="uparrow")
+        sandwiched_renyi_conditional_entropy(PRODUCT_STATE, 1.5, dim=[2, 2], variant="sideways")
 
 
 @pytest.mark.parametrize(
