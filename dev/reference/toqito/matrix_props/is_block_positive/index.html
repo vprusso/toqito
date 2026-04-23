@@ -9095,7 +9095,7 @@
 <a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    <span class="n">dim</span><span class="p">:</span> <span class="n"><span title="int">int</span></span> <span class="o">|</span> <span class="n"><span title="list">list</span></span><span class="p">[</span><span class="n"><span title="int">int</span></span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="n">effort</span><span class="p">:</span> <span class="n"><span title="int">int</span></span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
 <a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    <span class="n">rtol</span><span class="p">:</span> <span class="n"><span title="float">float</span></span> <span class="o">=</span> <span class="mf">1e-05</span><span class="p">,</span>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><span title="bool">bool</span></span> <span class="o">|</span> <span class="n"><span title="RuntimeError">RuntimeError</span></span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><span title="bool">bool</span></span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
@@ -9162,14 +9162,14 @@ before giving up.</p>
 <p><span class="doc-section-title">Returns:</span></p>
     <ul>
         <li class="doc-section-item field-body">
-              <code><span title="bool">bool</span> | <span title="RuntimeError">RuntimeError</span></code>
+              <code><span title="bool">bool</span></code>
           –
           <div class="doc-md-description">
             <p>Return <code>True</code> if matrix is k-block positive definite, <code>False</code> if not, or raise a runtime error if we are unable</p>
           </div>
         </li>
         <li class="doc-section-item field-body">
-              <code><span title="bool">bool</span> | <span title="RuntimeError">RuntimeError</span></code>
+              <code><span title="bool">bool</span></code>
           –
           <div class="doc-md-description">
             <p>to determine whether or not the operator is block positive.</p>
@@ -9327,7 +9327,7 @@ matrix of the transpose map.
 <a id="__codelineno-0-13" name="__codelineno-0-13"></a>    <span class="n">dim</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <a id="__codelineno-0-14" name="__codelineno-0-14"></a>    <span class="n">effort</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
 <a id="__codelineno-0-15" name="__codelineno-0-15"></a>    <span class="n">rtol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-5</span><span class="p">,</span>
-<a id="__codelineno-0-16" name="__codelineno-0-16"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span> <span class="o">|</span> <span class="ne">RuntimeError</span><span class="p">:</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <a id="__codelineno-0-17" name="__codelineno-0-17"></a><span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Check if matrix is block positive [@johnston2012norms].</span>
 <a id="__codelineno-0-18" name="__codelineno-0-18"></a>
 <a id="__codelineno-0-19" name="__codelineno-0-19"></a><span class="sd">    Args:</span>
@@ -9421,7 +9421,7 @@ matrix of the transpose map.
 <a id="__codelineno-0-107" name="__codelineno-0-107"></a>    <span class="k">if</span> <span class="n">lower_bound</span> <span class="o">&gt;=</span> <span class="n">op_norm</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">rtol</span><span class="p">):</span>
 <a id="__codelineno-0-108" name="__codelineno-0-108"></a>        <span class="k">return</span> <span class="kc">False</span>
 <a id="__codelineno-0-109" name="__codelineno-0-109"></a>
-<a id="__codelineno-0-110" name="__codelineno-0-110"></a>    <span class="k">return</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+<a id="__codelineno-0-110" name="__codelineno-0-110"></a>    <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
 <a id="__codelineno-0-111" name="__codelineno-0-111"></a>        <span class="s2">&quot;Unable to determine k-block positivity. Please consider increasing the relative tolerance or the effort level.&quot;</span>
 <a id="__codelineno-0-112" name="__codelineno-0-112"></a>    <span class="p">)</span>
 </code></pre></div></td></tr></table></div>
