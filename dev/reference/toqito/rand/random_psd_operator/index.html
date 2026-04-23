@@ -9226,8 +9226,8 @@ For <span class="arithmatex">\(\text{dim}=2\)</span>, this can be accomplished a
 <a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
 <a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">complex_psd_mat</span><span class="p">)</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>[[0.28851951+0.00000000e+00j 0.38598891+8.18364558e-02j]
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a> [0.38598891-8.18364558e-02j 0.96300189+2.77555756e-17j]]
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>[[0.38879299+2.86270357e-35j 0.48761249+1.16961240e-01j]
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a> [0.48761249-1.16961240e-01j 0.75091639+9.40970493e-18j]]
 </code></pre></div>
 <p>We can confirm that this matrix indeed represents a valid positive semidefinite matrix by utilizing
 the <code>is_positive_semidefinite</code> function from <code>|toqito⟩</code>.</p>
@@ -9242,8 +9242,8 @@ the <code>is_positive_semidefinite</code> function from <code>|toqito⟩</code>.
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">real_psd_mat</span><span class="p">)</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>[[0.33608231 0.26564972]
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a> [0.26564972 0.52726667]]
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>[[0.6014472  0.25620948]
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a> [0.25620948 0.53005358]]
 </code></pre></div>
 <p>Again, verifying that this is a valid positive semidefinite matrix can be done as follows.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nb">print</span><span class="p">(</span><span class="n">is_positive_semidefinite</span><span class="p">(</span><span class="n">real_psd_mat</span><span class="p">))</span>
@@ -9267,9 +9267,9 @@ construction, though still valid PSD.</p>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">wishart_mat</span><span class="p">)</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>[[ 3.97823902+0.j         -1.60199922-0.44948195j -2.22850588+0.43475658j]
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a> [-1.60199922+0.44948195j  8.84305181+0.j         -0.06655478-1.67365793j]
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a> [-2.22850588-0.43475658j -0.06655478+1.67365793j  5.27245367+0.j        ]]
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>[[ 2.31328687+1.29705764e-17j -0.15212746+6.07525663e-01j -0.34006714-1.04841263e+00j]
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a> [-0.15212746-6.07525663e-01j  2.10700709+3.69852948e-17j -0.06771755+7.93570842e-01j]
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a> [-0.34006714+1.04841263e+00j -0.06771755-7.93570842e-01j  1.98003801+7.52934420e-18j]]
 </code></pre></div>
 
 
