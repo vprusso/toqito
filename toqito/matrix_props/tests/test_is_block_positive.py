@@ -1,5 +1,7 @@
 """Test is_block_positive."""
 
+import sys
+
 import numpy as np
 import pytest
 from picos import partial_transpose
@@ -88,3 +90,19 @@ def test_dim_None(input_mat, expected_bool):
 def test_dim_input(input_mat, input_dim):
     """Check input dimensions are set correctly when the input dim is an int or list."""
     assert is_block_positive(input_mat, 1, input_dim)
+
+
+def test_is_block_positive_raises_when_bounds_inconclusive(monkeypatch):
+    """If the S(k)-norm bounds don't decide k-block positivity, a clear RuntimeError is raised."""
+    bp_module = sys.modules["toqito.matrix_props.is_block_positive"]
+
+    def _fake_sk_operator_norm(mat, k, dim, op_norm, effort):
+        # Return bounds that straddle op_norm beyond the rtol band so both
+        # upper_bound <= op_norm*(1+rtol) and lower_bound >= op_norm*(1-rtol)
+        # are false; this forces the inconclusive branch.
+        return 0.5, 2.0
+
+    monkeypatch.setattr(bp_module, "sk_operator_norm", _fake_sk_operator_norm)
+
+    with pytest.raises(RuntimeError, match="Unable to determine k-block positivity"):
+        is_block_positive(swap_operator(3), k=1, rtol=1e-5)

@@ -226,7 +226,7 @@ def sk_operator_norm(
             warnings.filterwarnings("ignore", message="Constraint.*subexpressions")
             problem = cvxpy.Problem(objective, constraints)
             cvx_optval = problem.solve()
-        if problem.status != "optimal":
+        if problem.status != "optimal":  # pragma: no cover - defensive
             raise ValueError("Numerical problems encountered.")
 
         upper_bound = min(upper_bound, np.real(cvx_optval))
@@ -272,7 +272,7 @@ def sk_operator_norm(
                     warnings.filterwarnings("ignore", message="Constraint.*subexpressions")
                     problem = cvxpy.Problem(objective, constraints)
                     cvx_optval = problem.solve()
-                if problem.status != "optimal":
+                if problem.status != "optimal":  # pragma: no cover - defensive
                     raise ValueError("Numerical problems encountered.")
 
                 upper_bound = min(upper_bound, np.real(cvx_optval))
@@ -305,7 +305,7 @@ def __lower_bound_sk_norm_randomized(
     start_vec: np.ndarray | None = None,
 ) -> float:
     """Compute a lower bound of the S(k)-norm via a randomized method."""
-    if mat.shape[0] != mat.shape[1]:
+    if mat.shape[0] != mat.shape[1]:  # pragma: no cover - defensive; caller validates shape
         raise ValueError("Input matrix must be square.")
 
     dim_a, dim_b = dim

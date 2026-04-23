@@ -4,6 +4,7 @@ import numpy as np
 import pytest
 
 from toqito.matrix_props import sk_operator_norm
+from toqito.matrix_props.sk_norm import __lower_bound_sk_norm_randomized
 from toqito.states import basis, max_entangled, werner
 
 
@@ -139,3 +140,52 @@ def test_sk_norm_non_hermitian_matrix():
     # Assert that the lower bound and upper bound are non-negative
     assert lower_bound >= 0
     assert upper_bound >= lower_bound
+
+
+def test_sk_operator_norm_scalar_dim_must_divide():
+    """A scalar `dim` that does not evenly divide the matrix size is rejected."""
+    with pytest.raises(ValueError, match="evenly divide"):
+        sk_operator_norm(np.eye(6), k=1, dim=4)
+
+
+def test_sk_operator_norm_non_hermitian_returns_basic_bounds():
+    """A non-Hermitian bipartite matrix falls through to the basic k/min(dim) lower bound."""
+    # Non-Hermitian 4x4 matrix with rank > 1 on a 2x2 bipartite system.
+    mat = np.array(
+        [
+            [1.0, 2.0, 0.0, 0.0],
+            [0.0, 3.0, 0.0, 0.0],
+            [0.0, 0.0, 4.0, 5.0],
+            [0.0, 0.0, 0.0, 6.0],
+        ]
+    )
+    lower, upper = sk_operator_norm(mat, k=1, dim=[2, 2])
+    assert lower >= 0
+    assert upper >= lower
+
+
+def test_sk_operator_norm_k_equals_two_exercises_k_gt_1_sdp_branch():
+    """k=2 on a bipartite qutrit state exercises the k>1 partial-trace SDP constraint branch."""
+    rho = max_entangled(3) @ max_entangled(3).conj().T
+    rho /= np.trace(rho)
+    lower, upper = sk_operator_norm(rho, k=2, dim=[3, 3], effort=1)
+    assert 0 <= lower
+    assert lower <= upper
+
+
+def test_sk_norm_randomized_start_vec_schmidt_rank_warns_and_falls_back():
+    """Private helper: `start_vec` with Schmidt rank > k emits a warning and falls back to random init."""
+    dim = [2, 2]
+    max_ent = max_entangled(2, is_normalized=False)
+    result = np.zeros(1)
+    with pytest.warns(UserWarning, match="Schmidt rank"):
+        result = __lower_bound_sk_norm_randomized(np.eye(4), k=1, dim=dim, tol=1e-4, start_vec=max_ent.reshape(-1))
+    assert np.isfinite(result)
+
+
+def test_sk_norm_randomized_start_vec_low_schmidt_rank_used_as_init():
+    """Private helper: `start_vec` with Schmidt rank ≤ k is used directly as the iteration seed."""
+    dim = [2, 2]
+    product = np.kron(np.array([1.0, 0.0]), np.array([1.0, 0.0]))
+    result = __lower_bound_sk_norm_randomized(np.eye(4), k=1, dim=dim, tol=1e-4, start_vec=product)
+    assert np.isfinite(result)
