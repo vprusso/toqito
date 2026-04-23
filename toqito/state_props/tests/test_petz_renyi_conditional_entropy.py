@@ -8,6 +8,9 @@ from toqito.state_props import (
     renyi_entropy,
     von_neumann_entropy,
 )
+from toqito.state_props.petz_renyi_conditional_entropy import (
+    _petz_renyi_conditional_entropy_downarrow,
+)
 from toqito.states import bell, max_mixed
 
 RHO_A = np.array([[0.8, 0.0], [0.0, 0.2]])
@@ -56,3 +59,19 @@ def test_petz_renyi_conditional_entropy_invalid_input(
     """Invalid inputs should raise a clear ValueError."""
     with pytest.raises(ValueError, match=expected_msg):
         petz_renyi_conditional_entropy(rho, alpha, dim=dim, variant=variant)
+
+
+def test_petz_downarrow_returns_minus_inf_on_disjoint_support_for_small_alpha():
+    """Defensive support guard: if rho and I ⊗ rho_b have disjoint support, downarrow returns -inf for alpha < 1."""
+    # Synthetic mismatched (rho, rho_b): rho lives on |0,1> while rho_b projects onto |0>,
+    # making I ⊗ rho_b support |0,0>, |1,0> -- disjoint from rho's support.
+    rho = np.kron(np.diag([1.0, 0.0]), np.diag([0.0, 1.0]))
+    rho_b = np.array([[1.0, 0.0], [0.0, 0.0]])
+    assert _petz_renyi_conditional_entropy_downarrow(rho, rho_b, alpha=0.5, dim_a=2) == float("-inf")
+
+
+def test_petz_downarrow_returns_minus_inf_when_support_leaks_for_large_alpha():
+    """Defensive support guard: if supp(rho) is not in supp(I ⊗ rho_b), downarrow returns -inf for alpha > 1."""
+    rho = np.kron(np.diag([1.0, 0.0]), np.diag([0.0, 1.0]))
+    rho_b = np.array([[1.0, 0.0], [0.0, 0.0]])
+    assert _petz_renyi_conditional_entropy_downarrow(rho, rho_b, alpha=2.0, dim_a=2) == float("-inf")

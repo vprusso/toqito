@@ -88,3 +88,11 @@ def test_scalar_local_dim():
     E1 = entangled_subspace(4, 3, 1)
     E2 = entangled_subspace(4, [3, 3], 1)
     assert E1.shape == E2.shape
+
+
+def test_degenerate_zero_dim_subspace():
+    """When r equals a local dimension the max subspace size is 0; dim=0 returns an empty matrix."""
+    # max_dim = (2-2)(2-2) = 0; the outer loop does not place any vectors
+    # and the function falls through to the final QR on an empty slice.
+    E = entangled_subspace(0, 2, 2)
+    assert E.shape == (4, 0)

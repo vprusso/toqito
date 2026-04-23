@@ -1,11 +1,13 @@
 """Tests for channel measured relative entropy."""
 
 import numpy as np
+import pytest
 
 from toqito.channel_metrics.channel_measured_relative_entropy import channel_measured_relative_entropy
 from toqito.channel_ops import partial_channel
 from toqito.channels import depolarizing, partial_trace
 from toqito.measurement_ops import measure
+from toqito.perms import swap_operator
 from toqito.rand import random_density_matrix, random_povm
 
 
@@ -230,3 +232,30 @@ def test_equal():
         )
         == 0
     )
+
+
+def test_channel_1_must_be_quantum_channel():
+    """A non-quantum-channel first argument should raise a clear ValueError."""
+    in_dim = 2
+    hamiltonian = np.zeros((in_dim, in_dim), dtype=complex)
+    bad_channel = np.array([[1.0, 2.0, 3.0, 4.0]] * 4, dtype=complex)
+    good_channel = np.eye(in_dim * in_dim, dtype=complex) / in_dim
+
+    with pytest.raises(ValueError, match="channel_1 is a quantum channel"):
+        channel_measured_relative_entropy(
+            bad_channel, good_channel, in_dim, m=2, k=2, hamiltonian=hamiltonian, energy=1.0
+        )
+
+
+def test_channel_2_must_be_completely_positive():
+    """A non-CP second argument should raise a clear ValueError."""
+    in_dim = 2
+    hamiltonian = np.zeros((in_dim, in_dim), dtype=complex)
+    good_channel = np.eye(in_dim * in_dim, dtype=complex) / in_dim
+    # The swap operator is the Choi matrix of the transpose map, which is not completely positive.
+    non_cp_channel = swap_operator(in_dim).astype(complex)
+
+    with pytest.raises(ValueError, match="channel_2 is a completely positive map"):
+        channel_measured_relative_entropy(
+            good_channel, non_cp_channel, in_dim, m=2, k=2, hamiltonian=hamiltonian, energy=1.0
+        )

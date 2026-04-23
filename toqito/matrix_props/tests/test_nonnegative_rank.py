@@ -4,6 +4,7 @@ import numpy as np
 import pytest
 
 from toqito.matrix_props import nonnegative_rank
+from toqito.matrix_props.nonnegative_rank import _check_nn_rank_anls
 
 
 def test_identity_matrix():
@@ -73,3 +74,8 @@ def test_known_nonneg_rank_exceeds_standard_rank():
     result = nonnegative_rank(A)
     assert result is not None
     assert result >= np.linalg.matrix_rank(A)
+
+
+def test_check_nn_rank_anls_returns_false_when_k_too_small():
+    """Directly exercise the non-convergent branch: no rank-1 nonneg factorization of I_3."""
+    assert not _check_nn_rank_anls(np.eye(3), k=1, tol=1e-6)

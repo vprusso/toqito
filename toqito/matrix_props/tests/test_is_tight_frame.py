@@ -63,3 +63,8 @@ def test_inconsistent_dimensions_raises():
     """Vectors of different dimensions should raise ValueError."""
     with pytest.raises(ValueError, match="same dimension"):
         is_tight_frame([np.array([1, 0]), np.array([1, 0, 0])])
+
+
+def test_zero_vectors_have_zero_frame_bound_and_are_not_tight_frame():
+    """A set of zero vectors has frame bound 0 and cannot form a tight frame."""
+    assert not is_tight_frame([np.zeros(3), np.zeros(3)])

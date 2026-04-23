@@ -111,3 +111,9 @@ def test_state_distinguishability_invalid_vectors(vectors, probs, solver, primal
         state_distinguishability(
             vectors=vectors, probs=probs, solver=solver, primal_dual=primal_dual, strategy=strategy
         )
+
+
+def test_state_distinguishability_ppt_requires_subsystems_and_dimensions():
+    """Using `measurement='ppt'` without subsystems/dimensions should raise a clear ValueError."""
+    with pytest.raises(ValueError, match="subsystems.*dimensions.*required"):
+        state_distinguishability(vectors=[bell(0), bell(1)], measurement="ppt")
