@@ -13,7 +13,7 @@ def is_block_positive(
     dim: int | list[int] | None = None,
     effort: int = 2,
     rtol: float = 1e-5,
-) -> bool | RuntimeError:
+) -> bool:
     r"""Check if matrix is block positive [@johnston2012norms].
 
     Args:
@@ -107,6 +107,6 @@ def is_block_positive(
     if lower_bound >= op_norm * (1 - rtol):
         return False
 
-    return RuntimeError(
+    raise RuntimeError(
         "Unable to determine k-block positivity. Please consider increasing the relative tolerance or the effort level."
     )
