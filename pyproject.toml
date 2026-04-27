@@ -46,7 +46,7 @@ dev = [
     "pytest-cov==7.1.0",
     "coverage==7.13.0",
     "distlib==0.4.0",
-    "ipython==9.10.0",
+    "ipython==9.13.0",
     "setuptools>65.5.1",
     "pre-commit>=3.0.0",
 ]
