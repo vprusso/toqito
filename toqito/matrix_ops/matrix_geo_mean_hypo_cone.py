@@ -99,11 +99,11 @@ def _matrix_geo_mean_cone_recursion(
     dim = int(A.shape[0])
     p, q = _reduced_fraction_pq(t)
 
-    if t == 0:
+    if p == 0:
         return [A >> 0, B >> 0, A == T]
-    if t == 1:
+    if p == q:
         return [A >> 0, B >> 0, B == T]
-    if t == 1 / 2:
+    if 2 * p == q:
         return [cvxpy.bmat([[A, T], [T, B]]) >> 0]
 
     if _is_power_of_two(q):

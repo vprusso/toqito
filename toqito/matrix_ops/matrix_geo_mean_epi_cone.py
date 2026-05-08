@@ -44,7 +44,7 @@ def matrix_geo_mean_epi_cone(
 
     """
     if t < -1 or (t > 0 and t < 1) or t > 2:
-        raise ValueError("t has to be in [-1,0] or [1,2]")
+        raise ValueError("The weight must be in the range [-1, 0] or [1, 2].")
 
     if A.shape != B.shape or B.shape != T.shape:
         raise ValueError("The matrices must be the same size.")
