@@ -1,4 +1,4 @@
-"""Tests for matrix_geo_mean_epi_cone."""
+"""Tests for geometric_mean_epi_cone."""
 
 # Adapted from CVXQUAD (https://github.com/hfawzi/cvxquad), BSD-2-Clause.
 # Original implementation by Fawzi, Saunderson, et al.
@@ -10,8 +10,8 @@ import cvxpy
 import numpy as np
 import pytest
 
-from toqito.matrix_ops.matrix_geo_mean import matrix_geo_mean
-from toqito.matrix_ops.matrix_geo_mean_epi_cone import matrix_geo_mean_epi_cone
+from toqito.matrix_ops.geometric_mean import geometric_mean
+from toqito.matrix_ops.geometric_mean_epi_cone import geometric_mean_epi_cone
 
 DIMS = (3, 5)
 # t in [-1, 0] (epi branch t <= 0) and [1, 2] (branch t >= 1); disjoint from hypo (0, 1).
@@ -39,13 +39,13 @@ def _random_pd_matrix(dim: int, seed: int, *, hermitian: bool) -> np.ndarray:
 @pytest.mark.parametrize("dim", DIMS)
 @pytest.mark.parametrize("w", EPI_WEIGHTS)
 @pytest.mark.parametrize("hermitian", [False, True])
-def test_matrix_geo_mean_epi_cone_trace_minimum(dim: int, w: float, hermitian: bool):
+def test_geometric_mean_epi_cone_trace_minimum(dim: int, w: float, hermitian: bool):
     """Epigraph SDP recovers geometric mean via trace minimization (dual of hypo trace max)."""
     seed = _case_seed(dim, w, hermitian=hermitian)
     a_np = _random_pd_matrix(dim, seed, hermitian=hermitian)
     b_np = _random_pd_matrix(dim, seed + 1, hermitian=hermitian)
 
-    reference = matrix_geo_mean(a_np, b_np, float(w))
+    reference = geometric_mean(a_np, b_np, float(w))
 
     a_const = cvxpy.Constant(a_np)
     b_const = cvxpy.Constant(b_np)
@@ -54,7 +54,7 @@ def test_matrix_geo_mean_epi_cone_trace_minimum(dim: int, w: float, hermitian: b
     else:
         t_var = cvxpy.Variable((dim, dim), symmetric=True)
 
-    constraints = matrix_geo_mean_epi_cone(
+    constraints = geometric_mean_epi_cone(
         a_const,
         b_const,
         t_var,
@@ -128,13 +128,13 @@ A_rect = np.ones((2, 3))
         ),
     ],
 )
-def test_matrix_geo_mean_epi_cone_invalid_input(
+def test_geometric_mean_epi_cone_invalid_input(
     a_expr: cvxpy.Expression,
     b_expr: cvxpy.Expression,
     t_expr: cvxpy.Expression,
     t_weight: float,
     expected_msg: str,
 ):
-    """``matrix_geo_mean_epi_cone`` raises ``ValueError`` for invalid arguments."""
+    """``geometric_mean_epi_cone`` raises ``ValueError`` for invalid arguments."""
     with pytest.raises(ValueError, match=re.escape(expected_msg)):
-        matrix_geo_mean_epi_cone(a_expr, b_expr, t_expr, t_weight, hermitian=False)
+        geometric_mean_epi_cone(a_expr, b_expr, t_expr, t_weight, hermitian=False)

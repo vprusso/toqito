@@ -6,7 +6,7 @@ from scipy.linalg import fractional_matrix_power, sqrtm
 from toqito.matrix_props.is_positive_definite import is_positive_definite
 
 
-def matrix_geo_mean(mat_a: np.ndarray, mat_b: np.ndarray, t: float) -> np.ndarray:
+def geometric_mean(mat_a: np.ndarray, mat_b: np.ndarray, t: float) -> np.ndarray:
     r"""Calculate the t-weighted matrix geometric mean of two matrices [@fawzi2015matrixgeometric].
 
     Since the inputs are positive definite, the matrix geometric mean `G_t(A, B)`
@@ -16,7 +16,7 @@ def matrix_geo_mean(mat_a: np.ndarray, mat_b: np.ndarray, t: float) -> np.ndarra
         G_t(A, B) = A^{1/2} (A^{-1/2} B A^{-1/2})^{t} A^{1/2}.
     \]
 
-    If ``A`` and ``B`` commute, then this reduces to
+    If `A` and `B` commute, then this reduces to
 
     \[
         G_t(A, B) = A^{1-t} B^{t}.

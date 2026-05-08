@@ -1,4 +1,4 @@
-"""Tests for matrix_geo_mean_hypo_cone."""
+"""Tests for geometric_mean_hypo_cone."""
 
 # Adapted from CVXQUAD (https://github.com/hfawzi/cvxquad), BSD-2-Clause.
 # Original implementation by Fawzi, Saunderson, et al.
@@ -10,10 +10,8 @@ import cvxpy
 import numpy as np
 import pytest
 
-from toqito.matrix_ops.matrix_geo_mean import matrix_geo_mean
-from toqito.matrix_ops.matrix_geo_mean_hypo_cone import (
-    matrix_geo_mean_hypo_cone,
-)
+from toqito.matrix_ops.geometric_mean import geometric_mean
+from toqito.matrix_ops.geometric_mean_hypo_cone import geometric_mean_hypo_cone
 
 DIMS = (3, 5)
 WEIGHTS = (0.5, 0.25, 0.125, 0.0625, 0.75, 0.875, 0.9375, 2 / 3, 6 / 7)
@@ -22,7 +20,9 @@ PD_SHIFT = 1e-1
 
 def _case_seed(dim: int, t: float, *, hermitian: bool) -> int:
     r = Fraction(float(t)).limit_denominator()
-    return int(dim * 1_000_003 + r.numerator * 10_009 + r.denominator * 100 + int(hermitian))
+    return int(
+        dim * 1_000_003 + r.numerator * 10_009 + r.denominator * 100 + int(hermitian)
+    )
 
 
 def _random_pd_matrix(dim: int, seed: int, *, hermitian: bool) -> np.ndarray:
@@ -38,13 +38,13 @@ def _random_pd_matrix(dim: int, seed: int, *, hermitian: bool) -> np.ndarray:
 @pytest.mark.parametrize("dim", DIMS)
 @pytest.mark.parametrize("w", WEIGHTS)
 @pytest.mark.parametrize("hermitian", [False, True])
-def test_matrix_geo_mean_hypo_cone_trace_maximum(dim: int, w: float, hermitian: bool):
+def test_geometric_mean_hypo_cone_trace_maximum(dim: int, w: float, hermitian: bool):
     """Hypograph SDP recovers geometric mean via trace maximization (like MATLAB test)."""
     seed = _case_seed(dim, w, hermitian=hermitian)
     a_np = _random_pd_matrix(dim, seed, hermitian=hermitian)
     b_np = _random_pd_matrix(dim, seed + 1, hermitian=hermitian)
 
-    reference = matrix_geo_mean(a_np, b_np, float(w))
+    reference = geometric_mean(a_np, b_np, float(w))
 
     a_const = cvxpy.Constant(a_np)
     b_const = cvxpy.Constant(b_np)
@@ -53,7 +53,7 @@ def test_matrix_geo_mean_hypo_cone_trace_maximum(dim: int, w: float, hermitian: 
     else:
         t_var = cvxpy.Variable((dim, dim), symmetric=True)
 
-    constraints = matrix_geo_mean_hypo_cone(
+    constraints = geometric_mean_hypo_cone(
         a_const,
         b_const,
         t_var,
@@ -70,19 +70,18 @@ def test_matrix_geo_mean_hypo_cone_trace_maximum(dim: int, w: float, hermitian: 
     assert problem.status in {cvxpy.OPTIMAL, cvxpy.OPTIMAL_INACCURATE}, problem.status
     assert t_var.value is not None
 
-    # Trace objective + SCS tolerance (strict rtol=0) can miss slightly; keep margin for CI.
     rtol = 1e-6
     atol = 5e-4
     np.testing.assert_allclose(t_var.value, reference, rtol=rtol, atol=atol)
 
 
-def test_matrix_geo_mean_hypo_cone_fullhyp_feasibility_matlab_example():
+def test_geometric_mean_hypo_cone_fullhyp_feasibility_matlab_example():
     """Same feasibility check as CVXQUAD cvxquad_tests (fullhyp=1, t=1/2, n=2)."""
     a_mat = np.array([[6.25, 0.0], [0.0, 16.0]])
     b_mat = np.array([[2.0, 1.0], [1.0, 2.0]])
     eye2 = np.eye(2)
     t = 0.5
-    constraints = matrix_geo_mean_hypo_cone(
+    constraints = geometric_mean_hypo_cone(
         cvxpy.Constant(a_mat),
         cvxpy.Constant(eye2),
         cvxpy.Constant(b_mat),
@@ -97,7 +96,7 @@ def test_matrix_geo_mean_hypo_cone_fullhyp_feasibility_matlab_example():
 
 
 @pytest.mark.parametrize("endpoint_t", [0.0, 1.0])
-def test_matrix_geo_mean_hypo_cone_weight_endpoints_restricted(
+def test_geometric_mean_hypo_cone_weight_endpoints_restricted(
     endpoint_t: float,
 ):
     """Recursion base cases ``t == 0`` and ``t == 1`` (feasible constant triple)."""
@@ -108,7 +107,7 @@ def test_matrix_geo_mean_hypo_cone_weight_endpoints_restricted(
     b_np = rng.standard_normal((dim, dim))
     b_np = b_np @ b_np.T + 0.5 * np.eye(dim)
     t_np = a_np if endpoint_t == 0.0 else b_np
-    constraints = matrix_geo_mean_hypo_cone(
+    constraints = geometric_mean_hypo_cone(
         cvxpy.Constant(a_np),
         cvxpy.Constant(b_np),
         cvxpy.Constant(t_np),
@@ -167,13 +166,15 @@ A_rect = np.ones((2, 3))
         ),
     ],
 )
-def test_matrix_geo_mean_hypo_cone_invalid_input(
+def test_geometric_mean_hypo_cone_invalid_input(
     a_expr: cvxpy.Expression,
     b_expr: cvxpy.Expression,
     t_expr: cvxpy.Expression,
     t_weight: float,
     expected_msg: str,
 ):
-    """``matrix_geo_mean_hypo_cone`` raises ``ValueError`` for invalid arguments."""
+    """``geometric_mean_hypo_cone`` raises ``ValueError`` for invalid arguments."""
     with pytest.raises(ValueError, match=re.escape(expected_msg)):
-        matrix_geo_mean_hypo_cone(a_expr, b_expr, t_expr, t_weight, fullhyp=False, hermitian=False)
+        geometric_mean_hypo_cone(
+            a_expr, b_expr, t_expr, t_weight, fullhyp=False, hermitian=False
+        )

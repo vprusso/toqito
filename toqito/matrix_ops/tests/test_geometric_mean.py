@@ -1,11 +1,11 @@
-"""Tests for matrix_geo_mean."""
+"""Tests for geometric_mean."""
 
 import re
 
 import numpy as np
 import pytest
 
-from toqito.matrix_ops import matrix_geo_mean
+from toqito.matrix_ops import geometric_mean
 
 A_diag = np.diag([2.0, 4.0])
 B_diag = np.diag([8.0, 1.0])
@@ -13,7 +13,7 @@ B_diag = np.diag([8.0, 1.0])
 A_sym = np.array([[2.0, 0.0], [0.0, 3.0]])
 B_sym = np.array([[2.0, 1.0], [1.0, 2.0]])
 t_sym = 0.4
-# Reference value for G_{0.4}(A_sym, B_sym) (scipy.linalg same formula as `matrix_geo_mean`).
+# Reference value for G_{0.4}(A_sym, B_sym) (scipy.linalg same formula as `geometric_mean`).
 expected_sym = np.array(
     [
         [1.9461120605297577, 0.4694128833387108],
@@ -71,17 +71,17 @@ B_scaled = np.diag([4.0, 9.0])
         (I_2, B_scaled, 1.5, np.diag([4.0**1.5, 9.0**1.5])),
     ],
 )
-def test_matrix_geo_mean(input_a, input_b, t_weight, expected):
+def test_geometric_mean(input_a, input_b, t_weight, expected):
     """Test function works as expected for valid inputs."""
-    calculated = matrix_geo_mean(input_a, input_b, t_weight)
+    calculated = geometric_mean(input_a, input_b, t_weight)
     np.testing.assert_allclose(calculated, expected, rtol=1e-5, atol=1e-8)
 
 
-def test_matrix_geo_mean_symmetry_extended_t():
+def test_geometric_mean_symmetry_extended_t():
     """G_t(A,B) = G_{1-t}(B,A) for t outside [0, 1] (same identity as on [0, 1])."""
     t = 1.2
-    left = matrix_geo_mean(A_sym, B_sym, t)
-    right = matrix_geo_mean(B_sym, A_sym, 1.0 - t)
+    left = geometric_mean(A_sym, B_sym, t)
+    right = geometric_mean(B_sym, A_sym, 1.0 - t)
     np.testing.assert_allclose(left, right, rtol=1e-5, atol=1e-8)
 
 
@@ -118,7 +118,7 @@ non_hermitian = np.array([[1.0, 2.0], [0.0, 1.0]])
         (non_hermitian, I_2, 0.5, "The matrices must be positive definite."),
     ],
 )
-def test_matrix_geo_mean_invalid_input(input_a, input_b, t_weight, expected_msg):
+def test_geometric_mean_invalid_input(input_a, input_b, t_weight, expected_msg):
     """Test function raises an error for invalid inputs."""
     with pytest.raises(ValueError, match=re.escape(expected_msg)):
-        matrix_geo_mean(input_a, input_b, t_weight)
+        geometric_mean(input_a, input_b, t_weight)

@@ -13,7 +13,7 @@ from toqito.matrix_ops._cone_utils import (
 )
 
 
-def _matrix_geo_mean_cone_recursion(
+def _geometric_mean_cone_recursion(
     A: cvxpy.Expression,
     B: cvxpy.Expression,
     T: cvxpy.Expression,
@@ -73,17 +73,17 @@ def _matrix_geo_mean_cone_recursion(
         if t < 1 / 2:
             return [
                 cvxpy.bmat([[A, T], [T, Z]]) >> 0,
-                *_matrix_geo_mean_cone_recursion(A, B, Z, 2 * t, hermitian=hermitian),
+                *_geometric_mean_cone_recursion(A, B, Z, 2 * t, hermitian=hermitian),
             ]
         return [
             cvxpy.bmat([[B, T], [T, Z]]) >> 0,
-            *_matrix_geo_mean_cone_recursion(A, B, Z, 2 * t - 1, hermitian=hermitian),
+            *_geometric_mean_cone_recursion(A, B, Z, 2 * t - 1, hermitian=hermitian),
         ]
 
     if _is_power_of_two(p) and t > 1 / 2:
         Z = _symmetric_like_variable(dim, hermitian=hermitian)
         t_inner = float((2 * p - q) / p)
-        rec = _matrix_geo_mean_cone_recursion(A, T, Z, t_inner, hermitian=hermitian)
+        rec = _geometric_mean_cone_recursion(A, T, Z, t_inner, hermitian=hermitian)
         return [*rec, cvxpy.bmat([[Z, T], [T, B]]) >> 0]
 
     if t < 1 / 2:
@@ -91,14 +91,14 @@ def _matrix_geo_mean_cone_recursion(
         X = _symmetric_like_variable(dim, hermitian=hermitian)
         t1 = float(p / (2**log2_floor))
         t2 = float((2**log2_floor) / q)
-        return _matrix_geo_mean_cone_recursion(A, B, X, t1, hermitian=hermitian) + _matrix_geo_mean_cone_recursion(
+        return _geometric_mean_cone_recursion(A, B, X, t1, hermitian=hermitian) + _geometric_mean_cone_recursion(
             A, X, T, t2, hermitian=hermitian
         )
 
-    return _matrix_geo_mean_cone_recursion(B, A, T, 1 - t, hermitian=hermitian)
+    return _geometric_mean_cone_recursion(B, A, T, 1 - t, hermitian=hermitian)
 
 
-def matrix_geo_mean_hypo_cone(
+def geometric_mean_hypo_cone(
     A: cvxpy.Expression,
     B: cvxpy.Expression,
     T: cvxpy.Expression,
@@ -107,7 +107,7 @@ def matrix_geo_mean_hypo_cone(
     *,
     hermitian: bool = False,
 ) -> list[cvxpy.Constraint]:
-    r"""Return CVX constraints for matrix geo-mean hypograph cone [@fawzi2015matrixgeometric].
+    r"""Return CVX constraints for matrix geometric-mean hypograph cone [@fawzi2015matrixgeometric].
 
     The set of matrices that satisfy the constraints are `A`, `B`, `T` triples such
     that
@@ -146,6 +146,6 @@ def matrix_geo_mean_hypo_cone(
     if fullhyp:
         dim = A.shape[0]
         W = _symmetric_like_variable(dim, hermitian=hermitian)
-        hypo_w = _matrix_geo_mean_cone_recursion(A, B, W, float(t), hermitian=hermitian)
+        hypo_w = _geometric_mean_cone_recursion(A, B, W, float(t), hermitian=hermitian)
         return [*hypo_w, W >> T]
-    return _matrix_geo_mean_cone_recursion(A, B, T, float(t), hermitian=hermitian)
+    return _geometric_mean_cone_recursion(A, B, T, float(t), hermitian=hermitian)

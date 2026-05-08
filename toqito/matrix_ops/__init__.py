@@ -14,6 +14,6 @@ from toqito.matrix_ops.tensor_unravel import tensor_unravel
 from toqito.matrix_ops.partial_trace import partial_trace
 from toqito.matrix_ops.partial_transpose import partial_transpose
 from toqito.matrix_ops.null_space import null_space
-from toqito.matrix_ops.matrix_geo_mean import matrix_geo_mean
-from toqito.matrix_ops.matrix_geo_mean_epi_cone import matrix_geo_mean_epi_cone
-from toqito.matrix_ops.matrix_geo_mean_hypo_cone import matrix_geo_mean_hypo_cone
+from toqito.matrix_ops.geometric_mean import geometric_mean
+from toqito.matrix_ops.geometric_mean_epi_cone import geometric_mean_epi_cone
+from toqito.matrix_ops.geometric_mean_hypo_cone import geometric_mean_hypo_cone
