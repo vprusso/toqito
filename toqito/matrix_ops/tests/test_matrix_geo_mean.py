@@ -6,7 +6,6 @@ import numpy as np
 import pytest
 
 from toqito.matrix_ops import matrix_geo_mean
-from toqito.matrix_props import is_positive_definite
 
 A_diag = np.diag([2.0, 4.0])
 B_diag = np.diag([8.0, 1.0])
@@ -78,7 +77,7 @@ def test_matrix_geo_mean(input_a, input_b, t_weight, expected):
     np.testing.assert_allclose(calculated, expected, rtol=1e-5, atol=1e-8)
 
 
-def test_matrix_geo_mean_symmetry_extended_t() -> None:
+def test_matrix_geo_mean_symmetry_extended_t():
     """G_t(A,B) = G_{1-t}(B,A) for t outside [0, 1] (same identity as on [0, 1])."""
     t = 1.2
     left = matrix_geo_mean(A_sym, B_sym, t)
@@ -95,9 +94,7 @@ B_rect = np.ones((2, 3))
 A_not2d = np.ones((2, 2, 1))
 B_not2d = np.ones((2, 2, 1))
 
-rho_psd = np.array(
-    [[1 / 2, 0, 0, 1 / 2], [0, 0, 0, 0], [0, 0, 0, 0], [1 / 2, 0, 0, 1 / 2]]
-)
+rho_psd = np.array([[1 / 2, 0, 0, 1 / 2], [0, 0, 0, 0], [0, 0, 0, 0], [1 / 2, 0, 0, 1 / 2]])
 sigma_pd = np.eye(4)
 
 non_hermitian = np.array([[1.0, 2.0], [0.0, 1.0]])
@@ -117,7 +114,7 @@ non_hermitian = np.array([[1.0, 2.0], [0.0, 1.0]])
         (A_diag, B_diag, 2.01, "The weight must be in the range [-1, 2]."),
         # positive semidefinite but not positive definite
         (rho_psd, sigma_pd, 0.5, "The matrices must be positive definite."),
-        # not Hermitian / not PD
+        # non-Hermitian: fails Hermitian check in ``is_positive_definite``).
         (non_hermitian, I_2, 0.5, "The matrices must be positive definite."),
     ],
 )

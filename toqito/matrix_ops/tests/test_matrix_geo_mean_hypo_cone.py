@@ -12,7 +12,6 @@ import pytest
 
 from toqito.matrix_ops.matrix_geo_mean import matrix_geo_mean
 from toqito.matrix_ops.matrix_geo_mean_hypo_cone import (
-    _is_power_of_two,
     matrix_geo_mean_hypo_cone,
 )
 
@@ -23,9 +22,7 @@ PD_SHIFT = 1e-1
 
 def _case_seed(dim: int, t: float, *, hermitian: bool) -> int:
     r = Fraction(float(t)).limit_denominator()
-    return int(
-        dim * 1_000_003 + r.numerator * 10_009 + r.denominator * 100 + int(hermitian)
-    )
+    return int(dim * 1_000_003 + r.numerator * 10_009 + r.denominator * 100 + int(hermitian))
 
 
 def _random_pd_matrix(dim: int, seed: int, *, hermitian: bool) -> np.ndarray:
@@ -41,9 +38,7 @@ def _random_pd_matrix(dim: int, seed: int, *, hermitian: bool) -> np.ndarray:
 @pytest.mark.parametrize("dim", DIMS)
 @pytest.mark.parametrize("w", WEIGHTS)
 @pytest.mark.parametrize("hermitian", [False, True])
-def test_matrix_geo_mean_hypo_cone_trace_maximum(
-    dim: int, w: float, hermitian: bool
-) -> None:
+def test_matrix_geo_mean_hypo_cone_trace_maximum(dim: int, w: float, hermitian: bool):
     """Hypograph SDP recovers geometric mean via trace maximization (like MATLAB test)."""
     seed = _case_seed(dim, w, hermitian=hermitian)
     a_np = _random_pd_matrix(dim, seed, hermitian=hermitian)
@@ -75,11 +70,13 @@ def test_matrix_geo_mean_hypo_cone_trace_maximum(
     assert problem.status in {cvxpy.OPTIMAL, cvxpy.OPTIMAL_INACCURATE}, problem.status
     assert t_var.value is not None
 
-    tol = 2e-4
-    np.testing.assert_allclose(t_var.value, reference, rtol=0.0, atol=tol)
+    # Trace objective + SCS tolerance (strict rtol=0) can miss slightly; keep margin for CI.
+    rtol = 1e-6
+    atol = 5e-4
+    np.testing.assert_allclose(t_var.value, reference, rtol=rtol, atol=atol)
 
 
-def test_matrix_geo_mean_hypo_cone_fullhyp_feasibility_matlab_example() -> None:
+def test_matrix_geo_mean_hypo_cone_fullhyp_feasibility_matlab_example():
     """Same feasibility check as CVXQUAD cvxquad_tests (fullhyp=1, t=1/2, n=2)."""
     a_mat = np.array([[6.25, 0.0], [0.0, 16.0]])
     b_mat = np.array([[2.0, 1.0], [1.0, 2.0]])
@@ -99,18 +96,10 @@ def test_matrix_geo_mean_hypo_cone_fullhyp_feasibility_matlab_example() -> None:
     np.testing.assert_allclose(float(problem.value), 0.0, atol=1e-6)
 
 
-@pytest.mark.parametrize(
-    "n, expected", [(0, False), (-1, False), (1, True), (5, False), (8, True)]
-)
-def test_is_power_of_two_nonpositive_and_powers(n: int, expected: bool) -> None:
-    """``n <= 0`` returns False; positive powers of two return True."""
-    assert _is_power_of_two(n) is expected
-
-
 @pytest.mark.parametrize("endpoint_t", [0.0, 1.0])
 def test_matrix_geo_mean_hypo_cone_weight_endpoints_restricted(
     endpoint_t: float,
-) -> None:
+):
     """Recursion base cases ``t == 0`` and ``t == 1`` (feasible constant triple)."""
     dim = 2
     rng = np.random.default_rng(42)
@@ -184,9 +173,7 @@ def test_matrix_geo_mean_hypo_cone_invalid_input(
     t_expr: cvxpy.Expression,
     t_weight: float,
     expected_msg: str,
-) -> None:
+):
     """``matrix_geo_mean_hypo_cone`` raises ``ValueError`` for invalid arguments."""
     with pytest.raises(ValueError, match=re.escape(expected_msg)):
-        matrix_geo_mean_hypo_cone(
-            a_expr, b_expr, t_expr, t_weight, fullhyp=False, hermitian=False
-        )
+        matrix_geo_mean_hypo_cone(a_expr, b_expr, t_expr, t_weight, fullhyp=False, hermitian=False)

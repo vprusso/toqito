@@ -115,6 +115,7 @@ force-exclude = true
 [tool.ty.environment]
 python-version = "3.11"
 
+
 [tool.ruff.lint]
 select = ["I", "E", "W", "D", "PL", "F"]
 # ruff configuration

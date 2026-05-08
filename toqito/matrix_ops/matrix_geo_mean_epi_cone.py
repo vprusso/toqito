@@ -5,10 +5,8 @@
 
 import cvxpy
 
-from toqito.matrix_ops.matrix_geo_mean_hypo_cone import (
-    _symmetric_like_variable,
-    matrix_geo_mean_hypo_cone,
-)
+from toqito.matrix_ops._cone_utils import _symmetric_like_variable
+from toqito.matrix_ops.matrix_geo_mean_hypo_cone import matrix_geo_mean_hypo_cone
 
 
 def matrix_geo_mean_epi_cone(
@@ -54,17 +52,13 @@ def matrix_geo_mean_epi_cone(
     if int(A.shape[0]) != int(A.shape[1]):
         raise ValueError("The matrices must be square.")
 
-    dim = int(A.shape[0])
+    dim = A.shape[0]
     z_var = _symmetric_like_variable(dim, hermitian=hermitian)
 
     if t <= 0:
         lmi = cvxpy.bmat([[T, A], [A, z_var]]) >> 0
-        hypo_z = matrix_geo_mean_hypo_cone(
-            A, B, z_var, float(-t), fullhyp=False, hermitian=hermitian
-        )
+        hypo_z = matrix_geo_mean_hypo_cone(A, B, z_var, float(-t), fullhyp=False, hermitian=hermitian)
         return [lmi, *hypo_z]
     lmi = cvxpy.bmat([[T, B], [B, z_var]]) >> 0
-    hypo_z = matrix_geo_mean_hypo_cone(
-        A, B, z_var, float(2 - t), fullhyp=False, hermitian=hermitian
-    )
+    hypo_z = matrix_geo_mean_hypo_cone(A, B, z_var, float(2 - t), fullhyp=False, hermitian=hermitian)
     return [lmi, *hypo_z]
