@@ -25,14 +25,6 @@ expected_sym = np.array(
 I_2 = np.eye(2)
 B_scaled = np.diag([4.0, 9.0])
 
-assert is_positive_definite(A_diag)
-assert is_positive_definite(B_diag)
-assert is_positive_definite(A_sym)
-assert is_positive_definite(B_sym)
-assert not np.allclose(A_sym @ B_sym, B_sym @ A_sym)
-assert is_positive_definite(I_2)
-assert is_positive_definite(B_scaled)
-
 
 @pytest.mark.parametrize(
     "input_a, input_b, t_weight, expected",

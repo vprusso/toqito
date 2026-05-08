@@ -54,7 +54,6 @@ lint = [
     "flake8==7.3.0",
     "flake8-docstrings==1.7.0",
     "isort==8.0.1",
-    "mypy==1.15.0",
     "myst-parser==5.0.0",
     "pep8==1.7.1",
     "ruff==0.15.0",
@@ -115,16 +114,6 @@ force-exclude = true
 
 [tool.ty.environment]
 python-version = "3.11"
-
-[tool.mypy]
-python_version = "3.11"
-show_error_codes = true
-
-# CVXPY ships without usable inline/stub types for mypy; see
-# https://github.com/cvxpy/cvxpy/issues (typing is tracked upstream).
-[[tool.mypy.overrides]]
-module = ["cvxpy", "cvxpy.*"]
-ignore_missing_imports = true
 
 [tool.ruff.lint]
 select = ["I", "E", "W", "D", "PL", "F"]

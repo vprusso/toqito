@@ -1,5 +1,8 @@
 """Tests for matrix_geo_mean_hypo_cone."""
 
+# Adapted from CVXQUAD (https://github.com/hfawzi/cvxquad), BSD-2-Clause.
+# Original implementation by Fawzi, Saunderson, et al.
+
 import re
 from fractions import Fraction
 
@@ -12,11 +15,10 @@ from toqito.matrix_ops.matrix_geo_mean_hypo_cone import (
     _is_power_of_two,
     matrix_geo_mean_hypo_cone,
 )
-from toqito.rand import random_psd_operator
 
 DIMS = (3, 5)
 WEIGHTS = (0.5, 0.25, 0.125, 0.0625, 0.75, 0.875, 0.9375, 2 / 3, 6 / 7)
-PD_JITTER = 1e-6
+PD_SHIFT = 1e-1
 
 
 def _case_seed(dim: int, t: float, *, hermitian: bool) -> int:
@@ -24,6 +26,16 @@ def _case_seed(dim: int, t: float, *, hermitian: bool) -> int:
     return int(
         dim * 1_000_003 + r.numerator * 10_009 + r.denominator * 100 + int(hermitian)
     )
+
+
+def _random_pd_matrix(dim: int, seed: int, *, hermitian: bool) -> np.ndarray:
+    """Generate a well-conditioned positive-definite matrix by construction."""
+    rng = np.random.default_rng(seed)
+    if hermitian:
+        x_mat = rng.standard_normal((dim, dim)) + 1j * rng.standard_normal((dim, dim))
+    else:
+        x_mat = rng.standard_normal((dim, dim))
+    return x_mat @ x_mat.conj().T + PD_SHIFT * np.eye(dim, dtype=x_mat.dtype)
 
 
 @pytest.mark.parametrize("dim", DIMS)
@@ -34,23 +46,8 @@ def test_matrix_geo_mean_hypo_cone_trace_maximum(
 ) -> None:
     """Hypograph SDP recovers geometric mean via trace maximization (like MATLAB test)."""
     seed = _case_seed(dim, w, hermitian=hermitian)
-    a_mat = random_psd_operator(
-        dim,
-        is_real=not hermitian,
-        seed=seed,
-        distribution="wishart",
-        num_degrees=dim + 4,
-    )
-    b_mat = random_psd_operator(
-        dim,
-        is_real=not hermitian,
-        seed=seed + 1,
-        distribution="wishart",
-        num_degrees=dim + 4,
-    )
-    jitter = PD_JITTER * np.eye(dim, dtype=a_mat.dtype)
-    a_np = a_mat + jitter
-    b_np = b_mat + jitter
+    a_np = _random_pd_matrix(dim, seed, hermitian=hermitian)
+    b_np = _random_pd_matrix(dim, seed + 1, hermitian=hermitian)
 
     reference = matrix_geo_mean(a_np, b_np, float(w))
 

@@ -1,5 +1,8 @@
 """CVXPY constraints for the matrix geometric mean epigraph cone."""
 
+# Adapted from CVXQUAD (https://github.com/hfawzi/cvxquad), BSD-2-Clause.
+# Original implementation by Fawzi, Saunderson, et al.
+
 import cvxpy
 
 from toqito.matrix_ops.matrix_geo_mean_hypo_cone import (

@@ -1,7 +1,7 @@
 """Calculates the t-weighted matrix geometric mean of two matrices."""
 
 import numpy as np
-from scipy.linalg import fractional_matrix_power, sqrtm  # type: ignore[import-untyped]
+from scipy.linalg import fractional_matrix_power, sqrtm
 
 from toqito.matrix_props.is_positive_definite import is_positive_definite
 

@@ -1,5 +1,8 @@
 """CVXPY constraints for the matrix geometric mean hypograph cone."""
 
+# Adapted from CVXQUAD (https://github.com/hfawzi/cvxquad), BSD-2-Clause.
+# Original implementation by Fawzi, Saunderson, et al.
+
 from fractions import Fraction
 
 import cvxpy
