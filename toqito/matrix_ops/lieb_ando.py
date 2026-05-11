@@ -1,0 +1,145 @@
+"""Computes the function from Lieb's 1973 theorem for PSD matrices."""
+
+# Adapted from CVXQUAD (https://github.com/hfawzi/cvxquad), BSD-2-Clause.
+# Original implementation by Fawzi, Saunderson, et al.
+
+
+import cvxpy
+import numpy as np
+from scipy.linalg import fractional_matrix_power
+
+from toqito.matrix_ops.geometric_mean_epi_cone import geometric_mean_epi_cone
+from toqito.matrix_ops.geometric_mean_hypo_cone import geometric_mean_hypo_cone
+from toqito.matrix_ops.trace_power import trace_power
+from toqito.matrix_props import is_positive_semidefinite
+
+
+def lieb_ando(
+    mat_a: np.ndarray | cvxpy.Expression,
+    mat_b: np.ndarray | cvxpy.Expression,
+    mat_k: np.ndarray,
+    t: float,
+) -> float:
+    r"""Compute the function from Lieb's 1973 theorem for PSD matrices.
+
+    The function is defined as
+
+    \[
+        f(A, B, K, t) = \operatorname{tr}\!\bigl(K^{\dagger} A^{1-t} K B^{t}\bigr).
+    \]
+
+    Here \(A=\) ``mat_a``, \(B=\) ``mat_b``, and \(K=\) ``mat_k``. For real data,
+    \(K^{\dagger} = K^{\top}\). The map is concave in \((A, B)\) for
+    \(t \in [0, 1]\) and convex for \(t \in [-1, 0] \cup [1, 2]\)
+    [@fawzi2015matrixgeometric].
+
+    Args:
+        mat_a: The first PSD matrix.
+        mat_b: The second PSD matrix.
+        mat_k: The matrix to multiply the result by.
+        t: The power to raise the matrices to. If ``mat_a`` and ``mat_b`` are CVXPY
+            expressions, ``t`` must lie in `[-1, 2]`.
+
+    Returns:
+        The value of the function as a float.
+
+    Raises:
+        ValueError: If mat_a is not 2D or not square.
+        ValueError: If mat_b is not 2D or not square.
+        ValueError: If mat_k is not 2D.
+        ValueError: If mat_k does not have the same number of rows as mat_a and the same number of columns as mat_b.
+        ValueError: If mat_a and mat_b are not positive semidefinite.
+        ValueError: If t is not in the range `[-1, 2]` and mat_a and mat_b are cvxpy expressions.
+        ValueError: If mat_a and mat_b are not affine expressions.
+
+    Examples:
+        ```python
+        import numpy as np
+        from toqito.matrix_ops import lieb_ando
+        mat_a = np.array([[1, 2], [3, 4]])
+        mat_b = np.array([[1, 2], [3, 4]])
+        mat_k = np.array([[1, 2], [3, 4]])
+        t = 0.5
+        print(lieb_ando(mat_a, mat_b, mat_k, t))
+        ```
+
+    """
+    if mat_a.ndim != 2:
+        raise ValueError("mat_a must be 2D.")
+    if mat_a.shape[0] != mat_a.shape[1]:
+        raise ValueError("mat_a must be square.")
+    if mat_b.ndim != 2:
+        raise ValueError("mat_b must be 2D.")
+    if mat_b.shape[0] != mat_b.shape[1]:
+        raise ValueError("mat_b must be square.")
+    if mat_k.ndim != 2:
+        raise ValueError("mat_k must be 2D.")
+    if mat_k.shape[0] != mat_a.shape[0] or mat_k.shape[1] != mat_b.shape[1]:
+        raise ValueError(
+            "mat_k must have the same number of rows as mat_a and the same number of columns as mat_b."
+        )
+
+    if isinstance(mat_a, np.ndarray) and isinstance(mat_b, np.ndarray):
+        if not is_positive_semidefinite(mat_a) or not is_positive_semidefinite(mat_b):
+            raise ValueError("mat_a and mat_b must be positive semidefinite.")
+        a_raised = fractional_matrix_power(mat_a, 1 - t)
+        b_raised = fractional_matrix_power(mat_b, t)
+        return float(np.real(np.trace(mat_k.T @ a_raised @ mat_k @ b_raised)))
+    elif isinstance(mat_a, np.ndarray):
+        if not is_positive_semidefinite(mat_a) or not is_positive_semidefinite(
+            mat_b.value
+        ):
+            raise ValueError("mat_a and mat_b must be positive semidefinite.")
+        mat_kak = mat_k.T @ fractional_matrix_power(mat_a, 1 - t) @ mat_k
+        mat_kak = (mat_kak + mat_kak.conj().T) / 2
+        return trace_power(mat_b, t, mat_kak)
+    elif isinstance(mat_b, np.ndarray):
+        if not is_positive_semidefinite(mat_a.value) or not is_positive_semidefinite(
+            mat_b
+        ):
+            raise ValueError("mat_a and mat_b must be positive semidefinite.")
+        mat_kkb = mat_k @ fractional_matrix_power(mat_b, t) @ mat_k.T
+        mat_kkb = (mat_kkb + mat_kkb.conj().T) / 2
+        return trace_power(mat_a, 1 - t, mat_kkb)
+    else:
+        if not mat_a.is_affine() or not mat_b.is_affine():
+            raise ValueError("mat_a and mat_b must be affine expressions.")
+        if not is_positive_semidefinite(mat_a.value) or not is_positive_semidefinite(
+            mat_b.value
+        ):
+            raise ValueError("mat_a and mat_b must be positive semidefinite.")
+
+        n = mat_a.shape[0]
+        m = mat_b.shape[0]
+        is_cplx = (
+            np.any(np.imag(mat_a.value) != 0)
+            or np.any(np.imag(mat_b.value) != 0)
+            or np.any(np.imag(mat_k) != 0)
+        )
+        Kvec = np.reshape(mat_k.T, (n * m, 1), order="F")
+        KvKv = Kvec @ Kvec.conj().T
+        KvKv = (KvKv + KvKv.conj().T) / 2
+        if is_cplx:
+            T = cvxpy.Variable((n * m, n * m), hermitian=True)
+        else:
+            T = cvxpy.Variable((n * m, n * m), symmetric=True)
+
+        obj = cvxpy.trace(KvKv @ T)
+        if is_cplx:
+            obj = cvxpy.real(obj)
+        mat_a_kron = cvxpy.kron(mat_a, np.eye(m))
+        mat_b_kron = cvxpy.kron(np.eye(n), cvxpy.conj(mat_b))
+        if t >= 0 and t <= 1:
+            cons = geometric_mean_hypo_cone(
+                mat_a_kron, mat_b_kron, T, t, fullhyp=False, hermitian=is_cplx
+            )
+            problem = cvxpy.Problem(cvxpy.Maximize(obj), cons)
+            return problem.solve()
+        elif (t >= -1 and t <= 0) or (t >= 1 and t <= 2):
+            cons = geometric_mean_epi_cone(
+                mat_a_kron, mat_b_kron, T, t, hermitian=is_cplx
+            )
+            problem = cvxpy.Problem(cvxpy.Minimize(obj), cons)
+            return problem.solve()
+        else:
+            raise ValueError("t must be between -1 and 2.")
