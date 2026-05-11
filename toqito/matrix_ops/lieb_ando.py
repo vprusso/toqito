@@ -12,7 +12,6 @@ from toqito.matrix_ops._cone_utils import _require_2d, _require_square_2d
 from toqito.matrix_ops.geometric_mean_epi_cone import geometric_mean_epi_cone
 from toqito.matrix_ops.geometric_mean_hypo_cone import geometric_mean_hypo_cone
 from toqito.matrix_ops.trace_matrix_power import trace_matrix_power
-from toqito.matrix_props import is_positive_semidefinite
 
 
 def lieb_ando(
@@ -67,6 +66,8 @@ def lieb_ando(
         ```
 
     """
+    from toqito.matrix_props import is_positive_semidefinite  # noqa: PLC0415
+
     if not isinstance(mat_a, (np.ndarray, cvxpy.Expression)):
         raise TypeError("mat_a must be a numpy.ndarray or a cvxpy expression.")
     if not isinstance(mat_b, (np.ndarray, cvxpy.Expression)):
