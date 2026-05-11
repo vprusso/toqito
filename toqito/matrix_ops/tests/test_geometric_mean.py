@@ -107,8 +107,8 @@ non_hermitian = np.array([[1.0, 2.0], [0.0, 1.0]])
         (A_2, B_3, 0.5, "The matrices must be the same size."),
         # non-square (same outer shape)
         (A_rect, B_rect, 0.5, "The matrices must be square."),
-        # same shape but not 2D arrays
-        (A_not2d, B_not2d, 0.5, "The matrices must be 2D arrays."),
+        # same shape but not 2D
+        (A_not2d, B_not2d, 0.5, "The matrices must be 2D."),
         # weight out of range
         (A_diag, B_diag, -1.01, "The weight must be in the range [-1, 2]."),
         (A_diag, B_diag, 2.01, "The weight must be in the range [-1, 2]."),

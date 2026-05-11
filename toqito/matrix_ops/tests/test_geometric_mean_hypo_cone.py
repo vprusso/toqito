@@ -20,9 +20,7 @@ PD_SHIFT = 1e-1
 
 def _case_seed(dim: int, t: float, *, hermitian: bool) -> int:
     r = Fraction(float(t)).limit_denominator()
-    return int(
-        dim * 1_000_003 + r.numerator * 10_009 + r.denominator * 100 + int(hermitian)
-    )
+    return int(dim * 1_000_003 + r.numerator * 10_009 + r.denominator * 100 + int(hermitian))
 
 
 def _random_pd_matrix(dim: int, seed: int, *, hermitian: bool) -> np.ndarray:
@@ -176,6 +174,4 @@ def test_geometric_mean_hypo_cone_invalid_input(
 ):
     """``geometric_mean_hypo_cone`` raises ``ValueError`` for invalid arguments."""
     with pytest.raises(ValueError, match=re.escape(expected_msg)):
-        geometric_mean_hypo_cone(
-            a_expr, b_expr, t_expr, t_weight, fullhyp=False, hermitian=False
-        )
+        geometric_mean_hypo_cone(a_expr, b_expr, t_expr, t_weight, fullhyp=False, hermitian=False)

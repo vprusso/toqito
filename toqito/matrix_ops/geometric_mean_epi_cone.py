@@ -5,7 +5,7 @@
 
 import cvxpy
 
-from toqito.matrix_ops._cone_utils import _symmetric_like_variable
+from toqito.matrix_ops._cone_utils import _require_square_2d, _symmetric_like_variable
 from toqito.matrix_ops.geometric_mean_hypo_cone import geometric_mean_hypo_cone
 
 
@@ -38,7 +38,7 @@ def geometric_mean_epi_cone(
     Raises:
         ValueError: If the weight is not in the range [-1, 0] or [1, 2].
         ValueError: If the matrices are not the same size.
-        ValueError: If the matrices are not square.
+        ValueError: If the matrices are not 2D or not square.
 
     Returns:
         A list of CVX constraints.
@@ -49,8 +49,7 @@ def geometric_mean_epi_cone(
 
     if A.shape != B.shape or B.shape != T.shape:
         raise ValueError("The matrices must be the same size.")
-    if A.shape[0] != A.shape[1]:
-        raise ValueError("The matrices must be square.")
+    _require_square_2d(A, "The matrices")
 
     dim = A.shape[0]
     z_var = _symmetric_like_variable(dim, hermitian=hermitian)

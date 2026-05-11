@@ -3,6 +3,7 @@
 import numpy as np
 from scipy.linalg import fractional_matrix_power, sqrtm
 
+from toqito.matrix_ops._cone_utils import _require_square_2d
 from toqito.matrix_props.is_positive_definite import is_positive_definite
 
 
@@ -40,10 +41,7 @@ def geometric_mean(mat_a: np.ndarray, mat_b: np.ndarray, t: float) -> np.ndarray
     """
     if mat_a.shape != mat_b.shape:
         raise ValueError("The matrices must be the same size.")
-    if mat_a.ndim != 2:
-        raise ValueError("The matrices must be 2D arrays.")
-    if mat_a.shape[0] != mat_a.shape[1]:
-        raise ValueError("The matrices must be square.")
+    _require_square_2d(mat_a, "The matrices")
     if t < -1 or t > 2:
         raise ValueError("The weight must be in the range [-1, 2].")
     if not is_positive_definite(mat_a) or not is_positive_definite(mat_b):
