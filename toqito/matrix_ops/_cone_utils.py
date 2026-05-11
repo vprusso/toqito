@@ -1,8 +1,22 @@
 """Shared internal helpers for matrix geometric-mean cone constraints."""
 
 from fractions import Fraction
+from typing import Any
 
 import cvxpy
+
+
+def _require_2d(mat: Any, name: str) -> None:
+    r"""Raise ``ValueError`` unless ``mat`` is two-dimensional (``ndim == 2``)."""
+    if mat.ndim != 2:
+        raise ValueError(f"{name} must be 2D.")
+
+
+def _require_square_2d(mat: Any, name: str) -> None:
+    r"""Raise ``ValueError`` unless ``mat`` is a square two-dimensional matrix."""
+    _require_2d(mat, name)
+    if mat.shape[0] != mat.shape[1]:
+        raise ValueError(f"{name} must be square.")
 
 
 def _is_power_of_two(n: int) -> bool:

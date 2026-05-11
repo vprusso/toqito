@@ -17,5 +17,5 @@ from toqito.matrix_ops.null_space import null_space
 from toqito.matrix_ops.geometric_mean import geometric_mean
 from toqito.matrix_ops.geometric_mean_epi_cone import geometric_mean_epi_cone
 from toqito.matrix_ops.geometric_mean_hypo_cone import geometric_mean_hypo_cone
-from toqito.matrix_ops.trace_power import trace_power
+from toqito.matrix_ops.trace_matrix_power import trace_matrix_power
 from toqito.matrix_ops.lieb_ando import lieb_ando

@@ -1,4 +1,4 @@
-"""Tests for trace_power."""
+"""Tests for trace_matrix_power."""
 
 import re
 from fractions import Fraction
@@ -8,7 +8,7 @@ import numpy as np
 import pytest
 from scipy.linalg import fractional_matrix_power
 
-from toqito.matrix_ops import trace_power
+from toqito.matrix_ops import trace_matrix_power
 
 DIMS = (3, 5)
 WEIGHTS_HYPO = (0.5, 0.25, 0.125, 2 / 3, 6 / 7)
@@ -83,30 +83,30 @@ def _numeric_reference(mat_a: np.ndarray, t: float, mat_c: np.ndarray) -> float:
         ),
     ],
 )
-def test_trace_power_numeric_raises(
+def test_trace_matrix_power_numeric_raises(
     mat_a: np.ndarray,
     mat_c: np.ndarray | None,
     t: float,
     expected_msg: str,
 ):
-    """trace_power rejects invalid numeric matrices."""
+    """trace_matrix_power rejects invalid numeric matrices."""
     with pytest.raises(ValueError, match=re.escape(expected_msg)):
-        trace_power(mat_a, t, mat_c)
+        trace_matrix_power(mat_a, t, mat_c)
 
 
-def test_trace_power_numeric_t_not_restricted_to_minus_one_two():
+def test_trace_matrix_power_numeric_t_not_restricted_to_minus_one_two():
     """Numeric path allows any t supported by fractional_matrix_power."""
     i3 = np.eye(3)
     for t in (-1.01, 2.01):
         ref = _numeric_reference(i3, t, np.eye(3))
-        assert trace_power(i3, t) == pytest.approx(ref)
+        assert trace_matrix_power(i3, t) == pytest.approx(ref)
 
 
-def test_trace_power_numpy_with_cvx_expression_mat_c_raises_type_error():
+def test_trace_matrix_power_numpy_with_cvx_expression_mat_c_raises_type_error():
     """mat_c must be a numpy array (or None), not a CVXPY expression."""
     msg = "mat_c must be a numpy.ndarray or None."
     with pytest.raises(TypeError, match=re.escape(msg)):
-        trace_power(np.eye(2), 0.5, cvxpy.Variable((2, 2)))
+        trace_matrix_power(np.eye(2), 0.5, cvxpy.Variable((2, 2)))
 
 
 @pytest.mark.parametrize(
@@ -144,7 +144,7 @@ def test_trace_power_numpy_with_cvx_expression_mat_c_raises_type_error():
         ),
     ],
 )
-def test_trace_power_sdp_raises(
+def test_trace_matrix_power_sdp_raises(
     mat_a_expr: cvxpy.Expression,
     t: float,
     mat_c: np.ndarray | None,
@@ -152,11 +152,11 @@ def test_trace_power_sdp_raises(
 ):
     """CVXPY path raises ValueError from invalid SDP arguments."""
     with pytest.raises(ValueError, match=re.escape(expected_msg)):
-        trace_power(mat_a_expr, t, mat_c)
+        trace_matrix_power(mat_a_expr, t, mat_c)
 
 
-def test_trace_power_raises_mat_a_neither_ndarray_nor_cvx_expression():
-    """Fallback when mat_a is square 2D but not numpy.ndarray or cvxpy.Expression."""
+def test_trace_matrix_power_raises_mat_a_neither_ndarray_nor_cvx_expression():
+    """Reject mat_a that is not a numpy.ndarray or cvxpy.Expression."""
 
     class _Square2DNonNumeric:
         __slots__ = ()
@@ -164,85 +164,78 @@ def test_trace_power_raises_mat_a_neither_ndarray_nor_cvx_expression():
         shape = (2, 2)
 
     with pytest.raises(
-        ValueError,
-        match=re.escape(
-            "The matrix mat_a must be a numpy array or a cvxpy expression."
-        ),
+        TypeError,
+        match=re.escape("mat_a must be a numpy.ndarray or a cvxpy expression."),
     ):
-        trace_power(_Square2DNonNumeric(), 0.5)
+        trace_matrix_power(_Square2DNonNumeric(), 0.5)
 
 
-def test_trace_power_sdp_raises_non_affine():
+def test_trace_matrix_power_sdp_raises_non_affine():
     """Only affine mat_a is admitted (matching CVXQUAD DCP check)."""
     var_x = cvxpy.Variable((2, 2), symmetric=True)
     non_affine_a = var_x @ var_x
     with pytest.raises(
         ValueError, match=re.escape("The matrix mat_a must be an affine expression.")
     ):
-        trace_power(non_affine_a, 0.5)
+        trace_matrix_power(non_affine_a, 0.5)
 
 
-def test_trace_power_sdp_raises_mat_c_not_numpy():
+def test_trace_matrix_power_sdp_raises_mat_c_not_numpy():
     """CVXPY mat_a requires mat_c to be a numpy array or None."""
     msg = "mat_c must be a numpy.ndarray or None."
     bad_c = cvxpy.Variable((2, 2), PSD=True)
     with pytest.raises(TypeError, match=re.escape(msg)):
-        trace_power(cvxpy.Constant(I_2), 0.5, bad_c)
+        trace_matrix_power(cvxpy.Constant(I_2), 0.5, bad_c)
 
     with pytest.raises(TypeError, match=re.escape(msg)):
-        trace_power(cvxpy.Constant(I_2), 0.5, cvxpy.Constant(I_2))
+        trace_matrix_power(cvxpy.Constant(I_2), 0.5, cvxpy.Constant(I_2))
 
 
-def test_trace_power_numeric_identity_half():
+def test_trace_matrix_power_numeric_identity_half():
     """trace(I^{1/2}) = n with default mat_c."""
     n = 4
-    result = trace_power(np.eye(n), 0.5)
+    result = trace_matrix_power(np.eye(n), 0.5)
     assert result == pytest.approx(float(n))
 
 
-def test_trace_power_numeric_identity_with_c():
+def test_trace_matrix_power_numeric_identity_with_c():
     """Weighted trace on a simple PSD pair."""
     ref = _numeric_reference(
         np.array([[4.0, 2.0], [2.0, 1.0]]), 0.8, np.diag([3.0, 0.5])
     )
-    val = trace_power(np.array([[4.0, 2.0], [2.0, 1.0]]), 0.8, np.diag([3.0, 0.5]))
+    val = trace_matrix_power(
+        np.array([[4.0, 2.0], [2.0, 1.0]]), 0.8, np.diag([3.0, 0.5])
+    )
     assert val == pytest.approx(ref)
 
 
-def test_trace_power_numeric_endpoints_t_minus_one_and_two():
+def test_trace_matrix_power_numeric_endpoints_t_minus_one_and_two():
     r"""Boundary exponents t \in {-1, 2} match SciPy."""
     rng = np.random.default_rng(0)
     mat = rng.standard_normal((3, 3))
     mat = mat @ mat.T + 0.3 * np.eye(3)
     for t in (-1.0, 2.0):
         ref = _numeric_reference(mat, t, np.eye(3))
-        val = trace_power(mat, t)
+        val = trace_matrix_power(mat, t)
         assert val == pytest.approx(ref, rel=1e-10, abs=1e-10)
 
 
-def test_trace_power_numeric_complex_hermitian():
+def test_trace_matrix_power_numeric_complex_hermitian():
     """Numeric complex Hermitian PSD path."""
     rng = np.random.default_rng(1)
     x_mat = rng.standard_normal((2, 2)) + 1j * rng.standard_normal((2, 2))
     mat = x_mat @ x_mat.conj().T + PD_SHIFT * np.eye(2, dtype=np.complex128)
     mat = (mat + mat.conj().T) / 2
     c_mat = np.eye(2, dtype=np.complex128)
-    val = trace_power(mat, 0.3, c_mat)
+    val = trace_matrix_power(mat, 0.3, c_mat)
     ref = _numeric_reference(mat, 0.3, c_mat)
     assert val == pytest.approx(ref)
-
-
-# def _sdp_solve_settings(t: float) -> dict:
-#     """Use tighter tolerances outside [0, 1] (mirror test_geometric_mean_epi_cone)."""
-#     if t < 0 or t > 1:
-#         return dict(solver=cvxpy.SCS, eps=1e-8, max_iters=400_000, verbose=False)
-#     return dict(solver=cvxpy.SCS, verbose=False)
 
 
 @pytest.mark.parametrize("dim", DIMS)
 @pytest.mark.parametrize("t", WEIGHTS_HYPO)
 @pytest.mark.parametrize("hermitian", [False, True])
-def test_trace_power_sdp_matches_numeric_hypograph_region(
+def test_trace_matrix_power_sdp_matches_numeric_hypograph_region(
     dim: int,
     t: float,
     hermitian: bool,
@@ -254,7 +247,7 @@ def test_trace_power_sdp_matches_numeric_hypograph_region(
     ref = _numeric_reference(mat_a_np, t, mat_c_np)
 
     mat_a_const = cvxpy.Constant(mat_a_np)
-    val = trace_power(mat_a_const, t, mat_c_np)
+    val = trace_matrix_power(mat_a_const, t, mat_c_np)
     atol = 5e-4
     np.testing.assert_allclose(float(val), ref, rtol=1e-5, atol=atol)
 
@@ -265,7 +258,7 @@ def test_trace_power_sdp_matches_numeric_hypograph_region(
     EPI_WEIGHTS_NEG + EPI_WEIGHTS_POS,
 )
 @pytest.mark.parametrize("hermitian", [False, True])
-def test_trace_power_sdp_matches_numeric_epigraph_region(
+def test_trace_matrix_power_sdp_matches_numeric_epigraph_region(
     dim: int,
     t: float,
     hermitian: bool,
@@ -277,5 +270,5 @@ def test_trace_power_sdp_matches_numeric_epigraph_region(
     ref = _numeric_reference(mat_a_np, t, mat_c_np)
 
     mat_a_const = cvxpy.Constant(mat_a_np)
-    val = trace_power(mat_a_const, t, mat_c_np)
+    val = trace_matrix_power(mat_a_const, t, mat_c_np)
     np.testing.assert_allclose(float(val), ref, rtol=2.5e-2, atol=1e-2)

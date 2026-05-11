@@ -8,9 +8,10 @@ import cvxpy
 import numpy as np
 from scipy.linalg import fractional_matrix_power
 
+from toqito.matrix_ops._cone_utils import _require_2d, _require_square_2d
 from toqito.matrix_ops.geometric_mean_epi_cone import geometric_mean_epi_cone
 from toqito.matrix_ops.geometric_mean_hypo_cone import geometric_mean_hypo_cone
-from toqito.matrix_ops.trace_power import trace_power
+from toqito.matrix_ops.trace_matrix_power import trace_matrix_power
 from toqito.matrix_props import is_positive_semidefinite
 
 
@@ -44,36 +45,38 @@ def lieb_ando(
         The value of the function as a float.
 
     Raises:
-        ValueError: If mat_a is not 2D or not square.
-        ValueError: If mat_b is not 2D or not square.
-        ValueError: If mat_k is not 2D.
-        ValueError: If mat_k does not have the same number of rows as mat_a and the same number of columns as mat_b.
-        ValueError: If mat_a and mat_b are not positive semidefinite.
-        ValueError: If t is not in the range `[-1, 2]` and mat_a and mat_b are cvxpy expressions.
-        ValueError: If mat_a and mat_b are not affine expressions.
+        TypeError: If ``mat_a`` or ``mat_b`` is not a numpy.ndarray or a cvxpy expression.
+        TypeError: If ``mat_k`` is not a numpy.ndarray.
+        ValueError: If ``mat_a`` is not 2D or not square.
+        ValueError: If ``mat_b`` is not 2D or not square.
+        ValueError: If ``mat_k`` is not 2D.
+        ValueError: If ``mat_k`` has incompatible shape with ``mat_a`` and ``mat_b``.
+        ValueError: If ``mat_a`` and ``mat_b`` are not positive semidefinite.
+        ValueError: If ``t`` is not in the range `[-1, 2]` and ``mat_a`` and ``mat_b`` are cvxpy expressions.
+        ValueError: If ``mat_a`` and ``mat_b`` are not affine expressions.
 
     Examples:
         ```python
         import numpy as np
         from toqito.matrix_ops import lieb_ando
-        mat_a = np.array([[1, 2], [3, 4]])
-        mat_b = np.array([[1, 2], [3, 4]])
-        mat_k = np.array([[1, 2], [3, 4]])
+        mat_a = np.array([[2.0, 1.0], [1.0, 2.0]])
+        mat_b = np.array([[2.0, 1.0], [1.0, 2.0]])
+        mat_k = np.eye(2)
         t = 0.5
         print(lieb_ando(mat_a, mat_b, mat_k, t))
         ```
 
     """
-    if mat_a.ndim != 2:
-        raise ValueError("mat_a must be 2D.")
-    if mat_a.shape[0] != mat_a.shape[1]:
-        raise ValueError("mat_a must be square.")
-    if mat_b.ndim != 2:
-        raise ValueError("mat_b must be 2D.")
-    if mat_b.shape[0] != mat_b.shape[1]:
-        raise ValueError("mat_b must be square.")
-    if mat_k.ndim != 2:
-        raise ValueError("mat_k must be 2D.")
+    if not isinstance(mat_a, (np.ndarray, cvxpy.Expression)):
+        raise TypeError("mat_a must be a numpy.ndarray or a cvxpy expression.")
+    if not isinstance(mat_b, (np.ndarray, cvxpy.Expression)):
+        raise TypeError("mat_b must be a numpy.ndarray or a cvxpy expression.")
+    if not isinstance(mat_k, np.ndarray):
+        raise TypeError("mat_k must be a numpy.ndarray.")
+
+    _require_square_2d(mat_a, "mat_a")
+    _require_square_2d(mat_b, "mat_b")
+    _require_2d(mat_k, "mat_k")
     if mat_k.shape[0] != mat_a.shape[0] or mat_k.shape[1] != mat_b.shape[1]:
         raise ValueError(
             "mat_k must have the same number of rows as mat_a and the same number of columns as mat_b."
@@ -84,23 +87,25 @@ def lieb_ando(
             raise ValueError("mat_a and mat_b must be positive semidefinite.")
         a_raised = fractional_matrix_power(mat_a, 1 - t)
         b_raised = fractional_matrix_power(mat_b, t)
-        return float(np.real(np.trace(mat_k.T @ a_raised @ mat_k @ b_raised)))
+        return float(
+            np.real(np.trace(mat_k.conj().T @ a_raised @ mat_k @ b_raised))
+        )
     elif isinstance(mat_a, np.ndarray):
         if not is_positive_semidefinite(mat_a) or not is_positive_semidefinite(
             mat_b.value
         ):
             raise ValueError("mat_a and mat_b must be positive semidefinite.")
-        mat_kak = mat_k.T @ fractional_matrix_power(mat_a, 1 - t) @ mat_k
+        mat_kak = mat_k.conj().T @ fractional_matrix_power(mat_a, 1 - t) @ mat_k
         mat_kak = (mat_kak + mat_kak.conj().T) / 2
-        return trace_power(mat_b, t, mat_kak)
+        return trace_matrix_power(mat_b, t, mat_kak)
     elif isinstance(mat_b, np.ndarray):
         if not is_positive_semidefinite(mat_a.value) or not is_positive_semidefinite(
             mat_b
         ):
             raise ValueError("mat_a and mat_b must be positive semidefinite.")
-        mat_kkb = mat_k @ fractional_matrix_power(mat_b, t) @ mat_k.T
+        mat_kkb = mat_k @ fractional_matrix_power(mat_b, t) @ mat_k.conj().T
         mat_kkb = (mat_kkb + mat_kkb.conj().T) / 2
-        return trace_power(mat_a, 1 - t, mat_kkb)
+        return trace_matrix_power(mat_a, 1 - t, mat_kkb)
     else:
         if not mat_a.is_affine() or not mat_b.is_affine():
             raise ValueError("mat_a and mat_b must be affine expressions.")

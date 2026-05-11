@@ -50,12 +50,12 @@ def _random_pd_normalized(dim: int, seed: int, *, hermitian: bool) -> np.ndarray
 def _numeric_lieb_ando_reference(
     mat_a: np.ndarray, mat_b: np.ndarray, mat_k: np.ndarray, t: float
 ) -> float:
-    r"""Match lieb_ando numeric branch: real(trace(K.T @ A^{1-t} @ K @ B^t))."""
+    r"""Match lieb_ando numeric branch: real(trace(K^H @ A^{1-t} @ K @ B^t))."""
     a_sym = (mat_a + mat_a.conj().T) / 2
     b_sym = (mat_b + mat_b.conj().T) / 2
     pow_a = fractional_matrix_power(a_sym, 1.0 - float(t))
     pow_b = fractional_matrix_power(b_sym, float(t))
-    return float(np.real(np.trace(mat_k.T @ pow_a @ mat_k @ pow_b)))
+    return float(np.real(np.trace(mat_k.conj().T @ pow_a @ mat_k @ pow_b)))
 
 
 @pytest.mark.parametrize(
@@ -106,6 +106,45 @@ def test_lieb_ando_raises(
     """lieb_ando rejects invalid shapes and indefinite numeric PSD inputs."""
     with pytest.raises(ValueError, match=re.escape(expected_msg)):
         lieb_ando(mat_a, mat_b, mat_k, t)
+
+
+def test_lieb_ando_raises_type_error_mat_k_not_numpy():
+    """mat_k must be a numpy.ndarray (not a CVXPY expression)."""
+    with pytest.raises(
+        TypeError,
+        match=re.escape("mat_k must be a numpy.ndarray."),
+    ):
+        lieb_ando(I_2, I_2, cvxpy.Constant(I_2), 0.5)
+
+
+def test_lieb_ando_raises_type_error_mat_a_not_numpy_or_cvx_expression():
+    """mat_a must be a numpy.ndarray or cvxpy.Expression."""
+
+    class _Square2DNonNumeric:
+        __slots__ = ()
+        ndim = 2
+        shape = (2, 2)
+
+    with pytest.raises(
+        TypeError,
+        match=re.escape("mat_a must be a numpy.ndarray or a cvxpy expression."),
+    ):
+        lieb_ando(_Square2DNonNumeric(), I_2, I_2, 0.5)
+
+
+def test_lieb_ando_raises_type_error_mat_b_not_numpy_or_cvx_expression():
+    """mat_b must be a numpy.ndarray or cvxpy.Expression."""
+
+    class _Square2DNonNumeric:
+        __slots__ = ()
+        ndim = 2
+        shape = (2, 2)
+
+    with pytest.raises(
+        TypeError,
+        match=re.escape("mat_b must be a numpy.ndarray or a cvxpy expression."),
+    ):
+        lieb_ando(I_2, _Square2DNonNumeric(), I_2, 0.5)
 
 
 @pytest.mark.parametrize(
@@ -218,9 +257,9 @@ def test_lieb_ando_raises_psd_mixed_expression_a_numeric_b():
 
 
 def test_lieb_ando_numeric_a_constant_b_matches_reference():
-    """Numeric mat_a and affine mat_b (trace_power reduction branch).
+    """Numeric mat_a and affine mat_b (trace_matrix_power reduction branch).
 
-    Keep t in (0, 1) so mat_kak stays numerically PSD for trace_power.
+    Keep t in (0, 1) so mat_kak stays numerically PSD for trace_matrix_power.
     """
     mat_a = np.array([[4.0, 2.0], [2.0, 1.0]], dtype=float)
     mat_b_np = np.diag([0.6, 0.9])
@@ -233,9 +272,9 @@ def test_lieb_ando_numeric_a_constant_b_matches_reference():
 
 
 def test_lieb_ando_constant_a_numeric_b_matches_reference():
-    """Affine mat_a and numeric mat_b (trace_power reduction branch).
+    """Affine mat_a and numeric mat_b (trace_matrix_power reduction branch).
 
-    Diagonal A, B avoids stiff coupled SDPs inside trace_power.
+    Diagonal A, B avoids stiff coupled SDPs inside trace_matrix_power.
     """
     mat_a_np = np.diag([1.5, 0.8])
     mat_a = cvxpy.Constant(mat_a_np)
@@ -247,8 +286,8 @@ def test_lieb_ando_constant_a_numeric_b_matches_reference():
         np.testing.assert_allclose(val, ref, rtol=1e-3, atol=5e-3)
 
 
-def test_lieb_ando_numeric_a_constant_b_epi_region_trace_power():
-    """Test t outside [0, 1] on mixed branch: well-conditioned data for trace_power epi."""
+def test_lieb_ando_numeric_a_constant_b_epi_region_trace_matrix_power():
+    """Test t outside [0, 1] on mixed branch: well-conditioned data for trace_matrix_power epi."""
     rng = np.random.default_rng(7)
     n = 3
     mat_a = rng.standard_normal((n, n))
@@ -263,7 +302,7 @@ def test_lieb_ando_numeric_a_constant_b_epi_region_trace_power():
     np.testing.assert_allclose(val, ref, rtol=2e-2, atol=2e-2)
 
 
-def test_lieb_ando_constant_a_numeric_b_epi_region_trace_power():
+def test_lieb_ando_constant_a_numeric_b_epi_region_trace_matrix_power():
     """Epi-region t on affine-A / numeric-B branch."""
     rng = np.random.default_rng(8)
     n = 3
@@ -358,6 +397,30 @@ def test_lieb_ando_constant_expressions_match_numeric(
     ref = _numeric_lieb_ando_reference(mat_a, mat_b, in_n, t)
     val = float(
         np.real(lieb_ando(cvxpy.Constant(mat_a), cvxpy.Constant(mat_b), in_n, t))
+    )
+    atol = 5e-4 if 0 <= t <= 1 else 5e-3
+    np.testing.assert_allclose(val, ref, rtol=1e-4, atol=atol)
+
+
+@pytest.mark.parametrize("t", (0.25, 0.6, -0.35, 1.3))
+def test_lieb_ando_sdp_matches_numeric_complex_nontrivial_k(t: float):
+    """Full SDP branch agrees with numeric when K is genuinely complex (not real I)."""
+    rng = np.random.default_rng(101)
+    n = 2
+    xa = rng.standard_normal((n, n)) + 1j * rng.standard_normal((n, n))
+    mat_a = xa @ xa.conj().T + 0.6 * np.eye(n, dtype=np.complex128)
+    mat_a = (mat_a + mat_a.conj().T) / 2
+    xb = rng.standard_normal((n, n)) + 1j * rng.standard_normal((n, n))
+    mat_b = xb @ xb.conj().T + 0.6 * np.eye(n, dtype=np.complex128)
+    mat_b = (mat_b + mat_b.conj().T) / 2
+    mat_k = np.array(
+        [[0.35 + 0.22j, 0.12 - 0.31j], [-0.18 + 0.09j, 0.42 + 0.28j]],
+        dtype=np.complex128,
+    )
+
+    ref = float(np.real(lieb_ando(mat_a, mat_b, mat_k, t)))
+    val = float(
+        np.real(lieb_ando(cvxpy.Constant(mat_a), cvxpy.Constant(mat_b), mat_k, t))
     )
     atol = 5e-4 if 0 <= t <= 1 else 5e-3
     np.testing.assert_allclose(val, ref, rtol=1e-4, atol=atol)
