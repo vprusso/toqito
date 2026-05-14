@@ -1,4 +1,4 @@
-"""Computes the function from Lieb's 1973 theorem for PSD matrices."""
+r"""Computes \(f(A, B, K, t) = \operatorname{tr}(K^{\dagger} A^{1-t} K B^{t})\) for PSD \(A\) and \(B\)."""
 
 # Adapted from CVXQUAD (https://github.com/hfawzi/cvxquad), BSD-2-Clause.
 # Original implementation by Fawzi, Saunderson, et al.
@@ -21,13 +21,7 @@ def lieb_ando(
     mat_k: np.ndarray,
     t: float,
 ) -> float:
-    r"""Compute the function from Lieb's 1973 theorem for PSD matrices.
-
-    The function is defined as
-
-    \[
-        f(A, B, K, t) = \operatorname{tr}\!\bigl(K^{\dagger} A^{1-t} K B^{t}\bigr).
-    \]
+    r"""Compute \(f(A, B, K, t) = \operatorname{tr}\!\bigl(K^{\dagger} A^{1-t} K B^{t}\bigr)\) for PSD matrices.
 
     Here \(A=\) ``mat_a``, \(B=\) ``mat_b``, and \(K=\) ``mat_k``. For real data,
     \(K^{\dagger} = K^{\top}\). The map is concave in \((A, B)\) for
@@ -87,9 +81,7 @@ def lieb_ando(
             raise ValueError("mat_a and mat_b must be positive semidefinite.")
         a_raised = fractional_matrix_power(mat_a, 1 - t)
         b_raised = fractional_matrix_power(mat_b, t)
-        return float(
-            np.real(np.trace(mat_k.conj().T @ a_raised @ mat_k @ b_raised))
-        )
+        return float(np.real(np.trace(mat_k.conj().T @ a_raised @ mat_k @ b_raised)))
     elif isinstance(mat_a, np.ndarray):
         if not is_positive_semidefinite(mat_a) or not is_positive_semidefinite(
             mat_b.value
