@@ -11,12 +11,11 @@ from toqito.matrix_ops._cone_utils import _require_square_2d
 from toqito.matrix_ops.operator_relative_entropy_epi_cone import (
     operator_relative_entropy_epi_cone,
 )
-from toqito.matrix_props import is_positive_semidefinite
 
 
 def trace_matrix_log(
     mat_x: np.ndarray | cvxpy.Expression,
-    mat_c: np.ndarray | None,
+    mat_c: np.ndarray | None = None,
     m: int = 3,
     k: int = 3,
     apx: int = 0,
@@ -28,15 +27,17 @@ def trace_matrix_log(
     Assuming that `mat_c` is a fixed positive semidefinite matrix, the function
     is concave in `mat_x` [@fawzi2017matrixlogarithm].
 
-    The parameters `m` and `k` control the accuracy of the approximation and
-    `apx` indicates which approximation of the logarithm to use.
+    The parameters `m` and `k` control quadrature accuracy; `apx` sets lower-bound,
+    two-sided (Gauss--Legendre), or upper-bound quadrature for the matrix logarithm.
 
     Args:
         mat_x: A numpy array or a cvxpy expression representing a positive semidefinite matrix.
         mat_c: A numpy array representing a positive semidefinite matrix.
         m: The number of quadrature nodes to use.
         k: The number of square-roots to take.
-        apx: The approximation of the logarithm to use.
+        apx: Same as in ``operator_relative_entropy_epi_cone``: ``-1`` lower bound
+            (left Gauss--Radau), ``0`` two-sided Gauss--Legendre, ``1`` upper bound
+            (right Gauss--Radau).
 
     Raises:
         ValueError: If mat_x is not a square 2D matrix.
@@ -54,6 +55,8 @@ def trace_matrix_log(
         A float representing the value of the trace of the matrix logarithm.
 
     """
+    from toqito.matrix_props import is_positive_semidefinite  # noqa: PLC0415
+
     if not isinstance(mat_x, (np.ndarray, cvxpy.Expression)):
         raise ValueError("mat_x must be a numpy array or a cvxpy expression")
     _require_square_2d(mat_x, "mat_x")
@@ -98,6 +101,7 @@ def trace_matrix_log(
         tau = cvxpy.Variable((n, n), symmetric=True)
 
     eye_n = cvxpy.Constant(np.eye(n))
+    # Negate apx: cone is epigraph of D_op(I, X) = -log X; flip so apx bounds +log X for the caller.
     cons = operator_relative_entropy_epi_cone(
         eye_n,
         mat_x,

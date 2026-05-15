@@ -22,3 +22,4 @@ from toqito.matrix_ops.lieb_ando import lieb_ando
 from toqito.matrix_ops.operator_relative_entropy_epi_cone import (
     operator_relative_entropy_epi_cone,
 )
+from toqito.matrix_ops.trace_matrix_log import trace_matrix_log

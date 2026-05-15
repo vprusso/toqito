@@ -68,7 +68,7 @@ def operator_relative_entropy_epi_cone(
     The set of matrices that satisfy the constraints are `X`, `Y`, `TAU` triples such that
 
     \[
-        X^{-1/2} \log\!\bigl(X^{-1/2} Y^{1/2} X^{-1/2}\bigr) X^{1/2} \preceq \mathrm{TAU}
+        X^{1/2} \log\!\bigl(X^{1/2} Y^{-1} X^{1/2}\bigr) X^{1/2} \preceq \mathrm{TAU}
     \]
 
     in the PSD order, where ``log`` is the matrix logarithm.
@@ -81,7 +81,9 @@ def operator_relative_entropy_epi_cone(
         m: The number of quadrature nodes to use.
         k: The number of square-roots to take.
         e: A numpy array representing a matrix.
-        apx: The approximation of the logarithm to use.
+        apx: Log via quadrature: ``-1`` uses left-endpoint Gauss-Radau (lower bound on
+            the matrix log), ``0`` uses Gauss-Legendre on ``[0, 1]`` (two-sided midpoint
+            rule), ``1`` uses right-endpoint Gauss--Radau (upper bound on the matrix log).
         hermitian: Whether the matrices are Hermitian or symmetric.
 
     Raises:
@@ -92,7 +94,6 @@ def operator_relative_entropy_epi_cone(
         ValueError: If the size of TAU does not match the size of e.
         ValueError: If m or k is less than 1.
         ValueError: If apx is not -1, 0, or 1.
-        ValueError: If the quadrature weights are not positive.
         ValueError: If TAU is not r x r with r = e.shape[1].
 
     Returns:
@@ -150,8 +151,6 @@ def operator_relative_entropy_epi_cone(
     for ii in range(m):
         si = float(s[ii])
         wi = float(w[ii])
-        if wi == 0:
-            raise ValueError("Quadrature weight must be positive.")
         ti = t_pages[ii]
         if si < 1e-6:
             quad = e_h @ (z_var - X) @ e

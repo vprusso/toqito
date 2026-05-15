@@ -5,7 +5,6 @@
 
 import re
 from importlib import import_module
-from unittest.mock import patch
 
 import cvxpy
 import numpy as np
@@ -84,6 +83,43 @@ def test_operator_relative_entropy_epi_cone_trace_minimum(
     assert float(np.min(apx * eig_err)) >= -5e-4
     if mk >= 3:
         assert float(np.linalg.norm(err, ord="fro")) <= 2e-2
+
+
+def test_operator_relative_entropy_epi_cone_projected_subspace():
+    r"""With ``e`` of shape ``(n, r)`` and ``r < n``, ``TAU`` is ``r × r`` and tracks ``e^H D_op e``."""
+    n, r = 6, 2
+    mk = 3
+    apx = 0
+    e_mat = np.eye(n, r, dtype=np.float64)
+    seed = 9_001
+    mat_a = _rand_psd_normalized(n, seed, hermitian=False)
+    mat_b = _rand_psd_normalized(n, seed + 1, hermitian=False)
+    dop = _d_op_reference(mat_a, mat_b)
+    dop_proj = e_mat.conj().T @ dop @ e_mat
+
+    a_c = cvxpy.Constant(mat_a)
+    b_c = cvxpy.Constant(mat_b)
+    TAU = cvxpy.Variable((r, r), symmetric=True)
+    cons = operator_relative_entropy_epi_cone(
+        a_c,
+        b_c,
+        TAU,
+        m=mk,
+        k=mk,
+        e=e_mat,
+        apx=apx,
+        hermitian=False,
+    )
+    prob = cvxpy.Problem(cvxpy.Minimize(cvxpy.trace(TAU)), cons)
+    prob.solve(solver=cvxpy.SCS, verbose=False)
+
+    assert prob.status in {cvxpy.OPTIMAL, cvxpy.OPTIMAL_INACCURATE}, prob.status
+    assert TAU.value is not None
+
+    err = (TAU.value - dop_proj) / np.linalg.norm(dop_proj)
+    eig_err = np.linalg.eigvalsh((err + err.conj().T) / 2).real
+    assert float(np.min(apx * eig_err)) >= -5e-4
+    assert float(np.linalg.norm(err, ord="fro")) <= 2e-2
 
 
 def test_operator_relative_entropy_epi_cone_x_not_2d():
@@ -224,23 +260,6 @@ def test_operator_relative_entropy_epi_cone_invalid_apx(bad_apx: int):
     TAU = cvxpy.Variable((n, n), symmetric=True)
     with pytest.raises(ValueError, match=re.escape("apx must be either -1, 0, or 1.")):
         operator_relative_entropy_epi_cone(X, Y, TAU, apx=bad_apx)
-
-
-def test_operator_relative_entropy_epi_cone_zero_quadrature_weight():
-    """Raise when a mocked Gauss-Legendre weight is zero."""
-    n = 2
-    X = cvxpy.Constant(np.eye(n))
-    Y = cvxpy.Constant(np.eye(n))
-    TAU = cvxpy.Variable((n, n), symmetric=True)
-    with patch.object(
-        _ore_module,
-        "_gauss_legendre",
-        return_value=(np.array([0.5, 0.5]), np.array([1.0, 0.0])),
-    ):
-        with pytest.raises(
-            ValueError, match=re.escape("Quadrature weight must be positive.")
-        ):
-            operator_relative_entropy_epi_cone(X, Y, TAU, m=2, apx=0)
 
 
 @pytest.mark.parametrize("bad_m", [0, -3])
