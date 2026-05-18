@@ -16,19 +16,29 @@ from toqito.state_props.log_negativity import log_negativity
 from toqito.state_props.purity import purity
 from toqito.state_props.schmidt_rank import schmidt_rank
 from toqito.state_props.von_neumann_entropy import von_neumann_entropy
+from toqito.state_props.quantum_relative_entropy import quantum_relative_entropy
+from toqito.state_props.quantum_conditional_entropy import quantum_conditional_entropy
 from toqito.state_props.entanglement_of_formation import entanglement_of_formation
 from toqito.state_props.l1_norm_coherence import l1_norm_coherence
 from toqito.state_props.in_separable_ball import in_separable_ball
 from toqito.state_props.is_separable import is_separable
-from toqito.state_props.has_symmetric_inner_extension import has_symmetric_inner_extension
+from toqito.state_props.has_symmetric_inner_extension import (
+    has_symmetric_inner_extension,
+)
 from toqito.state_props.has_symmetric_extension import has_symmetric_extension
 from toqito.state_props.sk_vec_norm import sk_vector_norm
 from toqito.state_props.is_antidistinguishable import is_antidistinguishable
 from toqito.state_props.is_distinguishable import is_distinguishable
-from toqito.state_props.is_unextendible_product_basis import is_unextendible_product_basis
+from toqito.state_props.is_unextendible_product_basis import (
+    is_unextendible_product_basis,
+)
 from toqito.state_props.is_sic_povm import is_sic_povm
 from toqito.state_props.common_quantum_overlap import common_quantum_overlap
-from toqito.state_props.petz_renyi_conditional_entropy import petz_renyi_conditional_entropy
+from toqito.state_props.petz_renyi_conditional_entropy import (
+    petz_renyi_conditional_entropy,
+)
 from toqito.state_props.renyi_entropy import renyi_entropy
-from toqito.state_props.sandwiched_renyi_conditional_entropy import sandwiched_renyi_conditional_entropy
+from toqito.state_props.sandwiched_renyi_conditional_entropy import (
+    sandwiched_renyi_conditional_entropy,
+)
 from toqito.state_props.learnability import learnability

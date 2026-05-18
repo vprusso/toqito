@@ -23,3 +23,4 @@ from toqito.matrix_ops.operator_relative_entropy_epi_cone import (
     operator_relative_entropy_epi_cone,
 )
 from toqito.matrix_ops.trace_matrix_log import trace_matrix_log
+from toqito.matrix_ops.ln_quantum_entropy import ln_quantum_entropy
