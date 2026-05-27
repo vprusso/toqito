@@ -2,8 +2,6 @@
 
 import numpy as np
 
-from toqito.state_props.is_mutually_orthogonal import is_mutually_orthogonal
-
 
 def is_orthonormal(vectors: list[np.ndarray]) -> bool:
     r"""Check if the vectors are orthonormal.
@@ -46,6 +44,4 @@ def is_orthonormal(vectors: list[np.ndarray]) -> bool:
         ```
 
     """
-    return is_mutually_orthogonal(vectors) and np.allclose(
-        np.dot(vectors, np.conjugate(vectors).T), np.eye(len(vectors))
-    )
+    return np.allclose(np.dot(vectors, np.conjugate(vectors).T), np.eye(len(vectors)))
