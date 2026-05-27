@@ -4,7 +4,6 @@ import numpy as np
 
 from toqito.matrix_props.is_hermitian import is_hermitian
 from toqito.matrix_props.is_positive_semidefinite import is_positive_semidefinite
-from toqito.matrix_props.sk_norm import sk_operator_norm
 
 
 def is_block_positive(
@@ -88,6 +87,12 @@ def is_block_positive(
     #   c >= S(k)-norm of(c*I - X)
     # See Corollary 4.2.9. of `[@johnston2012norms].
     c_mat = op_norm * np.eye(dim_xy) - mat
+    # Deferred to call time: sk_norm pulls in state_props (schmidt_rank, sk_vector_norm),
+    # which transitively imports back into matrix_ops via the entropy modules. A top-level
+    # import here would re-introduce the matrix_props -> state_props -> matrix_ops cycle
+    # at package-load time.
+    from toqito.matrix_props.sk_norm import sk_operator_norm  # noqa: PLC0415
+
     lower_bound, upper_bound = sk_operator_norm(c_mat, k, dim_arr, op_norm, effort)
 
     # block positive
