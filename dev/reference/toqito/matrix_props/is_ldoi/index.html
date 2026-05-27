@@ -63,11 +63,11 @@
     
       <link rel="stylesheet" href="../../../../sg_gallery-dataframe.css">
     
-      <link rel="stylesheet" href="../../../../sg_gallery.css">
+      <link rel="stylesheet" href="../../../../sg_gallery-rendered-html.css">
     
       <link rel="stylesheet" href="../../../../sg_gallery-binder.css">
     
-      <link rel="stylesheet" href="../../../../sg_gallery-rendered-html.css">
+      <link rel="stylesheet" href="../../../../sg_gallery.css">
     
     <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -3270,6 +3270,8 @@
       
         
       
+        
+      
     
     
     
@@ -3446,6 +3448,34 @@
     
   
     <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code>lieb_ando
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../matrix_ops/ln_quantum_entropy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code>ln_quantum_entropy
   
 
     
@@ -7486,6 +7516,10 @@
       
         
       
+        
+      
+        
+      
     
     
     
@@ -8278,6 +8312,62 @@
     
   
     <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code>purity
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../state_props/quantum_conditional_entropy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code>quantum_conditional_entropy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../state_props/quantum_relative_entropy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code>quantum_relative_entropy
   
 
     
@@ -9416,7 +9506,9 @@ standard basis representation.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>toqito/matrix_props/is_ldoi.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-8"> 8</a></span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-0-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-0-8"> 8</a></span>
 <span class="normal"><a href="#__codelineno-0-9"> 9</a></span>
 <span class="normal"><a href="#__codelineno-0-10">10</a></span>
 <span class="normal"><a href="#__codelineno-0-11">11</a></span>
@@ -9489,80 +9581,92 @@ standard basis representation.</p>
 <span class="normal"><a href="#__codelineno-0-78">78</a></span>
 <span class="normal"><a href="#__codelineno-0-79">79</a></span>
 <span class="normal"><a href="#__codelineno-0-80">80</a></span>
-<span class="normal"><a href="#__codelineno-0-81">81</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-8" name="__codelineno-0-8"></a><span class="k">def</span><span class="w"> </span><span class="nf">is_ldoi</span><span class="p">(</span><span class="n">mat</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">rtol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-05</span><span class="p">,</span> <span class="n">atol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-08</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-<a id="__codelineno-0-9" name="__codelineno-0-9"></a><span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Check if a quantum state is LDOI (Local Diagonal Orthogonal Invariant).</span>
-<a id="__codelineno-0-10" name="__codelineno-0-10"></a>
-<a id="__codelineno-0-11" name="__codelineno-0-11"></a><span class="sd">    A matrix \(A \in \mathcal{L}(\mathcal{X} \otimes \mathcal{Y})\) is called *local diagonal</span>
-<a id="__codelineno-0-12" name="__codelineno-0-12"></a><span class="sd">    orthogonal invariant* (LDOI) if \(\Phi_O(A) = A\), where \(\Phi_O\) is the local</span>
-<a id="__codelineno-0-13" name="__codelineno-0-13"></a><span class="sd">    diagonal orthogonal twirl map defined as:</span>
-<a id="__codelineno-0-14" name="__codelineno-0-14"></a>
-<a id="__codelineno-0-15" name="__codelineno-0-15"></a><span class="sd">    \[</span>
-<a id="__codelineno-0-16" name="__codelineno-0-16"></a><span class="sd">        \Phi_O(A) = \frac{1}{2^n} \sum_{O \in \text{DO}(\mathcal{X})} (O \otimes O) A (O \otimes O)</span>
-<a id="__codelineno-0-17" name="__codelineno-0-17"></a><span class="sd">    \]</span>
+<span class="normal"><a href="#__codelineno-0-81">81</a></span>
+<span class="normal"><a href="#__codelineno-0-82">82</a></span>
+<span class="normal"><a href="#__codelineno-0-83">83</a></span>
+<span class="normal"><a href="#__codelineno-0-84">84</a></span>
+<span class="normal"><a href="#__codelineno-0-85">85</a></span>
+<span class="normal"><a href="#__codelineno-0-86">86</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-6" name="__codelineno-0-6"></a><span class="k">def</span><span class="w"> </span><span class="nf">is_ldoi</span><span class="p">(</span><span class="n">mat</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">rtol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-05</span><span class="p">,</span> <span class="n">atol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-08</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7"></a><span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Check if a quantum state is LDOI (Local Diagonal Orthogonal Invariant).</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8"></a>
+<a id="__codelineno-0-9" name="__codelineno-0-9"></a><span class="sd">    A matrix \(A \in \mathcal{L}(\mathcal{X} \otimes \mathcal{Y})\) is called *local diagonal</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10"></a><span class="sd">    orthogonal invariant* (LDOI) if \(\Phi_O(A) = A\), where \(\Phi_O\) is the local</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11"></a><span class="sd">    diagonal orthogonal twirl map defined as:</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12"></a>
+<a id="__codelineno-0-13" name="__codelineno-0-13"></a><span class="sd">    \[</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14"></a><span class="sd">        \Phi_O(A) = \frac{1}{2^n} \sum_{O \in \text{DO}(\mathcal{X})} (O \otimes O) A (O \otimes O)</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15"></a><span class="sd">    \]</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16"></a>
+<a id="__codelineno-0-17" name="__codelineno-0-17"></a><span class="sd">    where \(\text{DO}(\mathcal{X})\) is the set of diagonal matrices with entries \(\pm 1\).</span>
 <a id="__codelineno-0-18" name="__codelineno-0-18"></a>
-<a id="__codelineno-0-19" name="__codelineno-0-19"></a><span class="sd">    where \(\text{DO}(\mathcal{X})\) is the set of diagonal matrices with entries \(\pm 1\).</span>
-<a id="__codelineno-0-20" name="__codelineno-0-20"></a>
-<a id="__codelineno-0-21" name="__codelineno-0-21"></a><span class="sd">    LDOI states include many important families such as Werner states, isotropic states, X-states,</span>
-<a id="__codelineno-0-22" name="__codelineno-0-22"></a><span class="sd">    and mixtures of Dicke states. This function efficiently checks the LDOI property using the</span>
-<a id="__codelineno-0-23" name="__codelineno-0-23"></a><span class="sd">    standard basis representation.</span>
-<a id="__codelineno-0-24" name="__codelineno-0-24"></a>
-<a id="__codelineno-0-25" name="__codelineno-0-25"></a><span class="sd">    Args:</span>
-<a id="__codelineno-0-26" name="__codelineno-0-26"></a><span class="sd">        mat: A matrix representing a quantum state.</span>
-<a id="__codelineno-0-27" name="__codelineno-0-27"></a><span class="sd">        rtol: Relative tolerance parameter (default: 1e-05).</span>
-<a id="__codelineno-0-28" name="__codelineno-0-28"></a><span class="sd">        atol: Absolute tolerance parameter (default: 1e-08).</span>
-<a id="__codelineno-0-29" name="__codelineno-0-29"></a>
-<a id="__codelineno-0-30" name="__codelineno-0-30"></a><span class="sd">    Returns:</span>
-<a id="__codelineno-0-31" name="__codelineno-0-31"></a><span class="sd">        True if the matrix is LDOI, False otherwise.</span>
-<a id="__codelineno-0-32" name="__codelineno-0-32"></a>
-<a id="__codelineno-0-33" name="__codelineno-0-33"></a><span class="sd">    Raises:</span>
-<a id="__codelineno-0-34" name="__codelineno-0-34"></a><span class="sd">        ValueError: If input matrix is not square.</span>
-<a id="__codelineno-0-35" name="__codelineno-0-35"></a>
-<a id="__codelineno-0-36" name="__codelineno-0-36"></a><span class="sd">    Examples:</span>
-<a id="__codelineno-0-37" name="__codelineno-0-37"></a><span class="sd">        X-states are examples of 2-qubit LDOI states:</span>
-<a id="__codelineno-0-38" name="__codelineno-0-38"></a>
-<a id="__codelineno-0-39" name="__codelineno-0-39"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;</span>
-<a id="__codelineno-0-40" name="__codelineno-0-40"></a><span class="sd">        from toqito.matrix_props import is_ldoi</span>
-<a id="__codelineno-0-41" name="__codelineno-0-41"></a><span class="sd">        import numpy as np</span>
-<a id="__codelineno-0-42" name="__codelineno-0-42"></a>
-<a id="__codelineno-0-43" name="__codelineno-0-43"></a><span class="sd">        # Example X-state</span>
-<a id="__codelineno-0-44" name="__codelineno-0-44"></a><span class="sd">        x_state = np.array([[1, 0, 0, 2],</span>
-<a id="__codelineno-0-45" name="__codelineno-0-45"></a><span class="sd">                         [0, 3, 4, 0],</span>
-<a id="__codelineno-0-46" name="__codelineno-0-46"></a><span class="sd">                         [0, 5, 6, 0],</span>
-<a id="__codelineno-0-47" name="__codelineno-0-47"></a><span class="sd">                         [7, 0, 0, 8]])</span>
-<a id="__codelineno-0-48" name="__codelineno-0-48"></a><span class="sd">        print(is_ldoi(x_state))</span>
-<a id="__codelineno-0-49" name="__codelineno-0-49"></a><span class="sd">        ```</span>
+<a id="__codelineno-0-19" name="__codelineno-0-19"></a><span class="sd">    LDOI states include many important families such as Werner states, isotropic states, X-states,</span>
+<a id="__codelineno-0-20" name="__codelineno-0-20"></a><span class="sd">    and mixtures of Dicke states. This function efficiently checks the LDOI property using the</span>
+<a id="__codelineno-0-21" name="__codelineno-0-21"></a><span class="sd">    standard basis representation.</span>
+<a id="__codelineno-0-22" name="__codelineno-0-22"></a>
+<a id="__codelineno-0-23" name="__codelineno-0-23"></a><span class="sd">    Args:</span>
+<a id="__codelineno-0-24" name="__codelineno-0-24"></a><span class="sd">        mat: A matrix representing a quantum state.</span>
+<a id="__codelineno-0-25" name="__codelineno-0-25"></a><span class="sd">        rtol: Relative tolerance parameter (default: 1e-05).</span>
+<a id="__codelineno-0-26" name="__codelineno-0-26"></a><span class="sd">        atol: Absolute tolerance parameter (default: 1e-08).</span>
+<a id="__codelineno-0-27" name="__codelineno-0-27"></a>
+<a id="__codelineno-0-28" name="__codelineno-0-28"></a><span class="sd">    Returns:</span>
+<a id="__codelineno-0-29" name="__codelineno-0-29"></a><span class="sd">        True if the matrix is LDOI, False otherwise.</span>
+<a id="__codelineno-0-30" name="__codelineno-0-30"></a>
+<a id="__codelineno-0-31" name="__codelineno-0-31"></a><span class="sd">    Raises:</span>
+<a id="__codelineno-0-32" name="__codelineno-0-32"></a><span class="sd">        ValueError: If input matrix is not square.</span>
+<a id="__codelineno-0-33" name="__codelineno-0-33"></a>
+<a id="__codelineno-0-34" name="__codelineno-0-34"></a><span class="sd">    Examples:</span>
+<a id="__codelineno-0-35" name="__codelineno-0-35"></a><span class="sd">        X-states are examples of 2-qubit LDOI states:</span>
+<a id="__codelineno-0-36" name="__codelineno-0-36"></a>
+<a id="__codelineno-0-37" name="__codelineno-0-37"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;</span>
+<a id="__codelineno-0-38" name="__codelineno-0-38"></a><span class="sd">        from toqito.matrix_props import is_ldoi</span>
+<a id="__codelineno-0-39" name="__codelineno-0-39"></a><span class="sd">        import numpy as np</span>
+<a id="__codelineno-0-40" name="__codelineno-0-40"></a>
+<a id="__codelineno-0-41" name="__codelineno-0-41"></a><span class="sd">        # Example X-state</span>
+<a id="__codelineno-0-42" name="__codelineno-0-42"></a><span class="sd">        x_state = np.array([[1, 0, 0, 2],</span>
+<a id="__codelineno-0-43" name="__codelineno-0-43"></a><span class="sd">                         [0, 3, 4, 0],</span>
+<a id="__codelineno-0-44" name="__codelineno-0-44"></a><span class="sd">                         [0, 5, 6, 0],</span>
+<a id="__codelineno-0-45" name="__codelineno-0-45"></a><span class="sd">                         [7, 0, 0, 8]])</span>
+<a id="__codelineno-0-46" name="__codelineno-0-46"></a><span class="sd">        print(is_ldoi(x_state))</span>
+<a id="__codelineno-0-47" name="__codelineno-0-47"></a><span class="sd">        ```</span>
+<a id="__codelineno-0-48" name="__codelineno-0-48"></a>
+<a id="__codelineno-0-49" name="__codelineno-0-49"></a><span class="sd">        All diagonal states are LDOI:</span>
 <a id="__codelineno-0-50" name="__codelineno-0-50"></a>
-<a id="__codelineno-0-51" name="__codelineno-0-51"></a><span class="sd">        All diagonal states are LDOI:</span>
-<a id="__codelineno-0-52" name="__codelineno-0-52"></a>
-<a id="__codelineno-0-53" name="__codelineno-0-53"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;</span>
-<a id="__codelineno-0-54" name="__codelineno-0-54"></a><span class="sd">        from toqito.matrix_props import is_ldoi</span>
-<a id="__codelineno-0-55" name="__codelineno-0-55"></a><span class="sd">        import numpy as np</span>
-<a id="__codelineno-0-56" name="__codelineno-0-56"></a>
-<a id="__codelineno-0-57" name="__codelineno-0-57"></a><span class="sd">        diagonal_state = np.diag([1, 2, 3, 4])</span>
-<a id="__codelineno-0-58" name="__codelineno-0-58"></a><span class="sd">        print(is_ldoi(diagonal_state))</span>
-<a id="__codelineno-0-59" name="__codelineno-0-59"></a><span class="sd">        ```</span>
+<a id="__codelineno-0-51" name="__codelineno-0-51"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;</span>
+<a id="__codelineno-0-52" name="__codelineno-0-52"></a><span class="sd">        from toqito.matrix_props import is_ldoi</span>
+<a id="__codelineno-0-53" name="__codelineno-0-53"></a><span class="sd">        import numpy as np</span>
+<a id="__codelineno-0-54" name="__codelineno-0-54"></a>
+<a id="__codelineno-0-55" name="__codelineno-0-55"></a><span class="sd">        diagonal_state = np.diag([1, 2, 3, 4])</span>
+<a id="__codelineno-0-56" name="__codelineno-0-56"></a><span class="sd">        print(is_ldoi(diagonal_state))</span>
+<a id="__codelineno-0-57" name="__codelineno-0-57"></a><span class="sd">        ```</span>
+<a id="__codelineno-0-58" name="__codelineno-0-58"></a>
+<a id="__codelineno-0-59" name="__codelineno-0-59"></a><span class="sd">        Non-LDOI states return False:</span>
 <a id="__codelineno-0-60" name="__codelineno-0-60"></a>
-<a id="__codelineno-0-61" name="__codelineno-0-61"></a><span class="sd">        Non-LDOI states return False:</span>
-<a id="__codelineno-0-62" name="__codelineno-0-62"></a>
-<a id="__codelineno-0-63" name="__codelineno-0-63"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;</span>
-<a id="__codelineno-0-64" name="__codelineno-0-64"></a><span class="sd">        from toqito.matrix_props import is_ldoi</span>
-<a id="__codelineno-0-65" name="__codelineno-0-65"></a><span class="sd">        import numpy as np</span>
-<a id="__codelineno-0-66" name="__codelineno-0-66"></a>
-<a id="__codelineno-0-67" name="__codelineno-0-67"></a><span class="sd">        # Random non-LDOI state</span>
-<a id="__codelineno-0-68" name="__codelineno-0-68"></a><span class="sd">        non_ldoi = np.array([[1, 2, 3, 4],</span>
-<a id="__codelineno-0-69" name="__codelineno-0-69"></a><span class="sd">                          [5, 6, 7, 8],</span>
-<a id="__codelineno-0-70" name="__codelineno-0-70"></a><span class="sd">                          [9, 10, 11, 12],</span>
-<a id="__codelineno-0-71" name="__codelineno-0-71"></a><span class="sd">                          [13, 14, 15, 16]])</span>
-<a id="__codelineno-0-72" name="__codelineno-0-72"></a><span class="sd">        print(is_ldoi(non_ldoi))</span>
-<a id="__codelineno-0-73" name="__codelineno-0-73"></a><span class="sd">        ```</span>
-<a id="__codelineno-0-74" name="__codelineno-0-74"></a>
-<a id="__codelineno-0-75" name="__codelineno-0-75"></a><span class="sd">    &quot;&quot;&quot;</span>
-<a id="__codelineno-0-76" name="__codelineno-0-76"></a>    <span class="k">if</span> <span class="n">mat</span><span class="o">.</span><span class="n">ndim</span> <span class="o">!=</span> <span class="mi">2</span> <span class="ow">or</span> <span class="n">mat</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="n">mat</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
-<a id="__codelineno-0-77" name="__codelineno-0-77"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Input matrix must be square.&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-78" name="__codelineno-0-78"></a>
-<a id="__codelineno-0-79" name="__codelineno-0-79"></a>    <span class="c1"># A matrix is LDOI if Φ_O(mat) = mat</span>
-<a id="__codelineno-0-80" name="__codelineno-0-80"></a>    <span class="n">ldot_result</span> <span class="o">=</span> <span class="n">ldot_channel</span><span class="p">(</span><span class="n">mat</span><span class="p">)</span>
-<a id="__codelineno-0-81" name="__codelineno-0-81"></a>    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">ldot_result</span><span class="p">,</span> <span class="n">mat</span><span class="p">,</span> <span class="n">rtol</span><span class="o">=</span><span class="n">rtol</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="n">atol</span><span class="p">)</span>
+<a id="__codelineno-0-61" name="__codelineno-0-61"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;</span>
+<a id="__codelineno-0-62" name="__codelineno-0-62"></a><span class="sd">        from toqito.matrix_props import is_ldoi</span>
+<a id="__codelineno-0-63" name="__codelineno-0-63"></a><span class="sd">        import numpy as np</span>
+<a id="__codelineno-0-64" name="__codelineno-0-64"></a>
+<a id="__codelineno-0-65" name="__codelineno-0-65"></a><span class="sd">        # Random non-LDOI state</span>
+<a id="__codelineno-0-66" name="__codelineno-0-66"></a><span class="sd">        non_ldoi = np.array([[1, 2, 3, 4],</span>
+<a id="__codelineno-0-67" name="__codelineno-0-67"></a><span class="sd">                          [5, 6, 7, 8],</span>
+<a id="__codelineno-0-68" name="__codelineno-0-68"></a><span class="sd">                          [9, 10, 11, 12],</span>
+<a id="__codelineno-0-69" name="__codelineno-0-69"></a><span class="sd">                          [13, 14, 15, 16]])</span>
+<a id="__codelineno-0-70" name="__codelineno-0-70"></a><span class="sd">        print(is_ldoi(non_ldoi))</span>
+<a id="__codelineno-0-71" name="__codelineno-0-71"></a><span class="sd">        ```</span>
+<a id="__codelineno-0-72" name="__codelineno-0-72"></a>
+<a id="__codelineno-0-73" name="__codelineno-0-73"></a><span class="sd">    &quot;&quot;&quot;</span>
+<a id="__codelineno-0-74" name="__codelineno-0-74"></a>    <span class="k">if</span> <span class="n">mat</span><span class="o">.</span><span class="n">ndim</span> <span class="o">!=</span> <span class="mi">2</span> <span class="ow">or</span> <span class="n">mat</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="n">mat</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+<a id="__codelineno-0-75" name="__codelineno-0-75"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Input matrix must be square.&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-76" name="__codelineno-0-76"></a>
+<a id="__codelineno-0-77" name="__codelineno-0-77"></a>    <span class="c1"># Deferred to call time: toqito.channels eagerly loads pauli_channel, which</span>
+<a id="__codelineno-0-78" name="__codelineno-0-78"></a>    <span class="c1"># imports from toqito.matrices.pauli. Since the latter transitively loads</span>
+<a id="__codelineno-0-79" name="__codelineno-0-79"></a>    <span class="c1"># toqito.matrix_ops (for `tensor`), and matrix_ops triggers the entropy modules</span>
+<a id="__codelineno-0-80" name="__codelineno-0-80"></a>    <span class="c1"># that come back to matrix_props, a top-level import here would re-introduce a</span>
+<a id="__codelineno-0-81" name="__codelineno-0-81"></a>    <span class="c1"># matrices.pauli -&gt; matrix_ops -&gt; matrix_props -&gt; channels -&gt; matrices.pauli cycle.</span>
+<a id="__codelineno-0-82" name="__codelineno-0-82"></a>    <span class="kn">from</span><span class="w"> </span><span class="nn">toqito.channels</span><span class="w"> </span><span class="kn">import</span> <span class="n">ldot_channel</span>  <span class="c1"># noqa: PLC0415</span>
+<a id="__codelineno-0-83" name="__codelineno-0-83"></a>
+<a id="__codelineno-0-84" name="__codelineno-0-84"></a>    <span class="c1"># A matrix is LDOI if Φ_O(mat) = mat</span>
+<a id="__codelineno-0-85" name="__codelineno-0-85"></a>    <span class="n">ldot_result</span> <span class="o">=</span> <span class="n">ldot_channel</span><span class="p">(</span><span class="n">mat</span><span class="p">)</span>
+<a id="__codelineno-0-86" name="__codelineno-0-86"></a>    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">ldot_result</span><span class="p">,</span> <span class="n">mat</span><span class="p">,</span> <span class="n">rtol</span><span class="o">=</span><span class="n">rtol</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="n">atol</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>

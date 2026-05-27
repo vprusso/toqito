@@ -63,11 +63,11 @@
     
       <link rel="stylesheet" href="../../../../sg_gallery-dataframe.css">
     
-      <link rel="stylesheet" href="../../../../sg_gallery.css">
+      <link rel="stylesheet" href="../../../../sg_gallery-rendered-html.css">
     
       <link rel="stylesheet" href="../../../../sg_gallery-binder.css">
     
-      <link rel="stylesheet" href="../../../../sg_gallery-rendered-html.css">
+      <link rel="stylesheet" href="../../../../sg_gallery.css">
     
     <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -3330,6 +3330,8 @@
       
         
       
+        
+      
     
     
     
@@ -3506,6 +3508,34 @@
     
   
     <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code>lieb_ando
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../matrix_ops/ln_quantum_entropy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code>ln_quantum_entropy
   
 
     
@@ -7486,6 +7516,10 @@
       
         
       
+        
+      
+        
+      
     
     
     
@@ -8278,6 +8312,62 @@
     
   
     <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code>purity
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../state_props/quantum_conditional_entropy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code>quantum_conditional_entropy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../state_props/quantum_relative_entropy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code>quantum_relative_entropy
   
 
     
@@ -9415,10 +9505,10 @@ returned in a tuple alongside the Choi matrix. Prefer
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">pauli_channel</span><span class="p">(</span><span class="n">prob</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>[[ 0.54432509+0.j  0.        +0.j  0.        +0.j -0.01756632+0.j]
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a> [ 0.        +0.j  0.45567491+0.j -0.09906602+0.j  0.        +0.j]
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a> [ 0.        +0.j -0.09906602+0.j  0.45567491+0.j  0.        +0.j]
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a> [-0.01756632+0.j  0.        +0.j  0.        +0.j  0.54432509+0.j]]
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>[[ 0.63665663+0.j  0.        +0.j  0.        +0.j -0.35738449+0.j]
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a> [ 0.        +0.j  0.36334337+0.j  0.09507105+0.j  0.        +0.j]
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a> [ 0.        +0.j  0.09507105+0.j  0.36334337+0.j  0.        +0.j]
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a> [-0.35738449+0.j  0.        +0.j  0.        +0.j  0.63665663+0.j]]
 </code></pre></div>
 <p>Apply a specific two-qubit Pauli channel to an input matrix via <code>apply_channel</code>:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>

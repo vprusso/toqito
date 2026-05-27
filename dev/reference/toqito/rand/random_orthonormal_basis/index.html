@@ -63,11 +63,11 @@
     
       <link rel="stylesheet" href="../../../../sg_gallery-dataframe.css">
     
-      <link rel="stylesheet" href="../../../../sg_gallery.css">
+      <link rel="stylesheet" href="../../../../sg_gallery-rendered-html.css">
     
       <link rel="stylesheet" href="../../../../sg_gallery-binder.css">
     
-      <link rel="stylesheet" href="../../../../sg_gallery-rendered-html.css">
+      <link rel="stylesheet" href="../../../../sg_gallery.css">
     
     <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -3270,6 +3270,8 @@
       
         
       
+        
+      
     
     
     
@@ -3446,6 +3448,34 @@
     
   
     <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code>lieb_ando
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../matrix_ops/ln_quantum_entropy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code>ln_quantum_entropy
   
 
     
@@ -7486,6 +7516,10 @@
       
         
       
+        
+      
+        
+      
     
     
     
@@ -8278,6 +8312,62 @@
     
   
     <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code>purity
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../state_props/quantum_conditional_entropy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code>quantum_conditional_entropy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../state_props/quantum_relative_entropy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code>quantum_relative_entropy
   
 
     
@@ -9350,7 +9440,7 @@ as the columns of a unitary matrix typically form an orthonormal basis <sup><a i
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">random_orthonormal_basis</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">is_real</span> <span class="o">=</span> <span class="kc">True</span><span class="p">))</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>[array([-0.68619464,  0.02634731, -0.60352503, -0.40521632]), array([-0.32483335, -0.85457117,  0.06330029,  0.40023054]), array([-0.49252624,  0.08487672,  0.79481197, -0.34422055]), array([-0.42548574,  0.5116736 ,  0.00495399,  0.74640972])]
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>[array([ 0.30124405, -0.94806994,  0.02491535, -0.09896791]), array([-0.64673215, -0.18364022, -0.64078618, -0.37068433]), array([-0.03540048,  0.09152415,  0.50541935, -0.85727558]), array([-0.69981166, -0.2430288 ,  0.57734182,  0.3433323 ])]
 </code></pre></div>
 <p>It is also possible to add a seed for reproducibility.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.rand</span><span class="w"> </span><span class="kn">import</span> <span class="n">random_orthonormal_basis</span>
