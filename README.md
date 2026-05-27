@@ -174,6 +174,9 @@ The |toqito⟩ project has been used or referenced in the following works:
 - [![a](https://img.shields.io/static/v1?label=arXiv&message=2603.05452&color=inactive&style=flat-square)](https://arxiv.org/abs/2603.05452) Gupta, Tathagata and Mohan, Ankith and Murshid, Shayeef and Russo, Vincent and Sikora, Jamie and Zeng, Alice
 *"Local strategies are pretty good at computing Boolean properties of quantum sequences"*, arXiv:2603.05452, (2026).
 
+- [![a](https://img.shields.io/static/v1?label=DOI&message=10.1145/3772356.3772419&color=inactive&style=flat-square)](https://dl.acm.org/doi/10.1145/3772356.3772419) Arun, Venkat, Vijay Chidambaram, and Scott Aaronson
+*"Faster-than-light coordination for networked systems with quantum non-local games"*, Proceedings of the 24th ACM Workshop on Hot Topics in Networks, (2025).
+
 - [![a](https://img.shields.io/static/v1?label=arXiv&message=2510.20789&color=inactive&style=flat-square)](https://arxiv.org/abs/2510.20789) Lovitz, Benjamin and Johnston, Nathaniel and Russo, Vincent and Sikora, Jamie
 *"The complexity of perfect quantum state classification"*, arXiv:2510.20789, (2025).
 

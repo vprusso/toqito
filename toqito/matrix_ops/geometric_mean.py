@@ -4,7 +4,6 @@ import numpy as np
 from scipy.linalg import fractional_matrix_power, sqrtm
 
 from toqito.matrix_ops._cone_utils import _require_square_2d
-from toqito.matrix_props.is_positive_definite import is_positive_definite
 
 
 def geometric_mean(mat_a: np.ndarray, mat_b: np.ndarray, t: float) -> np.ndarray:
@@ -39,6 +38,8 @@ def geometric_mean(mat_a: np.ndarray, mat_b: np.ndarray, t: float) -> np.ndarray
       A matrix with the same shape as the inputs.
 
     """
+    from toqito.matrix_props.is_positive_definite import is_positive_definite  # noqa: PLC0415
+
     if mat_a.shape != mat_b.shape:
         raise ValueError("The matrices must be the same size.")
     _require_square_2d(mat_a, "The matrices")
