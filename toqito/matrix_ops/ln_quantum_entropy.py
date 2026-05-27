@@ -11,6 +11,7 @@ from toqito.matrix_ops._cone_utils import _require_square_2d
 from toqito.matrix_ops.operator_relative_entropy_epi_cone import (
     operator_relative_entropy_epi_cone,
 )
+from toqito.matrix_props import is_positive_semidefinite
 
 
 def ln_quantum_entropy(
@@ -41,8 +42,6 @@ def ln_quantum_entropy(
         The quantum entropy of the matrix as a float.
 
     """
-    from toqito.matrix_props import is_positive_semidefinite  # noqa: PLC0415
-
     if not isinstance(mat_x, (np.ndarray, cvxpy.Expression)):
         raise ValueError("mat_x must be a numpy array or a cvxpy expression")
     _require_square_2d(mat_x, "mat_x")

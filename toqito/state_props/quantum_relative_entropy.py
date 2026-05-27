@@ -13,6 +13,7 @@ from toqito.matrix_ops.operator_relative_entropy_epi_cone import (
     operator_relative_entropy_epi_cone,
 )
 from toqito.matrix_ops.trace_matrix_log import trace_matrix_log
+from toqito.matrix_props import is_hermitian, is_positive_semidefinite
 
 
 def quantum_relative_entropy(
@@ -52,11 +53,6 @@ def quantum_relative_entropy(
         The quantum relative entropy \(D(X||Y)\) as a float.
 
     """
-    from toqito.matrix_props import (
-        is_hermitian,
-        is_positive_semidefinite,
-    )  # noqa: PLC0415
-
     if not isinstance(mat_x, (np.ndarray, cvxpy.Expression)):
         raise ValueError("mat_x must be a numpy array or a cvxpy expression")
     if not isinstance(mat_y, (np.ndarray, cvxpy.Expression)):
