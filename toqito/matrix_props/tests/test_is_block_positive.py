@@ -1,11 +1,10 @@
 """Test is_block_positive."""
 
-import sys
-
 import numpy as np
 import pytest
 from picos import partial_transpose
 
+import toqito.matrix_props.sk_norm as sk_module
 from toqito.channels import choi
 from toqito.matrix_props import is_block_positive
 from toqito.perms import swap, swap_operator
@@ -94,7 +93,6 @@ def test_dim_input(input_mat, input_dim):
 
 def test_is_block_positive_raises_when_bounds_inconclusive(monkeypatch):
     """If the S(k)-norm bounds don't decide k-block positivity, a clear RuntimeError is raised."""
-    bp_module = sys.modules["toqito.matrix_props.is_block_positive"]
 
     def _fake_sk_operator_norm(mat, k, dim, op_norm, effort):
         # Return bounds that straddle op_norm beyond the rtol band so both
@@ -102,7 +100,7 @@ def test_is_block_positive_raises_when_bounds_inconclusive(monkeypatch):
         # are false; this forces the inconclusive branch.
         return 0.5, 2.0
 
-    monkeypatch.setattr(bp_module, "sk_operator_norm", _fake_sk_operator_norm)
+    monkeypatch.setattr(sk_module, "sk_operator_norm", _fake_sk_operator_norm)
 
     with pytest.raises(RuntimeError, match="Unable to determine k-block positivity"):
         is_block_positive(swap_operator(3), k=1, rtol=1e-5)
