@@ -6,8 +6,8 @@
 import cvxpy
 import numpy as np
 
-from toqito.matrix_ops._cone_utils import _require_square_2d, _symmetric_like_variable
-from toqito.matrix_ops.geometric_mean_hypo_cone import geometric_mean_hypo_cone
+from toqito.cones._utils import _require_square_2d, _symmetric_like_variable
+from toqito.cones.geometric_mean_hypo_cone import geometric_mean_hypo_cone
 
 
 def _gauss_legendre(m: int) -> tuple[np.ndarray, np.ndarray]:

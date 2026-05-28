@@ -10,10 +10,10 @@ import numpy as np
 import pytest
 from scipy.linalg import logm
 
-from toqito.matrix_ops.operator_relative_entropy_epi_cone import (
+from toqito.cones.operator_relative_entropy_epi_cone import (
     operator_relative_entropy_epi_cone,
 )
-from toqito.matrix_ops.trace_matrix_log import trace_matrix_log
+from toqito.cones.trace_matrix_log import trace_matrix_log
 from toqito.matrix_props import is_positive_semidefinite
 
 

@@ -11,11 +11,11 @@ import numpy as np
 import pytest
 from scipy.linalg import fractional_matrix_power, inv, logm
 
-from toqito.matrix_ops.operator_relative_entropy_epi_cone import (
+from toqito.cones.operator_relative_entropy_epi_cone import (
     operator_relative_entropy_epi_cone,
 )
 
-_ore_module = import_module("toqito.matrix_ops.operator_relative_entropy_epi_cone")
+_ore_module = import_module("toqito.cones.operator_relative_entropy_epi_cone")
 
 
 def _rand_psd_normalized(dim: int, seed: int, *, hermitian: bool) -> np.ndarray:

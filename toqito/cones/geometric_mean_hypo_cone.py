@@ -6,7 +6,7 @@
 import cvxpy
 import numpy as np
 
-from toqito.matrix_ops._cone_utils import (
+from toqito.cones._utils import (
     _is_power_of_two,
     _reduced_fraction_pq,
     _require_square_2d,
