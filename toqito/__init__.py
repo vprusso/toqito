@@ -5,6 +5,7 @@ __all__ = [
     "channel_ops",
     "channel_props",
     "channels",
+    "cones",
     "helper",
     "matrices",
     "matrix_ops",
