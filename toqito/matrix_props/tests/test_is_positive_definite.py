@@ -5,7 +5,7 @@ import numpy as np
 from toqito.matrix_props import is_positive_definite
 
 
-def test_is_is_positive_definite():
+def test_is_positive_definite():
     """Check that positive definite matrix returns True."""
     mat = np.array([[2, -1, 0], [-1, 2, -1], [0, -1, 2]])
     np.testing.assert_equal(is_positive_definite(mat), True)
@@ -51,3 +51,11 @@ def test_is_positive_definite_not_hermitian():
     """Input must be a Hermitian matrix."""
     mat = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
     np.testing.assert_equal(is_positive_definite(mat), False)
+
+
+def test_is_positive_definite_blas_accuracy():
+    """Mathematically PSD matrix is identified as such regardless of BLAS implementation."""
+    rng = np.random.default_rng(100)
+    dim = 6
+    x = rng.standard_normal((dim, dim)) + 1j * rng.standard_normal((dim, dim)) + 0.1 * np.eye(dim)
+    np.testing.assert_equal(is_positive_definite(x @ x.conj().T + 0.1 * np.eye(dim)), True)
