@@ -1,11 +1,13 @@
 """Trine states are states of linear polarization separated by 60°."""
 
+from typing import Any, Literal
+
 import numpy as np
 
 from toqito.states import basis
 
 
-def trine() -> list[np.ndarray]:
+def trine() -> list[np.ndarray[tuple[int, Literal[1]], np.dtype[np.inexact[Any]]]]:
     r"""Produce the set of trine states (Slide 6 of [@yard2017lecture]).
 
     The trine states are formally defined as:
@@ -30,7 +32,7 @@ def trine() -> list[np.ndarray]:
     """
     e_0, e_1 = basis(2, 0), basis(2, 1)
     return [
-        e_0,
+        e_0.astype(float),
         -1 / 2 * (e_0 + np.sqrt(3) * e_1),
         -1 / 2 * (e_0 - np.sqrt(3) * e_1),
     ]
