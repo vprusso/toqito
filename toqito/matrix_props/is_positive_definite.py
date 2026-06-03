@@ -62,14 +62,13 @@ def is_positive_definite(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-
             [`is_positive_semidefinite`][toqito.matrix_props.is_positive_semidefinite.is_positive_semidefinite]
 
     """
-    if is_hermitian(mat, rtol, atol):
-        try:
-            # Cholesky decomp requires that the matrix in question is
-            # positive-definite. It will throw an error if this is not the case
-            # that we catch here.
-            np.linalg.cholesky(mat)
-            return True
-        except np.linalg.LinAlgError:
-            return False
-    else:
+    if not is_hermitian(mat, rtol, atol):
+        return False
+    try:
+        # Cholesky decomp requires that the matrix in question is
+        # positive-definite. It will throw an error if this is not the case
+        # that we catch here.
+        np.linalg.cholesky(mat)
+        return True
+    except np.linalg.LinAlgError:
         return False
