@@ -1,8 +1,5 @@
 """Matrix operations is a set of modules that implements various properties of matrices and vectors."""
 
-import sys
-from importlib import import_module
-
 from toqito.matrix_props.has_same_dimension import has_same_dimension
 from toqito.matrix_props.is_square import is_square
 from toqito.matrix_props.kp_norm import kp_norm
@@ -25,11 +22,7 @@ from toqito.matrix_props.is_commuting import is_commuting
 from toqito.matrix_props.is_projection import is_projection
 from toqito.matrix_props.is_unitary import is_unitary
 from toqito.matrix_props.majorizes import majorizes
-# sk_operator_norm is loaded lazily below: sk_norm transitively imports state_props
-# (for schmidt_rank / sk_vector_norm), and several state_props modules import back
-# into matrix_ops, which creates a load-time cycle for any matrix_ops module that
-# imports matrix_props at top level. Deferring this single attribute keeps every
-# other matrix_props consumer free to do plain top-level imports.
+from toqito.matrix_props.sk_norm import sk_operator_norm
 from toqito.matrix_props.is_block_positive import is_block_positive
 from toqito.matrix_props.trace_norm import trace_norm
 from toqito.matrix_props.is_diagonally_dominant import is_diagonally_dominant
@@ -50,14 +43,3 @@ from toqito.matrix_props.is_ldoi import is_ldoi
 from toqito.matrix_props.is_tight_frame import is_tight_frame
 from toqito.matrix_props.is_equiangular_tight_frame import is_equiangular_tight_frame
 from toqito.matrix_props.nonnegative_rank import nonnegative_rank
-
-_LAZY_ATTRS = {"sk_operator_norm": "sk_norm"}
-
-
-def __getattr__(name: str) -> object:
-    if name not in _LAZY_ATTRS:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'")
-    module = import_module(f"{__name__}.{_LAZY_ATTRS[name]}")
-    attr = getattr(module, name)
-    setattr(sys.modules[__name__], name, attr)
-    return attr

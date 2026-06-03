@@ -7,10 +7,11 @@ import cvxpy
 import numpy as np
 from scipy.linalg import logm
 
-from toqito.matrix_ops._cone_utils import _require_square_2d
-from toqito.matrix_ops.operator_relative_entropy_epi_cone import (
+from toqito.cones._utils import _require_square_2d
+from toqito.cones.operator_relative_entropy_epi_cone import (
     operator_relative_entropy_epi_cone,
 )
+from toqito.matrix_props import is_positive_semidefinite
 
 
 def trace_matrix_log(
@@ -55,8 +56,6 @@ def trace_matrix_log(
         A float representing the value of the trace of the matrix logarithm.
 
     """
-    from toqito.matrix_props import is_positive_semidefinite  # noqa: PLC0415
-
     if not isinstance(mat_x, (np.ndarray, cvxpy.Expression)):
         raise ValueError("mat_x must be a numpy array or a cvxpy expression")
     _require_square_2d(mat_x, "mat_x")

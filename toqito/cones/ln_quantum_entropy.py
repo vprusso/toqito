@@ -7,8 +7,8 @@ import cvxpy
 import numpy as np
 from scipy.linalg import logm
 
-from toqito.matrix_ops._cone_utils import _require_square_2d
-from toqito.matrix_ops.operator_relative_entropy_epi_cone import (
+from toqito.cones._utils import _require_square_2d
+from toqito.cones.operator_relative_entropy_epi_cone import (
     operator_relative_entropy_epi_cone,
 )
 from toqito.matrix_props import is_positive_semidefinite
