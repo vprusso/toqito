@@ -2,6 +2,8 @@
 
 import numpy as np
 
+from toqito.channels import ldot_channel
+
 
 def is_ldoi(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08) -> bool:
     r"""Check if a quantum state is LDOI (Local Diagonal Orthogonal Invariant).
@@ -73,13 +75,6 @@ def is_ldoi(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08) -> bool:
     """
     if mat.ndim != 2 or mat.shape[0] != mat.shape[1]:
         raise ValueError("Input matrix must be square.")
-
-    # Deferred to call time: toqito.channels eagerly loads pauli_channel, which
-    # imports from toqito.matrices.pauli. Since the latter transitively loads
-    # toqito.matrix_ops (for `tensor`), and matrix_ops triggers the entropy modules
-    # that come back to matrix_props, a top-level import here would re-introduce a
-    # matrices.pauli -> matrix_ops -> matrix_props -> channels -> matrices.pauli cycle.
-    from toqito.channels import ldot_channel  # noqa: PLC0415
 
     # A matrix is LDOI if Φ_O(mat) = mat
     ldot_result = ldot_channel(mat)

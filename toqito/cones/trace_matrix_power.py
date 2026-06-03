@@ -7,9 +7,10 @@ import cvxpy
 import numpy as np
 from scipy.linalg import fractional_matrix_power
 
-from toqito.matrix_ops._cone_utils import _require_square_2d
-from toqito.matrix_ops.geometric_mean_epi_cone import geometric_mean_epi_cone
-from toqito.matrix_ops.geometric_mean_hypo_cone import geometric_mean_hypo_cone
+from toqito.cones._utils import _require_square_2d
+from toqito.cones.geometric_mean_epi_cone import geometric_mean_epi_cone
+from toqito.cones.geometric_mean_hypo_cone import geometric_mean_hypo_cone
+from toqito.matrix_props import is_positive_semidefinite
 
 
 def trace_matrix_power(
@@ -47,7 +48,7 @@ def trace_matrix_power(
     Examples:
         ```python
         import numpy as np
-        from toqito.matrix_ops import trace_matrix_power
+        from toqito.cones import trace_matrix_power
         mat_a = np.array([[2.0, 1.0], [1.0, 2.0]])
         t = 0.5
         mat_c = np.array([[1, 0], [0, 1]])
@@ -55,8 +56,6 @@ def trace_matrix_power(
         ```
 
     """
-    from toqito.matrix_props import is_positive_semidefinite  # noqa: PLC0415
-
     if not isinstance(mat_a, (np.ndarray, cvxpy.Expression)):
         raise TypeError("mat_a must be a numpy.ndarray or a cvxpy expression.")
 
