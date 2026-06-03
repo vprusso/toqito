@@ -9,9 +9,30 @@ from toqito.state_props import is_antidistinguishable, is_antidistinguishable_ci
 from toqito.states import trine
 
 
-def test_is_antidistinguishable_circulant_trine():
+@pytest.mark.parametrize("skip_circulant_check", [False, True])
+def test_is_antidistinguishable_circulant_trine(skip_circulant_check):
     """Test function works as expected for a valid set of states."""
-    assert is_antidistinguishable_circulant(trine())
+    assert is_antidistinguishable_circulant(trine(), skip_circulant_check=skip_circulant_check)
+
+
+def test_is_antidistinguishable_circulant_benchmark(benchmark):
+    """Benchmark for is_antidistinguishable_circulant function."""
+    gram_matrix = random_circulant_gram_matrix(16, seed=42)
+    states = vectors_from_gram_matrix(gram_matrix)
+    benchmark(is_antidistinguishable_circulant, states)
+
+
+def test_is_antidistinguishable_circulant_complex_gram():
+    """Test that the circulant set of states |+>, |i>, |-> and |-i> are antidistinguishable."""
+    gram_matrix = np.array(
+        [
+            [1, (1 + 1j) / 2, 0, (1 - 1j) / 2],
+            [(1 - 1j) / 2, 1, (1 + 1j) / 2, 0],
+            [0, (1 - 1j) / 2, 1, (1 + 1j) / 2],
+            [(1 + 1j) / 2, 0, (1 - 1j) / 2, 1],
+        ]
+    )
+    assert is_antidistinguishable_circulant(gram_matrix)
 
 
 def test_is_antidistinguishable_circulant_trine_gram():

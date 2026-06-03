@@ -1,13 +1,11 @@
 """Trine states are states of linear polarization separated by 60°."""
 
-from typing import Any, Literal
-
 import numpy as np
 
 from toqito.states import basis
 
 
-def trine() -> list[np.ndarray[tuple[int, Literal[1]], np.dtype[np.inexact[Any]]]]:
+def trine() -> list[np.ndarray]:
     r"""Produce the set of trine states (Slide 6 of [@yard2017lecture]).
 
     The trine states are formally defined as:

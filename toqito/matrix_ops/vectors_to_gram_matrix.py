@@ -1,13 +1,9 @@
 """Calculates the Gram matrix from a list of vectors."""
 
-from typing import Any, Literal
-
 import numpy as np
 
 
-def vectors_to_gram_matrix(
-    vectors: list[np.ndarray[tuple[int, Literal[1]], np.dtype[np.inexact[Any]]]],
-) -> np.ndarray[tuple[int, int], np.dtype[np.inexact[Any]]]:
+def vectors_to_gram_matrix(vectors: list[np.ndarray]) -> np.ndarray:
     r"""Construct the Gram matrix from a list of vectors or density matrices [@wikipediagram].
 
     The Gram matrix is a matrix of inner products. This function automatically detects whether the inputs
