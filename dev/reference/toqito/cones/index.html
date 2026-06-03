@@ -10,31 +10,31 @@
       
       
       
-        <link rel="canonical" href="https://vprusso.github.io/toqito/dev/reference/toqito/matrix_ops/operator_relative_entropy_epi_cone/">
+        <link rel="canonical" href="https://vprusso.github.io/toqito/dev/reference/toqito/cones/">
       
       
-        <link rel="prev" href="../null_space/">
+        <link rel="prev" href="../channels/reduction/">
       
       
-        <link rel="next" href="../partial_trace/">
+        <link rel="next" href="geometric_mean/">
       
       
         
       
       
-      <link rel="icon" href="../../../../figures/favicon.ico">
+      <link rel="icon" href="../../../figures/favicon.ico">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
     
     
       
-        <title>operator_relative_entropy_epi_cone - toqito</title>
+        <title>cones - toqito</title>
       
     
     
-      <link rel="stylesheet" href="../../../../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
       
         
-        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -53,23 +53,23 @@
       
     
     
-      <link rel="stylesheet" href="../../../../assets/_markdown_exec_pyodide.css">
+      <link rel="stylesheet" href="../../../assets/_markdown_exec_pyodide.css">
     
-      <link rel="stylesheet" href="../../../../assets/_markdown_exec_ansi.css">
+      <link rel="stylesheet" href="../../../assets/_markdown_exec_ansi.css">
     
-      <link rel="stylesheet" href="../../../../assets/_mkdocstrings.css">
+      <link rel="stylesheet" href="../../../assets/_mkdocstrings.css">
     
-      <link rel="stylesheet" href="../../../../assets/extra.css">
+      <link rel="stylesheet" href="../../../assets/extra.css">
     
-      <link rel="stylesheet" href="../../../../sg_gallery-dataframe.css">
+      <link rel="stylesheet" href="../../../sg_gallery-dataframe.css">
     
-      <link rel="stylesheet" href="../../../../sg_gallery-rendered-html.css">
+      <link rel="stylesheet" href="../../../sg_gallery-rendered-html.css">
     
-      <link rel="stylesheet" href="../../../../sg_gallery-binder.css">
+      <link rel="stylesheet" href="../../../sg_gallery-binder.css">
     
-      <link rel="stylesheet" href="../../../../sg_gallery.css">
+      <link rel="stylesheet" href="../../../sg_gallery.css">
     
-    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -94,7 +94,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#toqito.matrix_ops.operator_relative_entropy_epi_cone" class="md-skip">
+        <a href="#toqito.cones" class="md-skip">
           Skip to content
         </a>
       
@@ -114,9 +114,9 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../../../.." title="toqito" class="md-header__button md-logo" aria-label="toqito" data-md-component="logo">
+    <a href="../../.." title="toqito" class="md-header__button md-logo" aria-label="toqito" data-md-component="logo">
       
-  <img src="../../../../figures/logo-dark.svg" alt="logo">
+  <img src="../../../figures/logo-dark.svg" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -133,7 +133,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              operator_relative_entropy_epi_cone
+              cones
             
           </span>
         </div>
@@ -249,9 +249,9 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../../../.." title="toqito" class="md-nav__button md-logo" aria-label="toqito" data-md-component="logo">
+    <a href="../../.." title="toqito" class="md-nav__button md-logo" aria-label="toqito" data-md-component="logo">
       
-  <img src="../../../../figures/logo-dark.svg" alt="logo">
+  <img src="../../../figures/logo-dark.svg" alt="logo">
 
     </a>
     toqito
@@ -278,7 +278,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../.." class="md-nav__link">
+      <a href="../../.." class="md-nav__link">
         
   
   
@@ -305,7 +305,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../getting-started/" class="md-nav__link">
+      <a href="../../../getting-started/" class="md-nav__link">
         
   
   
@@ -332,7 +332,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../contributing-guide/" class="md-nav__link">
+      <a href="../../../contributing-guide/" class="md-nav__link">
         
   
   
@@ -387,7 +387,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../../generated/gallery/" class="md-nav__link ">
+            <a href="../../../generated/gallery/" class="md-nav__link ">
               
   
   
@@ -431,7 +431,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../.." class="md-nav__link">
+      <a href="../../.." class="md-nav__link">
         
   
   
@@ -510,7 +510,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../generated/gallery/basics/intro_tutorial/" class="md-nav__link">
+      <a href="../../../generated/gallery/basics/intro_tutorial/" class="md-nav__link">
         
   
   
@@ -607,7 +607,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../generated/gallery/extended_nonlocal_games/enlg_introduction/" class="md-nav__link">
+      <a href="../../../generated/gallery/extended_nonlocal_games/enlg_introduction/" class="md-nav__link">
         
   
   
@@ -635,7 +635,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../generated/gallery/extended_nonlocal_games/bit_commitment/" class="md-nav__link">
+      <a href="../../../generated/gallery/extended_nonlocal_games/bit_commitment/" class="md-nav__link">
         
   
   
@@ -663,7 +663,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../generated/gallery/extended_nonlocal_games/parallel_repetition/" class="md-nav__link">
+      <a href="../../../generated/gallery/extended_nonlocal_games/parallel_repetition/" class="md-nav__link">
         
   
   
@@ -691,7 +691,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../generated/gallery/extended_nonlocal_games/enlg_mub/" class="md-nav__link">
+      <a href="../../../generated/gallery/extended_nonlocal_games/enlg_mub/" class="md-nav__link">
         
   
   
@@ -719,7 +719,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../generated/gallery/extended_nonlocal_games/enlg_chsh/" class="md-nav__link">
+      <a href="../../../generated/gallery/extended_nonlocal_games/enlg_chsh/" class="md-nav__link">
         
   
   
@@ -747,7 +747,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../generated/gallery/extended_nonlocal_games/enlg_bb84/" class="md-nav__link">
+      <a href="../../../generated/gallery/extended_nonlocal_games/enlg_bb84/" class="md-nav__link">
         
   
   
@@ -838,7 +838,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../generated/gallery/nonlocal_games/xor_quantum_value/" class="md-nav__link">
+      <a href="../../../generated/gallery/nonlocal_games/xor_quantum_value/" class="md-nav__link">
         
   
   
@@ -866,7 +866,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../generated/gallery/nonlocal_games/npa_hierarchy/" class="md-nav__link">
+      <a href="../../../generated/gallery/nonlocal_games/npa_hierarchy/" class="md-nav__link">
         
   
   
@@ -894,7 +894,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../generated/gallery/nonlocal_games/nonlocal_game/" class="md-nav__link">
+      <a href="../../../generated/gallery/nonlocal_games/nonlocal_game/" class="md-nav__link">
         
   
   
@@ -995,7 +995,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../generated/gallery/quantum_states/state_distinguishability/" class="md-nav__link">
+      <a href="../../../generated/gallery/quantum_states/state_distinguishability/" class="md-nav__link">
         
   
   
@@ -1023,7 +1023,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../generated/gallery/quantum_states/separability/" class="md-nav__link">
+      <a href="../../../generated/gallery/quantum_states/separability/" class="md-nav__link">
         
   
   
@@ -1051,7 +1051,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../generated/gallery/quantum_states/pbr_theorem/" class="md-nav__link">
+      <a href="../../../generated/gallery/quantum_states/pbr_theorem/" class="md-nav__link">
         
   
   
@@ -1079,7 +1079,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../generated/gallery/quantum_states/circulant_states/" class="md-nav__link">
+      <a href="../../../generated/gallery/quantum_states/circulant_states/" class="md-nav__link">
         
   
   
@@ -1107,7 +1107,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../generated/gallery/quantum_states/state_exclusion/" class="md-nav__link">
+      <a href="../../../generated/gallery/quantum_states/state_exclusion/" class="md-nav__link">
         
   
   
@@ -1135,7 +1135,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../generated/gallery/quantum_states/equiangular_threshold/" class="md-nav__link">
+      <a href="../../../generated/gallery/quantum_states/equiangular_threshold/" class="md-nav__link">
         
   
   
@@ -1163,7 +1163,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../generated/gallery/quantum_states/classification/" class="md-nav__link">
+      <a href="../../../generated/gallery/quantum_states/classification/" class="md-nav__link">
         
   
   
@@ -1191,7 +1191,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../generated/gallery/quantum_states/pgm_pbm/" class="md-nav__link">
+      <a href="../../../generated/gallery/quantum_states/pgm_pbm/" class="md-nav__link">
         
   
   
@@ -1280,6 +1280,8 @@
       
         
       
+        
+      
     
     
     
@@ -1292,7 +1294,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../" class="md-nav__link ">
+            <a href="../" class="md-nav__link ">
               
   
   
@@ -1368,7 +1370,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../channel_metrics/" class="md-nav__link ">
+            <a href="../channel_metrics/" class="md-nav__link ">
               
   
   
@@ -1412,7 +1414,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../channel_metrics/channel_distinguishability/" class="md-nav__link">
+      <a href="../channel_metrics/channel_distinguishability/" class="md-nav__link">
         
   
   
@@ -1440,7 +1442,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../channel_metrics/channel_fidelity/" class="md-nav__link">
+      <a href="../channel_metrics/channel_fidelity/" class="md-nav__link">
         
   
   
@@ -1468,7 +1470,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../channel_metrics/channel_measured_relative_entropy/" class="md-nav__link">
+      <a href="../channel_metrics/channel_measured_relative_entropy/" class="md-nav__link">
         
   
   
@@ -1496,7 +1498,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../channel_metrics/completely_bounded_spectral_norm/" class="md-nav__link">
+      <a href="../channel_metrics/completely_bounded_spectral_norm/" class="md-nav__link">
         
   
   
@@ -1524,7 +1526,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../channel_metrics/completely_bounded_trace_norm/" class="md-nav__link">
+      <a href="../channel_metrics/completely_bounded_trace_norm/" class="md-nav__link">
         
   
   
@@ -1552,7 +1554,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../channel_metrics/diamond_distance/" class="md-nav__link">
+      <a href="../channel_metrics/diamond_distance/" class="md-nav__link">
         
   
   
@@ -1580,7 +1582,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../channel_metrics/fidelity_of_separability/" class="md-nav__link">
+      <a href="../channel_metrics/fidelity_of_separability/" class="md-nav__link">
         
   
   
@@ -1648,7 +1650,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../channel_ops/" class="md-nav__link ">
+            <a href="../channel_ops/" class="md-nav__link ">
               
   
   
@@ -1692,7 +1694,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../channel_ops/apply_channel/" class="md-nav__link">
+      <a href="../channel_ops/apply_channel/" class="md-nav__link">
         
   
   
@@ -1720,7 +1722,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../channel_ops/choi_to_kraus/" class="md-nav__link">
+      <a href="../channel_ops/choi_to_kraus/" class="md-nav__link">
         
   
   
@@ -1748,7 +1750,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../channel_ops/complementary_channel/" class="md-nav__link">
+      <a href="../channel_ops/complementary_channel/" class="md-nav__link">
         
   
   
@@ -1776,7 +1778,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../channel_ops/dual_channel/" class="md-nav__link">
+      <a href="../channel_ops/dual_channel/" class="md-nav__link">
         
   
   
@@ -1804,7 +1806,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../channel_ops/kraus_to_choi/" class="md-nav__link">
+      <a href="../channel_ops/kraus_to_choi/" class="md-nav__link">
         
   
   
@@ -1832,7 +1834,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../channel_ops/natural_representation/" class="md-nav__link">
+      <a href="../channel_ops/natural_representation/" class="md-nav__link">
         
   
   
@@ -1860,7 +1862,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../channel_ops/partial_channel/" class="md-nav__link">
+      <a href="../channel_ops/partial_channel/" class="md-nav__link">
         
   
   
@@ -1934,7 +1936,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../channel_props/" class="md-nav__link ">
+            <a href="../channel_props/" class="md-nav__link ">
               
   
   
@@ -1978,7 +1980,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../channel_props/channel_dim/" class="md-nav__link">
+      <a href="../channel_props/channel_dim/" class="md-nav__link">
         
   
   
@@ -2006,7 +2008,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../channel_props/choi_rank/" class="md-nav__link">
+      <a href="../channel_props/choi_rank/" class="md-nav__link">
         
   
   
@@ -2034,7 +2036,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../channel_props/is_completely_positive/" class="md-nav__link">
+      <a href="../channel_props/is_completely_positive/" class="md-nav__link">
         
   
   
@@ -2062,7 +2064,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../channel_props/is_extremal/" class="md-nav__link">
+      <a href="../channel_props/is_extremal/" class="md-nav__link">
         
   
   
@@ -2090,7 +2092,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../channel_props/is_herm_preserving/" class="md-nav__link">
+      <a href="../channel_props/is_herm_preserving/" class="md-nav__link">
         
   
   
@@ -2118,7 +2120,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../channel_props/is_positive/" class="md-nav__link">
+      <a href="../channel_props/is_positive/" class="md-nav__link">
         
   
   
@@ -2146,7 +2148,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../channel_props/is_quantum_channel/" class="md-nav__link">
+      <a href="../channel_props/is_quantum_channel/" class="md-nav__link">
         
   
   
@@ -2174,7 +2176,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../channel_props/is_trace_preserving/" class="md-nav__link">
+      <a href="../channel_props/is_trace_preserving/" class="md-nav__link">
         
   
   
@@ -2202,7 +2204,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../channel_props/is_unital/" class="md-nav__link">
+      <a href="../channel_props/is_unital/" class="md-nav__link">
         
   
   
@@ -2230,7 +2232,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../channel_props/is_unitary/" class="md-nav__link">
+      <a href="../channel_props/is_unitary/" class="md-nav__link">
         
   
   
@@ -2304,7 +2306,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../channels/" class="md-nav__link ">
+            <a href="../channels/" class="md-nav__link ">
               
   
   
@@ -2348,7 +2350,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../channels/amplitude_damping/" class="md-nav__link">
+      <a href="../channels/amplitude_damping/" class="md-nav__link">
         
   
   
@@ -2376,7 +2378,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../channels/bitflip/" class="md-nav__link">
+      <a href="../channels/bitflip/" class="md-nav__link">
         
   
   
@@ -2404,7 +2406,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../channels/choi/" class="md-nav__link">
+      <a href="../channels/choi/" class="md-nav__link">
         
   
   
@@ -2432,7 +2434,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../channels/dephasing/" class="md-nav__link">
+      <a href="../channels/dephasing/" class="md-nav__link">
         
   
   
@@ -2460,7 +2462,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../channels/depolarizing/" class="md-nav__link">
+      <a href="../channels/depolarizing/" class="md-nav__link">
         
   
   
@@ -2488,7 +2490,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../channels/ldot_channel/" class="md-nav__link">
+      <a href="../channels/ldot_channel/" class="md-nav__link">
         
   
   
@@ -2516,7 +2518,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../channels/pauli_channel/" class="md-nav__link">
+      <a href="../channels/pauli_channel/" class="md-nav__link">
         
   
   
@@ -2544,7 +2546,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../channels/phase_damping/" class="md-nav__link">
+      <a href="../channels/phase_damping/" class="md-nav__link">
         
   
   
@@ -2572,7 +2574,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../channels/realignment/" class="md-nav__link">
+      <a href="../channels/realignment/" class="md-nav__link">
         
   
   
@@ -2600,7 +2602,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../channels/reduction/" class="md-nav__link">
+      <a href="../channels/reduction/" class="md-nav__link">
         
   
   
@@ -2608,6 +2610,318 @@
     
   
     <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code>reduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_6" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="./" class="md-nav__link md-nav__link--active">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code>cones
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link md-nav__link--active" for="__nav_5_6" id="__nav_5_6_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code>cones
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="geometric_mean/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code>geometric_mean
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="geometric_mean_epi_cone/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code>geometric_mean_epi_cone
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="geometric_mean_hypo_cone/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code>geometric_mean_hypo_cone
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="lieb_ando/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code>lieb_ando
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ln_quantum_entropy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code>ln_quantum_entropy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="operator_relative_entropy_epi_cone/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code>operator_relative_entropy_epi_cone
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="trace_matrix_log/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code>trace_matrix_log
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="trace_matrix_power/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code>trace_matrix_power
   
 
     
@@ -2654,11 +2968,11 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_6" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_7" >
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../helper/" class="md-nav__link ">
+            <a href="../helper/" class="md-nav__link ">
               
   
   
@@ -2676,14 +2990,14 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_5_6" id="__nav_5_6_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_5_7" id="__nav_5_7_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_6_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_5_6">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_7">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -2702,7 +3016,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../helper/expr_as_np_array/" class="md-nav__link">
+      <a href="../helper/expr_as_np_array/" class="md-nav__link">
         
   
   
@@ -2730,7 +3044,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../helper/np_array_as_expr/" class="md-nav__link">
+      <a href="../helper/np_array_as_expr/" class="md-nav__link">
         
   
   
@@ -2806,11 +3120,11 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_7" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_8" >
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../matrices/" class="md-nav__link ">
+            <a href="../matrices/" class="md-nav__link ">
               
   
   
@@ -2828,14 +3142,14 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_5_7" id="__nav_5_7_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_5_8" id="__nav_5_8_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_7_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_5_7">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_8">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -2854,7 +3168,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../matrices/cnot/" class="md-nav__link">
+      <a href="../matrices/cnot/" class="md-nav__link">
         
   
   
@@ -2882,7 +3196,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../matrices/comparison/" class="md-nav__link">
+      <a href="../matrices/comparison/" class="md-nav__link">
         
   
   
@@ -2910,7 +3224,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../matrices/cyclic_permutation_matrix/" class="md-nav__link">
+      <a href="../matrices/cyclic_permutation_matrix/" class="md-nav__link">
         
   
   
@@ -2938,7 +3252,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../matrices/entangled_subspace/" class="md-nav__link">
+      <a href="../matrices/entangled_subspace/" class="md-nav__link">
         
   
   
@@ -2966,7 +3280,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../matrices/fourier/" class="md-nav__link">
+      <a href="../matrices/fourier/" class="md-nav__link">
         
   
   
@@ -2994,7 +3308,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../matrices/gell_mann/" class="md-nav__link">
+      <a href="../matrices/gell_mann/" class="md-nav__link">
         
   
   
@@ -3022,7 +3336,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../matrices/gen_gell_mann/" class="md-nav__link">
+      <a href="../matrices/gen_gell_mann/" class="md-nav__link">
         
   
   
@@ -3050,7 +3364,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../matrices/gen_pauli/" class="md-nav__link">
+      <a href="../matrices/gen_pauli/" class="md-nav__link">
         
   
   
@@ -3078,7 +3392,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../matrices/gen_pauli_x/" class="md-nav__link">
+      <a href="../matrices/gen_pauli_x/" class="md-nav__link">
         
   
   
@@ -3106,7 +3420,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../matrices/gen_pauli_z/" class="md-nav__link">
+      <a href="../matrices/gen_pauli_z/" class="md-nav__link">
         
   
   
@@ -3134,7 +3448,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../matrices/hadamard/" class="md-nav__link">
+      <a href="../matrices/hadamard/" class="md-nav__link">
         
   
   
@@ -3162,7 +3476,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../matrices/pauli/" class="md-nav__link">
+      <a href="../matrices/pauli/" class="md-nav__link">
         
   
   
@@ -3190,7 +3504,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../matrices/standard_basis/" class="md-nav__link">
+      <a href="../matrices/standard_basis/" class="md-nav__link">
         
   
   
@@ -3223,8 +3537,6 @@
                 
   
   
-    
-  
   
   
     
@@ -3258,35 +3570,19 @@
       
         
       
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
     
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_8" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_9" >
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../" class="md-nav__link ">
+            <a href="../matrix_ops/" class="md-nav__link ">
               
   
   
@@ -3304,14 +3600,14 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_5_8" id="__nav_5_8_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_5_9" id="__nav_5_9_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_8_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_5_8">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_9">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -3330,7 +3626,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../calculate_vector_matrix_dimension/" class="md-nav__link">
+      <a href="../matrix_ops/calculate_vector_matrix_dimension/" class="md-nav__link">
         
   
   
@@ -3358,147 +3654,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../geometric_mean/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code>geometric_mean
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../geometric_mean_epi_cone/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code>geometric_mean_epi_cone
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../geometric_mean_hypo_cone/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code>geometric_mean_hypo_cone
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../lieb_ando/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code>lieb_ando
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../ln_quantum_entropy/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code>ln_quantum_entropy
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../null_space/" class="md-nav__link">
+      <a href="../matrix_ops/null_space/" class="md-nav__link">
         
   
   
@@ -3523,96 +3679,10 @@
                 
   
   
-    
-  
-  
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code>operator_relative_entropy_epi_cone
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code>operator_relative_entropy_epi_cone
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#toqito.matrix_ops.operator_relative_entropy_epi_cone.operator_relative_entropy_epi_cone" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        <code class="doc-symbol doc-symbol-toc doc-symbol-function"></code>&nbsp;operator_relative_entropy_epi_cone
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
   
   
     <li class="md-nav__item">
-      <a href="../partial_trace/" class="md-nav__link">
+      <a href="../matrix_ops/partial_trace/" class="md-nav__link">
         
   
   
@@ -3640,7 +3710,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../partial_transpose/" class="md-nav__link">
+      <a href="../matrix_ops/partial_transpose/" class="md-nav__link">
         
   
   
@@ -3668,7 +3738,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../perturb_vectors/" class="md-nav__link">
+      <a href="../matrix_ops/perturb_vectors/" class="md-nav__link">
         
   
   
@@ -3696,7 +3766,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tensor/" class="md-nav__link">
+      <a href="../matrix_ops/tensor/" class="md-nav__link">
         
   
   
@@ -3724,7 +3794,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tensor_comb/" class="md-nav__link">
+      <a href="../matrix_ops/tensor_comb/" class="md-nav__link">
         
   
   
@@ -3752,7 +3822,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tensor_unravel/" class="md-nav__link">
+      <a href="../matrix_ops/tensor_unravel/" class="md-nav__link">
         
   
   
@@ -3780,7 +3850,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../to_density_matrix/" class="md-nav__link">
+      <a href="../matrix_ops/to_density_matrix/" class="md-nav__link">
         
   
   
@@ -3808,63 +3878,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../trace_matrix_log/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code>trace_matrix_log
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../trace_matrix_power/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code>trace_matrix_power
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../unvec/" class="md-nav__link">
+      <a href="../matrix_ops/unvec/" class="md-nav__link">
         
   
   
@@ -3892,7 +3906,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../vectors_from_gram_matrix/" class="md-nav__link">
+      <a href="../matrix_ops/vectors_from_gram_matrix/" class="md-nav__link">
         
   
   
@@ -3920,7 +3934,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../vectors_to_gram_matrix/" class="md-nav__link">
+      <a href="../matrix_ops/vectors_to_gram_matrix/" class="md-nav__link">
         
   
   
@@ -4056,11 +4070,11 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_9" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_10" >
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../matrix_props/" class="md-nav__link ">
+            <a href="../matrix_props/" class="md-nav__link ">
               
   
   
@@ -4078,14 +4092,14 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_5_9" id="__nav_5_9_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_5_10" id="__nav_5_10_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_9_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_5_9">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_10">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -4104,7 +4118,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../matrix_props/commutant/" class="md-nav__link">
+      <a href="../matrix_props/commutant/" class="md-nav__link">
         
   
   
@@ -4132,7 +4146,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../matrix_props/factor_width/" class="md-nav__link">
+      <a href="../matrix_props/factor_width/" class="md-nav__link">
         
   
   
@@ -4160,7 +4174,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../matrix_props/has_same_dimension/" class="md-nav__link">
+      <a href="../matrix_props/has_same_dimension/" class="md-nav__link">
         
   
   
@@ -4188,7 +4202,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../matrix_props/is_absolutely_k_incoherent/" class="md-nav__link">
+      <a href="../matrix_props/is_absolutely_k_incoherent/" class="md-nav__link">
         
   
   
@@ -4216,7 +4230,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../matrix_props/is_anti_hermitian/" class="md-nav__link">
+      <a href="../matrix_props/is_anti_hermitian/" class="md-nav__link">
         
   
   
@@ -4244,7 +4258,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../matrix_props/is_block_positive/" class="md-nav__link">
+      <a href="../matrix_props/is_block_positive/" class="md-nav__link">
         
   
   
@@ -4272,7 +4286,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../matrix_props/is_circulant/" class="md-nav__link">
+      <a href="../matrix_props/is_circulant/" class="md-nav__link">
         
   
   
@@ -4300,7 +4314,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../matrix_props/is_commuting/" class="md-nav__link">
+      <a href="../matrix_props/is_commuting/" class="md-nav__link">
         
   
   
@@ -4328,7 +4342,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../matrix_props/is_density/" class="md-nav__link">
+      <a href="../matrix_props/is_density/" class="md-nav__link">
         
   
   
@@ -4356,7 +4370,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../matrix_props/is_diagonal/" class="md-nav__link">
+      <a href="../matrix_props/is_diagonal/" class="md-nav__link">
         
   
   
@@ -4384,7 +4398,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../matrix_props/is_diagonally_dominant/" class="md-nav__link">
+      <a href="../matrix_props/is_diagonally_dominant/" class="md-nav__link">
         
   
   
@@ -4412,7 +4426,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../matrix_props/is_equiangular_tight_frame/" class="md-nav__link">
+      <a href="../matrix_props/is_equiangular_tight_frame/" class="md-nav__link">
         
   
   
@@ -4440,7 +4454,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../matrix_props/is_hermitian/" class="md-nav__link">
+      <a href="../matrix_props/is_hermitian/" class="md-nav__link">
         
   
   
@@ -4468,7 +4482,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../matrix_props/is_idempotent/" class="md-nav__link">
+      <a href="../matrix_props/is_idempotent/" class="md-nav__link">
         
   
   
@@ -4496,7 +4510,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../matrix_props/is_identity/" class="md-nav__link">
+      <a href="../matrix_props/is_identity/" class="md-nav__link">
         
   
   
@@ -4524,7 +4538,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../matrix_props/is_k_incoherent/" class="md-nav__link">
+      <a href="../matrix_props/is_k_incoherent/" class="md-nav__link">
         
   
   
@@ -4552,7 +4566,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../matrix_props/is_ldoi/" class="md-nav__link">
+      <a href="../matrix_props/is_ldoi/" class="md-nav__link">
         
   
   
@@ -4580,7 +4594,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../matrix_props/is_linearly_independent/" class="md-nav__link">
+      <a href="../matrix_props/is_linearly_independent/" class="md-nav__link">
         
   
   
@@ -4608,7 +4622,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../matrix_props/is_nonnegative/" class="md-nav__link">
+      <a href="../matrix_props/is_nonnegative/" class="md-nav__link">
         
   
   
@@ -4636,7 +4650,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../matrix_props/is_normal/" class="md-nav__link">
+      <a href="../matrix_props/is_normal/" class="md-nav__link">
         
   
   
@@ -4664,7 +4678,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../matrix_props/is_orthonormal/" class="md-nav__link">
+      <a href="../matrix_props/is_orthonormal/" class="md-nav__link">
         
   
   
@@ -4692,7 +4706,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../matrix_props/is_permutation/" class="md-nav__link">
+      <a href="../matrix_props/is_permutation/" class="md-nav__link">
         
   
   
@@ -4720,7 +4734,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../matrix_props/is_positive/" class="md-nav__link">
+      <a href="../matrix_props/is_positive/" class="md-nav__link">
         
   
   
@@ -4748,7 +4762,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../matrix_props/is_positive_definite/" class="md-nav__link">
+      <a href="../matrix_props/is_positive_definite/" class="md-nav__link">
         
   
   
@@ -4776,7 +4790,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../matrix_props/is_positive_semidefinite/" class="md-nav__link">
+      <a href="../matrix_props/is_positive_semidefinite/" class="md-nav__link">
         
   
   
@@ -4804,7 +4818,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../matrix_props/is_projection/" class="md-nav__link">
+      <a href="../matrix_props/is_projection/" class="md-nav__link">
         
   
   
@@ -4832,7 +4846,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../matrix_props/is_pseudo_hermitian/" class="md-nav__link">
+      <a href="../matrix_props/is_pseudo_hermitian/" class="md-nav__link">
         
   
   
@@ -4860,7 +4874,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../matrix_props/is_pseudo_unitary/" class="md-nav__link">
+      <a href="../matrix_props/is_pseudo_unitary/" class="md-nav__link">
         
   
   
@@ -4888,7 +4902,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../matrix_props/is_rank_one/" class="md-nav__link">
+      <a href="../matrix_props/is_rank_one/" class="md-nav__link">
         
   
   
@@ -4916,7 +4930,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../matrix_props/is_square/" class="md-nav__link">
+      <a href="../matrix_props/is_square/" class="md-nav__link">
         
   
   
@@ -4944,7 +4958,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../matrix_props/is_stochastic/" class="md-nav__link">
+      <a href="../matrix_props/is_stochastic/" class="md-nav__link">
         
   
   
@@ -4972,7 +4986,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../matrix_props/is_symmetric/" class="md-nav__link">
+      <a href="../matrix_props/is_symmetric/" class="md-nav__link">
         
   
   
@@ -5000,7 +5014,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../matrix_props/is_tight_frame/" class="md-nav__link">
+      <a href="../matrix_props/is_tight_frame/" class="md-nav__link">
         
   
   
@@ -5028,7 +5042,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../matrix_props/is_totally_positive/" class="md-nav__link">
+      <a href="../matrix_props/is_totally_positive/" class="md-nav__link">
         
   
   
@@ -5056,7 +5070,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../matrix_props/is_unitary/" class="md-nav__link">
+      <a href="../matrix_props/is_unitary/" class="md-nav__link">
         
   
   
@@ -5084,7 +5098,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../matrix_props/kp_norm/" class="md-nav__link">
+      <a href="../matrix_props/kp_norm/" class="md-nav__link">
         
   
   
@@ -5112,7 +5126,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../matrix_props/majorizes/" class="md-nav__link">
+      <a href="../matrix_props/majorizes/" class="md-nav__link">
         
   
   
@@ -5140,7 +5154,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../matrix_props/mutual_coherence/" class="md-nav__link">
+      <a href="../matrix_props/mutual_coherence/" class="md-nav__link">
         
   
   
@@ -5168,7 +5182,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../matrix_props/nonnegative_rank/" class="md-nav__link">
+      <a href="../matrix_props/nonnegative_rank/" class="md-nav__link">
         
   
   
@@ -5196,7 +5210,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../matrix_props/positive_semidefinite_rank/" class="md-nav__link">
+      <a href="../matrix_props/positive_semidefinite_rank/" class="md-nav__link">
         
   
   
@@ -5224,7 +5238,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../matrix_props/sk_norm/" class="md-nav__link">
+      <a href="../matrix_props/sk_norm/" class="md-nav__link">
         
   
   
@@ -5252,7 +5266,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../matrix_props/spark/" class="md-nav__link">
+      <a href="../matrix_props/spark/" class="md-nav__link">
         
   
   
@@ -5280,7 +5294,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../matrix_props/trace_norm/" class="md-nav__link">
+      <a href="../matrix_props/trace_norm/" class="md-nav__link">
         
   
   
@@ -5332,11 +5346,11 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_10" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_11" >
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../measurement_ops/" class="md-nav__link ">
+            <a href="../measurement_ops/" class="md-nav__link ">
               
   
   
@@ -5354,14 +5368,14 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_5_10" id="__nav_5_10_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_5_11" id="__nav_5_11_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_10_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_5_10">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_11">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -5380,7 +5394,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../measurement_ops/measure/" class="md-nav__link">
+      <a href="../measurement_ops/measure/" class="md-nav__link">
         
   
   
@@ -5432,11 +5446,11 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_11" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_12" >
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../measurement_props/" class="md-nav__link ">
+            <a href="../measurement_props/" class="md-nav__link ">
               
   
   
@@ -5454,14 +5468,14 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_5_11" id="__nav_5_11_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_5_12" id="__nav_5_12_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_11_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_5_11">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_12">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -5480,7 +5494,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../measurement_props/is_povm/" class="md-nav__link">
+      <a href="../measurement_props/is_povm/" class="md-nav__link">
         
   
   
@@ -5534,11 +5548,11 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_12" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_13" >
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../measurements/" class="md-nav__link ">
+            <a href="../measurements/" class="md-nav__link ">
               
   
   
@@ -5556,14 +5570,14 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_5_12" id="__nav_5_12_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_5_13" id="__nav_5_13_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_12_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_5_12">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_13">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -5582,7 +5596,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../measurements/pretty_bad_measurement/" class="md-nav__link">
+      <a href="../measurements/pretty_bad_measurement/" class="md-nav__link">
         
   
   
@@ -5610,7 +5624,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../measurements/pretty_good_measurement/" class="md-nav__link">
+      <a href="../measurements/pretty_good_measurement/" class="md-nav__link">
         
   
   
@@ -5670,11 +5684,11 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_13" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_14" >
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../nonlocal_games/" class="md-nav__link ">
+            <a href="../nonlocal_games/" class="md-nav__link ">
               
   
   
@@ -5692,14 +5706,14 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_5_13" id="__nav_5_13_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_5_14" id="__nav_5_14_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_13_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_5_13">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_14_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_14">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -5718,7 +5732,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../nonlocal_games/binary_constraint_system_game/" class="md-nav__link">
+      <a href="../nonlocal_games/binary_constraint_system_game/" class="md-nav__link">
         
   
   
@@ -5746,7 +5760,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../nonlocal_games/extended_nonlocal_game/" class="md-nav__link">
+      <a href="../nonlocal_games/extended_nonlocal_game/" class="md-nav__link">
         
   
   
@@ -5774,7 +5788,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../nonlocal_games/nonlocal_game/" class="md-nav__link">
+      <a href="../nonlocal_games/nonlocal_game/" class="md-nav__link">
         
   
   
@@ -5802,7 +5816,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../nonlocal_games/quantum_hedging/" class="md-nav__link">
+      <a href="../nonlocal_games/quantum_hedging/" class="md-nav__link">
         
   
   
@@ -5830,7 +5844,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../nonlocal_games/xor_game/" class="md-nav__link">
+      <a href="../nonlocal_games/xor_game/" class="md-nav__link">
         
   
   
@@ -5900,11 +5914,11 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_14" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_15" >
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../perms/" class="md-nav__link ">
+            <a href="../perms/" class="md-nav__link ">
               
   
   
@@ -5922,14 +5936,14 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_5_14" id="__nav_5_14_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_5_15" id="__nav_5_15_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_14_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_5_14">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_15_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_15">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -5948,7 +5962,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../perms/antisymmetric_projection/" class="md-nav__link">
+      <a href="../perms/antisymmetric_projection/" class="md-nav__link">
         
   
   
@@ -5976,7 +5990,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../perms/perfect_matchings/" class="md-nav__link">
+      <a href="../perms/perfect_matchings/" class="md-nav__link">
         
   
   
@@ -6004,7 +6018,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../perms/perm_sign/" class="md-nav__link">
+      <a href="../perms/perm_sign/" class="md-nav__link">
         
   
   
@@ -6032,7 +6046,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../perms/permutation_operator/" class="md-nav__link">
+      <a href="../perms/permutation_operator/" class="md-nav__link">
         
   
   
@@ -6060,7 +6074,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../perms/permute_systems/" class="md-nav__link">
+      <a href="../perms/permute_systems/" class="md-nav__link">
         
   
   
@@ -6088,7 +6102,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../perms/swap/" class="md-nav__link">
+      <a href="../perms/swap/" class="md-nav__link">
         
   
   
@@ -6116,7 +6130,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../perms/swap_operator/" class="md-nav__link">
+      <a href="../perms/swap_operator/" class="md-nav__link">
         
   
   
@@ -6144,7 +6158,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../perms/symmetric_projection/" class="md-nav__link">
+      <a href="../perms/symmetric_projection/" class="md-nav__link">
         
   
   
@@ -6172,7 +6186,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../perms/unique_perms/" class="md-nav__link">
+      <a href="../perms/unique_perms/" class="md-nav__link">
         
   
   
@@ -6200,7 +6214,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../perms/vec/" class="md-nav__link">
+      <a href="../perms/vec/" class="md-nav__link">
         
   
   
@@ -6272,11 +6286,11 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_15" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_16" >
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../rand/" class="md-nav__link ">
+            <a href="../rand/" class="md-nav__link ">
               
   
   
@@ -6294,14 +6308,14 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_5_15" id="__nav_5_15_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_5_16" id="__nav_5_16_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_15_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_5_15">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_16_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_16">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -6320,7 +6334,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../rand/random_circulant_gram_matrix/" class="md-nav__link">
+      <a href="../rand/random_circulant_gram_matrix/" class="md-nav__link">
         
   
   
@@ -6348,7 +6362,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../rand/random_density_matrix/" class="md-nav__link">
+      <a href="../rand/random_density_matrix/" class="md-nav__link">
         
   
   
@@ -6376,7 +6390,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../rand/random_ginibre/" class="md-nav__link">
+      <a href="../rand/random_ginibre/" class="md-nav__link">
         
   
   
@@ -6404,7 +6418,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../rand/random_linearly_independent_vectors/" class="md-nav__link">
+      <a href="../rand/random_linearly_independent_vectors/" class="md-nav__link">
         
   
   
@@ -6432,7 +6446,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../rand/random_orthonormal_basis/" class="md-nav__link">
+      <a href="../rand/random_orthonormal_basis/" class="md-nav__link">
         
   
   
@@ -6460,7 +6474,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../rand/random_povm/" class="md-nav__link">
+      <a href="../rand/random_povm/" class="md-nav__link">
         
   
   
@@ -6488,7 +6502,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../rand/random_psd_operator/" class="md-nav__link">
+      <a href="../rand/random_psd_operator/" class="md-nav__link">
         
   
   
@@ -6516,7 +6530,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../rand/random_state_vector/" class="md-nav__link">
+      <a href="../rand/random_state_vector/" class="md-nav__link">
         
   
   
@@ -6544,7 +6558,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../rand/random_states/" class="md-nav__link">
+      <a href="../rand/random_states/" class="md-nav__link">
         
   
   
@@ -6572,7 +6586,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../rand/random_superoperator/" class="md-nav__link">
+      <a href="../rand/random_superoperator/" class="md-nav__link">
         
   
   
@@ -6600,7 +6614,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../rand/random_unitary/" class="md-nav__link">
+      <a href="../rand/random_unitary/" class="md-nav__link">
         
   
   
@@ -6672,11 +6686,11 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_16" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_17" >
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../state_metrics/" class="md-nav__link ">
+            <a href="../state_metrics/" class="md-nav__link ">
               
   
   
@@ -6694,14 +6708,14 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_5_16" id="__nav_5_16_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_5_17" id="__nav_5_17_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_16_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_5_16">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_17_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_17">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -6720,7 +6734,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../state_metrics/bures_angle/" class="md-nav__link">
+      <a href="../state_metrics/bures_angle/" class="md-nav__link">
         
   
   
@@ -6748,7 +6762,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../state_metrics/bures_distance/" class="md-nav__link">
+      <a href="../state_metrics/bures_distance/" class="md-nav__link">
         
   
   
@@ -6776,7 +6790,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../state_metrics/fidelity/" class="md-nav__link">
+      <a href="../state_metrics/fidelity/" class="md-nav__link">
         
   
   
@@ -6804,7 +6818,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../state_metrics/fidelity_of_separability/" class="md-nav__link">
+      <a href="../state_metrics/fidelity_of_separability/" class="md-nav__link">
         
   
   
@@ -6832,7 +6846,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../state_metrics/helstrom_holevo/" class="md-nav__link">
+      <a href="../state_metrics/helstrom_holevo/" class="md-nav__link">
         
   
   
@@ -6860,7 +6874,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../state_metrics/hilbert_schmidt/" class="md-nav__link">
+      <a href="../state_metrics/hilbert_schmidt/" class="md-nav__link">
         
   
   
@@ -6888,7 +6902,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../state_metrics/hilbert_schmidt_inner_product/" class="md-nav__link">
+      <a href="../state_metrics/hilbert_schmidt_inner_product/" class="md-nav__link">
         
   
   
@@ -6916,7 +6930,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../state_metrics/matsumoto_fidelity/" class="md-nav__link">
+      <a href="../state_metrics/matsumoto_fidelity/" class="md-nav__link">
         
   
   
@@ -6944,7 +6958,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../state_metrics/measured_relative_entropy/" class="md-nav__link">
+      <a href="../state_metrics/measured_relative_entropy/" class="md-nav__link">
         
   
   
@@ -6972,7 +6986,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../state_metrics/sub_fidelity/" class="md-nav__link">
+      <a href="../state_metrics/sub_fidelity/" class="md-nav__link">
         
   
   
@@ -7000,7 +7014,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../state_metrics/trace_distance/" class="md-nav__link">
+      <a href="../state_metrics/trace_distance/" class="md-nav__link">
         
   
   
@@ -7054,11 +7068,11 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_17" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_18" >
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../state_ops/" class="md-nav__link ">
+            <a href="../state_ops/" class="md-nav__link ">
               
   
   
@@ -7076,14 +7090,14 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_5_17" id="__nav_5_17_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_5_18" id="__nav_5_18_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_17_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_5_17">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_18_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_18">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -7102,7 +7116,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../state_ops/normalize/" class="md-nav__link">
+      <a href="../state_ops/normalize/" class="md-nav__link">
         
   
   
@@ -7130,7 +7144,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../state_ops/schmidt_decomposition/" class="md-nav__link">
+      <a href="../state_ops/schmidt_decomposition/" class="md-nav__link">
         
   
   
@@ -7194,11 +7208,11 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_18" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_19" >
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../state_opt/" class="md-nav__link ">
+            <a href="../state_opt/" class="md-nav__link ">
               
   
   
@@ -7216,14 +7230,14 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_5_18" id="__nav_5_18_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_5_19" id="__nav_5_19_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_18_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_5_18">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_19_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_19">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -7242,7 +7256,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../state_opt/bell_inequality_max/" class="md-nav__link">
+      <a href="../state_opt/bell_inequality_max/" class="md-nav__link">
         
   
   
@@ -7270,7 +7284,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../state_opt/bell_notation_conversions/" class="md-nav__link">
+      <a href="../state_opt/bell_notation_conversions/" class="md-nav__link">
         
   
   
@@ -7298,7 +7312,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../state_opt/npa_hierarchy/" class="md-nav__link">
+      <a href="../state_opt/npa_hierarchy/" class="md-nav__link">
         
   
   
@@ -7326,7 +7340,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../state_opt/optimal_clone/" class="md-nav__link">
+      <a href="../state_opt/optimal_clone/" class="md-nav__link">
         
   
   
@@ -7354,7 +7368,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../state_opt/state_distinguishability/" class="md-nav__link">
+      <a href="../state_opt/state_distinguishability/" class="md-nav__link">
         
   
   
@@ -7382,7 +7396,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../state_opt/state_exclusion/" class="md-nav__link">
+      <a href="../state_opt/state_exclusion/" class="md-nav__link">
         
   
   
@@ -7410,7 +7424,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../state_opt/symmetric_extension_hierarchy/" class="md-nav__link">
+      <a href="../state_opt/symmetric_extension_hierarchy/" class="md-nav__link">
         
   
   
@@ -7528,11 +7542,11 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_19" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_20" >
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../state_props/" class="md-nav__link ">
+            <a href="../state_props/" class="md-nav__link ">
               
   
   
@@ -7550,14 +7564,14 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_5_19" id="__nav_5_19_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_5_20" id="__nav_5_20_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_19_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_5_19">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_20_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_20">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -7576,7 +7590,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../state_props/abs_ppt_constraints/" class="md-nav__link">
+      <a href="../state_props/abs_ppt_constraints/" class="md-nav__link">
         
   
   
@@ -7604,7 +7618,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../state_props/common_quantum_overlap/" class="md-nav__link">
+      <a href="../state_props/common_quantum_overlap/" class="md-nav__link">
         
   
   
@@ -7632,7 +7646,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../state_props/concurrence/" class="md-nav__link">
+      <a href="../state_props/concurrence/" class="md-nav__link">
         
   
   
@@ -7660,7 +7674,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../state_props/entanglement_of_formation/" class="md-nav__link">
+      <a href="../state_props/entanglement_of_formation/" class="md-nav__link">
         
   
   
@@ -7688,7 +7702,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../state_props/has_symmetric_extension/" class="md-nav__link">
+      <a href="../state_props/has_symmetric_extension/" class="md-nav__link">
         
   
   
@@ -7716,7 +7730,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../state_props/has_symmetric_inner_extension/" class="md-nav__link">
+      <a href="../state_props/has_symmetric_inner_extension/" class="md-nav__link">
         
   
   
@@ -7744,7 +7758,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../state_props/in_separable_ball/" class="md-nav__link">
+      <a href="../state_props/in_separable_ball/" class="md-nav__link">
         
   
   
@@ -7772,7 +7786,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../state_props/is_abs_ppt/" class="md-nav__link">
+      <a href="../state_props/is_abs_ppt/" class="md-nav__link">
         
   
   
@@ -7800,7 +7814,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../state_props/is_antidistinguishable/" class="md-nav__link">
+      <a href="../state_props/is_antidistinguishable/" class="md-nav__link">
         
   
   
@@ -7828,7 +7842,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../state_props/is_distinguishable/" class="md-nav__link">
+      <a href="../state_props/is_distinguishable/" class="md-nav__link">
         
   
   
@@ -7856,7 +7870,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../state_props/is_ensemble/" class="md-nav__link">
+      <a href="../state_props/is_ensemble/" class="md-nav__link">
         
   
   
@@ -7884,7 +7898,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../state_props/is_mixed/" class="md-nav__link">
+      <a href="../state_props/is_mixed/" class="md-nav__link">
         
   
   
@@ -7912,7 +7926,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../state_props/is_mutually_orthogonal/" class="md-nav__link">
+      <a href="../state_props/is_mutually_orthogonal/" class="md-nav__link">
         
   
   
@@ -7940,7 +7954,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../state_props/is_mutually_unbiased_basis/" class="md-nav__link">
+      <a href="../state_props/is_mutually_unbiased_basis/" class="md-nav__link">
         
   
   
@@ -7968,7 +7982,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../state_props/is_npt/" class="md-nav__link">
+      <a href="../state_props/is_npt/" class="md-nav__link">
         
   
   
@@ -7996,7 +8010,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../state_props/is_ppt/" class="md-nav__link">
+      <a href="../state_props/is_ppt/" class="md-nav__link">
         
   
   
@@ -8024,7 +8038,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../state_props/is_product/" class="md-nav__link">
+      <a href="../state_props/is_product/" class="md-nav__link">
         
   
   
@@ -8052,7 +8066,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../state_props/is_pure/" class="md-nav__link">
+      <a href="../state_props/is_pure/" class="md-nav__link">
         
   
   
@@ -8080,7 +8094,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../state_props/is_separable/" class="md-nav__link">
+      <a href="../state_props/is_separable/" class="md-nav__link">
         
   
   
@@ -8108,7 +8122,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../state_props/is_sic_povm/" class="md-nav__link">
+      <a href="../state_props/is_sic_povm/" class="md-nav__link">
         
   
   
@@ -8136,7 +8150,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../state_props/is_unextendible_product_basis/" class="md-nav__link">
+      <a href="../state_props/is_unextendible_product_basis/" class="md-nav__link">
         
   
   
@@ -8164,7 +8178,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../state_props/l1_norm_coherence/" class="md-nav__link">
+      <a href="../state_props/l1_norm_coherence/" class="md-nav__link">
         
   
   
@@ -8192,7 +8206,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../state_props/learnability/" class="md-nav__link">
+      <a href="../state_props/learnability/" class="md-nav__link">
         
   
   
@@ -8220,7 +8234,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../state_props/log_negativity/" class="md-nav__link">
+      <a href="../state_props/log_negativity/" class="md-nav__link">
         
   
   
@@ -8248,7 +8262,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../state_props/negativity/" class="md-nav__link">
+      <a href="../state_props/negativity/" class="md-nav__link">
         
   
   
@@ -8276,7 +8290,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../state_props/petz_renyi_conditional_entropy/" class="md-nav__link">
+      <a href="../state_props/petz_renyi_conditional_entropy/" class="md-nav__link">
         
   
   
@@ -8304,7 +8318,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../state_props/purity/" class="md-nav__link">
+      <a href="../state_props/purity/" class="md-nav__link">
         
   
   
@@ -8332,7 +8346,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../state_props/quantum_conditional_entropy/" class="md-nav__link">
+      <a href="../state_props/quantum_conditional_entropy/" class="md-nav__link">
         
   
   
@@ -8360,7 +8374,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../state_props/quantum_relative_entropy/" class="md-nav__link">
+      <a href="../state_props/quantum_relative_entropy/" class="md-nav__link">
         
   
   
@@ -8388,7 +8402,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../state_props/renyi_entropy/" class="md-nav__link">
+      <a href="../state_props/renyi_entropy/" class="md-nav__link">
         
   
   
@@ -8416,7 +8430,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../state_props/sandwiched_renyi_conditional_entropy/" class="md-nav__link">
+      <a href="../state_props/sandwiched_renyi_conditional_entropy/" class="md-nav__link">
         
   
   
@@ -8444,7 +8458,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../state_props/schmidt_rank/" class="md-nav__link">
+      <a href="../state_props/schmidt_rank/" class="md-nav__link">
         
   
   
@@ -8472,7 +8486,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../state_props/sk_vec_norm/" class="md-nav__link">
+      <a href="../state_props/sk_vec_norm/" class="md-nav__link">
         
   
   
@@ -8500,7 +8514,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../state_props/von_neumann_entropy/" class="md-nav__link">
+      <a href="../state_props/von_neumann_entropy/" class="md-nav__link">
         
   
   
@@ -8594,11 +8608,11 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_20" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_21" >
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../states/" class="md-nav__link ">
+            <a href="../states/" class="md-nav__link ">
               
   
   
@@ -8616,14 +8630,14 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_5_20" id="__nav_5_20_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_5_21" id="__nav_5_21_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_20_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_5_20">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_21_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_21">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -8642,7 +8656,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../states/basis/" class="md-nav__link">
+      <a href="../states/basis/" class="md-nav__link">
         
   
   
@@ -8670,7 +8684,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../states/bb84/" class="md-nav__link">
+      <a href="../states/bb84/" class="md-nav__link">
         
   
   
@@ -8698,7 +8712,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../states/bell/" class="md-nav__link">
+      <a href="../states/bell/" class="md-nav__link">
         
   
   
@@ -8726,7 +8740,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../states/brauer/" class="md-nav__link">
+      <a href="../states/brauer/" class="md-nav__link">
         
   
   
@@ -8754,7 +8768,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../states/breuer/" class="md-nav__link">
+      <a href="../states/breuer/" class="md-nav__link">
         
   
   
@@ -8782,7 +8796,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../states/chessboard/" class="md-nav__link">
+      <a href="../states/chessboard/" class="md-nav__link">
         
   
   
@@ -8810,7 +8824,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../states/dicke/" class="md-nav__link">
+      <a href="../states/dicke/" class="md-nav__link">
         
   
   
@@ -8838,7 +8852,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../states/domino/" class="md-nav__link">
+      <a href="../states/domino/" class="md-nav__link">
         
   
   
@@ -8866,7 +8880,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../states/gen_bell/" class="md-nav__link">
+      <a href="../states/gen_bell/" class="md-nav__link">
         
   
   
@@ -8894,7 +8908,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../states/ghz/" class="md-nav__link">
+      <a href="../states/ghz/" class="md-nav__link">
         
   
   
@@ -8922,7 +8936,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../states/gisin/" class="md-nav__link">
+      <a href="../states/gisin/" class="md-nav__link">
         
   
   
@@ -8950,7 +8964,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../states/horodecki/" class="md-nav__link">
+      <a href="../states/horodecki/" class="md-nav__link">
         
   
   
@@ -8978,7 +8992,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../states/isotropic/" class="md-nav__link">
+      <a href="../states/isotropic/" class="md-nav__link">
         
   
   
@@ -9006,7 +9020,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../states/max_entangled/" class="md-nav__link">
+      <a href="../states/max_entangled/" class="md-nav__link">
         
   
   
@@ -9034,7 +9048,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../states/max_mixed/" class="md-nav__link">
+      <a href="../states/max_mixed/" class="md-nav__link">
         
   
   
@@ -9062,7 +9076,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../states/mutually_unbiased_basis/" class="md-nav__link">
+      <a href="../states/mutually_unbiased_basis/" class="md-nav__link">
         
   
   
@@ -9090,7 +9104,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../states/pusey_barrett_rudolph/" class="md-nav__link">
+      <a href="../states/pusey_barrett_rudolph/" class="md-nav__link">
         
   
   
@@ -9118,7 +9132,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../states/singlet/" class="md-nav__link">
+      <a href="../states/singlet/" class="md-nav__link">
         
   
   
@@ -9146,7 +9160,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../states/tile/" class="md-nav__link">
+      <a href="../states/tile/" class="md-nav__link">
         
   
   
@@ -9174,7 +9188,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../states/trine/" class="md-nav__link">
+      <a href="../states/trine/" class="md-nav__link">
         
   
   
@@ -9202,7 +9216,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../states/w_state/" class="md-nav__link">
+      <a href="../states/w_state/" class="md-nav__link">
         
   
   
@@ -9230,7 +9244,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../states/werner/" class="md-nav__link">
+      <a href="../states/werner/" class="md-nav__link">
         
   
   
@@ -9273,7 +9287,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../references/" class="md-nav__link">
+      <a href="../../../references/" class="md-nav__link">
         
   
   
@@ -9313,25 +9327,6 @@
     
   
   
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#toqito.matrix_ops.operator_relative_entropy_epi_cone.operator_relative_entropy_epi_cone" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        <code class="doc-symbol doc-symbol-toc doc-symbol-function"></code>&nbsp;operator_relative_entropy_epi_cone
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
 </nav>
                   </div>
                 </div>
@@ -9351,15 +9346,21 @@
 
 
 
-<h1 id="toqito.matrix_ops.operator_relative_entropy_epi_cone" class="doc doc-heading">
-<code class="doc-symbol doc-symbol-heading doc-symbol-module"></code>            <span class="doc doc-object-name doc-module-name">operator_relative_entropy_epi_cone</span>
+<h1 id="toqito.cones" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-module"></code>            <span class="doc doc-object-name doc-module-name">cones</span>
 
 
-<a href="#toqito.matrix_ops.operator_relative_entropy_epi_cone" class="headerlink" title="Permanent link">&para;</a></h1>
+<a href="#toqito.cones" class="headerlink" title="Permanent link">&para;</a></h1>
 
     <div class="doc doc-contents first">
 
-        <p>CVXPY constraints for the operator relative entropy epigraph cone.</p>
+        <p>CVXQUAD-derived matrix cones and entropy functionals for use in CVXPY SDPs.</p>
+<p>This package collects operator-monotone matrix functions and the associated
+SDP cones (matrix geometric mean, operator relative entropy, matrix logarithm)
+ported from CVXQUAD (Fawzi--Saunderson). They live here rather than in
+<code>matrix_ops</code> because they depend on <code>matrix_props</code> for input validation;
+keeping <code>matrix_ops</code> free of that back-edge avoids a load-time import cycle
+with <code>state_props</code> and <code>channels</code>.</p>
 
 
 
@@ -9380,433 +9381,6 @@
 
 
 
-
-<div class="doc doc-object doc-function">
-
-
-<h2 id="toqito.matrix_ops.operator_relative_entropy_epi_cone.operator_relative_entropy_epi_cone" class="doc doc-heading">
-<code class="doc-symbol doc-symbol-heading doc-symbol-function"></code>            <span class="doc doc-object-name doc-function-name">operator_relative_entropy_epi_cone</span>
-
-
-<a href="#toqito.matrix_ops.operator_relative_entropy_epi_cone.operator_relative_entropy_epi_cone" class="headerlink" title="Permanent link">&para;</a></h2>
-<div class="doc-signature highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">operator_relative_entropy_epi_cone</span><span class="p">(</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="n">X</span><span class="p">:</span> <span class="n"><span title="cvxpy.Expression">Expression</span></span><span class="p">,</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    <span class="n">Y</span><span class="p">:</span> <span class="n"><span title="cvxpy.Expression">Expression</span></span><span class="p">,</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    <span class="n">TAU</span><span class="p">:</span> <span class="n"><span title="cvxpy.Expression">Expression</span></span><span class="p">,</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="o">*</span><span class="p">,</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    <span class="n">m</span><span class="p">:</span> <span class="n"><span title="int">int</span></span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    <span class="n">k</span><span class="p">:</span> <span class="n"><span title="int">int</span></span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span>
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    <span class="n">e</span><span class="p">:</span> <span class="n"><span title="numpy.ndarray">ndarray</span></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>    <span class="n">apx</span><span class="p">:</span> <span class="n"><span title="int">int</span></span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
-<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>    <span class="n">hermitian</span><span class="p">:</span> <span class="n"><span title="bool">bool</span></span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><span title="list">list</span></span><span class="p">[</span><span class="n"><span title="cvxpy.Constraint">Constraint</span></span><span class="p">]</span>
-</code></pre></div>
-
-    <div class="doc doc-contents ">
-
-        <p>Return CVXPY constraints for the operator relative entropy epigraph cone <sup><a id="cite-toqito-matrix_ops-operator_relative_entropy_epi_cone-operator_relative_entropy_epi_cone-1" href="#ref-toqito-matrix_ops-operator_relative_entropy_epi_cone-operator_relative_entropy_epi_cone-1">1</a></sup>.</p>
-<p>The set of matrices that satisfy the constraints are <code>X</code>, <code>Y</code>, <code>TAU</code> triples such that</p>
-<div class="arithmatex">\[
-    X^{1/2} \log\!\bigl(X^{1/2} Y^{-1} X^{1/2}\bigr) X^{1/2} \preceq \mathrm{TAU}
-\]</div>
-<p>in the PSD order, where <code>log</code> is the matrix logarithm.
-Auxiliary variables <code>Z</code> and quadrature slices <code>T_i</code> are introduced internally.</p>
-
-
-<p><span class="doc-section-title">Parameters:</span></p>
-    <ul>
-        <li class="doc-section-item field-body">
-            <b><code>X</code></b>
-              (<code><span title="cvxpy.Expression">Expression</span></code>)
-          –
-          <div class="doc-md-description">
-            <p>A cvxpy expression representing a matrix.</p>
-          </div>
-        </li>
-        <li class="doc-section-item field-body">
-            <b><code>Y</code></b>
-              (<code><span title="cvxpy.Expression">Expression</span></code>)
-          –
-          <div class="doc-md-description">
-            <p>A cvxpy expression representing a matrix.</p>
-          </div>
-        </li>
-        <li class="doc-section-item field-body">
-            <b><code>TAU</code></b>
-              (<code><span title="cvxpy.Expression">Expression</span></code>)
-          –
-          <div class="doc-md-description">
-            <p>A cvxpy expression representing a matrix.</p>
-          </div>
-        </li>
-        <li class="doc-section-item field-body">
-            <b><code>m</code></b>
-              (<code><span title="int">int</span></code>, default:
-                  <code>3</code>
-)
-          –
-          <div class="doc-md-description">
-            <p>The number of quadrature nodes to use.</p>
-          </div>
-        </li>
-        <li class="doc-section-item field-body">
-            <b><code>k</code></b>
-              (<code><span title="int">int</span></code>, default:
-                  <code>3</code>
-)
-          –
-          <div class="doc-md-description">
-            <p>The number of square-roots to take.</p>
-          </div>
-        </li>
-        <li class="doc-section-item field-body">
-            <b><code>e</code></b>
-              (<code><span title="numpy.ndarray">ndarray</span> | None</code>, default:
-                  <code>None</code>
-)
-          –
-          <div class="doc-md-description">
-            <p>A numpy array representing a matrix.</p>
-          </div>
-        </li>
-        <li class="doc-section-item field-body">
-            <b><code>apx</code></b>
-              (<code><span title="int">int</span></code>, default:
-                  <code>0</code>
-)
-          –
-          <div class="doc-md-description">
-            <p>Log via quadrature: <code>-1</code> uses left-endpoint Gauss-Radau (lower bound on
-the matrix log), <code>0</code> uses Gauss-Legendre on <code>[0, 1]</code> (two-sided midpoint
-rule), <code>1</code> uses right-endpoint Gauss--Radau (upper bound on the matrix log).</p>
-          </div>
-        </li>
-        <li class="doc-section-item field-body">
-            <b><code>hermitian</code></b>
-              (<code><span title="bool">bool</span></code>, default:
-                  <code>False</code>
-)
-          –
-          <div class="doc-md-description">
-            <p>Whether the matrices are Hermitian or symmetric.</p>
-          </div>
-        </li>
-    </ul>
-
-
-<p><span class="doc-section-title">Raises:</span></p>
-    <ul>
-        <li class="doc-section-item field-body">
-              <code><span title="ValueError">ValueError</span></code>
-            –
-          <div class="doc-md-description">
-            <p>If the matrices are not square.</p>
-          </div>
-        </li>
-        <li class="doc-section-item field-body">
-              <code><span title="ValueError">ValueError</span></code>
-            –
-          <div class="doc-md-description">
-            <p>If the matrices are not the same size.</p>
-          </div>
-        </li>
-        <li class="doc-section-item field-body">
-              <code><span title="ValueError">ValueError</span></code>
-            –
-          <div class="doc-md-description">
-            <p>If e is not 2D.</p>
-          </div>
-        </li>
-        <li class="doc-section-item field-body">
-              <code><span title="ValueError">ValueError</span></code>
-            –
-          <div class="doc-md-description">
-            <p>If the number of rows of e does not match the size of X.</p>
-          </div>
-        </li>
-        <li class="doc-section-item field-body">
-              <code><span title="ValueError">ValueError</span></code>
-            –
-          <div class="doc-md-description">
-            <p>If the size of TAU does not match the size of e.</p>
-          </div>
-        </li>
-        <li class="doc-section-item field-body">
-              <code><span title="ValueError">ValueError</span></code>
-            –
-          <div class="doc-md-description">
-            <p>If m or k is less than 1.</p>
-          </div>
-        </li>
-        <li class="doc-section-item field-body">
-              <code><span title="ValueError">ValueError</span></code>
-            –
-          <div class="doc-md-description">
-            <p>If apx is not -1, 0, or 1.</p>
-          </div>
-        </li>
-        <li class="doc-section-item field-body">
-              <code><span title="ValueError">ValueError</span></code>
-            –
-          <div class="doc-md-description">
-            <p>If TAU is not r x r with r = e.shape[1].</p>
-          </div>
-        </li>
-    </ul>
-
-
-<p><span class="doc-section-title">Returns:</span></p>
-    <ul>
-        <li class="doc-section-item field-body">
-              <code><span title="list">list</span>[<span title="cvxpy.Constraint">Constraint</span>]</code>
-          –
-          <div class="doc-md-description">
-            <p>A list of CVX constraints.</p>
-          </div>
-        </li>
-    </ul>
-        <p><strong>References</strong></p>
-<p><span id="ref-toqito-matrix_ops-operator_relative_entropy_epi_cone-operator_relative_entropy_epi_cone-1"><sup><a href="#cite-toqito-matrix_ops-operator_relative_entropy_epi_cone-operator_relative_entropy_epi_cone-1">1</a></sup> Fawzi, Hamza and Saunderson, James and Parrilo, Pablo. <em>Semidefinite approximations of the matrix logarithm</em>. <strong>Foundations of Computational Mathematics</strong>. vol. 19(2). (2019). <a href="https://doi.org/10.1007/s10208-018-9385-0">doi:10.1007/s10208-018-9385-0</a>.</span></p>
-
-
-            <details class="mkdocstrings-source">
-              <summary>Source code in <code>toqito/matrix_ops/operator_relative_entropy_epi_cone.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-55"> 55</a></span>
-<span class="normal"><a href="#__codelineno-0-56"> 56</a></span>
-<span class="normal"><a href="#__codelineno-0-57"> 57</a></span>
-<span class="normal"><a href="#__codelineno-0-58"> 58</a></span>
-<span class="normal"><a href="#__codelineno-0-59"> 59</a></span>
-<span class="normal"><a href="#__codelineno-0-60"> 60</a></span>
-<span class="normal"><a href="#__codelineno-0-61"> 61</a></span>
-<span class="normal"><a href="#__codelineno-0-62"> 62</a></span>
-<span class="normal"><a href="#__codelineno-0-63"> 63</a></span>
-<span class="normal"><a href="#__codelineno-0-64"> 64</a></span>
-<span class="normal"><a href="#__codelineno-0-65"> 65</a></span>
-<span class="normal"><a href="#__codelineno-0-66"> 66</a></span>
-<span class="normal"><a href="#__codelineno-0-67"> 67</a></span>
-<span class="normal"><a href="#__codelineno-0-68"> 68</a></span>
-<span class="normal"><a href="#__codelineno-0-69"> 69</a></span>
-<span class="normal"><a href="#__codelineno-0-70"> 70</a></span>
-<span class="normal"><a href="#__codelineno-0-71"> 71</a></span>
-<span class="normal"><a href="#__codelineno-0-72"> 72</a></span>
-<span class="normal"><a href="#__codelineno-0-73"> 73</a></span>
-<span class="normal"><a href="#__codelineno-0-74"> 74</a></span>
-<span class="normal"><a href="#__codelineno-0-75"> 75</a></span>
-<span class="normal"><a href="#__codelineno-0-76"> 76</a></span>
-<span class="normal"><a href="#__codelineno-0-77"> 77</a></span>
-<span class="normal"><a href="#__codelineno-0-78"> 78</a></span>
-<span class="normal"><a href="#__codelineno-0-79"> 79</a></span>
-<span class="normal"><a href="#__codelineno-0-80"> 80</a></span>
-<span class="normal"><a href="#__codelineno-0-81"> 81</a></span>
-<span class="normal"><a href="#__codelineno-0-82"> 82</a></span>
-<span class="normal"><a href="#__codelineno-0-83"> 83</a></span>
-<span class="normal"><a href="#__codelineno-0-84"> 84</a></span>
-<span class="normal"><a href="#__codelineno-0-85"> 85</a></span>
-<span class="normal"><a href="#__codelineno-0-86"> 86</a></span>
-<span class="normal"><a href="#__codelineno-0-87"> 87</a></span>
-<span class="normal"><a href="#__codelineno-0-88"> 88</a></span>
-<span class="normal"><a href="#__codelineno-0-89"> 89</a></span>
-<span class="normal"><a href="#__codelineno-0-90"> 90</a></span>
-<span class="normal"><a href="#__codelineno-0-91"> 91</a></span>
-<span class="normal"><a href="#__codelineno-0-92"> 92</a></span>
-<span class="normal"><a href="#__codelineno-0-93"> 93</a></span>
-<span class="normal"><a href="#__codelineno-0-94"> 94</a></span>
-<span class="normal"><a href="#__codelineno-0-95"> 95</a></span>
-<span class="normal"><a href="#__codelineno-0-96"> 96</a></span>
-<span class="normal"><a href="#__codelineno-0-97"> 97</a></span>
-<span class="normal"><a href="#__codelineno-0-98"> 98</a></span>
-<span class="normal"><a href="#__codelineno-0-99"> 99</a></span>
-<span class="normal"><a href="#__codelineno-0-100">100</a></span>
-<span class="normal"><a href="#__codelineno-0-101">101</a></span>
-<span class="normal"><a href="#__codelineno-0-102">102</a></span>
-<span class="normal"><a href="#__codelineno-0-103">103</a></span>
-<span class="normal"><a href="#__codelineno-0-104">104</a></span>
-<span class="normal"><a href="#__codelineno-0-105">105</a></span>
-<span class="normal"><a href="#__codelineno-0-106">106</a></span>
-<span class="normal"><a href="#__codelineno-0-107">107</a></span>
-<span class="normal"><a href="#__codelineno-0-108">108</a></span>
-<span class="normal"><a href="#__codelineno-0-109">109</a></span>
-<span class="normal"><a href="#__codelineno-0-110">110</a></span>
-<span class="normal"><a href="#__codelineno-0-111">111</a></span>
-<span class="normal"><a href="#__codelineno-0-112">112</a></span>
-<span class="normal"><a href="#__codelineno-0-113">113</a></span>
-<span class="normal"><a href="#__codelineno-0-114">114</a></span>
-<span class="normal"><a href="#__codelineno-0-115">115</a></span>
-<span class="normal"><a href="#__codelineno-0-116">116</a></span>
-<span class="normal"><a href="#__codelineno-0-117">117</a></span>
-<span class="normal"><a href="#__codelineno-0-118">118</a></span>
-<span class="normal"><a href="#__codelineno-0-119">119</a></span>
-<span class="normal"><a href="#__codelineno-0-120">120</a></span>
-<span class="normal"><a href="#__codelineno-0-121">121</a></span>
-<span class="normal"><a href="#__codelineno-0-122">122</a></span>
-<span class="normal"><a href="#__codelineno-0-123">123</a></span>
-<span class="normal"><a href="#__codelineno-0-124">124</a></span>
-<span class="normal"><a href="#__codelineno-0-125">125</a></span>
-<span class="normal"><a href="#__codelineno-0-126">126</a></span>
-<span class="normal"><a href="#__codelineno-0-127">127</a></span>
-<span class="normal"><a href="#__codelineno-0-128">128</a></span>
-<span class="normal"><a href="#__codelineno-0-129">129</a></span>
-<span class="normal"><a href="#__codelineno-0-130">130</a></span>
-<span class="normal"><a href="#__codelineno-0-131">131</a></span>
-<span class="normal"><a href="#__codelineno-0-132">132</a></span>
-<span class="normal"><a href="#__codelineno-0-133">133</a></span>
-<span class="normal"><a href="#__codelineno-0-134">134</a></span>
-<span class="normal"><a href="#__codelineno-0-135">135</a></span>
-<span class="normal"><a href="#__codelineno-0-136">136</a></span>
-<span class="normal"><a href="#__codelineno-0-137">137</a></span>
-<span class="normal"><a href="#__codelineno-0-138">138</a></span>
-<span class="normal"><a href="#__codelineno-0-139">139</a></span>
-<span class="normal"><a href="#__codelineno-0-140">140</a></span>
-<span class="normal"><a href="#__codelineno-0-141">141</a></span>
-<span class="normal"><a href="#__codelineno-0-142">142</a></span>
-<span class="normal"><a href="#__codelineno-0-143">143</a></span>
-<span class="normal"><a href="#__codelineno-0-144">144</a></span>
-<span class="normal"><a href="#__codelineno-0-145">145</a></span>
-<span class="normal"><a href="#__codelineno-0-146">146</a></span>
-<span class="normal"><a href="#__codelineno-0-147">147</a></span>
-<span class="normal"><a href="#__codelineno-0-148">148</a></span>
-<span class="normal"><a href="#__codelineno-0-149">149</a></span>
-<span class="normal"><a href="#__codelineno-0-150">150</a></span>
-<span class="normal"><a href="#__codelineno-0-151">151</a></span>
-<span class="normal"><a href="#__codelineno-0-152">152</a></span>
-<span class="normal"><a href="#__codelineno-0-153">153</a></span>
-<span class="normal"><a href="#__codelineno-0-154">154</a></span>
-<span class="normal"><a href="#__codelineno-0-155">155</a></span>
-<span class="normal"><a href="#__codelineno-0-156">156</a></span>
-<span class="normal"><a href="#__codelineno-0-157">157</a></span>
-<span class="normal"><a href="#__codelineno-0-158">158</a></span>
-<span class="normal"><a href="#__codelineno-0-159">159</a></span>
-<span class="normal"><a href="#__codelineno-0-160">160</a></span>
-<span class="normal"><a href="#__codelineno-0-161">161</a></span>
-<span class="normal"><a href="#__codelineno-0-162">162</a></span>
-<span class="normal"><a href="#__codelineno-0-163">163</a></span>
-<span class="normal"><a href="#__codelineno-0-164">164</a></span>
-<span class="normal"><a href="#__codelineno-0-165">165</a></span>
-<span class="normal"><a href="#__codelineno-0-166">166</a></span>
-<span class="normal"><a href="#__codelineno-0-167">167</a></span>
-<span class="normal"><a href="#__codelineno-0-168">168</a></span>
-<span class="normal"><a href="#__codelineno-0-169">169</a></span>
-<span class="normal"><a href="#__codelineno-0-170">170</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-55" name="__codelineno-0-55"></a><span class="k">def</span><span class="w"> </span><span class="nf">operator_relative_entropy_epi_cone</span><span class="p">(</span>
-<a id="__codelineno-0-56" name="__codelineno-0-56"></a>    <span class="n">X</span><span class="p">:</span> <span class="n">cvxpy</span><span class="o">.</span><span class="n">Expression</span><span class="p">,</span>
-<a id="__codelineno-0-57" name="__codelineno-0-57"></a>    <span class="n">Y</span><span class="p">:</span> <span class="n">cvxpy</span><span class="o">.</span><span class="n">Expression</span><span class="p">,</span>
-<a id="__codelineno-0-58" name="__codelineno-0-58"></a>    <span class="n">TAU</span><span class="p">:</span> <span class="n">cvxpy</span><span class="o">.</span><span class="n">Expression</span><span class="p">,</span>
-<a id="__codelineno-0-59" name="__codelineno-0-59"></a>    <span class="o">*</span><span class="p">,</span>
-<a id="__codelineno-0-60" name="__codelineno-0-60"></a>    <span class="n">m</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span>
-<a id="__codelineno-0-61" name="__codelineno-0-61"></a>    <span class="n">k</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span>
-<a id="__codelineno-0-62" name="__codelineno-0-62"></a>    <span class="n">e</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-<a id="__codelineno-0-63" name="__codelineno-0-63"></a>    <span class="n">apx</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
-<a id="__codelineno-0-64" name="__codelineno-0-64"></a>    <span class="n">hermitian</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-<a id="__codelineno-0-65" name="__codelineno-0-65"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">cvxpy</span><span class="o">.</span><span class="n">Constraint</span><span class="p">]:</span>
-<a id="__codelineno-0-66" name="__codelineno-0-66"></a><span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Return CVXPY constraints for the operator relative entropy epigraph cone [@fawzi2017matrixlogarithm].</span>
-<a id="__codelineno-0-67" name="__codelineno-0-67"></a>
-<a id="__codelineno-0-68" name="__codelineno-0-68"></a><span class="sd">    The set of matrices that satisfy the constraints are `X`, `Y`, `TAU` triples such that</span>
-<a id="__codelineno-0-69" name="__codelineno-0-69"></a>
-<a id="__codelineno-0-70" name="__codelineno-0-70"></a><span class="sd">    \[</span>
-<a id="__codelineno-0-71" name="__codelineno-0-71"></a><span class="sd">        X^{1/2} \log\!\bigl(X^{1/2} Y^{-1} X^{1/2}\bigr) X^{1/2} \preceq \mathrm{TAU}</span>
-<a id="__codelineno-0-72" name="__codelineno-0-72"></a><span class="sd">    \]</span>
-<a id="__codelineno-0-73" name="__codelineno-0-73"></a>
-<a id="__codelineno-0-74" name="__codelineno-0-74"></a><span class="sd">    in the PSD order, where ``log`` is the matrix logarithm.</span>
-<a id="__codelineno-0-75" name="__codelineno-0-75"></a><span class="sd">    Auxiliary variables ``Z`` and quadrature slices `T_i` are introduced internally.</span>
-<a id="__codelineno-0-76" name="__codelineno-0-76"></a>
-<a id="__codelineno-0-77" name="__codelineno-0-77"></a><span class="sd">    Args:</span>
-<a id="__codelineno-0-78" name="__codelineno-0-78"></a><span class="sd">        X: A cvxpy expression representing a matrix.</span>
-<a id="__codelineno-0-79" name="__codelineno-0-79"></a><span class="sd">        Y: A cvxpy expression representing a matrix.</span>
-<a id="__codelineno-0-80" name="__codelineno-0-80"></a><span class="sd">        TAU: A cvxpy expression representing a matrix.</span>
-<a id="__codelineno-0-81" name="__codelineno-0-81"></a><span class="sd">        m: The number of quadrature nodes to use.</span>
-<a id="__codelineno-0-82" name="__codelineno-0-82"></a><span class="sd">        k: The number of square-roots to take.</span>
-<a id="__codelineno-0-83" name="__codelineno-0-83"></a><span class="sd">        e: A numpy array representing a matrix.</span>
-<a id="__codelineno-0-84" name="__codelineno-0-84"></a><span class="sd">        apx: Log via quadrature: ``-1`` uses left-endpoint Gauss-Radau (lower bound on</span>
-<a id="__codelineno-0-85" name="__codelineno-0-85"></a><span class="sd">            the matrix log), ``0`` uses Gauss-Legendre on ``[0, 1]`` (two-sided midpoint</span>
-<a id="__codelineno-0-86" name="__codelineno-0-86"></a><span class="sd">            rule), ``1`` uses right-endpoint Gauss--Radau (upper bound on the matrix log).</span>
-<a id="__codelineno-0-87" name="__codelineno-0-87"></a><span class="sd">        hermitian: Whether the matrices are Hermitian or symmetric.</span>
-<a id="__codelineno-0-88" name="__codelineno-0-88"></a>
-<a id="__codelineno-0-89" name="__codelineno-0-89"></a><span class="sd">    Raises:</span>
-<a id="__codelineno-0-90" name="__codelineno-0-90"></a><span class="sd">        ValueError: If the matrices are not square.</span>
-<a id="__codelineno-0-91" name="__codelineno-0-91"></a><span class="sd">        ValueError: If the matrices are not the same size.</span>
-<a id="__codelineno-0-92" name="__codelineno-0-92"></a><span class="sd">        ValueError: If e is not 2D.</span>
-<a id="__codelineno-0-93" name="__codelineno-0-93"></a><span class="sd">        ValueError: If the number of rows of e does not match the size of X.</span>
-<a id="__codelineno-0-94" name="__codelineno-0-94"></a><span class="sd">        ValueError: If the size of TAU does not match the size of e.</span>
-<a id="__codelineno-0-95" name="__codelineno-0-95"></a><span class="sd">        ValueError: If m or k is less than 1.</span>
-<a id="__codelineno-0-96" name="__codelineno-0-96"></a><span class="sd">        ValueError: If apx is not -1, 0, or 1.</span>
-<a id="__codelineno-0-97" name="__codelineno-0-97"></a><span class="sd">        ValueError: If TAU is not r x r with r = e.shape[1].</span>
-<a id="__codelineno-0-98" name="__codelineno-0-98"></a>
-<a id="__codelineno-0-99" name="__codelineno-0-99"></a><span class="sd">    Returns:</span>
-<a id="__codelineno-0-100" name="__codelineno-0-100"></a><span class="sd">        A list of CVX constraints.</span>
-<a id="__codelineno-0-101" name="__codelineno-0-101"></a>
-<a id="__codelineno-0-102" name="__codelineno-0-102"></a><span class="sd">    &quot;&quot;&quot;</span>
-<a id="__codelineno-0-103" name="__codelineno-0-103"></a>    <span class="n">_require_square_2d</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="s2">&quot;X&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-104" name="__codelineno-0-104"></a>    <span class="n">_require_square_2d</span><span class="p">(</span><span class="n">Y</span><span class="p">,</span> <span class="s2">&quot;Y&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-105" name="__codelineno-0-105"></a>    <span class="n">_require_square_2d</span><span class="p">(</span><span class="n">TAU</span><span class="p">,</span> <span class="s2">&quot;TAU&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-106" name="__codelineno-0-106"></a>    <span class="n">n</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<a id="__codelineno-0-107" name="__codelineno-0-107"></a>    <span class="k">if</span> <span class="nb">int</span><span class="p">(</span><span class="n">Y</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">!=</span> <span class="n">n</span> <span class="ow">or</span> <span class="nb">int</span><span class="p">(</span><span class="n">Y</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">!=</span> <span class="n">n</span><span class="p">:</span>
-<a id="__codelineno-0-108" name="__codelineno-0-108"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Y must have the same shape as X.&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-109" name="__codelineno-0-109"></a>    <span class="k">if</span> <span class="n">e</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-<a id="__codelineno-0-110" name="__codelineno-0-110"></a>        <span class="n">e</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
-<a id="__codelineno-0-111" name="__codelineno-0-111"></a>    <span class="n">e</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
-<a id="__codelineno-0-112" name="__codelineno-0-112"></a>    <span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">ndim</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">:</span>
-<a id="__codelineno-0-113" name="__codelineno-0-113"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;e must be 2D.&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-114" name="__codelineno-0-114"></a>    <span class="k">if</span> <span class="nb">int</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">!=</span> <span class="n">n</span><span class="p">:</span>
-<a id="__codelineno-0-115" name="__codelineno-0-115"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The number of rows of e must match X.&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-116" name="__codelineno-0-116"></a>    <span class="n">r</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-<a id="__codelineno-0-117" name="__codelineno-0-117"></a>    <span class="k">if</span> <span class="nb">int</span><span class="p">(</span><span class="n">TAU</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">!=</span> <span class="n">r</span> <span class="ow">or</span> <span class="nb">int</span><span class="p">(</span><span class="n">TAU</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">!=</span> <span class="n">r</span><span class="p">:</span>
-<a id="__codelineno-0-118" name="__codelineno-0-118"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;TAU must be r x r with r = e.shape[1].&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-119" name="__codelineno-0-119"></a>
-<a id="__codelineno-0-120" name="__codelineno-0-120"></a>    <span class="k">if</span> <span class="n">m</span> <span class="o">&lt;</span> <span class="mi">1</span> <span class="ow">or</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
-<a id="__codelineno-0-121" name="__codelineno-0-121"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;m and k must be at least 1.&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-122" name="__codelineno-0-122"></a>    <span class="k">if</span> <span class="n">apx</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]:</span>
-<a id="__codelineno-0-123" name="__codelineno-0-123"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;apx must be either -1, 0, or 1.&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-124" name="__codelineno-0-124"></a>    <span class="k">if</span> <span class="n">apx</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-<a id="__codelineno-0-125" name="__codelineno-0-125"></a>        <span class="n">s</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="n">_gauss_legendre</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
-<a id="__codelineno-0-126" name="__codelineno-0-126"></a>    <span class="k">elif</span> <span class="n">apx</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-<a id="__codelineno-0-127" name="__codelineno-0-127"></a>        <span class="n">s</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="n">_gauss_radau</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-<a id="__codelineno-0-128" name="__codelineno-0-128"></a>    <span class="k">else</span><span class="p">:</span>
-<a id="__codelineno-0-129" name="__codelineno-0-129"></a>        <span class="n">s</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="n">_gauss_radau</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-<a id="__codelineno-0-130" name="__codelineno-0-130"></a>
-<a id="__codelineno-0-131" name="__codelineno-0-131"></a>    <span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ravel</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">))</span>
-<a id="__codelineno-0-132" name="__codelineno-0-132"></a>    <span class="n">s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ravel</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">))</span>
-<a id="__codelineno-0-133" name="__codelineno-0-133"></a>
-<a id="__codelineno-0-134" name="__codelineno-0-134"></a>    <span class="n">e_h</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span>
-<a id="__codelineno-0-135" name="__codelineno-0-135"></a>
-<a id="__codelineno-0-136" name="__codelineno-0-136"></a>    <span class="n">z_var</span> <span class="o">=</span> <span class="n">_symmetric_like_variable</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">hermitian</span><span class="o">=</span><span class="n">hermitian</span><span class="p">)</span>
-<a id="__codelineno-0-137" name="__codelineno-0-137"></a>    <span class="n">t_pages</span> <span class="o">=</span> <span class="p">[</span><span class="n">_symmetric_like_variable</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">hermitian</span><span class="o">=</span><span class="n">hermitian</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">m</span><span class="p">)]</span>
-<a id="__codelineno-0-138" name="__codelineno-0-138"></a>
-<a id="__codelineno-0-139" name="__codelineno-0-139"></a>    <span class="n">constraints</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">cvxpy</span><span class="o">.</span><span class="n">Constraint</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
-<a id="__codelineno-0-140" name="__codelineno-0-140"></a>    <span class="n">constraints</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span>
-<a id="__codelineno-0-141" name="__codelineno-0-141"></a>        <span class="n">geometric_mean_hypo_cone</span><span class="p">(</span>
-<a id="__codelineno-0-142" name="__codelineno-0-142"></a>            <span class="n">X</span><span class="p">,</span>
-<a id="__codelineno-0-143" name="__codelineno-0-143"></a>            <span class="n">Y</span><span class="p">,</span>
-<a id="__codelineno-0-144" name="__codelineno-0-144"></a>            <span class="n">z_var</span><span class="p">,</span>
-<a id="__codelineno-0-145" name="__codelineno-0-145"></a>            <span class="nb">float</span><span class="p">(</span><span class="mf">2.0</span> <span class="o">**</span> <span class="p">(</span><span class="o">-</span><span class="n">k</span><span class="p">)),</span>
-<a id="__codelineno-0-146" name="__codelineno-0-146"></a>            <span class="n">fullhyp</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-<a id="__codelineno-0-147" name="__codelineno-0-147"></a>            <span class="n">hermitian</span><span class="o">=</span><span class="n">hermitian</span><span class="p">,</span>
-<a id="__codelineno-0-148" name="__codelineno-0-148"></a>        <span class="p">)</span>
-<a id="__codelineno-0-149" name="__codelineno-0-149"></a>    <span class="p">)</span>
-<a id="__codelineno-0-150" name="__codelineno-0-150"></a>
-<a id="__codelineno-0-151" name="__codelineno-0-151"></a>    <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
-<a id="__codelineno-0-152" name="__codelineno-0-152"></a>        <span class="n">si</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">ii</span><span class="p">])</span>
-<a id="__codelineno-0-153" name="__codelineno-0-153"></a>        <span class="n">wi</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">w</span><span class="p">[</span><span class="n">ii</span><span class="p">])</span>
-<a id="__codelineno-0-154" name="__codelineno-0-154"></a>        <span class="n">ti</span> <span class="o">=</span> <span class="n">t_pages</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span>
-<a id="__codelineno-0-155" name="__codelineno-0-155"></a>        <span class="k">if</span> <span class="n">si</span> <span class="o">&lt;</span> <span class="mf">1e-6</span><span class="p">:</span>
-<a id="__codelineno-0-156" name="__codelineno-0-156"></a>            <span class="n">quad</span> <span class="o">=</span> <span class="n">e_h</span> <span class="o">@</span> <span class="p">(</span><span class="n">z_var</span> <span class="o">-</span> <span class="n">X</span><span class="p">)</span> <span class="o">@</span> <span class="n">e</span>
-<a id="__codelineno-0-157" name="__codelineno-0-157"></a>            <span class="n">constraints</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">quad</span> <span class="o">-</span> <span class="n">ti</span> <span class="o">/</span> <span class="n">wi</span> <span class="o">&gt;&gt;</span> <span class="mi">0</span><span class="p">)</span>
-<a id="__codelineno-0-158" name="__codelineno-0-158"></a>        <span class="k">else</span><span class="p">:</span>
-<a id="__codelineno-0-159" name="__codelineno-0-159"></a>            <span class="n">top_left</span> <span class="o">=</span> <span class="n">e_h</span> <span class="o">@</span> <span class="n">X</span> <span class="o">@</span> <span class="n">e</span> <span class="o">-</span> <span class="p">(</span><span class="n">si</span> <span class="o">/</span> <span class="n">wi</span><span class="p">)</span> <span class="o">*</span> <span class="n">ti</span>
-<a id="__codelineno-0-160" name="__codelineno-0-160"></a>            <span class="n">top_right</span> <span class="o">=</span> <span class="n">e_h</span> <span class="o">@</span> <span class="n">X</span>
-<a id="__codelineno-0-161" name="__codelineno-0-161"></a>            <span class="n">bot_left</span> <span class="o">=</span> <span class="n">X</span> <span class="o">@</span> <span class="n">e</span>
-<a id="__codelineno-0-162" name="__codelineno-0-162"></a>            <span class="n">bot_right</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">-</span> <span class="n">si</span><span class="p">)</span> <span class="o">*</span> <span class="n">X</span> <span class="o">+</span> <span class="n">si</span> <span class="o">*</span> <span class="n">z_var</span>
-<a id="__codelineno-0-163" name="__codelineno-0-163"></a>            <span class="n">constraints</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-<a id="__codelineno-0-164" name="__codelineno-0-164"></a>                <span class="n">cvxpy</span><span class="o">.</span><span class="n">bmat</span><span class="p">([[</span><span class="n">top_left</span><span class="p">,</span> <span class="n">top_right</span><span class="p">],</span> <span class="p">[</span><span class="n">bot_left</span><span class="p">,</span> <span class="n">bot_right</span><span class="p">]])</span> <span class="o">&gt;&gt;</span> <span class="mi">0</span>
-<a id="__codelineno-0-165" name="__codelineno-0-165"></a>            <span class="p">)</span>
-<a id="__codelineno-0-166" name="__codelineno-0-166"></a>
-<a id="__codelineno-0-167" name="__codelineno-0-167"></a>    <span class="n">t_sum</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">t_pages</span><span class="p">)</span>
-<a id="__codelineno-0-168" name="__codelineno-0-168"></a>    <span class="n">constraints</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="mf">2.0</span><span class="o">**</span><span class="n">k</span><span class="p">)</span> <span class="o">*</span> <span class="n">t_sum</span> <span class="o">+</span> <span class="n">TAU</span> <span class="o">&gt;&gt;</span> <span class="mi">0</span><span class="p">)</span>
-<a id="__codelineno-0-169" name="__codelineno-0-169"></a>
-<a id="__codelineno-0-170" name="__codelineno-0-170"></a>    <span class="k">return</span> <span class="n">constraints</span>
-</code></pre></div></td></tr></table></div>
-            </details>
-    </div>
-
-</div>
 
 
 
@@ -9889,14 +9463,14 @@ rule), <code>1</code> uses right-endpoint Gauss--Radau (upper bound on the matri
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../../../..", "features": ["navigation.indexes", "navigation.top", "content.code.copy", "content.code.annotate", "search.highlight"], "search": "../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.indexes", "navigation.top", "content.code.copy", "content.code.annotate", "search.highlight"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
-        <script src="../../../../assets/_markdown_exec_pyodide.js"></script>
+        <script src="../../../assets/_markdown_exec_pyodide.js"></script>
       
-        <script src="../../../../javascript/mathjax.js"></script>
+        <script src="../../../javascript/mathjax.js"></script>
       
         <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
       
