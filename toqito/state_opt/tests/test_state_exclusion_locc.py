@@ -93,3 +93,25 @@ def test_requires_states():
     """An empty list of states raises a ValueError."""
     with pytest.raises(ValueError, match="At least one state"):
         state_exclusion_locc([], dim=[2, 2])
+
+
+def test_dim_product_must_match_states():
+    """A `dim` whose product is not the state dimension raises a ValueError."""
+    states = [_dm((1, 0, 0, 0)), _dm((0, 0, 0, 1))]  # dimension 4
+    with pytest.raises(ValueError, match="product"):
+        state_exclusion_locc(states, dim=[2, 3])  # 2 * 3 = 6 != 4
+
+
+def test_runs_without_seed():
+    """The see-saw runs with the default (None) seed."""
+    e_0, e_1 = np.array([1, 0]), np.array([0, 1])
+    states = [_dm(np.kron(e_0, e_0)), _dm(np.kron(e_1, e_1)), _dm(np.kron(e_0, e_1))]
+    val = state_exclusion_locc(states, dim=[2, 2], reps=1)
+    np.testing.assert_allclose(val, 0.0, atol=1e-4)
+
+
+def test_custom_num_alice_outcomes():
+    """`num_alice_outcomes` is accepted; more outcomes cannot raise the value."""
+    states = [_dm(v) for v in _GAP_VECS]
+    val = state_exclusion_locc(states, dim=[2, 2], num_alice_outcomes=4, reps=2, seed=0)
+    np.testing.assert_equal(val >= -1e-6, True)
