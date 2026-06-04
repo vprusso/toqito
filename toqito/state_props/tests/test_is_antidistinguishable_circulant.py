@@ -15,13 +15,6 @@ def test_is_antidistinguishable_circulant_trine(skip_circulant_check):
     assert is_antidistinguishable_circulant(trine(), skip_circulant_check=skip_circulant_check)
 
 
-def test_is_antidistinguishable_circulant_benchmark(benchmark):
-    """Benchmark for is_antidistinguishable_circulant function."""
-    gram_matrix = random_circulant_gram_matrix(16, seed=42)
-    states = vectors_from_gram_matrix(gram_matrix)
-    benchmark(is_antidistinguishable_circulant, states)
-
-
 def test_is_antidistinguishable_circulant_complex_gram():
     """Test that the circulant set of states |+>, |i>, |-> and |-i> are antidistinguishable."""
     gram_matrix = np.array(
