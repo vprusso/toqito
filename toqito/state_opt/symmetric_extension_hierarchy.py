@@ -14,6 +14,7 @@ def symmetric_extension_hierarchy(
     probs: list[float] | None = None,
     level: int = 2,
     dim: int | list[int] | None = None,
+    objective: str = "distinguish",
 ) -> float:
     r"""Compute optimal value of the symmetric extension hierarchy SDP [@navascues2008pure].
 
@@ -58,14 +59,35 @@ def symmetric_extension_hierarchy(
         \end{equation}
     \]
 
+    For state **exclusion**, set `objective="exclude"`. The feasible region is identical; only the
+    objective is *minimized* rather than maximized,
+
+    \[
+        \begin{equation}
+            \text{minimize:} \quad \sum_{k=1}^N p_k \langle \rho_k, \mu(k) \rangle
+            \quad \text{subject to the same constraints.}
+        \end{equation}
+    \]
+
+    At level 1 this recovers the PPT exclusion value, and as the level increases it gives a
+    non-decreasing lower bound on the separable exclusion error -- in contrast to the
+    distinguishability case, where the hierarchy yields an upper bound that decreases with the
+    level. In the implementation, `meas[k]` is the measurement operator \(\mu(k)\), `x_var[k]` is
+    its symmetric extension \(X_k\), and `sym` is the symmetric projector \(\Pi\).
+
     Args:
         states: A list of states provided as either matrices or vectors.
         probs: Respective list of probabilities each state is selected.
         level: Level of the hierarchy to compute.
         dim: The default has both subsystems of equal dimension.
+        objective: Either `"distinguish"` (default) to maximize the success probability of state
+            distinguishability, or `"exclude"` to minimize the error probability of state
+            exclusion. The constraints are identical for both objectives.
 
     Returns:
-        The optimal probability of the symmetric extension hierarchy SDP for level `level`.
+        The optimal value of the symmetric extension hierarchy SDP at level `level`: the
+        distinguishability value for `objective="distinguish"`, or the exclusion error for
+        `objective="exclude"`.
 
     Examples:
         It is known from [@cosentino2015quantum] that distinguishing three Bell states along with a resource
@@ -130,12 +152,35 @@ def symmetric_extension_hierarchy(
         print(f"True separable value: {np.around(true_sep_val, decimals=2)}")
         ```
 
+        The exclusion analogue is selected with `objective="exclude"`. Here three
+        non-antidistinguishable two-qubit states have a strictly positive separable exclusion
+        error already at the first level of the hierarchy.
+
+        ```python exec="1" source="above" result="text"
+        from toqito.state_opt import symmetric_extension_hierarchy
+        import numpy as np
+
+        # Three states (computational basis ordered as |00>, |01>, |10>, |11>).
+        vecs = [
+        np.array([[0], [1], [1], [1]], dtype=complex),
+        np.array([[0], [0], [1], [1]], dtype=complex),
+        np.array([[1], [0], [1], [1]], dtype=complex),
+        ]
+        states = [v @ v.conj().T / (v.conj().T @ v).real.item() for v in vecs]
+
+        # The first level of the hierarchy equals the PPT exclusion error.
+        val = symmetric_extension_hierarchy(states=states, level=1, objective="exclude")
+        print(f"Separable exclusion error (level 1): {np.around(val, decimals=2)}")
+        ```
+
     """
     obj_func = []
     meas = []
     x_var = []
     constraints = []
 
+    if objective not in ("distinguish", "exclude"):
+        raise ValueError("Argument `objective` must be either 'distinguish' or 'exclude'.")
     if not states:
         raise ValueError("At least one state must be provided.")
     if probs is None:
@@ -186,10 +231,14 @@ def symmetric_extension_hierarchy(
 
     constraints.append(sum(meas) == np.identity(dim_xy))
 
-    objective = cvxpy.Maximize(cvxpy.real(sum(obj_func)))
+    # For distinguishability we maximize the success probability; for exclusion we
+    # minimize the error probability. The feasible region (symmetric extension + PPT
+    # constraints) is identical in both cases.
+    obj_expr = cvxpy.real(sum(obj_func))
+    problem_objective = cvxpy.Maximize(obj_expr) if objective == "distinguish" else cvxpy.Minimize(obj_expr)
     with warnings.catch_warnings():
         warnings.filterwarnings("ignore", message="Constraint.*subexpressions")
-        problem = cvxpy.Problem(objective, constraints)
+        problem = cvxpy.Problem(problem_objective, constraints)
         sol_default = problem.solve()
 
     return sol_default
