@@ -182,7 +182,7 @@ def _gap_ensemble():
         np.array([[0], [0], [1], [1]], dtype=complex),
         np.array([[1], [0], [1], [1]], dtype=complex),
     ]
-    return [v @ v.conj().T / (v.conj().T @ v).real.item() for v in vecs]
+    return [v @ v.conj().T / float(np.linalg.norm(v) ** 2) for v in vecs]
 
 
 def _direct_exclusion_sdp(states, ppt=False, dim=(2, 2)):
@@ -222,13 +222,48 @@ def test_exclusion_separable_strictly_worse_than_global():
     np.testing.assert_equal(sep > glob + 1e-2, True)
 
 
-def test_exclusion_hierarchy_is_monotonic():
-    """Higher levels give a non-decreasing lower bound on the separable exclusion error."""
+def test_exclusion_three_bell_with_resource_state():
+    """Three Bell states tensored with a resource state are perfectly excludable.
+
+    This is the ensemble from the distinguishability example. The states are mutually orthogonal,
+    so they are perfectly antidistinguishable (exclusion error 0) even though PPT measurements
+    cannot perfectly distinguish them (the distinguishability value is well below 1). This makes
+    the exclusion and distinguishability hierarchy values directly comparable on a known example.
+    """
+    e_0, e_1 = basis(2, 0), basis(2, 1)
+    e_00, e_11 = np.kron(e_0, e_0), np.kron(e_1, e_1)
+    eps = 1 / 2
+    eps_state = np.sqrt((1 + eps) / 2) * e_00 + np.sqrt((1 - eps) / 2) * e_11
+    eps_dm = eps_state @ eps_state.conj().T
+
+    states = [
+        np.kron(bell(0) @ bell(0).conj().T, eps_dm),
+        np.kron(bell(1) @ bell(1).conj().T, eps_dm),
+        np.kron(bell(2) @ bell(2).conj().T, eps_dm),
+    ]
+    states = [
+        swap(states[0], [2, 3], [2, 2, 2, 2]),
+        swap(states[1], [2, 3], [2, 2, 2, 2]),
+        swap(states[2], [2, 3], [2, 2, 2, 2]),
+    ]
+
+    exclude = symmetric_extension_hierarchy(states=states, probs=None, level=1, objective="exclude")
+    distinguish = symmetric_extension_hierarchy(states=states, probs=None, level=1)
+    np.testing.assert_allclose(exclude, 0.0, atol=1e-4)
+    np.testing.assert_equal(distinguish > 0.9, True)
+
+
+def test_exclusion_level_two_does_not_decrease():
+    """Level 2 of the exclusion hierarchy is at least level 1 (the bound never decreases).
+
+    For this ensemble the PPT relaxation is already tight, so level 2 coincides with level 1 to
+    solver precision; a strict level-2 > level-1 separation would require an ensemble where the
+    separable exclusion value lies strictly above the PPT one, which is hard to realize at this
+    dimension. The test therefore only asserts the non-decreasing direction of the hierarchy.
+    """
     states = _gap_ensemble()
     lvl_1 = symmetric_extension_hierarchy(states=states, probs=None, level=1, objective="exclude")
     lvl_2 = symmetric_extension_hierarchy(states=states, probs=None, level=2, objective="exclude")
-    # For this ensemble the PPT relaxation is already tight, so level 2 coincides with level 1 to
-    # solver precision; the test asserts only that the hierarchy never decreases with the level.
     np.testing.assert_equal(lvl_2 >= lvl_1 - 1e-5, True)
 
 

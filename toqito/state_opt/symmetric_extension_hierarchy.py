@@ -162,11 +162,11 @@ def symmetric_extension_hierarchy(
 
         # Three states (computational basis ordered as |00>, |01>, |10>, |11>).
         vecs = [
-        np.array([[0], [1], [1], [1]], dtype=complex),
-        np.array([[0], [0], [1], [1]], dtype=complex),
-        np.array([[1], [0], [1], [1]], dtype=complex),
+            np.array([[0], [1], [1], [1]], dtype=complex),
+            np.array([[0], [0], [1], [1]], dtype=complex),
+            np.array([[1], [0], [1], [1]], dtype=complex),
         ]
-        states = [v @ v.conj().T / (v.conj().T @ v).real.item() for v in vecs]
+        states = [v @ v.conj().T / float(np.linalg.norm(v) ** 2) for v in vecs]
 
         # The first level of the hierarchy equals the PPT exclusion error.
         val = symmetric_extension_hierarchy(states=states, level=1, objective="exclude")
