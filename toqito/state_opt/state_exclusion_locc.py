@@ -10,7 +10,7 @@ from toqito.rand import random_povm
 def state_exclusion_locc(
     states: list[np.ndarray],
     probs: list[float] | None = None,
-    dims: list[int] | None = None,
+    dim: list[int] | None = None,
     *,
     num_alice_outcomes: int | None = None,
     reps: int = 5,
@@ -67,7 +67,7 @@ def state_exclusion_locc(
         states: Bipartite states, each given as a density matrix (or a vector, which is converted
             to a density matrix) on the \(\mathcal{H}_A \otimes \mathcal{H}_B\) system.
         probs: Respective selection probabilities. Defaults to the uniform distribution.
-        dims: The two subsystem dimensions `[dim_A, dim_B]`. Their product must equal the dimension
+        dim: The two subsystem dimensions `[dim_A, dim_B]`. Their product must equal the dimension
             of each state.
         num_alice_outcomes: Number of measurement outcomes available to Alice. Defaults to the
             number of states. Allowing more outcomes can only tighten (lower) the value.
@@ -89,21 +89,21 @@ def state_exclusion_locc(
         import numpy as np
 
         vecs = [
-        np.array([[0], [1], [1], [1]], dtype=complex),
-        np.array([[0], [0], [1], [1]], dtype=complex),
-        np.array([[1], [0], [1], [1]], dtype=complex),
+            np.array([[0], [1], [1], [1]], dtype=complex),
+            np.array([[0], [0], [1], [1]], dtype=complex),
+            np.array([[1], [0], [1], [1]], dtype=complex),
         ]
-        states = [v @ v.conj().T / (v.conj().T @ v).real.item() for v in vecs]
+        states = [v @ v.conj().T / float(np.linalg.norm(v) ** 2) for v in vecs]
 
-        val = state_exclusion_locc(states, dims=[2, 2], reps=3, seed=1)
+        val = state_exclusion_locc(states, dim=[2, 2], reps=3, seed=1)
         print(f"One-way LOCC exclusion error: {np.around(val, decimals=2)}")
         ```
 
     """
     if not states:
         raise ValueError("At least one state must be provided.")
-    if dims is None or len(dims) != 2:
-        raise ValueError("Argument `dims` must be a list `[dim_A, dim_B]` of the two subsystem dimensions.")
+    if dim is None or len(dim) != 2:
+        raise ValueError("Argument `dim` must be a list `[dim_A, dim_B]` of the two subsystem dimensions.")
 
     states = [to_density_matrix(state) for state in states]
     num_states = len(states)
@@ -112,9 +112,9 @@ def state_exclusion_locc(
     if not np.isclose(sum(probs), 1):
         raise ValueError("Probabilities must sum to 1.")
 
-    dim_a, dim_b = int(dims[0]), int(dims[1])
+    dim_a, dim_b = int(dim[0]), int(dim[1])
     if states[0].shape[0] != dim_a * dim_b:
-        raise ValueError("The product of `dims` must equal the dimension of the states.")
+        raise ValueError("The product of `dim` must equal the dimension of the states.")
     num_a = num_states if num_alice_outcomes is None else num_alice_outcomes
 
     best = float("inf")
