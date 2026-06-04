@@ -381,27 +381,50 @@ def _ppt_dual(
     strategy: str = "min_error",
 ):
     """Semidefinite program with PPT constraints (dual problem)."""
+    n = len(vectors)
     d = vectors[0].shape[0]
 
-    if strategy != "min_error":
-        raise ValueError("Only min_error strategy is supported for PPT dual.")
-
     problem = picos.Problem()
-    q_vars = [picos.HermitianVariable(f"Q[{i}]", (d, d)) for i in range(len(vectors))]
+    num_qvars = n if strategy == "min_error" else n + 1
+    q_vars = [picos.HermitianVariable(f"Q[{i}]", (d, d)) for i in range(num_qvars)]
+    problem.add_list_of_constraints([q_var >> 0 for q_var in q_vars])
 
     y_var = picos.HermitianVariable("Y", (d, d))
-    problem.add_list_of_constraints(
-        [
-            - y_var + probs[i] * to_density_matrix(vectors[i])
-            >> picos.partial_transpose(
-                q_var,
-                subsystems=subsystems,
-                dimensions=dimensions,
-            )
-            for i, q_var in enumerate(q_vars)
-        ]
-    )
-    problem.add_list_of_constraints([q_var >> 0 for q_var in q_vars])
+    dms = [to_density_matrix(vector) for vector in vectors]
+
+    if strategy == "unambiguous":
+        m_vars = [[picos.RealVariable(f"m[{i}, {j}]") if i != j else 0 for j in range(n)] for i in range(n)]
+
+        problem.add_list_of_constraints(
+            [
+                - y_var + probs[i] * dms[i]
+                - picos.sum([m_vars[i][j] * probs[j] * dms[j] for j in range(n) if j != i])
+                >> picos.partial_transpose(
+                    q_vars[i],
+                    subsystems=subsystems,
+                    dimensions=dimensions,
+                )
+                for i in range(n)
+            ]
+        )
+
+        problem.add_constraint(- y_var >> picos.partial_transpose(
+                    q_vars[n],
+                    subsystems=subsystems,
+                    dimensions=dimensions,
+                ))
+    else:
+        problem.add_list_of_constraints(
+            [
+                - y_var + probs[i] * dms[i]
+                >> picos.partial_transpose(
+                    q_vars[i],
+                    subsystems=subsystems,
+                    dimensions=dimensions,
+                )
+                for i in range(n)
+            ]
+        )
 
     problem.set_objective("max", picos.trace(y_var))
     solution = problem.solve(solver=solver)
