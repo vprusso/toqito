@@ -7,3 +7,4 @@ from toqito.channel_metrics.channel_measured_relative_entropy import channel_mea
 from toqito.channel_metrics.completely_bounded_trace_norm import completely_bounded_trace_norm
 from toqito.channel_metrics.completely_bounded_spectral_norm import completely_bounded_spectral_norm
 from toqito.channel_metrics.channel_distinguishability import channel_distinguishability
+from toqito.channel_metrics.channel_exclusion import channel_exclusion
