@@ -2,14 +2,20 @@
 
 import itertools
 from collections import defaultdict
+from typing import Literal, TypeAlias
 
 import cvxpy
 import numpy as np
 
 from toqito.matrix_ops import tensor
-from toqito.nonlocal_games.constrained_extended_games import AnswerEventConstraint
 from toqito.rand import random_unitary
 from toqito.state_opt.npa_hierarchy import npa_constraints
+
+AnswerEventConstraint: TypeAlias = tuple[
+    dict[tuple[int, int, int, int], float] | np.ndarray,
+    Literal["==", "<=", ">="],
+    float,
+]
 
 
 class ExtendedNonlocalGame:
@@ -533,9 +539,8 @@ class ExtendedNonlocalGame:
         ]
         return cvxpy.trace(block)
 
-    @classmethod
+    @staticmethod
     def _answer_event_linear_constraint(
-        cls,
         assemblage: dict[tuple[int, int], cvxpy.Variable],
         constraint: AnswerEventConstraint,
         referee_dim: int,
@@ -546,7 +551,7 @@ class ExtendedNonlocalGame:
     ) -> cvxpy.constraints.constraint.Constraint:
         """Build a single cvxpy constraint from sparse or dense answer-event coefficients."""
         coeffs, op, rhs = constraint
-        expr = cvxpy.Constant(0)
+        terms: list[cvxpy.Expression] = []
         expected_shape = (num_a_out, num_b_out, num_a_in, num_b_in)
 
         if isinstance(coeffs, np.ndarray):
@@ -558,22 +563,32 @@ class ExtendedNonlocalGame:
                         for b in range(num_b_out):
                             coeff = float(coeffs[a, b, x, y])
                             if coeff != 0.0:
-                                expr += coeff * cls._answer_event_probability(assemblage, a, b, x, y, referee_dim)
+                                terms.append(
+                                    coeff
+                                    * ExtendedNonlocalGame._answer_event_probability(
+                                        assemblage, a, b, x, y, referee_dim
+                                    )
+                                )
         else:
+            # Sparse keys are validated explicitly; dense coeffs rely on the shape check above.
             for (a, b, x, y), coeff in coeffs.items():
                 if not (0 <= a < num_a_out and 0 <= b < num_b_out and 0 <= x < num_a_in and 0 <= y < num_b_in):
                     raise ValueError(
                         f"Constraint index (a={a}, b={b}, x={x}, y={y}) is out of range for game dimensions "
                         f"{expected_shape}."
                     )
-                expr += float(coeff) * cls._answer_event_probability(assemblage, a, b, x, y, referee_dim)
+                terms.append(
+                    float(coeff) * ExtendedNonlocalGame._answer_event_probability(assemblage, a, b, x, y, referee_dim)
+                )
+
+        linear_expr = cvxpy.real(cvxpy.sum(terms)) if terms else cvxpy.Constant(0)
 
         if op == "==":
-            return expr == rhs
+            return linear_expr == rhs
         if op == "<=":
-            return expr <= rhs
+            return linear_expr <= rhs
         if op == ">=":
-            return expr >= rhs
+            return linear_expr >= rhs
         raise ValueError(f"Constraint operator must be '==', '<=', or '>=', got {op!r}.")
 
     def commuting_measurement_value_upper_bound(

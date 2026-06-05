@@ -8,7 +8,12 @@ import cvxpy
 import numpy as np
 import pytest
 
-from toqito.nonlocal_games.constrained_extended_games import constrained_bb84_monogamy_answer_constraints
+from toqito.nonlocal_games.constrained_extended_games import (
+    bb84_extended_nonlocal_game,
+    constrained_bb84_monogamy_answer_constraints,
+    constrained_bb84_monogamy_answer_constraints_dense,
+    forbid_bb84_diagonal_answers_at,
+)
 from toqito.nonlocal_games.extended_nonlocal_game import ExtendedNonlocalGame
 from toqito.states import basis
 
@@ -19,23 +24,7 @@ class TestExtendedNonlocalGame(unittest.TestCase):
     @staticmethod
     def bb84_extended_nonlocal_game():
         """Define the BB84 extended nonlocal game."""
-        e_0, e_1 = basis(2, 0), basis(2, 1)
-        e_p = (e_0 + e_1) / np.sqrt(2)
-        e_m = (e_0 - e_1) / np.sqrt(2)
-
-        dim = 2
-        num_alice_out, num_bob_out = 2, 2
-        num_alice_in, num_bob_in = 2, 2
-
-        pred_mat = np.zeros([dim, dim, num_alice_out, num_bob_out, num_alice_in, num_bob_in])
-        pred_mat[:, :, 0, 0, 0, 0] = e_0 @ e_0.conj().T
-        pred_mat[:, :, 0, 0, 1, 1] = e_p @ e_p.conj().T
-        pred_mat[:, :, 1, 1, 0, 0] = e_1 @ e_1.conj().T
-        pred_mat[:, :, 1, 1, 1, 1] = e_m @ e_m.conj().T
-
-        prob_mat = 1 / 2 * np.identity(2)
-
-        return prob_mat, pred_mat
+        return bb84_extended_nonlocal_game()
 
     @staticmethod
     def chsh_extended_nonlocal_game():
@@ -174,6 +163,7 @@ class TestExtendedNonlocalGame(unittest.TestCase):
 
         self.assertEqual(np.isclose(res, expected_res), True)
 
+    @pytest.mark.slow
     def test_bb84_commuting_value_upper_bound(self):
         """Calculate an upper bound on the commuting measurement value of the BB84 game."""
         prob_mat, pred_mat = self.bb84_extended_nonlocal_game()
@@ -183,6 +173,7 @@ class TestExtendedNonlocalGame(unittest.TestCase):
 
         self.assertEqual(np.isclose(res, expected_res, atol=1e-5), True)
 
+    @pytest.mark.slow
     def test_constrained_bb84_commuting_value_upper_bound(self):
         """Constrained BB84 upper bound matches arXiv:2405.13717 Sec. 4.1, Eq. (62)."""
         prob_mat, pred_mat = self.bb84_extended_nonlocal_game()
@@ -194,6 +185,7 @@ class TestExtendedNonlocalGame(unittest.TestCase):
 
         self.assertTrue(np.isclose(res, expected_res, atol=1e-5))
 
+    @pytest.mark.slow
     def test_constrained_bb84_matches_unconstrained_sanity_check(self):
         """Forcing consistent answers does not lower the BB84 NPA upper bound at k=1."""
         prob_mat, pred_mat = self.bb84_extended_nonlocal_game()
@@ -206,6 +198,16 @@ class TestExtendedNonlocalGame(unittest.TestCase):
         self.assertTrue(np.isclose(unconstrained, constrained, atol=1e-5))
         self.assertTrue(np.isclose(unconstrained, np.cos(np.pi / 8) ** 2, atol=1e-5))
 
+    def test_constrained_bb84_monogamy_constraints_are_per_question(self):
+        """Eq. (60) is encoded as one equality per question x, not a single merged sum."""
+        constraints = constrained_bb84_monogamy_answer_constraints()
+
+        self.assertEqual(len(constraints), 2)
+        self.assertEqual(set(constraints[0][0].keys()), {(0, 1, 0, 0), (1, 0, 0, 0)})
+        self.assertEqual(set(constraints[1][0].keys()), {(0, 1, 1, 1), (1, 0, 1, 1)})
+        self.assertEqual(constraints[0][1:], ("==", 0.0))
+        self.assertEqual(constraints[1][1:], ("==", 0.0))
+
     def test_answer_event_constraint_invalid_operator(self):
         """Invalid comparison operators are rejected."""
         prob_mat, pred_mat = self.bb84_extended_nonlocal_game()
@@ -214,6 +216,48 @@ class TestExtendedNonlocalGame(unittest.TestCase):
 
         with self.assertRaises(ValueError):
             bb84.commuting_measurement_value_upper_bound(constraints=[bad_constraint])
+
+    @pytest.mark.slow
+    def test_bb84_binding_answer_event_constraint_lowers_commuting_upper_bound(self):
+        """A binding constraint lowers the SDP value below the unconstrained BB84 upper bound."""
+        prob_mat, pred_mat = self.bb84_extended_nonlocal_game()
+        bb84 = ExtendedNonlocalGame(prob_mat, pred_mat)
+        unconstrained = bb84.commuting_measurement_value_upper_bound()
+        binding = bb84.commuting_measurement_value_upper_bound(
+            constraints=forbid_bb84_diagonal_answers_at(0, 0)
+        )
+        bb84_optimum = np.cos(np.pi / 8) ** 2
+
+        self.assertTrue(np.isclose(unconstrained, bb84_optimum, atol=1e-5))
+        self.assertLess(binding, bb84_optimum - 1e-4)
+        self.assertLess(binding, unconstrained - 1e-4)
+        # With both diagonal answer events at (x,y)=(0,0) forced to zero, only the (1,1) round
+        # contributes at weight 1/2 in the BB84 distribution.
+        self.assertAlmostEqual(binding, 0.5, delta=1e-4)
+
+    @pytest.mark.slow
+    def test_bb84_monogamy_constraints_dense_matches_sparse(self):
+        """Dense coefficient arrays give the same upper bound as sparse dicts."""
+        prob_mat, pred_mat = self.bb84_extended_nonlocal_game()
+        bb84 = ExtendedNonlocalGame(prob_mat, pred_mat)
+        sparse_val = bb84.commuting_measurement_value_upper_bound(
+            constraints=constrained_bb84_monogamy_answer_constraints()
+        )
+        dense_val = bb84.commuting_measurement_value_upper_bound(
+            constraints=constrained_bb84_monogamy_answer_constraints_dense()
+        )
+
+        self.assertTrue(np.isclose(sparse_val, dense_val, atol=1e-5))
+        self.assertTrue(np.isclose(sparse_val, 0.8535533905, atol=1e-5))
+
+    def test_answer_event_constraint_dense_shape_mismatch(self):
+        """Dense coefficients with the wrong shape are rejected."""
+        prob_mat, pred_mat = self.bb84_extended_nonlocal_game()
+        bb84 = ExtendedNonlocalGame(prob_mat, pred_mat)
+        bad_dense = (np.zeros((2, 2, 2, 3)), "==", 0.0)
+
+        with self.assertRaises(ValueError):
+            bb84.commuting_measurement_value_upper_bound(constraints=[bad_dense])
 
     def test_chsh_commuting_value_upper_bound(self):
         """Calculate an upper bound on the commuting measurement value of the CHSH game."""
