@@ -56,3 +56,18 @@ def test_channel_exclusion_invalid_number_of_channels():
     """At least two channels are required."""
     with pytest.raises(ValueError, match="At least 2 channels are required for channel exclusion."):
         channel_exclusion(channels=[depolarizing(2, 0.2)], probs=[1.0])
+
+
+def test_unambiguous_exclusion_orthogonal_unitaries():
+    """Orthogonal unitary channels should be perfectly excludable (inconclusive prob = 0)."""
+    import numpy as np
+
+    # Pauli X and Z
+    X = np.array([[0.0, 1.0], [1.0, 0.0]])
+    Z = np.array([[1.0, 0.0], [0.0, -1.0]])
+
+    # Provide as Kraus lists so kraus_to_choi is invoked
+    value, ops = channel_exclusion(channels=[ [X], [Z] ], probs=[0.5, 0.5], strategy="unambiguous", primal_dual="primal")
+    assert abs(value - 0.0) <= 1e-6
+    # Expect the returned ops to include W_inc as the last element
+    assert len(ops) == 3

@@ -74,8 +74,8 @@ def channel_exclusion(
     if strategy not in ("min_error", "unambiguous"):
         raise ValueError("The strategy must be either 'min_error' or 'unambiguous'.")
 
-    if strategy == "unambiguous":
-        raise NotImplementedError("Unambiguous channel exclusion will be added in a later phase.")
+    # `unambiguous` is supported (primal only) but handled after we normalize probabilities
+    # and convert Kraus inputs to Choi matrices.
 
     if primal_dual not in ("primal", "dual"):
         raise ValueError("The primal_dual option must be either 'primal' or 'dual'.")
@@ -108,6 +108,11 @@ def channel_exclusion(
 
     dim_in = int(first_dim[0][0])
     dim_out = int(first_dim[1][0])
+
+    if strategy == "unambiguous":
+        if primal_dual != "primal":
+            raise ValueError("Unambiguous strategy supports only the primal formulation for Phase 2.")
+        return _unambiguous_primal(choi_channels, probs_arr.tolist(), dim_in, dim_out, solver=solver, **kwargs)
 
     if primal_dual == "primal":
         return _min_error_primal(choi_channels, probs_arr.tolist(), dim_in, dim_out, solver=solver, **kwargs)
@@ -167,3 +172,41 @@ def _min_error_dual(
 
     strategy_ops = [np.array(constraint.dual) for constraint in dual_constraints]
     return solution.value, strategy_ops
+
+
+def _unambiguous_primal(
+    channels: list[np.ndarray],
+    probs: list[float],
+    dim_in: int,
+    dim_out: int,
+    solver: str = "cvxopt",
+    **kwargs: Any,
+) -> tuple[float, list[np.ndarray]]:
+    """Solve the primal SDP for unambiguous channel exclusion.
+
+    Returns the minimal inconclusive probability and the set of strategy operators
+    (W_1, ..., W_n, W_inc).
+    """
+    n_channels = len(channels)
+    problem = pc.Problem()
+
+    W_vars = [pc.HermitianVariable(f"W[{i}]", (dim_in * dim_out, dim_in * dim_out)) for i in range(n_channels)]
+    W_inc = pc.HermitianVariable("W_inc", (dim_in * dim_out, dim_in * dim_out))
+    x_var = pc.HermitianVariable("X", (dim_in, dim_in))
+
+    problem.add_list_of_constraints(W_vars[i] >> 0 for i in range(n_channels))
+    problem.add_constraint(W_inc >> 0)
+    problem.add_constraint(x_var >> 0)
+    problem.add_constraint(pc.trace(x_var) == 1)
+
+    problem.add_constraint(pc.sum(W_vars) + W_inc == x_var @ np.eye(dim_out))
+
+    # Zero-error constraints for conclusive outcomes
+    problem.add_list_of_constraints((channels[i] | W_vars[i]) == 0 for i in range(n_channels))
+
+    objective = pc.sum([probs[i] * (channels[i] | W_inc) for i in range(n_channels)])
+    problem.set_objective("min", objective)
+
+    solution = problem.solve(solver=solver, **kwargs)
+
+    return solution.value, [np.array(var.value) for var in W_vars] + [np.array(W_inc.value)]
