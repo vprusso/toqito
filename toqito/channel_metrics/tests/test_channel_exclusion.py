@@ -1,9 +1,12 @@
 """Test channel_exclusion."""
 
+import numpy as np
 import pytest
 
 from toqito.channel_metrics import channel_exclusion
+from toqito.channel_ops import kraus_to_choi
 from toqito.channels import amplitude_damping, depolarizing
+from toqito.state_opt import state_exclusion
 
 
 @pytest.mark.parametrize("primal_dual", ["primal", "dual"])
@@ -60,14 +63,14 @@ def test_channel_exclusion_invalid_number_of_channels():
 
 def test_unambiguous_exclusion_orthogonal_unitaries():
     """Orthogonal unitary channels should be perfectly excludable (inconclusive prob = 0)."""
-    import numpy as np
-
     # Pauli X and Z
     X = np.array([[0.0, 1.0], [1.0, 0.0]])
     Z = np.array([[1.0, 0.0], [0.0, -1.0]])
 
     # Provide as Kraus lists so kraus_to_choi is invoked
-    value, ops = channel_exclusion(channels=[ [X], [Z] ], probs=[0.5, 0.5], strategy="unambiguous", primal_dual="primal")
+    value, ops = channel_exclusion(
+        channels=[[X], [Z]], probs=[0.5, 0.5], strategy="unambiguous", primal_dual="primal"
+    )
     assert abs(value - 0.0) <= 1e-6
     # Expect the returned ops to include W_inc as the last element
     assert len(ops) == 3
@@ -75,10 +78,10 @@ def test_unambiguous_exclusion_orthogonal_unitaries():
 
 def test_three_depolarizing_interpolation():
     """Three identical depolarizing channels give error 1/3; more distinct channels give lower error."""
-    from toqito.channels import depolarizing
-
     channels_identical = [depolarizing(2, 0.3), depolarizing(2, 0.3), depolarizing(2, 0.3)]
-    val_identical, _ = channel_exclusion(channels=channels_identical, probs=[1 / 3, 1 / 3, 1 / 3], primal_dual="primal")
+    val_identical, _ = channel_exclusion(
+        channels=channels_identical, probs=[1 / 3, 1 / 3, 1 / 3], primal_dual="primal"
+    )
     assert abs(val_identical - 1 / 3) <= 1e-6
 
     channels_distinct = [depolarizing(2, 0.0), depolarizing(2, 0.5), depolarizing(2, 1.0)]
@@ -88,15 +91,10 @@ def test_three_depolarizing_interpolation():
 
 def test_orthogonal_unitaries_min_error_matches_state_exclusion():
     """For orthogonal unitaries, channel exclusion should match state_exclusion on normalized Choi states."""
-    import numpy as np
-
-    from toqito.channel_ops import kraus_to_choi
-    from toqito.state_opt import state_exclusion
-
-    I = np.eye(2)
+    eye = np.eye(2)
     Z = np.array([[1.0, 0.0], [0.0, -1.0]])
 
-    choi_I = kraus_to_choi([I])
+    choi_I = kraus_to_choi([eye])
     choi_Z = kraus_to_choi([Z])
 
     # Normalize Choi matrices to density matrices for state_exclusion

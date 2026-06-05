@@ -25,7 +25,7 @@ Careful points (followed in tests and code)
     `Σ_j p_j ⟨J(Φ_j), W_inc⟩` subject to `⟨J(Φ_i), W_i⟩ = 0` for conclusive outcomes.
 
 Examples
----------
+--------
 Min-error exclusion for two channels (choi matrices or Kraus operators accepted):
 
 >>> from toqito.channel_metrics import channel_exclusion
@@ -110,6 +110,7 @@ def channel_exclusion(
         ValueError: If `primal_dual` is not `"primal"` or `"dual"`.
         ValueError: If `strategy` is not supported.
         NotImplementedError: If `strategy="unambiguous"` is requested.
+
     """
     if len(channels) < 2:
         raise ValueError("At least 2 channels are required for channel exclusion.")
@@ -175,7 +176,10 @@ def _min_error_primal(
     n_channels = len(channels)
     problem = pc.Problem()
 
-    strategy_ops = [pc.HermitianVariable(f"W[{idx}]", (dim_in * dim_out, dim_in * dim_out)) for idx in range(n_channels)]
+    strategy_ops = [
+        pc.HermitianVariable(f"W[{idx}]", (dim_in * dim_out, dim_in * dim_out))
+        for idx in range(n_channels)
+    ]
     x_var = pc.HermitianVariable("X", (dim_in, dim_in))
 
     problem.add_list_of_constraints(strategy_ops[idx] >> 0 for idx in range(n_channels))
