@@ -31,8 +31,6 @@ Careful points (followed in tests and code)
 
 """
 
-from typing import Any
-
 import numpy as np
 import picos as pc
 
@@ -48,7 +46,7 @@ def channel_exclusion(
     strategy: str = "min_error",
     solver: str = "cvxopt",
     primal_dual: str = "dual",
-    **kwargs: Any,
+    **kwargs,
 ) -> tuple[float, list[np.ndarray]]:
     r"""Compute minimum-error channel exclusion for a collection of channels.
 
@@ -158,7 +156,7 @@ def _min_error_primal(
     dim_in: int,
     dim_out: int,
     solver: str = "cvxopt",
-    **kwargs: Any,
+    **kwargs,
 ) -> tuple[float, list[np.ndarray]]:
     """Solve the primal SDP for minimum-error channel exclusion."""
     n_channels = len(channels)
@@ -190,7 +188,7 @@ def _min_error_dual(
     dim_in: int,
     dim_out: int,
     solver: str = "cvxopt",
-    **kwargs: Any,
+    **kwargs,
 ) -> tuple[float, list[np.ndarray]]:
     """Solve the dual SDP for minimum-error channel exclusion."""
     n_channels = len(channels)
@@ -215,7 +213,7 @@ def _unambiguous_primal(
     dim_in: int,
     dim_out: int,
     solver: str = "cvxopt",
-    **kwargs: Any,
+    **kwargs,
 ) -> tuple[float, list[np.ndarray]]:
     """Solve the primal SDP for unambiguous channel exclusion.
 

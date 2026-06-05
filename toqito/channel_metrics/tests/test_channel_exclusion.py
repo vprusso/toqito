@@ -3,7 +3,7 @@
 import numpy as np
 import pytest
 
-from toqito.channel_metrics import channel_exclusion
+from toqito.channel_metrics import channel_exclusion, completely_bounded_trace_norm
 from toqito.channel_ops import kraus_to_choi
 from toqito.channels import amplitude_damping, depolarizing
 from toqito.state_opt import state_exclusion
@@ -177,3 +177,25 @@ def test_orthogonal_unitaries_min_error_matches_state_exclusion():
     state_val, _ = state_exclusion([rho_I, rho_Z], probs=[0.5, 0.5], primal_dual="dual", cvxopt_kktsolver="ldl")
 
     assert abs(chan_val - state_val) <= 1e-6
+
+
+def test_two_channel_exclusion_relates_to_diamond_norm():
+    """For n=2 the exclusion error relates to the diamond norm of p0*Phi0 - p1*Phi1."""
+    # Use two simple depolarizing channels with unequal priors
+    choi_0 = depolarizing(2, 0.2)
+    choi_1 = depolarizing(2, 0.7)
+
+    p0 = 0.6
+    p1 = 0.4
+
+    # Compute diamond norm of the weighted difference
+    cb_norm = completely_bounded_trace_norm(p0 * choi_0 - p1 * choi_1, "cvxopt", cvxopt_kktsolver="ldl")
+
+    # For our helper, the two-hypothesis exclusion error equals 1/2*(1 - cb_norm).
+    predicted_exclusion = 0.5 * (1 - cb_norm)
+
+    chan_val, _ = channel_exclusion(
+        channels=[choi_0, choi_1], probs=[p0, p1], primal_dual="primal", cvxopt_kktsolver="ldl"
+    )
+
+    assert abs(chan_val - predicted_exclusion) <= 1e-5
