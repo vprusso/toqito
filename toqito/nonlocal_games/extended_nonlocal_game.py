@@ -551,18 +551,14 @@ class ExtendedNonlocalGame:
 
         if isinstance(coeffs, np.ndarray):
             if coeffs.shape != expected_shape:
-                raise ValueError(
-                    f"Dense constraint coefficients must have shape {expected_shape}, got {coeffs.shape}."
-                )
+                raise ValueError(f"Dense constraint coefficients must have shape {expected_shape}, got {coeffs.shape}.")
             for x in range(num_a_in):
                 for y in range(num_b_in):
                     for a in range(num_a_out):
                         for b in range(num_b_out):
                             coeff = float(coeffs[a, b, x, y])
                             if coeff != 0.0:
-                                expr += coeff * cls._answer_event_probability(
-                                    assemblage, a, b, x, y, referee_dim
-                                )
+                                expr += coeff * cls._answer_event_probability(assemblage, a, b, x, y, referee_dim)
         else:
             for (a, b, x, y), coeff in coeffs.items():
                 if not (0 <= a < num_a_out and 0 <= b < num_b_out and 0 <= x < num_a_in and 0 <= y < num_b_in):
@@ -639,11 +635,7 @@ class ExtendedNonlocalGame:
         cons = npa_constraints(K, k, referee_dim=dR, no_signaling=no_signaling)
         if constraints is not None:
             for constraint in constraints:
-                cons.append(
-                    self._answer_event_linear_constraint(
-                        K, constraint, dR, A_out, B_out, A_in, B_in
-                    )
-                )
+                cons.append(self._answer_event_linear_constraint(K, constraint, dR, A_out, B_out, A_in, B_in))
         prob = cvxpy.Problem(cvxpy.Maximize(cvxpy.real(total_win)), cons)
         cs_val = prob.solve(solver=cvxpy.SCS, eps=1e-8, max_iters=100_000, verbose=False)
 
