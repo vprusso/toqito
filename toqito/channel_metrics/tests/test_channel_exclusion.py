@@ -61,6 +61,59 @@ def test_channel_exclusion_invalid_number_of_channels():
         channel_exclusion(channels=[depolarizing(2, 0.2)], probs=[1.0])
 
 
+@pytest.mark.parametrize(
+    "channels,probs,strategy,primal_dual,match",
+    [
+        (
+            [depolarizing(2, 0.2), depolarizing(2, 0.3)],
+            [0.5, 0.5],
+            "invalid_strategy",
+            "primal",
+            "The strategy must be either 'min_error' or 'unambiguous'.",
+        ),
+        (
+            [depolarizing(2, 0.2), depolarizing(2, 0.3)],
+            [0.5, 0.5],
+            "min_error",
+            "invalid",
+            "The primal_dual option must be either 'primal' or 'dual'.",
+        ),
+        (
+            [depolarizing(2, 0.2), depolarizing(2, 0.3)],
+            [0.5],
+            "min_error",
+            "primal",
+            "The number of probabilities must match the number of channels.",
+        ),
+        (
+            [depolarizing(2, 0.2), depolarizing(2, 0.3)],
+            [1.1, -0.1],
+            "min_error",
+            "primal",
+            "Prior probabilities must be non-negative.",
+        ),
+        (
+            [depolarizing(2, 0.2), depolarizing(3, 0.3)],
+            [0.5, 0.5],
+            "min_error",
+            "primal",
+            "All channels must have the same input and output dimensions.",
+        ),
+        (
+            [depolarizing(2, 0.2), depolarizing(2, 0.3)],
+            [0.5, 0.5],
+            "unambiguous",
+            "dual",
+            "Unambiguous strategy supports only the primal formulation for Phase 2.",
+        ),
+    ],
+)
+def test_channel_exclusion_validation_branches(channels, probs, strategy, primal_dual, match):
+    """Validation branches should reject invalid options and malformed inputs."""
+    with pytest.raises(ValueError, match=match):
+        channel_exclusion(channels=channels, probs=probs, strategy=strategy, primal_dual=primal_dual)
+
+
 def test_unambiguous_exclusion_orthogonal_unitaries():
     """Orthogonal unitary channels should be perfectly excludable (inconclusive prob = 0)."""
     # Pauli X and Z
