@@ -69,7 +69,11 @@ def test_unambiguous_exclusion_orthogonal_unitaries():
 
     # Provide as Kraus lists so kraus_to_choi is invoked
     value, ops = channel_exclusion(
-        channels=[[X], [Z]], probs=[0.5, 0.5], strategy="unambiguous", primal_dual="primal"
+        channels=[[X], [Z]],
+        probs=[0.5, 0.5],
+        strategy="unambiguous",
+        primal_dual="primal",
+        cvxopt_kktsolver="ldl",
     )
     assert abs(value - 0.0) <= 1e-6
     # Expect the returned ops to include W_inc as the last element
@@ -80,12 +84,20 @@ def test_three_depolarizing_interpolation():
     """Three identical depolarizing channels give error 1/3; more distinct channels give lower error."""
     channels_identical = [depolarizing(2, 0.3), depolarizing(2, 0.3), depolarizing(2, 0.3)]
     val_identical, _ = channel_exclusion(
-        channels=channels_identical, probs=[1 / 3, 1 / 3, 1 / 3], primal_dual="primal"
+        channels=channels_identical,
+        probs=[1 / 3, 1 / 3, 1 / 3],
+        primal_dual="primal",
+        cvxopt_kktsolver="ldl",
     )
     assert abs(val_identical - 1 / 3) <= 1e-6
 
     channels_distinct = [depolarizing(2, 0.0), depolarizing(2, 0.5), depolarizing(2, 1.0)]
-    val_distinct, _ = channel_exclusion(channels=channels_distinct, probs=[1 / 3, 1 / 3, 1 / 3], primal_dual="primal")
+    val_distinct, _ = channel_exclusion(
+        channels=channels_distinct,
+        probs=[1 / 3, 1 / 3, 1 / 3],
+        primal_dual="primal",
+        cvxopt_kktsolver="ldl",
+    )
     assert 0 <= val_distinct <= val_identical
 
 
@@ -102,7 +114,12 @@ def test_orthogonal_unitaries_min_error_matches_state_exclusion():
     rho_I = choi_I / dim
     rho_Z = choi_Z / dim
 
-    chan_val, _ = channel_exclusion(channels=[choi_I, choi_Z], probs=[0.5, 0.5], primal_dual="primal")
+    chan_val, _ = channel_exclusion(
+        channels=[choi_I, choi_Z],
+        probs=[0.5, 0.5],
+        primal_dual="primal",
+        cvxopt_kktsolver="ldl",
+    )
     # Use the dual formulation with LDL KKT solver for numerical stability.
     state_val, _ = state_exclusion([rho_I, rho_Z], probs=[0.5, 0.5], primal_dual="dual", cvxopt_kktsolver="ldl")
 

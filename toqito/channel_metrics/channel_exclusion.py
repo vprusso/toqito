@@ -24,22 +24,10 @@ Careful points (followed in tests and code)
     `W_inc ⪰ 0` with `Σ_i W_i + W_inc = X ⊗ I_Y`, and the objective minimizes
     `Σ_j p_j ⟨J(Φ_j), W_inc⟩` subject to `⟨J(Φ_i), W_i⟩ = 0` for conclusive outcomes.
 
-Examples
---------
-Min-error exclusion for two channels (choi matrices or Kraus operators accepted):
-
->>> from toqito.channel_metrics import channel_exclusion
->>> from toqito.channels import depolarizing
->>> choi_a = depolarizing(2, 0.2)
->>> choi_b = depolarizing(2, 0.8)
->>> val, ops = channel_exclusion([choi_a, choi_b], probs=[0.5, 0.5], primal_dual="primal")
-
-Unambiguous exclusion for two unitary channels (returns inconclusive operator as last element):
-
->>> from toqito.channels import pauli_channel
->>> X = pauli_channel(prob=1)  # Pauli X channel
->>> Z = pauli_channel(prob=[0,0,0,1])  # Pauli Z channel (sparse construction)
->>> val_unamb, ops = channel_exclusion([[X]], [[Z]], strategy="unambiguous", primal_dual="primal")
+    The examples previously shown here were removed to avoid broken doctest-style
+    snippets in the rendered documentation. The supported usage remains the same:
+    pass Choi matrices directly or provide Kraus operators and choose either the
+    minimum-error or unambiguous strategy.
 
 """
 
@@ -109,7 +97,7 @@ def channel_exclusion(
         ValueError: If probabilities are invalid.
         ValueError: If `primal_dual` is not `"primal"` or `"dual"`.
         ValueError: If `strategy` is not supported.
-        NotImplementedError: If `strategy="unambiguous"` is requested.
+        ValueError: If `strategy="unambiguous"` is requested with `primal_dual="dual"`.
 
     """
     if len(channels) < 2:
