@@ -1,4 +1,47 @@
-"""Computes the minimum error probability for quantum channel exclusion."""
+"""Channel exclusion SDP implementations.
+
+This module implements channel-level exclusion tasks: the minimum-error channel
+exclusion (primal + dual) and the unambiguous exclusion primal. The implementations
+follow the lifted-interactive-measurement (tester) formulation from Watrous,
+The Theory of Quantum Information, Section 3.5.
+
+Notation and mapping to toqito variables
+- `J(Φ)` : Choi matrix of channel Φ. In toqito `kraus_to_choi` and channel
+    constructors use the `input ⊗ output` ordering for Choi matrices. Therefore
+    inner products of the form `Tr[μ Φ(ρ)]` map to
+    `⟨J(Φ), ρ^T ⊗ μ⟩` under this ordering.
+- `ρ` : input state. In the lifted formulation we use `X = ρ^T` as the input-side
+    marginal variable so that the marginal constraint reads
+    `Σ_i W_i = X ⊗ I_Y` where the first tensor factor corresponds to the input.
+- `W_i` : lifted positive operator representing the joint `M_i ⊗ ρ^T` strategy.
+
+Careful points (followed in tests and code)
+- Choi normalization: Choi matrices returned by toqito channel constructors are
+    *unnormalized* (trace = d for trace-preserving maps on d-dimensional inputs).
+    When comparing a channel-level optimization against `state_exclusion` on Choi
+    states, normalize the Choi matrices by `1/d` to form valid density matrices.
+- Unambiguous exclusion: the implementation includes an inconclusive operator
+    `W_inc ⪰ 0` with `Σ_i W_i + W_inc = X ⊗ I_Y`, and the objective minimizes
+    `Σ_j p_j ⟨J(Φ_j), W_inc⟩` subject to `⟨J(Φ_i), W_i⟩ = 0` for conclusive outcomes.
+
+Examples
+---------
+Min-error exclusion for two channels (choi matrices or Kraus operators accepted):
+
+>>> from toqito.channel_metrics import channel_exclusion
+>>> from toqito.channels import depolarizing
+>>> choi_a = depolarizing(2, 0.2)
+>>> choi_b = depolarizing(2, 0.8)
+>>> val, ops = channel_exclusion([choi_a, choi_b], probs=[0.5, 0.5], primal_dual="primal")
+
+Unambiguous exclusion for two unitary channels (returns inconclusive operator as last element):
+
+>>> from toqito.channels import pauli_channel
+>>> X = pauli_channel(prob=1)  # Pauli X channel
+>>> Z = pauli_channel(prob=[0,0,0,1])  # Pauli Z channel (sparse construction)
+>>> val_unamb, ops = channel_exclusion([[X]], [[Z]], strategy="unambiguous", primal_dual="primal")
+
+"""
 
 from typing import Any
 
