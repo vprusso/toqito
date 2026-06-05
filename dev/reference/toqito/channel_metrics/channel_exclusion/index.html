@@ -10,31 +10,31 @@
       
       
       
-        <link rel="canonical" href="https://vprusso.github.io/toqito/dev/reference/toqito/channel_ops/">
+        <link rel="canonical" href="https://vprusso.github.io/toqito/dev/reference/toqito/channel_metrics/channel_exclusion/">
       
       
-        <link rel="prev" href="../channel_metrics/fidelity_of_separability/">
+        <link rel="prev" href="../channel_distinguishability/">
       
       
-        <link rel="next" href="apply_channel/">
+        <link rel="next" href="../channel_fidelity/">
       
       
         
       
       
-      <link rel="icon" href="../../../figures/favicon.ico">
+      <link rel="icon" href="../../../../figures/favicon.ico">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
     
     
       
-        <title>channel_ops - toqito</title>
+        <title>channel_exclusion - toqito</title>
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.484c7ddc.min.css">
       
         
-        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -53,23 +53,23 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/_markdown_exec_pyodide.css">
+      <link rel="stylesheet" href="../../../../assets/_markdown_exec_pyodide.css">
     
-      <link rel="stylesheet" href="../../../assets/_markdown_exec_ansi.css">
+      <link rel="stylesheet" href="../../../../assets/_markdown_exec_ansi.css">
     
-      <link rel="stylesheet" href="../../../assets/_mkdocstrings.css">
+      <link rel="stylesheet" href="../../../../assets/_mkdocstrings.css">
     
-      <link rel="stylesheet" href="../../../assets/extra.css">
+      <link rel="stylesheet" href="../../../../assets/extra.css">
     
-      <link rel="stylesheet" href="../../../sg_gallery-dataframe.css">
+      <link rel="stylesheet" href="../../../../sg_gallery-dataframe.css">
     
-      <link rel="stylesheet" href="../../../sg_gallery-rendered-html.css">
+      <link rel="stylesheet" href="../../../../sg_gallery-rendered-html.css">
     
-      <link rel="stylesheet" href="../../../sg_gallery-binder.css">
+      <link rel="stylesheet" href="../../../../sg_gallery-binder.css">
     
-      <link rel="stylesheet" href="../../../sg_gallery.css">
+      <link rel="stylesheet" href="../../../../sg_gallery.css">
     
-    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -94,7 +94,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#toqito.channel_ops" class="md-skip">
+        <a href="#toqito.channel_metrics.channel_exclusion" class="md-skip">
           Skip to content
         </a>
       
@@ -114,9 +114,9 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../../.." title="toqito" class="md-header__button md-logo" aria-label="toqito" data-md-component="logo">
+    <a href="../../../.." title="toqito" class="md-header__button md-logo" aria-label="toqito" data-md-component="logo">
       
-  <img src="../../../figures/logo-dark.svg" alt="logo">
+  <img src="../../../../figures/logo-dark.svg" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -133,7 +133,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              channel_ops
+              channel_exclusion
             
           </span>
         </div>
@@ -249,9 +249,9 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../../.." title="toqito" class="md-nav__button md-logo" aria-label="toqito" data-md-component="logo">
+    <a href="../../../.." title="toqito" class="md-nav__button md-logo" aria-label="toqito" data-md-component="logo">
       
-  <img src="../../../figures/logo-dark.svg" alt="logo">
+  <img src="../../../../figures/logo-dark.svg" alt="logo">
 
     </a>
     toqito
@@ -278,7 +278,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../.." class="md-nav__link">
+      <a href="../../../.." class="md-nav__link">
         
   
   
@@ -305,7 +305,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../getting-started/" class="md-nav__link">
+      <a href="../../../../getting-started/" class="md-nav__link">
         
   
   
@@ -332,7 +332,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../contributing-guide/" class="md-nav__link">
+      <a href="../../../../contributing-guide/" class="md-nav__link">
         
   
   
@@ -387,7 +387,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../generated/gallery/" class="md-nav__link ">
+            <a href="../../../../generated/gallery/" class="md-nav__link ">
               
   
   
@@ -431,7 +431,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../.." class="md-nav__link">
+      <a href="../../../.." class="md-nav__link">
         
   
   
@@ -510,7 +510,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../generated/gallery/basics/intro_tutorial/" class="md-nav__link">
+      <a href="../../../../generated/gallery/basics/intro_tutorial/" class="md-nav__link">
         
   
   
@@ -607,7 +607,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../generated/gallery/extended_nonlocal_games/enlg_introduction/" class="md-nav__link">
+      <a href="../../../../generated/gallery/extended_nonlocal_games/enlg_introduction/" class="md-nav__link">
         
   
   
@@ -635,7 +635,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../generated/gallery/extended_nonlocal_games/bit_commitment/" class="md-nav__link">
+      <a href="../../../../generated/gallery/extended_nonlocal_games/bit_commitment/" class="md-nav__link">
         
   
   
@@ -663,7 +663,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../generated/gallery/extended_nonlocal_games/parallel_repetition/" class="md-nav__link">
+      <a href="../../../../generated/gallery/extended_nonlocal_games/parallel_repetition/" class="md-nav__link">
         
   
   
@@ -691,7 +691,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../generated/gallery/extended_nonlocal_games/enlg_mub/" class="md-nav__link">
+      <a href="../../../../generated/gallery/extended_nonlocal_games/enlg_mub/" class="md-nav__link">
         
   
   
@@ -719,7 +719,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../generated/gallery/extended_nonlocal_games/enlg_chsh/" class="md-nav__link">
+      <a href="../../../../generated/gallery/extended_nonlocal_games/enlg_chsh/" class="md-nav__link">
         
   
   
@@ -747,7 +747,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../generated/gallery/extended_nonlocal_games/enlg_bb84/" class="md-nav__link">
+      <a href="../../../../generated/gallery/extended_nonlocal_games/enlg_bb84/" class="md-nav__link">
         
   
   
@@ -838,7 +838,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../generated/gallery/nonlocal_games/xor_quantum_value/" class="md-nav__link">
+      <a href="../../../../generated/gallery/nonlocal_games/xor_quantum_value/" class="md-nav__link">
         
   
   
@@ -866,7 +866,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../generated/gallery/nonlocal_games/npa_hierarchy/" class="md-nav__link">
+      <a href="../../../../generated/gallery/nonlocal_games/npa_hierarchy/" class="md-nav__link">
         
   
   
@@ -894,7 +894,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../generated/gallery/nonlocal_games/nonlocal_game/" class="md-nav__link">
+      <a href="../../../../generated/gallery/nonlocal_games/nonlocal_game/" class="md-nav__link">
         
   
   
@@ -995,7 +995,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../generated/gallery/quantum_states/state_distinguishability/" class="md-nav__link">
+      <a href="../../../../generated/gallery/quantum_states/state_distinguishability/" class="md-nav__link">
         
   
   
@@ -1023,7 +1023,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../generated/gallery/quantum_states/separability/" class="md-nav__link">
+      <a href="../../../../generated/gallery/quantum_states/separability/" class="md-nav__link">
         
   
   
@@ -1051,7 +1051,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../generated/gallery/quantum_states/pbr_theorem/" class="md-nav__link">
+      <a href="../../../../generated/gallery/quantum_states/pbr_theorem/" class="md-nav__link">
         
   
   
@@ -1079,7 +1079,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../generated/gallery/quantum_states/circulant_states/" class="md-nav__link">
+      <a href="../../../../generated/gallery/quantum_states/circulant_states/" class="md-nav__link">
         
   
   
@@ -1107,7 +1107,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../generated/gallery/quantum_states/state_exclusion/" class="md-nav__link">
+      <a href="../../../../generated/gallery/quantum_states/state_exclusion/" class="md-nav__link">
         
   
   
@@ -1135,7 +1135,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../generated/gallery/quantum_states/equiangular_threshold/" class="md-nav__link">
+      <a href="../../../../generated/gallery/quantum_states/equiangular_threshold/" class="md-nav__link">
         
   
   
@@ -1163,7 +1163,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../generated/gallery/quantum_states/classification/" class="md-nav__link">
+      <a href="../../../../generated/gallery/quantum_states/classification/" class="md-nav__link">
         
   
   
@@ -1191,7 +1191,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../generated/gallery/quantum_states/pgm_pbm/" class="md-nav__link">
+      <a href="../../../../generated/gallery/quantum_states/pgm_pbm/" class="md-nav__link">
         
   
   
@@ -1294,7 +1294,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../" class="md-nav__link ">
+            <a href="../../" class="md-nav__link ">
               
   
   
@@ -1335,6 +1335,8 @@
                 
   
   
+    
+  
   
   
     
@@ -1364,15 +1366,15 @@
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" checked>
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../channel_metrics/" class="md-nav__link ">
+            <a href="../" class="md-nav__link ">
               
   
   
@@ -1396,7 +1398,7 @@
             
           </div>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_5_2">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1416,7 +1418,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../channel_metrics/channel_distinguishability/" class="md-nav__link">
+      <a href="../channel_distinguishability/" class="md-nav__link">
         
   
   
@@ -1441,10 +1443,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../channel_metrics/channel_exclusion/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code>channel_exclusion
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -1460,6 +1489,37 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#toqito.channel_metrics.channel_exclusion.channel_exclusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-function"></code>&nbsp;channel_exclusion
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1472,7 +1532,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../channel_metrics/channel_fidelity/" class="md-nav__link">
+      <a href="../channel_fidelity/" class="md-nav__link">
         
   
   
@@ -1500,7 +1560,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../channel_metrics/channel_measured_relative_entropy/" class="md-nav__link">
+      <a href="../channel_measured_relative_entropy/" class="md-nav__link">
         
   
   
@@ -1528,7 +1588,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../channel_metrics/completely_bounded_spectral_norm/" class="md-nav__link">
+      <a href="../completely_bounded_spectral_norm/" class="md-nav__link">
         
   
   
@@ -1556,7 +1616,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../channel_metrics/completely_bounded_trace_norm/" class="md-nav__link">
+      <a href="../completely_bounded_trace_norm/" class="md-nav__link">
         
   
   
@@ -1584,7 +1644,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../channel_metrics/diamond_distance/" class="md-nav__link">
+      <a href="../diamond_distance/" class="md-nav__link">
         
   
   
@@ -1612,7 +1672,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../channel_metrics/fidelity_of_separability/" class="md-nav__link">
+      <a href="../fidelity_of_separability/" class="md-nav__link">
         
   
   
@@ -1645,8 +1705,6 @@
                 
   
   
-    
-  
   
   
     
@@ -1674,15 +1732,15 @@
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_3" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_3" >
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="./" class="md-nav__link md-nav__link--active">
+            <a href="../../channel_ops/" class="md-nav__link ">
               
   
   
@@ -1700,13 +1758,13 @@
             </a>
             
               
-              <label class="md-nav__link md-nav__link--active" for="__nav_5_3" id="__nav_5_3_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_5_3" id="__nav_5_3_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_3_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_3_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_5_3">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1726,7 +1784,7 @@
   
   
     <li class="md-nav__item">
-      <a href="apply_channel/" class="md-nav__link">
+      <a href="../../channel_ops/apply_channel/" class="md-nav__link">
         
   
   
@@ -1754,7 +1812,7 @@
   
   
     <li class="md-nav__item">
-      <a href="choi_to_kraus/" class="md-nav__link">
+      <a href="../../channel_ops/choi_to_kraus/" class="md-nav__link">
         
   
   
@@ -1782,7 +1840,7 @@
   
   
     <li class="md-nav__item">
-      <a href="complementary_channel/" class="md-nav__link">
+      <a href="../../channel_ops/complementary_channel/" class="md-nav__link">
         
   
   
@@ -1810,7 +1868,7 @@
   
   
     <li class="md-nav__item">
-      <a href="dual_channel/" class="md-nav__link">
+      <a href="../../channel_ops/dual_channel/" class="md-nav__link">
         
   
   
@@ -1838,7 +1896,7 @@
   
   
     <li class="md-nav__item">
-      <a href="kraus_to_choi/" class="md-nav__link">
+      <a href="../../channel_ops/kraus_to_choi/" class="md-nav__link">
         
   
   
@@ -1866,7 +1924,7 @@
   
   
     <li class="md-nav__item">
-      <a href="natural_representation/" class="md-nav__link">
+      <a href="../../channel_ops/natural_representation/" class="md-nav__link">
         
   
   
@@ -1894,7 +1952,7 @@
   
   
     <li class="md-nav__item">
-      <a href="partial_channel/" class="md-nav__link">
+      <a href="../../channel_ops/partial_channel/" class="md-nav__link">
         
   
   
@@ -1968,7 +2026,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../channel_props/" class="md-nav__link ">
+            <a href="../../channel_props/" class="md-nav__link ">
               
   
   
@@ -2012,7 +2070,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../channel_props/channel_dim/" class="md-nav__link">
+      <a href="../../channel_props/channel_dim/" class="md-nav__link">
         
   
   
@@ -2040,7 +2098,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../channel_props/choi_rank/" class="md-nav__link">
+      <a href="../../channel_props/choi_rank/" class="md-nav__link">
         
   
   
@@ -2068,7 +2126,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../channel_props/is_completely_positive/" class="md-nav__link">
+      <a href="../../channel_props/is_completely_positive/" class="md-nav__link">
         
   
   
@@ -2096,7 +2154,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../channel_props/is_extremal/" class="md-nav__link">
+      <a href="../../channel_props/is_extremal/" class="md-nav__link">
         
   
   
@@ -2124,7 +2182,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../channel_props/is_herm_preserving/" class="md-nav__link">
+      <a href="../../channel_props/is_herm_preserving/" class="md-nav__link">
         
   
   
@@ -2152,7 +2210,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../channel_props/is_positive/" class="md-nav__link">
+      <a href="../../channel_props/is_positive/" class="md-nav__link">
         
   
   
@@ -2180,7 +2238,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../channel_props/is_quantum_channel/" class="md-nav__link">
+      <a href="../../channel_props/is_quantum_channel/" class="md-nav__link">
         
   
   
@@ -2208,7 +2266,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../channel_props/is_trace_preserving/" class="md-nav__link">
+      <a href="../../channel_props/is_trace_preserving/" class="md-nav__link">
         
   
   
@@ -2236,7 +2294,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../channel_props/is_unital/" class="md-nav__link">
+      <a href="../../channel_props/is_unital/" class="md-nav__link">
         
   
   
@@ -2264,7 +2322,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../channel_props/is_unitary/" class="md-nav__link">
+      <a href="../../channel_props/is_unitary/" class="md-nav__link">
         
   
   
@@ -2338,7 +2396,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../channels/" class="md-nav__link ">
+            <a href="../../channels/" class="md-nav__link ">
               
   
   
@@ -2382,7 +2440,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../channels/amplitude_damping/" class="md-nav__link">
+      <a href="../../channels/amplitude_damping/" class="md-nav__link">
         
   
   
@@ -2410,7 +2468,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../channels/bitflip/" class="md-nav__link">
+      <a href="../../channels/bitflip/" class="md-nav__link">
         
   
   
@@ -2438,7 +2496,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../channels/choi/" class="md-nav__link">
+      <a href="../../channels/choi/" class="md-nav__link">
         
   
   
@@ -2466,7 +2524,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../channels/dephasing/" class="md-nav__link">
+      <a href="../../channels/dephasing/" class="md-nav__link">
         
   
   
@@ -2494,7 +2552,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../channels/depolarizing/" class="md-nav__link">
+      <a href="../../channels/depolarizing/" class="md-nav__link">
         
   
   
@@ -2522,7 +2580,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../channels/ldot_channel/" class="md-nav__link">
+      <a href="../../channels/ldot_channel/" class="md-nav__link">
         
   
   
@@ -2550,7 +2608,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../channels/pauli_channel/" class="md-nav__link">
+      <a href="../../channels/pauli_channel/" class="md-nav__link">
         
   
   
@@ -2578,7 +2636,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../channels/phase_damping/" class="md-nav__link">
+      <a href="../../channels/phase_damping/" class="md-nav__link">
         
   
   
@@ -2606,7 +2664,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../channels/realignment/" class="md-nav__link">
+      <a href="../../channels/realignment/" class="md-nav__link">
         
   
   
@@ -2634,7 +2692,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../channels/reduction/" class="md-nav__link">
+      <a href="../../channels/reduction/" class="md-nav__link">
         
   
   
@@ -2704,7 +2762,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../cones/" class="md-nav__link ">
+            <a href="../../cones/" class="md-nav__link ">
               
   
   
@@ -2748,7 +2806,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cones/geometric_mean/" class="md-nav__link">
+      <a href="../../cones/geometric_mean/" class="md-nav__link">
         
   
   
@@ -2776,7 +2834,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cones/geometric_mean_epi_cone/" class="md-nav__link">
+      <a href="../../cones/geometric_mean_epi_cone/" class="md-nav__link">
         
   
   
@@ -2804,7 +2862,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cones/geometric_mean_hypo_cone/" class="md-nav__link">
+      <a href="../../cones/geometric_mean_hypo_cone/" class="md-nav__link">
         
   
   
@@ -2832,7 +2890,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cones/lieb_ando/" class="md-nav__link">
+      <a href="../../cones/lieb_ando/" class="md-nav__link">
         
   
   
@@ -2860,7 +2918,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cones/ln_quantum_entropy/" class="md-nav__link">
+      <a href="../../cones/ln_quantum_entropy/" class="md-nav__link">
         
   
   
@@ -2888,7 +2946,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cones/operator_relative_entropy_epi_cone/" class="md-nav__link">
+      <a href="../../cones/operator_relative_entropy_epi_cone/" class="md-nav__link">
         
   
   
@@ -2916,7 +2974,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cones/trace_matrix_log/" class="md-nav__link">
+      <a href="../../cones/trace_matrix_log/" class="md-nav__link">
         
   
   
@@ -2944,7 +3002,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cones/trace_matrix_power/" class="md-nav__link">
+      <a href="../../cones/trace_matrix_power/" class="md-nav__link">
         
   
   
@@ -3002,7 +3060,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../helper/" class="md-nav__link ">
+            <a href="../../helper/" class="md-nav__link ">
               
   
   
@@ -3046,7 +3104,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../helper/expr_as_np_array/" class="md-nav__link">
+      <a href="../../helper/expr_as_np_array/" class="md-nav__link">
         
   
   
@@ -3074,7 +3132,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../helper/np_array_as_expr/" class="md-nav__link">
+      <a href="../../helper/np_array_as_expr/" class="md-nav__link">
         
   
   
@@ -3154,7 +3212,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../matrices/" class="md-nav__link ">
+            <a href="../../matrices/" class="md-nav__link ">
               
   
   
@@ -3198,7 +3256,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../matrices/cnot/" class="md-nav__link">
+      <a href="../../matrices/cnot/" class="md-nav__link">
         
   
   
@@ -3226,7 +3284,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../matrices/comparison/" class="md-nav__link">
+      <a href="../../matrices/comparison/" class="md-nav__link">
         
   
   
@@ -3254,7 +3312,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../matrices/cyclic_permutation_matrix/" class="md-nav__link">
+      <a href="../../matrices/cyclic_permutation_matrix/" class="md-nav__link">
         
   
   
@@ -3282,7 +3340,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../matrices/entangled_subspace/" class="md-nav__link">
+      <a href="../../matrices/entangled_subspace/" class="md-nav__link">
         
   
   
@@ -3310,7 +3368,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../matrices/fourier/" class="md-nav__link">
+      <a href="../../matrices/fourier/" class="md-nav__link">
         
   
   
@@ -3338,7 +3396,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../matrices/gell_mann/" class="md-nav__link">
+      <a href="../../matrices/gell_mann/" class="md-nav__link">
         
   
   
@@ -3366,7 +3424,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../matrices/gen_gell_mann/" class="md-nav__link">
+      <a href="../../matrices/gen_gell_mann/" class="md-nav__link">
         
   
   
@@ -3394,7 +3452,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../matrices/gen_pauli/" class="md-nav__link">
+      <a href="../../matrices/gen_pauli/" class="md-nav__link">
         
   
   
@@ -3422,7 +3480,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../matrices/gen_pauli_x/" class="md-nav__link">
+      <a href="../../matrices/gen_pauli_x/" class="md-nav__link">
         
   
   
@@ -3450,7 +3508,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../matrices/gen_pauli_z/" class="md-nav__link">
+      <a href="../../matrices/gen_pauli_z/" class="md-nav__link">
         
   
   
@@ -3478,7 +3536,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../matrices/hadamard/" class="md-nav__link">
+      <a href="../../matrices/hadamard/" class="md-nav__link">
         
   
   
@@ -3506,7 +3564,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../matrices/pauli/" class="md-nav__link">
+      <a href="../../matrices/pauli/" class="md-nav__link">
         
   
   
@@ -3534,7 +3592,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../matrices/standard_basis/" class="md-nav__link">
+      <a href="../../matrices/standard_basis/" class="md-nav__link">
         
   
   
@@ -3612,7 +3670,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../matrix_ops/" class="md-nav__link ">
+            <a href="../../matrix_ops/" class="md-nav__link ">
               
   
   
@@ -3656,7 +3714,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../matrix_ops/calculate_vector_matrix_dimension/" class="md-nav__link">
+      <a href="../../matrix_ops/calculate_vector_matrix_dimension/" class="md-nav__link">
         
   
   
@@ -3684,7 +3742,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../matrix_ops/null_space/" class="md-nav__link">
+      <a href="../../matrix_ops/null_space/" class="md-nav__link">
         
   
   
@@ -3712,7 +3770,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../matrix_ops/partial_trace/" class="md-nav__link">
+      <a href="../../matrix_ops/partial_trace/" class="md-nav__link">
         
   
   
@@ -3740,7 +3798,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../matrix_ops/partial_transpose/" class="md-nav__link">
+      <a href="../../matrix_ops/partial_transpose/" class="md-nav__link">
         
   
   
@@ -3768,7 +3826,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../matrix_ops/perturb_vectors/" class="md-nav__link">
+      <a href="../../matrix_ops/perturb_vectors/" class="md-nav__link">
         
   
   
@@ -3796,7 +3854,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../matrix_ops/tensor/" class="md-nav__link">
+      <a href="../../matrix_ops/tensor/" class="md-nav__link">
         
   
   
@@ -3824,7 +3882,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../matrix_ops/tensor_comb/" class="md-nav__link">
+      <a href="../../matrix_ops/tensor_comb/" class="md-nav__link">
         
   
   
@@ -3852,7 +3910,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../matrix_ops/tensor_unravel/" class="md-nav__link">
+      <a href="../../matrix_ops/tensor_unravel/" class="md-nav__link">
         
   
   
@@ -3880,7 +3938,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../matrix_ops/to_density_matrix/" class="md-nav__link">
+      <a href="../../matrix_ops/to_density_matrix/" class="md-nav__link">
         
   
   
@@ -3908,7 +3966,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../matrix_ops/unvec/" class="md-nav__link">
+      <a href="../../matrix_ops/unvec/" class="md-nav__link">
         
   
   
@@ -3936,7 +3994,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../matrix_ops/vectors_from_gram_matrix/" class="md-nav__link">
+      <a href="../../matrix_ops/vectors_from_gram_matrix/" class="md-nav__link">
         
   
   
@@ -3964,7 +4022,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../matrix_ops/vectors_to_gram_matrix/" class="md-nav__link">
+      <a href="../../matrix_ops/vectors_to_gram_matrix/" class="md-nav__link">
         
   
   
@@ -4104,7 +4162,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../matrix_props/" class="md-nav__link ">
+            <a href="../../matrix_props/" class="md-nav__link ">
               
   
   
@@ -4148,7 +4206,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../matrix_props/commutant/" class="md-nav__link">
+      <a href="../../matrix_props/commutant/" class="md-nav__link">
         
   
   
@@ -4176,7 +4234,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../matrix_props/factor_width/" class="md-nav__link">
+      <a href="../../matrix_props/factor_width/" class="md-nav__link">
         
   
   
@@ -4204,7 +4262,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../matrix_props/has_same_dimension/" class="md-nav__link">
+      <a href="../../matrix_props/has_same_dimension/" class="md-nav__link">
         
   
   
@@ -4232,7 +4290,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../matrix_props/is_absolutely_k_incoherent/" class="md-nav__link">
+      <a href="../../matrix_props/is_absolutely_k_incoherent/" class="md-nav__link">
         
   
   
@@ -4260,7 +4318,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../matrix_props/is_anti_hermitian/" class="md-nav__link">
+      <a href="../../matrix_props/is_anti_hermitian/" class="md-nav__link">
         
   
   
@@ -4288,7 +4346,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../matrix_props/is_block_positive/" class="md-nav__link">
+      <a href="../../matrix_props/is_block_positive/" class="md-nav__link">
         
   
   
@@ -4316,7 +4374,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../matrix_props/is_circulant/" class="md-nav__link">
+      <a href="../../matrix_props/is_circulant/" class="md-nav__link">
         
   
   
@@ -4344,7 +4402,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../matrix_props/is_commuting/" class="md-nav__link">
+      <a href="../../matrix_props/is_commuting/" class="md-nav__link">
         
   
   
@@ -4372,7 +4430,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../matrix_props/is_density/" class="md-nav__link">
+      <a href="../../matrix_props/is_density/" class="md-nav__link">
         
   
   
@@ -4400,7 +4458,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../matrix_props/is_diagonal/" class="md-nav__link">
+      <a href="../../matrix_props/is_diagonal/" class="md-nav__link">
         
   
   
@@ -4428,7 +4486,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../matrix_props/is_diagonally_dominant/" class="md-nav__link">
+      <a href="../../matrix_props/is_diagonally_dominant/" class="md-nav__link">
         
   
   
@@ -4456,7 +4514,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../matrix_props/is_equiangular_tight_frame/" class="md-nav__link">
+      <a href="../../matrix_props/is_equiangular_tight_frame/" class="md-nav__link">
         
   
   
@@ -4484,7 +4542,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../matrix_props/is_hermitian/" class="md-nav__link">
+      <a href="../../matrix_props/is_hermitian/" class="md-nav__link">
         
   
   
@@ -4512,7 +4570,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../matrix_props/is_idempotent/" class="md-nav__link">
+      <a href="../../matrix_props/is_idempotent/" class="md-nav__link">
         
   
   
@@ -4540,7 +4598,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../matrix_props/is_identity/" class="md-nav__link">
+      <a href="../../matrix_props/is_identity/" class="md-nav__link">
         
   
   
@@ -4568,7 +4626,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../matrix_props/is_k_incoherent/" class="md-nav__link">
+      <a href="../../matrix_props/is_k_incoherent/" class="md-nav__link">
         
   
   
@@ -4596,7 +4654,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../matrix_props/is_ldoi/" class="md-nav__link">
+      <a href="../../matrix_props/is_ldoi/" class="md-nav__link">
         
   
   
@@ -4624,7 +4682,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../matrix_props/is_linearly_independent/" class="md-nav__link">
+      <a href="../../matrix_props/is_linearly_independent/" class="md-nav__link">
         
   
   
@@ -4652,7 +4710,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../matrix_props/is_nonnegative/" class="md-nav__link">
+      <a href="../../matrix_props/is_nonnegative/" class="md-nav__link">
         
   
   
@@ -4680,7 +4738,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../matrix_props/is_normal/" class="md-nav__link">
+      <a href="../../matrix_props/is_normal/" class="md-nav__link">
         
   
   
@@ -4708,7 +4766,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../matrix_props/is_orthonormal/" class="md-nav__link">
+      <a href="../../matrix_props/is_orthonormal/" class="md-nav__link">
         
   
   
@@ -4736,7 +4794,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../matrix_props/is_permutation/" class="md-nav__link">
+      <a href="../../matrix_props/is_permutation/" class="md-nav__link">
         
   
   
@@ -4764,7 +4822,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../matrix_props/is_positive/" class="md-nav__link">
+      <a href="../../matrix_props/is_positive/" class="md-nav__link">
         
   
   
@@ -4792,7 +4850,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../matrix_props/is_positive_definite/" class="md-nav__link">
+      <a href="../../matrix_props/is_positive_definite/" class="md-nav__link">
         
   
   
@@ -4820,7 +4878,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../matrix_props/is_positive_semidefinite/" class="md-nav__link">
+      <a href="../../matrix_props/is_positive_semidefinite/" class="md-nav__link">
         
   
   
@@ -4848,7 +4906,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../matrix_props/is_projection/" class="md-nav__link">
+      <a href="../../matrix_props/is_projection/" class="md-nav__link">
         
   
   
@@ -4876,7 +4934,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../matrix_props/is_pseudo_hermitian/" class="md-nav__link">
+      <a href="../../matrix_props/is_pseudo_hermitian/" class="md-nav__link">
         
   
   
@@ -4904,7 +4962,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../matrix_props/is_pseudo_unitary/" class="md-nav__link">
+      <a href="../../matrix_props/is_pseudo_unitary/" class="md-nav__link">
         
   
   
@@ -4932,7 +4990,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../matrix_props/is_rank_one/" class="md-nav__link">
+      <a href="../../matrix_props/is_rank_one/" class="md-nav__link">
         
   
   
@@ -4960,7 +5018,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../matrix_props/is_square/" class="md-nav__link">
+      <a href="../../matrix_props/is_square/" class="md-nav__link">
         
   
   
@@ -4988,7 +5046,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../matrix_props/is_stochastic/" class="md-nav__link">
+      <a href="../../matrix_props/is_stochastic/" class="md-nav__link">
         
   
   
@@ -5016,7 +5074,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../matrix_props/is_symmetric/" class="md-nav__link">
+      <a href="../../matrix_props/is_symmetric/" class="md-nav__link">
         
   
   
@@ -5044,7 +5102,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../matrix_props/is_tight_frame/" class="md-nav__link">
+      <a href="../../matrix_props/is_tight_frame/" class="md-nav__link">
         
   
   
@@ -5072,7 +5130,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../matrix_props/is_totally_positive/" class="md-nav__link">
+      <a href="../../matrix_props/is_totally_positive/" class="md-nav__link">
         
   
   
@@ -5100,7 +5158,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../matrix_props/is_unitary/" class="md-nav__link">
+      <a href="../../matrix_props/is_unitary/" class="md-nav__link">
         
   
   
@@ -5128,7 +5186,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../matrix_props/kp_norm/" class="md-nav__link">
+      <a href="../../matrix_props/kp_norm/" class="md-nav__link">
         
   
   
@@ -5156,7 +5214,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../matrix_props/majorizes/" class="md-nav__link">
+      <a href="../../matrix_props/majorizes/" class="md-nav__link">
         
   
   
@@ -5184,7 +5242,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../matrix_props/mutual_coherence/" class="md-nav__link">
+      <a href="../../matrix_props/mutual_coherence/" class="md-nav__link">
         
   
   
@@ -5212,7 +5270,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../matrix_props/nonnegative_rank/" class="md-nav__link">
+      <a href="../../matrix_props/nonnegative_rank/" class="md-nav__link">
         
   
   
@@ -5240,7 +5298,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../matrix_props/positive_semidefinite_rank/" class="md-nav__link">
+      <a href="../../matrix_props/positive_semidefinite_rank/" class="md-nav__link">
         
   
   
@@ -5268,7 +5326,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../matrix_props/sk_norm/" class="md-nav__link">
+      <a href="../../matrix_props/sk_norm/" class="md-nav__link">
         
   
   
@@ -5296,7 +5354,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../matrix_props/spark/" class="md-nav__link">
+      <a href="../../matrix_props/spark/" class="md-nav__link">
         
   
   
@@ -5324,7 +5382,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../matrix_props/trace_norm/" class="md-nav__link">
+      <a href="../../matrix_props/trace_norm/" class="md-nav__link">
         
   
   
@@ -5380,7 +5438,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../measurement_ops/" class="md-nav__link ">
+            <a href="../../measurement_ops/" class="md-nav__link ">
               
   
   
@@ -5424,7 +5482,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../measurement_ops/measure/" class="md-nav__link">
+      <a href="../../measurement_ops/measure/" class="md-nav__link">
         
   
   
@@ -5480,7 +5538,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../measurement_props/" class="md-nav__link ">
+            <a href="../../measurement_props/" class="md-nav__link ">
               
   
   
@@ -5524,7 +5582,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../measurement_props/is_povm/" class="md-nav__link">
+      <a href="../../measurement_props/is_povm/" class="md-nav__link">
         
   
   
@@ -5582,7 +5640,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../measurements/" class="md-nav__link ">
+            <a href="../../measurements/" class="md-nav__link ">
               
   
   
@@ -5626,7 +5684,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../measurements/pretty_bad_measurement/" class="md-nav__link">
+      <a href="../../measurements/pretty_bad_measurement/" class="md-nav__link">
         
   
   
@@ -5654,7 +5712,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../measurements/pretty_good_measurement/" class="md-nav__link">
+      <a href="../../measurements/pretty_good_measurement/" class="md-nav__link">
         
   
   
@@ -5718,7 +5776,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../nonlocal_games/" class="md-nav__link ">
+            <a href="../../nonlocal_games/" class="md-nav__link ">
               
   
   
@@ -5762,7 +5820,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../nonlocal_games/binary_constraint_system_game/" class="md-nav__link">
+      <a href="../../nonlocal_games/binary_constraint_system_game/" class="md-nav__link">
         
   
   
@@ -5790,7 +5848,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../nonlocal_games/extended_nonlocal_game/" class="md-nav__link">
+      <a href="../../nonlocal_games/extended_nonlocal_game/" class="md-nav__link">
         
   
   
@@ -5818,7 +5876,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../nonlocal_games/nonlocal_game/" class="md-nav__link">
+      <a href="../../nonlocal_games/nonlocal_game/" class="md-nav__link">
         
   
   
@@ -5846,7 +5904,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../nonlocal_games/quantum_hedging/" class="md-nav__link">
+      <a href="../../nonlocal_games/quantum_hedging/" class="md-nav__link">
         
   
   
@@ -5874,7 +5932,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../nonlocal_games/xor_game/" class="md-nav__link">
+      <a href="../../nonlocal_games/xor_game/" class="md-nav__link">
         
   
   
@@ -5948,7 +6006,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../perms/" class="md-nav__link ">
+            <a href="../../perms/" class="md-nav__link ">
               
   
   
@@ -5992,7 +6050,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../perms/antisymmetric_projection/" class="md-nav__link">
+      <a href="../../perms/antisymmetric_projection/" class="md-nav__link">
         
   
   
@@ -6020,7 +6078,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../perms/perfect_matchings/" class="md-nav__link">
+      <a href="../../perms/perfect_matchings/" class="md-nav__link">
         
   
   
@@ -6048,7 +6106,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../perms/perm_sign/" class="md-nav__link">
+      <a href="../../perms/perm_sign/" class="md-nav__link">
         
   
   
@@ -6076,7 +6134,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../perms/permutation_operator/" class="md-nav__link">
+      <a href="../../perms/permutation_operator/" class="md-nav__link">
         
   
   
@@ -6104,7 +6162,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../perms/permute_systems/" class="md-nav__link">
+      <a href="../../perms/permute_systems/" class="md-nav__link">
         
   
   
@@ -6132,7 +6190,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../perms/swap/" class="md-nav__link">
+      <a href="../../perms/swap/" class="md-nav__link">
         
   
   
@@ -6160,7 +6218,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../perms/swap_operator/" class="md-nav__link">
+      <a href="../../perms/swap_operator/" class="md-nav__link">
         
   
   
@@ -6188,7 +6246,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../perms/symmetric_projection/" class="md-nav__link">
+      <a href="../../perms/symmetric_projection/" class="md-nav__link">
         
   
   
@@ -6216,7 +6274,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../perms/unique_perms/" class="md-nav__link">
+      <a href="../../perms/unique_perms/" class="md-nav__link">
         
   
   
@@ -6244,7 +6302,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../perms/vec/" class="md-nav__link">
+      <a href="../../perms/vec/" class="md-nav__link">
         
   
   
@@ -6320,7 +6378,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../rand/" class="md-nav__link ">
+            <a href="../../rand/" class="md-nav__link ">
               
   
   
@@ -6364,7 +6422,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../rand/random_circulant_gram_matrix/" class="md-nav__link">
+      <a href="../../rand/random_circulant_gram_matrix/" class="md-nav__link">
         
   
   
@@ -6392,7 +6450,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../rand/random_density_matrix/" class="md-nav__link">
+      <a href="../../rand/random_density_matrix/" class="md-nav__link">
         
   
   
@@ -6420,7 +6478,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../rand/random_ginibre/" class="md-nav__link">
+      <a href="../../rand/random_ginibre/" class="md-nav__link">
         
   
   
@@ -6448,7 +6506,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../rand/random_linearly_independent_vectors/" class="md-nav__link">
+      <a href="../../rand/random_linearly_independent_vectors/" class="md-nav__link">
         
   
   
@@ -6476,7 +6534,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../rand/random_orthonormal_basis/" class="md-nav__link">
+      <a href="../../rand/random_orthonormal_basis/" class="md-nav__link">
         
   
   
@@ -6504,7 +6562,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../rand/random_povm/" class="md-nav__link">
+      <a href="../../rand/random_povm/" class="md-nav__link">
         
   
   
@@ -6532,7 +6590,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../rand/random_psd_operator/" class="md-nav__link">
+      <a href="../../rand/random_psd_operator/" class="md-nav__link">
         
   
   
@@ -6560,7 +6618,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../rand/random_state_vector/" class="md-nav__link">
+      <a href="../../rand/random_state_vector/" class="md-nav__link">
         
   
   
@@ -6588,7 +6646,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../rand/random_states/" class="md-nav__link">
+      <a href="../../rand/random_states/" class="md-nav__link">
         
   
   
@@ -6616,7 +6674,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../rand/random_superoperator/" class="md-nav__link">
+      <a href="../../rand/random_superoperator/" class="md-nav__link">
         
   
   
@@ -6644,7 +6702,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../rand/random_unitary/" class="md-nav__link">
+      <a href="../../rand/random_unitary/" class="md-nav__link">
         
   
   
@@ -6720,7 +6778,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../state_metrics/" class="md-nav__link ">
+            <a href="../../state_metrics/" class="md-nav__link ">
               
   
   
@@ -6764,7 +6822,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../state_metrics/bures_angle/" class="md-nav__link">
+      <a href="../../state_metrics/bures_angle/" class="md-nav__link">
         
   
   
@@ -6792,7 +6850,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../state_metrics/bures_distance/" class="md-nav__link">
+      <a href="../../state_metrics/bures_distance/" class="md-nav__link">
         
   
   
@@ -6820,7 +6878,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../state_metrics/fidelity/" class="md-nav__link">
+      <a href="../../state_metrics/fidelity/" class="md-nav__link">
         
   
   
@@ -6848,7 +6906,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../state_metrics/fidelity_of_separability/" class="md-nav__link">
+      <a href="../../state_metrics/fidelity_of_separability/" class="md-nav__link">
         
   
   
@@ -6876,7 +6934,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../state_metrics/helstrom_holevo/" class="md-nav__link">
+      <a href="../../state_metrics/helstrom_holevo/" class="md-nav__link">
         
   
   
@@ -6904,7 +6962,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../state_metrics/hilbert_schmidt/" class="md-nav__link">
+      <a href="../../state_metrics/hilbert_schmidt/" class="md-nav__link">
         
   
   
@@ -6932,7 +6990,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../state_metrics/hilbert_schmidt_inner_product/" class="md-nav__link">
+      <a href="../../state_metrics/hilbert_schmidt_inner_product/" class="md-nav__link">
         
   
   
@@ -6960,7 +7018,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../state_metrics/matsumoto_fidelity/" class="md-nav__link">
+      <a href="../../state_metrics/matsumoto_fidelity/" class="md-nav__link">
         
   
   
@@ -6988,7 +7046,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../state_metrics/measured_relative_entropy/" class="md-nav__link">
+      <a href="../../state_metrics/measured_relative_entropy/" class="md-nav__link">
         
   
   
@@ -7016,7 +7074,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../state_metrics/sub_fidelity/" class="md-nav__link">
+      <a href="../../state_metrics/sub_fidelity/" class="md-nav__link">
         
   
   
@@ -7044,7 +7102,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../state_metrics/trace_distance/" class="md-nav__link">
+      <a href="../../state_metrics/trace_distance/" class="md-nav__link">
         
   
   
@@ -7102,7 +7160,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../state_ops/" class="md-nav__link ">
+            <a href="../../state_ops/" class="md-nav__link ">
               
   
   
@@ -7146,7 +7204,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../state_ops/normalize/" class="md-nav__link">
+      <a href="../../state_ops/normalize/" class="md-nav__link">
         
   
   
@@ -7174,7 +7232,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../state_ops/schmidt_decomposition/" class="md-nav__link">
+      <a href="../../state_ops/schmidt_decomposition/" class="md-nav__link">
         
   
   
@@ -7242,7 +7300,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../state_opt/" class="md-nav__link ">
+            <a href="../../state_opt/" class="md-nav__link ">
               
   
   
@@ -7286,7 +7344,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../state_opt/bell_inequality_max/" class="md-nav__link">
+      <a href="../../state_opt/bell_inequality_max/" class="md-nav__link">
         
   
   
@@ -7314,7 +7372,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../state_opt/bell_notation_conversions/" class="md-nav__link">
+      <a href="../../state_opt/bell_notation_conversions/" class="md-nav__link">
         
   
   
@@ -7342,7 +7400,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../state_opt/npa_hierarchy/" class="md-nav__link">
+      <a href="../../state_opt/npa_hierarchy/" class="md-nav__link">
         
   
   
@@ -7370,7 +7428,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../state_opt/optimal_clone/" class="md-nav__link">
+      <a href="../../state_opt/optimal_clone/" class="md-nav__link">
         
   
   
@@ -7398,7 +7456,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../state_opt/state_distinguishability/" class="md-nav__link">
+      <a href="../../state_opt/state_distinguishability/" class="md-nav__link">
         
   
   
@@ -7426,7 +7484,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../state_opt/state_exclusion/" class="md-nav__link">
+      <a href="../../state_opt/state_exclusion/" class="md-nav__link">
         
   
   
@@ -7454,7 +7512,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../state_opt/symmetric_extension_hierarchy/" class="md-nav__link">
+      <a href="../../state_opt/symmetric_extension_hierarchy/" class="md-nav__link">
         
   
   
@@ -7576,7 +7634,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../state_props/" class="md-nav__link ">
+            <a href="../../state_props/" class="md-nav__link ">
               
   
   
@@ -7620,7 +7678,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../state_props/abs_ppt_constraints/" class="md-nav__link">
+      <a href="../../state_props/abs_ppt_constraints/" class="md-nav__link">
         
   
   
@@ -7648,7 +7706,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../state_props/common_quantum_overlap/" class="md-nav__link">
+      <a href="../../state_props/common_quantum_overlap/" class="md-nav__link">
         
   
   
@@ -7676,7 +7734,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../state_props/concurrence/" class="md-nav__link">
+      <a href="../../state_props/concurrence/" class="md-nav__link">
         
   
   
@@ -7704,7 +7762,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../state_props/entanglement_of_formation/" class="md-nav__link">
+      <a href="../../state_props/entanglement_of_formation/" class="md-nav__link">
         
   
   
@@ -7732,7 +7790,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../state_props/has_symmetric_extension/" class="md-nav__link">
+      <a href="../../state_props/has_symmetric_extension/" class="md-nav__link">
         
   
   
@@ -7760,7 +7818,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../state_props/has_symmetric_inner_extension/" class="md-nav__link">
+      <a href="../../state_props/has_symmetric_inner_extension/" class="md-nav__link">
         
   
   
@@ -7788,7 +7846,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../state_props/in_separable_ball/" class="md-nav__link">
+      <a href="../../state_props/in_separable_ball/" class="md-nav__link">
         
   
   
@@ -7816,7 +7874,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../state_props/is_abs_ppt/" class="md-nav__link">
+      <a href="../../state_props/is_abs_ppt/" class="md-nav__link">
         
   
   
@@ -7844,7 +7902,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../state_props/is_antidistinguishable/" class="md-nav__link">
+      <a href="../../state_props/is_antidistinguishable/" class="md-nav__link">
         
   
   
@@ -7872,7 +7930,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../state_props/is_distinguishable/" class="md-nav__link">
+      <a href="../../state_props/is_distinguishable/" class="md-nav__link">
         
   
   
@@ -7900,7 +7958,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../state_props/is_ensemble/" class="md-nav__link">
+      <a href="../../state_props/is_ensemble/" class="md-nav__link">
         
   
   
@@ -7928,7 +7986,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../state_props/is_mixed/" class="md-nav__link">
+      <a href="../../state_props/is_mixed/" class="md-nav__link">
         
   
   
@@ -7956,7 +8014,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../state_props/is_mutually_orthogonal/" class="md-nav__link">
+      <a href="../../state_props/is_mutually_orthogonal/" class="md-nav__link">
         
   
   
@@ -7984,7 +8042,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../state_props/is_mutually_unbiased_basis/" class="md-nav__link">
+      <a href="../../state_props/is_mutually_unbiased_basis/" class="md-nav__link">
         
   
   
@@ -8012,7 +8070,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../state_props/is_npt/" class="md-nav__link">
+      <a href="../../state_props/is_npt/" class="md-nav__link">
         
   
   
@@ -8040,7 +8098,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../state_props/is_ppt/" class="md-nav__link">
+      <a href="../../state_props/is_ppt/" class="md-nav__link">
         
   
   
@@ -8068,7 +8126,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../state_props/is_product/" class="md-nav__link">
+      <a href="../../state_props/is_product/" class="md-nav__link">
         
   
   
@@ -8096,7 +8154,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../state_props/is_pure/" class="md-nav__link">
+      <a href="../../state_props/is_pure/" class="md-nav__link">
         
   
   
@@ -8124,7 +8182,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../state_props/is_separable/" class="md-nav__link">
+      <a href="../../state_props/is_separable/" class="md-nav__link">
         
   
   
@@ -8152,7 +8210,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../state_props/is_sic_povm/" class="md-nav__link">
+      <a href="../../state_props/is_sic_povm/" class="md-nav__link">
         
   
   
@@ -8180,7 +8238,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../state_props/is_unextendible_product_basis/" class="md-nav__link">
+      <a href="../../state_props/is_unextendible_product_basis/" class="md-nav__link">
         
   
   
@@ -8208,7 +8266,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../state_props/l1_norm_coherence/" class="md-nav__link">
+      <a href="../../state_props/l1_norm_coherence/" class="md-nav__link">
         
   
   
@@ -8236,7 +8294,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../state_props/learnability/" class="md-nav__link">
+      <a href="../../state_props/learnability/" class="md-nav__link">
         
   
   
@@ -8264,7 +8322,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../state_props/log_negativity/" class="md-nav__link">
+      <a href="../../state_props/log_negativity/" class="md-nav__link">
         
   
   
@@ -8292,7 +8350,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../state_props/negativity/" class="md-nav__link">
+      <a href="../../state_props/negativity/" class="md-nav__link">
         
   
   
@@ -8320,7 +8378,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../state_props/petz_renyi_conditional_entropy/" class="md-nav__link">
+      <a href="../../state_props/petz_renyi_conditional_entropy/" class="md-nav__link">
         
   
   
@@ -8348,7 +8406,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../state_props/purity/" class="md-nav__link">
+      <a href="../../state_props/purity/" class="md-nav__link">
         
   
   
@@ -8376,7 +8434,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../state_props/quantum_conditional_entropy/" class="md-nav__link">
+      <a href="../../state_props/quantum_conditional_entropy/" class="md-nav__link">
         
   
   
@@ -8404,7 +8462,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../state_props/quantum_relative_entropy/" class="md-nav__link">
+      <a href="../../state_props/quantum_relative_entropy/" class="md-nav__link">
         
   
   
@@ -8432,7 +8490,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../state_props/renyi_entropy/" class="md-nav__link">
+      <a href="../../state_props/renyi_entropy/" class="md-nav__link">
         
   
   
@@ -8460,7 +8518,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../state_props/sandwiched_renyi_conditional_entropy/" class="md-nav__link">
+      <a href="../../state_props/sandwiched_renyi_conditional_entropy/" class="md-nav__link">
         
   
   
@@ -8488,7 +8546,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../state_props/schmidt_rank/" class="md-nav__link">
+      <a href="../../state_props/schmidt_rank/" class="md-nav__link">
         
   
   
@@ -8516,7 +8574,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../state_props/sk_vec_norm/" class="md-nav__link">
+      <a href="../../state_props/sk_vec_norm/" class="md-nav__link">
         
   
   
@@ -8544,7 +8602,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../state_props/von_neumann_entropy/" class="md-nav__link">
+      <a href="../../state_props/von_neumann_entropy/" class="md-nav__link">
         
   
   
@@ -8642,7 +8700,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../states/" class="md-nav__link ">
+            <a href="../../states/" class="md-nav__link ">
               
   
   
@@ -8686,7 +8744,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../states/basis/" class="md-nav__link">
+      <a href="../../states/basis/" class="md-nav__link">
         
   
   
@@ -8714,7 +8772,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../states/bb84/" class="md-nav__link">
+      <a href="../../states/bb84/" class="md-nav__link">
         
   
   
@@ -8742,7 +8800,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../states/bell/" class="md-nav__link">
+      <a href="../../states/bell/" class="md-nav__link">
         
   
   
@@ -8770,7 +8828,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../states/brauer/" class="md-nav__link">
+      <a href="../../states/brauer/" class="md-nav__link">
         
   
   
@@ -8798,7 +8856,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../states/breuer/" class="md-nav__link">
+      <a href="../../states/breuer/" class="md-nav__link">
         
   
   
@@ -8826,7 +8884,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../states/chessboard/" class="md-nav__link">
+      <a href="../../states/chessboard/" class="md-nav__link">
         
   
   
@@ -8854,7 +8912,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../states/dicke/" class="md-nav__link">
+      <a href="../../states/dicke/" class="md-nav__link">
         
   
   
@@ -8882,7 +8940,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../states/domino/" class="md-nav__link">
+      <a href="../../states/domino/" class="md-nav__link">
         
   
   
@@ -8910,7 +8968,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../states/gen_bell/" class="md-nav__link">
+      <a href="../../states/gen_bell/" class="md-nav__link">
         
   
   
@@ -8938,7 +8996,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../states/ghz/" class="md-nav__link">
+      <a href="../../states/ghz/" class="md-nav__link">
         
   
   
@@ -8966,7 +9024,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../states/gisin/" class="md-nav__link">
+      <a href="../../states/gisin/" class="md-nav__link">
         
   
   
@@ -8994,7 +9052,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../states/horodecki/" class="md-nav__link">
+      <a href="../../states/horodecki/" class="md-nav__link">
         
   
   
@@ -9022,7 +9080,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../states/isotropic/" class="md-nav__link">
+      <a href="../../states/isotropic/" class="md-nav__link">
         
   
   
@@ -9050,7 +9108,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../states/max_entangled/" class="md-nav__link">
+      <a href="../../states/max_entangled/" class="md-nav__link">
         
   
   
@@ -9078,7 +9136,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../states/max_mixed/" class="md-nav__link">
+      <a href="../../states/max_mixed/" class="md-nav__link">
         
   
   
@@ -9106,7 +9164,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../states/mutually_unbiased_basis/" class="md-nav__link">
+      <a href="../../states/mutually_unbiased_basis/" class="md-nav__link">
         
   
   
@@ -9134,7 +9192,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../states/pusey_barrett_rudolph/" class="md-nav__link">
+      <a href="../../states/pusey_barrett_rudolph/" class="md-nav__link">
         
   
   
@@ -9162,7 +9220,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../states/singlet/" class="md-nav__link">
+      <a href="../../states/singlet/" class="md-nav__link">
         
   
   
@@ -9190,7 +9248,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../states/tile/" class="md-nav__link">
+      <a href="../../states/tile/" class="md-nav__link">
         
   
   
@@ -9218,7 +9276,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../states/trine/" class="md-nav__link">
+      <a href="../../states/trine/" class="md-nav__link">
         
   
   
@@ -9246,7 +9304,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../states/w_state/" class="md-nav__link">
+      <a href="../../states/w_state/" class="md-nav__link">
         
   
   
@@ -9274,7 +9332,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../states/werner/" class="md-nav__link">
+      <a href="../../states/werner/" class="md-nav__link">
         
   
   
@@ -9317,7 +9375,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../references/" class="md-nav__link">
+      <a href="../../../../references/" class="md-nav__link">
         
   
   
@@ -9357,6 +9415,25 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#toqito.channel_metrics.channel_exclusion.channel_exclusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-function"></code>&nbsp;channel_exclusion
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -9376,15 +9453,41 @@
 
 
 
-<h1 id="toqito.channel_ops" class="doc doc-heading">
-<code class="doc-symbol doc-symbol-heading doc-symbol-module"></code>            <span class="doc doc-object-name doc-module-name">channel_ops</span>
+<h1 id="toqito.channel_metrics.channel_exclusion" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-module"></code>            <span class="doc doc-object-name doc-module-name">channel_exclusion</span>
 
 
-<a href="#toqito.channel_ops" class="headerlink" title="Permanent link">&para;</a></h1>
+<a href="#toqito.channel_metrics.channel_exclusion" class="headerlink" title="Permanent link">&para;</a></h1>
 
     <div class="doc doc-contents first">
 
-        <p>Channel operations is a module used to implement a number of operations on quantum channels.</p>
+        <p>Channel exclusion SDP implementations.</p>
+<p>This module implements channel-level exclusion tasks: the minimum-error channel
+exclusion (primal + dual) and the unambiguous exclusion primal. The implementations
+follow the lifted-interactive-measurement (tester) formulation from Watrous,
+The Theory of Quantum Information, Section 3.5.</p>
+<p>Notation and mapping to toqito variables
+- <code>J(Φ)</code> : Choi matrix of channel Φ. In toqito <code>kraus_to_choi</code> and channel
+    constructors use the <code>input ⊗ output</code> ordering for Choi matrices. Therefore
+    inner products of the form <code>Tr[μ Φ(ρ)]</code> map to
+    <code>⟨J(Φ), ρ^T ⊗ μ⟩</code> under this ordering.
+- <code>ρ</code> : input state. In the lifted formulation we use <code>X = ρ^T</code> as the input-side
+    marginal variable so that the marginal constraint reads
+    <code>Σ_i W_i = X ⊗ I_Y</code> where the first tensor factor corresponds to the input.
+- <code>W_i</code> : lifted positive operator representing the joint <code>M_i ⊗ ρ^T</code> strategy.</p>
+<p>Careful points (followed in tests and code)
+- Choi normalization: Choi matrices returned by toqito channel constructors are
+    <em>unnormalized</em> (trace = d for trace-preserving maps on d-dimensional inputs).
+    When comparing a channel-level optimization against <code>state_exclusion</code> on Choi
+    states, normalize the Choi matrices by <code>1/d</code> to form valid density matrices.
+- Unambiguous exclusion: the implementation includes an inconclusive operator
+    <code>W_inc ⪰ 0</code> with <code>Σ_i W_i + W_inc = X ⊗ I_Y</code>, and the objective minimizes
+    <code>Σ_j p_j ⟨J(Φ_j), W_inc⟩</code> subject to <code>⟨J(Φ_i), W_i⟩ = 0</code> for conclusive outcomes.</p>
+<div class="highlight"><pre><span></span><code>The examples previously shown here were removed to avoid broken doctest-style
+snippets in the rendered documentation. The supported usage remains the same:
+pass Choi matrices directly or provide Kraus operators and choose either the
+minimum-error or unambiguous strategy.
+</code></pre></div>
 
 
 
@@ -9405,6 +9508,395 @@
 
 
 
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="toqito.channel_metrics.channel_exclusion.channel_exclusion" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-function"></code>            <span class="doc doc-object-name doc-function-name">channel_exclusion</span>
+
+
+<a href="#toqito.channel_metrics.channel_exclusion.channel_exclusion" class="headerlink" title="Permanent link">&para;</a></h2>
+<div class="doc-signature highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">channel_exclusion</span><span class="p">(</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="n">channels</span><span class="p">:</span> <span class="n"><span title="list">list</span></span><span class="p">[</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>        <span class="n"><span title="numpy.ndarray">ndarray</span></span> <span class="o">|</span> <span class="n"><span title="list">list</span></span><span class="p">[</span><span class="n"><span title="numpy.ndarray">ndarray</span></span><span class="p">]</span> <span class="o">|</span> <span class="n"><span title="list">list</span></span><span class="p">[</span><span class="n"><span title="list">list</span></span><span class="p">[</span><span class="n"><span title="numpy.ndarray">ndarray</span></span><span class="p">]]</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    <span class="p">],</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="n">probs</span><span class="p">:</span> <span class="n"><span title="list">list</span></span><span class="p">[</span><span class="n"><span title="float">float</span></span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    <span class="n">strategy</span><span class="p">:</span> <span class="n"><span title="str">str</span></span> <span class="o">=</span> <span class="s2">&quot;min_error&quot;</span><span class="p">,</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    <span class="n">solver</span><span class="p">:</span> <span class="n"><span title="str">str</span></span> <span class="o">=</span> <span class="s2">&quot;cvxopt&quot;</span><span class="p">,</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    <span class="n">primal_dual</span><span class="p">:</span> <span class="n"><span title="str">str</span></span> <span class="o">=</span> <span class="s2">&quot;dual&quot;</span><span class="p">,</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>    <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><span title="tuple">tuple</span></span><span class="p">[</span><span class="n"><span title="float">float</span></span><span class="p">,</span> <span class="n"><span title="list">list</span></span><span class="p">[</span><span class="n"><span title="numpy.ndarray">ndarray</span></span><span class="p">]]</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Compute minimum-error channel exclusion for a collection of channels.</p>
+<p>Given channels <span class="arithmatex">\(\Phi_1, \ldots, \Phi_n\)</span> with prior probabilities <span class="arithmatex">\(p_1, \ldots, p_n\)</span>,
+this function computes the minimum probability of incorrectly excluding the true channel.</p>
+<p>For <code>strategy="min_error"</code>, this function solves the lifted SDP:</p>
+<div class="arithmatex">\[
+    \begin{aligned}
+        \text{minimize:} \quad &amp; \sum_{i=1}^{n} p_i \langle J(\Phi_i), W_i \rangle \\
+        \text{subject to:} \quad &amp; W_i \succeq 0 \quad \forall i, \\
+        &amp; X \succeq 0, \; \text{Tr}(X)=1, \\
+        &amp; \sum_{i=1}^{n} W_i = X \otimes \mathbb{I}_{\mathcal{Y}}.
+    \end{aligned}
+\]</div>
+<p>where <span class="arithmatex">\(J(\Phi_i)\)</span> are Choi matrices in input <span class="arithmatex">\(\otimes\)</span> output order and
+<span class="arithmatex">\(X = \rho^T\)</span> is the transposed input state variable.</p>
+<p>The dual SDP solved when <code>primal_dual="dual"</code> is:</p>
+<div class="arithmatex">\[
+    \begin{aligned}
+        \text{maximize:} \quad &amp; \lambda \\
+        \text{subject to:} \quad &amp; Y \preceq p_i J(\Phi_i) \quad \forall i, \\
+        &amp; \text{Tr}_{\mathcal{Y}}(Y) \succeq \lambda \mathbb{I}_{\mathcal{X}}, \\
+        &amp; Y \in \text{Herm}(\mathcal{X}\otimes\mathcal{Y}).
+    \end{aligned}
+\]</div>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+            <b><code>channels</code></b>
+              (<code><span title="list">list</span>[<span title="numpy.ndarray">ndarray</span> | <span title="list">list</span>[<span title="numpy.ndarray">ndarray</span>] | <span title="list">list</span>[<span title="list">list</span>[<span title="numpy.ndarray">ndarray</span>]]]</code>)
+          –
+          <div class="doc-md-description">
+            <p>List of channels, each provided as a Choi matrix or as Kraus operators.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>probs</code></b>
+              (<code><span title="list">list</span>[<span title="float">float</span>] | None</code>, default:
+                  <code>None</code>
+)
+          –
+          <div class="doc-md-description">
+            <p>Prior probabilities for the channels. If omitted, a uniform distribution is used.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>strategy</code></b>
+              (<code><span title="str">str</span></code>, default:
+                  <code>&#39;min_error&#39;</code>
+)
+          –
+          <div class="doc-md-description">
+            <p>Exclusion strategy. In Phase 1, only <code>"min_error"</code> is implemented.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>solver</code></b>
+              (<code><span title="str">str</span></code>, default:
+                  <code>&#39;cvxopt&#39;</code>
+)
+          –
+          <div class="doc-md-description">
+            <p>Optimization option for <code>picos</code> solver. Default is <code>"cvxopt"</code>.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>primal_dual</code></b>
+              (<code><span title="str">str</span></code>, default:
+                  <code>&#39;dual&#39;</code>
+)
+          –
+          <div class="doc-md-description">
+            <p>Option for the optimization problem (<code>"primal"</code> or <code>"dual"</code>).</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>kwargs</code></b>
+          –
+          <div class="doc-md-description">
+            <p>Additional arguments to pass to picos' solve method.</p>
+          </div>
+        </li>
+    </ul>
+
+
+<p><span class="doc-section-title">Returns:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+              <code><span title="tuple">tuple</span>[<span title="float">float</span>, <span title="list">list</span>[<span title="numpy.ndarray">ndarray</span>]]</code>
+          –
+          <div class="doc-md-description">
+            <p>The optimal exclusion probability and a list of optimal strategy operators.</p>
+          </div>
+        </li>
+    </ul>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+              <code><span title="ValueError">ValueError</span></code>
+            –
+          <div class="doc-md-description">
+            <p>If fewer than 2 channels are provided.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+              <code><span title="ValueError">ValueError</span></code>
+            –
+          <div class="doc-md-description">
+            <p>If channels have mismatched dimensions.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+              <code><span title="ValueError">ValueError</span></code>
+            –
+          <div class="doc-md-description">
+            <p>If probabilities are invalid.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+              <code><span title="ValueError">ValueError</span></code>
+            –
+          <div class="doc-md-description">
+            <p>If <code>primal_dual</code> is not <code>"primal"</code> or <code>"dual"</code>.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+              <code><span title="ValueError">ValueError</span></code>
+            –
+          <div class="doc-md-description">
+            <p>If <code>strategy</code> is not supported.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+              <code><span title="ValueError">ValueError</span></code>
+            –
+          <div class="doc-md-description">
+            <p>If <code>strategy="unambiguous"</code> is requested with <code>primal_dual="dual"</code>.</p>
+          </div>
+        </li>
+    </ul>
+
+
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>toqito/channel_metrics/channel_exclusion.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-43"> 43</a></span>
+<span class="normal"><a href="#__codelineno-0-44"> 44</a></span>
+<span class="normal"><a href="#__codelineno-0-45"> 45</a></span>
+<span class="normal"><a href="#__codelineno-0-46"> 46</a></span>
+<span class="normal"><a href="#__codelineno-0-47"> 47</a></span>
+<span class="normal"><a href="#__codelineno-0-48"> 48</a></span>
+<span class="normal"><a href="#__codelineno-0-49"> 49</a></span>
+<span class="normal"><a href="#__codelineno-0-50"> 50</a></span>
+<span class="normal"><a href="#__codelineno-0-51"> 51</a></span>
+<span class="normal"><a href="#__codelineno-0-52"> 52</a></span>
+<span class="normal"><a href="#__codelineno-0-53"> 53</a></span>
+<span class="normal"><a href="#__codelineno-0-54"> 54</a></span>
+<span class="normal"><a href="#__codelineno-0-55"> 55</a></span>
+<span class="normal"><a href="#__codelineno-0-56"> 56</a></span>
+<span class="normal"><a href="#__codelineno-0-57"> 57</a></span>
+<span class="normal"><a href="#__codelineno-0-58"> 58</a></span>
+<span class="normal"><a href="#__codelineno-0-59"> 59</a></span>
+<span class="normal"><a href="#__codelineno-0-60"> 60</a></span>
+<span class="normal"><a href="#__codelineno-0-61"> 61</a></span>
+<span class="normal"><a href="#__codelineno-0-62"> 62</a></span>
+<span class="normal"><a href="#__codelineno-0-63"> 63</a></span>
+<span class="normal"><a href="#__codelineno-0-64"> 64</a></span>
+<span class="normal"><a href="#__codelineno-0-65"> 65</a></span>
+<span class="normal"><a href="#__codelineno-0-66"> 66</a></span>
+<span class="normal"><a href="#__codelineno-0-67"> 67</a></span>
+<span class="normal"><a href="#__codelineno-0-68"> 68</a></span>
+<span class="normal"><a href="#__codelineno-0-69"> 69</a></span>
+<span class="normal"><a href="#__codelineno-0-70"> 70</a></span>
+<span class="normal"><a href="#__codelineno-0-71"> 71</a></span>
+<span class="normal"><a href="#__codelineno-0-72"> 72</a></span>
+<span class="normal"><a href="#__codelineno-0-73"> 73</a></span>
+<span class="normal"><a href="#__codelineno-0-74"> 74</a></span>
+<span class="normal"><a href="#__codelineno-0-75"> 75</a></span>
+<span class="normal"><a href="#__codelineno-0-76"> 76</a></span>
+<span class="normal"><a href="#__codelineno-0-77"> 77</a></span>
+<span class="normal"><a href="#__codelineno-0-78"> 78</a></span>
+<span class="normal"><a href="#__codelineno-0-79"> 79</a></span>
+<span class="normal"><a href="#__codelineno-0-80"> 80</a></span>
+<span class="normal"><a href="#__codelineno-0-81"> 81</a></span>
+<span class="normal"><a href="#__codelineno-0-82"> 82</a></span>
+<span class="normal"><a href="#__codelineno-0-83"> 83</a></span>
+<span class="normal"><a href="#__codelineno-0-84"> 84</a></span>
+<span class="normal"><a href="#__codelineno-0-85"> 85</a></span>
+<span class="normal"><a href="#__codelineno-0-86"> 86</a></span>
+<span class="normal"><a href="#__codelineno-0-87"> 87</a></span>
+<span class="normal"><a href="#__codelineno-0-88"> 88</a></span>
+<span class="normal"><a href="#__codelineno-0-89"> 89</a></span>
+<span class="normal"><a href="#__codelineno-0-90"> 90</a></span>
+<span class="normal"><a href="#__codelineno-0-91"> 91</a></span>
+<span class="normal"><a href="#__codelineno-0-92"> 92</a></span>
+<span class="normal"><a href="#__codelineno-0-93"> 93</a></span>
+<span class="normal"><a href="#__codelineno-0-94"> 94</a></span>
+<span class="normal"><a href="#__codelineno-0-95"> 95</a></span>
+<span class="normal"><a href="#__codelineno-0-96"> 96</a></span>
+<span class="normal"><a href="#__codelineno-0-97"> 97</a></span>
+<span class="normal"><a href="#__codelineno-0-98"> 98</a></span>
+<span class="normal"><a href="#__codelineno-0-99"> 99</a></span>
+<span class="normal"><a href="#__codelineno-0-100">100</a></span>
+<span class="normal"><a href="#__codelineno-0-101">101</a></span>
+<span class="normal"><a href="#__codelineno-0-102">102</a></span>
+<span class="normal"><a href="#__codelineno-0-103">103</a></span>
+<span class="normal"><a href="#__codelineno-0-104">104</a></span>
+<span class="normal"><a href="#__codelineno-0-105">105</a></span>
+<span class="normal"><a href="#__codelineno-0-106">106</a></span>
+<span class="normal"><a href="#__codelineno-0-107">107</a></span>
+<span class="normal"><a href="#__codelineno-0-108">108</a></span>
+<span class="normal"><a href="#__codelineno-0-109">109</a></span>
+<span class="normal"><a href="#__codelineno-0-110">110</a></span>
+<span class="normal"><a href="#__codelineno-0-111">111</a></span>
+<span class="normal"><a href="#__codelineno-0-112">112</a></span>
+<span class="normal"><a href="#__codelineno-0-113">113</a></span>
+<span class="normal"><a href="#__codelineno-0-114">114</a></span>
+<span class="normal"><a href="#__codelineno-0-115">115</a></span>
+<span class="normal"><a href="#__codelineno-0-116">116</a></span>
+<span class="normal"><a href="#__codelineno-0-117">117</a></span>
+<span class="normal"><a href="#__codelineno-0-118">118</a></span>
+<span class="normal"><a href="#__codelineno-0-119">119</a></span>
+<span class="normal"><a href="#__codelineno-0-120">120</a></span>
+<span class="normal"><a href="#__codelineno-0-121">121</a></span>
+<span class="normal"><a href="#__codelineno-0-122">122</a></span>
+<span class="normal"><a href="#__codelineno-0-123">123</a></span>
+<span class="normal"><a href="#__codelineno-0-124">124</a></span>
+<span class="normal"><a href="#__codelineno-0-125">125</a></span>
+<span class="normal"><a href="#__codelineno-0-126">126</a></span>
+<span class="normal"><a href="#__codelineno-0-127">127</a></span>
+<span class="normal"><a href="#__codelineno-0-128">128</a></span>
+<span class="normal"><a href="#__codelineno-0-129">129</a></span>
+<span class="normal"><a href="#__codelineno-0-130">130</a></span>
+<span class="normal"><a href="#__codelineno-0-131">131</a></span>
+<span class="normal"><a href="#__codelineno-0-132">132</a></span>
+<span class="normal"><a href="#__codelineno-0-133">133</a></span>
+<span class="normal"><a href="#__codelineno-0-134">134</a></span>
+<span class="normal"><a href="#__codelineno-0-135">135</a></span>
+<span class="normal"><a href="#__codelineno-0-136">136</a></span>
+<span class="normal"><a href="#__codelineno-0-137">137</a></span>
+<span class="normal"><a href="#__codelineno-0-138">138</a></span>
+<span class="normal"><a href="#__codelineno-0-139">139</a></span>
+<span class="normal"><a href="#__codelineno-0-140">140</a></span>
+<span class="normal"><a href="#__codelineno-0-141">141</a></span>
+<span class="normal"><a href="#__codelineno-0-142">142</a></span>
+<span class="normal"><a href="#__codelineno-0-143">143</a></span>
+<span class="normal"><a href="#__codelineno-0-144">144</a></span>
+<span class="normal"><a href="#__codelineno-0-145">145</a></span>
+<span class="normal"><a href="#__codelineno-0-146">146</a></span>
+<span class="normal"><a href="#__codelineno-0-147">147</a></span>
+<span class="normal"><a href="#__codelineno-0-148">148</a></span>
+<span class="normal"><a href="#__codelineno-0-149">149</a></span>
+<span class="normal"><a href="#__codelineno-0-150">150</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-43" name="__codelineno-0-43"></a><span class="k">def</span><span class="w"> </span><span class="nf">channel_exclusion</span><span class="p">(</span>
+<a id="__codelineno-0-44" name="__codelineno-0-44"></a>    <span class="n">channels</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]]],</span>
+<a id="__codelineno-0-45" name="__codelineno-0-45"></a>    <span class="n">probs</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<a id="__codelineno-0-46" name="__codelineno-0-46"></a>    <span class="n">strategy</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;min_error&quot;</span><span class="p">,</span>
+<a id="__codelineno-0-47" name="__codelineno-0-47"></a>    <span class="n">solver</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;cvxopt&quot;</span><span class="p">,</span>
+<a id="__codelineno-0-48" name="__codelineno-0-48"></a>    <span class="n">primal_dual</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;dual&quot;</span><span class="p">,</span>
+<a id="__codelineno-0-49" name="__codelineno-0-49"></a>    <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<a id="__codelineno-0-50" name="__codelineno-0-50"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]]:</span>
+<a id="__codelineno-0-51" name="__codelineno-0-51"></a><span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Compute minimum-error channel exclusion for a collection of channels.</span>
+<a id="__codelineno-0-52" name="__codelineno-0-52"></a>
+<a id="__codelineno-0-53" name="__codelineno-0-53"></a><span class="sd">    Given channels \(\Phi_1, \ldots, \Phi_n\) with prior probabilities \(p_1, \ldots, p_n\),</span>
+<a id="__codelineno-0-54" name="__codelineno-0-54"></a><span class="sd">    this function computes the minimum probability of incorrectly excluding the true channel.</span>
+<a id="__codelineno-0-55" name="__codelineno-0-55"></a>
+<a id="__codelineno-0-56" name="__codelineno-0-56"></a><span class="sd">    For `strategy=&quot;min_error&quot;`, this function solves the lifted SDP:</span>
+<a id="__codelineno-0-57" name="__codelineno-0-57"></a>
+<a id="__codelineno-0-58" name="__codelineno-0-58"></a><span class="sd">    \[</span>
+<a id="__codelineno-0-59" name="__codelineno-0-59"></a><span class="sd">        \begin{aligned}</span>
+<a id="__codelineno-0-60" name="__codelineno-0-60"></a><span class="sd">            \text{minimize:} \quad &amp; \sum_{i=1}^{n} p_i \langle J(\Phi_i), W_i \rangle \\</span>
+<a id="__codelineno-0-61" name="__codelineno-0-61"></a><span class="sd">            \text{subject to:} \quad &amp; W_i \succeq 0 \quad \forall i, \\</span>
+<a id="__codelineno-0-62" name="__codelineno-0-62"></a><span class="sd">            &amp; X \succeq 0, \; \text{Tr}(X)=1, \\</span>
+<a id="__codelineno-0-63" name="__codelineno-0-63"></a><span class="sd">            &amp; \sum_{i=1}^{n} W_i = X \otimes \mathbb{I}_{\mathcal{Y}}.</span>
+<a id="__codelineno-0-64" name="__codelineno-0-64"></a><span class="sd">        \end{aligned}</span>
+<a id="__codelineno-0-65" name="__codelineno-0-65"></a><span class="sd">    \]</span>
+<a id="__codelineno-0-66" name="__codelineno-0-66"></a>
+<a id="__codelineno-0-67" name="__codelineno-0-67"></a><span class="sd">    where \(J(\Phi_i)\) are Choi matrices in input \(\otimes\) output order and</span>
+<a id="__codelineno-0-68" name="__codelineno-0-68"></a><span class="sd">    \(X = \rho^T\) is the transposed input state variable.</span>
+<a id="__codelineno-0-69" name="__codelineno-0-69"></a>
+<a id="__codelineno-0-70" name="__codelineno-0-70"></a><span class="sd">    The dual SDP solved when `primal_dual=&quot;dual&quot;` is:</span>
+<a id="__codelineno-0-71" name="__codelineno-0-71"></a>
+<a id="__codelineno-0-72" name="__codelineno-0-72"></a><span class="sd">    \[</span>
+<a id="__codelineno-0-73" name="__codelineno-0-73"></a><span class="sd">        \begin{aligned}</span>
+<a id="__codelineno-0-74" name="__codelineno-0-74"></a><span class="sd">            \text{maximize:} \quad &amp; \lambda \\</span>
+<a id="__codelineno-0-75" name="__codelineno-0-75"></a><span class="sd">            \text{subject to:} \quad &amp; Y \preceq p_i J(\Phi_i) \quad \forall i, \\</span>
+<a id="__codelineno-0-76" name="__codelineno-0-76"></a><span class="sd">            &amp; \text{Tr}_{\mathcal{Y}}(Y) \succeq \lambda \mathbb{I}_{\mathcal{X}}, \\</span>
+<a id="__codelineno-0-77" name="__codelineno-0-77"></a><span class="sd">            &amp; Y \in \text{Herm}(\mathcal{X}\otimes\mathcal{Y}).</span>
+<a id="__codelineno-0-78" name="__codelineno-0-78"></a><span class="sd">        \end{aligned}</span>
+<a id="__codelineno-0-79" name="__codelineno-0-79"></a><span class="sd">    \]</span>
+<a id="__codelineno-0-80" name="__codelineno-0-80"></a>
+<a id="__codelineno-0-81" name="__codelineno-0-81"></a><span class="sd">    Args:</span>
+<a id="__codelineno-0-82" name="__codelineno-0-82"></a><span class="sd">        channels: List of channels, each provided as a Choi matrix or as Kraus operators.</span>
+<a id="__codelineno-0-83" name="__codelineno-0-83"></a><span class="sd">        probs: Prior probabilities for the channels. If omitted, a uniform distribution is used.</span>
+<a id="__codelineno-0-84" name="__codelineno-0-84"></a><span class="sd">        strategy: Exclusion strategy. In Phase 1, only `&quot;min_error&quot;` is implemented.</span>
+<a id="__codelineno-0-85" name="__codelineno-0-85"></a><span class="sd">        solver: Optimization option for `picos` solver. Default is `&quot;cvxopt&quot;`.</span>
+<a id="__codelineno-0-86" name="__codelineno-0-86"></a><span class="sd">        primal_dual: Option for the optimization problem (`&quot;primal&quot;` or `&quot;dual&quot;`).</span>
+<a id="__codelineno-0-87" name="__codelineno-0-87"></a><span class="sd">        kwargs: Additional arguments to pass to picos&#39; solve method.</span>
+<a id="__codelineno-0-88" name="__codelineno-0-88"></a>
+<a id="__codelineno-0-89" name="__codelineno-0-89"></a><span class="sd">    Returns:</span>
+<a id="__codelineno-0-90" name="__codelineno-0-90"></a><span class="sd">        The optimal exclusion probability and a list of optimal strategy operators.</span>
+<a id="__codelineno-0-91" name="__codelineno-0-91"></a>
+<a id="__codelineno-0-92" name="__codelineno-0-92"></a><span class="sd">    Raises:</span>
+<a id="__codelineno-0-93" name="__codelineno-0-93"></a><span class="sd">        ValueError: If fewer than 2 channels are provided.</span>
+<a id="__codelineno-0-94" name="__codelineno-0-94"></a><span class="sd">        ValueError: If channels have mismatched dimensions.</span>
+<a id="__codelineno-0-95" name="__codelineno-0-95"></a><span class="sd">        ValueError: If probabilities are invalid.</span>
+<a id="__codelineno-0-96" name="__codelineno-0-96"></a><span class="sd">        ValueError: If `primal_dual` is not `&quot;primal&quot;` or `&quot;dual&quot;`.</span>
+<a id="__codelineno-0-97" name="__codelineno-0-97"></a><span class="sd">        ValueError: If `strategy` is not supported.</span>
+<a id="__codelineno-0-98" name="__codelineno-0-98"></a><span class="sd">        ValueError: If `strategy=&quot;unambiguous&quot;` is requested with `primal_dual=&quot;dual&quot;`.</span>
+<a id="__codelineno-0-99" name="__codelineno-0-99"></a>
+<a id="__codelineno-0-100" name="__codelineno-0-100"></a><span class="sd">    &quot;&quot;&quot;</span>
+<a id="__codelineno-0-101" name="__codelineno-0-101"></a>    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">channels</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+<a id="__codelineno-0-102" name="__codelineno-0-102"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;At least 2 channels are required for channel exclusion.&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-103" name="__codelineno-0-103"></a>
+<a id="__codelineno-0-104" name="__codelineno-0-104"></a>    <span class="k">if</span> <span class="n">strategy</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;min_error&quot;</span><span class="p">,</span> <span class="s2">&quot;unambiguous&quot;</span><span class="p">):</span>
+<a id="__codelineno-0-105" name="__codelineno-0-105"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The strategy must be either &#39;min_error&#39; or &#39;unambiguous&#39;.&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-106" name="__codelineno-0-106"></a>
+<a id="__codelineno-0-107" name="__codelineno-0-107"></a>    <span class="c1"># `unambiguous` is supported (primal only) but handled after we normalize probabilities</span>
+<a id="__codelineno-0-108" name="__codelineno-0-108"></a>    <span class="c1"># and convert Kraus inputs to Choi matrices.</span>
+<a id="__codelineno-0-109" name="__codelineno-0-109"></a>
+<a id="__codelineno-0-110" name="__codelineno-0-110"></a>    <span class="k">if</span> <span class="n">primal_dual</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;primal&quot;</span><span class="p">,</span> <span class="s2">&quot;dual&quot;</span><span class="p">):</span>
+<a id="__codelineno-0-111" name="__codelineno-0-111"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The primal_dual option must be either &#39;primal&#39; or &#39;dual&#39;.&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-112" name="__codelineno-0-112"></a>
+<a id="__codelineno-0-113" name="__codelineno-0-113"></a>    <span class="n">n_channels</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">channels</span><span class="p">)</span>
+<a id="__codelineno-0-114" name="__codelineno-0-114"></a>    <span class="n">probs</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span> <span class="o">/</span> <span class="n">n_channels</span><span class="p">]</span> <span class="o">*</span> <span class="n">n_channels</span> <span class="k">if</span> <span class="n">probs</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">probs</span>
+<a id="__codelineno-0-115" name="__codelineno-0-115"></a>
+<a id="__codelineno-0-116" name="__codelineno-0-116"></a>    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">probs</span><span class="p">)</span> <span class="o">!=</span> <span class="n">n_channels</span><span class="p">:</span>
+<a id="__codelineno-0-117" name="__codelineno-0-117"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The number of probabilities must match the number of channels.&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-118" name="__codelineno-0-118"></a>
+<a id="__codelineno-0-119" name="__codelineno-0-119"></a>    <span class="n">probs_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">probs</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+<a id="__codelineno-0-120" name="__codelineno-0-120"></a>    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">probs_arr</span> <span class="o">&lt;</span> <span class="o">-</span><span class="n">PROBABILITY_TOLERANCE</span><span class="p">):</span>
+<a id="__codelineno-0-121" name="__codelineno-0-121"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Prior probabilities must be non-negative.&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-122" name="__codelineno-0-122"></a>
+<a id="__codelineno-0-123" name="__codelineno-0-123"></a>    <span class="n">probs_sum</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">probs_arr</span><span class="p">))</span>
+<a id="__codelineno-0-124" name="__codelineno-0-124"></a>    <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">probs_sum</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">PROBABILITY_TOLERANCE</span><span class="p">:</span>
+<a id="__codelineno-0-125" name="__codelineno-0-125"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Prior probabilities must sum to 1 within tolerance.&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-126" name="__codelineno-0-126"></a>    <span class="n">probs_arr</span> <span class="o">=</span> <span class="n">probs_arr</span> <span class="o">/</span> <span class="n">probs_sum</span>
+<a id="__codelineno-0-127" name="__codelineno-0-127"></a>
+<a id="__codelineno-0-128" name="__codelineno-0-128"></a>    <span class="n">choi_channels</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+<a id="__codelineno-0-129" name="__codelineno-0-129"></a>    <span class="n">channel_dims</span> <span class="o">=</span> <span class="p">[]</span>
+<a id="__codelineno-0-130" name="__codelineno-0-130"></a>    <span class="k">for</span> <span class="n">channel</span> <span class="ow">in</span> <span class="n">channels</span><span class="p">:</span>
+<a id="__codelineno-0-131" name="__codelineno-0-131"></a>        <span class="n">dim_in</span><span class="p">,</span> <span class="n">dim_out</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">channel_dim</span><span class="p">(</span><span class="n">channel</span><span class="p">)</span>
+<a id="__codelineno-0-132" name="__codelineno-0-132"></a>        <span class="n">channel_dims</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">dim_in</span><span class="p">,</span> <span class="n">dim_out</span><span class="p">]))</span>
+<a id="__codelineno-0-133" name="__codelineno-0-133"></a>        <span class="n">choi_channels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">kraus_to_choi</span><span class="p">(</span><span class="n">channel</span><span class="p">)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">channel</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="k">else</span> <span class="n">channel</span><span class="p">)</span>
+<a id="__codelineno-0-134" name="__codelineno-0-134"></a>
+<a id="__codelineno-0-135" name="__codelineno-0-135"></a>    <span class="n">first_dim</span> <span class="o">=</span> <span class="n">channel_dims</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<a id="__codelineno-0-136" name="__codelineno-0-136"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array_equal</span><span class="p">(</span><span class="n">first_dim</span><span class="p">,</span> <span class="n">chan_dim</span><span class="p">)</span> <span class="k">for</span> <span class="n">chan_dim</span> <span class="ow">in</span> <span class="n">channel_dims</span><span class="p">[</span><span class="mi">1</span><span class="p">:]):</span>
+<a id="__codelineno-0-137" name="__codelineno-0-137"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;All channels must have the same input and output dimensions.&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-138" name="__codelineno-0-138"></a>
+<a id="__codelineno-0-139" name="__codelineno-0-139"></a>    <span class="n">dim_in</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">first_dim</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+<a id="__codelineno-0-140" name="__codelineno-0-140"></a>    <span class="n">dim_out</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">first_dim</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+<a id="__codelineno-0-141" name="__codelineno-0-141"></a>
+<a id="__codelineno-0-142" name="__codelineno-0-142"></a>    <span class="k">if</span> <span class="n">strategy</span> <span class="o">==</span> <span class="s2">&quot;unambiguous&quot;</span><span class="p">:</span>
+<a id="__codelineno-0-143" name="__codelineno-0-143"></a>        <span class="k">if</span> <span class="n">primal_dual</span> <span class="o">!=</span> <span class="s2">&quot;primal&quot;</span><span class="p">:</span>
+<a id="__codelineno-0-144" name="__codelineno-0-144"></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Unambiguous strategy supports only the primal formulation for Phase 2.&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-145" name="__codelineno-0-145"></a>        <span class="k">return</span> <span class="n">_unambiguous_primal</span><span class="p">(</span><span class="n">choi_channels</span><span class="p">,</span> <span class="n">probs_arr</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span> <span class="n">dim_in</span><span class="p">,</span> <span class="n">dim_out</span><span class="p">,</span> <span class="n">solver</span><span class="o">=</span><span class="n">solver</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<a id="__codelineno-0-146" name="__codelineno-0-146"></a>
+<a id="__codelineno-0-147" name="__codelineno-0-147"></a>    <span class="k">if</span> <span class="n">primal_dual</span> <span class="o">==</span> <span class="s2">&quot;primal&quot;</span><span class="p">:</span>
+<a id="__codelineno-0-148" name="__codelineno-0-148"></a>        <span class="k">return</span> <span class="n">_min_error_primal</span><span class="p">(</span><span class="n">choi_channels</span><span class="p">,</span> <span class="n">probs_arr</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span> <span class="n">dim_in</span><span class="p">,</span> <span class="n">dim_out</span><span class="p">,</span> <span class="n">solver</span><span class="o">=</span><span class="n">solver</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<a id="__codelineno-0-149" name="__codelineno-0-149"></a>
+<a id="__codelineno-0-150" name="__codelineno-0-150"></a>    <span class="k">return</span> <span class="n">_min_error_dual</span><span class="p">(</span><span class="n">choi_channels</span><span class="p">,</span> <span class="n">probs_arr</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span> <span class="n">dim_in</span><span class="p">,</span> <span class="n">dim_out</span><span class="p">,</span> <span class="n">solver</span><span class="o">=</span><span class="n">solver</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
 
 
 
@@ -9487,14 +9979,14 @@
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.indexes", "navigation.top", "content.code.copy", "content.code.annotate", "search.highlight"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../..", "features": ["navigation.indexes", "navigation.top", "content.code.copy", "content.code.annotate", "search.highlight"], "search": "../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
-        <script src="../../../assets/_markdown_exec_pyodide.js"></script>
+        <script src="../../../../assets/_markdown_exec_pyodide.js"></script>
       
-        <script src="../../../javascript/mathjax.js"></script>
+        <script src="../../../../javascript/mathjax.js"></script>
       
         <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
       
