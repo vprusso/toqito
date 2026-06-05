@@ -7,6 +7,7 @@ import cvxpy
 import numpy as np
 
 from toqito.matrix_ops import tensor
+from toqito.nonlocal_games.constrained_extended_games import AnswerEventConstraint
 from toqito.rand import random_unitary
 from toqito.state_opt.npa_hierarchy import npa_constraints
 
@@ -511,7 +512,80 @@ class ExtendedNonlocalGame:
 
         return bob_povm_cvxpy_vars, problem
 
-    def commuting_measurement_value_upper_bound(self, k: int | str = 1, no_signaling: bool = True) -> float:
+    @staticmethod
+    def _answer_event_probability(
+        assemblage: dict[tuple[int, int], cvxpy.Variable],
+        a: int,
+        b: int,
+        x: int,
+        y: int,
+        referee_dim: int,
+    ) -> cvxpy.Expression:
+        r"""Return the commuting-measurement answer probability :math:`p(a, b \mid x, y)`.
+
+        At NPA level 1 and above, the block
+        :math:`K_{xy}(a,b) = \mathrm{Tr}_{AB}(I_R \otimes A_a^x B_b^y \, \sigma)`
+        in the assemblage satisfies :math:`p(a,b \mid x,y) = \mathrm{Tr}\, K_{xy}(a,b)`.
+        """
+        block = assemblage[x, y][
+            a * referee_dim : (a + 1) * referee_dim,
+            b * referee_dim : (b + 1) * referee_dim,
+        ]
+        return cvxpy.trace(block)
+
+    @classmethod
+    def _answer_event_linear_constraint(
+        cls,
+        assemblage: dict[tuple[int, int], cvxpy.Variable],
+        constraint: AnswerEventConstraint,
+        referee_dim: int,
+        num_a_out: int,
+        num_b_out: int,
+        num_a_in: int,
+        num_b_in: int,
+    ) -> cvxpy.constraints.constraint.Constraint:
+        """Build a single cvxpy constraint from sparse or dense answer-event coefficients."""
+        coeffs, op, rhs = constraint
+        expr = cvxpy.Constant(0)
+        expected_shape = (num_a_out, num_b_out, num_a_in, num_b_in)
+
+        if isinstance(coeffs, np.ndarray):
+            if coeffs.shape != expected_shape:
+                raise ValueError(
+                    f"Dense constraint coefficients must have shape {expected_shape}, got {coeffs.shape}."
+                )
+            for x in range(num_a_in):
+                for y in range(num_b_in):
+                    for a in range(num_a_out):
+                        for b in range(num_b_out):
+                            coeff = float(coeffs[a, b, x, y])
+                            if coeff != 0.0:
+                                expr += coeff * cls._answer_event_probability(
+                                    assemblage, a, b, x, y, referee_dim
+                                )
+        else:
+            for (a, b, x, y), coeff in coeffs.items():
+                if not (0 <= a < num_a_out and 0 <= b < num_b_out and 0 <= x < num_a_in and 0 <= y < num_b_in):
+                    raise ValueError(
+                        f"Constraint index (a={a}, b={b}, x={x}, y={y}) is out of range for game dimensions "
+                        f"{expected_shape}."
+                    )
+                expr += float(coeff) * cls._answer_event_probability(assemblage, a, b, x, y, referee_dim)
+
+        if op == "==":
+            return expr == rhs
+        if op == "<=":
+            return expr <= rhs
+        if op == ">=":
+            return expr >= rhs
+        raise ValueError(f"Constraint operator must be '==', '<=', or '>=', got {op!r}.")
+
+    def commuting_measurement_value_upper_bound(
+        self,
+        k: int | str = 1,
+        no_signaling: bool = True,
+        constraints: list[AnswerEventConstraint] | None = None,
+    ) -> float:
         r"""Compute an upper bound on the commuting measurement value of an extended nonlocal game.
 
         This function calculates an upper bound on the commuting measurement value by
@@ -524,9 +598,22 @@ class ExtendedNonlocalGame:
             should be used, where this example uses all products of one measurement, all products of
             one Alice and one Bob measurement, and all products of two Alice and one Bob measurements.
 
+        Optional linear constraints on answer-event probabilities may be supplied. Each
+        constraint is a triple ``(coeffs, op, rhs)`` where ``coeffs`` is either a sparse
+        dictionary mapping ``(a, b, x, y)`` to a real coefficient or a dense array of shape
+        ``(num_alice_out, num_bob_out, num_alice_in, num_bob_in)``, ``op`` is one of
+        ``"=="``, ``"<="``, or ``">="``, and ``rhs`` is a float. The constraint is
+
+        .. math::
+            \sum_{a,b,x,y} c_{abxy}\, p(a,b \mid x,y) \;\operatorname{op}\; d,
+
+        with :math:`p(a,b \mid x,y) = \mathrm{Tr}\, K_{xy}(a,b)` at the NPA level used
+        (level 1 and above expose these marginals on the assemblage blocks).
+
         Args:
             k: The level of the NPA hierarchy to use (default=1).
             no_signaling: Whether to enforce the no-signaling constraints (default=True).
+            constraints: Optional linear constraints on answer-event probabilities.
 
         Returns:
             The upper bound on the commuting strategy value of an extended nonlocal game.
@@ -550,6 +637,13 @@ class ExtendedNonlocalGame:
                         blk = K[(x, y)][a * dR : (a + 1) * dR, b * dR : (b + 1) * dR]
                         total_win += self.prob_mat[x, y] * cvxpy.trace(P_ref.conj().T @ blk)
         cons = npa_constraints(K, k, referee_dim=dR, no_signaling=no_signaling)
+        if constraints is not None:
+            for constraint in constraints:
+                cons.append(
+                    self._answer_event_linear_constraint(
+                        K, constraint, dR, A_out, B_out, A_in, B_in
+                    )
+                )
         prob = cvxpy.Problem(cvxpy.Maximize(cvxpy.real(total_win)), cons)
         cs_val = prob.solve(solver=cvxpy.SCS, eps=1e-8, max_iters=100_000, verbose=False)
 

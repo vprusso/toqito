@@ -8,6 +8,7 @@ import cvxpy
 import numpy as np
 import pytest
 
+from toqito.nonlocal_games.constrained_extended_games import constrained_bb84_monogamy_answer_constraints
 from toqito.nonlocal_games.extended_nonlocal_game import ExtendedNonlocalGame
 from toqito.states import basis
 
@@ -181,6 +182,38 @@ class TestExtendedNonlocalGame(unittest.TestCase):
         expected_res = np.cos(np.pi / 8) ** 2
 
         self.assertEqual(np.isclose(res, expected_res, atol=1e-5), True)
+
+    def test_constrained_bb84_commuting_value_upper_bound(self):
+        """Constrained BB84 upper bound matches arXiv:2405.13717 Sec. 4.1, Eq. (62)."""
+        prob_mat, pred_mat = self.bb84_extended_nonlocal_game()
+        bb84 = ExtendedNonlocalGame(prob_mat, pred_mat)
+        constraints = constrained_bb84_monogamy_answer_constraints()
+        res = bb84.commuting_measurement_value_upper_bound(constraints=constraints)
+        # omega_admiss^{(k=1)}(G^{BB84}_C) = cos^2(pi/8) from the paper.
+        expected_res = 0.8535533905
+
+        self.assertTrue(np.isclose(res, expected_res, atol=1e-5))
+
+    def test_constrained_bb84_matches_unconstrained_sanity_check(self):
+        """Forcing consistent answers does not lower the BB84 NPA upper bound at k=1."""
+        prob_mat, pred_mat = self.bb84_extended_nonlocal_game()
+        bb84 = ExtendedNonlocalGame(prob_mat, pred_mat)
+        unconstrained = bb84.commuting_measurement_value_upper_bound()
+        constrained = bb84.commuting_measurement_value_upper_bound(
+            constraints=constrained_bb84_monogamy_answer_constraints()
+        )
+
+        self.assertTrue(np.isclose(unconstrained, constrained, atol=1e-5))
+        self.assertTrue(np.isclose(unconstrained, np.cos(np.pi / 8) ** 2, atol=1e-5))
+
+    def test_answer_event_constraint_invalid_operator(self):
+        """Invalid comparison operators are rejected."""
+        prob_mat, pred_mat = self.bb84_extended_nonlocal_game()
+        bb84 = ExtendedNonlocalGame(prob_mat, pred_mat)
+        bad_constraint = ({(0, 1, 0, 0): 1.0}, "!=", 0.0)  # type: ignore[misc]
+
+        with self.assertRaises(ValueError):
+            bb84.commuting_measurement_value_upper_bound(constraints=[bad_constraint])
 
     def test_chsh_commuting_value_upper_bound(self):
         """Calculate an upper bound on the commuting measurement value of the CHSH game."""
