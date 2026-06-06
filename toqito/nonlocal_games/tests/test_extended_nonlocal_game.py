@@ -259,6 +259,61 @@ class TestExtendedNonlocalGame(unittest.TestCase):
         with self.assertRaises(ValueError):
             bb84.commuting_measurement_value_upper_bound(constraints=[bad_dense])
 
+    def test_constrained_bb84_value_strictly_lower_than_unconstrained(self):
+        """A binding answer-event constraint must lower the SDP value.
+
+        At NPA level 1, forbidding only one diagonal event at (x, y) = (0, 0)
+        is not binding: the relaxation can place the mass on the other diagonal
+        event. Forbidding both diagonal events makes the constraint active and
+        drops the upper bound strictly below the unconstrained BB84 value.
+        """
+        prob_mat, pred_mat = bb84_extended_nonlocal_game()
+        game = ExtendedNonlocalGame(prob_mat, pred_mat)
+
+        ub_unconstrained = game.commuting_measurement_value_upper_bound(k=1)
+
+        # Force p(a=0, b=0 | x=0, y=0) + p(a=1, b=1 | x=0, y=0) = 0.
+        # Coefficients use key order (alice_out, bob_out, alice_in, bob_in).
+        forbid_diagonal_constraint = [({(0, 0, 0, 0): 1.0, (1, 1, 0, 0): 1.0}, "==", 0.0)]
+        ub_constrained = game.commuting_measurement_value_upper_bound(
+            k=1, constraints=forbid_diagonal_constraint
+        )
+
+        self.assertLess(
+            ub_constrained,
+            ub_unconstrained - 1e-4,
+            msg=(
+                f"Constrained value {ub_constrained:.6f} should be strictly below "
+                f"unconstrained value {ub_unconstrained:.6f}. "
+                "The constraint machinery may be silently dropped."
+            ),
+        )
+
+    def test_constrained_bb84_dense_ndarray_coeffs_matches_sparse(self):
+        """Dense np.ndarray coefficients must produce the same result as the equivalent sparse dict."""
+        prob_mat, pred_mat = bb84_extended_nonlocal_game()
+        game = ExtendedNonlocalGame(prob_mat, pred_mat)
+
+        # Sparse dict version
+        sparse_constraint = [({(0, 0, 0, 0): 1.0}, "==", 0.0)]
+        ub_sparse = game.commuting_measurement_value_upper_bound(k=1, constraints=sparse_constraint)
+
+        # Dense ndarray version — shape (A_out=2, B_out=2, A_in=2, B_in=2)
+        coeffs_dense = np.zeros((2, 2, 2, 2))
+        coeffs_dense[0, 0, 0, 0] = 1.0  # a=0, b=0, x=0, y=0
+        dense_constraint = [(coeffs_dense, "==", 0.0)]
+        ub_dense = game.commuting_measurement_value_upper_bound(k=1, constraints=dense_constraint)
+
+        self.assertAlmostEqual(
+            ub_sparse,
+            ub_dense,
+            delta=1e-4,
+            msg=(
+                "Dense and sparse constraint paths produced different SDP values. "
+                "Check the ndarray → dict conversion in _validate_constraints."
+            ),
+        )
+
     def test_chsh_commuting_value_upper_bound(self):
         """Calculate an upper bound on the commuting measurement value of the CHSH game."""
         prob_mat, pred_mat = self.chsh_extended_nonlocal_game()
