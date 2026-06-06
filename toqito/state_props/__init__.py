@@ -42,3 +42,4 @@ from toqito.state_props.sandwiched_renyi_conditional_entropy import (
     sandwiched_renyi_conditional_entropy,
 )
 from toqito.state_props.learnability import learnability
+from toqito.state_props.is_antidistinguishable_circulant import is_antidistinguishable_circulant
