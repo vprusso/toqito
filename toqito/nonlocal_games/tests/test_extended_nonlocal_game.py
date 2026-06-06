@@ -259,6 +259,7 @@ class TestExtendedNonlocalGame(unittest.TestCase):
         with self.assertRaises(ValueError):
             bb84.commuting_measurement_value_upper_bound(constraints=[bad_dense])
 
+    @pytest.mark.slow
     def test_constrained_bb84_value_strictly_lower_than_unconstrained(self):
         """A binding answer-event constraint must lower the SDP value.
 
@@ -289,6 +290,7 @@ class TestExtendedNonlocalGame(unittest.TestCase):
             ),
         )
 
+    @pytest.mark.slow
     def test_constrained_bb84_dense_ndarray_coeffs_matches_sparse(self):
         """Dense np.ndarray coefficients must produce the same result as the equivalent sparse dict."""
         prob_mat, pred_mat = bb84_extended_nonlocal_game()

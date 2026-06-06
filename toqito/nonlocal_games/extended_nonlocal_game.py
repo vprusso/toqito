@@ -570,7 +570,7 @@ class ExtendedNonlocalGame:
                                     )
                                 )
         else:
-            # Sparse keys are validated explicitly; dense coeffs rely on the shape check above.
+            # Sparse keys are validated explicitly with per-index bounds.
             for (a, b, x, y), coeff in coeffs.items():
                 if not (0 <= a < num_a_out and 0 <= b < num_b_out and 0 <= x < num_a_in and 0 <= y < num_b_in):
                     raise ValueError(
