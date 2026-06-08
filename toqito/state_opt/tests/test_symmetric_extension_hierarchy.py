@@ -1,8 +1,10 @@
 """Test symmetric_extension_hierarchy."""
 
+import cvxpy
 import numpy as np
 import pytest
 
+from toqito.matrix_ops import partial_transpose
 from toqito.perms import swap
 from toqito.state_opt import symmetric_extension_hierarchy
 from toqito.states import basis, bell, werner
@@ -165,3 +167,108 @@ def test_symmetric_extension_hierarchy_scalar_dim_must_divide():
     states = [bell(0) @ bell(0).conj().T]
     with pytest.raises(ValueError, match="evenly divide"):
         symmetric_extension_hierarchy(states=states, probs=[1.0], level=1, dim=3)
+
+
+def _gap_ensemble():
+    """Return a fixed two-qubit ensemble whose separable exclusion error exceeds the global one.
+
+    The three (unnormalized) pure states, in the computational basis ordered as
+    (|00>, |01>, |10>, |11>), are |01> + |10> + |11>, |10> + |11>, and |00> + |10> + |11>. They
+    are not antidistinguishable, so the exclusion error is strictly positive, and restricting to
+    PPT/separable measurements makes it strictly larger than the global exclusion error.
+    """
+    vecs = [
+        np.array([[0], [1], [1], [1]], dtype=complex),
+        np.array([[0], [0], [1], [1]], dtype=complex),
+        np.array([[1], [0], [1], [1]], dtype=complex),
+    ]
+    return [v @ v.conj().T / float(np.linalg.norm(v) ** 2) for v in vecs]
+
+
+def _direct_exclusion_sdp(states, ppt=False, dim=(2, 2)):
+    """Minimal-error state-exclusion probability via a direct SDP (reference value).
+
+    With `ppt=True` the measurement operators are additionally constrained to be PPT, which
+    yields the value the level-1 symmetric-extension hierarchy should reproduce.
+    """
+    n, d = len(states), states[0].shape[0]
+    meas = [cvxpy.Variable((d, d), hermitian=True) for _ in range(n)]
+    constraints = [m >> 0 for m in meas] + [sum(meas) == np.identity(d)]
+    if ppt:
+        constraints += [partial_transpose(m, [0], list(dim)) >> 0 for m in meas]
+    obj = cvxpy.Minimize(cvxpy.real(sum(cvxpy.trace(states[k] @ meas[k]) for k in range(n)) / n))
+    return cvxpy.Problem(obj, constraints).solve()
+
+
+def test_exclusion_orthogonal_states_perfectly_excludable():
+    """Orthogonal Bell states are perfectly antidistinguishable: the exclusion error is zero."""
+    states = [bell(i) @ bell(i).conj().T for i in range(4)]
+    res = symmetric_extension_hierarchy(states=states, probs=None, level=1, objective="exclude")
+    np.testing.assert_allclose(res, 0.0, atol=1e-5)
+
+
+def test_exclusion_level_one_matches_ppt_value():
+    """Level 1 of the exclusion hierarchy equals the PPT state-exclusion value."""
+    states = _gap_ensemble()
+    res = symmetric_extension_hierarchy(states=states, probs=None, level=1, objective="exclude")
+    np.testing.assert_allclose(res, _direct_exclusion_sdp(states, ppt=True), atol=1e-4)
+
+
+def test_exclusion_separable_strictly_worse_than_global():
+    """The separable (level-1/PPT) exclusion error is strictly larger than the global one."""
+    states = _gap_ensemble()
+    sep = symmetric_extension_hierarchy(states=states, probs=None, level=1, objective="exclude")
+    glob = _direct_exclusion_sdp(states, ppt=False)
+    np.testing.assert_equal(sep > glob + 1e-2, True)
+
+
+def test_exclusion_three_bell_with_resource_state():
+    """Three Bell states tensored with a resource state are perfectly excludable.
+
+    This is the ensemble from the distinguishability example. The states are mutually orthogonal,
+    so they are perfectly antidistinguishable (exclusion error 0) even though PPT measurements
+    cannot perfectly distinguish them (the distinguishability value is well below 1). This makes
+    the exclusion and distinguishability hierarchy values directly comparable on a known example.
+    """
+    e_0, e_1 = basis(2, 0), basis(2, 1)
+    e_00, e_11 = np.kron(e_0, e_0), np.kron(e_1, e_1)
+    eps = 1 / 2
+    eps_state = np.sqrt((1 + eps) / 2) * e_00 + np.sqrt((1 - eps) / 2) * e_11
+    eps_dm = eps_state @ eps_state.conj().T
+
+    states = [
+        np.kron(bell(0) @ bell(0).conj().T, eps_dm),
+        np.kron(bell(1) @ bell(1).conj().T, eps_dm),
+        np.kron(bell(2) @ bell(2).conj().T, eps_dm),
+    ]
+    states = [
+        swap(states[0], [2, 3], [2, 2, 2, 2]),
+        swap(states[1], [2, 3], [2, 2, 2, 2]),
+        swap(states[2], [2, 3], [2, 2, 2, 2]),
+    ]
+
+    exclude = symmetric_extension_hierarchy(states=states, probs=None, level=1, objective="exclude")
+    distinguish = symmetric_extension_hierarchy(states=states, probs=None, level=1)
+    np.testing.assert_allclose(exclude, 0.0, atol=1e-4)
+    np.testing.assert_equal(distinguish > 0.9, True)
+
+
+def test_exclusion_level_two_does_not_decrease():
+    """Level 2 of the exclusion hierarchy is at least level 1 (the bound never decreases).
+
+    For this ensemble the PPT relaxation is already tight, so level 2 coincides with level 1 to
+    solver precision; a strict level-2 > level-1 separation would require an ensemble where the
+    separable exclusion value lies strictly above the PPT one, which is hard to realize at this
+    dimension. The test therefore only asserts the non-decreasing direction of the hierarchy.
+    """
+    states = _gap_ensemble()
+    lvl_1 = symmetric_extension_hierarchy(states=states, probs=None, level=1, objective="exclude")
+    lvl_2 = symmetric_extension_hierarchy(states=states, probs=None, level=2, objective="exclude")
+    np.testing.assert_equal(lvl_2 >= lvl_1 - 1e-5, True)
+
+
+def test_invalid_objective_raises():
+    """An unknown `objective` value raises a ValueError."""
+    states = [bell(0) @ bell(0).conj().T, bell(1) @ bell(1).conj().T]
+    with pytest.raises(ValueError, match="objective"):
+        symmetric_extension_hierarchy(states=states, level=1, objective="antidistinguish")
