@@ -30,7 +30,7 @@ def trine() -> list[np.ndarray]:
     """
     e_0, e_1 = basis(2, 0), basis(2, 1)
     return [
-        e_0,
+        e_0.astype(float),
         -1 / 2 * (e_0 + np.sqrt(3) * e_1),
         -1 / 2 * (e_0 - np.sqrt(3) * e_1),
     ]
