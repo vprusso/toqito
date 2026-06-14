@@ -8,6 +8,12 @@ import cvxpy
 import numpy as np
 import pytest
 
+from toqito.nonlocal_games.constrained_extended_games import (
+    bb84_extended_nonlocal_game,
+    constrained_bb84_monogamy_answer_constraints,
+    constrained_bb84_monogamy_answer_constraints_dense,
+    forbid_bb84_diagonal_answers_at,
+)
 from toqito.nonlocal_games.extended_nonlocal_game import ExtendedNonlocalGame
 from toqito.states import basis
 
@@ -18,23 +24,7 @@ class TestExtendedNonlocalGame(unittest.TestCase):
     @staticmethod
     def bb84_extended_nonlocal_game():
         """Define the BB84 extended nonlocal game."""
-        e_0, e_1 = basis(2, 0), basis(2, 1)
-        e_p = (e_0 + e_1) / np.sqrt(2)
-        e_m = (e_0 - e_1) / np.sqrt(2)
-
-        dim = 2
-        num_alice_out, num_bob_out = 2, 2
-        num_alice_in, num_bob_in = 2, 2
-
-        pred_mat = np.zeros([dim, dim, num_alice_out, num_bob_out, num_alice_in, num_bob_in])
-        pred_mat[:, :, 0, 0, 0, 0] = e_0 @ e_0.conj().T
-        pred_mat[:, :, 0, 0, 1, 1] = e_p @ e_p.conj().T
-        pred_mat[:, :, 1, 1, 0, 0] = e_1 @ e_1.conj().T
-        pred_mat[:, :, 1, 1, 1, 1] = e_m @ e_m.conj().T
-
-        prob_mat = 1 / 2 * np.identity(2)
-
-        return prob_mat, pred_mat
+        return bb84_extended_nonlocal_game()
 
     @staticmethod
     def chsh_extended_nonlocal_game():
@@ -173,6 +163,7 @@ class TestExtendedNonlocalGame(unittest.TestCase):
 
         self.assertEqual(np.isclose(res, expected_res), True)
 
+    @pytest.mark.slow
     def test_bb84_commuting_value_upper_bound(self):
         """Calculate an upper bound on the commuting measurement value of the BB84 game."""
         prob_mat, pred_mat = self.bb84_extended_nonlocal_game()
@@ -181,6 +172,168 @@ class TestExtendedNonlocalGame(unittest.TestCase):
         expected_res = np.cos(np.pi / 8) ** 2
 
         self.assertEqual(np.isclose(res, expected_res, atol=1e-5), True)
+
+    @pytest.mark.slow
+    def test_constrained_bb84_commuting_value_upper_bound(self):
+        """Constrained BB84 upper bound matches arXiv:2405.13717 Sec. 4.1, Eq. (62)."""
+        prob_mat, pred_mat = self.bb84_extended_nonlocal_game()
+        bb84 = ExtendedNonlocalGame(prob_mat, pred_mat)
+        constraints = constrained_bb84_monogamy_answer_constraints()
+        res = bb84.commuting_measurement_value_upper_bound(constraints=constraints)
+        # omega_admiss^{(k=1)}(G^{BB84}_C) = cos^2(pi/8) from the paper.
+        expected_res = 0.8535533905
+
+        self.assertTrue(np.isclose(res, expected_res, atol=1e-5))
+
+    @pytest.mark.slow
+    def test_constrained_bb84_matches_unconstrained_sanity_check(self):
+        """Forcing consistent answers does not lower the BB84 NPA upper bound at k=1."""
+        prob_mat, pred_mat = self.bb84_extended_nonlocal_game()
+        bb84 = ExtendedNonlocalGame(prob_mat, pred_mat)
+        unconstrained = bb84.commuting_measurement_value_upper_bound()
+        constrained = bb84.commuting_measurement_value_upper_bound(
+            constraints=constrained_bb84_monogamy_answer_constraints()
+        )
+
+        self.assertTrue(np.isclose(unconstrained, constrained, atol=1e-5))
+        self.assertTrue(np.isclose(unconstrained, np.cos(np.pi / 8) ** 2, atol=1e-5))
+
+    def test_constrained_bb84_monogamy_constraints_are_per_question(self):
+        """Eq. (60) is encoded as one equality per question x, not a single merged sum."""
+        constraints = constrained_bb84_monogamy_answer_constraints()
+
+        self.assertEqual(len(constraints), 2)
+        self.assertEqual(set(constraints[0][0].keys()), {(0, 1, 0, 0), (1, 0, 0, 0)})
+        self.assertEqual(set(constraints[1][0].keys()), {(0, 1, 1, 1), (1, 0, 1, 1)})
+        self.assertEqual(constraints[0][1:], ("==", 0.0))
+        self.assertEqual(constraints[1][1:], ("==", 0.0))
+
+    def test_answer_event_constraint_invalid_operator(self):
+        """Invalid comparison operators are rejected."""
+        prob_mat, pred_mat = self.bb84_extended_nonlocal_game()
+        bb84 = ExtendedNonlocalGame(prob_mat, pred_mat)
+        bad_constraint = ({(0, 1, 0, 0): 1.0}, "!=", 0.0)  # type: ignore[misc]
+
+        with self.assertRaises(ValueError):
+            bb84.commuting_measurement_value_upper_bound(constraints=[bad_constraint])
+
+    @pytest.mark.slow
+    def test_bb84_binding_answer_event_constraint_lowers_commuting_upper_bound(self):
+        """A binding constraint lowers the SDP value below the unconstrained BB84 upper bound."""
+        prob_mat, pred_mat = self.bb84_extended_nonlocal_game()
+        bb84 = ExtendedNonlocalGame(prob_mat, pred_mat)
+        unconstrained = bb84.commuting_measurement_value_upper_bound()
+        binding = bb84.commuting_measurement_value_upper_bound(
+            constraints=forbid_bb84_diagonal_answers_at(0, 0)
+        )
+        bb84_optimum = np.cos(np.pi / 8) ** 2
+
+        self.assertTrue(np.isclose(unconstrained, bb84_optimum, atol=1e-5))
+        self.assertLess(binding, bb84_optimum - 1e-4)
+        self.assertLess(binding, unconstrained - 1e-4)
+        # With both diagonal answer events at (x,y)=(0,0) forced to zero, only the (1,1) round
+        # contributes at weight 1/2 in the BB84 distribution.
+        self.assertAlmostEqual(binding, 0.5, delta=1e-4)
+
+    @pytest.mark.slow
+    def test_bb84_monogamy_constraints_dense_matches_sparse(self):
+        """Dense coefficient arrays give the same upper bound as sparse dicts."""
+        prob_mat, pred_mat = self.bb84_extended_nonlocal_game()
+        bb84 = ExtendedNonlocalGame(prob_mat, pred_mat)
+        sparse_val = bb84.commuting_measurement_value_upper_bound(
+            constraints=constrained_bb84_monogamy_answer_constraints()
+        )
+        dense_val = bb84.commuting_measurement_value_upper_bound(
+            constraints=constrained_bb84_monogamy_answer_constraints_dense()
+        )
+
+        self.assertTrue(np.isclose(sparse_val, dense_val, atol=1e-5))
+        self.assertTrue(np.isclose(sparse_val, 0.8535533905, atol=1e-5))
+
+    def test_answer_event_constraint_dense_shape_mismatch(self):
+        """Dense coefficients with the wrong shape are rejected."""
+        prob_mat, pred_mat = self.bb84_extended_nonlocal_game()
+        bb84 = ExtendedNonlocalGame(prob_mat, pred_mat)
+        bad_dense = (np.zeros((2, 2, 2, 3)), "==", 0.0)
+
+        with self.assertRaises(ValueError):
+            bb84.commuting_measurement_value_upper_bound(constraints=[bad_dense])
+
+    @pytest.mark.slow
+    def test_constrained_bb84_value_strictly_lower_than_unconstrained(self):
+        """A binding answer-event constraint must lower the SDP value.
+
+        forbid_bb84_diagonal_answers_at(0, 0) forces both p(0,0|0,0)=0 and
+        p(1,1|0,0)=0 — the only two winning answer pairs at (x=0,y=0).
+        Since prob_mat[0,0]=0.5, this wipes out half the game's weight and
+        the upper bound drops to ~0.5. Any regression that silently drops the
+        constraint list will leave the bound at cos²(π/8) ≈ 0.854 and fail.
+        """
+        prob_mat, pred_mat = bb84_extended_nonlocal_game()
+        game = ExtendedNonlocalGame(prob_mat, pred_mat)
+
+        ub_unconstrained = game.commuting_measurement_value_upper_bound(k=1)
+        bb84_optimum = np.cos(np.pi / 8) ** 2
+
+        # forbid_bb84_diagonal_answers_at is already proven binding in
+        # test_bb84_binding_answer_event_constraint_lowers_commuting_upper_bound.
+        ub_constrained = game.commuting_measurement_value_upper_bound(
+            k=1, constraints=forbid_bb84_diagonal_answers_at(0, 0)
+        )
+
+        self.assertTrue(np.isclose(ub_unconstrained, bb84_optimum, atol=1e-5))
+        self.assertLess(
+            ub_constrained,
+            bb84_optimum - 1e-4,
+            msg=(
+                f"Constrained value {ub_constrained:.6f} should be strictly below "
+                f"unconstrained value {ub_unconstrained:.6f}. "
+                "The constraint machinery may be silently dropped."
+            ),
+        )
+        # Both winning diagonal events at (x=0,y=0) are forbidden; only the
+        # (x=1,y=1) round (weight 0.5) can contribute, so the bound ≈ 0.5.
+        self.assertAlmostEqual(ub_constrained, 0.5, delta=1e-4)
+
+    @pytest.mark.slow
+    def test_constrained_bb84_dense_ndarray_coeffs_matches_sparse(self):
+        """Dense np.ndarray coefficients must produce the same result as sparse dicts.
+
+        Uses the same binding constraint as forbid_bb84_diagonal_answers_at(0, 0):
+        p(0,0|0,0) + p(1,1|0,0) == 0. The dense array indexing is [a, b, x, y],
+        so the two nonzero entries are coeffs[0,0,0,0] and coeffs[1,1,0,0]
+        (not [1,1,1,1], which would be question pair (x=1,y=1)).
+        Both paths must agree and the result must be strictly below cos²(π/8).
+        """
+        prob_mat, pred_mat = bb84_extended_nonlocal_game()
+        game = ExtendedNonlocalGame(prob_mat, pred_mat)
+
+        # Sparse dict: forbid both diagonal winners at (x=0, y=0).
+        sparse_constraint = ({(0, 0, 0, 0): 1.0, (1, 1, 0, 0): 1.0}, "==", 0.0)
+        ub_sparse = game.commuting_measurement_value_upper_bound(
+            k=1, constraints=[sparse_constraint]
+        )
+
+        # Dense ndarray: same constraint, shape (A_out=2, B_out=2, A_in=2, B_in=2).
+        # Index order is [a, b, x, y].
+        coeffs_dense = np.zeros((2, 2, 2, 2))
+        coeffs_dense[0, 0, 0, 0] = 1.0  # a=0, b=0, x=0, y=0
+        coeffs_dense[1, 1, 0, 0] = 1.0  # a=1, b=1, x=0, y=0  ← not [1,1,1,1]
+        dense_constraint = (coeffs_dense, "==", 0.0)
+        ub_dense = game.commuting_measurement_value_upper_bound(k=1, constraints=[dense_constraint])
+
+        self.assertAlmostEqual(
+            ub_sparse,
+            ub_dense,
+            delta=1e-4,
+            msg=(
+                "Dense and sparse constraint paths produced different SDP values. "
+                "The ndarray branch in _answer_event_linear_constraint may be broken."
+            ),
+        )
+        # Both should be binding: constraint wipes out (x=0,y=0) and bound drops to ~0.5.
+        self.assertLess(ub_sparse, np.cos(np.pi / 8) ** 2 - 1e-4)
+        self.assertAlmostEqual(ub_sparse, 0.5, delta=1e-4)
 
     def test_chsh_commuting_value_upper_bound(self):
         """Calculate an upper bound on the commuting measurement value of the CHSH game."""
