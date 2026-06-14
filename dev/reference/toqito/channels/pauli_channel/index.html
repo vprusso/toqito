@@ -5764,6 +5764,8 @@
       
         
       
+        
+      
     
     
     
@@ -5828,6 +5830,34 @@
     
   
     <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code>binary_constraint_system_game
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nonlocal_games/constrained_extended_games/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code>constrained_extended_games
   
 
     
@@ -9637,10 +9667,10 @@ returned in a tuple alongside the Choi matrix. Prefer
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">pauli_channel</span><span class="p">(</span><span class="n">prob</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>[[0.8329139 +0.j 0.        +0.j 0.        +0.j 0.35360603+0.j]
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a> [0.        +0.j 0.1670861 +0.j 0.16002856+0.j 0.        +0.j]
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a> [0.        +0.j 0.16002856+0.j 0.1670861 +0.j 0.        +0.j]
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a> [0.35360603+0.j 0.        +0.j 0.        +0.j 0.8329139 +0.j]]
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>[[ 0.44999126+0.j  0.        +0.j  0.        +0.j -0.05613954+0.j]
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a> [ 0.        +0.j  0.55000874+0.j -0.19099487+0.j  0.        +0.j]
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a> [ 0.        +0.j -0.19099487+0.j  0.55000874+0.j  0.        +0.j]
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a> [-0.05613954+0.j  0.        +0.j  0.        +0.j  0.44999126+0.j]]
 </code></pre></div>
 <p>Apply a specific two-qubit Pauli channel to an input matrix via <code>apply_channel</code>:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
