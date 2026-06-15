@@ -33,7 +33,7 @@ dependencies = [
     "scs==3.2.11",
     "picos>=2.6.2",
     "networkx>=3.4,<4.0",
-    "matplotlib==3.10.8",
+    "matplotlib==3.11.0",
 ]
 
 [project.urls]
@@ -60,7 +60,7 @@ lint = [
     "ty==0.0.12",
 ]
 docs = [
-    "matplotlib==3.10.8",
+    "matplotlib==3.11.0",
     "mkdocs>=1.5",
     "mkdocs-material>=9.0",
     "mkdocstrings[python]>=0.24",
