@@ -13,6 +13,9 @@ def state_exclusion(
     vectors: list[np.ndarray],
     probs: list[float] | None = None,
     strategy: str = "min_error",
+    measurement: str = "positive",
+    subsystems: list[int] | None = None,
+    dimensions: list[int] | None = None,
     solver: str = "cvxopt",
     primal_dual: str = "dual",
     **kwargs: Any,
@@ -64,6 +67,21 @@ def state_exclusion(
         \end{equation}
     \]
 
+    If `measurement = "ppt"`, the measurement operators are also constrained to be positive under partial transpose on
+    the requested subsystem(s). In the primal minimum-error problem, this adds the constraints
+
+    \[
+        \Gamma_j(M_i) \succeq 0
+    \]
+
+    for every measurement operator \(M_i\) and for the subsystem(s) \(j\) listed in `subsystems`, where \(\Gamma_j\)
+    is the partial transpose map with subsystem dimensions `dimensions`. The corresponding dual uses the dual PPT cone,
+    \(\text{Pos} + \Gamma_j(\text{Pos})\), so the constraints become
+
+    \[
+        p_i\rho_i - Y \in \text{Pos} + \Gamma_j(\text{Pos}).
+    \]
+
     For `strategy = "unambiguous"`, Bob never provides an incorrect answer, although it is
     possible that his answer is inconclusive. This function then yields the probability of an inconclusive outcome.
 
@@ -105,6 +123,11 @@ def state_exclusion(
             probability distribution is assumed.
         strategy: Whether to perform minimal error or unambiguous discrimination task. Possible values are "min_error"
             and "unambiguous". Both strategies support pure and mixed states.
+        measurement: The type of measurement to use. Possible values are "positive" (default) for standard positive
+            measurements and "ppt" for PPT (positive partial transpose) measurements.
+        subsystems: A list of integers specifying which subsystems to transpose for PPT measurements. Required when
+            `measurement="ppt"`.
+        dimensions: A list of integers specifying the dimensions of each subsystem. Required when `measurement="ppt"`.
         solver: Optimization option for `picos` solver. Default option is `solver_option="cvxopt"`.
         primal_dual: Option for the optimization problem.
         kwargs: Additional arguments to pass to picos' solve method.
@@ -169,6 +192,27 @@ def state_exclusion(
         print(np.around(res, decimals=2))
         ```
 
+        PPT-constrained minimum-error state exclusion.
+
+        ```python
+        import numpy as np
+        from toqito.state_opt import state_exclusion
+        from toqito.states import bell
+
+        states = [bell(0), bell(1), bell(2)]
+
+        res, _ = state_exclusion(
+            states,
+            measurement="ppt",
+            subsystems=[0],
+            dimensions=[2, 2],
+            primal_dual="primal",
+            cvxopt_kktsolver="ldl",
+        )
+
+        print(np.around(res, decimals=2))
+        ```
+
         !!! Note
             If you encounter a `ZeroDivisionError` or an `ArithmeticError` when using cvxopt as a solver (which is the
             default), you might want to set the `abs_ipm_opt_tol` option to a lower value (the default being `1e-8`) or
@@ -177,6 +221,9 @@ def state_exclusion(
             See https://gitlab.com/picos-api/picos/-/issues/341
 
     """
+    if measurement not in {"positive", "ppt"}:
+        raise ValueError("Argument `measurement` must be either 'positive' or 'ppt'.")
+
     if not has_same_dimension(vectors):
         raise ValueError("Vectors for state distinguishability must all have the same dimension.")
 
@@ -184,6 +231,48 @@ def state_exclusion(
     n = len(vectors)
     probs = [1 / n] * n if probs is None else probs
     dim = calculate_vector_matrix_dimension(vectors[0])
+
+    if measurement == "ppt":
+        _validate_ppt_params(dim=dim, subsystems=subsystems, dimensions=dimensions)
+        if strategy == "min_error":
+            if primal_dual == "primal":
+                return _ppt_min_error_primal(
+                    vectors=vectors,
+                    dim=dim,
+                    subsystems=subsystems,
+                    dimensions=dimensions,
+                    probs=probs,
+                    solver=solver,
+                    **kwargs,
+                )
+            return _ppt_min_error_dual(
+                vectors=vectors,
+                dim=dim,
+                subsystems=subsystems,
+                dimensions=dimensions,
+                probs=probs,
+                solver=solver,
+                **kwargs,
+            )
+        if primal_dual == "primal":
+            return _ppt_unambiguous_primal(
+                vectors=vectors,
+                dim=dim,
+                subsystems=subsystems,
+                dimensions=dimensions,
+                probs=probs,
+                solver=solver,
+                **kwargs,
+            )
+        return _ppt_unambiguous_dual(
+            vectors=vectors,
+            dim=dim,
+            subsystems=subsystems,
+            dimensions=dimensions,
+            probs=probs,
+            solver=solver,
+            **kwargs,
+        )
 
     if strategy == "min_error":
         if primal_dual == "primal":
@@ -194,6 +283,40 @@ def state_exclusion(
         return _unambiguous_primal(vectors=vectors, dim=dim, probs=probs, solver=solver, **kwargs)
 
     return _unambiguous_dual(vectors=vectors, dim=dim, probs=probs, solver=solver, **kwargs)
+
+
+def _validate_ppt_params(dim: int, subsystems: list[int] | None, dimensions: list[int] | None) -> None:
+    """Validate subsystem information for PPT-constrained measurements."""
+    if subsystems is None or dimensions is None:
+        raise ValueError("The 'subsystems' and 'dimensions' parameters are required for PPT measurements.")
+
+    if np.prod(dimensions) != dim:
+        raise ValueError("The product of `dimensions` must equal the dimension of the states.")
+
+    if any(sys < 0 or sys >= len(dimensions) for sys in subsystems):
+        raise ValueError("Entries of `subsystems` must index into `dimensions`.")
+
+
+def _ppt_dual_cone_constraint(
+    problem: picos.Problem,
+    expr: picos.expressions.ComplexAffineExpression,
+    name: str,
+    subsystems: list[int],
+    dimensions: list[int],
+) -> Any:
+    r"""Constrain `expr` to lie in the dual PPT cone.
+
+    The PPT cone is \(\{M : M \succeq 0, \Gamma(M) \succeq 0\}\). Its dual cone is
+    \(\text{Pos} + \Gamma(\text{Pos})\). We model this as `expr - partial_transpose(Q) >> 0`
+    for an auxiliary positive semidefinite variable `Q`.
+
+    """
+    dim = expr.shape[0]
+    q_var = picos.HermitianVariable(name, (dim, dim))
+    problem.add_constraint(q_var >> 0)
+    return problem.add_constraint(
+        expr - picos.partial_transpose(q_var, subsystems=subsystems, dimensions=dimensions) >> 0
+    )
 
 
 def _min_error_primal(
@@ -242,6 +365,65 @@ def _min_error_dual(
     return solution.value, measurements
 
 
+def _ppt_min_error_primal(
+    vectors: list[np.ndarray],
+    dim: int,
+    subsystems: list[int],
+    dimensions: list[int],
+    probs: list[float] | None = None,
+    solver: str = "cvxopt",
+    **kwargs,
+) -> tuple[float, list[picos.HermitianVariable]]:
+    """Find the primal problem for minimum-error quantum state exclusion SDP with PPT constraints."""
+    n = len(vectors)
+    problem = picos.Problem()
+    measurements = [picos.HermitianVariable(f"M[{i}]", (dim, dim)) for i in range(n)]
+
+    problem.add_list_of_constraints([meas >> 0 for meas in measurements])
+    problem.add_list_of_constraints(
+        [picos.partial_transpose(meas, subsystems=subsystems, dimensions=dimensions) >> 0 for meas in measurements]
+    )
+    problem.add_constraint(picos.sum(measurements) == picos.I(dim))
+
+    dms = [to_density_matrix(vector) for vector in vectors]
+
+    problem.set_objective("min", np.real(picos.sum([(probs[i] * dms[i] | measurements[i]) for i in range(n)])))
+    solution = problem.solve(solver=solver, **kwargs)
+    return solution.value, measurements
+
+
+def _ppt_min_error_dual(
+    vectors: list[np.ndarray],
+    dim: int,
+    subsystems: list[int],
+    dimensions: list[int],
+    probs: list[float] | None = None,
+    solver: str = "cvxopt",
+    **kwargs,
+) -> tuple[float, list[picos.HermitianVariable]]:
+    """Find the dual problem for minimum-error quantum state exclusion SDP with PPT constraints."""
+    problem = picos.Problem()
+    y_var = picos.HermitianVariable("Y", (dim, dim))
+    dual_cone_constraints = []
+
+    for i, vector in enumerate(vectors):
+        dual_cone_constraints.append(
+            _ppt_dual_cone_constraint(
+                problem=problem,
+                expr=probs[i] * to_density_matrix(vector) - y_var,
+                name=f"Q[{i}]",
+                subsystems=subsystems,
+                dimensions=dimensions,
+            )
+        )
+
+    problem.set_objective("max", picos.trace(y_var))
+    solution = problem.solve(solver=solver, primals=None, **kwargs)
+    measurements = [constraint.dual for constraint in dual_cone_constraints]
+
+    return solution.value, measurements
+
+
 def _unambiguous_primal(
     vectors: list[np.ndarray],
     dim: int,
@@ -268,6 +450,42 @@ def _unambiguous_primal(
     problem.add_list_of_constraints(m | rho == 0 for (m, rho) in zip(measurements, unnormalized_dms))
 
     problem.set_objective("min", picos.trace(sums_of_unnormalized_dms * inconclusive_measurement))
+    solution = problem.solve(solver=solver, **kwargs)
+
+    return solution.value, measurements + [inconclusive_measurement]
+
+
+def _ppt_unambiguous_primal(
+    vectors: list[np.ndarray],
+    dim: int,
+    subsystems: list[int],
+    dimensions: list[int],
+    probs: list[float] | None = None,
+    solver: str = "cvxopt",
+    **kwargs,
+) -> tuple[float, list[picos.HermitianVariable]]:
+    """Solve the primal problem for unambiguous quantum state exclusion SDP with PPT constraints."""
+    n = len(vectors)
+    problem = picos.Problem()
+    measurements = [picos.HermitianVariable(f"M[{i}]", (dim, dim)) for i in range(n)]
+    # The inconclusive POVM element is determined by completeness once the conclusive elements are chosen.
+    inconclusive_measurement = picos.I(dim) - picos.sum(measurements)
+
+    problem.add_list_of_constraints([meas >> 0 for meas in measurements])
+    problem.add_list_of_constraints(
+        [picos.partial_transpose(meas, subsystems=subsystems, dimensions=dimensions) >> 0 for meas in measurements]
+    )
+    problem.add_constraint(inconclusive_measurement >> 0)
+    problem.add_constraint(
+        picos.partial_transpose(inconclusive_measurement, subsystems=subsystems, dimensions=dimensions) >> 0
+    )
+
+    unnormalized_dms = [p * to_density_matrix(vector) for (p, vector) in zip(probs, vectors)]
+    sum_of_unnormalized_dms = picos.sum(unnormalized_dms)
+
+    problem.add_list_of_constraints(m | rho == 0 for (m, rho) in zip(measurements, unnormalized_dms))
+
+    problem.set_objective("min", picos.trace(sum_of_unnormalized_dms * inconclusive_measurement))
     solution = problem.solve(solver=solver, **kwargs)
 
     return solution.value, measurements + [inconclusive_measurement]
@@ -305,3 +523,43 @@ def _unambiguous_dual(
     solution = problem.solve(solver=solver, primals=None, **kwargs)
 
     return solution.value, (lagrangian_variable_big_n, lagrangian_variables_a)
+
+
+def _ppt_unambiguous_dual(
+    vectors: list[np.ndarray],
+    dim: int,
+    subsystems: list[int],
+    dimensions: list[int],
+    probs: list[float] | None = None,
+    solver: str = "cvxopt",
+    **kwargs,
+) -> tuple[float, tuple[picos.HermitianVariable, picos.RealVariable]]:
+    """Solve the dual problem for unambiguous quantum state exclusion SDP with PPT constraints."""
+    n = len(vectors)
+    problem = picos.Problem()
+    y_var = picos.HermitianVariable("Y", (dim, dim))
+    lagrangian_variables_a = picos.RealVariable("a", n)
+
+    unnormalized_dms = [p * to_density_matrix(vector) for (p, vector) in zip(probs, vectors)]
+    sum_of_unnormalized_dms = picos.sum(unnormalized_dms)
+
+    _ppt_dual_cone_constraint(
+        problem=problem,
+        expr=sum_of_unnormalized_dms - y_var,
+        name="Q[inconclusive]",
+        subsystems=subsystems,
+        dimensions=dimensions,
+    )
+    for i in range(n):
+        _ppt_dual_cone_constraint(
+            problem=problem,
+            expr=lagrangian_variables_a[i] * unnormalized_dms[i] - y_var,
+            name=f"Q[{i}]",
+            subsystems=subsystems,
+            dimensions=dimensions,
+        )
+
+    problem.set_objective("max", picos.trace(y_var))
+    solution = problem.solve(solver=solver, primals=None, **kwargs)
+
+    return solution.value, (y_var, lagrangian_variables_a)
