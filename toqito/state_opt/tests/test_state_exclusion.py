@@ -208,3 +208,31 @@ def test_state_exclusion_ppt_requires_subsystems_and_dimensions():
     """Using `measurement='ppt'` without subsystem data should raise a clear ValueError."""
     with pytest.raises(ValueError, match="subsystems.*dimensions"):
         state_exclusion(vectors=[bell(0), bell(1)], measurement="ppt")
+
+
+def test_state_exclusion_ppt_wrong_dimensions():
+    """PPT dimensions must multiply to the state dimension."""
+    with pytest.raises(ValueError, match="product of `dimensions`"):
+        state_exclusion(
+            vectors=[bell(0), bell(1)],
+            measurement="ppt",
+            subsystems=[0],
+            dimensions=[2, 3],
+        )
+
+
+def test_state_exclusion_ppt_subsystems_out_of_range():
+    """PPT subsystem indices must be valid for the provided dimensions."""
+    with pytest.raises(ValueError, match="index into `dimensions`"):
+        state_exclusion(
+            vectors=[bell(0), bell(1)],
+            measurement="ppt",
+            subsystems=[5],
+            dimensions=[2, 2],
+        )
+
+
+def test_state_exclusion_invalid_measurement():
+    """Unsupported measurement types should raise a clear ValueError."""
+    with pytest.raises(ValueError, match="measurement.*positive.*ppt"):
+        state_exclusion(vectors=[bell(0), bell(1)], measurement="random_string")

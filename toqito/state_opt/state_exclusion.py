@@ -171,7 +171,7 @@ def state_exclusion(
 
         states = [np.array([[1.], [0.]]), np.array([[1.],[1.]]) / np.sqrt(2)]
 
-        res, _ = state_exclusion(states, primal_dual="primal", strategy="unambiguous", abs_ipm_opt_tol=1e-5)
+        res, _ = state_exclusion(states, primal_dual="primal", strategy="unambiguous", abs_ipm_opt_tol=1e-7)
 
         print(np.around(res, decimals=2))
         ```
@@ -221,6 +221,9 @@ def state_exclusion(
             See https://gitlab.com/picos-api/picos/-/issues/341
 
     """
+    if measurement not in {"positive", "ppt"}:
+        raise ValueError("Argument `measurement` must be either 'positive' or 'ppt'.")
+
     if not has_same_dimension(vectors):
         raise ValueError("Vectors for state distinguishability must all have the same dimension.")
 
@@ -271,9 +274,6 @@ def state_exclusion(
             **kwargs,
         )
 
-    if measurement != "positive":
-        raise ValueError("Argument `measurement` must be either 'positive' or 'ppt'.")
-
     if strategy == "min_error":
         if primal_dual == "primal":
             return _min_error_primal(vectors=vectors, dim=dim, probs=probs, solver=solver, **kwargs)
@@ -303,7 +303,7 @@ def _ppt_dual_cone_constraint(
     name: str,
     subsystems: list[int],
     dimensions: list[int],
-) -> None:
+) -> Any:
     r"""Constrain `expr` to lie in the dual PPT cone.
 
     The PPT cone is \(\{M : M \succeq 0, \Gamma(M) \succeq 0\}\). Its dual cone is
@@ -314,7 +314,9 @@ def _ppt_dual_cone_constraint(
     dim = expr.shape[0]
     q_var = picos.HermitianVariable(name, (dim, dim))
     problem.add_constraint(q_var >> 0)
-    problem.add_constraint(expr - picos.partial_transpose(q_var, subsystems=subsystems, dimensions=dimensions) >> 0)
+    return problem.add_constraint(
+        expr - picos.partial_transpose(q_var, subsystems=subsystems, dimensions=dimensions) >> 0
+    )
 
 
 def _min_error_primal(
@@ -402,19 +404,22 @@ def _ppt_min_error_dual(
     """Find the dual problem for minimum-error quantum state exclusion SDP with PPT constraints."""
     problem = picos.Problem()
     y_var = picos.HermitianVariable("Y", (dim, dim))
+    dual_cone_constraints = []
 
     for i, vector in enumerate(vectors):
-        _ppt_dual_cone_constraint(
-            problem=problem,
-            expr=probs[i] * to_density_matrix(vector) - y_var,
-            name=f"Q[{i}]",
-            subsystems=subsystems,
-            dimensions=dimensions,
+        dual_cone_constraints.append(
+            _ppt_dual_cone_constraint(
+                problem=problem,
+                expr=probs[i] * to_density_matrix(vector) - y_var,
+                name=f"Q[{i}]",
+                subsystems=subsystems,
+                dimensions=dimensions,
+            )
         )
 
     problem.set_objective("max", picos.trace(y_var))
     solution = problem.solve(solver=solver, primals=None, **kwargs)
-    measurements = [problem.get_constraint(2 * i + 1).dual for i in range(len(vectors))]
+    measurements = [constraint.dual for constraint in dual_cone_constraints]
 
     return solution.value, measurements
 
@@ -463,6 +468,7 @@ def _ppt_unambiguous_primal(
     n = len(vectors)
     problem = picos.Problem()
     measurements = [picos.HermitianVariable(f"M[{i}]", (dim, dim)) for i in range(n)]
+    # The inconclusive POVM element is determined by completeness once the conclusive elements are chosen.
     inconclusive_measurement = picos.I(dim) - picos.sum(measurements)
 
     problem.add_list_of_constraints([meas >> 0 for meas in measurements])
