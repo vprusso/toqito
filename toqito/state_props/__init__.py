@@ -28,6 +28,7 @@ from toqito.state_props.has_symmetric_inner_extension import (
 from toqito.state_props.has_symmetric_extension import has_symmetric_extension
 from toqito.state_props.sk_vec_norm import sk_vector_norm
 from toqito.state_props.is_antidistinguishable import is_antidistinguishable
+from toqito.state_props.is_antidistinguishable_circulant import is_antidistinguishable_circulant
 from toqito.state_props.is_distinguishable import is_distinguishable
 from toqito.state_props.is_unextendible_product_basis import (
     is_unextendible_product_basis,
