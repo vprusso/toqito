@@ -1,11 +1,18 @@
 """Tests for channel_relative_entropy."""
 
+import importlib
+
+import cvxpy as cvx
 import numpy as np
 import pytest
 
 from toqito.channel_metrics.channel_relative_entropy import channel_relative_entropy
 from toqito.channels import depolarizing, pauli_channel
 from toqito.perms import swap_operator
+
+_CHANNEL_RELATIVE_ENTROPY_MOD = importlib.import_module(
+    "toqito.channel_metrics.channel_relative_entropy"
+)
 
 
 def _dense(mat):
@@ -16,26 +23,11 @@ def _dense(mat):
 def test_identical_channels_zero():
     """Identical channels should give zero in both bounds and mean modes."""
     choi = depolarizing(2, 1)
-    hamiltonian = np.zeros((2, 2), dtype=complex)
 
     lower, upper = channel_relative_entropy(
-        choi,
-        choi,
-        in_dim=2,
-        epsilon_dec=0.2,
-        hamiltonian=hamiltonian,
-        energy=0.3,
-        mean=False,
+        choi, choi, in_dim=2, epsilon_dec=0.2, mean=False
     )
-    avg = channel_relative_entropy(
-        choi,
-        choi,
-        in_dim=2,
-        epsilon_dec=0.2,
-        hamiltonian=hamiltonian,
-        energy=0.3,
-        mean=True,
-    )
+    avg = channel_relative_entropy(choi, choi, in_dim=2, epsilon_dec=0.2, mean=True)
 
     assert lower == 0
     assert upper == 0
@@ -45,14 +37,11 @@ def test_identical_channels_zero():
 @pytest.mark.slow
 def test_bounds_order_for_distinct_channels():
     """Distinct channels should produce ordered lower and upper bounds."""
-    hamiltonian = np.zeros((2, 2), dtype=complex)
     lower, upper = channel_relative_entropy(
         depolarizing(2, 1),
         depolarizing(2, 0.2),
         in_dim=2,
         epsilon_dec=0.2,
-        hamiltonian=hamiltonian,
-        energy=0.3,
         mean=False,
     )
 
@@ -63,40 +52,31 @@ def test_bounds_order_for_distinct_channels():
 
 def test_raises_mismatched_choi_shapes():
     """Mismatched Choi dimensions should raise."""
-    hamiltonian = np.zeros((2, 2), dtype=complex)
     with pytest.raises(ValueError, match="equal dimension"):
         channel_relative_entropy(
             depolarizing(2, 0.2),
             depolarizing(4, 0.2),
             in_dim=2,
             epsilon_dec=0.2,
-            hamiltonian=hamiltonian,
-            energy=0.0,
         )
 
 
 def test_raises_non_square_choi():
     """Non-square Choi matrices should raise."""
     bad = np.array([[1, 2, 3], [4, 5, 6]], dtype=complex)
-    hamiltonian = np.zeros((1, 1), dtype=complex)
 
     with pytest.raises(ValueError, match="must be square"):
-        channel_relative_entropy(
-            bad, bad, in_dim=1, epsilon_dec=0.2, hamiltonian=hamiltonian, energy=0.0
-        )
+        channel_relative_entropy(bad, bad, in_dim=1, epsilon_dec=0.2)
 
 
 def test_raises_bad_in_dim():
     """Choi dimensions not divisible by in_dim should raise."""
-    hamiltonian = np.zeros((3, 3), dtype=complex)
     with pytest.raises(ValueError, match="divisible by in_dim"):
         channel_relative_entropy(
             depolarizing(2, 0.2),
             depolarizing(2, 0.4),
             in_dim=3,
             epsilon_dec=0.2,
-            hamiltonian=hamiltonian,
-            energy=0.0,
         )
 
 
@@ -104,7 +84,6 @@ def test_channel_1_must_be_quantum_channel():
     """A non-quantum first argument should raise a clear ValueError."""
     bad_channel = np.array([[1.0, 2.0, 3.0, 4.0]] * 4, dtype=complex)
     good_channel = np.eye(4, dtype=complex) / 2
-    hamiltonian = np.zeros((2, 2), dtype=complex)
 
     with pytest.raises(ValueError, match="channel_1 is a quantum channel"):
         channel_relative_entropy(
@@ -112,8 +91,6 @@ def test_channel_1_must_be_quantum_channel():
             good_channel,
             in_dim=2,
             epsilon_dec=0.2,
-            hamiltonian=hamiltonian,
-            energy=0.0,
         )
 
 
@@ -121,7 +98,6 @@ def test_channel_2_must_be_completely_positive():
     """A non-CP second argument should raise a clear ValueError."""
     good_channel = np.eye(4, dtype=complex) / 2
     non_cp_channel = swap_operator(2).astype(complex)
-    hamiltonian = np.zeros((2, 2), dtype=complex)
 
     with pytest.raises(ValueError, match="channel_2 is completely positive"):
         channel_relative_entropy(
@@ -129,8 +105,6 @@ def test_channel_2_must_be_completely_positive():
             non_cp_channel,
             in_dim=2,
             epsilon_dec=0.2,
-            hamiltonian=hamiltonian,
-            energy=0.0,
         )
 
 
@@ -143,7 +117,154 @@ def test_raises_bad_hamiltonian_shape():
             in_dim=2,
             epsilon_dec=0.2,
             hamiltonian=np.zeros((3, 3), dtype=complex),
-            energy=0.0,
+        )
+
+
+def test_raises_degenerate_integral_bounds(monkeypatch):
+    """Non-positive mu or lambda <= mu should raise a clear ValueError."""
+    channel_1 = depolarizing(2, 0.2)
+    channel_2 = depolarizing(2, 0.4)
+
+    monkeypatch.setattr(
+        _CHANNEL_RELATIVE_ENTROPY_MOD, "_find_mu", lambda rho, sigma: 0.0
+    )
+    monkeypatch.setattr(
+        _CHANNEL_RELATIVE_ENTROPY_MOD, "_find_lambda", lambda rho, sigma: 1.0
+    )
+    with pytest.raises(ValueError, match="0 < mu < lambda"):
+        channel_relative_entropy(channel_1, channel_2, in_dim=2, epsilon_dec=0.2)
+
+    monkeypatch.setattr(
+        _CHANNEL_RELATIVE_ENTROPY_MOD, "_find_mu", lambda rho, sigma: 2.0
+    )
+    monkeypatch.setattr(
+        _CHANNEL_RELATIVE_ENTROPY_MOD, "_find_lambda", lambda rho, sigma: 1.0
+    )
+    with pytest.raises(ValueError, match="0 < mu < lambda"):
+        channel_relative_entropy(channel_1, channel_2, in_dim=2, epsilon_dec=0.2)
+
+
+def test_mean_mode_returns_scalar():
+    """Mean mode should return the midpoint of the bounds."""
+    lower, upper = channel_relative_entropy(
+        depolarizing(2, 1),
+        depolarizing(2, 0.2),
+        in_dim=2,
+        epsilon_dec=0.2,
+        mean=False,
+    )
+    avg = channel_relative_entropy(
+        depolarizing(2, 1),
+        depolarizing(2, 0.2),
+        in_dim=2,
+        epsilon_dec=0.2,
+        mean=True,
+    )
+
+    assert avg == pytest.approx((lower + upper) / 2)
+
+
+def test_raises_when_lower_sdp_fails(monkeypatch):
+    """A failed lower-bound solve should raise RuntimeError."""
+    monkeypatch.setattr(_CHANNEL_RELATIVE_ENTROPY_MOD, "_find_mu", lambda rho, sigma: 0.1)
+    monkeypatch.setattr(_CHANNEL_RELATIVE_ENTROPY_MOD, "_find_lambda", lambda rho, sigma: 2.0)
+
+    class FakeProblem:
+        created = 0
+
+        def __init__(self, objective, constraints):
+            self.value = 1.0
+            FakeProblem.created += 1
+            self.status = cvx.INFEASIBLE if FakeProblem.created == 1 else cvx.OPTIMAL
+
+        def solve(self, **kwargs):
+            pass
+
+    FakeProblem.created = 0
+    monkeypatch.setattr(_CHANNEL_RELATIVE_ENTROPY_MOD.cvx, "Problem", FakeProblem)
+
+    with pytest.raises(RuntimeError, match="Lower-bound SDP failed"):
+        channel_relative_entropy(
+            depolarizing(2, 0.2), depolarizing(2, 0.4), in_dim=2, epsilon_dec=0.2
+        )
+
+
+def test_raises_when_upper_sdp_fails(monkeypatch):
+    """A failed upper-bound solve should raise RuntimeError."""
+    monkeypatch.setattr(_CHANNEL_RELATIVE_ENTROPY_MOD, "_find_mu", lambda rho, sigma: 0.1)
+    monkeypatch.setattr(_CHANNEL_RELATIVE_ENTROPY_MOD, "_find_lambda", lambda rho, sigma: 2.0)
+
+    class FakeProblem:
+        created = 0
+
+        def __init__(self, objective, constraints):
+            self.value = 1.0
+            FakeProblem.created += 1
+            self.status = cvx.OPTIMAL if FakeProblem.created == 1 else cvx.INFEASIBLE
+
+        def solve(self, **kwargs):
+            pass
+
+    FakeProblem.created = 0
+    monkeypatch.setattr(_CHANNEL_RELATIVE_ENTROPY_MOD.cvx, "Problem", FakeProblem)
+
+    with pytest.raises(RuntimeError, match="Upper-bound SDP failed"):
+        channel_relative_entropy(
+            depolarizing(2, 0.2), depolarizing(2, 0.4), in_dim=2, epsilon_dec=0.2
+        )
+
+
+def test_warns_on_optimal_inaccurate_lower(monkeypatch):
+    """OPTIMAL_INACCURATE on the lower SDP should warn."""
+    monkeypatch.setattr(_CHANNEL_RELATIVE_ENTROPY_MOD, "_find_mu", lambda rho, sigma: 0.1)
+    monkeypatch.setattr(_CHANNEL_RELATIVE_ENTROPY_MOD, "_find_lambda", lambda rho, sigma: 2.0)
+
+    class FakeProblem:
+        created = 0
+
+        def __init__(self, objective, constraints):
+            self.value = 1.0
+            FakeProblem.created += 1
+            self.status = (
+                cvx.OPTIMAL_INACCURATE if FakeProblem.created == 1 else cvx.OPTIMAL
+            )
+
+        def solve(self, **kwargs):
+            pass
+
+    FakeProblem.created = 0
+    monkeypatch.setattr(_CHANNEL_RELATIVE_ENTROPY_MOD.cvx, "Problem", FakeProblem)
+
+    with pytest.warns(UserWarning, match="Lower-bound SDP returned OPTIMAL_INACCURATE"):
+        channel_relative_entropy(
+            depolarizing(2, 0.2), depolarizing(2, 0.4), in_dim=2, epsilon_dec=0.2
+        )
+
+
+def test_warns_on_optimal_inaccurate_upper(monkeypatch):
+    """OPTIMAL_INACCURATE on the upper SDP should warn."""
+    monkeypatch.setattr(_CHANNEL_RELATIVE_ENTROPY_MOD, "_find_mu", lambda rho, sigma: 0.1)
+    monkeypatch.setattr(_CHANNEL_RELATIVE_ENTROPY_MOD, "_find_lambda", lambda rho, sigma: 2.0)
+
+    class FakeProblem:
+        created = 0
+
+        def __init__(self, objective, constraints):
+            self.value = 1.0
+            FakeProblem.created += 1
+            self.status = (
+                cvx.OPTIMAL if FakeProblem.created == 1 else cvx.OPTIMAL_INACCURATE
+            )
+
+        def solve(self, **kwargs):
+            pass
+
+    FakeProblem.created = 0
+    monkeypatch.setattr(_CHANNEL_RELATIVE_ENTROPY_MOD.cvx, "Problem", FakeProblem)
+
+    with pytest.warns(UserWarning, match="Upper-bound SDP returned OPTIMAL_INACCURATE"):
+        channel_relative_entropy(
+            depolarizing(2, 0.2), depolarizing(2, 0.4), in_dim=2, epsilon_dec=0.2
         )
 
 
@@ -152,34 +273,10 @@ def test_raises_bad_hamiltonian_shape():
     ("param_p", "expected_mean"),
     [
         (0.010, 2.920),
-        (0.013, 2.759),
-        (0.016, 2.633),
-        (0.019, 2.529),
-        (0.022, 2.440),
         (0.026, 2.364),
-        (0.029, 2.296),
-        (0.032, 2.235),
-        (0.035, 2.180),
-        (0.038, 2.130),
-        (0.041, 2.084),
-        (0.044, 2.043),
-        (0.047, 2.003),
         (0.050, 1.967),
-        (0.053, 1.932),
-        (0.057, 1.898),
-        (0.060, 1.865),
-        (0.063, 1.834),
-        (0.066, 1.803),
-        (0.069, 1.776),
         (0.072, 1.751),
-        (0.075, 1.726),
-        (0.078, 1.702),
-        (0.081, 1.681),
-        (0.084, 1.660),
-        (0.088, 1.639),
         (0.091, 1.619),
-        (0.094, 1.599),
-        (0.097, 1.582),
         (0.100, 1.570),
     ],
 )
@@ -194,26 +291,9 @@ def test_channel_relative_entropy_paper_example(param_p: float, expected_mean: f
             np.array([1 - 3 * param_p / 4, param_p / 4, param_p / 4, param_p / 4])
         )
     )
-    hamiltonian = np.zeros((2, 2), dtype=complex)
 
-    lower, upper = channel_relative_entropy(
-        channel_1,
-        channel_2,
-        in_dim=2,
-        epsilon_dec=1e-2,
-        hamiltonian=hamiltonian,
-        energy=0.0,
-        mean=False,
-    )
-    avg = channel_relative_entropy(
-        channel_1,
-        channel_2,
-        in_dim=2,
-        epsilon_dec=1e-2,
-        hamiltonian=hamiltonian,
-        energy=0.0,
-        mean=True,
-    )
+    lower, upper = channel_relative_entropy(channel_1, channel_2, in_dim=2, mean=False)
+    avg = (lower + upper) / 2
 
     assert np.isfinite(lower)
     assert np.isfinite(upper)

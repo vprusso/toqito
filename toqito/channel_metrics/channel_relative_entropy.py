@@ -150,9 +150,9 @@ def channel_relative_entropy(
     channel_1: np.ndarray,
     channel_2: np.ndarray,
     in_dim: int,
-    epsilon_dec: float,
-    hamiltonian: np.ndarray,
-    energy: float,
+    hamiltonian: np.ndarray | None = None,
+    energy: float = 0.0,
+    epsilon_dec: float = 1e-2,
     mean: bool = False,
 ) -> float | tuple[float, float]:
     r"""Estimate the quantum relative entropy of two channels [@kossmann2025channelrelativeentropy].
@@ -165,15 +165,20 @@ def channel_relative_entropy(
     $$
 
     This routine implements SDP lower/upper bounds from the integral representation
-    of relative entropy.
+    of relative entropy. The formulation assumes that the channels are not too close to
+    identical beyond the ``np.allclose`` early exit. When this fails, the auxiliary
+    parameters ``mu`` and ``lambda`` from the integral representation are
+    degenerate and a ``ValueError`` is raised.
 
     Args:
         channel_1: Choi matrix for the first channel.
         channel_2: Choi matrix for the second map.
         in_dim: Input dimension $d_A$ of the channels.
-        epsilon_dec: Grid refinement parameter for the discretized integral.
         hamiltonian: Hermitian operator $H_A$ used in the upper-bound SDP.
-        energy: Energy parameter ``E`` in the upper-bound SDP.
+            Defaults to the zero matrix of shape ``(in_dim, in_dim)``.
+        energy: Energy parameter ``E`` in the upper-bound SDP. Defaults to ``0.0``.
+        epsilon_dec: Grid refinement parameter for the discretized integral.
+            Defaults to ``1e-2``.
         mean: If ``True``, return the average of the lower and upper bounds; otherwise
             return ``(lower, upper)``.
 
@@ -184,6 +189,8 @@ def channel_relative_entropy(
         ValueError: If the Choi matrices have incompatible shapes or dimensions.
         ValueError: If ``hamiltonian`` does not have shape ``(in_dim, in_dim)``.
         ValueError: If ``channel_1`` is not a quantum channel or ``channel_2`` is not CP.
+        ValueError: If the integral grid parameters satisfy ``mu <= 0`` or
+            ``lambda <= mu`` (channels too close for the bound).
 
     """
     if channel_1.shape != channel_2.shape:
@@ -193,7 +200,10 @@ def channel_relative_entropy(
     n = channel_1.shape[0]
     if n % in_dim != 0:
         raise ValueError("The Choi dimension must be divisible by in_dim.")
-    hamiltonian = np.asarray(hamiltonian, dtype=complex)
+    if hamiltonian is None:
+        hamiltonian = np.zeros((in_dim, in_dim), dtype=complex)
+    else:
+        hamiltonian = np.asarray(hamiltonian, dtype=complex)
     if hamiltonian.shape != (in_dim, in_dim):
         raise ValueError("The Hamiltonian must have shape (in_dim, in_dim).")
     if not is_quantum_channel(channel_1):
@@ -215,6 +225,13 @@ def channel_relative_entropy(
 
     lam = _find_lambda(choi_1, choi_2)
     mu = _find_mu(choi_1, choi_2)
+    if mu <= 0 or lam <= mu:
+        raise ValueError(
+            "The integral representation requires 0 < mu < lambda. "
+            "This typically means the channels are too close for the bound "
+            "(channel_1 may lie in the kernel of channel_2). "
+            "If the channels are identical, they are handled by the early return."
+        )
     t = _make_grid(mu, lam, epsilon_dec)
     r = len(t)
 
@@ -243,22 +260,13 @@ def channel_relative_entropy(
         ),
         cons,
     )
-    with warnings.catch_warnings():
-        warnings.filterwarnings("ignore", message="Solution may be inaccurate")
-        lower_prob.solve(solver=cvx.SCS, eps=1e-8, verbose=False)
+    lower_prob.solve(solver=cvx.SCS, eps=1e-8, verbose=False)
+    if lower_prob.status not in (cvx.OPTIMAL, cvx.OPTIMAL_INACCURATE):
+        raise RuntimeError(f"Lower-bound SDP failed: {lower_prob.status}")
+    if lower_prob.status == cvx.OPTIMAL_INACCURATE:
+        warnings.warn("Lower-bound SDP returned OPTIMAL_INACCURATE; result may be off.")
 
-    lower = (
-        np.log(lam)
-        + 1
-        - lam
-        + cvx.trace(cvx.kron(rho_a.value, eye_out) @ (choi_1 - choi_2)).value
-        + cvx.sum(
-            [
-                cvx.trace(qs[k].value @ (alpha[k] * choi_1 + beta[k] * choi_2))
-                for k in range(r - 1)
-            ]
-        ).value
-    )
+    lower = lower_prob.value + np.log(lam) + 1 - lam
 
     x_var, y_var = cvx.Variable(), cvx.Variable()
     gamma, delta = _make_gamma(t), _make_delta(t)
@@ -279,11 +287,13 @@ def channel_relative_entropy(
         ]
     )
     upper_prob = cvx.Problem(cvx.Minimize(cvx.real(x_var + y_var * energy)), upper_cons)
-    with warnings.catch_warnings():
-        warnings.filterwarnings("ignore", message="Solution may be inaccurate")
-        upper_prob.solve(solver=cvx.SCS, eps=1e-8, verbose=False)
+    upper_prob.solve(solver=cvx.SCS, eps=1e-8, verbose=False)
+    if upper_prob.status not in (cvx.OPTIMAL, cvx.OPTIMAL_INACCURATE):
+        raise RuntimeError(f"Upper-bound SDP failed: {upper_prob.status}")
+    if upper_prob.status == cvx.OPTIMAL_INACCURATE:
+        warnings.warn("Upper-bound SDP returned OPTIMAL_INACCURATE; result may be off.")
 
-    upper = x_var.value + y_var.value * energy + np.log(lam) + 1 - lam
+    upper = upper_prob.value + np.log(lam) + 1 - lam
     if mean:
         return (lower + upper) / 2
     return lower, upper
