@@ -8,13 +8,13 @@ import cvxpy
 import numpy as np
 import pytest
 
-from toqito.nonlocal_games.constrained_extended_games import (
+from toqito.nonlocal_games.extended_nonlocal_game import ExtendedNonlocalGame
+from toqito.nonlocal_games.tests._constrained_games_fixtures import (
     bb84_extended_nonlocal_game,
     constrained_bb84_monogamy_answer_constraints,
     constrained_bb84_monogamy_answer_constraints_dense,
     forbid_bb84_diagonal_answers_at,
 )
-from toqito.nonlocal_games.extended_nonlocal_game import ExtendedNonlocalGame
 from toqito.states import basis
 
 
