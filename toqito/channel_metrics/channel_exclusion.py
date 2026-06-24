@@ -31,6 +31,8 @@ Careful points (followed in tests and code)
 
 """
 
+from typing import Any
+
 import numpy as np
 import picos as pc
 
@@ -46,7 +48,7 @@ def channel_exclusion(
     strategy: str = "min_error",
     solver: str = "cvxopt",
     primal_dual: str = "dual",
-    **kwargs,
+    **kwargs: Any,
 ) -> tuple[float, list[np.ndarray]]:
     r"""Compute minimum-error channel exclusion for a collection of channels.
 
