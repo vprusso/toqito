@@ -1,7 +1,10 @@
-"""Helpers for constrained extended nonlocal games.
+"""Test fixtures for constrained extended nonlocal games.
 
-Linear constraints follow Escolà-Farràs and Speelman, *Lossy-and-Constrained Extended
+These build the BB84 monogamy-of-entanglement example and its linear answer
+constraints from Escolà-Farràs and Speelman, *Lossy-and-Constrained Extended
 Non-Local Games with Applications to Quantum Cryptography* (arXiv:2405.13717).
+They are example fixtures used only by the test suite, not part of the public
+``toqito.nonlocal_games`` API.
 """
 
 from __future__ import annotations
@@ -67,11 +70,6 @@ def constrained_bb84_monogamy_answer_constraints_dense() -> list[AnswerEventCons
     c_x1[0, 1, 1, 1] = 1.0
     c_x1[1, 0, 1, 1] = 1.0
     return [(c_x0, "==", 0.0), (c_x1, "==", 0.0)]
-
-
-def forbid_bb84_answer_event(a: int, b: int, x: int, y: int) -> list[AnswerEventConstraint]:
-    r"""Return a single equality forcing :math:`p(a, b \mid x, y) = 0`."""
-    return [({(a, b, x, y): 1.0}, "==", 0.0)]
 
 
 def forbid_bb84_diagonal_answers_at(x: int, y: int) -> list[AnswerEventConstraint]:
