@@ -12,10 +12,10 @@ from toqito.matrix_ops.partial_trace import partial_trace
 def _make_grid(mu: float, lam: float, epsilon: float) -> np.ndarray:
     r"""Make a grid of points for the integral representation of the relative entropy.
 
-    The first point of the grid is set to $\mu$. For the k-th point $t_k$, where
-    $k \gt 1$, $t_k = t_{k-1} + \sqrt{8 \epsilon t_{k-1}}$.
+    The first point of the grid is set to \(\mu\). For the k-th point \(t_k\), where
+    \(k \gt 1\), \(t_k = t_{k-1} + \sqrt{8 \epsilon t_{k-1}}\).
 
-    This formula yields $O(\sqrt{\lambda/\epsilon})$ points in the grid.
+    This formula yields \(O(\sqrt{\lambda/\epsilon})\) points in the grid.
 
     Args:
         mu: The starting point of the grid.
@@ -34,47 +34,61 @@ def _make_grid(mu: float, lam: float, epsilon: float) -> np.ndarray:
     return np.array(grid + [lam])
 
 
-def _find_mu(rho: np.ndarray, sigma: np.ndarray) -> float:
-    r"""Find the starting point $\mu$ of the integral representation of the relative entropy.
+def _find_mu(rho: np.ndarray, sigma: np.ndarray, solver: str, **solve_kwargs) -> float:
+    r"""Find the starting point \(\mu\) of the integral representation of the relative entropy.
 
     Args:
         rho: The Choi matrix of the first channel.
         sigma: The Choi matrix of the second channel.
+        solver: The CVXPY solver to use.
+        solve_kwargs: Additional arguments passed to ``cvxpy.Problem.solve``.
 
     Returns:
-        The starting point $\mu$.
+        The starting point \(\mu\).
 
     """
     mu = cvx.Variable()
     problem = cvx.Problem(cvx.Maximize(mu), [sigma - mu * rho >> 0])
-    problem.solve(verbose=False)
+    problem.solve(solver=solver, **solve_kwargs)
+    if problem.status not in (cvx.OPTIMAL, cvx.OPTIMAL_INACCURATE):
+        raise ValueError(f"mu auxiliary SDP failed: {problem.status}")
+    if mu.value is None:
+        raise ValueError("mu auxiliary SDP failed: solver returned no value")
     return float(mu.value)
 
 
-def _find_lambda(rho: np.ndarray, sigma: np.ndarray) -> float:
-    r"""Find the ending point $\lambda$ of the integral representation of the relative entropy.
+def _find_lambda(
+    rho: np.ndarray, sigma: np.ndarray, solver: str, **solve_kwargs
+) -> float:
+    r"""Find the ending point \(\lambda\) of the integral representation of the relative entropy.
 
     Args:
         rho: The Choi matrix of the first channel.
         sigma: The Choi matrix of the second channel.
+        solver: The CVXPY solver to use.
+        solve_kwargs: Additional arguments passed to ``cvxpy.Problem.solve``.
 
     Returns:
-        The ending point $\lambda$.
+        The ending point \(\lambda\).
 
     """
     lam = cvx.Variable()
     problem = cvx.Problem(cvx.Minimize(lam), [lam * sigma - rho >> 0])
-    problem.solve(verbose=False)
+    problem.solve(solver=solver, **solve_kwargs)
+    if problem.status not in (cvx.OPTIMAL, cvx.OPTIMAL_INACCURATE):
+        raise ValueError(f"lambda auxiliary SDP failed: {problem.status}")
+    if lam.value is None:
+        raise ValueError("lambda auxiliary SDP failed: solver returned no value")
     return float(lam.value)
 
 
 def _make_delta(t: np.ndarray) -> np.ndarray:
     r"""Make the delta coefficients for the integral representation of the relative entropy.
 
-    Suppose the integral grid has $r$ points from $t_1$ to $t_r$. Then the
-    coefficient $\delta_k$ is defined by
+    Suppose the integral grid has \(r\) points from \(t_1\) to \(t_r\). Then the
+    coefficient \(\delta_k\) is defined by
 
-    $$
+    \[
     \delta_k =
     \begin{cases}
     \left[\left(1 + \frac{t_1}{t_2 - t_1}\right)\log\left(\frac{t_2}{t_1}\right) - 1\right] t_1
@@ -85,7 +99,7 @@ def _make_delta(t: np.ndarray) -> np.ndarray:
     - \frac{t_{k-1}}{t_k - t_{k-1}}\log\left(\frac{t_k}{t_{k-1}}\right)\right] t_k
     & \text{otherwise}.
     \end{cases}
-    $$
+    \]
 
     where the indexing in the formula is one-based.
 
@@ -110,10 +124,10 @@ def _make_delta(t: np.ndarray) -> np.ndarray:
 def _make_gamma(t: np.ndarray) -> np.ndarray:
     r"""Make the gamma coefficients for the integral representation of the relative entropy.
 
-    Suppose the integral grid has $r$ points from $t_1$ to $t_r$. Then the
-    coefficient $\gamma_k$ is defined by
+    Suppose the integral grid has \(r\) points from \(t_1\) to \(t_r\). Then the
+    coefficient \(\gamma_k\) is defined by
 
-    $$
+    \[
     \gamma_k =
     \begin{cases}
     -\left[\left(1 + \frac{t_1}{t_2 - t_1}\right)\log\left(\frac{t_2}{t_1}\right) - 1\right]
@@ -124,7 +138,7 @@ def _make_gamma(t: np.ndarray) -> np.ndarray:
     - \frac{t_{k-1}}{t_k - t_{k-1}}\log\left(\frac{t_k}{t_{k-1}}\right)\right]
     & \text{otherwise}.
     \end{cases}
-    $$
+    \]
 
     where the indexing in the formula is one-based.
 
@@ -154,15 +168,17 @@ def channel_relative_entropy(
     energy: float = 0.0,
     epsilon_dec: float = 1e-2,
     mean: bool = False,
+    solver: str = "SCS",
+    **kwargs,
 ) -> float | tuple[float, float]:
     r"""Estimate the quantum relative entropy of two channels [@kossmann2025channelrelativeentropy].
 
-    For channels $\mathcal{N}$ and $\mathcal{M}$,
+    For channels \(\mathcal{N}\) and \(\mathcal{M}\),
 
-    $$
+    \[
         D(\mathcal{N}\Vert\mathcal{M})
         := \sup_{\rho_{AR}} D\bigl(\mathcal{N}(\rho_{AR})\,\Vert\,\mathcal{M}(\rho_{AR})\bigr).
-    $$
+    \]
 
     This routine implements SDP lower/upper bounds from the integral representation
     of relative entropy. The formulation assumes that the channels are not too close to
@@ -173,14 +189,17 @@ def channel_relative_entropy(
     Args:
         channel_1: Choi matrix for the first channel.
         channel_2: Choi matrix for the second map.
-        in_dim: Input dimension $d_A$ of the channels.
-        hamiltonian: Hermitian operator $H_A$ used in the upper-bound SDP.
+        in_dim: Input dimension \(d_A\) of the channels.
+        hamiltonian: Hermitian operator \(H_A\) used in the upper-bound SDP.
             Defaults to the zero matrix of shape ``(in_dim, in_dim)``.
         energy: Energy parameter ``E`` in the upper-bound SDP. Defaults to ``0.0``.
         epsilon_dec: Grid refinement parameter for the discretized integral.
             Defaults to ``1e-2``.
         mean: If ``True``, return the average of the lower and upper bounds; otherwise
             return ``(lower, upper)``.
+        solver: The CVXPY solver to use. Defaults to ``"SCS"``.
+        kwargs: Additional arguments passed to ``cvxpy.Problem.solve``
+            (for example ``eps`` or ``max_iters``).
 
     Returns:
         Either the midpoint of the bounds or the pair ``(lower, upper)``.
@@ -191,6 +210,37 @@ def channel_relative_entropy(
         ValueError: If ``channel_1`` is not a quantum channel or ``channel_2`` is not CP.
         ValueError: If the integral grid parameters satisfy ``mu <= 0`` or
             ``lambda <= mu`` (channels too close for the bound).
+
+    Examples:
+        The qubit dephasing-vs-depolarizing example from [@kossmann2025channelrelativeentropy]
+        compares
+
+        \[
+            \mathcal{N}_{\mathrm{deph}}(\rho) = 0.4\,\rho + 0.6\,Z\rho Z
+        \]
+
+        with
+
+        \[
+            \mathcal{M}_{\mathrm{dep}}(\rho)
+            = \left(1 - \frac{3p}{4}\right)\rho
+            + \frac{p}{4}(X\rho X + Y\rho Y + Z\rho Z).
+        \]
+
+        For \(p = 0.05\), the midpoint of the SDP bounds is approximately \(1.97\):
+
+        ```python exec="1" source="above" result="text"
+        import numpy as np
+        from toqito.channel_metrics import channel_relative_entropy
+        from toqito.channels import pauli_channel
+        p = 0.05
+        channel_1 = np.asarray(pauli_channel([0.4, 0.0, 0.0, 0.6]))
+        channel_2 = np.asarray(
+            pauli_channel([1 - 3 * p / 4, p / 4, p / 4, p / 4])
+        )
+        lower, upper = channel_relative_entropy(channel_1, channel_2, in_dim=2)
+        print(round((lower + upper) / 2, 3))
+        ```
 
     """
     if channel_1.shape != channel_2.shape:
@@ -222,9 +272,10 @@ def channel_relative_entropy(
     out_dim = n // in_dim
     choi_1 = channel_1
     choi_2 = channel_2
+    solve_kwargs = {"eps": 1e-8, "verbose": False, **kwargs}
 
-    lam = _find_lambda(choi_1, choi_2)
-    mu = _find_mu(choi_1, choi_2)
+    lam = _find_lambda(choi_1, choi_2, solver, **solve_kwargs)
+    mu = _find_mu(choi_1, choi_2, solver, **solve_kwargs)
     if mu <= 0 or lam <= mu:
         raise ValueError(
             "The integral representation requires 0 < mu < lambda. "
@@ -260,7 +311,7 @@ def channel_relative_entropy(
         ),
         cons,
     )
-    lower_prob.solve(solver=cvx.SCS, eps=1e-8, verbose=False)
+    lower_prob.solve(solver=solver, **solve_kwargs)
     if lower_prob.status not in (cvx.OPTIMAL, cvx.OPTIMAL_INACCURATE):
         raise RuntimeError(f"Lower-bound SDP failed: {lower_prob.status}")
     if lower_prob.status == cvx.OPTIMAL_INACCURATE:
@@ -287,7 +338,7 @@ def channel_relative_entropy(
         ]
     )
     upper_prob = cvx.Problem(cvx.Minimize(cvx.real(x_var + y_var * energy)), upper_cons)
-    upper_prob.solve(solver=cvx.SCS, eps=1e-8, verbose=False)
+    upper_prob.solve(solver=solver, **solve_kwargs)
     if upper_prob.status not in (cvx.OPTIMAL, cvx.OPTIMAL_INACCURATE):
         raise RuntimeError(f"Upper-bound SDP failed: {upper_prob.status}")
     if upper_prob.status == cvx.OPTIMAL_INACCURATE:

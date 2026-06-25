@@ -13,11 +13,133 @@ from toqito.perms import swap_operator
 _CHANNEL_RELATIVE_ENTROPY_MOD = importlib.import_module(
     "toqito.channel_metrics.channel_relative_entropy"
 )
+_find_mu = _CHANNEL_RELATIVE_ENTROPY_MOD._find_mu
+_find_lambda = _CHANNEL_RELATIVE_ENTROPY_MOD._find_lambda
 
 
 def _dense(mat):
     """Convert a sparse or matrix-like channel representation to an ndarray."""
     return mat.toarray() if hasattr(mat, "toarray") else np.asarray(mat)
+
+
+def test_find_mu_and_lambda_for_distinct_channels():
+    """Auxiliary SDP endpoints should satisfy 0 < mu < lambda."""
+    channel_1 = depolarizing(2, 0.2)
+    channel_2 = depolarizing(2, 0.4)
+
+    mu = _find_mu(channel_1, channel_2, "SCS")
+    lam = _find_lambda(channel_1, channel_2, "SCS")
+
+    assert mu > 0
+    assert lam > mu
+
+
+def test_find_mu_raises_on_sdp_failure(monkeypatch):
+    """Failed mu SDP should raise ValueError instead of TypeError."""
+
+    class FakeProblem:
+        status = cvx.INFEASIBLE
+
+        def __init__(self, objective, constraints):
+            pass
+
+        def solve(self, **kwargs):
+            pass
+
+    monkeypatch.setattr(_CHANNEL_RELATIVE_ENTROPY_MOD.cvx, "Problem", FakeProblem)
+
+    with pytest.raises(ValueError, match="mu auxiliary SDP failed"):
+        _find_mu(depolarizing(2, 0.2), depolarizing(2, 0.4), "SCS")
+
+
+def test_find_mu_raises_when_solver_returns_no_value(monkeypatch):
+    """OPTIMAL status with a missing variable value should raise ValueError."""
+
+    class FakeProblem:
+        status = cvx.OPTIMAL
+
+        def __init__(self, objective, constraints):
+            pass
+
+        def solve(self, **kwargs):
+            pass
+
+    monkeypatch.setattr(_CHANNEL_RELATIVE_ENTROPY_MOD.cvx, "Problem", FakeProblem)
+
+    with pytest.raises(ValueError, match="solver returned no value"):
+        _find_mu(depolarizing(2, 0.2), depolarizing(2, 0.4), "SCS")
+
+
+def test_find_lambda_raises_on_sdp_failure(monkeypatch):
+    """Failed lambda SDP should raise ValueError instead of TypeError."""
+
+    class FakeProblem:
+        status = cvx.INFEASIBLE
+
+        def __init__(self, objective, constraints):
+            pass
+
+        def solve(self, **kwargs):
+            pass
+
+    monkeypatch.setattr(_CHANNEL_RELATIVE_ENTROPY_MOD.cvx, "Problem", FakeProblem)
+
+    with pytest.raises(ValueError, match="lambda auxiliary SDP failed"):
+        _find_lambda(depolarizing(2, 0.2), depolarizing(2, 0.4), "SCS")
+
+
+def test_find_lambda_raises_when_solver_returns_no_value(monkeypatch):
+    """OPTIMAL status with a missing variable value should raise ValueError."""
+
+    class FakeProblem:
+        status = cvx.OPTIMAL
+
+        def __init__(self, objective, constraints):
+            pass
+
+        def solve(self, **kwargs):
+            pass
+
+    monkeypatch.setattr(_CHANNEL_RELATIVE_ENTROPY_MOD.cvx, "Problem", FakeProblem)
+
+    with pytest.raises(ValueError, match="solver returned no value"):
+        _find_lambda(depolarizing(2, 0.2), depolarizing(2, 0.4), "SCS")
+
+
+def test_forwards_solver_and_kwargs(monkeypatch):
+    """Solver name and kwargs should be passed to every CVXPY solve."""
+    solve_calls = []
+    problem_cls = _CHANNEL_RELATIVE_ENTROPY_MOD.cvx.Problem
+    original_init = problem_cls.__init__
+
+    def wrapped_init(self, *args, **kwargs):
+        original_init(self, *args, **kwargs)
+        original_solve = self.solve
+
+        def recording_solve(solver=None, **solve_kwargs):
+            solve_calls.append((solver, solve_kwargs))
+            return original_solve(solver=solver, **solve_kwargs)
+
+        self.solve = recording_solve
+
+    monkeypatch.setattr(problem_cls, "__init__", wrapped_init)
+
+    channel_relative_entropy(
+        depolarizing(2, 1),
+        depolarizing(2, 0.2),
+        in_dim=2,
+        epsilon_dec=0.2,
+        solver="SCS",
+        eps=1e-6,
+        max_iters=50_000,
+    )
+
+    assert len(solve_calls) >= 2
+    for solver, solve_kwargs in solve_calls:
+        assert solver == "SCS"
+        assert solve_kwargs["eps"] == 1e-6
+        assert solve_kwargs["max_iters"] == 50_000
+        assert solve_kwargs["verbose"] is False
 
 
 def test_identical_channels_zero():
@@ -126,19 +248,19 @@ def test_raises_degenerate_integral_bounds(monkeypatch):
     channel_2 = depolarizing(2, 0.4)
 
     monkeypatch.setattr(
-        _CHANNEL_RELATIVE_ENTROPY_MOD, "_find_mu", lambda rho, sigma: 0.0
+        _CHANNEL_RELATIVE_ENTROPY_MOD, "_find_mu", lambda rho, sigma, *args, **kwargs: 0.0
     )
     monkeypatch.setattr(
-        _CHANNEL_RELATIVE_ENTROPY_MOD, "_find_lambda", lambda rho, sigma: 1.0
+        _CHANNEL_RELATIVE_ENTROPY_MOD, "_find_lambda", lambda rho, sigma, *args, **kwargs: 1.0
     )
     with pytest.raises(ValueError, match="0 < mu < lambda"):
         channel_relative_entropy(channel_1, channel_2, in_dim=2, epsilon_dec=0.2)
 
     monkeypatch.setattr(
-        _CHANNEL_RELATIVE_ENTROPY_MOD, "_find_mu", lambda rho, sigma: 2.0
+        _CHANNEL_RELATIVE_ENTROPY_MOD, "_find_mu", lambda rho, sigma, *args, **kwargs: 2.0
     )
     monkeypatch.setattr(
-        _CHANNEL_RELATIVE_ENTROPY_MOD, "_find_lambda", lambda rho, sigma: 1.0
+        _CHANNEL_RELATIVE_ENTROPY_MOD, "_find_lambda", lambda rho, sigma, *args, **kwargs: 1.0
     )
     with pytest.raises(ValueError, match="0 < mu < lambda"):
         channel_relative_entropy(channel_1, channel_2, in_dim=2, epsilon_dec=0.2)
@@ -166,8 +288,12 @@ def test_mean_mode_returns_scalar():
 
 def test_raises_when_lower_sdp_fails(monkeypatch):
     """A failed lower-bound solve should raise RuntimeError."""
-    monkeypatch.setattr(_CHANNEL_RELATIVE_ENTROPY_MOD, "_find_mu", lambda rho, sigma: 0.1)
-    monkeypatch.setattr(_CHANNEL_RELATIVE_ENTROPY_MOD, "_find_lambda", lambda rho, sigma: 2.0)
+    monkeypatch.setattr(
+        _CHANNEL_RELATIVE_ENTROPY_MOD, "_find_mu", lambda rho, sigma, *args, **kwargs: 0.1
+    )
+    monkeypatch.setattr(
+        _CHANNEL_RELATIVE_ENTROPY_MOD, "_find_lambda", lambda rho, sigma, *args, **kwargs: 2.0
+    )
 
     class FakeProblem:
         created = 0
@@ -191,8 +317,12 @@ def test_raises_when_lower_sdp_fails(monkeypatch):
 
 def test_raises_when_upper_sdp_fails(monkeypatch):
     """A failed upper-bound solve should raise RuntimeError."""
-    monkeypatch.setattr(_CHANNEL_RELATIVE_ENTROPY_MOD, "_find_mu", lambda rho, sigma: 0.1)
-    monkeypatch.setattr(_CHANNEL_RELATIVE_ENTROPY_MOD, "_find_lambda", lambda rho, sigma: 2.0)
+    monkeypatch.setattr(
+        _CHANNEL_RELATIVE_ENTROPY_MOD, "_find_mu", lambda rho, sigma, *args, **kwargs: 0.1
+    )
+    monkeypatch.setattr(
+        _CHANNEL_RELATIVE_ENTROPY_MOD, "_find_lambda", lambda rho, sigma, *args, **kwargs: 2.0
+    )
 
     class FakeProblem:
         created = 0
@@ -216,8 +346,12 @@ def test_raises_when_upper_sdp_fails(monkeypatch):
 
 def test_warns_on_optimal_inaccurate_lower(monkeypatch):
     """OPTIMAL_INACCURATE on the lower SDP should warn."""
-    monkeypatch.setattr(_CHANNEL_RELATIVE_ENTROPY_MOD, "_find_mu", lambda rho, sigma: 0.1)
-    monkeypatch.setattr(_CHANNEL_RELATIVE_ENTROPY_MOD, "_find_lambda", lambda rho, sigma: 2.0)
+    monkeypatch.setattr(
+        _CHANNEL_RELATIVE_ENTROPY_MOD, "_find_mu", lambda rho, sigma, *args, **kwargs: 0.1
+    )
+    monkeypatch.setattr(
+        _CHANNEL_RELATIVE_ENTROPY_MOD, "_find_lambda", lambda rho, sigma, *args, **kwargs: 2.0
+    )
 
     class FakeProblem:
         created = 0
@@ -243,8 +377,12 @@ def test_warns_on_optimal_inaccurate_lower(monkeypatch):
 
 def test_warns_on_optimal_inaccurate_upper(monkeypatch):
     """OPTIMAL_INACCURATE on the upper SDP should warn."""
-    monkeypatch.setattr(_CHANNEL_RELATIVE_ENTROPY_MOD, "_find_mu", lambda rho, sigma: 0.1)
-    monkeypatch.setattr(_CHANNEL_RELATIVE_ENTROPY_MOD, "_find_lambda", lambda rho, sigma: 2.0)
+    monkeypatch.setattr(
+        _CHANNEL_RELATIVE_ENTROPY_MOD, "_find_mu", lambda rho, sigma, *args, **kwargs: 0.1
+    )
+    monkeypatch.setattr(
+        _CHANNEL_RELATIVE_ENTROPY_MOD, "_find_lambda", lambda rho, sigma, *args, **kwargs: 2.0
+    )
 
     class FakeProblem:
         created = 0
