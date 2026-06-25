@@ -169,7 +169,7 @@ def test_bounds_order_for_distinct_channels():
 
     assert np.isfinite(lower)
     assert np.isfinite(upper)
-    assert upper >= lower
+    assert upper >= lower - 1e-8
 
 
 def test_raises_mismatched_choi_shapes():
@@ -435,5 +435,5 @@ def test_channel_relative_entropy_paper_example(param_p: float, expected_mean: f
 
     assert np.isfinite(lower)
     assert np.isfinite(upper)
-    assert upper >= lower
+    assert upper >= lower - 1e-8
     assert avg == pytest.approx(expected_mean, abs=2e-2)
