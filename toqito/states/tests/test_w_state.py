@@ -13,7 +13,9 @@ def test_w_state_3():
     expected_res = 1 / np.sqrt(3) * (tensor(e_1, e_0, e_0) + tensor(e_0, e_1, e_0) + tensor(e_0, e_0, e_1))
 
     res = w_state(3)
-    np.testing.assert_allclose(res, expected_res, atol=0.2)
+    np.testing.assert_allclose(res, expected_res, atol=1e-12)
+    # The returned state is normalized (the previous np.around(., 4) broke this).
+    np.testing.assert_allclose(np.linalg.norm(res), 1.0, atol=1e-12)
 
 
 def test_w_state_generalized():
@@ -32,7 +34,18 @@ def test_w_state_generalized():
 
     coeffs = np.array([1, 2, 3, 4]) / np.sqrt(30)
     res = w_state(4, coeffs)
-    np.testing.assert_allclose(res, expected_res, atol=0.2)
+    np.testing.assert_allclose(res, expected_res, atol=1e-12)
+
+
+def test_w_state_complex_coefficients():
+    """Complex coefficients are preserved (not truncated to real)."""
+    coeffs = np.array([1, 1j, 1, 1j]) / 2
+    res = w_state(4, coeffs)
+
+    assert np.iscomplexobj(res)
+    np.testing.assert_allclose(np.linalg.norm(res), 1.0, atol=1e-12)
+    # Excitation on the last qubit sits at index 1 and carries coeff for that qubit.
+    np.testing.assert_allclose(res[1, 0], coeffs[3])
 
 
 @pytest.mark.parametrize(
