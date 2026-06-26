@@ -21,3 +21,10 @@ def test_is_diagonal_non_square():
     """Test on a non-square matrix."""
     mat = np.array([[1, 0, 0], [0, 1, 0]])
     np.testing.assert_equal(is_diagonal(mat), False)
+
+
+def test_is_diagonal_tolerance_and_edge_cases():
+    """Near-zero off-diagonals and the 1x1 case are handled with tolerance."""
+    assert is_diagonal(np.array([[5.0]])) is True
+    assert is_diagonal(np.array([[1.0, 1e-12], [0.0, 2.0]])) is True
+    assert is_diagonal(np.array([[1.0, 0.5], [0.0, 2.0]])) is False
