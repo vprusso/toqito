@@ -116,9 +116,9 @@ def test_schmidt_decomposition_input_dim(
         calculated_singular_vals, calculated_u_mat, calculated_vt_mat = schmidt_decomposition(
             test_input, dim=input_dim, k_param=input_param
         )
-    assert (calculated_singular_vals - expected_singular_vals).all() <= 0.1
-    assert (calculated_u_mat - expected_u_mat).all() <= 0.1
-    assert (calculated_vt_mat - expected_vt_mat).all() <= 0.1
+    np.testing.assert_allclose(calculated_singular_vals, expected_singular_vals, atol=0.1)
+    np.testing.assert_allclose(calculated_u_mat, expected_u_mat, atol=0.1)
+    np.testing.assert_allclose(calculated_vt_mat, expected_vt_mat, atol=0.1)
 
 
 def test_schmidt_decomp_random_state():

@@ -125,7 +125,8 @@ class TestExtendedNonlocalGame(unittest.TestCase):
         res = bb84.quantum_value_lower_bound()
         expected_res = np.cos(np.pi / 8) ** 2
 
-        self.assertLessEqual(np.isclose(res, expected_res), True)
+        # A lower bound on the quantum value cannot exceed the true value.
+        self.assertLessEqual(res, expected_res + 1e-2)
 
     def test_bb84_nonsignaling_value(self):
         """Calculate the non-signaling value of the BB84 game."""
