@@ -201,6 +201,7 @@ class NonlocalGame:
         dim: int = 2,
         iters: int = 5,
         tol: float = 1e-6,
+        seed: int | None = None,
     ) -> float:
         r"""Compute a lower bound on the quantum value of a nonlocal game [@liang2007bounds].
 
@@ -270,6 +271,8 @@ class NonlocalGame:
                       algorithm.
             tol: The tolerance before quitting out of the alternating
                     projection semidefinite program.
+            seed: Optional seed for reproducibly generating the random starting
+                    POVMs (default is None).
 
         Returns:
             The lower bound on the quantum value of a nonlocal game.
@@ -339,35 +342,44 @@ class NonlocalGame:
         # Get number of inputs and outputs.
         _, num_outputs_bob, _, num_inputs_bob = self.pred_mat.shape
 
+        # A master generator yields an independent, reproducible seed for each random restart so the whole routine is
+        # deterministic when `seed` is provided.
+        rng = np.random.default_rng(seed)
+
+        # Cap the inner alternating loop so a non-converging instance cannot spin forever.
+        max_seesaw_steps = 100
+
         best_lower_bound = float("-inf")
         for _ in range(iters):
             # Generate a set of random POVMs for Bob. These measurements serve
             # as a rough starting point for the alternating projection
             # algorithm.
-            bob_tmp = random_povm(dim, num_inputs_bob, num_outputs_bob)
+            restart_seed = int(rng.integers(0, 2**32 - 1))
+            bob_tmp = random_povm(dim, num_inputs_bob, num_outputs_bob, seed=restart_seed)
             bob_povms = defaultdict(int)
             for y_ques in range(num_inputs_bob):
                 for b_ans in range(num_outputs_bob):
                     bob_povms[y_ques, b_ans] = bob_tmp[:, :, y_ques, b_ans]
 
             # Run the alternating projection algorithm between the two SDPs.
-            it_diff = 1
-            prev_win = -1
+            prev_win = float("-inf")
             best = float("-inf")
-            while it_diff > tol:
+            for _step in range(max_seesaw_steps):
                 # Optimize over Alice's measurement operators while fixing
                 # Bob's. If this is the first iteration, then the previously
                 # randomly generated operators in the outer loop are Bob's.
                 # Otherwise, Bob's operators come from running the next SDP.
-                alice_povms, lower_bound = self.__optimize_alice(dim, bob_povms)
+                alice_povms, _ = self.__optimize_alice(dim, bob_povms)
                 bob_povms, lower_bound = self.__optimize_bob(dim, alice_povms)
-
-                it_diff = lower_bound - prev_win
-                prev_win = lower_bound
 
                 # As the SDPs keep alternating, check if the winning probability
                 # becomes any higher. If so, replace with new best.
                 best = max(best, lower_bound)
+
+                # Use the absolute change so a non-monotone step does not terminate the loop prematurely.
+                if abs(lower_bound - prev_win) <= tol:
+                    break
+                prev_win = lower_bound
 
             best_lower_bound = max(best, best_lower_bound)
 

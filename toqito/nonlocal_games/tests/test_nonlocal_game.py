@@ -98,6 +98,20 @@ class TestNonlocalGame(unittest.TestCase):
         res = chsh.quantum_value_lower_bound(4)
         self.assertLessEqual(np.isclose(res, np.cos(np.pi / 8) ** 2, rtol=1e-02), True)
 
+    def test_chsh_lower_bound_seed_reproducible(self):
+        """A fixed seed makes the see-saw lower bound reproducible and a valid bound."""
+        prob_mat, pred_mat = self.chsh_nonlocal_game()
+        chsh = NonlocalGame(prob_mat, pred_mat)
+
+        res1 = chsh.quantum_value_lower_bound(seed=42)
+        res2 = chsh.quantum_value_lower_bound(seed=42)
+
+        # Same seed gives the same result.
+        self.assertTrue(np.isclose(res1, res2))
+        # The see-saw produces an achievable value, so it cannot exceed the true quantum value cos^2(pi/8).
+        self.assertLessEqual(res1, np.cos(np.pi / 8) ** 2 + 1e-3)
+        self.assertGreaterEqual(res1, 0.0)
+
     def test_chsh_game_classical_value(self):
         """Classical value for the CHSH game."""
         prob_mat, pred_mat = self.chsh_nonlocal_game()
