@@ -6,7 +6,6 @@ import pytest
 from toqito.channel_metrics.channel_measured_relative_entropy import channel_measured_relative_entropy
 from toqito.channel_ops import partial_channel
 from toqito.channels import depolarizing, partial_trace
-from toqito.measurement_ops import measure
 from toqito.perms import swap_operator
 from toqito.rand import random_density_matrix, random_povm
 
@@ -83,10 +82,15 @@ def _monto_carlo_lower_bound(
                 num_outputs=povm_num_outputs,
                 seed=rng.integers(2**32 - 1),
             )
-            povm = list(povms[0])
+            # random_povm returns shape (d, d, num_inputs, num_outputs); the POVM elements are the (d, d) slices over
+            # the last axis (list(povms[0]) was extracting rows, not operators).
+            povm = [povms[:, :, 0, k] for k in range(povm_num_outputs)]
 
-            p = np.asarray(measure(rho_RB_1, povm), dtype=float)
-            q = np.asarray(measure(rho_RB_2, povm), dtype=float)
+            # Born-rule outcome probabilities for the POVM: p_i = Tr(M_i rho). (measure() treats a list as Kraus
+            # operators and would both compute Tr(M rho M^dagger) and require sum M^dagger M = I, neither of which is
+            # the POVM semantics needed here.)
+            p = np.array([np.real(np.trace(m @ rho_RB_1)) for m in povm], dtype=float)
+            q = np.array([np.real(np.trace(m @ rho_RB_2)) for m in povm], dtype=float)
 
             # Numerical cleanup
             p = np.maximum(p, 0.0)
