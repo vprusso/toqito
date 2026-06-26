@@ -31,3 +31,11 @@ def test_small_singular_values_respected_by_tolerance():
     """Ensure the tolerance parameter is honoured."""
     singular_values = np.diag([1.0, 1e-9])
     np.testing.assert_equal(is_rank_one(singular_values, tol=1e-8), True)
+
+
+def test_is_rank_one_scale_invariant():
+    """Rank detection does not depend on the overall scale of the matrix."""
+    # A small scalar multiple of a rank-2 matrix is still rank 2 (the old absolute tolerance reported rank <= 1).
+    assert is_rank_one(1e-9 * np.eye(2)) is False
+    # A small scalar multiple of a rank-1 matrix is still rank 1.
+    assert is_rank_one(1e-9 * np.outer([1, 1], [1, 1])) is True

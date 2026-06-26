@@ -35,3 +35,8 @@ def test_null_space_invalid_dimension_raises():
     """Reject one-dimensional inputs that are not matrices."""
     with pytest.raises(ValueError):
         null_space(np.array([1, 2, 3]))
+
+
+def test_null_space_scale_invariant():
+    """A small scalar multiple of a full-rank matrix still has an empty null space."""
+    assert null_space(1e-9 * np.eye(3)).shape[1] == 0

@@ -5,16 +5,15 @@ import numpy as np
 from toqito.matrix_props import is_square
 
 
-def is_diagonal(mat: np.ndarray) -> bool:
+def is_diagonal(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08) -> bool:
     r"""Determine if a matrix is diagonal [@wikipediadiagonal].
 
-    A matrix is diagonal if the matrix is square and if the diagonal of the matrix is non-zero,
-    while the off-diagonal elements are all zero.
-
-    This quick implementation is given by Daniel F. from StackOverflow in [@so43884189].
+    A matrix is diagonal if the matrix is square and the off-diagonal elements are all (approximately) zero.
 
     Args:
         mat: The matrix to check.
+        rtol: The relative tolerance parameter (default 1e-05).
+        atol: The absolute tolerance parameter (default 1e-08).
 
     Returns:
         Returns `True` if the matrix is diagonal and `False` otherwise.
@@ -75,6 +74,6 @@ def is_diagonal(mat: np.ndarray) -> bool:
     """
     if not is_square(mat):
         return False
-    i, j = mat.shape
-    test = mat.reshape(-1)[:-1].reshape(i - 1, j + 1)
-    return bool(~np.any(test[:, 1:]))
+    # The matrix is diagonal when it equals the matrix of just its diagonal, up to tolerance. This handles
+    # near-zero off-diagonal noise and the 1x1 case, unlike an exact comparison.
+    return bool(np.allclose(mat, np.diag(np.diag(mat)), rtol=rtol, atol=atol))

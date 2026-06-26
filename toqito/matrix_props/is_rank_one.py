@@ -40,4 +40,6 @@ def is_rank_one(mat: np.ndarray, tol: float = 1e-08) -> bool:
 
     """
     singular_values = np.linalg.svd(mat, compute_uv=False)
-    return np.count_nonzero(singular_values > tol) <= 1
+    # Threshold relative to the largest singular value so the result is independent of the matrix scale.
+    threshold = tol * singular_values.max() if singular_values.size else tol
+    return bool(np.count_nonzero(singular_values > threshold) <= 1)

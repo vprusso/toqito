@@ -42,7 +42,10 @@ def null_space(mat: np.ndarray, tol: float = 1e-08) -> np.ndarray:
         return np.zeros((mat.shape[0], 0), dtype=np.complex128)
 
     _, singular_values, vh = np.linalg.svd(mat, full_matrices=True)
-    rank = np.sum(singular_values > tol)
+    # Use a threshold relative to the largest singular value so the result does not depend on the overall scale of the
+    # matrix (an absolute threshold reports a full null space for, e.g., 1e-9 * I).
+    threshold = tol * singular_values.max() if singular_values.size else tol
+    rank = int(np.sum(singular_values > threshold))
     kernel = vh[rank:].conj().T
     if kernel.size == 0:
         return np.zeros((mat.shape[1], 0), dtype=np.complex128)
