@@ -3,7 +3,7 @@
 import numpy as np
 
 
-def is_circulant(mat: np.ndarray) -> bool:
+def is_circulant(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08) -> bool:
     r"""Determine if matrix is circulant [@wikipediacirculant].
 
     A circulant matrix is a square matrix in which all row vectors are composed
@@ -12,6 +12,8 @@ def is_circulant(mat: np.ndarray) -> bool:
 
     Args:
         mat: Matrix to check the circulancy of.
+        rtol: The relative tolerance parameter (default 1e-05).
+        atol: The absolute tolerance parameter (default 1e-08).
 
     Returns:
         Return `True` if `mat` is circulant; `False` otherwise.
@@ -48,6 +50,6 @@ def is_circulant(mat: np.ndarray) -> bool:
     for i in range(n - 1):
         row = mat[i + 1]
         shifted = np.roll(mat[i], 1)
-        if not np.allclose(row, shifted):
+        if not np.allclose(row, shifted, rtol=rtol, atol=atol):
             return False
     return True

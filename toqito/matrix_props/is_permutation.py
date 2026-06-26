@@ -3,14 +3,15 @@
 import numpy as np
 
 
-def is_permutation(mat: np.ndarray) -> bool:
+def is_permutation(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08) -> bool:
     r"""Determine if a matrix is a permutation matrix [@wikipediapermutation].
 
-    A matrix is a permutation matrix if each row and column has a
-    single element of 1 and all others are 0.
+    A matrix is a permutation matrix if it is square, every entry is 0 or 1, and each row and column sums to 1.
 
     Args:
         mat: The matrix to check.
+        rtol: The relative tolerance parameter (default 1e-05).
+        atol: The absolute tolerance parameter (default 1e-08).
 
     Returns:
         Returns `True` if the matrix is a permutation matrix and `False` otherwise.
@@ -61,10 +62,16 @@ def is_permutation(mat: np.ndarray) -> bool:
         ```
 
     """
-    for i in np.nditer(mat):
-        if i not in (0, 1):
-            return False
+    mat = np.asarray(mat)
+    if mat.ndim != 2 or mat.shape[0] != mat.shape[1]:
+        return False
 
-    if all(sum(row) == 1 for row in mat):
-        return all(sum(col) == 1 for col in zip(*mat))
-    return False
+    # Every entry must be 0 or 1 (within tolerance).
+    is_zero_or_one = np.isclose(mat, 0, rtol=rtol, atol=atol) | np.isclose(mat, 1, rtol=rtol, atol=atol)
+    if not np.all(is_zero_or_one):
+        return False
+
+    # Each row and each column must sum to 1.
+    rows_ok = np.allclose(mat.sum(axis=1), 1, rtol=rtol, atol=atol)
+    cols_ok = np.allclose(mat.sum(axis=0), 1, rtol=rtol, atol=atol)
+    return bool(rows_ok and cols_ok)
