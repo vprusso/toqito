@@ -98,8 +98,14 @@ def is_trace_preserving(
     # If the variable `phi` is provided as a list, we assume this is a list
     # of Kraus operators.
     if isinstance(phi, list):
-        phi_l = [A for A, _ in phi]
-        phi_r = [B for _, B in phi]
+        # Support both the flat completely-positive format [K1, K2, ...] (each element a single Kraus operator) and
+        # the general paired format [[A1, B1], ...]. For the flat form the two sides coincide, so the test reduces to
+        # sum_i K_i^dagger K_i = I.
+        if isinstance(phi[0], np.ndarray):
+            phi_l = phi_r = phi
+        else:
+            phi_l = [A for A, _ in phi]
+            phi_r = [B for _, B in phi]
 
         k_l = np.concatenate(phi_l, axis=0)
         k_r = np.concatenate(phi_r, axis=0)
