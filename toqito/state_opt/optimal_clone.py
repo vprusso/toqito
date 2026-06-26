@@ -105,7 +105,7 @@ def optimal_clone(
     # Construct the following operator:
     #                                ___               ___
     # Q = ∑_{k=1}^N p_k |ψ_k ⊗ ψ_k ⊗ ψ_k> <ψ_k ⊗ ψ_k ⊗ ψ_k|
-    q_a = np.zeros((dim, dim))
+    q_a = np.zeros((dim, dim), dtype=complex)
     for k, state in enumerate(states):
         q_a += probs[k] * tensor(state, state, state.conj()) @ tensor(state, state, state.conj()).conj().T
 

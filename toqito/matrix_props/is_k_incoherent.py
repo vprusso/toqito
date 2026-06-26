@@ -82,8 +82,10 @@ def is_k_incoherent(mat: np.ndarray, k: int, tol: float = 1e-15) -> bool:
     elif k == 2:
         return False
 
-    # [@johnston2022absolutely] (8): Check if trace(mat^2) <= 1/(d - 1) (for k > 2).
-    if k > 2 and np.trace(mat @ mat) <= 1 / (d - 1):
+    # [@johnston2022absolutely] (8): Check if the purity trace(mat mat^dagger) <= 1/(d - 1) (for k > 2). For a
+    # Hermitian density matrix this equals trace(mat^2); using the conjugate transpose keeps it correct (and real)
+    # for complex inputs.
+    if k > 2 and np.real(np.trace(mat @ mat.conj().T)) <= 1 / (d - 1):
         return True
 
     # Hierarchical recursion: for k >= 2 check incoherence for k-1.
