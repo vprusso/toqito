@@ -94,7 +94,5 @@ def test_is_extremal_value_errors(phi, error_message):
 
 def test_is_extremal_non_cp_choi_raises():
     """A non-completely-positive Choi matrix (e.g. the swap operator) raises a clear error."""
-    from toqito.perms import swap_operator
-
     with pytest.raises(ValueError, match="completely positive"):
         is_extremal(swap_operator(2))
