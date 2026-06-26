@@ -30,8 +30,7 @@ def _random_pd_matrix(dim: int, seed: int, *, hermitian: bool) -> np.ndarray:
         x_mat = rng.standard_normal((dim, dim)) + 1j * rng.standard_normal((dim, dim))
     else:
         x_mat = rng.standard_normal((dim, dim))
-    mat = x_mat @ x_mat.conj().T + PD_SHIFT * np.eye(dim, dtype=x_mat.dtype)
-    return (mat + mat.conj().T) / 2
+    return x_mat @ x_mat.conj().T + PD_SHIFT * np.eye(dim, dtype=x_mat.dtype)
 
 
 @pytest.mark.parametrize("dim", DIMS)
