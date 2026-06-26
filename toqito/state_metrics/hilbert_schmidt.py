@@ -43,4 +43,4 @@ def hilbert_schmidt(rho: np.ndarray, sigma: np.ndarray) -> float | np.floating:
     """
     if not is_density(rho) or not is_density(sigma):
         raise ValueError("Hilbert-Schmidt is only defined for density operators.")
-    return np.linalg.norm(rho - sigma, ord=2) ** 2
+    return np.linalg.norm(rho - sigma, ord="fro") ** 2
