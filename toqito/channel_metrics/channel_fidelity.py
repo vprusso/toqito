@@ -85,7 +85,11 @@ def channel_fidelity(choi_1: np.ndarray, choi_2: np.ndarray, eps: float = 1e-7) 
         raise ValueError("The Choi matrix provided must be square.")
 
     choi_dim = choi_dim_x
-    dim = int(np.log2(choi_dim))
+    # The Choi matrix of a channel with equal input/output dimension d is d^2 by d^2, so the subsystem dimension is
+    # sqrt(choi_dim). The previous int(log2(choi_dim)) only coincided with this for d <= 4 and was wrong for larger d.
+    dim = int(round(np.sqrt(choi_dim)))
+    if dim * dim != choi_dim:
+        raise ValueError("The Choi matrix dimension must be a perfect square (equal input and output dimensions).")
 
     lam = cvxpy.Variable(nonneg=True)
     q_var = cvxpy.Variable((choi_dim, choi_dim), complex=True)
