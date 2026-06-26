@@ -3,25 +3,24 @@
 import warnings
 
 import numpy as np
-import scipy
 
 
 def vectors_from_gram_matrix(gram: np.ndarray) -> list[np.ndarray]:
     r"""Obtain the corresponding ensemble of states from the Gram matrix [@wikipediagram].
 
     The function attempts to compute the Cholesky decomposition of the given Gram matrix. If the matrix is positive
-    definite, the Cholesky decomposition is returned. If the matrix is not positive definite, the function falls back to
-    eigendecomposition.
+    definite, the (lower-triangular) Cholesky factor is returned. If the matrix is not positive definite, the function
+    falls back to a Hermitian eigendecomposition and returns vectors whose Gram matrix equals the positive-semidefinite
+    part of the input.
+
+    In both cases the returned list of vectors ``v`` satisfies ``np.array(v) @ np.array(v).conj().T == gram`` whenever
+    ``gram`` is positive semidefinite.
 
     Args:
-        gram: A square, symmetric matrix representing the Gram matrix.
+        gram: A square, symmetric (Hermitian) matrix representing the Gram matrix.
 
     Returns:
         A list of vectors (np.ndarray) corresponding to the ensemble of states.
-    =======
-        print(vectors)
-    ```
-    >>>>>>> d965b901 (Fix: Reorder docstring sections in matrix_ops (#1455))
 
     Raises:
         LinAlgError: If the Gram matrix is not square.
@@ -43,10 +42,10 @@ def vectors_from_gram_matrix(gram: np.ndarray) -> list[np.ndarray]:
         import numpy as np
         from toqito.matrix_ops import vectors_from_gram_matrix
 
-        gram_matrix = np.array([[0, 1], [1, 0]])
+        gram_matrix = np.array([[1, 1], [1, 1]])
         vectors = vectors_from_gram_matrix(gram_matrix)
 
-            <<<<<<< HEAD
+        print(vectors)
         ```
 
     """
@@ -54,12 +53,17 @@ def vectors_from_gram_matrix(gram: np.ndarray) -> list[np.ndarray]:
     if gram.shape[0] != gram.shape[1]:
         raise np.linalg.LinAlgError("The Gram matrix must be square.")
 
-    # If matrix is PD, can do Cholesky decomposition:
+    # If the matrix is positive definite, we can use the Cholesky decomposition. The rows of the lower-triangular factor
+    # are the requested vectors, since ``gram == decomp @ decomp.conj().T``.
     try:
         decomp = np.linalg.cholesky(gram)
-        return [decomp[i][:] for i in range(dim)]
-    # Otherwise, need to do eigendecomposition:
+        return [decomp[i, :] for i in range(dim)]
+    # Otherwise, fall back to a Hermitian eigendecomposition. ``eigh`` (not ``eig``) is correct here because a Gram
+    # matrix is Hermitian; it returns real eigenvalues and orthonormal eigenvectors.
     except np.linalg.LinAlgError:
-        warnings.warn("Matrix is not positive semidefinite. Using eigendecomposition as alternative.")
-        d, v = np.linalg.eig(gram)
-        return [scipy.linalg.sqrtm(np.diag(d)) @ v[i].conj().T for i in range(dim)]
+        warnings.warn("Matrix is not positive definite. Using eigendecomposition as alternative.")
+        eig_vals, eig_vecs = np.linalg.eigh(gram)
+        # Clip eigenvalues that are negative (numerical noise, or a genuinely non-PSD input) to zero so the factor is
+        # well-defined. The reconstructed Gram matrix is then the positive-semidefinite part of the input.
+        factor = eig_vecs @ np.diag(np.sqrt(np.clip(eig_vals, 0, None)))
+        return [factor[i, :] for i in range(dim)]
