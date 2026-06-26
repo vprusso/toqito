@@ -7,14 +7,16 @@ from scipy import linalg
 def perm_sign(perm: np.ndarray | list[int]) -> float:
     r"""Compute the "sign" of a permutation [@wikipediaparity].
 
-    The sign (either -1 or 1) of the permutation `perm` is `-1**inv`, where `inv` is the number of
+    The sign (either -1 or 1) of the permutation `perm` is `(-1)**inv`, where `inv` is the number of
     inversions contained in `perm`.
 
+    The permutation is expected to use 1-based labels, i.e. a permutation of `[1, 2, ..., n]`.
+
     Args:
-        perm: The permutation vector to be checked.
+        perm: The permutation vector (using 1-based labels `1, ..., n`) to be checked.
 
     Returns:
-        The value 1 if the permutation is of even length and the value of -1 if the permutation is of odd length.
+        The value 1 if the permutation is even (an even number of inversions) and -1 if it is odd.
 
     Examples:
         For the following vector
@@ -23,8 +25,8 @@ def perm_sign(perm: np.ndarray | list[int]) -> float:
             [1, 2, 3, 4]
         \]
 
-        the permutation sign is positive as the number of elements in the vector are even. This can be performed in
-        `|toqito⟩` as follows.
+        the permutation sign is positive because it is the identity permutation (no inversions). This can be performed
+        in `|toqito⟩` as follows.
 
         ```python exec="1" source="above" result="text"
         from toqito.perms import perm_sign
@@ -35,11 +37,11 @@ def perm_sign(perm: np.ndarray | list[int]) -> float:
         For the following vector
 
         \[
-            [1, 2, 3, 4, 5]
+            [1, 2, 4, 3, 5]
         \]
 
-        the permutation sign is negative as the number of elements in the vector are odd. This can be performed in
-        `|toqito⟩` as follows.
+        the permutation sign is negative because it contains a single inversion (the pair 4, 3). This can be performed
+        in `|toqito⟩` as follows.
 
         ```python exec="1" source="above" result="text"
         from toqito.perms import perm_sign

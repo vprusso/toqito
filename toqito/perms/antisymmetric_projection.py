@@ -3,6 +3,7 @@
 from itertools import permutations
 
 import numpy as np
+from scipy.linalg import orth
 
 from toqito.perms import perm_sign, permutation_operator
 
@@ -12,8 +13,8 @@ def antisymmetric_projection(dim: int, p_param: int = 2, partial: bool = False) 
 
     Produces the orthogonal projection onto the anti-symmetric subspace of `p_param` copies of
     `dim`-dimensional space. If `partial = True`, then the antisymmetric projection (PA) isn't the
-    orthogonal projection itself, but rather a matrix whose columns form an orthonormal basis for the symmetric subspace
-    (and hence the PA * PA' is the orthogonal projection onto the symmetric subspace.)
+    orthogonal projection itself, but rather a matrix whose columns form an orthonormal basis for the antisymmetric
+    subspace (and hence PA * PA' is the orthogonal projection onto the antisymmetric subspace.)
 
     Args:
         dim: The dimension of the local systems.
@@ -82,9 +83,12 @@ def antisymmetric_projection(dim: int, p_param: int = 2, partial: bool = False) 
 
     anti_proj = np.zeros((dimp, dimp))
     for j in range(p_fac):
-        anti_proj += perm_sign(p_list[j, :]) * permutation_operator(dim * np.ones(p_param), p_list[j, :], False, True)
+        # `perm_sign` expects 1-based permutation labels, while `p_list` is 0-based, so shift by 1.
+        anti_proj += perm_sign(p_list[j, :] + 1) * permutation_operator(
+            dim * np.ones(p_param), p_list[j, :], False, True
+        )
     anti_proj = anti_proj / p_fac
 
     if partial:
-        anti_proj = np.array(np.linalg.qr(anti_proj))
+        anti_proj = orth(anti_proj)
     return anti_proj
