@@ -115,7 +115,8 @@ build-backend = "setuptools.build_meta"
 [tool.ruff]
 exclude = ["__init__.py", "docs/"]
 line-length = 120
-target-version = "py312"
+# Match the minimum supported Python (requires-python = ">=3.11"); py312 would let 3.12-only syntax through.
+target-version = "py311"
 force-exclude = true
 
 [tool.ty.environment]
