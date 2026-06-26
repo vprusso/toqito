@@ -110,5 +110,9 @@ def is_k_incoherent(mat: np.ndarray, k: int, tol: float = 1e-15) -> bool:
     prob = cp.Problem(cp.Minimize(1), constraints)
     opt_val = prob.solve(solver=cp.SCS, verbose=False)
 
+    # A failed solve returns None; guard against it so this returns False rather than raising a TypeError inside
+    # min(...). An infeasible solve returns +inf, which min(...) handles correctly.
+    if opt_val is None:
+        return False
     # MATLAB sets ikinc = 1 - min(cvx_optval, 1); here we interpret an optimum near 1 as True.
     return np.isclose(1 - min(opt_val, 1), 1.0)
