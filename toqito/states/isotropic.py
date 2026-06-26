@@ -18,7 +18,7 @@ def isotropic(dim: int, alpha: float) -> np.ndarray:
         \begin{equation}
             \rho_{\alpha} = \frac{1 - \alpha}{d^2} \mathbb{I} \otimes
             \mathbb{I} + \alpha |\psi_+ \rangle \langle \psi_+ | \in
-            \mathbb{C}^d \otimes \mathbb{C}^2
+            \mathbb{C}^d \otimes \mathbb{C}^d
         \end{equation}
     \]
 
@@ -27,7 +27,11 @@ def isotropic(dim: int, alpha: float) -> np.ndarray:
 
     Args:
         dim: The local dimension.
-        alpha: The parameter of the isotropic state.
+        alpha: The parameter of the isotropic state. Must lie in \([-1/(d^2 - 1), 1]\) for the result to be a valid
+            density operator.
+
+    Raises:
+        ValueError: If `alpha` is outside \([-1/(d^2 - 1), 1]\).
 
     Returns:
         Isotropic state of dimension `dim`.
@@ -42,5 +46,9 @@ def isotropic(dim: int, alpha: float) -> np.ndarray:
         ```
 
     """
+    lower = -1 / (dim**2 - 1)
+    if not lower <= alpha <= 1:
+        raise ValueError(f"InvalidAlpha: `alpha` must be in the interval [{lower}, 1] for a valid isotropic state.")
+
     psi = max_entangled(dim, False, False)
     return (1 - alpha) * np.identity(dim**2) / dim**2 + alpha * psi @ psi.conj().T / dim
