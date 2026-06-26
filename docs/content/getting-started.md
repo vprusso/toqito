@@ -2,7 +2,7 @@
 
 ## Installing
 
-1\. Ensure you have Python 3.11 or greater (up to 3.14) installed on your machine or
+1\. Ensure you have Python 3.12 or greater (up to 3.14) installed on your machine or
 in a virtual environment ([pyenv](https://github.com/pyenv/pyenv),
 [pyenv tutorial](https://realpython.com/intro-to-pyenv/)).
 
