@@ -105,54 +105,57 @@ def test_measure_zero_operator(state, measurement, state_update):
 
 
 @pytest.mark.parametrize(
-    "measurements, state_update, expected",
+    "state_update, expected",
     [
-        # One zero‑operator and one projector; without update we only get probabilities
+        # A complete measurement {P_0, P_1} on |0><0|: the P_1 outcome has zero probability.
+        (False, [1.0, 0.0]),
         (
-            [np.zeros((2, 2)), np.array([[1, 0], [0, 0]])],
-            False,
-            [0.0, 0.5],
-        ),
-        # Same list, with update=True, so we also get post‑states (zero and projector)
-        (
-            [np.zeros((2, 2)), np.array([[1, 0], [0, 0]])],
             True,
             [
+                (1.0, np.array([[1, 0], [0, 0]])),
                 (0.0, np.zeros((2, 2))),
-                (0.5, np.array([[1, 0], [0, 0]])),
             ],
         ),
     ],
 )
-def test_measure_list_with_zero_operator(measurements, state_update, expected):
-    """Test cases when the measurement operator yields zero probability (with input as list)."""
-    state = np.array([[0.5, 0.5], [0.5, 0.5]])
+def test_measure_list_with_zero_probability_outcome(state_update, expected):
+    """A valid complete measurement with a zero-probability outcome returns zero (and a zero post-state)."""
+    state = np.array([[1, 0], [0, 0]])
+    measurements = [np.array([[1, 0], [0, 0]]), np.array([[0, 0], [0, 1]])]
     result = measure(state, measurements, state_update=state_update)
 
     if state_update:
-        # Expect a list of (prob, post_state) tuples.
         for (res_p, res_post), (exp_p, exp_post) in zip(result, expected):
             assert np.isclose(res_p, exp_p, atol=1e-7)
             np.testing.assert_allclose(res_post, exp_post, rtol=1e-7)
     else:
-        # Expect a list of floats.
         for res, exp in zip(result, expected):
             assert np.isclose(res, exp, atol=1e-7)
 
 
-@pytest.mark.parametrize(
-    "state, measurements",
-    [
-        (
-            np.array([[0.5, 0.5], [0.5, 0.5]]),
-            [np.array([[1, 0], [0, 0]]), np.array([[1, 0], [0, 0]])],
-        ),
-    ],
-)
-def test_measure_completeness_failure(state, measurements):
-    """Test that a list of operators that does not satisfy the completeness relation raises ValueError."""
+@pytest.mark.parametrize("state_update", [True, False])
+def test_measure_completeness_failure(state_update):
+    """A list of operators violating completeness raises ValueError regardless of state_update."""
+    state = np.array([[0.5, 0.5], [0.5, 0.5]])
+    measurements = [np.array([[1, 0], [0, 0]]), np.array([[1, 0], [0, 0]])]
     with pytest.raises(ValueError, match="Kraus operators do not satisfy completeness relation"):
-        measure(state, measurements, state_update=True)
+        measure(state, measurements, state_update=state_update)
+
+
+@pytest.mark.parametrize("state_update", [True, False])
+def test_measure_incomplete_list_with_zero_operator_raises(state_update):
+    """An incomplete list (e.g. a zero operator and a projector) is rejected even though one outcome is zero."""
+    state = np.array([[0.5, 0.5], [0.5, 0.5]])
+    measurements = [np.zeros((2, 2)), np.array([[1, 0], [0, 0]])]
+    with pytest.raises(ValueError, match="Kraus operators do not satisfy completeness relation"):
+        measure(state, measurements, state_update=state_update)
+
+
+def test_measure_empty_list_raises():
+    """An empty measurement list is rejected."""
+    state = np.array([[0.5, 0.5], [0.5, 0.5]])
+    with pytest.raises(ValueError, match="At least one measurement operator is required"):
+        measure(state, [])
 
 
 def test_measure_invalid_density_matrix():
