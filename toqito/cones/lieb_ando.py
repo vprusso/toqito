@@ -131,12 +131,18 @@ def lieb_ando(
                 mat_a_kron, mat_b_kron, T, t, fullhyp=False, hermitian=is_cplx
             )
             problem = cvxpy.Problem(cvxpy.Maximize(obj), cons)
-            return problem.solve()
+            result = problem.solve()
+            if problem.status not in (cvxpy.OPTIMAL, cvxpy.OPTIMAL_INACCURATE):
+                raise ValueError(f"The SDP did not solve successfully (status: {problem.status}).")
+            return result
         elif (t >= -1 and t <= 0) or (t >= 1 and t <= 2):
             cons = geometric_mean_epi_cone(
                 mat_a_kron, mat_b_kron, T, t, hermitian=is_cplx
             )
             problem = cvxpy.Problem(cvxpy.Minimize(obj), cons)
-            return problem.solve()
+            result = problem.solve()
+            if problem.status not in (cvxpy.OPTIMAL, cvxpy.OPTIMAL_INACCURATE):
+                raise ValueError(f"The SDP did not solve successfully (status: {problem.status}).")
+            return result
         else:
             raise ValueError("t must be between -1 and 2.")
