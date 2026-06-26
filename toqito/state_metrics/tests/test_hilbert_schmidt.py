@@ -13,7 +13,20 @@ def test_hilbert_schmidt_bell():
 
     res = hilbert_schmidt(rho, sigma)
 
-    np.testing.assert_equal(np.isclose(res, 1), True)
+    # The two Bell states are orthogonal pure states, so rho - sigma has eigenvalues +1 and -1
+    # and Tr((rho - sigma)^2) = 2.
+    np.testing.assert_allclose(res, 2)
+
+
+def test_hilbert_schmidt_matches_trace_formula():
+    r"""Hilbert-Schmidt distance equals Tr((rho - sigma)^2) for non-commuting mixed states."""
+    rho = np.array([[0.6, 0.2], [0.2, 0.4]])
+    sigma = np.array([[0.4, 0.3], [0.3, 0.6]])
+
+    res = hilbert_schmidt(rho, sigma)
+
+    diff = rho - sigma
+    np.testing.assert_allclose(res, np.real(np.trace(diff @ diff)))
 
 
 def test_hilbert_schmidt_non_density_matrix():
