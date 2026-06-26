@@ -92,11 +92,11 @@ class TestNonlocalGame(unittest.TestCase):
         # quantum value (as it may get stuck in a local minimum), but it should
         # never be possible for the lower bound to attain a value higher than
         # the true quantum value.
-        self.assertLessEqual(np.isclose(res, np.cos(np.pi / 8) ** 2, rtol=1e-02), True)
+        self.assertLessEqual(res, np.cos(np.pi / 8) ** 2 + 1e-2)
 
         # Even with 2 qubits each, the lower bound remains the same
         res = chsh.quantum_value_lower_bound(4)
-        self.assertLessEqual(np.isclose(res, np.cos(np.pi / 8) ** 2, rtol=1e-02), True)
+        self.assertLessEqual(res, np.cos(np.pi / 8) ** 2 + 1e-2)
 
     def test_chsh_lower_bound_seed_reproducible(self):
         """A fixed seed makes the see-saw lower bound reproducible and a valid bound."""
@@ -141,7 +141,7 @@ class TestNonlocalGame(unittest.TestCase):
         bcs_game = self.chsh_bcs_game()
         chsh = NonlocalGame.from_bcs_game(bcs_game)
         res = chsh.quantum_value_lower_bound()
-        self.assertLessEqual(np.isclose(res, np.cos(np.pi / 8) ** 2, rtol=1e-02), True)
+        self.assertLessEqual(res, np.cos(np.pi / 8) ** 2 + 1e-2)
 
     def test_bcs_chsh_game_classical_value(self):
         """Classical value for the converted BCS CHSH game."""
@@ -191,7 +191,8 @@ class TestNonlocalGame(unittest.TestCase):
         ffl = NonlocalGame(prob_mat, pred_mat, 2)
         res = ffl.quantum_value_lower_bound()
         expected_res = 2 / 3
-        self.assertLessEqual(np.isclose(res, expected_res), True)
+        # A lower bound on the quantum value cannot exceed the true value.
+        self.assertLessEqual(res, expected_res + 1e-2)
 
     def test_ffl_game_nonsignaling_value(self):
         """Non-signaling value for the FFL game."""
