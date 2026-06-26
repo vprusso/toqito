@@ -115,12 +115,12 @@ def random_state_vector(
 
         psi = max_entangled(k_param, True, False).toarray()
 
-        a_param = gen.random((dims_pair[0] * k_param, 1))
-        b_param = gen.random((dims_pair[1] * k_param, 1))
+        a_param = gen.standard_normal((dims_pair[0] * k_param, 1))
+        b_param = gen.standard_normal((dims_pair[1] * k_param, 1))
 
         if not is_real:
-            a_param = a_param + 1j * gen.random((dims_pair[0] * k_param, 1))
-            b_param = b_param + 1j * gen.random((dims_pair[1] * k_param, 1))
+            a_param = a_param + 1j * gen.standard_normal((dims_pair[0] * k_param, 1))
+            b_param = b_param + 1j * gen.standard_normal((dims_pair[1] * k_param, 1))
 
         mat_1 = np.kron(psi.conj().T, np.identity(int(np.prod(dims_pair))))
         mat_2 = swap(
@@ -133,7 +133,7 @@ def random_state_vector(
         ret_vec = ret_vec.reshape(-1, 1)
         return np.divide(ret_vec, np.linalg.norm(ret_vec))
 
-    ret_vec = gen.random((total_dim, 1))
+    ret_vec = gen.standard_normal((total_dim, 1))
     if not is_real:
-        ret_vec = ret_vec + 1j * gen.random((total_dim, 1))
+        ret_vec = ret_vec + 1j * gen.standard_normal((total_dim, 1))
     return np.divide(ret_vec, np.linalg.norm(ret_vec))

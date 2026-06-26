@@ -126,14 +126,18 @@ def random_density_matrix(
     if k_param is None:
         k_param = dim
 
-    # Haar / Hilbert-Schmidt measure.
-    gin = gen.random((dim, k_param))
+    # Haar / Hilbert-Schmidt measure: draw a (complex) Ginibre matrix. The entries must be Gaussian, not uniform, for
+    # rho = gin @ gin^dagger / Tr(.) to follow the Hilbert-Schmidt measure.
+    gin = gen.standard_normal((dim, k_param))
 
     if not is_real:
         gin = gin + 1j * gen.standard_normal((dim, k_param))
 
     if distance_metric == "bures":
-        gin = random_unitary(dim, is_real, seed=seed) + np.identity(dim) @ gin
+        # Bures measure: gin -> (I + U) @ gin with U Haar-random and independent of gin. Derive an independent seed
+        # from the same generator so the result stays reproducible without correlating U with gin.
+        u_seed = int(gen.integers(0, 2**32 - 1))
+        gin = (np.identity(dim) + random_unitary(dim, is_real, seed=u_seed)) @ gin
 
     rho = gin @ gin.conj().T
 

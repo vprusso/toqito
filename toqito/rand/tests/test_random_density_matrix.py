@@ -60,23 +60,37 @@ def test_random_density_matrix(dim, is_real, distance_metric):
             False,
             None,
             "haar",
-            np.array([[0.37758384 + 0.0j, 0.19597419 + 0.19965911j], [0.19597419 - 0.19965911j, 0.62241616 + 0.0j]]),
+            np.array([[0.22986343 + 0.0j, 0.13365203 - 0.20624294j], [0.13365203 + 0.20624294j, 0.77013657 + 0.0j]]),
         ),
         # Generate random real density matrix.
-        (2, True, None, "haar", np.array([[0.45158815, 0.49355259], [0.49355259, 0.54841185]])),
+        (2, True, None, "haar", np.array([[0.13871939, 0.33280544], [0.33280544, 0.86128061]])),
         # Random non-real density matrix according to Bures metric.
         (
             2,
             False,
             None,
             "bures",
-            np.array([[0.31466466 + 0.0j, -0.09170064 + 0.24517065j], [-0.09170064 - 0.24517065j, 0.68533534 + 0.0j]]),
+            np.array([[0.24980937 + 0.0j, 0.19650908 - 0.22450506j], [0.19650908 + 0.22450506j, 0.75019063 + 0.0j]]),
         ),
         # Generate random non-real density matrix all params.
-        (2, True, 2, "haar", np.array([[0.45158815, 0.49355259], [0.49355259, 0.54841185]])),
+        (2, True, 2, "haar", np.array([[0.13871939, 0.33280544], [0.33280544, 0.86128061]])),
     ],
 )
 def test_seed(dim, is_real, k_param, distance_metric, expected):
     """Test that the function produces the expected output using a seed."""
     dm = random_density_matrix(dim, is_real, k_param=k_param, distance_metric=distance_metric, seed=124)
     assert_allclose(dm, expected)
+
+
+@pytest.mark.parametrize("is_real", [False, True])
+def test_random_density_matrix_mean_is_maximally_mixed(is_real):
+    """Averaging Hilbert-Schmidt distributed states approaches I/d.
+
+    With the previous uniform (rather than Gaussian) sampling of the Ginibre matrix the entries were biased toward
+    positive values, so the average had large positive off-diagonal entries and did not converge to I/d.
+    """
+    dim, n_samples = 2, 4000
+    acc = np.zeros((dim, dim), dtype=complex)
+    for s in range(n_samples):
+        acc += random_density_matrix(dim, is_real=is_real, seed=s)
+    np.testing.assert_allclose(acc / n_samples, np.eye(dim) / dim, atol=0.02)
