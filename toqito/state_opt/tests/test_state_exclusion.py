@@ -236,3 +236,19 @@ def test_state_exclusion_invalid_measurement():
     """Unsupported measurement types should raise a clear ValueError."""
     with pytest.raises(ValueError, match="measurement.*positive.*ppt"):
         state_exclusion(vectors=[bell(0), bell(1)], measurement="random_string")
+
+
+@pytest.mark.parametrize(
+    "kwargs, match",
+    [
+        ({"probs": [0.5]}, "must equal the number of states"),
+        ({"probs": [0.3, 0.3]}, "sum to 1"),
+        ({"probs": [-0.5, 1.5]}, "nonnegative"),
+        ({"strategy": "bogus"}, "strategy must be either"),
+    ],
+)
+def test_state_exclusion_invalid_inputs(kwargs, match):
+    """Invalid probs/strategy are rejected before the SDP is set up."""
+    vectors = [bell(0), bell(1)]
+    with pytest.raises(ValueError, match=match):
+        state_exclusion(vectors, **kwargs)

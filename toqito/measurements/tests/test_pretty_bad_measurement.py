@@ -4,7 +4,7 @@ import numpy as np
 import pytest
 
 from toqito.measurements import pretty_bad_measurement
-from toqito.states import bell, trine
+from toqito.states import basis, bell, trine
 
 
 @pytest.mark.parametrize(
@@ -72,3 +72,13 @@ def test_pbm_invalid_states(states, probs):
     """Ensures that number of states and number of probabilities are equal."""
     with np.testing.assert_raises(ValueError):
         pretty_bad_measurement(states, probs)
+
+
+def test_pretty_bad_measurement_invalid_inputs():
+    """A single state and negative probabilities are rejected."""
+    e_0, e_1 = basis(2, 0), basis(2, 1)
+    rho0, rho1 = e_0 @ e_0.conj().T, e_1 @ e_1.conj().T
+    with pytest.raises(ValueError, match="fewer than two states"):
+        pretty_bad_measurement([rho0])
+    with pytest.raises(ValueError, match="nonnegative"):
+        pretty_bad_measurement([rho0, rho1], [-0.5, 1.5])

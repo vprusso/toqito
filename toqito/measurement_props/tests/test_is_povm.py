@@ -1,6 +1,7 @@
 """Test is_povm."""
 
 import numpy as np
+import pytest
 
 from toqito.measurement_props import is_povm
 from toqito.rand import random_povm
@@ -30,3 +31,11 @@ def test_is_povm_false_not_sum_identity():
     non_meas = [non_meas_1, non_meas_2]
 
     np.testing.assert_equal(is_povm(non_meas), False)
+
+
+def test_is_povm_invalid_structure_raises():
+    """Empty, non-square, or mismatched-dimension inputs raise ValueError."""
+    with pytest.raises(ValueError, match="at least one measurement operator"):
+        is_povm([])
+    with pytest.raises(ValueError, match="square matrices of the same dimension"):
+        is_povm([np.eye(2), np.eye(3)])

@@ -61,6 +61,9 @@ def pretty_bad_measurement(
     """
     n = len(states)
 
+    if n < 2:
+        raise ValueError("The pretty bad measurement is undefined for fewer than two states (it divides by n - 1).")
+
     # If not probabilities are explicitly given, assume a uniform distribution.
     if probs is None:
         probs = n * [1 / n]
@@ -70,6 +73,9 @@ def pretty_bad_measurement(
 
     if not np.isclose(sum(probs), 1):
         raise ValueError("Probability vector should sum to 1.")
+
+    if any(p < 0 for p in probs):
+        raise ValueError("Probability vector must be nonnegative.")
 
     pbm = pretty_good_measurement(states, probs, tol=tol)
     dim = pbm[0].shape[0]
