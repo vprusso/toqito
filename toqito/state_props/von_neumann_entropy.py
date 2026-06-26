@@ -88,6 +88,8 @@ def von_neumann_entropy(rho: np.ndarray) -> float:
     """
     if not is_density(rho):
         raise ValueError("Von Neumann entropy is only defined for density operators.")
-    eigs, _ = np.linalg.eig(rho)
-    eigs = [eig for eig in eigs if eig > 0]
-    return -np.sum(np.real(eigs * np.log2(eigs)))
+    # A density operator is Hermitian, so use eigvalsh, which returns real eigenvalues and avoids the spurious
+    # imaginary parts that np.linalg.eig can introduce.
+    eigs = np.linalg.eigvalsh(rho)
+    eigs = eigs[eigs > 0]
+    return float(-np.sum(eigs * np.log2(eigs)))
