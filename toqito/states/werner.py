@@ -4,6 +4,7 @@ Werner states are mixtures of projectors onto the symmetric and permutation oper
 """
 
 import itertools
+import numbers
 
 import numpy as np
 
@@ -84,9 +85,12 @@ def werner(dim: int, alpha: float | list[float]) -> np.ndarray:
         rho = rho / np.trace(rho)
         return rho
 
-    # Bipartite Werner state (executed only if alpha is a float).
-    if isinstance(alpha, float):
+    # Bipartite Werner state (any real scalar alpha, e.g. werner(d, 1) for the antisymmetric projector). bool is
+    # excluded because it is a subclass of int.
+    if isinstance(alpha, numbers.Real) and not isinstance(alpha, bool):
+        if not -1 <= alpha <= 1:
+            raise ValueError("InvalidAlpha: For a bipartite Werner state, `alpha` must be in the interval [-1, 1].")
         n_fac = 2
         return (np.identity(dim**2) - alpha * swap_operator(dim, True)) / (dim * (dim - alpha))
 
-    raise ValueError("Alpha must be either a float or a list of floats.")
+    raise ValueError("Alpha must be either a real number or a list of floats.")

@@ -46,3 +46,15 @@ def test_werner_state_invalid(dim, alpha):
     """Test function works as expected for an invalid input."""
     with pytest.raises(ValueError):
         werner(dim, alpha)
+
+
+def test_werner_integer_alpha():
+    """Integer scalar alpha is accepted; werner(d, 1) is the antisymmetric projector state."""
+    state = werner(3, 1)
+    np.testing.assert_equal(is_density(state), True)
+
+
+def test_werner_bipartite_alpha_out_of_range():
+    """A bipartite alpha outside [-1, 1] is rejected."""
+    with pytest.raises(ValueError, match="must be in the interval"):
+        werner(2, 5)
