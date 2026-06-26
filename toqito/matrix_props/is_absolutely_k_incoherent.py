@@ -118,6 +118,8 @@ def is_absolutely_k_incoherent(mat: np.ndarray, k: int, tol: float = 1e-15) -> b
             with warnings.catch_warnings():
                 warnings.filterwarnings("ignore", message="Solution may be inaccurate")
                 opt_val = prob.solve(solver=cp.SCS, eps=1e-8, verbose=False)
-            if np.isclose(opt_val, 1.0):
+            # Guard against a failed solve (opt_val is None) so np.isclose does not raise; a feasible solution
+            # (optimal value near 1) means absolute (n-1)-incoherence holds.
+            if opt_val is not None and np.isclose(opt_val, 1.0):
                 return True
     return False

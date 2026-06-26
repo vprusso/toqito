@@ -243,3 +243,13 @@ def test_hierarchical_recursion_branch():
 
     # Restore the original function reference.
     is_k_incoherent.__globals__["is_k_incoherent"] = orig_is_k_incoherent
+
+
+def test_is_k_incoherent_solver_returns_none(monkeypatch):
+    """A failed solve (solver returns None) yields False instead of raising a TypeError."""
+    monkeypatch.setattr(cp.Problem, "solve", lambda self, *a, **k: None)
+    # This 4x4 matrix reaches the SDP fallback; with the guard it must not raise.
+    mat = np.array(
+        [[0.35, 0.30, 0.0, 0.0], [0.30, 0.25, 0.0, 0.0], [0.0, 0.0, 0.25, 0.05], [0.0, 0.0, 0.05, 0.15]]
+    )
+    assert is_k_incoherent(mat, 3) is False
