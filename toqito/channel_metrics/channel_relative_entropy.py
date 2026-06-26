@@ -1,6 +1,7 @@
 """Quantum relative entropy of channels via semidefinite programming."""
 
 import warnings
+from typing import Any
 
 import cvxpy as cvx
 import numpy as np
@@ -169,7 +170,7 @@ def channel_relative_entropy(
     epsilon_dec: float = 1e-2,
     mean: bool = False,
     solver: str = "SCS",
-    **kwargs,
+    **kwargs: Any,
 ) -> float | tuple[float, float]:
     r"""Estimate the quantum relative entropy of two channels [@kossmann2025channelrelativeentropy].
 
