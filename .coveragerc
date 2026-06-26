@@ -6,6 +6,9 @@ branch = True
 [report]
 show_missing = True
 precision = 2
+# Fail the coverage run if total coverage drops below this floor. Adjust upward toward the codecov target (70..90)
+# as coverage allows.
+fail_under = 80
 omit =
     */__init__.py
     */tests/*
