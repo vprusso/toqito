@@ -40,7 +40,7 @@ def test_random_state_vector(dim, is_real, k_param):
             2,
             False,
             0,
-            np.array([[0.91920422 + 0.29684938j], [0.07250293 + 0.24836943j]]),
+            np.array([[-0.59005974 + 0.76831103j], [-0.2194029 + 0.11571532j]]),
         ),
         (
             2,
@@ -48,10 +48,10 @@ def test_random_state_vector(dim, is_real, k_param):
             1,
             np.array(
                 [
-                    [-0.01113702 + 0.61768143j],
-                    [0.07125721 + 0.20424701j],
-                    [-0.68156797 + 0.21116929j],
-                    [-0.19827006 + 0.15202896j],
+                    [-0.2936362 + 0.77427174j],
+                    [-0.29464507 - 0.15255447j],
+                    [-0.04538643 + 0.41699573j],
+                    [-0.1638817 - 0.03728129j],
                 ]
             ),
         ),
@@ -61,10 +61,10 @@ def test_random_state_vector(dim, is_real, k_param):
             1,
             np.array(
                 [
-                    [-0.01113702 + 0.61768143j],
-                    [0.07125721 + 0.20424701j],
-                    [-0.68156797 + 0.21116929j],
-                    [-0.19827006 + 0.15202896j],
+                    [-0.2936362 + 0.77427174j],
+                    [-0.29464507 - 0.15255447j],
+                    [-0.04538643 + 0.41699573j],
+                    [-0.1638817 - 0.03728129j],
                 ]
             ),
         ),
@@ -74,20 +74,35 @@ def test_random_state_vector(dim, is_real, k_param):
             1,
             np.array(
                 [
-                    [0.76458086],
-                    [0.63971337],
-                    [0.06030689],
-                    [0.05045788],
+                    [-0.92684881],
+                    [-0.1395927],
+                    [-0.34463175],
+                    [-0.05190499],
                 ]
             ),
         ),
-        (2, True, 0, np.array([[0.99690375], [0.07863154]])),
+        (2, True, 0, np.array([[-0.93730189], [-0.34851853]])),
     ],
 )
 def test_seed(dim, is_real, k_param, expected):
     """Test that the function returns the expected output when seeded."""
     vec = random_state_vector(dim, is_real=is_real, k_param=k_param, seed=123)
     assert_allclose(vec, expected)
+
+
+@pytest.mark.parametrize("is_real", [False, True])
+def test_random_state_vector_mean_outer_is_maximally_mixed(is_real):
+    """Averaging |psi><psi| over Haar-uniform pure states approaches I/d.
+
+    With the previous uniform (rather than Gaussian) sampling the vectors were confined to the positive orthant, so
+    the average outer product had large positive off-diagonal entries and did not converge to I/d.
+    """
+    dim, n_samples = 2, 4000
+    acc = np.zeros((dim, dim), dtype=complex)
+    for s in range(n_samples):
+        vec = random_state_vector(dim, is_real=is_real, seed=s)
+        acc += vec @ vec.conj().T
+    np.testing.assert_allclose(acc / n_samples, np.eye(dim) / dim, atol=0.02)
 
 
 def test_random_state_vector_negative_k_param():
