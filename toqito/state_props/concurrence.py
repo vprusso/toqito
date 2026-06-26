@@ -89,6 +89,9 @@ def concurrence(rho: np.ndarray) -> float:
 
     rho_tilde = sigma_y_y @ rho.conj() @ sigma_y_y
 
-    eig_vals = np.linalg.eigvals(rho @ rho_tilde)
-    eig_vals = np.sort(np.abs(np.sqrt(eig_vals)))[::-1]
-    return max(0, eig_vals[0] - eig_vals[1] - eig_vals[2] - eig_vals[3])
+    # The eigenvalues of rho @ rho_tilde are real and nonnegative in theory, but np.linalg.eigvals can return small
+    # imaginary parts. Take the real part and clip away negative numerical noise before the square root, rather than
+    # using abs(sqrt(.)), which would distort genuinely complex numerical values.
+    eig_vals = np.real(np.linalg.eigvals(rho @ rho_tilde))
+    eig_vals = np.sqrt(np.sort(eig_vals.clip(min=0))[::-1])
+    return float(max(0, eig_vals[0] - eig_vals[1] - eig_vals[2] - eig_vals[3]))
