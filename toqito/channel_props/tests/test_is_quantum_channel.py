@@ -34,8 +34,6 @@ def test_is_quantum_channel_invalid_input_returns_false():
     [
         # not ndarray or list.
         123,
-        # list but not list of lists.
-        [np.eye(2)],
         # wrong inner type.
         [["not a matrix"]],
         # mixed types.
@@ -46,8 +44,11 @@ def test_is_quantum_channel_invalid_types_raise(bad_phi):
     """Testing invalid input types."""
     with pytest.raises(
         TypeError,
-        match=re.escape(
-            "phi must be either a numpy array (Choi matrix) or a list of lists of numpy arrays (Kraus operators)."
-        ),
+        match=re.escape("phi must be either a numpy array (Choi matrix) or a list of Kraus operators"),
     ):
         is_quantum_channel(bad_phi)
+
+
+def test_is_quantum_channel_flat_kraus_format():
+    """A flat list of Kraus operators is accepted (e.g. the identity channel)."""
+    assert is_quantum_channel([np.eye(2)]) is True

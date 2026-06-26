@@ -23,3 +23,10 @@ def test_is_trace_preserving_invalid_dim_raises():
     """Ensure that a ValueError is raised when the input matrix has non-square dimension."""
     with pytest.raises(ValueError, match="Cannot infer equal subsystem dimensions. Please provide `dim`."):
         is_trace_preserving(np.eye(3))
+
+
+def test_is_trace_preserving_flat_kraus_format():
+    """The flat Kraus format [K1, K2, ...] is accepted (sum K_i^dagger K_i = I)."""
+    kraus = [np.eye(2) / np.sqrt(2), np.array([[0, 1], [1, 0]]) / np.sqrt(2)]
+    assert is_trace_preserving(kraus) is True
+    assert is_trace_preserving([0.5 * np.eye(2)]) is False

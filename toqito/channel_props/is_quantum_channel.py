@@ -74,17 +74,16 @@ def is_quantum_channel(
         ```
 
     """
-    # If the variable `phi` is provided as a list, we assume this is a list
-    # of Kraus operators.
-    if not (
-        isinstance(phi, np.ndarray)
-        or (
-            isinstance(phi, list)
-            and all(isinstance(row, list) and all(isinstance(op, np.ndarray) for op in row) for row in phi)
-        )
-    ):
+    # If the variable `phi` is provided as a list, we assume this is a list of Kraus operators. Both the flat
+    # completely-positive format [K1, K2, ...] and the general paired format [[A1, B1], ...] are accepted.
+    is_flat_kraus = isinstance(phi, list) and all(isinstance(op, np.ndarray) for op in phi)
+    is_paired_kraus = isinstance(phi, list) and all(
+        isinstance(row, list) and all(isinstance(op, np.ndarray) for op in row) for row in phi
+    )
+    if not (isinstance(phi, np.ndarray) or is_flat_kraus or is_paired_kraus):
         raise TypeError(
-            "phi must be either a numpy array (Choi matrix) or a list of lists of numpy arrays (Kraus operators)."
+            "phi must be either a numpy array (Choi matrix) or a list of Kraus operators "
+            "(a flat list, or a list of [A, B] pairs)."
         )
     if isinstance(phi, list):
         phi = kraus_to_choi(phi)
