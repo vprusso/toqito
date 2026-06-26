@@ -19,3 +19,25 @@ venv/*
 docs/site/
 docs/content/reference/
 docs/content/generated/
+
+# Solver license files (e.g. MOSEK) - never commit, these contain credentials
+*.lic
+
+# LaTeX build artifacts
+*.aux
+*.bbl
+*.blg
+*.log
+*.out
+
+# Local research artifacts (none of these extensions are tracked in the repo)
+*.pdf
+*.csv
+
+# Root-level research sources/figures that share an extension with tracked files
+/refs.bib
+/resource_assisted.tex
+/resource_assisted.bib
+/dual_certificate_note.tex
+/6_vectors_2_learnable.png
+/.codex
