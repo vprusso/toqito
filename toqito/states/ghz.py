@@ -74,8 +74,8 @@ def ghz(dim: int, num_qubits: int, coeff: list[int] | None = None) -> np.ndarray
     if not np.isclose(norm, 1.0):
         coeff = coeff / norm
 
-    # Initialize the GHZ state vector.
-    ghz_state = np.zeros((dim**num_qubits, 1))
+    # Initialize the GHZ state vector, matching the coefficient dtype so complex coefficients are preserved.
+    ghz_state = np.zeros((dim**num_qubits, 1), dtype=coeff.dtype)
     # Fill the state vector with the corresponding coefficients.
     for i in range(dim):
         # Calculate the index for the tensor product state |i, i, ..., i>.

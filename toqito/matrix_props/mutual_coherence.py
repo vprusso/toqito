@@ -40,11 +40,14 @@ def mutual_coherence(vectors: list[np.ndarray]) -> float | np.floating:
     if not all(isinstance(vec, np.ndarray) and vec.ndim == 1 for vec in vectors):
         raise ValueError("All elements in the list must be 1D numpy arrays.")
 
-    # Convert input into a 2D numpy array.
-    vectors = np.column_stack(vectors).astype(float)
+    # Convert input into a 2D numpy array. Use a complex dtype so complex-valued vectors are not truncated.
+    vectors = np.column_stack(vectors).astype(complex)
 
-    # Normalize the vectors.
-    vectors /= np.linalg.norm(vectors, axis=0)
+    # Normalize the vectors, guarding against zero vectors (which would divide by zero).
+    norms = np.linalg.norm(vectors, axis=0)
+    if np.any(np.isclose(norms, 0)):
+        raise ValueError("Vectors must be nonzero to compute mutual coherence.")
+    vectors /= norms
 
     # Calculate the inner product between all pairs of columns.
     inner_products = np.abs(np.conj(vectors.T) @ vectors)

@@ -65,6 +65,18 @@ def test_ghz_invalid_input(dim, num_qubits, coeff):
         ghz(dim, num_qubits, coeff)
 
 
+def test_ghz_complex_coefficients():
+    """Complex coefficients are preserved (not truncated to real)."""
+    coeff = np.array([1, 1j]) / np.sqrt(2)
+    res = ghz(2, 2, coeff)
+
+    assert np.iscomplexobj(res)
+    np.testing.assert_allclose(np.linalg.norm(res), 1.0, atol=1e-12)
+    # |00> amplitude is coeff[0]; |11> amplitude (index 3) is coeff[1].
+    np.testing.assert_allclose(res[0, 0], coeff[0])
+    np.testing.assert_allclose(res[3, 0], coeff[1])
+
+
 def test_ghz_non_normalized_coeff_2_3():
     """Test that non-normalized coefficients for a 3-qubit GHZ state are normalized correctly.
 

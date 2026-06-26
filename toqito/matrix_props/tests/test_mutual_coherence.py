@@ -35,9 +35,22 @@ def test_mutual_coherence(vectors, expected_coherence):
             ValueError,
             r"All elements in the list must be 1D numpy arrays\.",
         ),
+        # A zero vector cannot be normalized.
+        (
+            [np.array([0, 0]), np.array([1, 0])],
+            ValueError,
+            r"Vectors must be nonzero to compute mutual coherence\.",
+        ),
     ],
 )
 def test_mutual_coherence_invalid_inputs(vectors, exception, expected_msg):
     """Test that invalid inputs raise the exact ValueError or TypeError message."""
     with pytest.raises(exception, match=expected_msg):
         mutual_coherence(vectors)
+
+
+def test_mutual_coherence_complex_vectors():
+    """Complex vectors are not truncated; orthogonal complex vectors have coherence 0."""
+    # <[1, 1j], [1j, 1]> = conj(1)*1j + conj(1j)*1 = 1j - 1j = 0, so these are orthogonal.
+    result = mutual_coherence([np.array([1, 1j]), np.array([1j, 1])])
+    assert np.isclose(result, 0.0, atol=1e-8)
