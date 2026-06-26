@@ -13,16 +13,22 @@ def measure(
 ) -> float | tuple[float, np.ndarray] | list[float | tuple[float, np.ndarray]]:
     r"""Apply measurement to a quantum state.
 
-    The measurement can be provided as a single operator (POVM element or Kraus operator) or as a
-    list of operators (assumed to be Kraus operators) describing a complete quantum measurement.
+    The measurement can be provided as a single operator or as a list of operators describing a complete quantum
+    measurement.
+
+    A single operator is always treated as a Kraus operator \(K\): the outcome probability is
+    \(\mathrm{Tr}(K \rho K^\dagger) = \mathrm{Tr}(K^\dagger K \rho)\) and the post-measurement state is
+    \(K \rho K^\dagger / \mathrm{Tr}(K \rho K^\dagger)\). For a POVM element \(E\) the Born probability is
+    \(\mathrm{Tr}(E \rho)\); this equals \(\mathrm{Tr}(K \rho K^\dagger)\) only when the operator is a projector
+    (\(E^\dagger E = E\)), so to measure with a non-projector POVM element pass its Kraus operators in the list form.
 
     When a single operator is provided:
 
       - Returns the measurement outcome probability if ``state_update`` is False.
       - Returns a tuple (probability, post_state) if ``state_update`` is True.
 
-    When a list of operators is provided, the function verifies that they satisfy the completeness relation when
-    ``state_update`` is True.
+    When a list of operators is provided, the function verifies that they satisfy the completeness relation (which
+    depends only on the operators, not on the state or ``state_update``).
 
     \[
         \sum_i K_i^\dagger K_i = \mathbb{I},
@@ -125,13 +131,20 @@ def measure(
         return (prob, post_state) if state_update else prob
 
     # List-of-operators case.
-    outcomes: list[float | tuple[float, np.ndarray]] = []
-    probs: list[float] = []
+    if len(measurement) == 0:
+        raise ValueError("At least one measurement operator is required.")
 
+    # The completeness relation depends only on the operators, not on the state or the resulting probabilities, so
+    # validate it unconditionally whenever a list/tuple of Kraus operators is provided.
+    d = state.shape[0]
+    completeness = sum(op.conj().T @ op for op in measurement)
+    if not np.allclose(completeness, np.eye(d), atol=tol):
+        raise ValueError("Kraus operators do not satisfy completeness relation: ∑ Kᵢ†Kᵢ ≠ I.")
+
+    outcomes: list[float | tuple[float, np.ndarray]] = []
     for op in measurement:
         result = op @ state @ op.conj().T
         prob = np.trace(result).real
-        probs.append(prob)
 
         if prob > tol:
             post_state = result / prob
@@ -139,12 +152,5 @@ def measure(
             post_state = np.zeros_like(state)
 
         outcomes.append((prob, post_state) if state_update else prob)
-
-    # Only enforce completeness if we're doing the update AND every outcome was nonzero.
-    if state_update and all(p > tol for p in probs):
-        d = state.shape[0]
-        completeness = sum(op.T.conj() @ op for op in measurement)
-        if not np.allclose(completeness, np.eye(d), atol=tol):
-            raise ValueError("Kraus operators do not satisfy completeness relation: ∑ Kᵢ†Kᵢ ≠ I.")
 
     return outcomes
