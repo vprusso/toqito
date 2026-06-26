@@ -18,6 +18,12 @@ e_0, e_1, e_2 = np.array([[1], [0], [0]]), np.array([[0], [1], [0]]), np.array([
         ([e_0 @ e_0.conj().T, e_1 @ e_1.conj().T, e_2 @ e_2.conj().T], True),
         # Check that non-pure state returns False.
         (np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]]), False),
+        # A rank-2 mixed diagonal state is not pure (the old max-eigenvalue check wrongly returned True here).
+        (np.diag([1.0, 0.5]), False),
+        # The maximally mixed qubit state is not pure.
+        (np.eye(2) / 2, False),
+        # A rank-1 (unnormalized) projector is pure.
+        (2 * (e_0 @ e_0.conj().T), True),
         # Check that list of non-pure states return False.
         (
             [
