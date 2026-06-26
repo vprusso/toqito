@@ -1567,6 +1567,20 @@ wheels = [
 ]
 
 [[package]]
+name = "mosek"
+version = "11.2.2"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "numpy" },
+]
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/15/fa/cafd7af72c090e4c13d35124264803ad4bf5cf80d24de470846f3bfc8d9b/mosek-11.2.2-cp39-abi3-macosx_11_0_arm64.whl", hash = "sha256:15a6fd2be996e4dd01d5130f876937db4137dcb660e5128944c9363fd51cf119", size = 8794686, upload-time = "2026-06-10T05:59:50.712Z" },
+    { url = "https://files.pythonhosted.org/packages/2b/06/25814cec5fbc4dc93190c0f37afcdd24b83efe570d598ca3c21c610cb543/mosek-11.2.2-cp39-abi3-manylinux2014_x86_64.whl", hash = "sha256:77c9f2c86e9adc0a8da9a44c9cf2e0e7dc4eecae850e5295855abb628b7755be", size = 15364494, upload-time = "2026-06-10T05:59:55.452Z" },
+    { url = "https://files.pythonhosted.org/packages/f8/7c/fd1f85cd13a4bcf84aa620c74aa28ad7872d319d6645a53018f8560bf52e/mosek-11.2.2-cp39-abi3-manylinux_2_27_aarch64.whl", hash = "sha256:f3debca608fcaac8b7129975e0ad5083d89844ba4658f48ed18fec420e0ddaf0", size = 9909410, upload-time = "2026-06-10T05:59:58.623Z" },
+    { url = "https://files.pythonhosted.org/packages/6d/19/cceda5079e8416b8353dd0d1ef71c70004d5bbd43fcdf34f797a87c315f0/mosek-11.2.2-cp39-abi3-win_amd64.whl", hash = "sha256:0ffe2125658f83110771caf0d8b83b40f1c4b0d1b18c2083b37757b719aa070c", size = 11201973, upload-time = "2026-06-10T06:00:01.89Z" },
+]
+
+[[package]]
 name = "myst-parser"
 version = "5.1.0"
 source = { registry = "https://pypi.org/simple" }
@@ -2864,6 +2878,11 @@ dependencies = [
     { name = "scs" },
 ]
 
+[package.optional-dependencies]
+mosek = [
+    { name = "mosek" },
+]
+
 [package.dev-dependencies]
 dev = [
     { name = "coverage" },
@@ -2889,7 +2908,6 @@ docs = [
     { name = "pygments" },
     { name = "pymdown-extensions" },
     { name = "pypandoc" },
-    { name = "ruff" },
 ]
 lint = [
     { name = "flake8" },
@@ -2903,15 +2921,17 @@ lint = [
 
 [package.metadata]
 requires-dist = [
-    { name = "cvxpy", specifier = "==1.9.0" },
-    { name = "matplotlib", specifier = "==3.11.0" },
-    { name = "more-itertools", specifier = "==11.1.0" },
+    { name = "cvxpy", specifier = ">=1.9.0,<2" },
+    { name = "matplotlib", specifier = ">=3.11.0,<4" },
+    { name = "more-itertools", specifier = ">=11.1.0,<12" },
+    { name = "mosek", marker = "extra == 'mosek'" },
     { name = "networkx", specifier = ">=3.4,<4.0" },
-    { name = "numpy", specifier = "==2.4.1" },
+    { name = "numpy", specifier = ">=2.4.1,<3" },
     { name = "picos", specifier = ">=2.6.2" },
-    { name = "scipy", specifier = "==1.17.1" },
-    { name = "scs", specifier = "==3.2.11" },
+    { name = "scipy", specifier = ">=1.17.1,<2" },
+    { name = "scs", specifier = ">=3.2.11,<4" },
 ]
+provides-extras = ["mosek"]
 
 [package.metadata.requires-dev]
 dev = [
@@ -2938,7 +2958,6 @@ docs = [
     { name = "pygments", specifier = "<2.21" },
     { name = "pymdown-extensions", specifier = ">=10.0" },
     { name = "pypandoc", specifier = ">=1.13" },
-    { name = "ruff", specifier = ">=0.1.0" },
 ]
 lint = [
     { name = "flake8", specifier = "==7.3.0" },
