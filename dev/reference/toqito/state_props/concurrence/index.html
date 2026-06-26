@@ -9657,7 +9657,7 @@ given as</p>
 <a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="n">rho</span> <span class="o">=</span> <span class="n">u_vec</span> <span class="o">@</span> <span class="n">u_vec</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span>
 <a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="nb">print</span><span class="p">(</span><span class="n">concurrence</span><span class="p">(</span><span class="n">rho</span><span class="p">))</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>0.9999999999999993
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>0.9999999999999994
 </code></pre></div>
 <p>Consider the concurrence of the following product state</p>
 <div class="arithmatex">\[
@@ -9672,7 +9672,7 @@ given as</p>
 <a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="n">sigma</span> <span class="o">=</span> <span class="n">v_vec</span> <span class="o">@</span> <span class="n">v_vec</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span>
 <a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="nb">print</span><span class="p">(</span><span class="n">concurrence</span><span class="p">(</span><span class="n">sigma</span><span class="p">))</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>0
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>0.0
 </code></pre></div>
         <p><strong>References</strong></p>
 <p><span id="ref-toqito-state_props-concurrence-concurrence-1"><sup><a href="#cite-toqito-state_props-concurrence-concurrence-1">1</a></sup> Wikipedia. <em>Concurrence (quantum computing)</em>. <a href="https://en.wikipedia.org/wiki/Concurrence_(quantum_computing)">link</a>.</span></p>
@@ -9763,7 +9763,10 @@ given as</p>
 <span class="normal"><a href="#__codelineno-0-91">91</a></span>
 <span class="normal"><a href="#__codelineno-0-92">92</a></span>
 <span class="normal"><a href="#__codelineno-0-93">93</a></span>
-<span class="normal"><a href="#__codelineno-0-94">94</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-11" name="__codelineno-0-11"></a><span class="k">def</span><span class="w"> </span><span class="nf">concurrence</span><span class="p">(</span><span class="n">rho</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="normal"><a href="#__codelineno-0-94">94</a></span>
+<span class="normal"><a href="#__codelineno-0-95">95</a></span>
+<span class="normal"><a href="#__codelineno-0-96">96</a></span>
+<span class="normal"><a href="#__codelineno-0-97">97</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-11" name="__codelineno-0-11"></a><span class="k">def</span><span class="w"> </span><span class="nf">concurrence</span><span class="p">(</span><span class="n">rho</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <a id="__codelineno-0-12" name="__codelineno-0-12"></a><span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Calculate the concurrence of a bipartite state [@wikipediaconcurrence].</span>
 <a id="__codelineno-0-13" name="__codelineno-0-13"></a>
 <a id="__codelineno-0-14" name="__codelineno-0-14"></a><span class="sd">    The concurrence of a bipartite state \(\rho\) is defined as</span>
@@ -9844,9 +9847,12 @@ given as</p>
 <a id="__codelineno-0-89" name="__codelineno-0-89"></a>
 <a id="__codelineno-0-90" name="__codelineno-0-90"></a>    <span class="n">rho_tilde</span> <span class="o">=</span> <span class="n">sigma_y_y</span> <span class="o">@</span> <span class="n">rho</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span> <span class="o">@</span> <span class="n">sigma_y_y</span>
 <a id="__codelineno-0-91" name="__codelineno-0-91"></a>
-<a id="__codelineno-0-92" name="__codelineno-0-92"></a>    <span class="n">eig_vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigvals</span><span class="p">(</span><span class="n">rho</span> <span class="o">@</span> <span class="n">rho_tilde</span><span class="p">)</span>
-<a id="__codelineno-0-93" name="__codelineno-0-93"></a>    <span class="n">eig_vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">eig_vals</span><span class="p">)))[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-<a id="__codelineno-0-94" name="__codelineno-0-94"></a>    <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">eig_vals</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">eig_vals</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">eig_vals</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">eig_vals</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+<a id="__codelineno-0-92" name="__codelineno-0-92"></a>    <span class="c1"># The eigenvalues of rho @ rho_tilde are real and nonnegative in theory, but np.linalg.eigvals can return small</span>
+<a id="__codelineno-0-93" name="__codelineno-0-93"></a>    <span class="c1"># imaginary parts. Take the real part and clip away negative numerical noise before the square root, rather than</span>
+<a id="__codelineno-0-94" name="__codelineno-0-94"></a>    <span class="c1"># using abs(sqrt(.)), which would distort genuinely complex numerical values.</span>
+<a id="__codelineno-0-95" name="__codelineno-0-95"></a>    <span class="n">eig_vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigvals</span><span class="p">(</span><span class="n">rho</span> <span class="o">@</span> <span class="n">rho_tilde</span><span class="p">))</span>
+<a id="__codelineno-0-96" name="__codelineno-0-96"></a>    <span class="n">eig_vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">eig_vals</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="nb">min</span><span class="o">=</span><span class="mi">0</span><span class="p">))[::</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+<a id="__codelineno-0-97" name="__codelineno-0-97"></a>    <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">eig_vals</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">eig_vals</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">eig_vals</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">eig_vals</span><span class="p">[</span><span class="mi">3</span><span class="p">]))</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>

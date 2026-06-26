@@ -9581,13 +9581,7 @@
 
 
 <a href="#toqito.rand.random_density_matrix.random_density_matrix" class="headerlink" title="Permanent link">&para;</a></h2>
-<div class="doc-signature highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">random_density_matrix</span><span class="p">(</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="n">dim</span><span class="p">:</span> <span class="n"><span title="int">int</span></span><span class="p">,</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    <span class="n">is_real</span><span class="p">:</span> <span class="n"><span title="bool">bool</span></span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    <span class="n">k_param</span><span class="p">:</span> <span class="n"><span title="list">list</span></span><span class="p">[</span><span class="n"><span title="int">int</span></span><span class="p">]</span> <span class="o">|</span> <span class="n"><span title="int">int</span></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="n">distance_metric</span><span class="p">:</span> <span class="n"><span title="str">str</span></span> <span class="o">=</span> <span class="s2">&quot;haar&quot;</span><span class="p">,</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    <span class="n">seed</span><span class="p">:</span> <span class="n"><span title="int">int</span></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><span title="numpy.ndarray">ndarray</span></span>
+<div class="doc-signature highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">random_density_matrix</span><span class="p">(</span><span class="n">dim</span><span class="p">:</span> <span class="n"><span title="int">int</span></span><span class="p">,</span> <span class="n">is_real</span><span class="p">:</span> <span class="n"><span title="bool">bool</span></span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">k_param</span><span class="p">:</span> <span class="n"><span title="list">list</span></span><span class="p">[</span><span class="n"><span title="int">int</span></span><span class="p">]</span> <span class="o">|</span> <span class="n"><span title="int">int</span></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">distance_metric</span><span class="p">:</span> <span class="n"><span title="str">str</span></span> <span class="o">=</span> <span class="s1">&#39;haar&#39;</span><span class="p">,</span> <span class="n">seed</span><span class="p">:</span> <span class="n"><span title="int">int</span></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><span title="numpy.ndarray">ndarray</span></span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
@@ -9684,8 +9678,8 @@ Haar measure or the Bures measure. Default value is to use the Haar measure.</p>
 <a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
 <a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">complex_dm</span><span class="p">)</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>[[ 0.70578511+0.j         -0.08234565+0.05002672j]
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a> [-0.08234565-0.05002672j  0.29421489+0.j        ]]
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>[[0.18615927+0.j         0.10300562-0.34959625j]
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a> [0.10300562+0.34959625j 0.81384073+0.j        ]]
 </code></pre></div>
 <p>We can verify that this is in fact a valid density matrix using the <code>is_density</code> function from
 <code>|toqito⟩</code> as follows</p>
@@ -9702,8 +9696,8 @@ Haar measure or the Bures measure. Default value is to use the Haar measure.</p>
 <a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
 <a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">real_dm</span><span class="p">)</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>[[0.80788982 0.29812132]
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a> [0.29812132 0.19211018]]
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>[[ 0.30049073 -0.21476506]
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a> [-0.21476506  0.69950927]]
 </code></pre></div>
 <p>Again, verifying that this is a valid density matrix can be done as follows.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.matrix_props</span><span class="w"> </span><span class="kn">import</span> <span class="n">is_density</span>
@@ -9720,8 +9714,8 @@ random density matrix according to the Bures metric instead as follows.</p>
 <a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
 <a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">bures_mat</span><span class="p">)</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>[[ 0.56356394+0.j         -0.04539768+0.30694618j]
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a> [-0.04539768-0.30694618j  0.43643606+0.j        ]]
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>[[0.8612751 +0.j         0.20599189+0.04149884j]
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a> [0.20599189-0.04149884j 0.1387249 +0.j        ]]
 </code></pre></div>
 <p>As before, we can verify that this matrix generated is a valid density matrix.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.matrix_props</span><span class="w"> </span><span class="kn">import</span> <span class="n">is_density</span>
@@ -9737,8 +9731,8 @@ random density matrix according to the Bures metric instead as follows.</p>
 <a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
 <a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">seeded</span><span class="p">)</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>[[0.82448019+0.j         0.14841568-0.33318114j]
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a> [0.14841568+0.33318114j 0.17551981+0.j        ]]
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>[[ 0.81018984+0.j         -0.07124455-0.37093189j]
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a> [-0.07124455+0.37093189j  0.18981016+0.j        ]]
 </code></pre></div></p>
 <p>We can once again verify that this is in fact a valid density matrix using the
 <code>is_density</code> function from <code>|toqito⟩</code> as follows</p>
@@ -9886,7 +9880,11 @@ random density matrix according to the Bures metric instead as follows.</p>
 <span class="normal"><a href="#__codelineno-0-137">137</a></span>
 <span class="normal"><a href="#__codelineno-0-138">138</a></span>
 <span class="normal"><a href="#__codelineno-0-139">139</a></span>
-<span class="normal"><a href="#__codelineno-0-140">140</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-8" name="__codelineno-0-8"></a><span class="k">def</span><span class="w"> </span><span class="nf">random_density_matrix</span><span class="p">(</span>
+<span class="normal"><a href="#__codelineno-0-140">140</a></span>
+<span class="normal"><a href="#__codelineno-0-141">141</a></span>
+<span class="normal"><a href="#__codelineno-0-142">142</a></span>
+<span class="normal"><a href="#__codelineno-0-143">143</a></span>
+<span class="normal"><a href="#__codelineno-0-144">144</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-8" name="__codelineno-0-8"></a><span class="k">def</span><span class="w"> </span><span class="nf">random_density_matrix</span><span class="p">(</span>
 <a id="__codelineno-0-9" name="__codelineno-0-9"></a>    <span class="n">dim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
 <a id="__codelineno-0-10" name="__codelineno-0-10"></a>    <span class="n">is_real</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
 <a id="__codelineno-0-11" name="__codelineno-0-11"></a>    <span class="n">k_param</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -10007,18 +10005,22 @@ random density matrix according to the Bures metric instead as follows.</p>
 <a id="__codelineno-0-126" name="__codelineno-0-126"></a>    <span class="k">if</span> <span class="n">k_param</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
 <a id="__codelineno-0-127" name="__codelineno-0-127"></a>        <span class="n">k_param</span> <span class="o">=</span> <span class="n">dim</span>
 <a id="__codelineno-0-128" name="__codelineno-0-128"></a>
-<a id="__codelineno-0-129" name="__codelineno-0-129"></a>    <span class="c1"># Haar / Hilbert-Schmidt measure.</span>
-<a id="__codelineno-0-130" name="__codelineno-0-130"></a>    <span class="n">gin</span> <span class="o">=</span> <span class="n">gen</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="n">dim</span><span class="p">,</span> <span class="n">k_param</span><span class="p">))</span>
-<a id="__codelineno-0-131" name="__codelineno-0-131"></a>
-<a id="__codelineno-0-132" name="__codelineno-0-132"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">is_real</span><span class="p">:</span>
-<a id="__codelineno-0-133" name="__codelineno-0-133"></a>        <span class="n">gin</span> <span class="o">=</span> <span class="n">gin</span> <span class="o">+</span> <span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="n">gen</span><span class="o">.</span><span class="n">standard_normal</span><span class="p">((</span><span class="n">dim</span><span class="p">,</span> <span class="n">k_param</span><span class="p">))</span>
-<a id="__codelineno-0-134" name="__codelineno-0-134"></a>
-<a id="__codelineno-0-135" name="__codelineno-0-135"></a>    <span class="k">if</span> <span class="n">distance_metric</span> <span class="o">==</span> <span class="s2">&quot;bures&quot;</span><span class="p">:</span>
-<a id="__codelineno-0-136" name="__codelineno-0-136"></a>        <span class="n">gin</span> <span class="o">=</span> <span class="n">random_unitary</span><span class="p">(</span><span class="n">dim</span><span class="p">,</span> <span class="n">is_real</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="n">seed</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="n">dim</span><span class="p">)</span> <span class="o">@</span> <span class="n">gin</span>
-<a id="__codelineno-0-137" name="__codelineno-0-137"></a>
-<a id="__codelineno-0-138" name="__codelineno-0-138"></a>    <span class="n">rho</span> <span class="o">=</span> <span class="n">gin</span> <span class="o">@</span> <span class="n">gin</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span>
-<a id="__codelineno-0-139" name="__codelineno-0-139"></a>
-<a id="__codelineno-0-140" name="__codelineno-0-140"></a>    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">divide</span><span class="p">(</span><span class="n">rho</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="n">rho</span><span class="p">))</span>
+<a id="__codelineno-0-129" name="__codelineno-0-129"></a>    <span class="c1"># Haar / Hilbert-Schmidt measure: draw a (complex) Ginibre matrix. The entries must be Gaussian, not uniform, for</span>
+<a id="__codelineno-0-130" name="__codelineno-0-130"></a>    <span class="c1"># rho = gin @ gin^dagger / Tr(.) to follow the Hilbert-Schmidt measure.</span>
+<a id="__codelineno-0-131" name="__codelineno-0-131"></a>    <span class="n">gin</span> <span class="o">=</span> <span class="n">gen</span><span class="o">.</span><span class="n">standard_normal</span><span class="p">((</span><span class="n">dim</span><span class="p">,</span> <span class="n">k_param</span><span class="p">))</span>
+<a id="__codelineno-0-132" name="__codelineno-0-132"></a>
+<a id="__codelineno-0-133" name="__codelineno-0-133"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">is_real</span><span class="p">:</span>
+<a id="__codelineno-0-134" name="__codelineno-0-134"></a>        <span class="n">gin</span> <span class="o">=</span> <span class="n">gin</span> <span class="o">+</span> <span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="n">gen</span><span class="o">.</span><span class="n">standard_normal</span><span class="p">((</span><span class="n">dim</span><span class="p">,</span> <span class="n">k_param</span><span class="p">))</span>
+<a id="__codelineno-0-135" name="__codelineno-0-135"></a>
+<a id="__codelineno-0-136" name="__codelineno-0-136"></a>    <span class="k">if</span> <span class="n">distance_metric</span> <span class="o">==</span> <span class="s2">&quot;bures&quot;</span><span class="p">:</span>
+<a id="__codelineno-0-137" name="__codelineno-0-137"></a>        <span class="c1"># Bures measure: gin -&gt; (I + U) @ gin with U Haar-random and independent of gin. Derive an independent seed</span>
+<a id="__codelineno-0-138" name="__codelineno-0-138"></a>        <span class="c1"># from the same generator so the result stays reproducible without correlating U with gin.</span>
+<a id="__codelineno-0-139" name="__codelineno-0-139"></a>        <span class="n">u_seed</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">gen</span><span class="o">.</span><span class="n">integers</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="o">**</span><span class="mi">32</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
+<a id="__codelineno-0-140" name="__codelineno-0-140"></a>        <span class="n">gin</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="n">dim</span><span class="p">)</span> <span class="o">+</span> <span class="n">random_unitary</span><span class="p">(</span><span class="n">dim</span><span class="p">,</span> <span class="n">is_real</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="n">u_seed</span><span class="p">))</span> <span class="o">@</span> <span class="n">gin</span>
+<a id="__codelineno-0-141" name="__codelineno-0-141"></a>
+<a id="__codelineno-0-142" name="__codelineno-0-142"></a>    <span class="n">rho</span> <span class="o">=</span> <span class="n">gin</span> <span class="o">@</span> <span class="n">gin</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span>
+<a id="__codelineno-0-143" name="__codelineno-0-143"></a>
+<a id="__codelineno-0-144" name="__codelineno-0-144"></a>    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">divide</span><span class="p">(</span><span class="n">rho</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="n">rho</span><span class="p">))</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>

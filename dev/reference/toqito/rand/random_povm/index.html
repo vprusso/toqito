@@ -9615,12 +9615,7 @@
 
 
 <a href="#toqito.rand.random_povm.random_povm" class="headerlink" title="Permanent link">&para;</a></h2>
-<div class="doc-signature highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">random_povm</span><span class="p">(</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="n">dim</span><span class="p">:</span> <span class="n"><span title="int">int</span></span><span class="p">,</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    <span class="n">num_inputs</span><span class="p">:</span> <span class="n"><span title="int">int</span></span><span class="p">,</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    <span class="n">num_outputs</span><span class="p">:</span> <span class="n"><span title="int">int</span></span><span class="p">,</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="n">seed</span><span class="p">:</span> <span class="n"><span title="int">int</span></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><span title="numpy.ndarray">ndarray</span></span>
+<div class="doc-signature highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">random_povm</span><span class="p">(</span><span class="n">dim</span><span class="p">:</span> <span class="n"><span title="int">int</span></span><span class="p">,</span> <span class="n">num_inputs</span><span class="p">:</span> <span class="n"><span title="int">int</span></span><span class="p">,</span> <span class="n">num_outputs</span><span class="p">:</span> <span class="n"><span title="int">int</span></span><span class="p">,</span> <span class="n">seed</span><span class="p">:</span> <span class="n"><span title="int">int</span></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><span title="numpy.ndarray">ndarray</span></span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
@@ -9705,18 +9700,18 @@ POVMs of dimension with <span class="arithmatex">\(2\)</span> inputs and <span c
 <a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>
 <a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="nb">print</span><span class="p">(</span><span class="n">povms</span><span class="p">)</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>[[[[ 0.8104736 +0.j  0.1895264 +0.j]
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>   [ 0.91224468+0.j  0.08775532+0.j]]
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>[[[[ 0.73032967+0.j  0.26967033+0.j]
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>   [ 0.48667495+0.j  0.51332505+0.j]]
 <a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>  [[ 0.1959046 +0.j -0.1959046 +0.j]
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>   [ 0.05127168+0.j -0.05127168+0.j]]]
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>  [[-0.37146246+0.j  0.37146246+0.j]
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>   [-0.24401546+0.j  0.24401546+0.j]]]
 <a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>
 <a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>
-<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a> [[[ 0.1959046 +0.j -0.1959046 +0.j]
-<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>   [ 0.05127168+0.j -0.05127168+0.j]]
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a> [[[-0.37146246+0.j  0.37146246+0.j]
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>   [-0.24401546+0.j  0.24401546+0.j]]
 <a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>
-<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>  [[ 0.60308857+0.j  0.39691143+0.j]
-<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>   [ 0.54408121+0.j  0.45591879+0.j]]]]
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>  [[ 0.46427479+0.j  0.53572521+0.j]
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>   [ 0.75843486+0.j  0.24156514+0.j]]]]
 </code></pre></div>
 <p>We can verify that this constitutes a valid set of POVM elements as checking that these operators all sum to the
 identity operator.</p>
