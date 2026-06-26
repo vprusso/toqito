@@ -22,15 +22,36 @@ def test_vectors_from_gram_matrix(gram, expected_result):
     np.testing.assert_allclose(vectors, expected_result)
 
 
-def test_vectors_from_gram_matrix_not_psd():
-    """Test when matrix is not positive semidefinite."""
-    gram = np.array([[1, -1 / 2, -1 / 2], [-1 / 2, 1, -1 / 2], [-1 / 2, -1 / 2, 1]], dtype=complex)
+@pytest.mark.parametrize(
+    "gram",
+    [
+        # Positive-definite real Gram matrix (Cholesky path).
+        np.array([[2, -1], [-1, 2]], dtype=float),
+        # Positive-definite complex Hermitian Gram matrix (Cholesky path).
+        np.array([[2, 1j], [-1j, 2]], dtype=complex),
+    ],
+)
+def test_vectors_from_gram_matrix_reconstructs(gram):
+    """The returned vectors reconstruct a positive-definite Gram matrix."""
+    mat = np.array(vectors_from_gram_matrix(gram))
+    np.testing.assert_allclose(mat @ mat.conj().T, gram, atol=1e-8)
 
-    vectors = vectors_from_gram_matrix(gram)
 
-    assert np.allclose(vectors[0][0], 1)
-    assert np.allclose(vectors[1][0], -1 / 2)
-    assert np.allclose(vectors[2][0], -1 / 2)
+@pytest.mark.parametrize(
+    "gram",
+    [
+        # Rank-deficient (PSD but not PD) real Gram matrix: Cholesky fails, eigendecomposition fallback is used.
+        np.array([[1, 1], [1, 1]], dtype=float),
+        # Singular trine Gram matrix (eigenvalues 0, 3/2, 3/2).
+        np.array([[1, -1 / 2, -1 / 2], [-1 / 2, 1, -1 / 2], [-1 / 2, -1 / 2, 1]], dtype=complex),
+    ],
+)
+def test_vectors_from_gram_matrix_not_psd(gram):
+    """Vectors from a non-positive-definite (but PSD) Gram matrix reconstruct that matrix."""
+    with pytest.warns(UserWarning):
+        vectors = vectors_from_gram_matrix(gram)
+    mat = np.array(vectors)
+    np.testing.assert_allclose(mat @ mat.conj().T, gram, atol=1e-8)
 
 
 @pytest.mark.parametrize(
