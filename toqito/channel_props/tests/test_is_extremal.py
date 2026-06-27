@@ -5,6 +5,7 @@ import pytest
 
 from toqito.channel_ops.kraus_to_choi import kraus_to_choi
 from toqito.channel_props.is_extremal import is_extremal
+from toqito.perms import swap_operator
 
 
 # Consolidated test for all extremal cases.
@@ -89,3 +90,9 @@ def test_is_extremal_value_errors(phi, error_message):
     """Ensure ValueErrors are raised correctly for invalid inputs."""
     with pytest.raises(ValueError, match=error_message):
         is_extremal(phi)
+
+
+def test_is_extremal_non_cp_choi_raises():
+    """A non-completely-positive Choi matrix (e.g. the swap operator) raises a clear error."""
+    with pytest.raises(ValueError, match="completely positive"):
+        is_extremal(swap_operator(2))

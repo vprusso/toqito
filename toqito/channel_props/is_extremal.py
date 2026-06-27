@@ -57,6 +57,11 @@ def is_extremal(phi: np.ndarray | list[np.ndarray | list[np.ndarray]], tol: floa
     # If input is a Choi matrix, convert to a (flat) list of Kraus operators.
     if isinstance(phi, np.ndarray):
         kraus_ops = choi_to_kraus(phi)
+        # For a non-completely-positive (or non-Hermitian) Choi matrix, choi_to_kraus returns operators in the paired
+        # [[A, B], ...] form. Extremality is only defined for completely positive channels, so reject that case with a
+        # clear error instead of crashing on A.conj().T below.
+        if any(not isinstance(op, np.ndarray) for op in kraus_ops):
+            raise ValueError("is_extremal requires a completely positive channel (the Choi matrix must be PSD).")
     elif isinstance(phi, list):
         # If the first element is a list, assume nested list of Kraus operators.
         if len(phi) == 0:

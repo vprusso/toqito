@@ -42,3 +42,10 @@ def test_channel_fidelity_raises_error(input1, input2, expected_msg):
     """Test functions works as expected for valid inputs."""
     with pytest.raises(ValueError, match=expected_msg):
         channel_fidelity(input1, input2)
+
+
+def test_channel_fidelity_non_perfect_square_dim_raises():
+    """A Choi matrix whose dimension is not a perfect square is rejected before the SDP."""
+    mat = np.eye(6, dtype=complex)
+    with pytest.raises(ValueError, match="perfect square"):
+        channel_fidelity(mat, mat)
