@@ -83,7 +83,7 @@ def is_pseudo_hermitian(mat: np.ndarray, signature: np.ndarray, rtol: float = 1e
         ```
 
     """
-    if not is_hermitian(signature):
+    if not is_hermitian(signature, rtol=rtol, atol=atol):
         raise ValueError("Signature not hermitian matrix.")
 
     if np.linalg.matrix_rank(signature) != signature.shape[0]:

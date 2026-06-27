@@ -45,3 +45,10 @@ def test_is_matrix_with_negative_values_and_unitary_sums():
     """Test a non-permutation matrix with some negative values that passes the unitary sum check."""
     mat = np.array([[2, -1], [-1, 2]])
     np.testing.assert_equal(is_permutation(mat), False)
+
+
+def test_is_permutation_tolerance_and_shape():
+    """Float noise is tolerated; non-square and fractional matrices are rejected."""
+    np.testing.assert_equal(is_permutation(np.array([[0.0, 1.0], [1.0, 0.0]]) + 1e-12), True)
+    np.testing.assert_equal(is_permutation(np.array([[1, 0, 0], [0, 1, 0]])), False)
+    np.testing.assert_equal(is_permutation(np.array([[0.5, 0.5], [0.5, 0.5]])), False)

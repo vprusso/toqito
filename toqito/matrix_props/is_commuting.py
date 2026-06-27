@@ -3,7 +3,7 @@
 import numpy as np
 
 
-def is_commuting(mat_1: np.ndarray, mat_2: np.ndarray) -> bool:
+def is_commuting(mat_1: np.ndarray, mat_2: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08) -> bool:
     r"""Determine if two linear operators commute with each other [@wikipediacommuting].
 
     For any pair of operators \(X, Y \in \text{L}(\mathcal{X})\), the
@@ -20,6 +20,8 @@ def is_commuting(mat_1: np.ndarray, mat_2: np.ndarray) -> bool:
     Args:
         mat_1: First matrix to check.
         mat_2: Second matrix to check.
+        rtol: The relative tolerance parameter (default 1e-05).
+        atol: The absolute tolerance parameter (default 1e-08).
 
     Returns:
         Return `True` if `mat_1` commutes with `mat_2` and False otherwise.
@@ -80,4 +82,4 @@ def is_commuting(mat_1: np.ndarray, mat_2: np.ndarray) -> bool:
         ```
 
     """
-    return np.allclose(mat_1 @ mat_2 - mat_2 @ mat_1, 0)
+    return bool(np.allclose(mat_1 @ mat_2 - mat_2 @ mat_1, 0, rtol=rtol, atol=atol))
