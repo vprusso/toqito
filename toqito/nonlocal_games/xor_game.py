@@ -240,6 +240,9 @@ class XORGame:
         problem = cvxpy.Problem(objective, constraints)
         problem.solve(verbose=False)
 
+        if problem.value is None:
+            raise ValueError(f"The XOR game SDP did not solve successfully (status: {problem.status}).")
+
         if self.reps == 1:
             return np.real(problem.value) / 4 + 1 / 2
         # It holds from (https://arxiv.org/abs/quant-ph/0608146) that the

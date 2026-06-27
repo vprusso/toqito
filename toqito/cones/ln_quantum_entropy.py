@@ -97,4 +97,7 @@ def ln_quantum_entropy(
     if is_cplx:
         obj = cvxpy.real(obj)
     prob = cvxpy.Problem(cvxpy.Maximize(obj), cons)
-    return prob.solve(solver=cvxpy.SCS, verbose=False)
+    result = prob.solve(solver=cvxpy.SCS, verbose=False)
+    if prob.status not in (cvxpy.OPTIMAL, cvxpy.OPTIMAL_INACCURATE):
+        raise ValueError(f"The SDP did not solve successfully (status: {prob.status}).")
+    return result

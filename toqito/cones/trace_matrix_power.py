@@ -105,9 +105,15 @@ def trace_matrix_power(
                 cvxpy.Constant(np.eye(n)), mat_a, T, t, fullhyp=False, hermitian=is_cplx
             )
             problem = cvxpy.Problem(cvxpy.Maximize(obj), cons)
-            return problem.solve()
+            result = problem.solve()
+            if problem.status not in (cvxpy.OPTIMAL, cvxpy.OPTIMAL_INACCURATE):
+                raise ValueError(f"The SDP did not solve successfully (status: {problem.status}).")
+            return result
         cons = geometric_mean_epi_cone(
             cvxpy.Constant(np.eye(n)), mat_a, T, t, hermitian=is_cplx
         )
         problem = cvxpy.Problem(cvxpy.Minimize(obj), cons)
-        return problem.solve()
+        result = problem.solve()
+        if problem.status not in (cvxpy.OPTIMAL, cvxpy.OPTIMAL_INACCURATE):
+            raise ValueError(f"The SDP did not solve successfully (status: {problem.status}).")
+        return result
