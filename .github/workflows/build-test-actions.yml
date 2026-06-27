@@ -35,7 +35,7 @@ jobs:
       fail-fast: false
       matrix:
         # Add versions here to expand support matrix
-        python-version: ["3.11", "3.12", "3.13", "3.14"]
+        python-version: ["3.12", "3.13", "3.14"]
         os: [ubuntu-latest, macos-latest]
     runs-on: ${{ matrix.os }}
     env:

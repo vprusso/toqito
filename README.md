@@ -38,7 +38,7 @@ information.
 
 ## Installing
 
-|toqito⟩ is available via [PyPi](https://pypi.org/project/toqito/) for Linux and macOS, with support for Python 3.11
+|toqito⟩ is available via [PyPi](https://pypi.org/project/toqito/) for Linux and macOS, with support for Python 3.12
 to 3.14.
 
 ```sh
