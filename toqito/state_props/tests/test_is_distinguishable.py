@@ -12,7 +12,7 @@ from toqito.states import bell, trine
         # The Bell states are known to be distinguishable.
         ([bell(0), bell(1), bell(2), bell(3)], [1 / 4, 1 / 4, 1 / 4, 1 / 4], True),
         # The trine states are known to not be distinguishable.
-        ([trine()[0], trine()[1], trine()[2]], [1 / 4, 1 / 4, 1 / 4, 1 / 4], False),
+        ([trine()[0], trine()[1], trine()[2]], [1 / 3, 1 / 3, 1 / 3], False),
     ],
 )
 def test_is_distinguishable(states, probs, is_dist):

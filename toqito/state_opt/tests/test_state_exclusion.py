@@ -242,7 +242,6 @@ def test_state_exclusion_invalid_measurement():
     "kwargs, match",
     [
         ({"probs": [0.5]}, "must equal the number of states"),
-        ({"probs": [0.3, 0.3]}, "sum to 1"),
         ({"probs": [-0.5, 1.5]}, "nonnegative"),
         ({"strategy": "bogus"}, "strategy must be either"),
     ],

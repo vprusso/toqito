@@ -192,8 +192,8 @@ def state_distinguishability(
 
     if len(probs) != n:
         raise ValueError(f"The number of probabilities ({len(probs)}) must equal the number of states ({n}).")
-    if not np.isclose(sum(probs), 1):
-        raise ValueError("Probability vector should sum to 1.")
+    # `probs` are weights, not necessarily a normalized distribution (e.g. antidistinguishability passes [1]*n), so we
+    # do not require them to sum to 1.
     if any(p < 0 for p in probs):
         raise ValueError("Probability vector must be nonnegative.")
     if strategy not in ("min_error", "unambiguous"):
