@@ -10100,7 +10100,10 @@ D(x,y) = \pi(x, y) (-1)^{f(x,y)}
 <span class="normal"><a href="#__codelineno-0-247">247</a></span>
 <span class="normal"><a href="#__codelineno-0-248">248</a></span>
 <span class="normal"><a href="#__codelineno-0-249">249</a></span>
-<span class="normal"><a href="#__codelineno-0-250">250</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-183" name="__codelineno-0-183"></a><span class="k">def</span><span class="w"> </span><span class="nf">quantum_value</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="normal"><a href="#__codelineno-0-250">250</a></span>
+<span class="normal"><a href="#__codelineno-0-251">251</a></span>
+<span class="normal"><a href="#__codelineno-0-252">252</a></span>
+<span class="normal"><a href="#__codelineno-0-253">253</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-183" name="__codelineno-0-183"></a><span class="k">def</span><span class="w"> </span><span class="nf">quantum_value</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <a id="__codelineno-0-184" name="__codelineno-0-184"></a><span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Compute the quantum value of the XOR game.</span>
 <a id="__codelineno-0-185" name="__codelineno-0-185"></a>
 <a id="__codelineno-0-186" name="__codelineno-0-186"></a><span class="sd">    To obtain the quantum value of the XOR game, we calculate the following</span>
@@ -10160,14 +10163,17 @@ D(x,y) = \pi(x, y) (-1)^{f(x,y)}
 <a id="__codelineno-0-240" name="__codelineno-0-240"></a>    <span class="n">problem</span> <span class="o">=</span> <span class="n">cvxpy</span><span class="o">.</span><span class="n">Problem</span><span class="p">(</span><span class="n">objective</span><span class="p">,</span> <span class="n">constraints</span><span class="p">)</span>
 <a id="__codelineno-0-241" name="__codelineno-0-241"></a>    <span class="n">problem</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <a id="__codelineno-0-242" name="__codelineno-0-242"></a>
-<a id="__codelineno-0-243" name="__codelineno-0-243"></a>    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">reps</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-<a id="__codelineno-0-244" name="__codelineno-0-244"></a>        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">problem</span><span class="o">.</span><span class="n">value</span><span class="p">)</span> <span class="o">/</span> <span class="mi">4</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">/</span> <span class="mi">2</span>
-<a id="__codelineno-0-245" name="__codelineno-0-245"></a>    <span class="c1"># It holds from (https://arxiv.org/abs/quant-ph/0608146) that the</span>
-<a id="__codelineno-0-246" name="__codelineno-0-246"></a>    <span class="c1"># quantum value of any XOR game obeys strong parallel repetition. That</span>
-<a id="__codelineno-0-247" name="__codelineno-0-247"></a>    <span class="c1"># is, it holds that:</span>
-<a id="__codelineno-0-248" name="__codelineno-0-248"></a>    <span class="c1">#   \omega^*(G^{^n}) = \omega^*(G)^n,</span>
-<a id="__codelineno-0-249" name="__codelineno-0-249"></a>    <span class="c1"># where G^{^n} denotes playing the game G n-times.</span>
-<a id="__codelineno-0-250" name="__codelineno-0-250"></a>    <span class="k">return</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">problem</span><span class="o">.</span><span class="n">value</span><span class="p">)</span> <span class="o">/</span> <span class="mi">4</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">**</span> <span class="bp">self</span><span class="o">.</span><span class="n">reps</span>
+<a id="__codelineno-0-243" name="__codelineno-0-243"></a>    <span class="k">if</span> <span class="n">problem</span><span class="o">.</span><span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-0-244" name="__codelineno-0-244"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The XOR game SDP did not solve successfully (status: </span><span class="si">{</span><span class="n">problem</span><span class="o">.</span><span class="n">status</span><span class="si">}</span><span class="s2">).&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-245" name="__codelineno-0-245"></a>
+<a id="__codelineno-0-246" name="__codelineno-0-246"></a>    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">reps</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+<a id="__codelineno-0-247" name="__codelineno-0-247"></a>        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">problem</span><span class="o">.</span><span class="n">value</span><span class="p">)</span> <span class="o">/</span> <span class="mi">4</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">/</span> <span class="mi">2</span>
+<a id="__codelineno-0-248" name="__codelineno-0-248"></a>    <span class="c1"># It holds from (https://arxiv.org/abs/quant-ph/0608146) that the</span>
+<a id="__codelineno-0-249" name="__codelineno-0-249"></a>    <span class="c1"># quantum value of any XOR game obeys strong parallel repetition. That</span>
+<a id="__codelineno-0-250" name="__codelineno-0-250"></a>    <span class="c1"># is, it holds that:</span>
+<a id="__codelineno-0-251" name="__codelineno-0-251"></a>    <span class="c1">#   \omega^*(G^{^n}) = \omega^*(G)^n,</span>
+<a id="__codelineno-0-252" name="__codelineno-0-252"></a>    <span class="c1"># where G^{^n} denotes playing the game G n-times.</span>
+<a id="__codelineno-0-253" name="__codelineno-0-253"></a>    <span class="k">return</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">problem</span><span class="o">.</span><span class="n">value</span><span class="p">)</span> <span class="o">/</span> <span class="mi">4</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">**</span> <span class="bp">self</span><span class="o">.</span><span class="n">reps</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
@@ -10204,21 +10210,21 @@ D(x,y) = \pi(x, y) (-1)^{f(x,y)}
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>toqito/nonlocal_games/xor_game.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-252">252</a></span>
-<span class="normal"><a href="#__codelineno-0-253">253</a></span>
-<span class="normal"><a href="#__codelineno-0-254">254</a></span>
-<span class="normal"><a href="#__codelineno-0-255">255</a></span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-255">255</a></span>
 <span class="normal"><a href="#__codelineno-0-256">256</a></span>
 <span class="normal"><a href="#__codelineno-0-257">257</a></span>
 <span class="normal"><a href="#__codelineno-0-258">258</a></span>
-<span class="normal"><a href="#__codelineno-0-259">259</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-252" name="__codelineno-0-252"></a><span class="k">def</span><span class="w"> </span><span class="nf">classical_value</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-<a id="__codelineno-0-253" name="__codelineno-0-253"></a><span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Compute the classical value of the XOR game.</span>
-<a id="__codelineno-0-254" name="__codelineno-0-254"></a>
-<a id="__codelineno-0-255" name="__codelineno-0-255"></a><span class="sd">    Returns:</span>
-<a id="__codelineno-0-256" name="__codelineno-0-256"></a><span class="sd">        A value between [0, 1] representing the classical value.</span>
+<span class="normal"><a href="#__codelineno-0-259">259</a></span>
+<span class="normal"><a href="#__codelineno-0-260">260</a></span>
+<span class="normal"><a href="#__codelineno-0-261">261</a></span>
+<span class="normal"><a href="#__codelineno-0-262">262</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-255" name="__codelineno-0-255"></a><span class="k">def</span><span class="w"> </span><span class="nf">classical_value</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<a id="__codelineno-0-256" name="__codelineno-0-256"></a><span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Compute the classical value of the XOR game.</span>
 <a id="__codelineno-0-257" name="__codelineno-0-257"></a>
-<a id="__codelineno-0-258" name="__codelineno-0-258"></a><span class="sd">    &quot;&quot;&quot;</span>
-<a id="__codelineno-0-259" name="__codelineno-0-259"></a>    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_nonlocal_game</span><span class="p">()</span><span class="o">.</span><span class="n">classical_value</span><span class="p">()</span>
+<a id="__codelineno-0-258" name="__codelineno-0-258"></a><span class="sd">    Returns:</span>
+<a id="__codelineno-0-259" name="__codelineno-0-259"></a><span class="sd">        A value between [0, 1] representing the classical value.</span>
+<a id="__codelineno-0-260" name="__codelineno-0-260"></a>
+<a id="__codelineno-0-261" name="__codelineno-0-261"></a><span class="sd">    &quot;&quot;&quot;</span>
+<a id="__codelineno-0-262" name="__codelineno-0-262"></a>    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_nonlocal_game</span><span class="p">()</span><span class="o">.</span><span class="n">classical_value</span><span class="p">()</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
@@ -10256,25 +10262,25 @@ D(x,y) = \pi(x, y) (-1)^{f(x,y)}
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>toqito/nonlocal_games/xor_game.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-261">261</a></span>
-<span class="normal"><a href="#__codelineno-0-262">262</a></span>
-<span class="normal"><a href="#__codelineno-0-263">263</a></span>
-<span class="normal"><a href="#__codelineno-0-264">264</a></span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-264">264</a></span>
 <span class="normal"><a href="#__codelineno-0-265">265</a></span>
 <span class="normal"><a href="#__codelineno-0-266">266</a></span>
 <span class="normal"><a href="#__codelineno-0-267">267</a></span>
 <span class="normal"><a href="#__codelineno-0-268">268</a></span>
 <span class="normal"><a href="#__codelineno-0-269">269</a></span>
-<span class="normal"><a href="#__codelineno-0-270">270</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-261" name="__codelineno-0-261"></a><span class="k">def</span><span class="w"> </span><span class="nf">nonsignaling_value</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-<a id="__codelineno-0-262" name="__codelineno-0-262"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute the nonsignaling value of an XOR game.</span>
-<a id="__codelineno-0-263" name="__codelineno-0-263"></a>
-<a id="__codelineno-0-264" name="__codelineno-0-264"></a><span class="sd">    Here, the existing function in the `NonlocalGame` class is called.</span>
-<a id="__codelineno-0-265" name="__codelineno-0-265"></a>
-<a id="__codelineno-0-266" name="__codelineno-0-266"></a><span class="sd">    Returns:</span>
-<a id="__codelineno-0-267" name="__codelineno-0-267"></a><span class="sd">        A value between [0, 1] representing the nonsignaling value.</span>
+<span class="normal"><a href="#__codelineno-0-270">270</a></span>
+<span class="normal"><a href="#__codelineno-0-271">271</a></span>
+<span class="normal"><a href="#__codelineno-0-272">272</a></span>
+<span class="normal"><a href="#__codelineno-0-273">273</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-264" name="__codelineno-0-264"></a><span class="k">def</span><span class="w"> </span><span class="nf">nonsignaling_value</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<a id="__codelineno-0-265" name="__codelineno-0-265"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute the nonsignaling value of an XOR game.</span>
+<a id="__codelineno-0-266" name="__codelineno-0-266"></a>
+<a id="__codelineno-0-267" name="__codelineno-0-267"></a><span class="sd">    Here, the existing function in the `NonlocalGame` class is called.</span>
 <a id="__codelineno-0-268" name="__codelineno-0-268"></a>
-<a id="__codelineno-0-269" name="__codelineno-0-269"></a><span class="sd">    &quot;&quot;&quot;</span>
-<a id="__codelineno-0-270" name="__codelineno-0-270"></a>    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_nonlocal_game</span><span class="p">()</span><span class="o">.</span><span class="n">nonsignaling_value</span><span class="p">()</span>
+<a id="__codelineno-0-269" name="__codelineno-0-269"></a><span class="sd">    Returns:</span>
+<a id="__codelineno-0-270" name="__codelineno-0-270"></a><span class="sd">        A value between [0, 1] representing the nonsignaling value.</span>
+<a id="__codelineno-0-271" name="__codelineno-0-271"></a>
+<a id="__codelineno-0-272" name="__codelineno-0-272"></a><span class="sd">    &quot;&quot;&quot;</span>
+<a id="__codelineno-0-273" name="__codelineno-0-273"></a>    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_nonlocal_game</span><span class="p">()</span><span class="o">.</span><span class="n">nonsignaling_value</span><span class="p">()</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
@@ -10311,10 +10317,7 @@ D(x,y) = \pi(x, y) (-1)^{f(x,y)}
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>toqito/nonlocal_games/xor_game.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-272">272</a></span>
-<span class="normal"><a href="#__codelineno-0-273">273</a></span>
-<span class="normal"><a href="#__codelineno-0-274">274</a></span>
-<span class="normal"><a href="#__codelineno-0-275">275</a></span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-275">275</a></span>
 <span class="normal"><a href="#__codelineno-0-276">276</a></span>
 <span class="normal"><a href="#__codelineno-0-277">277</a></span>
 <span class="normal"><a href="#__codelineno-0-278">278</a></span>
@@ -10328,24 +10331,27 @@ D(x,y) = \pi(x, y) (-1)^{f(x,y)}
 <span class="normal"><a href="#__codelineno-0-286">286</a></span>
 <span class="normal"><a href="#__codelineno-0-287">287</a></span>
 <span class="normal"><a href="#__codelineno-0-288">288</a></span>
-<span class="normal"><a href="#__codelineno-0-289">289</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-272" name="__codelineno-0-272"></a><span class="k">def</span><span class="w"> </span><span class="nf">to_nonlocal_game</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NonlocalGame</span><span class="p">:</span>
-<a id="__codelineno-0-273" name="__codelineno-0-273"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Given an XOR game, compute a predicate matrix representing the more generic `NonlocalGame` equivalent.</span>
-<a id="__codelineno-0-274" name="__codelineno-0-274"></a>
-<a id="__codelineno-0-275" name="__codelineno-0-275"></a><span class="sd">    Returns:</span>
-<a id="__codelineno-0-276" name="__codelineno-0-276"></a><span class="sd">        A `NonlocalGame` object equivalent to the XOR game.</span>
+<span class="normal"><a href="#__codelineno-0-289">289</a></span>
+<span class="normal"><a href="#__codelineno-0-290">290</a></span>
+<span class="normal"><a href="#__codelineno-0-291">291</a></span>
+<span class="normal"><a href="#__codelineno-0-292">292</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-275" name="__codelineno-0-275"></a><span class="k">def</span><span class="w"> </span><span class="nf">to_nonlocal_game</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NonlocalGame</span><span class="p">:</span>
+<a id="__codelineno-0-276" name="__codelineno-0-276"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Given an XOR game, compute a predicate matrix representing the more generic `NonlocalGame` equivalent.</span>
 <a id="__codelineno-0-277" name="__codelineno-0-277"></a>
-<a id="__codelineno-0-278" name="__codelineno-0-278"></a><span class="sd">    &quot;&quot;&quot;</span>
-<a id="__codelineno-0-279" name="__codelineno-0-279"></a>    <span class="n">q_0</span><span class="p">,</span> <span class="n">q_1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">prob_mat</span><span class="o">.</span><span class="n">shape</span>
-<a id="__codelineno-0-280" name="__codelineno-0-280"></a>    <span class="n">xor_pred_mat</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pred_mat</span>
-<a id="__codelineno-0-281" name="__codelineno-0-281"></a>    <span class="n">nlg_pred_mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">q_0</span><span class="p">,</span> <span class="n">q_1</span><span class="p">))</span>
-<a id="__codelineno-0-282" name="__codelineno-0-282"></a>
-<a id="__codelineno-0-283" name="__codelineno-0-283"></a>    <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
-<a id="__codelineno-0-284" name="__codelineno-0-284"></a>        <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
-<a id="__codelineno-0-285" name="__codelineno-0-285"></a>            <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">q_0</span><span class="p">):</span>
-<a id="__codelineno-0-286" name="__codelineno-0-286"></a>                <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">q_1</span><span class="p">):</span>
-<a id="__codelineno-0-287" name="__codelineno-0-287"></a>                    <span class="n">nlg_pred_mat</span><span class="p">[</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">]</span> <span class="o">=</span> <span class="n">xor_pred_mat</span><span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">]</span> <span class="o">==</span> <span class="n">a</span> <span class="o">^</span> <span class="n">b</span>
-<a id="__codelineno-0-288" name="__codelineno-0-288"></a>
-<a id="__codelineno-0-289" name="__codelineno-0-289"></a>    <span class="k">return</span> <span class="n">NonlocalGame</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">prob_mat</span><span class="p">,</span> <span class="n">nlg_pred_mat</span><span class="p">,</span> <span class="n">reps</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">reps</span><span class="p">)</span>
+<a id="__codelineno-0-278" name="__codelineno-0-278"></a><span class="sd">    Returns:</span>
+<a id="__codelineno-0-279" name="__codelineno-0-279"></a><span class="sd">        A `NonlocalGame` object equivalent to the XOR game.</span>
+<a id="__codelineno-0-280" name="__codelineno-0-280"></a>
+<a id="__codelineno-0-281" name="__codelineno-0-281"></a><span class="sd">    &quot;&quot;&quot;</span>
+<a id="__codelineno-0-282" name="__codelineno-0-282"></a>    <span class="n">q_0</span><span class="p">,</span> <span class="n">q_1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">prob_mat</span><span class="o">.</span><span class="n">shape</span>
+<a id="__codelineno-0-283" name="__codelineno-0-283"></a>    <span class="n">xor_pred_mat</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pred_mat</span>
+<a id="__codelineno-0-284" name="__codelineno-0-284"></a>    <span class="n">nlg_pred_mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">q_0</span><span class="p">,</span> <span class="n">q_1</span><span class="p">))</span>
+<a id="__codelineno-0-285" name="__codelineno-0-285"></a>
+<a id="__codelineno-0-286" name="__codelineno-0-286"></a>    <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
+<a id="__codelineno-0-287" name="__codelineno-0-287"></a>        <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
+<a id="__codelineno-0-288" name="__codelineno-0-288"></a>            <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">q_0</span><span class="p">):</span>
+<a id="__codelineno-0-289" name="__codelineno-0-289"></a>                <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">q_1</span><span class="p">):</span>
+<a id="__codelineno-0-290" name="__codelineno-0-290"></a>                    <span class="n">nlg_pred_mat</span><span class="p">[</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">]</span> <span class="o">=</span> <span class="n">xor_pred_mat</span><span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">]</span> <span class="o">==</span> <span class="n">a</span> <span class="o">^</span> <span class="n">b</span>
+<a id="__codelineno-0-291" name="__codelineno-0-291"></a>
+<a id="__codelineno-0-292" name="__codelineno-0-292"></a>    <span class="k">return</span> <span class="n">NonlocalGame</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">prob_mat</span><span class="p">,</span> <span class="n">nlg_pred_mat</span><span class="p">,</span> <span class="n">reps</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">reps</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
