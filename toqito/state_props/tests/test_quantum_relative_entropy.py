@@ -52,6 +52,7 @@ def _qre_sdp_fixed_y(
     k: int,
     apx: int,
     hermitian: bool,
+    space_optimized: bool = False,
 ) -> float:
     """Like CVXQUAD ``minimize quantum_rel_entr(X,B)`` with ``X == A``."""
     return quantum_relative_entropy(
@@ -60,6 +61,7 @@ def _qre_sdp_fixed_y(
         m=m,
         k=k,
         apx=apx,
+        space_optimized=space_optimized,
     )
 
 
@@ -71,6 +73,7 @@ def _qre_sdp_fixed_x(
     k: int,
     apx: int,
     hermitian: bool,
+    space_optimized: bool = False,
 ) -> float:
     """Like CVXQUAD ``minimize quantum_rel_entr(A,Y)`` with ``Y == B``."""
     return quantum_relative_entropy(
@@ -79,6 +82,7 @@ def _qre_sdp_fixed_x(
         m=m,
         k=k,
         apx=apx,
+        space_optimized=space_optimized,
     )
 
 
@@ -90,6 +94,7 @@ def _qre_sdp_fixed_xy(
     k: int,
     apx: int,
     hermitian: bool,
+    space_optimized: bool = False,
 ) -> float:
     """Like CVXQUAD ``minimize quantum_rel_entr(X,Y)`` with ``X == A``, ``Y == B``."""
     return quantum_relative_entropy(
@@ -98,14 +103,22 @@ def _qre_sdp_fixed_xy(
         m=m,
         k=k,
         apx=apx,
+        space_optimized=space_optimized,
     )
 
 
+@pytest.mark.parametrize("space_optimized", [False, True])
 @pytest.mark.parametrize("dim", [2, 3])
 @pytest.mark.parametrize("mk", [1, 3])
 @pytest.mark.parametrize("apx", [-1, 0, 1])
 @pytest.mark.parametrize("hermitian", [False, True])
-def test_quantum_relative_entropy(dim: int, mk: int, apx: int, hermitian: bool):
+def test_quantum_relative_entropy(
+    dim: int,
+    mk: int,
+    apx: int,
+    hermitian: bool,
+    space_optimized: bool,
+):
     """Like CVXQUAD ``test_quantum_rel_entr``: three SDP branches vs numeric reference."""
     if mk == 1 and apx == 0:
         pytest.skip("CVXQUAD skips (m,k)=(1,1) with Pade apx=0.")
@@ -118,9 +131,33 @@ def test_quantum_relative_entropy(dim: int, mk: int, apx: int, hermitian: bool):
     assert is_positive_semidefinite(np.asarray(mat_b, dtype=np.complex128))
 
     dab = quantum_relative_entropy(mat_a, mat_b)
-    val1 = _qre_sdp_fixed_y(mat_a, mat_b, m=mk, k=mk, apx=apx, hermitian=hermitian)
-    val2 = _qre_sdp_fixed_x(mat_a, mat_b, m=mk, k=mk, apx=apx, hermitian=hermitian)
-    val12 = _qre_sdp_fixed_xy(mat_a, mat_b, m=mk, k=mk, apx=apx, hermitian=hermitian)
+    val1 = _qre_sdp_fixed_y(
+        mat_a,
+        mat_b,
+        m=mk,
+        k=mk,
+        apx=apx,
+        hermitian=hermitian,
+        space_optimized=space_optimized,
+    )
+    val2 = _qre_sdp_fixed_x(
+        mat_a,
+        mat_b,
+        m=mk,
+        k=mk,
+        apx=apx,
+        hermitian=hermitian,
+        space_optimized=space_optimized,
+    )
+    val12 = _qre_sdp_fixed_xy(
+        mat_a,
+        mat_b,
+        m=mk,
+        k=mk,
+        apx=apx,
+        hermitian=hermitian,
+        space_optimized=space_optimized,
+    )
 
     if abs(dab) < 1e-12:
         assert abs(val1 - dab) <= 1e-4
@@ -135,12 +172,17 @@ def test_quantum_relative_entropy(dim: int, mk: int, apx: int, hermitian: bool):
     if apx != 0:
         assert apx * err1 >= -5e-4, err1
         assert apx * err2 >= -5e-4, err2
-        assert apx * err12 >= -5e-4, err12
+        if not space_optimized:
+            assert apx * err12 >= -5e-4, err12
 
     if mk >= 3:
         assert abs(err1) <= 1e-2, err1
         assert abs(err2) <= 1e-2, err2
-        assert abs(err12) <= 1e-2, err12
+        if not space_optimized:
+            assert abs(err12) <= 1e-2, err12
+
+    if space_optimized:
+        assert abs(err12) <= 1.5e-1, err12
 
 
 def test_quantum_relative_entropy_commuting_reference():
@@ -183,7 +225,8 @@ def test_quantum_relative_entropy_constant_x_constant_y_branch():
     np.testing.assert_allclose(got, want, rtol=1e-10, atol=1e-10)
 
 
-def test_quantum_relative_entropy_constant_x_affine_y_branch():
+@pytest.mark.parametrize("space_optimized", [False, True])
+def test_quantum_relative_entropy_constant_x_affine_y_branch(space_optimized: bool):
     """Constant ``mat_x`` with affine ``mat_y`` uses ``trace_matrix_log`` on ``mat_y``."""
     n = 2
     rng = np.random.default_rng(31)
@@ -194,12 +237,15 @@ def test_quantum_relative_entropy_constant_x_affine_y_branch():
     mat_b = np.eye(n) / n
     expr_x = cvxpy.Constant(mat_a)
     expr_y = _affine_fixed_at(mat_b, hermitian=False)
-    got = quantum_relative_entropy(expr_x, expr_y, m=3, k=3, apx=0)
+    got = quantum_relative_entropy(
+        expr_x, expr_y, m=3, k=3, apx=0, space_optimized=space_optimized
+    )
     want = quantum_relative_entropy(mat_a, mat_b, m=3, k=3, apx=0)
     np.testing.assert_allclose(float(got), want, rtol=1e-4, atol=1e-4)
 
 
-def test_quantum_relative_entropy_constant_y_branch():
+@pytest.mark.parametrize("space_optimized", [False, True])
+def test_quantum_relative_entropy_constant_y_branch(space_optimized: bool):
     """Constant ``mat_y`` uses affine-``X`` branch with ``logm(Y)``."""
     n = 3
     rng = np.random.default_rng(23)
@@ -211,12 +257,20 @@ def test_quantum_relative_entropy_constant_y_branch():
     w_var = cvxpy.Variable((n, n), symmetric=True)
     w_var.value = np.zeros((n, n))
     mat_x = cvxpy.Constant(mat_a) + w_var - w_var
-    got = quantum_relative_entropy(mat_x, cvxpy.Constant(mat_b), m=3, k=3, apx=1)
+    got = quantum_relative_entropy(
+        mat_x,
+        cvxpy.Constant(mat_b),
+        m=3,
+        k=3,
+        apx=1,
+        space_optimized=space_optimized,
+    )
     want = quantum_relative_entropy(mat_a, mat_b, m=3, k=3, apx=1)
     np.testing.assert_allclose(float(got), want, rtol=5e-4, atol=1e-6)
 
 
-def test_quantum_relative_entropy_joint_affine_hermitian():
+@pytest.mark.parametrize("space_optimized", [False, True])
+def test_quantum_relative_entropy_joint_affine_hermitian(space_optimized: bool):
     """Hermitian joint-affine branch vs numeric reference."""
     n = 2
     rng = np.random.default_rng(29)
@@ -225,9 +279,20 @@ def test_quantum_relative_entropy_joint_affine_hermitian():
     mat_a = (h0 + h0.conj().T) / 2
     mat_a = mat_a / np.trace(mat_a)
     mat_b = np.eye(n) / n
-    val = _qre_sdp_fixed_xy(mat_a, mat_b, m=3, k=3, apx=-1, hermitian=True)
+    val = _qre_sdp_fixed_xy(
+        mat_a,
+        mat_b,
+        m=3,
+        k=3,
+        apx=-1,
+        hermitian=True,
+        space_optimized=space_optimized,
+    )
     ref = quantum_relative_entropy(mat_a, mat_b)
-    np.testing.assert_allclose(float(val), ref, rtol=5e-4, atol=1e-6)
+    if space_optimized:
+        np.testing.assert_allclose(float(val), ref, rtol=5e-2, atol=1e-4)
+    else:
+        np.testing.assert_allclose(float(val), ref, rtol=5e-4, atol=1e-6)
 
 
 def test_quantum_relative_entropy_support_inclusion_failure():
@@ -305,6 +370,13 @@ class TestQuantumRelativeEntropyValueErrors:
         with pytest.raises(ValueError, match=re.escape("apx must be -1, 0, or 1")):
             quantum_relative_entropy(np.eye(2), np.eye(2), apx=2)
 
+    def test_space_optimized_invalid(self):
+        """Reject non-boolean ``space_optimized``."""
+        with pytest.raises(
+            ValueError, match=re.escape("space_optimized must be a boolean")
+        ):
+            quantum_relative_entropy(np.eye(2), np.eye(2), space_optimized="yes")
+
     def test_mat_x_not_psd(self):
         """Reject non-PSD numeric ``mat_x``."""
         mat_x = np.array([[1.0, 2.0], [2.0, 1.0]])
@@ -322,17 +394,6 @@ class TestQuantumRelativeEntropyValueErrors:
             match=re.escape("mat_y must be a positive semidefinite matrix"),
         ):
             quantum_relative_entropy(np.eye(2), mat_y)
-
-    def test_mat_y_not_psd_constant_y_branch(self):
-        """Reject non-PSD constant ``mat_y`` on the constant-``Y`` branch."""
-        n = 2
-        mat_x = _affine_fixed_at(np.eye(n), hermitian=False)
-        bad_y = np.diag([1.0, -0.5])
-        with pytest.raises(
-            ValueError,
-            match=re.escape("mat_y must be a positive semidefinite matrix"),
-        ):
-            quantum_relative_entropy(mat_x, cvxpy.Constant(bad_y))
 
     def test_mat_x_not_hermitian(self):
         """Reject non-Hermitian numeric ``mat_x``."""
@@ -377,7 +438,27 @@ class TestQuantumRelativeEntropyValueErrors:
         ):
             quantum_relative_entropy(p_x, p_y)
 
-    def test_constant_y_no_value(self):
+
+@pytest.mark.parametrize("space_optimized", [False, True])
+class TestQuantumRelativeEntropyAffineValueErrors:
+    """``ValueError`` paths on affine CVXPY branches."""
+
+    def test_mat_y_not_psd_constant_y_branch(self, space_optimized: bool):
+        """Reject non-PSD constant ``mat_y`` on the constant-``Y`` branch."""
+        n = 2
+        mat_x = _affine_fixed_at(np.eye(n), hermitian=False)
+        bad_y = np.diag([1.0, -0.5])
+        with pytest.raises(
+            ValueError,
+            match=re.escape("mat_y must be a positive semidefinite matrix"),
+        ):
+            quantum_relative_entropy(
+                mat_x,
+                cvxpy.Constant(bad_y),
+                space_optimized=space_optimized,
+            )
+
+    def test_constant_y_no_value(self, space_optimized: bool):
         """Reject constant ``mat_y`` with no ``.value``."""
         n = 2
         p_y = cvxpy.Parameter((n, n), symmetric=True)
@@ -389,9 +470,9 @@ class TestQuantumRelativeEntropyValueErrors:
                 "or pass mat_y as a numpy.ndarray."
             ),
         ):
-            quantum_relative_entropy(mat_x, p_y)
+            quantum_relative_entropy(mat_x, p_y, space_optimized=space_optimized)
 
-    def test_not_affine(self):
+    def test_not_affine(self, space_optimized: bool):
         """Reject non-affine CVXPY inputs on the joint branch."""
         n = 2
         x_var = cvxpy.Variable((n, n), symmetric=True)
@@ -402,9 +483,13 @@ class TestQuantumRelativeEntropyValueErrors:
             ValueError,
             match=re.escape("mat_x and mat_y must be affine CVXPY expressions."),
         ):
-            quantum_relative_entropy(x_var @ x_var, y_var)
+            quantum_relative_entropy(
+                x_var @ x_var,
+                y_var,
+                space_optimized=space_optimized,
+            )
 
-    def test_joint_affine_no_initial_value(self):
+    def test_joint_affine_no_initial_value(self, space_optimized: bool):
         """Reject joint-affine inputs with no initial ``.value`` for PSD checks."""
         n = 2
         t_x = cvxpy.Variable()
@@ -415,9 +500,13 @@ class TestQuantumRelativeEntropyValueErrors:
                 "Affine mat_x and mat_y need numeric initial values; set `.value` for PSD checks."
             ),
         ):
-            quantum_relative_entropy(t_x * np.eye(n), t_y * np.eye(n))
+            quantum_relative_entropy(
+                t_x * np.eye(n),
+                t_y * np.eye(n),
+                space_optimized=space_optimized,
+            )
 
-    def test_constant_y_branch_affine_x_no_initial_value(self):
+    def test_constant_y_branch_affine_x_no_initial_value(self, space_optimized: bool):
         """Reject affine ``mat_x`` with no ``.value`` on the constant-``Y`` branch."""
         n = 2
         t = cvxpy.Variable()
@@ -427,9 +516,13 @@ class TestQuantumRelativeEntropyValueErrors:
                 "mat_x has no numeric value; pass a numpy.ndarray or set `.value`."
             ),
         ):
-            quantum_relative_entropy(t * np.eye(n), cvxpy.Constant(np.eye(n)))
+            quantum_relative_entropy(
+                t * np.eye(n),
+                cvxpy.Constant(np.eye(n)),
+                space_optimized=space_optimized,
+            )
 
-    def test_affine_x_not_psd_at_value_constant_y(self):
+    def test_affine_x_not_psd_at_value_constant_y(self, space_optimized: bool):
         """Reject affine ``mat_x`` that is not PSD at ``.value`` (constant-``Y`` branch)."""
         n = 2
         t = cvxpy.Variable()
@@ -440,9 +533,13 @@ class TestQuantumRelativeEntropyValueErrors:
                 "mat_x must be positive semidefinite at the initial value."
             ),
         ):
-            quantum_relative_entropy(t * np.eye(n), cvxpy.Constant(np.eye(n)))
+            quantum_relative_entropy(
+                t * np.eye(n),
+                cvxpy.Constant(np.eye(n)),
+                space_optimized=space_optimized,
+            )
 
-    def test_joint_affine_x_not_psd_at_value(self):
+    def test_joint_affine_x_not_psd_at_value(self, space_optimized: bool):
         """Reject joint-affine ``mat_x`` that is not PSD at ``.value``."""
         n = 2
         t_x = cvxpy.Variable()
@@ -455,9 +552,13 @@ class TestQuantumRelativeEntropyValueErrors:
                 "mat_x must be positive semidefinite at the initial value."
             ),
         ):
-            quantum_relative_entropy(t_x * np.eye(n), t_y * np.eye(n))
+            quantum_relative_entropy(
+                t_x * np.eye(n),
+                t_y * np.eye(n),
+                space_optimized=space_optimized,
+            )
 
-    def test_joint_affine_y_not_psd_at_value(self):
+    def test_joint_affine_y_not_psd_at_value(self, space_optimized: bool):
         """Reject joint-affine ``mat_y`` that is not PSD at ``.value``."""
         n = 2
         t_x = cvxpy.Variable()
@@ -470,4 +571,8 @@ class TestQuantumRelativeEntropyValueErrors:
                 "mat_y must be positive semidefinite at the initial value."
             ),
         ):
-            quantum_relative_entropy(t_x * np.eye(n), t_y * np.eye(n))
+            quantum_relative_entropy(
+                t_x * np.eye(n),
+                t_y * np.eye(n),
+                space_optimized=space_optimized,
+            )

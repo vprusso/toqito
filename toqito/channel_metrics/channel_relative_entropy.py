@@ -6,158 +6,22 @@ import cvxpy as cvx
 import numpy as np
 
 from toqito.channel_props import is_completely_positive, is_quantum_channel
+from toqito.cones._integral_relative_entropy import (
+    find_lambda as _find_lambda,
+)
+from toqito.cones._integral_relative_entropy import (
+    find_mu as _find_mu,
+)
+from toqito.cones._integral_relative_entropy import (
+    make_delta as _make_delta,
+)
+from toqito.cones._integral_relative_entropy import (
+    make_gamma as _make_gamma,
+)
+from toqito.cones._integral_relative_entropy import (
+    make_grid as _make_grid,
+)
 from toqito.matrix_ops.partial_trace import partial_trace
-
-
-def _make_grid(mu: float, lam: float, epsilon: float) -> np.ndarray:
-    r"""Make a grid of points for the integral representation of the relative entropy.
-
-    The first point of the grid is set to \(\mu\). For the k-th point \(t_k\), where
-    \(k \gt 1\), \(t_k = t_{k-1} + \sqrt{8 \epsilon t_{k-1}}\).
-
-    This formula yields \(O(\sqrt{\lambda/\epsilon})\) points in the grid.
-
-    Args:
-        mu: The starting point of the grid.
-        lam: The ending point of the grid.
-        epsilon: The grid refinement parameter.
-
-    Returns:
-        The grid of points.
-
-    """
-    grid = [mu]
-    curr = mu + np.sqrt(epsilon * mu * 8)
-    while curr < lam:
-        grid.append(curr)
-        curr = curr + np.sqrt(epsilon * 8 * curr)
-    return np.array(grid + [lam])
-
-
-def _find_mu(rho: np.ndarray, sigma: np.ndarray, solver: str, **solve_kwargs) -> float:
-    r"""Find the starting point \(\mu\) of the integral representation of the relative entropy.
-
-    Args:
-        rho: The Choi matrix of the first channel.
-        sigma: The Choi matrix of the second channel.
-        solver: The CVXPY solver to use.
-        solve_kwargs: Additional arguments passed to ``cvxpy.Problem.solve``.
-
-    Returns:
-        The starting point \(\mu\).
-
-    """
-    mu = cvx.Variable()
-    problem = cvx.Problem(cvx.Maximize(mu), [sigma - mu * rho >> 0])
-    problem.solve(solver=solver, **solve_kwargs)
-    if problem.status not in (cvx.OPTIMAL, cvx.OPTIMAL_INACCURATE):
-        raise ValueError(f"mu auxiliary SDP failed: {problem.status}")
-    if mu.value is None:
-        raise ValueError("mu auxiliary SDP failed: solver returned no value")
-    return float(mu.value)
-
-
-def _find_lambda(
-    rho: np.ndarray, sigma: np.ndarray, solver: str, **solve_kwargs
-) -> float:
-    r"""Find the ending point \(\lambda\) of the integral representation of the relative entropy.
-
-    Args:
-        rho: The Choi matrix of the first channel.
-        sigma: The Choi matrix of the second channel.
-        solver: The CVXPY solver to use.
-        solve_kwargs: Additional arguments passed to ``cvxpy.Problem.solve``.
-
-    Returns:
-        The ending point \(\lambda\).
-
-    """
-    lam = cvx.Variable()
-    problem = cvx.Problem(cvx.Minimize(lam), [lam * sigma - rho >> 0])
-    problem.solve(solver=solver, **solve_kwargs)
-    if problem.status not in (cvx.OPTIMAL, cvx.OPTIMAL_INACCURATE):
-        raise ValueError(f"lambda auxiliary SDP failed: {problem.status}")
-    if lam.value is None:
-        raise ValueError("lambda auxiliary SDP failed: solver returned no value")
-    return float(lam.value)
-
-
-def _make_delta(t: np.ndarray) -> np.ndarray:
-    r"""Make the delta coefficients for the integral representation of the relative entropy.
-
-    Suppose the integral grid has \(r\) points from \(t_1\) to \(t_r\). Then the
-    coefficient \(\delta_k\) is defined by
-
-    \[
-    \delta_k =
-    \begin{cases}
-    \left[\left(1 + \frac{t_1}{t_2 - t_1}\right)\log\left(\frac{t_2}{t_1}\right) - 1\right] t_1
-    & k = 1, \\
-    \left[1 - \frac{t_{r-1}}{t_r - t_{r-1}}\log\left(\frac{t_r}{t_{r-1}}\right)\right] t_r
-    & k = r, \\
-    \left[\left(1 + \frac{t_k}{t_{k+1} - t_k}\right)\log\left(\frac{t_{k+1}}{t_k}\right)
-    - \frac{t_{k-1}}{t_k - t_{k-1}}\log\left(\frac{t_k}{t_{k-1}}\right)\right] t_k
-    & \text{otherwise}.
-    \end{cases}
-    \]
-
-    where the indexing in the formula is one-based.
-
-    Args:
-        t: The grid of points.
-
-    Returns:
-        The delta coefficients.
-
-    """
-    delta = np.zeros(len(t))
-    delta[0] = t[0] * ((1 + t[0] / (t[1] - t[0])) * np.log(t[1] / t[0]) - 1)
-    delta[-1] = t[-1] * (1 - (np.log(t[-1] / t[-2]) * t[-2] / (t[-1] - t[-2])))
-    for i in range(1, len(t) - 1):
-        delta[i] = t[i] * (
-            (1 + t[i] / (t[i + 1] - t[i])) * np.log(t[i + 1] / t[i])
-            - t[i - 1] * np.log(t[i] / t[i - 1]) / (t[i] - t[i - 1])
-        )
-    return delta
-
-
-def _make_gamma(t: np.ndarray) -> np.ndarray:
-    r"""Make the gamma coefficients for the integral representation of the relative entropy.
-
-    Suppose the integral grid has \(r\) points from \(t_1\) to \(t_r\). Then the
-    coefficient \(\gamma_k\) is defined by
-
-    \[
-    \gamma_k =
-    \begin{cases}
-    -\left[\left(1 + \frac{t_1}{t_2 - t_1}\right)\log\left(\frac{t_2}{t_1}\right) - 1\right]
-    & k = 1, \\
-    -\left[1 - \frac{t_{r-1}}{t_r - t_{r-1}}\log\left(\frac{t_r}{t_{r-1}}\right)\right]
-    & k = r, \\
-    -\left[\left(1 + \frac{t_k}{t_{k+1} - t_k}\right)\log\left(\frac{t_{k+1}}{t_k}\right)
-    - \frac{t_{k-1}}{t_k - t_{k-1}}\log\left(\frac{t_k}{t_{k-1}}\right)\right]
-    & \text{otherwise}.
-    \end{cases}
-    \]
-
-    where the indexing in the formula is one-based.
-
-    Args:
-        t: The grid of points.
-
-    Returns:
-        The gamma coefficients.
-
-    """
-    gamma = np.zeros(len(t))
-    gamma[0] = -1 * ((1 + t[0] / (t[1] - t[0])) * np.log(t[1] / t[0]) - 1)
-    gamma[-1] = -1 * (1 - t[-2] * np.log(t[-1] / t[-2]) / (t[-1] - t[-2]))
-    for i in range(1, len(t) - 1):
-        gamma[i] = -1 * (
-            (1 + t[i] / (t[i + 1] - t[i])) * np.log(t[i + 1] / t[i])
-            - np.log(t[i] / t[i - 1]) * t[i - 1] / (t[i] - t[i - 1])
-        )
-    return gamma
 
 
 def channel_relative_entropy(

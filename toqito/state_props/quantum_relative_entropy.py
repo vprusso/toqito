@@ -7,6 +7,7 @@ import cvxpy
 import numpy as np
 from scipy.linalg import logm
 
+from toqito.cones._integral_relative_entropy import evaluate_relative_entropy_integral
 from toqito.cones._utils import _require_square_2d
 from toqito.cones.ln_quantum_entropy import ln_quantum_entropy
 from toqito.cones.operator_relative_entropy_epi_cone import (
@@ -22,6 +23,10 @@ def quantum_relative_entropy(
     m: int = 3,
     k: int = 3,
     apx: int = 0,
+    space_optimized: bool = False,
+    epsilon_dec: float = 1e-2,
+    solver: str = "SCS",
+    **solve_kwargs,
 ) -> float:
     r"""Compute the quantum relative entropy \(D(X||Y)\) for PSD \(X\) and \(Y\).
 
@@ -31,13 +36,33 @@ def quantum_relative_entropy(
     The quantum relative entropy is jointly convex in \(X\) and \(Y\), assuming
     that \(X\) and \(Y\) are positive semidefinite matrices.
 
+    This function includes two modes for the affine branch. The first (``space_optimized=False``) is from
+    [@fawzi2017matrixlogarithm] and the second (``space_optimized=True``) is
+    from [@kossmann2024optimisingrelativeentropy].
+
+    The first mode features better convergence in the approximation parameters,
+    but it relies on a lifting technique that makes variables of size \(n^2 \times n^2\) instead of \(n \times n\).
+    The second mode uses a smaller semidefinite representation and is more efficient, but it may not be as accurate.
 
     Args:
         mat_x: The first positive semidefinite matrix.
         mat_y: The second positive semidefinite matrix.
-        m: The number of quadrature nodes to use.
-        k: The number of square-roots to take.
-        apx: The approximation to use.
+        m: The number of quadrature nodes to use. Ignored when ``space_optimized`` is
+            ``True`` and both arguments are non-constant affine CVXPY expressions.
+        k: The number of square-roots to take. Ignored when ``space_optimized`` is
+            ``True`` and both arguments are non-constant affine CVXPY expressions.
+        apx: The approximation to use. Ignored when ``space_optimized`` is ``True`` and
+            both arguments are non-constant affine CVXPY expressions.
+        space_optimized: If ``True``, use the integral SDP representation
+            [@kossmann2024optimisingrelativeentropy] when both arguments are
+            non-constant affine CVXPY expressions. This uses \(n \times n\)
+            matrix variables instead of the Kronecker \(n^2 \times n^2\) cone
+            from CVXQUAD.
+        epsilon_dec: Grid refinement parameter for the integral representation.
+            Used only when ``space_optimized`` is ``True``. Defaults to ``1e-2``.
+        solver: CVXPY solver for the joint-affine SDP branches. Defaults to ``"SCS"``.
+        solve_kwargs: Additional arguments passed to ``cvxpy.Problem.solve`` for the
+            joint-affine SDP branches.
 
     Raises:
         ValueError: If ``mat_x`` or ``mat_y`` is not a numpy array or cvxpy expression.
@@ -48,6 +73,7 @@ def quantum_relative_entropy(
         ValueError: If the number of square-roots is not a positive integer.
         ValueError: If the approximation is not -1, 0, or 1.
         ValueError: If ``mat_x`` and ``mat_y`` do not have the same shape.
+        ValueError: If ``space_optimized`` is not a boolean.
 
     Returns:
         The quantum relative entropy \(D(X||Y)\) as a float.
@@ -68,6 +94,8 @@ def quantum_relative_entropy(
         raise ValueError("k must be a positive integer")
     if apx not in [-1, 0, 1]:
         raise ValueError("apx must be -1, 0, or 1")
+    if space_optimized not in [True, False]:
+        raise ValueError("space_optimized must be a boolean")
 
     if isinstance(mat_x, np.ndarray) and isinstance(mat_y, np.ndarray):
         tol = 1e-9
@@ -153,6 +181,15 @@ def quantum_relative_entropy(
     if not is_positive_semidefinite(mat_y.value):
         raise ValueError("mat_y must be positive semidefinite at the initial value.")
 
+    if space_optimized:
+        return evaluate_relative_entropy_integral(
+            np.asarray(mat_x.value),
+            np.asarray(mat_y.value),
+            epsilon_dec=epsilon_dec,
+            solver=solver,
+            **solve_kwargs,
+        )
+
     n = int(mat_x.shape[0])
     is_cplx = np.any(np.imag(mat_x.value) != 0) or np.any(np.imag(mat_y.value) != 0)
     if is_cplx:
@@ -177,4 +214,6 @@ def quantum_relative_entropy(
     if is_cplx:
         obj = cvxpy.real(obj)
     prob = cvxpy.Problem(cvxpy.Minimize(obj), cons)
-    return prob.solve(solver=cvxpy.SCS, verbose=False)
+    default_kwargs = {"verbose": False}
+    default_kwargs.update(solve_kwargs)
+    return prob.solve(solver=solver, **default_kwargs)
