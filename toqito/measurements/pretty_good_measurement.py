@@ -68,6 +68,9 @@ def pretty_good_measurement(
     if not np.isclose(sum(probs), 1):
         raise ValueError("Probability vector should sum to 1.")
 
+    if any(p < 0 for p in probs):
+        raise ValueError("Probability vector must be nonnegative.")
+
     states = [to_density_matrix(state) for state in states]
 
     # 1. Assemble the average state.

@@ -5,7 +5,7 @@ import numpy as np
 from toqito.matrix_props import is_positive_semidefinite
 
 
-def is_povm(mat_list: list[np.ndarray]) -> bool:
+def is_povm(mat_list: list[np.ndarray], rtol: float = 1e-05, atol: float = 1e-08) -> bool:
     r"""Determine if a list of matrices constitute a valid set of POVMs [@wikipediapovm].
 
     A valid set of measurements are defined by a set of positive semidefinite operators
@@ -22,6 +22,8 @@ def is_povm(mat_list: list[np.ndarray]) -> bool:
 
     Args:
         mat_list: A list of matrices.
+        rtol: The relative tolerance parameter (default 1e-05).
+        atol: The absolute tolerance parameter (default 1e-08).
 
     Returns:
         Return `True` if set of matrices constitutes a set of measurements, and `False` otherwise.
@@ -101,15 +103,21 @@ def is_povm(mat_list: list[np.ndarray]) -> bool:
         ```
 
     """
+    if len(mat_list) == 0:
+        raise ValueError("A POVM must contain at least one measurement operator.")
+
     dim = mat_list[0].shape[0]
+    for mat in mat_list:
+        if mat.ndim != 2 or mat.shape[0] != mat.shape[1] or mat.shape[0] != dim:
+            raise ValueError("All POVM elements must be square matrices of the same dimension.")
 
     mat_sum = np.zeros((dim, dim), dtype=complex)
     for mat in mat_list:
         # Each measurement in the set must be positive semidefinite.
-        if not is_positive_semidefinite(mat):
+        if not is_positive_semidefinite(mat, rtol=rtol, atol=atol):
             return False
         mat_sum += mat
     # Summing all the measurements from the set must be equal to the identity.
-    if not np.allclose(np.identity(dim), mat_sum):
+    if not np.allclose(np.identity(dim), mat_sum, rtol=rtol, atol=atol):
         return False
     return True

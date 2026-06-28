@@ -190,6 +190,15 @@ def state_distinguishability(
     probs = [1 / n] * n if probs is None else probs
     dim = calculate_vector_matrix_dimension(vectors[0])
 
+    if len(probs) != n:
+        raise ValueError(f"The number of probabilities ({len(probs)}) must equal the number of states ({n}).")
+    # `probs` are weights, not necessarily a normalized distribution (e.g. antidistinguishability passes [1]*n), so we
+    # do not require them to sum to 1.
+    if any(p < 0 for p in probs):
+        raise ValueError("Probability vector must be nonnegative.")
+    if strategy not in ("min_error", "unambiguous"):
+        raise ValueError("strategy must be either 'min_error' or 'unambiguous'.")
+
     if measurement == "ppt":
         if subsystems is None or dimensions is None:
             raise ValueError("The 'subsystems' and 'dimensions' parameters are required for PPT measurements.")
