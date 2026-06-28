@@ -130,7 +130,8 @@ def channel_exclusion(
     choi_channels: list[np.ndarray] = []
     channel_dims = []
     for channel in channels:
-        dim_in, dim_out, _ = channel_dim(channel)
+        # The environment dimension is unused here, so skip its matrix_rank computation.
+        dim_in, dim_out, _ = channel_dim(channel, compute_env_dim=False)
         channel_dims.append(np.array([dim_in, dim_out]))
         choi_channels.append(kraus_to_choi(channel) if isinstance(channel, list) else channel)
 

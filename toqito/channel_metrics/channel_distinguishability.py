@@ -92,9 +92,10 @@ def channel_distinguishability(
         ```
 
     """
-    # Get the input, output and environment dimensions of phi and psi.
-    d_in_phi, d_out_phi, d_e = channel_dim(phi, dim=dim)
-    d_in_psi, d_out_psi, d_e = channel_dim(psi, dim=dim)
+    # Get the input and output dimensions of phi and psi. The environment dimension is not used here, so skip the
+    # extra matrix_rank computation it would require.
+    d_in_phi, d_out_phi, _ = channel_dim(phi, dim=dim, compute_env_dim=False)
+    d_in_psi, d_out_psi, _ = channel_dim(psi, dim=dim, compute_env_dim=False)
 
     # If the variable `phi` and/or `psi` are provided as a list, we assume this is a list
     # of Kraus operators. We convert to choi matrices if not provided as choi matrix.
