@@ -4,7 +4,6 @@ import itertools
 import warnings
 
 import numpy as np
-from scipy import sparse
 
 from toqito.channel_ops.kraus_to_choi import kraus_to_choi
 from toqito.matrices.pauli import pauli
@@ -12,7 +11,7 @@ from toqito.matrices.pauli import pauli
 
 def pauli_channel(
     prob: int | np.ndarray, return_kraus_ops: bool = False, input_mat: np.ndarray | None = None
-) -> np.ndarray | sparse.csc_matrix | tuple:
+) -> np.ndarray | tuple:
     r"""Return the Choi matrix of a Pauli channel.
 
     The Pauli channel is defined by a set of Pauli operators weighted by a probability vector.
@@ -46,7 +45,7 @@ def pauli_channel(
             `apply_channel(input_mat, pauli_channel(...))` instead.
 
     Returns:
-        The Choi matrix of the Pauli channel as a sparse matrix. When the deprecated
+        The Choi matrix of the Pauli channel. When the deprecated
         ``input_mat`` / ``return_kraus_ops`` arguments are used, a tuple including the output
         matrix and/or Kraus operators is returned for backward compatibility.
 
@@ -90,14 +89,12 @@ def pauli_channel(
     if len(prob) != 4**q:
         raise ValueError("The length of the probability vector must be 4^q for some integer q (number of qubits).")
 
-    Phi = sparse.csc_matrix((4**q, 4**q), dtype=complex)
-
-    kraus_operators = []
-
-    for j, ind in enumerate(itertools.product(range(4), repeat=q)):
-        pauli_op = pauli(list(ind))
-        kraus_operators.append(np.sqrt(prob[j]) * pauli_op)
-        Phi += prob[j] * kraus_to_choi([[pauli_op, pauli_op.conj().T]])
+    # The channel's Kraus operators are sqrt(prob_j) * P_j, so its Choi matrix is the Choi of this flat (completely
+    # positive) Kraus list. Building it with a single kraus_to_choi call avoids one conversion per Pauli (4^q calls).
+    kraus_operators = [
+        np.sqrt(prob[j]) * pauli(list(ind)) for j, ind in enumerate(itertools.product(range(4), repeat=q))
+    ]
+    Phi = kraus_to_choi(kraus_operators)
 
     if input_mat is not None:
         warnings.warn(
