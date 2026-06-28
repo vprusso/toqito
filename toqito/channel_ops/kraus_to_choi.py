@@ -58,6 +58,22 @@ def kraus_to_choi(kraus_ops: list[np.ndarray] | list[list[np.ndarray]], sys: int
     if sys < 0:
         raise ValueError("The `sys` parameter must be non-negative.")
 
+    if sys == 2:
+        # Fast path for the default convention (apply the channel to the second subsystem of the unnormalized
+        # maximally entangled state). The Choi matrix is then sum_i vec(A_i) vec(B_i)^dagger, where vec stacks the
+        # columns of an operator. This avoids building the entangled state and the dense Kronecker products that the
+        # general partial_channel path uses. For a flat completely-positive list [K_1, ...], B_i = A_i.
+        if isinstance(kraus_ops[0], np.ndarray):
+            left = right = np.stack([np.asarray(k, dtype=complex) for k in kraus_ops])
+        else:
+            left = np.stack([np.asarray(pair[0], dtype=complex) for pair in kraus_ops])
+            right = np.stack([np.asarray(pair[1], dtype=complex) for pair in kraus_ops])
+        # Column-major vectorization of each operator: transpose to (r, d_in, d_out) then flatten the last two axes.
+        v_left = left.transpose(0, 2, 1).reshape(left.shape[0], -1)
+        v_right = right.transpose(0, 2, 1).reshape(right.shape[0], -1)
+        return v_left.T @ v_right.conj()
+
+    # General fallback for other `sys` values.
     dim_in, _, _ = channel_dim(kraus_ops)
     dim_op_1, dim_op_2 = dim_in
 
