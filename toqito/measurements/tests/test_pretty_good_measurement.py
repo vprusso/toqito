@@ -61,6 +61,12 @@ def test_pgm_invalid_probs(states, probs):
         pretty_good_measurement(states, probs)
 
 
+def test_pgm_negative_probs():
+    """A negative probability is rejected."""
+    with pytest.raises(ValueError, match="nonnegative"):
+        pretty_good_measurement(trine(), [-0.5, 0.5, 1.0])
+
+
 @pytest.mark.parametrize(
     "states, probs",
     [
