@@ -58,11 +58,9 @@ def is_tight_frame(vectors: list[np.ndarray], tol: float = 1e-8) -> bool:
     if any(v.shape[0] != dim for v in vectors):
         raise ValueError("All vectors must have the same dimension.")
 
-    # Compute the frame operator: S = sum_i v_i v_i^*
-    frame_op = np.zeros((dim, dim), dtype=complex)
-    for v in vectors:
-        v_col = v.reshape(-1, 1)
-        frame_op += v_col @ v_col.conj().T
+    # Compute the frame operator S = sum_i v_i v_i^* = V V^* where V stacks the vectors as columns.
+    v_mat = np.column_stack([v.reshape(-1) for v in vectors])
+    frame_op = v_mat @ v_mat.conj().T
 
     # A tight frame requires S = A * I for some scalar A > 0.
     # The frame bound A is trace(S) / d.
