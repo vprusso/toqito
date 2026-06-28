@@ -161,40 +161,27 @@ class NonlocalGame:
         return check_perfect_commuting_strategy(M_array, b_array)
 
     def classical_value(self) -> float:
-        r"""Compute the classical value of the nonlocal game using Numba acceleration."""
+        r"""Compute the classical value of the nonlocal game."""
         A_out, B_out, A_in, B_in = self.pred_mat.shape
         pm = np.copy(self.pred_mat)
         pm *= self.prob_mat[np.newaxis, np.newaxis, :A_in, :B_in]
 
-        # Align dimensions for Bob's strategies
+        # Enumerate the smaller of the two deterministic-strategy spaces.
         if A_out**A_in < B_out**B_in:
             pm = pm.transpose((1, 0, 3, 2))
             A_out, B_out, A_in, B_in = pm.shape
 
-        # Reorder axes to (A_out, A_in, B_out, B_in)
+        # Reorder axes to (A_out, A_in, B_out, B_in).
         pm = pm.transpose((0, 2, 1, 3))
 
-        # Build power array for decoding Bob's outputs
-        pow_arr = np.array([B_out ** (B_in - 1 - y) for y in range(B_in)], dtype=np.int64)
-
-        # === Begin fast classical value logic ===
-        p_win = 0.0
-        total = B_out**B_in
-
-        for i in range(total):
-            best_sum = 0.0
-            for x in range(A_in):
-                best_for_x = 0.0
-                for a in range(A_out):
-                    acc = 0.0
-                    for y in range(B_in):
-                        b_q = (i // pow_arr[y]) % B_out
-                        acc += pm[a, x, b_q, y]
-                    best_for_x = max(best_for_x, acc)
-                best_sum += best_for_x
-            p_win = max(p_win, best_sum)
-
-        return p_win
+        # Each deterministic strategy for Bob assigns an output b(y) to every question y. For a fixed Bob strategy,
+        # Alice independently picks the best output a for each question x, so the winning probability is
+        # sum_x max_a sum_y pm[a, x, b(y), y]. The classical value is the maximum over all of Bob's strategies.
+        strategies = np.array(list(itertools.product(range(B_out), repeat=B_in)))  # (num_strategies, B_in)
+        # gathered[a, x, s, y] = pm[a, x, strategies[s, y], y]
+        gathered = pm[:, :, strategies, np.arange(B_in)]  # (A_out, A_in, num_strategies, B_in)
+        per_strategy = gathered.sum(axis=-1).max(axis=0).sum(axis=0)  # (num_strategies,)
+        return float(per_strategy.max())
 
     def quantum_value_lower_bound(
         self,
