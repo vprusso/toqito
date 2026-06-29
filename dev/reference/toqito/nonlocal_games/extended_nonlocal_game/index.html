@@ -3500,6 +3500,12 @@
       
         
       
+        
+      
+        
+      
+        
+      
     
     
     
@@ -3752,6 +3758,62 @@
   
   
     <li class="md-nav__item">
+      <a href="../../matrix_ops/psd_matrix_power/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code>psd_matrix_power
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../matrix_ops/support_projection/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code>support_projection
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../matrix_ops/tensor/" class="md-nav__link">
         
   
@@ -3892,6 +3954,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../../matrix_ops/validate_bipartite_dim/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code>validate_bipartite_dim
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../matrix_ops/vectors_from_gram_matrix/" class="md-nav__link">
         
   
@@ -3960,6 +4050,10 @@
       
         
           
+        
+      
+        
+      
         
       
         
@@ -4972,6 +5066,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../../matrix_props/is_support_subset/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code>is_support_subset
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../matrix_props/is_symmetric/" class="md-nav__link">
         
   
@@ -5260,6 +5382,34 @@
     
   
     <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code>spark
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../matrix_props/support_overlap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code>support_overlap
   
 
     
@@ -7327,8 +7477,6 @@
       
         
       
-        
-      
     
     
     
@@ -7393,34 +7541,6 @@
     
   
     <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code>bell_inequality_max
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../state_opt/bell_notation_conversions/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code>bell_notation_conversions
   
 
     
@@ -10617,18 +10737,18 @@ where <span class="arithmatex">\(\tau \in \text{D}(\mathcal{R})\)</span> is a de
 <a id="__codelineno-0-308" name="__codelineno-0-308"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">__get_game_dims</span><span class="p">()</span>
 <a id="__codelineno-0-309" name="__codelineno-0-309"></a>    <span class="k">if</span> <span class="n">solver_params</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
 <a id="__codelineno-0-310" name="__codelineno-0-310"></a>        <span class="n">solver_params</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;eps_abs&quot;</span><span class="p">:</span> <span class="n">tol</span><span class="p">,</span> <span class="s2">&quot;eps_rel&quot;</span><span class="p">:</span> <span class="n">tol</span><span class="p">,</span> <span class="s2">&quot;max_iters&quot;</span><span class="p">:</span> <span class="mi">50000</span><span class="p">,</span> <span class="s2">&quot;verbose&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">}</span>
-<a id="__codelineno-0-311" name="__codelineno-0-311"></a>    <span class="k">if</span> <span class="n">seed</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-<a id="__codelineno-0-312" name="__codelineno-0-312"></a>        <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
-<a id="__codelineno-0-313" name="__codelineno-0-313"></a>
-<a id="__codelineno-0-314" name="__codelineno-0-314"></a>    <span class="c1"># Get number of inputs and outputs for Bob&#39;s measurements.</span>
-<a id="__codelineno-0-315" name="__codelineno-0-315"></a>    <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">num_outputs_bob</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">num_inputs_bob</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pred_mat</span><span class="o">.</span><span class="n">shape</span>
-<a id="__codelineno-0-316" name="__codelineno-0-316"></a>
-<a id="__codelineno-0-317" name="__codelineno-0-317"></a>    <span class="c1"># Initialize Bob&#39;s POVMs (NumPy arrays) - Default to RANDOM</span>
-<a id="__codelineno-0-318" name="__codelineno-0-318"></a>    <span class="n">bob_povms_np</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">num_outputs_bob</span><span class="p">,</span> <span class="n">num_outputs_bob</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">complex</span><span class="p">))</span>
-<a id="__codelineno-0-319" name="__codelineno-0-319"></a>    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">initial_bob_is_random</span><span class="p">,</span> <span class="nb">bool</span><span class="p">):</span>
-<a id="__codelineno-0-320" name="__codelineno-0-320"></a>        <span class="k">if</span> <span class="n">initial_bob_is_random</span><span class="p">:</span>
-<a id="__codelineno-0-321" name="__codelineno-0-321"></a>            <span class="k">for</span> <span class="n">y_ques</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_inputs_bob</span><span class="p">):</span>
-<a id="__codelineno-0-322" name="__codelineno-0-322"></a>                <span class="n">random_u_mat</span> <span class="o">=</span> <span class="n">random_unitary</span><span class="p">(</span><span class="n">num_outputs_bob</span><span class="p">)</span>
+<a id="__codelineno-0-311" name="__codelineno-0-311"></a>    <span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span> <span class="k">if</span> <span class="n">seed</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">None</span>
+<a id="__codelineno-0-312" name="__codelineno-0-312"></a>
+<a id="__codelineno-0-313" name="__codelineno-0-313"></a>    <span class="c1"># Get number of inputs and outputs for Bob&#39;s measurements.</span>
+<a id="__codelineno-0-314" name="__codelineno-0-314"></a>    <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">num_outputs_bob</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">num_inputs_bob</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pred_mat</span><span class="o">.</span><span class="n">shape</span>
+<a id="__codelineno-0-315" name="__codelineno-0-315"></a>
+<a id="__codelineno-0-316" name="__codelineno-0-316"></a>    <span class="c1"># Initialize Bob&#39;s POVMs (NumPy arrays) - Default to RANDOM</span>
+<a id="__codelineno-0-317" name="__codelineno-0-317"></a>    <span class="n">bob_povms_np</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">num_outputs_bob</span><span class="p">,</span> <span class="n">num_outputs_bob</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">complex</span><span class="p">))</span>
+<a id="__codelineno-0-318" name="__codelineno-0-318"></a>    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">initial_bob_is_random</span><span class="p">,</span> <span class="nb">bool</span><span class="p">):</span>
+<a id="__codelineno-0-319" name="__codelineno-0-319"></a>        <span class="k">if</span> <span class="n">initial_bob_is_random</span><span class="p">:</span>
+<a id="__codelineno-0-320" name="__codelineno-0-320"></a>            <span class="k">for</span> <span class="n">y_ques</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_inputs_bob</span><span class="p">):</span>
+<a id="__codelineno-0-321" name="__codelineno-0-321"></a>                <span class="n">unitary_seed</span> <span class="o">=</span> <span class="kc">None</span> <span class="k">if</span> <span class="n">rng</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="nb">int</span><span class="p">(</span><span class="n">rng</span><span class="o">.</span><span class="n">integers</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="o">**</span><span class="mi">32</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
+<a id="__codelineno-0-322" name="__codelineno-0-322"></a>                <span class="n">random_u_mat</span> <span class="o">=</span> <span class="n">random_unitary</span><span class="p">(</span><span class="n">num_outputs_bob</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="n">unitary_seed</span><span class="p">)</span>
 <a id="__codelineno-0-323" name="__codelineno-0-323"></a>                <span class="k">for</span> <span class="n">b_ans</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_outputs_bob</span><span class="p">):</span>
 <a id="__codelineno-0-324" name="__codelineno-0-324"></a>                    <span class="n">ket</span> <span class="o">=</span> <span class="n">random_u_mat</span><span class="p">[:,</span> <span class="n">b_ans</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 <a id="__codelineno-0-325" name="__codelineno-0-325"></a>                    <span class="n">bra</span> <span class="o">=</span> <span class="n">ket</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span>

@@ -3648,6 +3648,12 @@
       
         
       
+        
+      
+        
+      
+        
+      
     
     
     
@@ -3900,6 +3906,62 @@
   
   
     <li class="md-nav__item">
+      <a href="reference/toqito/matrix_ops/psd_matrix_power/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code>psd_matrix_power
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="reference/toqito/matrix_ops/support_projection/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code>support_projection
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="reference/toqito/matrix_ops/tensor/" class="md-nav__link">
         
   
@@ -4040,6 +4102,34 @@
   
   
     <li class="md-nav__item">
+      <a href="reference/toqito/matrix_ops/validate_bipartite_dim/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code>validate_bipartite_dim
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="reference/toqito/matrix_ops/vectors_from_gram_matrix/" class="md-nav__link">
         
   
@@ -4108,6 +4198,10 @@
       
         
           
+        
+      
+        
+      
         
       
         
@@ -5120,6 +5214,34 @@
   
   
     <li class="md-nav__item">
+      <a href="reference/toqito/matrix_props/is_support_subset/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code>is_support_subset
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="reference/toqito/matrix_props/is_symmetric/" class="md-nav__link">
         
   
@@ -5408,6 +5530,34 @@
     
   
     <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code>spark
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="reference/toqito/matrix_props/support_overlap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code>support_overlap
   
 
     
@@ -7332,8 +7482,6 @@
       
         
       
-        
-      
     
     
     
@@ -7398,34 +7546,6 @@
     
   
     <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code>bell_inequality_max
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="reference/toqito/state_opt/bell_notation_conversions/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code>bell_notation_conversions
   
 
     
@@ -9695,7 +9815,7 @@ states</a>:</p>
 operators), the optimal probability of distinguishing the four Bell states using PPT operators is 1/2.</p>
 <p>|toqito⟩ offers a wide suite of functionality for computing the distinguishability of quantum states:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.states</span><span class="w"> </span><span class="kn">import</span> <span class="n">bell</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.state_opt</span><span class="w"> </span><span class="kn">import</span> <span class="n">state_distinguishability</span><span class="p">,</span> <span class="n">ppt_distinguishability</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.state_opt</span><span class="w"> </span><span class="kn">import</span> <span class="n">state_distinguishability</span>
 <a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
 <a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="c1"># Define the set of states as the four Bell states:</span>
 <a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="n">states</span> <span class="o">=</span> <span class="p">[</span><span class="n">bell</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">bell</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">bell</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="n">bell</span><span class="p">(</span><span class="mi">3</span><span class="p">)]</span>
@@ -9705,7 +9825,7 @@ operators), the optimal probability of distinguishing the four Bell states using
 <a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Distinguishing four Bell states (global measurements): </span><span class="si">{</span><span class="n">pos_res</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 <a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>
 <a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="c1"># Distinguishing four Bell states (PPT measurements): 0.5000000000098367</span>
-<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="n">ppt_res</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">ppt_distinguishability</span><span class="p">(</span><span class="n">states</span><span class="p">,</span> <span class="n">subsystems</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">dimensions</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="n">ppt_res</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">state_distinguishability</span><span class="p">(</span><span class="n">states</span><span class="p">,</span> <span class="n">measurement</span><span class="o">=</span><span class="s2">&quot;ppt&quot;</span><span class="p">,</span> <span class="n">subsystems</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">dimensions</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
 <a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Distinguishing four Bell states (PPT measurements): </span><span class="si">{</span><span class="n">ppt_res</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </code></pre></div>
 <p>Consult the <a href="https://vprusso.github.io/toqito/generated/gallery/quantum_states/">quantum state tutorials</a> for
