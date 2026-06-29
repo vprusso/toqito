@@ -77,6 +77,8 @@ def sub_fidelity(rho: np.ndarray, sigma: np.ndarray) -> float:
     if not is_density(rho) or not is_density(sigma):
         raise ValueError("Sub-fidelity is only defined for density operators.")
 
-    return np.real(
-        np.trace(rho @ sigma) + np.sqrt(2 * (np.trace(rho @ sigma) ** 2 - np.trace(rho @ sigma @ rho @ sigma)))
-    )
+    inner = np.trace(rho @ sigma)
+    # The radicand is non-negative in exact arithmetic, but floating-point error can push it
+    # slightly below zero for pure/near-equal states; clamp it before the square root.
+    radicand = 2 * (inner**2 - np.trace(rho @ sigma @ rho @ sigma))
+    return np.real(inner + np.sqrt(np.maximum(np.real(radicand), 0.0)))
