@@ -18,7 +18,7 @@ from toqito.states import werner
 )
 def test_purity(rho, expected_result):
     """Test function works as expected for a valid input."""
-    np.testing.assert_allclose(purity(rho), expected_result, atol=4)
+    np.testing.assert_allclose(purity(rho), expected_result, atol=1e-4)
 
 
 @pytest.mark.parametrize(
