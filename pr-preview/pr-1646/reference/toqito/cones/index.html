@@ -9477,10 +9477,12 @@
         <p>CVXQUAD-derived matrix cones and entropy functionals for use in CVXPY SDPs.</p>
 <p>This package collects operator-monotone matrix functions and the associated
 SDP cones (matrix geometric mean, operator relative entropy, matrix logarithm)
-ported from CVXQUAD (Fawzi--Saunderson). They live here rather than in
+ported from CVXQUAD (Fawzi--Saunderson) <sup><a id="cite-toqito-cones-1" href="#ref-toqito-cones-1">1</a></sup>. They live here rather than in
 <code>matrix_ops</code> because they depend on <code>matrix_props</code> for input validation;
 keeping <code>matrix_ops</code> free of that back-edge avoids a load-time import cycle
 with <code>state_props</code> and <code>channels</code>.</p>
+<p><strong>References</strong></p>
+<p><span id="ref-toqito-cones-1"><sup><a href="#cite-toqito-cones-1">1</a></sup> Fawzi, Hamza and Saunderson, James. <em>{CVXQUAD}: a toolbox for quantum information theory in {CVX}</em>. <a href="https://github.com/hfawzi/cvxquad">link</a>.</span></p>
 
 
 

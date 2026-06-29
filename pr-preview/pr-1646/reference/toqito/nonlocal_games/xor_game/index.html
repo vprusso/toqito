@@ -9694,7 +9694,7 @@ are allowed to determine a join strategy beforehand, but not allowed to
 communicate during the game itself.</p>
 <p>The quantum value of an XOR game can be solved via the semidefinite program
 from <sup><a id="cite-toqito-nonlocal_games-xor_game-XORGame-1" href="#ref-toqito-nonlocal_games-xor_game-XORGame-1">1</a></sup>.</p>
-<p>This function is adapted from the QETLAB package.</p>
+<p>This function is adapted from the QETLAB package <sup><a id="cite-toqito-nonlocal_games-xor_game-XORGame-2" href="#ref-toqito-nonlocal_games-xor_game-XORGame-2">2</a></sup>.</p>
 <p>A tutorial is available in the documentation. Go to
 [Calculating the quantum and classical value of a two-player XOR game]
 (../../../generated/gallery/nonlocal_games/xor_quantum_val.md).</p>
@@ -9703,7 +9703,7 @@ from <sup><a id="cite-toqito-nonlocal_games-xor_game-XORGame-1" href="#ref-toqit
 <p><span class="doc-section-title">Examples:</span></p>
     <p>The CHSH game</p>
 <p>The CHSH game is a two-player nonlocal game with the following probability
-distribution and question and answer sets <sup><a id="cite-toqito-nonlocal_games-xor_game-XORGame-2" href="#ref-toqito-nonlocal_games-xor_game-XORGame-2">2</a></sup>.</p>
+distribution and question and answer sets <sup><a id="cite-toqito-nonlocal_games-xor_game-XORGame-3" href="#ref-toqito-nonlocal_games-xor_game-XORGame-3">3</a></sup>.</p>
 <div class="arithmatex">\[
     \begin{equation}
             \begin{aligned} \pi(x,y) = \frac{1}{4}, \qquad (x,y) \in
@@ -9796,7 +9796,8 @@ the odd cycle game as follows.</p>
 </code></pre></div>
         <p><strong>References</strong></p>
 <p><span id="ref-toqito-nonlocal_games-xor_game-XORGame-1"><sup><a href="#cite-toqito-nonlocal_games-xor_game-XORGame-1">1</a></sup> Cleve, Richard and Hoyer, Peter and Toner, Ben and Watrous, John. <em>Consequences and Limits of Nonlocal Strategies</em>. (2010).</span><br>
-<span id="ref-toqito-nonlocal_games-xor_game-XORGame-2"><sup><a href="#cite-toqito-nonlocal_games-xor_game-XORGame-2">2</a></sup> Cleve, Richard and Slofstra, William and Unger, Falk and Upadhyay, Sarvagya. <em>Strong Parallel Repetition Theorem for Quantum XOR Proof Systems</em>. (2008).</span></p>
+<span id="ref-toqito-nonlocal_games-xor_game-XORGame-2"><sup><a href="#cite-toqito-nonlocal_games-xor_game-XORGame-2">2</a></sup> Johnston, Nathaniel. <em>{{QETLAB}: {A MATLAB} toolbox for quantum entanglement}</em>. <a href="https://doi.org/10.5281/zenodo.44637">doi:10.5281/zenodo.44637</a>.</span><br>
+<span id="ref-toqito-nonlocal_games-xor_game-XORGame-3"><sup><a href="#cite-toqito-nonlocal_games-xor_game-XORGame-3">3</a></sup> Cleve, Richard and Slofstra, William and Unger, Falk and Upadhyay, Sarvagya. <em>Strong Parallel Repetition Theorem for Quantum XOR Proof Systems</em>. (2008).</span></p>
 
         <p>Construct XOR game object.</p>
 
@@ -10023,7 +10024,7 @@ D(x,y) = \pi(x, y) (-1)^{f(x,y)}
               <code><span title="float">float</span></code>
           –
           <div class="doc-md-description">
-            <p>A value between [0, 1] representing the quantum value.</p>
+            <p>A value between <code>[0, 1]</code> representing the quantum value.</p>
           </div>
         </li>
     </ul>
@@ -10136,7 +10137,7 @@ D(x,y) = \pi(x, y) (-1)^{f(x,y)}
 <a id="__codelineno-0-213" name="__codelineno-0-213"></a><span class="sd">    In other words, \(\pi(x, y)\) corresponds to `prob_mat[x, y]`, and \(f(x,y)\) corresponds to `pred_mat[x, y]`.</span>
 <a id="__codelineno-0-214" name="__codelineno-0-214"></a>
 <a id="__codelineno-0-215" name="__codelineno-0-215"></a><span class="sd">    Returns:</span>
-<a id="__codelineno-0-216" name="__codelineno-0-216"></a><span class="sd">        A value between [0, 1] representing the quantum value.</span>
+<a id="__codelineno-0-216" name="__codelineno-0-216"></a><span class="sd">        A value between `[0, 1]` representing the quantum value.</span>
 <a id="__codelineno-0-217" name="__codelineno-0-217"></a>
 <a id="__codelineno-0-218" name="__codelineno-0-218"></a><span class="sd">    &quot;&quot;&quot;</span>
 <a id="__codelineno-0-219" name="__codelineno-0-219"></a>    <span class="n">alice_in</span><span class="p">,</span> <span class="n">bob_in</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">prob_mat</span><span class="o">.</span><span class="n">shape</span>
@@ -10202,7 +10203,7 @@ D(x,y) = \pi(x, y) (-1)^{f(x,y)}
               <code><span title="float">float</span></code>
           –
           <div class="doc-md-description">
-            <p>A value between [0, 1] representing the classical value.</p>
+            <p>A value between <code>[0, 1]</code> representing the classical value.</p>
           </div>
         </li>
     </ul>
@@ -10221,7 +10222,7 @@ D(x,y) = \pi(x, y) (-1)^{f(x,y)}
 <a id="__codelineno-0-256" name="__codelineno-0-256"></a><span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Compute the classical value of the XOR game.</span>
 <a id="__codelineno-0-257" name="__codelineno-0-257"></a>
 <a id="__codelineno-0-258" name="__codelineno-0-258"></a><span class="sd">    Returns:</span>
-<a id="__codelineno-0-259" name="__codelineno-0-259"></a><span class="sd">        A value between [0, 1] representing the classical value.</span>
+<a id="__codelineno-0-259" name="__codelineno-0-259"></a><span class="sd">        A value between `[0, 1]` representing the classical value.</span>
 <a id="__codelineno-0-260" name="__codelineno-0-260"></a>
 <a id="__codelineno-0-261" name="__codelineno-0-261"></a><span class="sd">    &quot;&quot;&quot;</span>
 <a id="__codelineno-0-262" name="__codelineno-0-262"></a>    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_nonlocal_game</span><span class="p">()</span><span class="o">.</span><span class="n">classical_value</span><span class="p">()</span>
@@ -10254,7 +10255,7 @@ D(x,y) = \pi(x, y) (-1)^{f(x,y)}
               <code><span title="float">float</span></code>
           –
           <div class="doc-md-description">
-            <p>A value between [0, 1] representing the nonsignaling value.</p>
+            <p>A value between <code>[0, 1]</code> representing the nonsignaling value.</p>
           </div>
         </li>
     </ul>
@@ -10277,7 +10278,7 @@ D(x,y) = \pi(x, y) (-1)^{f(x,y)}
 <a id="__codelineno-0-267" name="__codelineno-0-267"></a><span class="sd">    Here, the existing function in the `NonlocalGame` class is called.</span>
 <a id="__codelineno-0-268" name="__codelineno-0-268"></a>
 <a id="__codelineno-0-269" name="__codelineno-0-269"></a><span class="sd">    Returns:</span>
-<a id="__codelineno-0-270" name="__codelineno-0-270"></a><span class="sd">        A value between [0, 1] representing the nonsignaling value.</span>
+<a id="__codelineno-0-270" name="__codelineno-0-270"></a><span class="sd">        A value between `[0, 1]` representing the nonsignaling value.</span>
 <a id="__codelineno-0-271" name="__codelineno-0-271"></a>
 <a id="__codelineno-0-272" name="__codelineno-0-272"></a><span class="sd">    &quot;&quot;&quot;</span>
 <a id="__codelineno-0-273" name="__codelineno-0-273"></a>    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_nonlocal_game</span><span class="p">()</span><span class="o">.</span><span class="n">nonsignaling_value</span><span class="p">()</span>

@@ -9594,7 +9594,7 @@ standard maximally entangled (unnormalized) state. The Kraus operators are expec
 input as a list of numpy arrays (i.e. [[<code>A_1</code>, <code>B_1</code>],...,[<code>A_n</code>, <code>B_n</code>]]).
 In case the map is CP (completely positive), it suffices to input a flat list of operators omitting
 their conjugate transpose (i.e. [<span class="arithmatex">\(K_1\)</span>,..., <span class="arithmatex">\(K_n\)</span>]).</p>
-<p>This function was adapted from the QETLAB package.</p>
+<p>This function was adapted from the QETLAB package <sup><a id="cite-toqito-channel_ops-kraus_to_choi-kraus_to_choi-2" href="#ref-toqito-channel_ops-kraus_to_choi-kraus_to_choi-2">2</a></sup>.</p>
 
 
 <p><span class="doc-section-title">Parameters:</span></p>
@@ -9661,7 +9661,8 @@ is <em>not</em> completely positive.</p>
 <p><a class="autorefs autorefs-internal" title="            choi_to_kraus" href="../choi_to_kraus/#toqito.channel_ops.choi_to_kraus.choi_to_kraus">choi_to_kraus</a></p>
 </div>
         <p><strong>References</strong></p>
-<p><span id="ref-toqito-channel_ops-kraus_to_choi-kraus_to_choi-1"><sup><a href="#cite-toqito-channel_ops-kraus_to_choi-kraus_to_choi-1">1</a></sup> Watrous, John. <em>The Theory of Quantum Information</em>. (2018). <a href="https://doi.org/10.1017/9781316848142">doi:10.1017/9781316848142</a>.</span></p>
+<p><span id="ref-toqito-channel_ops-kraus_to_choi-kraus_to_choi-1"><sup><a href="#cite-toqito-channel_ops-kraus_to_choi-kraus_to_choi-1">1</a></sup> Watrous, John. <em>The Theory of Quantum Information</em>. (2018). <a href="https://doi.org/10.1017/9781316848142">doi:10.1017/9781316848142</a>.</span><br>
+<span id="ref-toqito-channel_ops-kraus_to_choi-kraus_to_choi-2"><sup><a href="#cite-toqito-channel_ops-kraus_to_choi-kraus_to_choi-2">2</a></sup> Johnston, Nathaniel. <em>{{QETLAB}: {A MATLAB} toolbox for quantum entanglement}</em>. <a href="https://doi.org/10.5281/zenodo.44637">doi:10.5281/zenodo.44637</a>.</span></p>
 
 
             <details class="mkdocstrings-source">
@@ -9755,7 +9756,7 @@ is <em>not</em> completely positive.</p>
 <a id="__codelineno-0-19" name="__codelineno-0-19"></a><span class="sd">    In case the map is CP (completely positive), it suffices to input a flat list of operators omitting</span>
 <a id="__codelineno-0-20" name="__codelineno-0-20"></a><span class="sd">    their conjugate transpose (i.e. [\(K_1\),..., \(K_n\)]).</span>
 <a id="__codelineno-0-21" name="__codelineno-0-21"></a>
-<a id="__codelineno-0-22" name="__codelineno-0-22"></a><span class="sd">    This function was adapted from the QETLAB package.</span>
+<a id="__codelineno-0-22" name="__codelineno-0-22"></a><span class="sd">    This function was adapted from the QETLAB package [@qetlablink].</span>
 <a id="__codelineno-0-23" name="__codelineno-0-23"></a>
 <a id="__codelineno-0-24" name="__codelineno-0-24"></a><span class="sd">    Args:</span>
 <a id="__codelineno-0-25" name="__codelineno-0-25"></a><span class="sd">        kraus_ops: A list of Kraus operators.</span>
