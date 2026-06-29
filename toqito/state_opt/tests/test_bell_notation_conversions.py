@@ -1,9 +1,26 @@
-"""Test bell_notation_conversions."""
+"""Test Bell notation conversion helpers."""
 
 import numpy as np
 import pytest
 
-from toqito.state_opt.bell_notation_conversions import cg_to_fc, cg_to_fp, fc_to_cg, fc_to_fp, fp_to_cg, fp_to_fc
+from toqito.state_opt.bell_inequality_max import (
+    _cg_to_fc as cg_to_fc,
+)
+from toqito.state_opt.bell_inequality_max import (
+    _cg_to_fp as cg_to_fp,
+)
+from toqito.state_opt.bell_inequality_max import (
+    _fc_to_cg as fc_to_cg,
+)
+from toqito.state_opt.bell_inequality_max import (
+    _fc_to_fp as fc_to_fp,
+)
+from toqito.state_opt.bell_inequality_max import (
+    _fp_to_cg as fp_to_cg,
+)
+from toqito.state_opt.bell_inequality_max import (
+    _fp_to_fc as fp_to_fc,
+)
 
 
 @pytest.fixture(name="chsh_cg")

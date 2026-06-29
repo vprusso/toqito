@@ -429,7 +429,7 @@ def test_nosignal_infeasible_status(capfd):
 
     with patch("cvxpy.Problem", return_value=mock_problem):
         # PATCH THE MODULE ALIAS, NOT THE STRING PATH
-        with patch.object(bim, "fp_to_cg", side_effect=None):
+        with patch.object(bim, "_fp_to_cg", side_effect=None):
             desc = [2, 2, 1, 1]
             coeffs_cg = np.array([[0, 0], [0, 1]])
             result = bim.bell_inequality_max(coeffs_cg, desc, "cg", "nosignal")
@@ -528,7 +528,7 @@ def test_nosignal_fp_conversion_internal_error(desc_chsh):
     """Test catching internal ValueError from fp_to_cg in nosignal path."""
     dummy_fp_coeffs = np.zeros((2, 2, 2, 2))
     # PATCH THE MODULE ALIAS
-    with patch.object(bim, "fp_to_cg", side_effect=ValueError("Internal fp_to_cg error")):
+    with patch.object(bim, "_fp_to_cg", side_effect=ValueError("Internal fp_to_cg error")):
         with pytest.raises(ValueError, match="Notation conversion failed: Internal fp_to_cg error"):
             bim.bell_inequality_max(dummy_fp_coeffs, desc_chsh, "fp", "nosignal")
 
@@ -537,7 +537,7 @@ def test_nosignal_fp_conversion_internal_error(desc_chsh):
 def test_quantum_fc_conversion_internal_error(chsh_fc, desc_chsh):
     """Test catching internal ValueError from fc_to_cg in quantum path."""
     # PATCH THE MODULE ALIAS
-    with patch.object(bim, "fc_to_cg", side_effect=ValueError("Internal fc_to_cg error")):
+    with patch.object(bim, "_fc_to_cg", side_effect=ValueError("Internal fc_to_cg error")):
         with pytest.raises(ValueError, match="Notation conversion failed: Internal fc_to_cg error"):
             bim.bell_inequality_max(chsh_fc, desc_chsh, "fc", "quantum")
 
@@ -548,7 +548,7 @@ def test_classical_nonbinary_cg_to_fp_internal_error():
     coeffs_cg_actual_nonbin = np.zeros(((3 - 1) * 2 + 1, (3 - 1) * 2 + 1))
 
     # PATCH THE MODULE ALIAS
-    with patch.object(bim, "cg_to_fp", side_effect=ValueError("Internal cg_to_fp error")):
+    with patch.object(bim, "_cg_to_fp", side_effect=ValueError("Internal cg_to_fp error")):
         with pytest.raises(
             ValueError, match="Notation conversion failed for non-binary scenario: Internal cg_to_fp error"
         ):
