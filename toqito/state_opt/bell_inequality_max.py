@@ -1055,7 +1055,7 @@ def _fp_to_cg(v_mat: np.ndarray, behavior: bool = False) -> np.ndarray:
     \(V(a, b, x, y) = P(a, b | x, y)\), where \(a\) (0 to \(oa-1\)), \(b\) (0 to \(ob-1\)) are
     outcomes and \(x\) (0 to \(ia-1\)), \(y\)  (0 to \(ib-1\)) are inputs. It's stored as a 4D
     numpy array \(V[a, b, x, y]\). The Collins-Gisin (CG) notation for a Bell functional or
-    behavior is represented by a matrix (see :[cg_to_fc][toqito.state_opt.bell_notation_conversions.cg_to_fc]).
+    behavior is represented by a Collins-Gisin matrix.
 
     This function converts from FP to CG notation.
 
@@ -1201,8 +1201,7 @@ def _fp_to_fc(v_mat: np.ndarray, behavior: bool = False) -> np.ndarray:
     \(V(a, b, x, y) = P(\text{out}_A=a', \text{out}_B=b' | x, y)\), where
     \(a=0 \rightarrow a'=+1\), \(a=1 \rightarrow a'=-1\) (similarly for \(b\)),
     stored as a 4D numpy array \(V[a, b, x, y]\).
-    The Full Correlator (FC) notation is represented by a matrix
-    (see [fc_to_cg][toqito.state_opt.bell_notation_conversions.fc_to_cg]).
+    The Full Correlator (FC) notation is represented by a matrix.
 
     This function converts from FP to FC notation.
 

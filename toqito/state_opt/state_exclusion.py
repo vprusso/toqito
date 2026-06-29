@@ -2,11 +2,13 @@
 
 from typing import Any
 
+import cvxpy
 import numpy as np
 import picos
 
-from toqito.matrix_ops import calculate_vector_matrix_dimension, to_density_matrix
+from toqito.matrix_ops import calculate_vector_matrix_dimension, partial_trace, to_density_matrix
 from toqito.matrix_props import has_same_dimension
+from toqito.rand import random_povm
 
 
 def state_exclusion(
@@ -18,8 +20,15 @@ def state_exclusion(
     dimensions: list[int] | None = None,
     solver: str = "cvxopt",
     primal_dual: str = "dual",
+    reps: int = 5,
+    tol: float = 1e-7,
+    max_iters: int = 100,
+    num_alice_outcomes: int | None = None,
+    seed: int | None = None,
     **kwargs: Any,
-) -> tuple[float, list[picos.HermitianVariable] | tuple[picos.HermitianVariable, picos.RealVariable]]:
+) -> tuple[
+    float, list[picos.HermitianVariable] | list[np.ndarray] | tuple[picos.HermitianVariable, picos.RealVariable]
+]:
     r"""Compute probability of error of single state conclusive state exclusion.
 
     The *quantum state exclusion* problem involves a collection of \(n\) quantum states
@@ -82,6 +91,14 @@ def state_exclusion(
         p_i\rho_i - Y \in \text{Pos} + \Gamma_j(\text{Pos}).
     \]
 
+    If `measurement = "locc"`, the measurement is restricted to one-way local operations and classical communication on
+    a bipartite system with subsystem dimensions `dimensions = [dim_A, dim_B]`. Alice measures her subsystem with a POVM
+    \(\{A_a\}\), sends the outcome to Bob, who applies a conditional POVM \(\{B^a_k\}\); the induced global operator for
+    guessing \(k\) is \(M_k = \sum_a A_a \otimes B^a_k\). Minimizing the error over \(\{A_a\}\) and \(\{B^a_k\}\) is
+    bilinear, so it is solved by a see-saw (alternating semidefinite programs), restarted from `reps` random POVMs with
+    the smallest value returned. The result is an upper bound on the optimal one-way LOCC exclusion error (and at least
+    the global error). Only `strategy = "min_error"` is supported for this measurement.
+
     For `strategy = "unambiguous"`, Bob never provides an incorrect answer, although it is
     possible that his answer is inconclusive. This function then yields the probability of an inconclusive outcome.
 
@@ -124,12 +141,20 @@ def state_exclusion(
         strategy: Whether to perform minimal error or unambiguous discrimination task. Possible values are "min_error"
             and "unambiguous". Both strategies support pure and mixed states.
         measurement: The type of measurement to use. Possible values are "positive" (default) for standard positive
-            measurements and "ppt" for PPT (positive partial transpose) measurements.
+            measurements, "ppt" for PPT (positive partial transpose) measurements, and "locc" for one-way LOCC
+            measurements (solved by a see-saw, see below).
         subsystems: A list of integers specifying which subsystems to transpose for PPT measurements. Required when
             `measurement="ppt"`.
-        dimensions: A list of integers specifying the dimensions of each subsystem. Required when `measurement="ppt"`.
+        dimensions: A list of integers specifying the dimensions of each subsystem. Required when `measurement="ppt"`,
+            and required as the two subsystem dimensions `[dim_A, dim_B]` when `measurement="locc"`.
         solver: Optimization option for `picos` solver. Default option is `solver_option="cvxopt"`.
         primal_dual: Option for the optimization problem.
+        reps: Number of random see-saw restarts for `measurement="locc"`. The smallest value found is returned.
+        tol: Convergence tolerance on the see-saw error decrease for `measurement="locc"`.
+        max_iters: Maximum number of see-saw iterations per restart for `measurement="locc"`.
+        num_alice_outcomes: Number of outcomes available to Alice for `measurement="locc"`. Defaults to the number of
+            states; allowing more outcomes can only lower the value.
+        seed: Base seed for the random initial POVMs when `measurement="locc"` (restart `r` uses `seed + r`).
         kwargs: Additional arguments to pass to picos' solve method.
 
     Returns:
@@ -221,8 +246,8 @@ def state_exclusion(
             See https://gitlab.com/picos-api/picos/-/issues/341
 
     """
-    if measurement not in {"positive", "ppt"}:
-        raise ValueError("Argument `measurement` must be either 'positive' or 'ppt'.")
+    if measurement not in {"positive", "ppt", "locc"}:
+        raise ValueError("Argument `measurement` must be 'positive', 'ppt', or 'locc'.")
 
     if not has_same_dimension(vectors):
         raise ValueError("Vectors for state distinguishability must all have the same dimension.")
@@ -240,6 +265,22 @@ def state_exclusion(
         raise ValueError("Probability vector must be nonnegative.")
     if strategy not in ("min_error", "unambiguous"):
         raise ValueError("strategy must be either 'min_error' or 'unambiguous'.")
+
+    if measurement == "locc":
+        if strategy != "min_error":
+            raise ValueError("The 'locc' measurement supports only strategy='min_error'.")
+        if dimensions is None or len(dimensions) != 2:
+            raise ValueError("Argument `dimensions` must be `[dim_A, dim_B]` when measurement='locc'.")
+        return _locc_min_error(
+            vectors=vectors,
+            probs=probs,
+            dimensions=dimensions,
+            num_alice_outcomes=num_alice_outcomes,
+            reps=reps,
+            tol=tol,
+            max_iters=max_iters,
+            seed=seed,
+        )
 
     if measurement == "ppt":
         _validate_ppt_params(dim=dim, subsystems=subsystems, dimensions=dimensions)
@@ -572,3 +613,104 @@ def _ppt_unambiguous_dual(
     solution = problem.solve(solver=solver, primals=None, **kwargs)
 
     return solution.value, (y_var, lagrangian_variables_a)
+
+
+def _locc_min_error(
+    vectors: list[np.ndarray],
+    probs: list[float],
+    dimensions: list[int],
+    num_alice_outcomes: int | None,
+    reps: int,
+    tol: float,
+    max_iters: int,
+    seed: int | None,
+) -> tuple[float, list[np.ndarray]]:
+    """Minimize the one-way LOCC exclusion error by see-saw, returning the best value and operators.
+
+    Alice measures with a POVM, sends her outcome to Bob, who applies a conditional POVM. The induced
+    global operators are ``M_k = sum_a A_a kron B^a_k``. Minimizing over both POVMs is bilinear, so it
+    is solved by alternating SDPs restarted from ``reps`` random POVMs.
+    """
+    states = [to_density_matrix(vec) for vec in vectors]
+    dim_a, dim_b = int(dimensions[0]), int(dimensions[1])
+    if states[0].shape[0] != dim_a * dim_b:
+        raise ValueError("The product of `dimensions` must equal the dimension of the states.")
+
+    num_states = len(states)
+    num_a = num_states if num_alice_outcomes is None else num_alice_outcomes
+
+    best = float("inf")
+    best_strategy: tuple[list[np.ndarray], dict, int] | None = None
+    for rep in range(reps):
+        rep_seed = None if seed is None else seed + rep
+        povm = random_povm(dim_a, 1, num_a, seed=rep_seed)
+        alice = [povm[:, :, 0, a] for a in range(num_a)]
+
+        prev = float("inf")
+        current = float("inf")
+        for _ in range(max_iters):
+            bob = _locc_optimize_bob(states, probs, dim_a, dim_b, alice)
+            alice = _locc_optimize_alice(states, probs, dim_a, dim_b, bob, num_a)
+            current = _locc_error(states, probs, alice, bob, num_a)
+            if abs(prev - current) < tol:
+                break
+            prev = current
+
+        if current < best:
+            best = current
+            best_strategy = (alice, bob, num_a)
+
+    alice, bob, num_a = best_strategy
+    measurements = [sum(np.kron(alice[a], bob[a, k]) for a in range(num_a)) for k in range(num_states)]
+    return best, measurements
+
+
+def _locc_optimize_bob(states, probs, dim_a, dim_b, alice):
+    """Fix Alice's POVM and optimize Bob's conditional exclusion POVMs."""
+    num_a, num_states = len(alice), len(states)
+    bob = {(a, k): cvxpy.Variable((dim_b, dim_b), hermitian=True) for a in range(num_a) for k in range(num_states)}
+
+    constraints = []
+    error = 0
+    for a in range(num_a):
+        conditional = [
+            partial_trace(np.kron(alice[a], np.identity(dim_b)) @ states[k], [0], [dim_a, dim_b])
+            for k in range(num_states)
+        ]
+        for k in range(num_states):
+            constraints.append(bob[a, k] >> 0)
+            error += probs[k] * cvxpy.trace(bob[a, k] @ conditional[k])
+        constraints.append(sum(bob[a, k] for k in range(num_states)) == np.identity(dim_b))
+
+    cvxpy.Problem(cvxpy.Minimize(cvxpy.real(error)), constraints).solve()
+    return {key: np.array(var.value) for key, var in bob.items()}
+
+
+def _locc_optimize_alice(states, probs, dim_a, dim_b, bob, num_a):
+    """Fix Bob's conditional POVMs and optimize Alice's POVM."""
+    num_states = len(states)
+    alice = [cvxpy.Variable((dim_a, dim_a), hermitian=True) for _ in range(num_a)]
+
+    constraints = [a >> 0 for a in alice]
+    constraints.append(sum(alice) == np.identity(dim_a))
+
+    error = 0
+    for a in range(num_a):
+        tau = sum(
+            probs[k] * partial_trace(np.kron(np.identity(dim_a), bob[a, k]) @ states[k], [1], [dim_a, dim_b])
+            for k in range(num_states)
+        )
+        error += cvxpy.trace(alice[a] @ tau)
+
+    cvxpy.Problem(cvxpy.Minimize(cvxpy.real(error)), constraints).solve()
+    return [np.array(a.value) for a in alice]
+
+
+def _locc_error(states, probs, alice, bob, num_a):
+    """Evaluate the exclusion error of a concrete one-way LOCC strategy."""
+    num_states = len(states)
+    total = 0.0
+    for k in range(num_states):
+        guess_k = sum(np.kron(alice[a], bob[a, k]) for a in range(num_a))
+        total += probs[k] * np.real(np.trace(guess_k @ states[k]))
+    return float(total)

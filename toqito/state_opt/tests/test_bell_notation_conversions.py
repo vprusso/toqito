@@ -1,4 +1,4 @@
-"""Test bell_notation_conversions."""
+"""Test Bell notation conversion helpers."""
 
 import numpy as np
 import pytest
