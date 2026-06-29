@@ -1,6 +1,6 @@
-"""A basis state represents the standard basis vectors of some n-dimensional Hilbert Space.
+r"""A basis state represents the standard basis vectors of some \(n\)-dimensional Hilbert space.
 
-Here, n can be given as a parameter as shown below.
+Here, \(n\) can be given as a parameter as shown below.
 """
 
 import numpy as np
