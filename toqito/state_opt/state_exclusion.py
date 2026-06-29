@@ -128,8 +128,11 @@ def state_exclusion(
 
     !!! Note
         This function supports both pure states (vectors) and mixed states (density matrices).
-        It is known that it is always possible to perfectly exclude pure states that are linearly dependent.
-        Thus, calling this function on a set of states with this property will return 0.
+        Linear dependence does not imply perfect exclusion: the identical pair \(|0\rangle, |0\rangle\)
+        is linearly dependent yet cannot be excluded (Bob can never rule out \(|0\rangle\)). A
+        sufficient condition for perfect exclusion (a value of 0) is that the states span a strict
+        subspace of the full space, since then a measurement along a complementary direction excludes
+        with certainty.
 
     The conclusive state exclusion SDP is written explicitly in [@bandyopadhyay2014conclusive]. The problem
     of conclusive state exclusion was also thought about under a different guise in [@pusey2012reality].
