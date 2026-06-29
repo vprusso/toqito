@@ -156,3 +156,13 @@ def test_state_distinguishability_invalid_inputs(kwargs, match):
     vectors = [bell(0), bell(1)]
     with pytest.raises(ValueError, match=match):
         state_distinguishability(vectors, **kwargs)
+
+
+def test_unambiguous_dual_matches_primal_for_complex_states():
+    """The unambiguous dual must equal the primal for complex states (Hermitian dual var, #1657)."""
+    v0 = np.array([[1.0], [0.0]], dtype=complex)
+    v1 = np.array([[1.0], [1.0j]], dtype=complex) / np.sqrt(2)
+    states = [v0, v1]
+    primal, _ = state_distinguishability(states, strategy="unambiguous", primal_dual="primal")
+    dual, _ = state_distinguishability(states, strategy="unambiguous", primal_dual="dual")
+    np.testing.assert_allclose(primal, dual, atol=1e-5)
