@@ -48,6 +48,9 @@ def dephasing(dim: int, param_p: float = 0) -> np.ndarray:
     Returns:
         The Choi matrix of the partially dephasing channel.
 
+    Raises:
+        ValueError: If `param_p` is outside the interval [0, 1].
+
     Examples:
         The completely dephasing channel (\(p = 0\)) kills everything off the diagonal. Consider
         the following matrix
@@ -98,6 +101,9 @@ def dephasing(dim: int, param_p: float = 0) -> np.ndarray:
         ```
 
     """
+    if param_p < 0 or param_p > 1:
+        raise ValueError("The dephasing parameter must be between 0 and 1.")
+
     # Compute the Choi matrix of the dephasing channel.
 
     psi = max_entangled(dim=dim, is_sparse=False, is_normalized=False)
