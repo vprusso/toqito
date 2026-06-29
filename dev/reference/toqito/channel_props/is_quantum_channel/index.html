@@ -9790,7 +9790,9 @@ and <span class="arithmatex">\(\mathcal{Y}\)</span>, if it holds that:</p>
 <span class="normal"><a href="#__codelineno-0-93">93</a></span>
 <span class="normal"><a href="#__codelineno-0-94">94</a></span>
 <span class="normal"><a href="#__codelineno-0-95">95</a></span>
-<span class="normal"><a href="#__codelineno-0-96">96</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-9" name="__codelineno-0-9"></a><span class="k">def</span><span class="w"> </span><span class="nf">is_quantum_channel</span><span class="p">(</span>
+<span class="normal"><a href="#__codelineno-0-96">96</a></span>
+<span class="normal"><a href="#__codelineno-0-97">97</a></span>
+<span class="normal"><a href="#__codelineno-0-98">98</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-9" name="__codelineno-0-9"></a><span class="k">def</span><span class="w"> </span><span class="nf">is_quantum_channel</span><span class="p">(</span>
 <a id="__codelineno-0-10" name="__codelineno-0-10"></a>    <span class="n">phi</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]],</span>
 <a id="__codelineno-0-11" name="__codelineno-0-11"></a>    <span class="n">rtol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-05</span><span class="p">,</span>
 <a id="__codelineno-0-12" name="__codelineno-0-12"></a>    <span class="n">atol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-08</span><span class="p">,</span>
@@ -9872,12 +9874,14 @@ and <span class="arithmatex">\(\mathcal{Y}\)</span>, if it holds that:</p>
 <a id="__codelineno-0-88" name="__codelineno-0-88"></a>    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">phi</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
 <a id="__codelineno-0-89" name="__codelineno-0-89"></a>        <span class="n">phi</span> <span class="o">=</span> <span class="n">kraus_to_choi</span><span class="p">(</span><span class="n">phi</span><span class="p">)</span>
 <a id="__codelineno-0-90" name="__codelineno-0-90"></a>
-<a id="__codelineno-0-91" name="__codelineno-0-91"></a>    <span class="c1"># A valid quantum channel is a superoperator that is both completely</span>
-<a id="__codelineno-0-92" name="__codelineno-0-92"></a>    <span class="c1"># positive and trace-preserving.</span>
-<a id="__codelineno-0-93" name="__codelineno-0-93"></a>    <span class="k">try</span><span class="p">:</span>
-<a id="__codelineno-0-94" name="__codelineno-0-94"></a>        <span class="k">return</span> <span class="n">is_completely_positive</span><span class="p">(</span><span class="n">phi</span><span class="p">,</span> <span class="n">rtol</span><span class="p">,</span> <span class="n">atol</span><span class="p">)</span> <span class="ow">and</span> <span class="n">is_trace_preserving</span><span class="p">(</span><span class="n">phi</span><span class="p">,</span> <span class="n">rtol</span><span class="p">,</span> <span class="n">atol</span><span class="p">)</span>
-<a id="__codelineno-0-95" name="__codelineno-0-95"></a>    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
-<a id="__codelineno-0-96" name="__codelineno-0-96"></a>        <span class="k">return</span> <span class="kc">False</span>
+<a id="__codelineno-0-91" name="__codelineno-0-91"></a>    <span class="c1"># A valid quantum channel is a superoperator that is both completely positive and</span>
+<a id="__codelineno-0-92" name="__codelineno-0-92"></a>    <span class="c1"># trace-preserving. A ValueError here means the input does not have a shape that can describe a</span>
+<a id="__codelineno-0-93" name="__codelineno-0-93"></a>    <span class="c1"># channel (e.g. dimensions that cannot be split), so it is not a quantum channel; other</span>
+<a id="__codelineno-0-94" name="__codelineno-0-94"></a>    <span class="c1"># exceptions indicate genuine problems and should surface rather than be hidden as a False.</span>
+<a id="__codelineno-0-95" name="__codelineno-0-95"></a>    <span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-0-96" name="__codelineno-0-96"></a>        <span class="k">return</span> <span class="n">is_completely_positive</span><span class="p">(</span><span class="n">phi</span><span class="p">,</span> <span class="n">rtol</span><span class="p">,</span> <span class="n">atol</span><span class="p">)</span> <span class="ow">and</span> <span class="n">is_trace_preserving</span><span class="p">(</span><span class="n">phi</span><span class="p">,</span> <span class="n">rtol</span><span class="p">,</span> <span class="n">atol</span><span class="p">)</span>
+<a id="__codelineno-0-97" name="__codelineno-0-97"></a>    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+<a id="__codelineno-0-98" name="__codelineno-0-98"></a>        <span class="k">return</span> <span class="kc">False</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
