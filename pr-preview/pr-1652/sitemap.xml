@@ -309,18 +309,6 @@
          <lastmod>2026-06-29</lastmod>
     </url>
     <url>
-         <loc>https://vprusso.github.io/toqito/reference/toqito/helper/</loc>
-         <lastmod>2026-06-29</lastmod>
-    </url>
-    <url>
-         <loc>https://vprusso.github.io/toqito/reference/toqito/helper/expr_as_np_array/</loc>
-         <lastmod>2026-06-29</lastmod>
-    </url>
-    <url>
-         <loc>https://vprusso.github.io/toqito/reference/toqito/helper/np_array_as_expr/</loc>
-         <lastmod>2026-06-29</lastmod>
-    </url>
-    <url>
          <loc>https://vprusso.github.io/toqito/reference/toqito/matrices/</loc>
          <lastmod>2026-06-29</lastmod>
     </url>
@@ -385,6 +373,14 @@
          <lastmod>2026-06-29</lastmod>
     </url>
     <url>
+         <loc>https://vprusso.github.io/toqito/reference/toqito/matrix_ops/expr_as_np_array/</loc>
+         <lastmod>2026-06-29</lastmod>
+    </url>
+    <url>
+         <loc>https://vprusso.github.io/toqito/reference/toqito/matrix_ops/np_array_as_expr/</loc>
+         <lastmod>2026-06-29</lastmod>
+    </url>
+    <url>
          <loc>https://vprusso.github.io/toqito/reference/toqito/matrix_ops/null_space/</loc>
          <lastmod>2026-06-29</lastmod>
     </url>
@@ -398,6 +394,14 @@
     </url>
     <url>
          <loc>https://vprusso.github.io/toqito/reference/toqito/matrix_ops/perturb_vectors/</loc>
+         <lastmod>2026-06-29</lastmod>
+    </url>
+    <url>
+         <loc>https://vprusso.github.io/toqito/reference/toqito/matrix_ops/psd_matrix_power/</loc>
+         <lastmod>2026-06-29</lastmod>
+    </url>
+    <url>
+         <loc>https://vprusso.github.io/toqito/reference/toqito/matrix_ops/support_projection/</loc>
          <lastmod>2026-06-29</lastmod>
     </url>
     <url>
@@ -418,6 +422,10 @@
     </url>
     <url>
          <loc>https://vprusso.github.io/toqito/reference/toqito/matrix_ops/unvec/</loc>
+         <lastmod>2026-06-29</lastmod>
+    </url>
+    <url>
+         <loc>https://vprusso.github.io/toqito/reference/toqito/matrix_ops/validate_bipartite_dim/</loc>
          <lastmod>2026-06-29</lastmod>
     </url>
     <url>
@@ -557,6 +565,10 @@
          <lastmod>2026-06-29</lastmod>
     </url>
     <url>
+         <loc>https://vprusso.github.io/toqito/reference/toqito/matrix_props/is_support_subset/</loc>
+         <lastmod>2026-06-29</lastmod>
+    </url>
+    <url>
          <loc>https://vprusso.github.io/toqito/reference/toqito/matrix_props/is_symmetric/</loc>
          <lastmod>2026-06-29</lastmod>
     </url>
@@ -598,6 +610,10 @@
     </url>
     <url>
          <loc>https://vprusso.github.io/toqito/reference/toqito/matrix_props/spark/</loc>
+         <lastmod>2026-06-29</lastmod>
+    </url>
+    <url>
+         <loc>https://vprusso.github.io/toqito/reference/toqito/matrix_props/support_overlap/</loc>
          <lastmod>2026-06-29</lastmod>
     </url>
     <url>
@@ -830,10 +846,6 @@
     </url>
     <url>
          <loc>https://vprusso.github.io/toqito/reference/toqito/state_opt/state_exclusion/</loc>
-         <lastmod>2026-06-29</lastmod>
-    </url>
-    <url>
-         <loc>https://vprusso.github.io/toqito/reference/toqito/state_opt/state_exclusion_locc/</loc>
          <lastmod>2026-06-29</lastmod>
     </url>
     <url>
