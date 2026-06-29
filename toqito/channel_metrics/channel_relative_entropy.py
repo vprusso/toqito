@@ -6,20 +6,11 @@ import cvxpy as cvx
 import numpy as np
 
 from toqito.channel_props import is_completely_positive, is_quantum_channel
-from toqito.cones._integral_relative_entropy import (
-    find_lambda as _find_lambda,
-)
-from toqito.cones._integral_relative_entropy import (
-    find_mu as _find_mu,
-)
-from toqito.cones._integral_relative_entropy import (
-    make_delta as _make_delta,
-)
-from toqito.cones._integral_relative_entropy import (
-    make_gamma as _make_gamma,
-)
-from toqito.cones._integral_relative_entropy import (
-    make_grid as _make_grid,
+from toqito.cones.integral_relative_entropy import (
+    _make_delta,
+    _make_gamma,
+    _make_grid,
+    _sandwich_parameters,
 )
 from toqito.matrix_ops.partial_trace import partial_trace
 
@@ -138,8 +129,7 @@ def channel_relative_entropy(
     choi_2 = channel_2
     solve_kwargs = {"eps": 1e-8, "verbose": False, **kwargs}
 
-    lam = _find_lambda(choi_1, choi_2, solver, **solve_kwargs)
-    mu = _find_mu(choi_1, choi_2, solver, **solve_kwargs)
+    mu, lam = _sandwich_parameters(choi_1, choi_2)
     if mu <= 0 or lam <= mu:
         raise ValueError(
             "The integral representation requires 0 < mu < lambda. "

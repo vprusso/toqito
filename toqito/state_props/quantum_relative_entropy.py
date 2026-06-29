@@ -7,8 +7,8 @@ import cvxpy
 import numpy as np
 from scipy.linalg import logm
 
-from toqito.cones._integral_relative_entropy import evaluate_relative_entropy_integral
 from toqito.cones._utils import _require_square_2d
+from toqito.cones.integral_relative_entropy import evaluate_relative_entropy_integral
 from toqito.cones.ln_quantum_entropy import ln_quantum_entropy
 from toqito.cones.operator_relative_entropy_epi_cone import (
     operator_relative_entropy_epi_cone,
@@ -43,6 +43,7 @@ def quantum_relative_entropy(
     The first mode features better convergence in the approximation parameters,
     but it relies on a lifting technique that makes variables of size \(n^2 \times n^2\) instead of \(n \times n\).
     The second mode uses a smaller semidefinite representation and is more efficient, but it may not be as accurate.
+    To increase accuracy with the second mode, you can lower the ``epsilon_dec`` parameter.
 
     Args:
         mat_x: The first positive semidefinite matrix.

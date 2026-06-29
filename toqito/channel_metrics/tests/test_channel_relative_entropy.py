@@ -5,16 +5,16 @@ import importlib
 import cvxpy as cvx
 import numpy as np
 import pytest
+from scipy.linalg import LinAlgError
 
 from toqito.channel_metrics.channel_relative_entropy import channel_relative_entropy
 from toqito.channels import depolarizing, pauli_channel
+from toqito.cones.integral_relative_entropy import _sandwich_parameters
 from toqito.perms import swap_operator
 
 _CHANNEL_RELATIVE_ENTROPY_MOD = importlib.import_module(
     "toqito.channel_metrics.channel_relative_entropy"
 )
-_find_mu = _CHANNEL_RELATIVE_ENTROPY_MOD._find_mu
-_find_lambda = _CHANNEL_RELATIVE_ENTROPY_MOD._find_lambda
 
 
 def _dense(mat):
@@ -22,88 +22,33 @@ def _dense(mat):
     return mat.toarray() if hasattr(mat, "toarray") else np.asarray(mat)
 
 
-def test_find_mu_and_lambda_for_distinct_channels():
-    """Auxiliary SDP endpoints should satisfy 0 < mu < lambda."""
+def test_sandwich_parameters_for_distinct_channels():
+    """Sandwich endpoints should satisfy 0 < mu < lambda."""
     channel_1 = depolarizing(2, 0.2)
     channel_2 = depolarizing(2, 0.4)
 
-    mu = _find_mu(channel_1, channel_2, "SCS")
-    lam = _find_lambda(channel_1, channel_2, "SCS")
+    mu, lam = _sandwich_parameters(channel_1, channel_2)
 
     assert mu > 0
     assert lam > mu
 
 
-def test_find_mu_raises_on_sdp_failure(monkeypatch):
-    """Failed mu SDP should raise ValueError instead of TypeError."""
+def test_sandwich_parameters_raises_on_eigh_failure(monkeypatch):
+    """Failed generalized eigenvalue solve should raise ValueError."""
 
-    class FakeProblem:
-        status = cvx.INFEASIBLE
+    def failing_eigh(*args, **kwargs):
+        raise LinAlgError("singular pencil")
 
-        def __init__(self, objective, constraints):
-            pass
+    monkeypatch.setattr(
+        "toqito.cones.integral_relative_entropy._generalized_eigenvalues",
+        failing_eigh,
+    )
 
-        def solve(self, **kwargs):
-            pass
-
-    monkeypatch.setattr(_CHANNEL_RELATIVE_ENTROPY_MOD.cvx, "Problem", FakeProblem)
-
-    with pytest.raises(ValueError, match="mu auxiliary SDP failed"):
-        _find_mu(depolarizing(2, 0.2), depolarizing(2, 0.4), "SCS")
-
-
-def test_find_mu_raises_when_solver_returns_no_value(monkeypatch):
-    """OPTIMAL status with a missing variable value should raise ValueError."""
-
-    class FakeProblem:
-        status = cvx.OPTIMAL
-
-        def __init__(self, objective, constraints):
-            pass
-
-        def solve(self, **kwargs):
-            pass
-
-    monkeypatch.setattr(_CHANNEL_RELATIVE_ENTROPY_MOD.cvx, "Problem", FakeProblem)
-
-    with pytest.raises(ValueError, match="solver returned no value"):
-        _find_mu(depolarizing(2, 0.2), depolarizing(2, 0.4), "SCS")
-
-
-def test_find_lambda_raises_on_sdp_failure(monkeypatch):
-    """Failed lambda SDP should raise ValueError instead of TypeError."""
-
-    class FakeProblem:
-        status = cvx.INFEASIBLE
-
-        def __init__(self, objective, constraints):
-            pass
-
-        def solve(self, **kwargs):
-            pass
-
-    monkeypatch.setattr(_CHANNEL_RELATIVE_ENTROPY_MOD.cvx, "Problem", FakeProblem)
-
-    with pytest.raises(ValueError, match="lambda auxiliary SDP failed"):
-        _find_lambda(depolarizing(2, 0.2), depolarizing(2, 0.4), "SCS")
-
-
-def test_find_lambda_raises_when_solver_returns_no_value(monkeypatch):
-    """OPTIMAL status with a missing variable value should raise ValueError."""
-
-    class FakeProblem:
-        status = cvx.OPTIMAL
-
-        def __init__(self, objective, constraints):
-            pass
-
-        def solve(self, **kwargs):
-            pass
-
-    monkeypatch.setattr(_CHANNEL_RELATIVE_ENTROPY_MOD.cvx, "Problem", FakeProblem)
-
-    with pytest.raises(ValueError, match="solver returned no value"):
-        _find_lambda(depolarizing(2, 0.2), depolarizing(2, 0.4), "SCS")
+    with pytest.raises(
+        ValueError,
+        match="Failed to compute sandwich parameters from generalized eigenvalues",
+    ):
+        _sandwich_parameters(depolarizing(2, 0.2), depolarizing(2, 0.4))
 
 
 def test_forwards_solver_and_kwargs(monkeypatch):
@@ -248,19 +193,17 @@ def test_raises_degenerate_integral_bounds(monkeypatch):
     channel_2 = depolarizing(2, 0.4)
 
     monkeypatch.setattr(
-        _CHANNEL_RELATIVE_ENTROPY_MOD, "_find_mu", lambda rho, sigma, *args, **kwargs: 0.0
-    )
-    monkeypatch.setattr(
-        _CHANNEL_RELATIVE_ENTROPY_MOD, "_find_lambda", lambda rho, sigma, *args, **kwargs: 1.0
+        _CHANNEL_RELATIVE_ENTROPY_MOD,
+        "_sandwich_parameters",
+        lambda rho, sigma: (0.0, 1.0),
     )
     with pytest.raises(ValueError, match="0 < mu < lambda"):
         channel_relative_entropy(channel_1, channel_2, in_dim=2, epsilon_dec=0.2)
 
     monkeypatch.setattr(
-        _CHANNEL_RELATIVE_ENTROPY_MOD, "_find_mu", lambda rho, sigma, *args, **kwargs: 2.0
-    )
-    monkeypatch.setattr(
-        _CHANNEL_RELATIVE_ENTROPY_MOD, "_find_lambda", lambda rho, sigma, *args, **kwargs: 1.0
+        _CHANNEL_RELATIVE_ENTROPY_MOD,
+        "_sandwich_parameters",
+        lambda rho, sigma: (2.0, 1.0),
     )
     with pytest.raises(ValueError, match="0 < mu < lambda"):
         channel_relative_entropy(channel_1, channel_2, in_dim=2, epsilon_dec=0.2)
@@ -289,10 +232,9 @@ def test_mean_mode_returns_scalar():
 def test_raises_when_lower_sdp_fails(monkeypatch):
     """A failed lower-bound solve should raise RuntimeError."""
     monkeypatch.setattr(
-        _CHANNEL_RELATIVE_ENTROPY_MOD, "_find_mu", lambda rho, sigma, *args, **kwargs: 0.1
-    )
-    monkeypatch.setattr(
-        _CHANNEL_RELATIVE_ENTROPY_MOD, "_find_lambda", lambda rho, sigma, *args, **kwargs: 2.0
+        _CHANNEL_RELATIVE_ENTROPY_MOD,
+        "_sandwich_parameters",
+        lambda rho, sigma: (0.1, 2.0),
     )
 
     class FakeProblem:
@@ -318,10 +260,9 @@ def test_raises_when_lower_sdp_fails(monkeypatch):
 def test_raises_when_upper_sdp_fails(monkeypatch):
     """A failed upper-bound solve should raise RuntimeError."""
     monkeypatch.setattr(
-        _CHANNEL_RELATIVE_ENTROPY_MOD, "_find_mu", lambda rho, sigma, *args, **kwargs: 0.1
-    )
-    monkeypatch.setattr(
-        _CHANNEL_RELATIVE_ENTROPY_MOD, "_find_lambda", lambda rho, sigma, *args, **kwargs: 2.0
+        _CHANNEL_RELATIVE_ENTROPY_MOD,
+        "_sandwich_parameters",
+        lambda rho, sigma: (0.1, 2.0),
     )
 
     class FakeProblem:
@@ -347,10 +288,9 @@ def test_raises_when_upper_sdp_fails(monkeypatch):
 def test_warns_on_optimal_inaccurate_lower(monkeypatch):
     """OPTIMAL_INACCURATE on the lower SDP should warn."""
     monkeypatch.setattr(
-        _CHANNEL_RELATIVE_ENTROPY_MOD, "_find_mu", lambda rho, sigma, *args, **kwargs: 0.1
-    )
-    monkeypatch.setattr(
-        _CHANNEL_RELATIVE_ENTROPY_MOD, "_find_lambda", lambda rho, sigma, *args, **kwargs: 2.0
+        _CHANNEL_RELATIVE_ENTROPY_MOD,
+        "_sandwich_parameters",
+        lambda rho, sigma: (0.1, 2.0),
     )
 
     class FakeProblem:
@@ -378,10 +318,9 @@ def test_warns_on_optimal_inaccurate_lower(monkeypatch):
 def test_warns_on_optimal_inaccurate_upper(monkeypatch):
     """OPTIMAL_INACCURATE on the upper SDP should warn."""
     monkeypatch.setattr(
-        _CHANNEL_RELATIVE_ENTROPY_MOD, "_find_mu", lambda rho, sigma, *args, **kwargs: 0.1
-    )
-    monkeypatch.setattr(
-        _CHANNEL_RELATIVE_ENTROPY_MOD, "_find_lambda", lambda rho, sigma, *args, **kwargs: 2.0
+        _CHANNEL_RELATIVE_ENTROPY_MOD,
+        "_sandwich_parameters",
+        lambda rho, sigma: (0.1, 2.0),
     )
 
     class FakeProblem:

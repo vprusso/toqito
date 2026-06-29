@@ -4,11 +4,40 @@ import warnings
 
 import cvxpy
 import numpy as np
+from scipy.linalg import LinAlgError, eig, eigh
 
 from toqito.matrix_props import is_positive_semidefinite
 
 
-def make_grid(mu: float, lam: float, epsilon: float) -> np.ndarray:
+def _generalized_eigenvalues(a: np.ndarray, b: np.ndarray) -> np.ndarray:
+    """Return real generalized eigenvalues for the pencil ``(a, b)``."""
+    try:
+        return np.real(eigh(a, b, check_finite=False)[0])
+    except LinAlgError:
+        return np.real(eig(a, b, left=False, right=False)[0])
+
+
+def _sandwich_parameters(rho: np.ndarray, sigma: np.ndarray) -> tuple[float, float]:
+    r"""Return sandwich bounds \(\mu\) and \(\lambda\) for PSD matrices \(X\) and \(Y\)."""
+    try:
+        w_xy = _generalized_eigenvalues(rho, sigma)
+        w_yx = _generalized_eigenvalues(sigma, rho)
+    except LinAlgError as exc:
+        raise ValueError(
+            "Failed to compute sandwich parameters from generalized eigenvalues."
+        ) from exc
+    finite_xy = w_xy[np.isfinite(w_xy)]
+    finite_yx = w_yx[np.isfinite(w_yx)]
+    if finite_xy.size == 0 or finite_yx.size == 0:
+        raise ValueError(
+            "Failed to compute sandwich parameters from generalized eigenvalues."
+        )
+    lam = float(np.max(finite_xy))
+    mu = float(np.min(finite_yx))
+    return mu, lam
+
+
+def _make_grid(mu: float, lam: float, epsilon: float) -> np.ndarray:
     r"""Make a grid of points for the integral representation of the relative entropy.
 
     The first point of the grid is set to \(\mu\). For the k-th point \(t_k\), where
@@ -33,57 +62,7 @@ def make_grid(mu: float, lam: float, epsilon: float) -> np.ndarray:
     return np.array(grid + [lam])
 
 
-def find_mu(
-    rho: np.ndarray, sigma: np.ndarray, solver: str, **solve_kwargs
-) -> float:
-    r"""Find the starting point \(\mu\) of the integral representation of the relative entropy.
-
-    Args:
-        rho: The Choi matrix of the first channel.
-        sigma: The Choi matrix of the second channel.
-        solver: The CVXPY solver to use.
-        solve_kwargs: Additional arguments passed to ``cvxpy.Problem.solve``.
-
-    Returns:
-        The starting point \(\mu\).
-
-    """
-    mu = cvxpy.Variable()
-    problem = cvxpy.Problem(cvxpy.Maximize(mu), [sigma - mu * rho >> 0])
-    problem.solve(solver=solver, **solve_kwargs)
-    if problem.status not in (cvxpy.OPTIMAL, cvxpy.OPTIMAL_INACCURATE):
-        raise ValueError(f"mu auxiliary SDP failed: {problem.status}")
-    if mu.value is None:
-        raise ValueError("mu auxiliary SDP failed: solver returned no value")
-    return float(mu.value)
-
-
-def find_lambda(
-    rho: np.ndarray, sigma: np.ndarray, solver: str, **solve_kwargs
-) -> float:
-    r"""Find the ending point \(\lambda\) of the integral representation of the relative entropy.
-
-    Args:
-        rho: The Choi matrix of the first channel.
-        sigma: The Choi matrix of the second channel.
-        solver: The CVXPY solver to use.
-        solve_kwargs: Additional arguments passed to ``cvxpy.Problem.solve``.
-
-    Returns:
-        The ending point \(\lambda\).
-
-    """
-    lam = cvxpy.Variable()
-    problem = cvxpy.Problem(cvxpy.Minimize(lam), [lam * sigma - rho >> 0])
-    problem.solve(solver=solver, **solve_kwargs)
-    if problem.status not in (cvxpy.OPTIMAL, cvxpy.OPTIMAL_INACCURATE):
-        raise ValueError(f"lambda auxiliary SDP failed: {problem.status}")
-    if lam.value is None:
-        raise ValueError("lambda auxiliary SDP failed: solver returned no value")
-    return float(lam.value)
-
-
-def make_delta(t: np.ndarray) -> np.ndarray:
+def _make_delta(t: np.ndarray) -> np.ndarray:
     r"""Make the delta coefficients for the integral representation of the relative entropy.
 
     Suppose the integral grid has \(r\) points from \(t_1\) to \(t_r\). Then the
@@ -122,7 +101,7 @@ def make_delta(t: np.ndarray) -> np.ndarray:
     return delta
 
 
-def make_gamma(t: np.ndarray) -> np.ndarray:
+def _make_gamma(t: np.ndarray) -> np.ndarray:
     r"""Make the gamma coefficients for the integral representation of the relative entropy.
 
     Suppose the integral grid has \(r\) points from \(t_1\) to \(t_r\). Then the
@@ -226,8 +205,7 @@ def evaluate_relative_entropy_integral(
     default_kwargs = {"eps": 1e-8, "verbose": False}
     default_kwargs.update(solve_kwargs)
 
-    lam = find_lambda(mat_x, mat_y, solver, **default_kwargs)
-    mu = find_mu(mat_x, mat_y, solver, **default_kwargs)
+    mu, lam = _sandwich_parameters(mat_x, mat_y)
     if mu <= 0 or lam <= mu:
         raise ValueError(
             "The integral representation requires 0 < mu < lambda. "
@@ -235,12 +213,12 @@ def evaluate_relative_entropy_integral(
             "(support of X may not be contained in support of Y)."
         )
 
-    t = make_grid(mu, lam, epsilon_dec)
+    t = _make_grid(mu, lam, epsilon_dec)
     r = len(t)
     alpha = [np.log(t[k] / t[k + 1]) for k in range(r - 1)]
     beta = [t[k + 1] - t[k] for k in range(r - 1)]
-    gamma = make_gamma(t)
-    delta = make_delta(t)
+    gamma = _make_gamma(t)
+    delta = _make_delta(t)
 
     mu_vars = [_matrix_variable(n, complex_hermitian=is_cplx) for _ in range(r - 1)]
     lower_cons = [mu_vars[k] >> 0 for k in range(r - 1)] + [
