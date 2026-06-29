@@ -16,7 +16,7 @@ class XORGame:
     The quantum value of an XOR game can be solved via the semidefinite program
     from [@cleve2010consequences].
 
-    This function is adapted from the QETLAB package.
+    This function is adapted from the QETLAB package [@qetlablink].
 
     A tutorial is available in the documentation. Go to
     [Calculating the quantum and classical value of a two-player XOR game]
@@ -213,7 +213,7 @@ class XORGame:
         In other words, \(\pi(x, y)\) corresponds to `prob_mat[x, y]`, and \(f(x,y)\) corresponds to `pred_mat[x, y]`.
 
         Returns:
-            A value between [0, 1] representing the quantum value.
+            A value between `[0, 1]` representing the quantum value.
 
         """
         alice_in, bob_in = self.prob_mat.shape
@@ -256,7 +256,7 @@ class XORGame:
         r"""Compute the classical value of the XOR game.
 
         Returns:
-            A value between [0, 1] representing the classical value.
+            A value between `[0, 1]` representing the classical value.
 
         """
         return self.to_nonlocal_game().classical_value()
@@ -267,7 +267,7 @@ class XORGame:
         Here, the existing function in the `NonlocalGame` class is called.
 
         Returns:
-            A value between [0, 1] representing the nonsignaling value.
+            A value between `[0, 1]` representing the nonsignaling value.
 
         """
         return self.to_nonlocal_game().nonsignaling_value()

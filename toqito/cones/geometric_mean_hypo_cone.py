@@ -38,12 +38,12 @@ def geometric_mean_hypo_cone(
         A: A cvxpy expression representing a matrix.
         B: A cvxpy expression representing a matrix.
         T: A cvxpy expression representing a matrix.
-        t: The weight in the range [0, 1].
+        t: The weight in the range `[0, 1]`.
         fullhyp: Whether to use the full hypograph or the restricted hypograph.
         hermitian: Whether the matrices are Hermitian or symmetric.
 
     Raises:
-        ValueError: If the weight is not in the range [0, 1].
+        ValueError: If the weight is not in the range `[0, 1]`.
         ValueError: If the matrices are not the same size.
         ValueError: If the matrices are not 2D or not square.
 
@@ -104,7 +104,7 @@ def _geometric_mean_cone_recursion(
         A: A cvxpy expression representing a matrix.
         B: A cvxpy expression representing a matrix.
         T: A cvxpy expression representing a matrix.
-        t: The weight in the range [0, 1].
+        t: The weight in the range `[0, 1]`.
         hermitian: Whether the matrices are Hermitian or symmetric.
 
     Returns:

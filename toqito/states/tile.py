@@ -34,7 +34,7 @@ def tile(idx: int) -> np.ndarray:
     \]
 
     Args:
-        idx: A parameter in [0, 1, 2, 3, 4]
+        idx: A parameter in `[0, 1, 2, 3, 4]`.
 
     Returns:
         Tile state.
