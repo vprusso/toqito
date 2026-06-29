@@ -16,7 +16,7 @@ def breuer(dim: int, lam: float) -> np.ndarray:
     `lam` parameter describing the weight of the singlet component as described in
     [@breuer2006optimal].
 
-    This function was adapted from the QETLAB package.
+    This function was adapted from the QETLAB package [@qetlablink].
 
     Args:
         dim: Dimension of the Breuer state.
