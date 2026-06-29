@@ -1569,3 +1569,12 @@ def test_is_separable_strength_zero_skips_terhal_witness():
     # At strength=0 execution stops at the PPT pre-checks, so the fake
     # witness never fires — strength=0 cap returns False/inconclusive.
     assert "Terhal" not in str(sep)
+
+
+def test_is_separable_non_square_split_with_inferred_dim():
+    """A 2x3 (dimension-6) state with dim=None must not crash inferring equal 2x2 dims (#1656)."""
+    # Separable mixed state on a 2 (x) 3 system; dim is left as None so it is inferred.
+    rho = np.kron(np.diag([0.6, 0.4]), np.diag([0.2, 0.3, 0.5]))
+    result, reason = is_separable(rho)
+    assert isinstance(result, bool)
+    assert isinstance(reason, str)

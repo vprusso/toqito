@@ -504,7 +504,10 @@ def is_separable(
         return True, "lies within the Gurvits-Barnum separable ball"
 
     # --- 5. PPT (Peres-Horodecki) Criterion ---
-    is_state_ppt = is_ppt(state, 2, dim, tol)  # sys=2 implies partial transpose on the second system by default
+    # Pass the resolved subsystem dimensions (not the raw `dim`, which may be None or a scalar): for a
+    # non-square split such as 2x3, is_ppt would otherwise re-infer equal dimensions and raise.
+    # sys=2 implies partial transpose on the second system by default.
+    is_state_ppt = is_ppt(state, 2, dims_list, tol)
     if not is_state_ppt:
         # Determined to be entangled via the PPT criterion [@peres1996separability].
         # Also, see Horodecki Theorem in [@guhne2009entanglement].
