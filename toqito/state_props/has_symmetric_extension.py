@@ -25,7 +25,7 @@ def has_symmetric_extension(
     Determining whether an operator possesses a symmetric extension at some level `level`
     can be used as a check to determine if the operator is entangled or not.
 
-    This function was adapted from QETLAB.
+    This function was adapted from QETLAB [@qetlablink].
 
     Args:
         rho: A matrix or vector.

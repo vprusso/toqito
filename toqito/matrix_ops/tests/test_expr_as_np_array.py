@@ -3,7 +3,7 @@
 import cvxpy
 import numpy as np
 
-from toqito.helper import expr_as_np_array
+from toqito.matrix_ops.expr_as_np_array import expr_as_np_array
 
 
 def test_expr_as_np_array():

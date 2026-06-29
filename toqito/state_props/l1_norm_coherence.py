@@ -22,7 +22,7 @@ def l1_norm_coherence(rho: np.ndarray) -> float:
     the sum of the absolute values of the off-diagonal entries of the density
     matrix `rho` in the standard basis.
 
-    This function was adapted from QETLAB.
+    This function was adapted from QETLAB [@qetlablink].
 
     Args:
         rho: A matrix or vector.

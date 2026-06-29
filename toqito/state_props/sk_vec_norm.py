@@ -20,7 +20,7 @@ def sk_vector_norm(rho: np.ndarray, k: int = 1, dim: int | list[int] | None = No
     It's also equal to the Euclidean norm of the vector of \(|v\rangle\)'s
     k largest Schmidt coefficients.
 
-    This function was adapted from QETLAB.
+    This function was adapted from QETLAB [@qetlablink].
 
     Args:
         rho: A vector.

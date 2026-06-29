@@ -31,7 +31,7 @@ def domino(idx: int) -> np.ndarray:
     Returns one of the following nine domino states depending on the value of `idx`.
 
     Args:
-        idx: A parameter in [0, 1, 2, 3, 4, 5, 6, 7, 8]
+        idx: A parameter in `[0, 1, 2, 3, 4, 5, 6, 7, 8]`.
 
     Returns:
         Domino state of index `idx`.

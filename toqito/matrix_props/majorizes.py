@@ -15,7 +15,7 @@ def majorizes(a_var: np.ndarray | list[int], b_var: np.ndarray | list[int]) -> b
 
     for all \(k \in \{1, \ldots, d\}\).
 
-    This function was adapted from the QETLAB package.
+    This function was adapted from the QETLAB package [@qetlablink].
 
     Args:
         a_var: Matrix or vector provided as list or np.array.

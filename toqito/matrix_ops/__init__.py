@@ -17,3 +17,5 @@ from toqito.matrix_ops.null_space import null_space
 from toqito.matrix_ops.psd_matrix_power import psd_matrix_power
 from toqito.matrix_ops.support_projection import support_projection
 from toqito.matrix_ops.validate_bipartite_dim import validate_bipartite_dim
+from toqito.matrix_ops.expr_as_np_array import expr_as_np_array
+from toqito.matrix_ops.np_array_as_expr import np_array_as_expr

@@ -44,7 +44,7 @@ def sk_operator_norm(
     want to devote to computing the bounds by `effort` input argument. Note that if the input matrix is not positive
     semidefinite the output bounds might be quite poor.
 
-    This function was adapted from QETLAB.
+    This function was adapted from QETLAB [@qetlablink].
 
     Args:
         mat: A matrix.

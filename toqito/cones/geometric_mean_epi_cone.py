@@ -32,11 +32,11 @@ def geometric_mean_epi_cone(
         A: A cvxpy expression representing a matrix.
         B: A cvxpy expression representing a matrix.
         T: A cvxpy expression representing a matrix.
-        t: The weight in the range [-1, 0] or [1, 2].
+        t: The weight in the range `[-1, 0]` or `[1, 2]`.
         hermitian: Whether the matrices are Hermitian or symmetric.
 
     Raises:
-        ValueError: If the weight is not in the range [-1, 0] or [1, 2].
+        ValueError: If the weight is not in the range `[-1, 0]` or `[1, 2]`.
         ValueError: If the matrices are not the same size.
         ValueError: If the matrices are not 2D or not square.
 
