@@ -309,18 +309,6 @@
          <lastmod>2026-06-29</lastmod>
     </url>
     <url>
-         <loc>https://vprusso.github.io/toqito/dev/reference/toqito/helper/</loc>
-         <lastmod>2026-06-29</lastmod>
-    </url>
-    <url>
-         <loc>https://vprusso.github.io/toqito/dev/reference/toqito/helper/expr_as_np_array/</loc>
-         <lastmod>2026-06-29</lastmod>
-    </url>
-    <url>
-         <loc>https://vprusso.github.io/toqito/dev/reference/toqito/helper/np_array_as_expr/</loc>
-         <lastmod>2026-06-29</lastmod>
-    </url>
-    <url>
          <loc>https://vprusso.github.io/toqito/dev/reference/toqito/matrices/</loc>
          <lastmod>2026-06-29</lastmod>
     </url>
@@ -382,6 +370,14 @@
     </url>
     <url>
          <loc>https://vprusso.github.io/toqito/dev/reference/toqito/matrix_ops/calculate_vector_matrix_dimension/</loc>
+         <lastmod>2026-06-29</lastmod>
+    </url>
+    <url>
+         <loc>https://vprusso.github.io/toqito/dev/reference/toqito/matrix_ops/expr_as_np_array/</loc>
+         <lastmod>2026-06-29</lastmod>
+    </url>
+    <url>
+         <loc>https://vprusso.github.io/toqito/dev/reference/toqito/matrix_ops/np_array_as_expr/</loc>
          <lastmod>2026-06-29</lastmod>
     </url>
     <url>
