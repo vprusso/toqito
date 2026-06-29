@@ -96,8 +96,16 @@ def test_sandwiched_renyi_conditional_entropy_alpha_one_is_conditional_vn(varian
 
 def test_sandwiched_renyi_conditional_entropy_uparrow_rejects_small_alpha():
     """The uparrow variant requires alpha >= 1/2 for a convex formulation."""
-    with pytest.raises(ValueError, match="alpha >= 1/2"):
+    with pytest.raises(ValueError, match="alpha >= 0.5"):
         sandwiched_renyi_conditional_entropy(PRODUCT_STATE, 0.25, dim=[2, 2], variant="uparrow")
+
+
+def test_sandwiched_renyi_conditional_entropy_uparrow_min_alpha_override():
+    """A custom uparrow_min_alpha moves the guard boundary."""
+    with pytest.raises(ValueError, match="alpha >= 0.9"):
+        sandwiched_renyi_conditional_entropy(
+            PRODUCT_STATE, 0.75, dim=[2, 2], variant="uparrow", uparrow_min_alpha=0.9
+        )
 
 
 def test_sandwiched_renyi_conditional_entropy_rejects_unknown_variant():
