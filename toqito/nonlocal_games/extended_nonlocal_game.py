@@ -308,8 +308,7 @@ class ExtendedNonlocalGame:
         self.__get_game_dims()
         if solver_params is None:
             solver_params = {"eps_abs": tol, "eps_rel": tol, "max_iters": 50000, "verbose": False}
-        if seed is not None:
-            np.random.seed(seed)
+        rng = np.random.default_rng(seed) if seed is not None else None
 
         # Get number of inputs and outputs for Bob's measurements.
         _, _, _, num_outputs_bob, _, num_inputs_bob = self.pred_mat.shape
@@ -319,7 +318,8 @@ class ExtendedNonlocalGame:
         if isinstance(initial_bob_is_random, bool):
             if initial_bob_is_random:
                 for y_ques in range(num_inputs_bob):
-                    random_u_mat = random_unitary(num_outputs_bob)
+                    unitary_seed = None if rng is None else int(rng.integers(0, 2**32 - 1))
+                    random_u_mat = random_unitary(num_outputs_bob, seed=unitary_seed)
                     for b_ans in range(num_outputs_bob):
                         ket = random_u_mat[:, b_ans].reshape(-1, 1)
                         bra = ket.conj().T

@@ -119,12 +119,36 @@ def test_state_distinguishability_ppt_requires_subsystems_and_dimensions():
         state_distinguishability(vectors=[bell(0), bell(1)], measurement="ppt")
 
 
+def test_state_distinguishability_ppt_wrong_dimensions():
+    """PPT dimensions must multiply to the state dimension."""
+    with pytest.raises(ValueError, match="product of `dimensions`"):
+        state_distinguishability(
+            vectors=[bell(0), bell(1)],
+            measurement="ppt",
+            subsystems=[0],
+            dimensions=[2, 3],
+        )
+
+
+def test_state_distinguishability_ppt_subsystems_out_of_range():
+    """PPT subsystem indices must be valid for the provided dimensions."""
+    with pytest.raises(ValueError, match="index into `dimensions`"):
+        state_distinguishability(
+            vectors=[bell(0), bell(1)],
+            measurement="ppt",
+            subsystems=[5],
+            dimensions=[2, 2],
+        )
+
+
 @pytest.mark.parametrize(
     "kwargs, match",
     [
         ({"probs": [0.5]}, "must equal the number of states"),
         ({"probs": [-0.5, 1.5]}, "nonnegative"),
         ({"strategy": "bogus"}, "strategy must be either"),
+        ({"measurement": "bogus"}, "measurement.*positive.*ppt"),
+        ({"primal_dual": "bogus"}, "primal_dual option"),
     ],
 )
 def test_state_distinguishability_invalid_inputs(kwargs, match):

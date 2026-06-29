@@ -244,6 +244,7 @@ def test_state_exclusion_invalid_measurement():
         ({"probs": [0.5]}, "must equal the number of states"),
         ({"probs": [-0.5, 1.5]}, "nonnegative"),
         ({"strategy": "bogus"}, "strategy must be either"),
+        ({"primal_dual": "bogus"}, "primal_dual option"),
     ],
 )
 def test_state_exclusion_invalid_inputs(kwargs, match):

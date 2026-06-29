@@ -266,6 +266,9 @@ def state_exclusion(
     if strategy not in ("min_error", "unambiguous"):
         raise ValueError("strategy must be either 'min_error' or 'unambiguous'.")
 
+    if primal_dual not in {"primal", "dual"}:
+        raise ValueError("The primal_dual option must be either 'primal' or 'dual'.")
+
     if measurement == "locc":
         if strategy != "min_error":
             raise ValueError("The 'locc' measurement supports only strategy='min_error'.")

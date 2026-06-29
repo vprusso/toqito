@@ -16,9 +16,16 @@ build/
 coverage.xml
 jupyter_execute/
 venv/*
+.venv/
 docs/site/
 docs/content/reference/
 docs/content/generated/
+
+# Local Lean build/cache output.
+/lean/.lake/
+
+# Local research scratch space.
+/scripts/
 
 # Solver license files (e.g. MOSEK) - never commit, these contain credentials
 *.lic

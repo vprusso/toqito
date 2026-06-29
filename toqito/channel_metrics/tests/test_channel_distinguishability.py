@@ -115,6 +115,19 @@ def test_state_distinguishability_invalid_strategy(test_input_1, test_input_2, p
         channel_distinguishability(test_input_1, test_input_2, prior_prob, dim, strategy=strategy)
 
 
+def test_channel_distinguishability_invalid_primal_dual():
+    """Invalid minimax formulation names should raise a clear ValueError."""
+    with pytest.raises(ValueError, match="primal_dual option"):
+        channel_distinguishability(
+            dephasing(2),
+            dephasing(2),
+            None,
+            [2, 2],
+            strategy="minimax",
+            primal_dual="bogus",
+        )
+
+
 @pytest.mark.parametrize(
     "test_input1, test_input_2, prior_prob, dim, expected_msg",
     [

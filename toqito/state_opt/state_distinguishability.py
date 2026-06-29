@@ -169,6 +169,12 @@ def state_distinguishability(
         ```
 
     """
+    if measurement not in {"positive", "ppt"}:
+        raise ValueError("Argument `measurement` must be either 'positive' or 'ppt'.")
+
+    if primal_dual not in {"primal", "dual"}:
+        raise ValueError("The primal_dual option must be either 'primal' or 'dual'.")
+
     if not has_same_dimension(vectors):
         raise ValueError("Vectors for state distinguishability must all have the same dimension.")
 
@@ -187,12 +193,15 @@ def state_distinguishability(
         raise ValueError("strategy must be either 'min_error' or 'unambiguous'.")
 
     if measurement == "ppt":
-        if subsystems is None or dimensions is None:
-            raise ValueError("The 'subsystems' and 'dimensions' parameters are required for PPT measurements.")
+        _validate_ppt_params(dim=dim, subsystems=subsystems, dimensions=dimensions)
         if primal_dual == "primal":
             return _ppt_primal(
-                vectors=vectors, subsystems=subsystems, dimensions=dimensions,
-                probs=probs, solver=solver, strategy=strategy,
+                vectors=vectors,
+                subsystems=subsystems,
+                dimensions=dimensions,
+                probs=probs,
+                solver=solver,
+                strategy=strategy,
             )
         return _ppt_dual(
             vectors=vectors, subsystems=subsystems, dimensions=dimensions, probs=probs, solver=solver, strategy=strategy
@@ -207,6 +216,18 @@ def state_distinguishability(
         return _unambiguous_primal(vectors=vectors, dim=dim, probs=probs, solver=solver, **kwargs)
 
     return _unambiguous_dual(vectors=vectors, probs=probs, solver=solver, **kwargs)
+
+
+def _validate_ppt_params(dim: int, subsystems: list[int] | None, dimensions: list[int] | None) -> None:
+    """Validate subsystem information for PPT-constrained measurements."""
+    if subsystems is None or dimensions is None:
+        raise ValueError("The 'subsystems' and 'dimensions' parameters are required for PPT measurements.")
+
+    if np.prod(dimensions) != dim:
+        raise ValueError("The product of `dimensions` must equal the dimension of the states.")
+
+    if any(sys < 0 or sys >= len(dimensions) for sys in subsystems):
+        raise ValueError("Entries of `subsystems` must index into `dimensions`.")
 
 
 def _is_pure_state(vector: np.ndarray) -> bool:
