@@ -25,7 +25,7 @@ def bell(idx: int) -> np.ndarray:
     \]
 
     Args:
-        idx: A parameter in [0, 1, 2, 3]
+        idx: A parameter in `[0, 1, 2, 3]`.
 
     Returns:
         Bell state with index `idx`.
