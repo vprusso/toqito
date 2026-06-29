@@ -10,48 +10,6 @@ from toqito.cones._utils import _require_square_2d, _symmetric_like_variable
 from toqito.cones.geometric_mean_hypo_cone import geometric_mean_hypo_cone
 
 
-def _gauss_legendre(m: int) -> tuple[np.ndarray, np.ndarray]:
-    """Compute Gauss-Legendre quadrature nodes and weights on [0,1].
-
-    Based on the implementation in [@trefethen2008gauss].
-    """
-    if m < 1:
-        raise ValueError("m must be at least 1.")
-    if m == 1:
-        return np.array([0.5]), np.array([1.0])
-    k = np.arange(1, m, dtype=np.float64)
-    beta = 0.5 / np.sqrt(1 - (2 * k) ** (-2))
-    T = np.diag(beta, 1) + np.diag(beta, -1)
-    nodes_m11, V = np.linalg.eigh(T)
-    weights_m11 = 2 * V[0, :] ** 2
-    nodes = (nodes_m11 + 1) / 2
-    weights = weights_m11 / 2
-    return nodes, weights
-
-
-def _gauss_radau(m: int, endpoint: int) -> tuple[np.ndarray, np.ndarray]:
-    """Compute Gauss-Radau quadrature nodes and weights on [0,1].
-
-    endpoint should be either 0 or 1.
-    """
-    if m < 1:
-        raise ValueError("m must be at least 1.")
-    if endpoint not in [0, 1]:
-        raise ValueError("endpoint must be either 0 or 1.")
-    if m == 1:
-        return np.array([endpoint]), np.array([1.0])
-    k = np.arange(1, m, dtype=np.float64)
-    beta = 0.5 / np.sqrt(1 - (2 * k) ** (-2))
-    a = np.sign(endpoint - 0.5) * (1 - beta[-1] ** 2 * (2 * m - 3) / (m - 1))
-    T = np.diag(beta, 1) + np.diag(beta, -1)
-    T[m - 1, m - 1] = a
-    nodes_m11, V = np.linalg.eigh(T)
-    weights_m11 = 2 * V[0, :] ** 2
-    nodes = (nodes_m11 + 1) / 2
-    weights = weights_m11 / 2
-    return nodes, weights
-
-
 def operator_relative_entropy_epi_cone(
     X: cvxpy.Expression,
     Y: cvxpy.Expression,
@@ -168,3 +126,45 @@ def operator_relative_entropy_epi_cone(
     constraints.append((2.0**k) * t_sum + TAU >> 0)
 
     return constraints
+
+
+def _gauss_legendre(m: int) -> tuple[np.ndarray, np.ndarray]:
+    """Compute Gauss-Legendre quadrature nodes and weights on [0,1].
+
+    Based on the implementation in [@trefethen2008gauss].
+    """
+    if m < 1:
+        raise ValueError("m must be at least 1.")
+    if m == 1:
+        return np.array([0.5]), np.array([1.0])
+    k = np.arange(1, m, dtype=np.float64)
+    beta = 0.5 / np.sqrt(1 - (2 * k) ** (-2))
+    T = np.diag(beta, 1) + np.diag(beta, -1)
+    nodes_m11, V = np.linalg.eigh(T)
+    weights_m11 = 2 * V[0, :] ** 2
+    nodes = (nodes_m11 + 1) / 2
+    weights = weights_m11 / 2
+    return nodes, weights
+
+
+def _gauss_radau(m: int, endpoint: int) -> tuple[np.ndarray, np.ndarray]:
+    """Compute Gauss-Radau quadrature nodes and weights on [0,1].
+
+    endpoint should be either 0 or 1.
+    """
+    if m < 1:
+        raise ValueError("m must be at least 1.")
+    if endpoint not in [0, 1]:
+        raise ValueError("endpoint must be either 0 or 1.")
+    if m == 1:
+        return np.array([endpoint]), np.array([1.0])
+    k = np.arange(1, m, dtype=np.float64)
+    beta = 0.5 / np.sqrt(1 - (2 * k) ** (-2))
+    a = np.sign(endpoint - 0.5) * (1 - beta[-1] ** 2 * (2 * m - 3) / (m - 1))
+    T = np.diag(beta, 1) + np.diag(beta, -1)
+    T[m - 1, m - 1] = a
+    nodes_m11, V = np.linalg.eigh(T)
+    weights_m11 = 2 * V[0, :] ** 2
+    nodes = (nodes_m11 + 1) / 2
+    weights = weights_m11 / 2
+    return nodes, weights

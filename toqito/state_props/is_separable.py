@@ -18,736 +18,6 @@ from toqito.states.max_entangled import max_entangled
 from toqito.states.tile import tile
 
 
-def _choi_1975_choi_matrix() -> np.ndarray:
-    r"""Return the Choi matrix of Choi's 1975 indecomposable positive map on :math:`M_3`.
-
-    The map :math:`\Phi: M_3 \to M_3` is defined by
-
-    .. math::
-
-        \Phi(A)_{00} = A_{00} + A_{22}, \quad
-        \Phi(A)_{11} = A_{00} + A_{11}, \quad
-        \Phi(A)_{22} = A_{11} + A_{22}, \quad
-        \Phi(A)_{ij} = -A_{ij} \text{ for } i \neq j.
-
-    It is a standard example from [@choi1975] of a positive but not
-    completely positive map — its Choi matrix has a negative eigenvalue — and
-    is used in :func:`is_separable` as an entanglement witness.
-    """
-    # Diagonal blocks carry Phi(E_ii) along the block diagonal.
-    diag_action = [
-        np.diag([1.0, 1.0, 0.0]),
-        np.diag([0.0, 1.0, 1.0]),
-        np.diag([1.0, 0.0, 1.0]),
-    ]
-    choi = np.zeros((9, 9), dtype=complex)
-    for i in range(3):
-        choi[3 * i : 3 * i + 3, 3 * i : 3 * i + 3] = diag_action[i]
-    # Off-diagonal blocks carry Phi(E_ij) = -E_ij for i != j,
-    # i.e. a single -1 at position (i, j) inside the (i, j) block.
-    for i in range(3):
-        for j in range(3):
-            if i != j:
-                choi[3 * i + i, 3 * j + j] = -1.0
-    return choi
-
-
-def _terhal_2000_tile_witness() -> np.ndarray:
-    r"""Terhal 2000 indecomposable positive-map witness built on the 3x3 tile UPB.
-
-    Implements Theorem 3 of [@terhal2000family]: given the five tile UPB
-    product vectors :math:`\{|\alpha_i\rangle \otimes |\beta_i\rangle\}_{i=0}^4`
-    spanning a 5-dimensional subspace of :math:`\mathbb{C}^3 \otimes
-    \mathbb{C}^3`, the Hermitian operator
-
-    .. math::
-
-        H = \sum_{i=0}^{4} |\alpha_i\rangle\langle\alpha_i| \otimes
-            |\beta_i\rangle\langle\beta_i|
-            - d \varepsilon |\Psi\rangle\langle\Psi|
-
-    is an indecomposable entanglement witness, where :math:`d = 3`,
-
-    .. math::
-
-        \varepsilon = \min_{|\phi_A\rangle, |\phi_B\rangle}
-            \sum_{i=0}^{4} |\langle\phi_A|\alpha_i\rangle|^2
-                           |\langle\phi_B|\beta_i\rangle|^2,
-
-    and :math:`|\Psi\rangle` is a maximally entangled state with
-    :math:`\langle\Psi|\rho_{\text{tile}}|\Psi\rangle > 0` (the ``standard''
-    max-ent state :math:`(|00\rangle+|11\rangle+|22\rangle)/\sqrt{3}` fails
-    this condition for the tile UPB because :math:`|\Psi\rangle` happens to
-    lie in the UPB span; we use :math:`(|10\rangle+|21\rangle+|02\rangle)/\sqrt{3}`
-    instead, which satisfies it).
-
-    A state :math:`\rho` is detected as entangled iff
-    :math:`\mathrm{tr}(H\rho) < 0`. Positivity on product states follows from
-    :math:`|\langle\Psi|\phi_A\otimes\phi_B\rangle|^2 \le 1/d` for maximally
-    entangled :math:`|\Psi\rangle` (Lemma 1 of the paper) combined with the
-    definition of :math:`\varepsilon`.
-    """
-    # Factor each tile(i) vector into its A and B factors via SVD.
-    alpha_vecs = []
-    beta_vecs = []
-    for i in range(5):
-        psi = np.asarray(tile(i)).flatten()
-        u_mat, s_vals, vh_mat = np.linalg.svd(psi.reshape(3, 3))
-        # Each tile(i) is a genuine product state, so one singular value dominates.
-        alpha = u_mat[:, 0]
-        beta = np.conjugate(vh_mat[0])
-        alpha_vecs.append(alpha / np.linalg.norm(alpha))
-        beta_vecs.append(beta / np.linalg.norm(beta))
-
-    h_sum = np.zeros((9, 9), dtype=complex)
-    for a, b in zip(alpha_vecs, beta_vecs):
-        h_sum += np.kron(np.outer(a, a.conj()), np.outer(b, b.conj()))
-
-    # Alternating minimization for epsilon. For fixed phi_B the function is
-    # <phi_A|M_A|phi_A> with M_A = sum_i |<phi_B|beta_i>|^2 |alpha_i><alpha_i|,
-    # minimized by the eigenvector of M_A's smallest eigenvalue. Flip subsystems
-    # and repeat. Several random restarts handle non-convexity.
-    rng = np.random.default_rng(seed=20260415)
-    best_eps = np.inf
-    for _ in range(20):
-        p_a = rng.standard_normal(3) + 1j * rng.standard_normal(3)
-        p_a /= np.linalg.norm(p_a)
-        p_b = rng.standard_normal(3) + 1j * rng.standard_normal(3)
-        p_b /= np.linalg.norm(p_b)
-        prev_val = np.inf
-        for _ in range(100):
-            m_a = sum(
-                abs(p_b.conj() @ b) ** 2 * np.outer(a, a.conj())
-                for a, b in zip(alpha_vecs, beta_vecs)
-            )
-            _, vecs = np.linalg.eigh((m_a + m_a.conj().T) / 2)
-            p_a = vecs[:, 0]
-            m_b = sum(
-                abs(p_a.conj() @ a) ** 2 * np.outer(b, b.conj())
-                for a, b in zip(alpha_vecs, beta_vecs)
-            )
-            _, vecs = np.linalg.eigh((m_b + m_b.conj().T) / 2)
-            p_b = vecs[:, 0]
-            val = sum(
-                abs(p_a.conj() @ a) ** 2 * abs(p_b.conj() @ b) ** 2
-                for a, b in zip(alpha_vecs, beta_vecs)
-            )
-            if abs(val - prev_val) < 1e-14:
-                break
-            prev_val = val
-        best_eps = min(best_eps, float(np.real(val)))
-    epsilon = best_eps
-
-    # |Psi> = (|10> + |21> + |02>)/sqrt(3); indices 3, 7, 2 in the flat basis.
-    psi_vec = np.zeros(9, dtype=complex)
-    psi_vec[3] = 1.0 / np.sqrt(3)
-    psi_vec[7] = 1.0 / np.sqrt(3)
-    psi_vec[2] = 1.0 / np.sqrt(3)
-    psi_proj = np.outer(psi_vec, psi_vec.conj())
-
-    return h_sum - 3 * epsilon * psi_proj
-
-
-# Cached module-level witness matrix: construction is deterministic (the ε
-# optimization uses a fixed seed) and only depends on constants, so we pay
-# for the alternating minimization exactly once per process.
-_TERHAL_2000_TILE_WITNESS_3X3: np.ndarray = _terhal_2000_tile_witness()
-
-
-def _range_projector_product_overlap_3x3_rank4(
-    state: np.ndarray,
-    tol: float,
-    n_restarts: int = 64,
-    max_iter: int = 100,
-) -> float | None:
-    r"""Estimate the best product overlap with the range projector of a 3x3 rank-4 state.
-
-    For the projector :math:`P` onto :math:`\operatorname{range}(\rho)`, compute
-
-    .. math::
-
-        \max_{\|a\|=\|b\|=1} \langle a \otimes b | P | a \otimes b \rangle
-
-    by alternating maximization with deterministic random restarts.
-
-    When the optimum is numerically 1, the range contains a product vector.
-    Chen and Djokovic show that for 3x3 PPT states of rank 4 this is
-    equivalent to separability.
-    """
-    eigvals, eigvecs = np.linalg.eigh((state + state.conj().T) / 2)
-    range_basis = eigvecs[:, eigvals > tol]
-    if range_basis.shape[1] < 4:
-        return None
-
-    projector = range_basis @ range_basis.conj().T
-    tensor = projector.reshape(3, 3, 3, 3)
-
-    rng = np.random.default_rng(seed=20260420)
-    best_overlap = 0.0
-    for _ in range(n_restarts):
-        vec_a = rng.standard_normal(3) + 1j * rng.standard_normal(3)
-        vec_a /= np.linalg.norm(vec_a)
-        vec_b = rng.standard_normal(3) + 1j * rng.standard_normal(3)
-        vec_b /= np.linalg.norm(vec_b)
-
-        prev_overlap = -np.inf
-        overlap = 0.0
-        for _ in range(max_iter):
-            mat_a = np.einsum("ikjl,k,l->ij", tensor, vec_b.conj(), vec_b)
-            _, eigvecs_a = np.linalg.eigh((mat_a + mat_a.conj().T) / 2)
-            vec_a = eigvecs_a[:, -1]
-
-            mat_b = np.einsum("ikjl,i,j->kl", tensor, vec_a.conj(), vec_a)
-            _, eigvecs_b = np.linalg.eigh((mat_b + mat_b.conj().T) / 2)
-            vec_b = eigvecs_b[:, -1]
-
-            prod_vec = np.kron(vec_a, vec_b)
-            overlap = float(np.real(np.vdot(prod_vec, projector @ prod_vec)))
-            if abs(overlap - prev_overlap) < tol:
-                break
-            prev_overlap = overlap
-
-        best_overlap = max(best_overlap, overlap)
-        if 1.0 - best_overlap < 10 * tol:
-            return best_overlap
-
-    return best_overlap
-
-
-def _hermitian_inverse_sqrt(herm: np.ndarray, eig_floor: float) -> np.ndarray | None:
-    """Return the inverse square root of a Hermitian PSD matrix, or None if rank-deficient.
-
-    `eig_floor` is the smallest eigenvalue we're willing to invert; below that we
-    consider the matrix effectively rank-deficient and return None so the caller
-    can skip the filtering step.
-    """
-    eigvals, eigvecs = np.linalg.eigh((herm + herm.conj().T) / 2)
-    if np.min(eigvals) < eig_floor:
-        return None
-    return eigvecs @ np.diag(eigvals ** -0.5) @ eigvecs.conj().T
-
-
-def _filter_normal_form(
-    rho: np.ndarray,
-    dims: list[int],
-    tol: float,
-    max_iter: int = 50,
-) -> np.ndarray | None:
-    r"""Bring rho to its filter normal form via local SLOCC filtering.
-
-    Implements the iterative algorithm of Verstraete, Dehaene, and De Moor
-    (PRA 64, 010101 (2001)) used in Gittsovich et al. [@gittsovich2008unifying]
-    Section IV.D: alternate applying :math:`T_A = (d_A \rho_A)^{-1/2}` on
-    subsystem A and :math:`T_B = (d_B \rho_B)^{-1/2}` on subsystem B until both
-    marginals become proportional to the identity. In normal form
-    :math:`\tilde\rho_A = I/d_A` and :math:`\tilde\rho_B = I/d_B`, so the
-    reduced states carry no separability information and the correlations
-    live entirely in the off-diagonal block of the covariance matrix.
-
-    Each filter step preserves the trace exactly:
-
-    .. math::
-
-        \mathrm{tr}\big[(T_A \otimes I) \rho (T_A^\dagger \otimes I)\big]
-        = \mathrm{tr}\big[(d_A \rho_A)^{-1} \rho_A\big] = 1/d_A \cdot d_A = 1,
-
-    so no renormalization is needed.
-
-    Returns the filter normal form, or `None` if the iteration encounters a
-    rank-deficient marginal (filtering requires invertible marginals) or fails
-    to converge within `max_iter` passes.
-    """
-    dA, dB = dims[0], dims[1]
-    id_a = np.eye(dA, dtype=complex)
-    id_b = np.eye(dB, dtype=complex)
-    target_a = id_a / dA
-    target_b = id_b / dB
-
-    rho_tilde = rho.astype(complex, copy=True)
-    eig_floor = tol
-
-    for _ in range(max_iter):
-        rho_a = partial_trace(rho_tilde, sys=[1], dim=dims)
-        rho_b = partial_trace(rho_tilde, sys=[0], dim=dims)
-
-        err = max(
-            np.linalg.norm(rho_a - target_a, ord="fro"),
-            np.linalg.norm(rho_b - target_b, ord="fro"),
-        )
-        if err < tol:
-            return rho_tilde
-
-        t_a = _hermitian_inverse_sqrt(dA * rho_a, eig_floor)
-        if t_a is None:
-            return None
-        rho_tilde = np.kron(t_a, id_b) @ rho_tilde @ np.kron(t_a.conj().T, id_b)
-
-        rho_b_new = partial_trace(rho_tilde, sys=[0], dim=dims)
-        t_b = _hermitian_inverse_sqrt(dB * rho_b_new, eig_floor)
-        if t_b is None:
-            return None
-        rho_tilde = np.kron(id_a, t_b) @ rho_tilde @ np.kron(id_a, t_b.conj().T)
-
-    # Iteration budget exhausted. Accept whatever we have if the marginals
-    # are sufficiently close to the targets; otherwise report failure.
-    rho_a = partial_trace(rho_tilde, sys=[1], dim=dims)
-    rho_b = partial_trace(rho_tilde, sys=[0], dim=dims)
-    err = max(
-        np.linalg.norm(rho_a - target_a, ord="fro"),
-        np.linalg.norm(rho_b - target_b, ord="fro"),
-    )
-    if err < 10 * tol:
-        return rho_tilde
-    return None
-
-
-def _filter_cmc_xi_sum(rho_normal: np.ndarray, dims: list[int]) -> float:
-    r"""Compute :math:`\sum_i \xi_i` for a state already in filter normal form.
-
-    The :math:`\xi_i` are the coefficients in the operator-basis expansion
-
-    .. math::
-
-        \tilde\rho = \frac{1}{d_A d_B} \left(I + \sum_k \xi_k G^A_k \otimes G^B_k\right),
-
-    equal to :math:`d_A d_B` times the operator Schmidt coefficients of
-    :math:`\tilde\rho - I/(d_A d_B)` (which in turn are the singular values
-    of the realignment of that trace-zero operator). See Gittsovich et al.
-    2008, Eq. (66).
-    """
-    dA, dB = dims[0], dims[1]
-    sigma = rho_normal - np.eye(dA * dB, dtype=complex) / (dA * dB)
-    r_sigma = realignment(sigma, dim=dims)
-    singular_values = np.linalg.svd(r_sigma, compute_uv=False)
-    return float(dA * dB * np.sum(np.real(singular_values)))
-
-
-def _filter_cmc_bound(dA: int, dB: int) -> float:
-    r"""Return the Filter CMC separability bound for a :math:`d_A \times d_B` system.
-
-    From Gittsovich et al. 2008, Proposition IV.15, Eq. (72):
-
-    .. math::
-
-        \sum_k \xi_k \le \sqrt{d_A d_B (d_A - 1)(d_B - 1)}.
-
-    This generalizes Proposition IV.13 (:math:`d^2 - d` for the symmetric
-    :math:`d_A = d_B = d` case) and, in practice, is tighter than Eq. (71)
-    across the dimensions of interest here.
-    """
-    return float(np.sqrt(dA * dB * (dA - 1) * (dB - 1)))
-
-
-def _iterative_product_state_subtraction(
-    state: np.ndarray,
-    dims: list[int],
-    tol: float,
-    max_outer_iter: int = 50,
-    n_restarts: int = 5,
-    max_inner_iter: int = 25,
-    rng: np.random.Generator | None = None,
-) -> bool:
-    r"""Try to prove separability by iteratively subtracting product states.
-
-    Loosely modelled on QETLAB's ``sk_iterate`` (with ``s = 1``) and the
-    Gühne method [@guhne2009entanglement]. At each outer iteration, run
-    alternating rank-1 maximization (with a handful of random restarts) to
-    find a product state :math:`|\psi\rangle|\phi\rangle` with high overlap
-    on the residual state, then subtract as much of
-    :math:`|\psi\rangle\langle\psi| \otimes |\phi\rangle\langle\phi|` as
-    positivity allows (via a geometric backoff search). Returns ``True`` if
-    the residual eventually enters the Gurvits-Barnum separable ball or
-    shrinks to numerical zero. Returns ``False`` if the loop stalls
-    (no product state with non-trivial overlap, or subtraction driven to
-    zero) or the iteration budget is exhausted — callers should treat
-    ``False`` as inconclusive rather than as an entanglement verdict.
-
-    The `rng` parameter accepts a `numpy.random.Generator` for reproducible
-    restarts in tests. Callers that don't supply one get a fresh
-    non-deterministic generator, so production calls genuinely randomize
-    across restarts.
-
-    This is a *one-sided* witness: the algorithm can prove separability
-    constructively, but cannot disprove it.
-    """
-    dA, dB = dims[0], dims[1]
-    residual = state.astype(complex, copy=True)
-    if rng is None:
-        rng = np.random.default_rng()
-
-    for _outer in range(max_outer_iter):
-        residual_trace = float(np.real(np.trace(residual)))
-        if residual_trace < tol:
-            return True  # Fully decomposed into product states.
-        if in_separable_ball(residual / residual_trace):
-            return True  # Residual fell into the Gurvits-Barnum ball.
-
-        tensor = residual.reshape(dA, dB, dA, dB)
-        best_overlap = 0.0
-        best_prod_vec: np.ndarray | None = None
-        # Both the inner-loop convergence threshold and the outer "stuck"
-        # threshold scale with the current residual trace, so a small
-        # residual (or a high-dimension diffuse residual) doesn't get
-        # spuriously declared stuck when the best achievable overlap is
-        # naturally below an absolute `tol`.
-        scaled_tol = tol * max(1.0, residual_trace)
-        for _ in range(n_restarts):
-            psi = rng.standard_normal(dA) + 1j * rng.standard_normal(dA)
-            psi /= np.linalg.norm(psi)
-            phi = rng.standard_normal(dB) + 1j * rng.standard_normal(dB)
-            phi /= np.linalg.norm(phi)
-
-            prev_overlap = -np.inf
-            overlap = 0.0
-            for _inner in range(max_inner_iter):
-                # Fix phi, maximize over psi: top eigenvector of
-                # M_psi[i, k] = sum_{j, l} conj(phi_j) T[i, j, k, l] phi_l.
-                m_psi = np.einsum("j,ijkl,l->ik", np.conj(phi), tensor, phi)
-                m_psi = (m_psi + m_psi.conj().T) / 2.0
-                _, vecs = np.linalg.eigh(m_psi)
-                psi = vecs[:, -1]
-
-                # Fix psi, maximize over phi: top eigenvector of
-                # M_phi[j, l] = sum_{i, k} conj(psi_i) T[i, j, k, l] psi_k.
-                m_phi = np.einsum("i,ijkl,k->jl", np.conj(psi), tensor, psi)
-                m_phi = (m_phi + m_phi.conj().T) / 2.0
-                _, vecs = np.linalg.eigh(m_phi)
-                phi = vecs[:, -1]
-
-                prod_vec = np.kron(psi, phi)
-                overlap = float(np.real(prod_vec.conj() @ residual @ prod_vec))
-                if abs(overlap - prev_overlap) < scaled_tol:
-                    break
-                prev_overlap = overlap
-
-            if overlap > best_overlap:
-                best_overlap = overlap
-                best_prod_vec = prod_vec
-
-        if best_prod_vec is None or best_overlap < scaled_tol:
-            return False  # Stuck: no product state with non-trivial overlap.
-
-        # Subtract as much of |prod><prod| as keeps the residual PSD.
-        # Start with the full overlap and back off geometrically on PSD failure.
-        # If the product state has a component in the null space of the residual,
-        # no positive subtraction is possible and the backoff drives s below tol.
-        prod_proj = np.outer(best_prod_vec, best_prod_vec.conj())
-        s_subtract = best_overlap
-        accepted = False
-        for _backoff in range(40):
-            candidate = residual - s_subtract * prod_proj
-            candidate = (candidate + candidate.conj().T) / 2.0
-            min_eig = float(np.linalg.eigvalsh(candidate)[0])
-            if min_eig >= -tol:
-                residual = candidate
-                accepted = True
-                break
-            s_subtract *= 0.5
-            if s_subtract < tol:
-                break
-        if not accepted:
-            return False  # Backoff exhausted; algorithm is stuck.
-
-    return False  # Iteration budget exhausted.
-
-
-def _operator_schmidt_rank_ppt_criterion(
-    state: np.ndarray,
-    dims: list[int],
-    tol: float,
-) -> tuple[bool, str] | None:
-    """Return the Cariello PPT criterion verdict, if it fires."""
-    op_schmidt_rank = np.linalg.matrix_rank(realignment(state, dim=dims), tol=tol)
-    if op_schmidt_rank <= 2:
-        return True, f"operator Schmidt rank = {int(op_schmidt_rank)} <= 2 (Cariello 2013)"
-    return None
-
-
-def _rank4_ppt_3x3_criterion(
-    state: np.ndarray,
-    d_a: int,
-    d_b: int,
-    state_rank: int,
-    tol: float,
-) -> tuple[bool, str] | None:
-    """Return the 3x3 PPT rank-4 separability verdict, if certified."""
-    if d_a != 3 or d_b != 3 or state_rank != 4:
-        return None
-
-    best_overlap = _range_projector_product_overlap_3x3_rank4(state, tol)
-    if best_overlap is not None and 1.0 - best_overlap < 10 * tol:
-        return True, "3x3 rank-4 PPT: range contains a product vector (Chen-Djokovic 2013)"
-    return None
-
-
-def _horodecki_low_rank_ppt_criteria(
-    state: np.ndarray,
-    dims: list[int],
-    state_rank: int,
-    max_dim_val: int,
-    tol: float,
-) -> tuple[tuple[bool, str] | None, np.ndarray | None, np.ndarray | None]:
-    """Run the Horodecki low-rank PPT criteria and return cached marginals."""
-    if state_rank <= max_dim_val:
-        return (True, "rank(rho) <= max(d_A, d_B) (Horodecki et al. 2000)"), None, None
-
-    rho_a_marginal = partial_trace(state, sys=[1], dim=dims)
-    rho_b_marginal = partial_trace(state, sys=[0], dim=dims)
-    rank_marg_a = np.linalg.matrix_rank(rho_a_marginal, tol=tol)
-    rank_marg_b = np.linalg.matrix_rank(rho_b_marginal, tol=tol)
-    if state_rank <= rank_marg_a:
-        return (
-            (True, f"rank(rho)={state_rank} <= rank(rho_A)={rank_marg_a} (Horodecki et al. 2000)"),
-            rho_a_marginal,
-            rho_b_marginal,
-        )
-    if state_rank <= rank_marg_b:
-        return (
-            (True, f"rank(rho)={state_rank} <= rank(rho_B)={rank_marg_b} (Horodecki et al. 2000)"),
-            rho_a_marginal,
-            rho_b_marginal,
-        )
-    return None, rho_a_marginal, rho_b_marginal
-
-
-def _reduction_ppt_criterion(
-    state: np.ndarray,
-    rho_a_marginal: np.ndarray,
-    rho_b_marginal: np.ndarray,
-    d_a: int,
-    d_b: int,
-    tol: float,
-) -> tuple[bool, str] | None:
-    """Return the reduction-criterion verdict, if violated."""
-    op_reduct1 = np.kron(np.eye(d_a), rho_b_marginal) - state
-    op_reduct2 = np.kron(rho_a_marginal, np.eye(d_b)) - state
-    if not (
-        is_positive_semidefinite(op_reduct1, atol=tol, rtol=tol)
-        and is_positive_semidefinite(op_reduct2, atol=tol, rtol=tol)
-    ):
-        return False, "reduction criterion violated (Horodecki 1999)"
-    return None
-
-
-def _realignment_ppt_criteria(
-    state: np.ndarray,
-    dims: list[int],
-    rho_a_marginal: np.ndarray,
-    rho_b_marginal: np.ndarray,
-    d_a: int,
-    d_b: int,
-    tol: float,
-) -> tuple[bool, str] | None:
-    """Return the first realignment/filter-CMC witness verdict that fires."""
-    if trace_norm(realignment(state, dims)) > 1 + tol:
-        return False, "realignment/CCNR: ||R(rho)||_1 > 1 (Chen-Wu 2003)"
-
-    tr_rho_a_sq = np.real(np.trace(rho_a_marginal @ rho_a_marginal))
-    tr_rho_b_sq = np.real(np.trace(rho_b_marginal @ rho_b_marginal))
-    val_a = max(0, 1 - tr_rho_a_sq)
-    val_b = max(0, 1 - tr_rho_b_sq)
-    bound_zhang = np.sqrt(val_a * val_b) if val_a * val_b >= 0 else 0
-    centered_state = state - np.kron(rho_a_marginal, rho_b_marginal)
-    if trace_norm(realignment(centered_state, dims)) > bound_zhang + tol:
-        return False, "Zhang realignment variant: ||R(rho - rho_A (x) rho_B)||_1 exceeds purity bound (Zhang 2008)"
-
-    rho_normal = _filter_normal_form(state, dims, tol)
-    if rho_normal is not None:
-        xi_sum = _filter_cmc_xi_sum(rho_normal, dims)
-        xi_bound = _filter_cmc_bound(d_a, d_b)
-        if xi_sum > xi_bound + tol:
-            return (
-                False,
-                f"Filter CMC: sum xi = {xi_sum:.4g} > bound {xi_bound:.4g} (Gittsovich et al. 2008, Prop. IV.15)",
-            )
-
-    return None
-
-
-def _vidal_tarrach_ppt_criterion(
-    sorted_eigs_desc: np.ndarray,
-    prod_dim_val: int,
-    tol: float,
-    machine_eps: float,
-) -> tuple[bool, str] | None:
-    """Return the Vidal-Tarrach perturbation criterion verdict, if it fires."""
-    if len(sorted_eigs_desc) == prod_dim_val and prod_dim_val > 1:
-        diff_pert = sorted_eigs_desc[1] - sorted_eigs_desc[prod_dim_val - 1]
-        threshold_pert = tol**2 + 2 * machine_eps
-        if diff_pert < threshold_pert:
-            return True, "PPT state close to rank-1 identity perturbation (Vidal-Tarrach 1999)"
-
-    return None
-
-
-def _qubit_qudit_ppt_criteria(
-    state: np.ndarray,
-    dims: list[int],
-    d_a: int,
-    d_b: int,
-    min_dim_val: int,
-    max_dim_val: int,
-    prod_dim_val: int,
-    tol: float,
-    sorted_eigs_desc: np.ndarray,
-) -> tuple[bool, str] | None:
-    """Return the first 2xN PPT criterion verdict that fires."""
-    if min_dim_val != 2 or prod_dim_val == 0:
-        return None
-
-    state_t_2xn = state
-    d_n_val = max_dim_val
-    dim_for_hildebrand_map = [2, d_n_val]
-
-    if d_a != 2 and d_b == 2:
-        state_t_2xn = swap(state, sys=[0, 1], dim=dims)
-        dim_for_hildebrand_map = [d_b, d_a]
-    elif d_a != 2:
-        return None
-
-    if state_t_2xn is state:
-        current_lam_2xn = sorted_eigs_desc
-    else:
-        try:
-            current_lam_2xn = np.linalg.eigvalsh(state_t_2xn)[::-1]
-        except np.linalg.LinAlgError:
-            current_lam_2xn = np.sort(np.real(np.linalg.eigvals(state_t_2xn)))[::-1]
-
-    if (
-        len(current_lam_2xn) >= 2 * d_n_val
-        and (2 * d_n_val - 1) < len(current_lam_2xn)
-        and (2 * d_n_val - 2) >= 0
-        and (2 * d_n_val - 3) >= 0
-    ):
-        lhs = (current_lam_2xn[0] - current_lam_2xn[2 * d_n_val - 2]) ** 2
-        rhs = 4 * current_lam_2xn[2 * d_n_val - 3] * current_lam_2xn[2 * d_n_val - 1] + tol**2
-        if lhs <= rhs:
-            return True, "Johnston spectral condition for 2xN PPT states (2013)"
-
-    a_block = state_t_2xn[:d_n_val, :d_n_val]
-    b_block = state_t_2xn[:d_n_val, d_n_val : 2 * d_n_val]
-    c_block = state_t_2xn[d_n_val : 2 * d_n_val, d_n_val : 2 * d_n_val]
-
-    if b_block.size > 0 and np.linalg.matrix_rank(b_block - b_block.conj().T, tol=tol) <= 1:
-        return True, "Hildebrand 2xN condition: rank(B - B^dagger) <= 1"
-
-    if a_block.size > 0 and b_block.size > 0 and c_block.size > 0:
-        x_2n_ppt_check = np.vstack(
-            (
-                np.hstack(((5 / 6) * a_block - c_block / 6, b_block)),
-                np.hstack((b_block.conj().T, (5 / 6) * c_block - a_block / 6)),
-            )
-        )
-        if is_positive_semidefinite(x_2n_ppt_check, atol=tol, rtol=tol) and is_ppt(
-            x_2n_ppt_check, sys=1, dim=dim_for_hildebrand_map, tol=tol
-        ):
-            return True, "Hildebrand 2xN homothetic-image condition (PSD and PPT)"
-
-        try:
-            eig_a_real = np.real(np.linalg.eigvals(a_block))
-            eig_c_real = np.real(np.linalg.eigvals(c_block))
-            if eig_a_real.size > 0 and eig_c_real.size > 0 and b_block.size > 0:
-                if np.linalg.norm(b_block) ** 2 <= np.min(eig_a_real) * np.min(eig_c_real) + tol**2:
-                    return True, "Johnston Lemma 1 for 2xN PPT states: ||B||^2 <= lambda_min(A) * lambda_min(C)"
-        except np.linalg.LinAlgError:
-            return None
-
-    return None
-
-
-def _positive_map_witness_criteria(
-    state: np.ndarray,
-    dims: list[int],
-    d_a: int,
-    d_b: int,
-    tol: float,
-) -> tuple[bool, str] | None:
-    """Return the first positive-map or witness verdict that fires."""
-    if d_a == 3 and d_b == 3:
-        phi_choi_1975 = _choi_1975_choi_matrix()
-        for p_idx_choi in (1, 2):
-            mapped = partial_channel(state, phi_choi_1975, sys=p_idx_choi, dim=dims)
-            if not is_positive_semidefinite(mapped, atol=tol, rtol=tol):
-                return False, f"Choi 1975 positive-map witness (on subsystem {p_idx_choi}, 3x3)"
-
-        tr_h_rho = float(np.real(np.trace(_TERHAL_2000_TILE_WITNESS_3X3 @ state)))
-        if tr_h_rho < -tol:
-            return False, f"UPB-based witness on tile UPB (Terhal 2000): tr(H*rho)={tr_h_rho:.4g} < 0"
-
-        phi_me3 = max_entangled(3, False, False)
-        phi_proj3 = phi_me3 @ phi_me3.conj().T
-        for t_raw_ha in np.arange(0.1, 1.0, 0.1):
-            for t_iter_ha in (t_raw_ha, 1 / t_raw_ha):
-                denom_ha = 1 - t_iter_ha + t_iter_ha**2
-                if abs(denom_ha) < np.finfo(float).eps:
-                    continue
-
-                a_hk = (1 - t_iter_ha) ** 2 / denom_ha
-                b_hk = t_iter_ha**2 / denom_ha
-                c_hk = 1 / denom_ha
-                phi_map_ha = np.diag([a_hk + 1, c_hk, b_hk, b_hk, a_hk + 1, c_hk, c_hk, b_hk, a_hk + 1]) - phi_proj3
-                mapped = partial_channel(state, phi_map_ha, sys=1, dim=dims)
-                if not is_positive_semidefinite(mapped, atol=tol, rtol=tol):
-                    return False, f"Ha-Kye positive-map witness (3x3, t={t_iter_ha:.4g})"
-
-    for p_idx_bh in (1, 2):
-        current_dim_bh = dims[p_idx_bh - 1]
-        if current_dim_bh > 0 and current_dim_bh % 2 == 0:
-            phi_me_bh = max_entangled(current_dim_bh, False, False)
-            phi_proj_bh = phi_me_bh @ phi_me_bh.conj().T
-            half_dim_bh = current_dim_bh // 2
-            diag_u_elems_bh = np.concatenate([np.ones(half_dim_bh), -np.ones(half_dim_bh)])
-            u_bh_kron_part = np.fliplr(np.diag(diag_u_elems_bh))
-            u_for_phi_constr = np.kron(np.eye(current_dim_bh), u_bh_kron_part)
-            phi_bh_map_choi = (
-                np.eye(current_dim_bh**2)
-                - phi_proj_bh
-                - u_for_phi_constr @ swap_operator(current_dim_bh) @ u_for_phi_constr.conj().T
-            )
-            mapped_state_bh = partial_channel(state, phi_bh_map_choi, sys=p_idx_bh, dim=dims)
-            if not is_positive_semidefinite(mapped_state_bh, atol=tol, rtol=tol):
-                return False, f"Breuer-Hall positive-map witness (on subsystem {p_idx_bh}, dim={current_dim_bh})"
-
-    return None
-
-
-def _dps_hierarchy_criterion(
-    state: np.ndarray,
-    dims: list[int],
-    level: int,
-    tol: float,
-) -> tuple[bool, str] | None:
-    """Return the first DPS verdict that fires."""
-    if level < 2:
-        return None
-
-    for k_actual_level_check in range(2, int(level) + 1):
-        try:
-            if not has_symmetric_extension(rho=state, level=k_actual_level_check, dim=dims, tol=tol):
-                return False, f"no {k_actual_level_check}-symmetric extension (DPS hierarchy)"
-            if has_symmetric_inner_extension(rho=state, level=k_actual_level_check, dim=dims, ppt=True, tol=tol):
-                return True, f"passed inner DPS symmetric extension cone at level={k_actual_level_check}"
-        except ImportError:
-            print("Warning: CVXPY or a solver is not installed; cannot perform symmetric extension check.")
-            return None
-        except Exception as exc:
-            print(f"Warning: Symmetric extension check failed at level {k_actual_level_check} with an error: {exc}")
-            return None
-
-    return None
-
-
-def _sorted_real_eigs_desc(state: np.ndarray) -> np.ndarray | None:
-    """Return eigenvalues sorted descending, or None if both solvers fail."""
-    try:
-        return np.linalg.eigvalsh(state)[::-1]
-    except np.linalg.LinAlgError:
-        try:
-            return np.sort(np.real(np.linalg.eigvals(state)))[::-1]
-        except np.linalg.LinAlgError:
-            return None
-
-
 def is_separable(
     state: np.ndarray,
     dim: None | int | list[int] = None,
@@ -1360,3 +630,735 @@ def is_separable(
     # or the DPS hierarchy up to `level`.
     # Defaulting to False implies we couldn't definitively prove separability with the implemented tests.
     return False, "inconclusive: PPT but no implemented sufficient condition proved separability"
+
+
+def _choi_1975_choi_matrix() -> np.ndarray:
+    r"""Return the Choi matrix of Choi's 1975 indecomposable positive map on :math:`M_3`.
+
+    The map :math:`\Phi: M_3 \to M_3` is defined by
+
+    .. math::
+
+        \Phi(A)_{00} = A_{00} + A_{22}, \quad
+        \Phi(A)_{11} = A_{00} + A_{11}, \quad
+        \Phi(A)_{22} = A_{11} + A_{22}, \quad
+        \Phi(A)_{ij} = -A_{ij} \text{ for } i \neq j.
+
+    It is a standard example from [@choi1975] of a positive but not
+    completely positive map — its Choi matrix has a negative eigenvalue — and
+    is used in :func:`is_separable` as an entanglement witness.
+    """
+    # Diagonal blocks carry Phi(E_ii) along the block diagonal.
+    diag_action = [
+        np.diag([1.0, 1.0, 0.0]),
+        np.diag([0.0, 1.0, 1.0]),
+        np.diag([1.0, 0.0, 1.0]),
+    ]
+    choi = np.zeros((9, 9), dtype=complex)
+    for i in range(3):
+        choi[3 * i : 3 * i + 3, 3 * i : 3 * i + 3] = diag_action[i]
+    # Off-diagonal blocks carry Phi(E_ij) = -E_ij for i != j,
+    # i.e. a single -1 at position (i, j) inside the (i, j) block.
+    for i in range(3):
+        for j in range(3):
+            if i != j:
+                choi[3 * i + i, 3 * j + j] = -1.0
+    return choi
+
+
+def _terhal_2000_tile_witness() -> np.ndarray:
+    r"""Terhal 2000 indecomposable positive-map witness built on the 3x3 tile UPB.
+
+    Implements Theorem 3 of [@terhal2000family]: given the five tile UPB
+    product vectors :math:`\{|\alpha_i\rangle \otimes |\beta_i\rangle\}_{i=0}^4`
+    spanning a 5-dimensional subspace of :math:`\mathbb{C}^3 \otimes
+    \mathbb{C}^3`, the Hermitian operator
+
+    .. math::
+
+        H = \sum_{i=0}^{4} |\alpha_i\rangle\langle\alpha_i| \otimes
+            |\beta_i\rangle\langle\beta_i|
+            - d \varepsilon |\Psi\rangle\langle\Psi|
+
+    is an indecomposable entanglement witness, where :math:`d = 3`,
+
+    .. math::
+
+        \varepsilon = \min_{|\phi_A\rangle, |\phi_B\rangle}
+            \sum_{i=0}^{4} |\langle\phi_A|\alpha_i\rangle|^2
+                           |\langle\phi_B|\beta_i\rangle|^2,
+
+    and :math:`|\Psi\rangle` is a maximally entangled state with
+    :math:`\langle\Psi|\rho_{\text{tile}}|\Psi\rangle > 0` (the ``standard''
+    max-ent state :math:`(|00\rangle+|11\rangle+|22\rangle)/\sqrt{3}` fails
+    this condition for the tile UPB because :math:`|\Psi\rangle` happens to
+    lie in the UPB span; we use :math:`(|10\rangle+|21\rangle+|02\rangle)/\sqrt{3}`
+    instead, which satisfies it).
+
+    A state :math:`\rho` is detected as entangled iff
+    :math:`\mathrm{tr}(H\rho) < 0`. Positivity on product states follows from
+    :math:`|\langle\Psi|\phi_A\otimes\phi_B\rangle|^2 \le 1/d` for maximally
+    entangled :math:`|\Psi\rangle` (Lemma 1 of the paper) combined with the
+    definition of :math:`\varepsilon`.
+    """
+    # Factor each tile(i) vector into its A and B factors via SVD.
+    alpha_vecs = []
+    beta_vecs = []
+    for i in range(5):
+        psi = np.asarray(tile(i)).flatten()
+        u_mat, s_vals, vh_mat = np.linalg.svd(psi.reshape(3, 3))
+        # Each tile(i) is a genuine product state, so one singular value dominates.
+        alpha = u_mat[:, 0]
+        beta = np.conjugate(vh_mat[0])
+        alpha_vecs.append(alpha / np.linalg.norm(alpha))
+        beta_vecs.append(beta / np.linalg.norm(beta))
+
+    h_sum = np.zeros((9, 9), dtype=complex)
+    for a, b in zip(alpha_vecs, beta_vecs):
+        h_sum += np.kron(np.outer(a, a.conj()), np.outer(b, b.conj()))
+
+    # Alternating minimization for epsilon. For fixed phi_B the function is
+    # <phi_A|M_A|phi_A> with M_A = sum_i |<phi_B|beta_i>|^2 |alpha_i><alpha_i|,
+    # minimized by the eigenvector of M_A's smallest eigenvalue. Flip subsystems
+    # and repeat. Several random restarts handle non-convexity.
+    rng = np.random.default_rng(seed=20260415)
+    best_eps = np.inf
+    for _ in range(20):
+        p_a = rng.standard_normal(3) + 1j * rng.standard_normal(3)
+        p_a /= np.linalg.norm(p_a)
+        p_b = rng.standard_normal(3) + 1j * rng.standard_normal(3)
+        p_b /= np.linalg.norm(p_b)
+        prev_val = np.inf
+        for _ in range(100):
+            m_a = sum(
+                abs(p_b.conj() @ b) ** 2 * np.outer(a, a.conj())
+                for a, b in zip(alpha_vecs, beta_vecs)
+            )
+            _, vecs = np.linalg.eigh((m_a + m_a.conj().T) / 2)
+            p_a = vecs[:, 0]
+            m_b = sum(
+                abs(p_a.conj() @ a) ** 2 * np.outer(b, b.conj())
+                for a, b in zip(alpha_vecs, beta_vecs)
+            )
+            _, vecs = np.linalg.eigh((m_b + m_b.conj().T) / 2)
+            p_b = vecs[:, 0]
+            val = sum(
+                abs(p_a.conj() @ a) ** 2 * abs(p_b.conj() @ b) ** 2
+                for a, b in zip(alpha_vecs, beta_vecs)
+            )
+            if abs(val - prev_val) < 1e-14:
+                break
+            prev_val = val
+        best_eps = min(best_eps, float(np.real(val)))
+    epsilon = best_eps
+
+    # |Psi> = (|10> + |21> + |02>)/sqrt(3); indices 3, 7, 2 in the flat basis.
+    psi_vec = np.zeros(9, dtype=complex)
+    psi_vec[3] = 1.0 / np.sqrt(3)
+    psi_vec[7] = 1.0 / np.sqrt(3)
+    psi_vec[2] = 1.0 / np.sqrt(3)
+    psi_proj = np.outer(psi_vec, psi_vec.conj())
+
+    return h_sum - 3 * epsilon * psi_proj
+
+
+# Cached module-level witness matrix: construction is deterministic (the ε
+# optimization uses a fixed seed) and only depends on constants, so we pay
+# for the alternating minimization exactly once per process.
+
+
+_TERHAL_2000_TILE_WITNESS_3X3: np.ndarray = _terhal_2000_tile_witness()
+
+
+def _range_projector_product_overlap_3x3_rank4(
+    state: np.ndarray,
+    tol: float,
+    n_restarts: int = 64,
+    max_iter: int = 100,
+) -> float | None:
+    r"""Estimate the best product overlap with the range projector of a 3x3 rank-4 state.
+
+    For the projector :math:`P` onto :math:`\operatorname{range}(\rho)`, compute
+
+    .. math::
+
+        \max_{\|a\|=\|b\|=1} \langle a \otimes b | P | a \otimes b \rangle
+
+    by alternating maximization with deterministic random restarts.
+
+    When the optimum is numerically 1, the range contains a product vector.
+    Chen and Djokovic show that for 3x3 PPT states of rank 4 this is
+    equivalent to separability.
+    """
+    eigvals, eigvecs = np.linalg.eigh((state + state.conj().T) / 2)
+    range_basis = eigvecs[:, eigvals > tol]
+    if range_basis.shape[1] < 4:
+        return None
+
+    projector = range_basis @ range_basis.conj().T
+    tensor = projector.reshape(3, 3, 3, 3)
+
+    rng = np.random.default_rng(seed=20260420)
+    best_overlap = 0.0
+    for _ in range(n_restarts):
+        vec_a = rng.standard_normal(3) + 1j * rng.standard_normal(3)
+        vec_a /= np.linalg.norm(vec_a)
+        vec_b = rng.standard_normal(3) + 1j * rng.standard_normal(3)
+        vec_b /= np.linalg.norm(vec_b)
+
+        prev_overlap = -np.inf
+        overlap = 0.0
+        for _ in range(max_iter):
+            mat_a = np.einsum("ikjl,k,l->ij", tensor, vec_b.conj(), vec_b)
+            _, eigvecs_a = np.linalg.eigh((mat_a + mat_a.conj().T) / 2)
+            vec_a = eigvecs_a[:, -1]
+
+            mat_b = np.einsum("ikjl,i,j->kl", tensor, vec_a.conj(), vec_a)
+            _, eigvecs_b = np.linalg.eigh((mat_b + mat_b.conj().T) / 2)
+            vec_b = eigvecs_b[:, -1]
+
+            prod_vec = np.kron(vec_a, vec_b)
+            overlap = float(np.real(np.vdot(prod_vec, projector @ prod_vec)))
+            if abs(overlap - prev_overlap) < tol:
+                break
+            prev_overlap = overlap
+
+        best_overlap = max(best_overlap, overlap)
+        if 1.0 - best_overlap < 10 * tol:
+            return best_overlap
+
+    return best_overlap
+
+
+def _hermitian_inverse_sqrt(herm: np.ndarray, eig_floor: float) -> np.ndarray | None:
+    """Return the inverse square root of a Hermitian PSD matrix, or None if rank-deficient.
+
+    `eig_floor` is the smallest eigenvalue we're willing to invert; below that we
+    consider the matrix effectively rank-deficient and return None so the caller
+    can skip the filtering step.
+    """
+    eigvals, eigvecs = np.linalg.eigh((herm + herm.conj().T) / 2)
+    if np.min(eigvals) < eig_floor:
+        return None
+    return eigvecs @ np.diag(eigvals ** -0.5) @ eigvecs.conj().T
+
+
+def _filter_normal_form(
+    rho: np.ndarray,
+    dims: list[int],
+    tol: float,
+    max_iter: int = 50,
+) -> np.ndarray | None:
+    r"""Bring rho to its filter normal form via local SLOCC filtering.
+
+    Implements the iterative algorithm of Verstraete, Dehaene, and De Moor
+    (PRA 64, 010101 (2001)) used in Gittsovich et al. [@gittsovich2008unifying]
+    Section IV.D: alternate applying :math:`T_A = (d_A \rho_A)^{-1/2}` on
+    subsystem A and :math:`T_B = (d_B \rho_B)^{-1/2}` on subsystem B until both
+    marginals become proportional to the identity. In normal form
+    :math:`\tilde\rho_A = I/d_A` and :math:`\tilde\rho_B = I/d_B`, so the
+    reduced states carry no separability information and the correlations
+    live entirely in the off-diagonal block of the covariance matrix.
+
+    Each filter step preserves the trace exactly:
+
+    .. math::
+
+        \mathrm{tr}\big[(T_A \otimes I) \rho (T_A^\dagger \otimes I)\big]
+        = \mathrm{tr}\big[(d_A \rho_A)^{-1} \rho_A\big] = 1/d_A \cdot d_A = 1,
+
+    so no renormalization is needed.
+
+    Returns the filter normal form, or `None` if the iteration encounters a
+    rank-deficient marginal (filtering requires invertible marginals) or fails
+    to converge within `max_iter` passes.
+    """
+    dA, dB = dims[0], dims[1]
+    id_a = np.eye(dA, dtype=complex)
+    id_b = np.eye(dB, dtype=complex)
+    target_a = id_a / dA
+    target_b = id_b / dB
+
+    rho_tilde = rho.astype(complex, copy=True)
+    eig_floor = tol
+
+    for _ in range(max_iter):
+        rho_a = partial_trace(rho_tilde, sys=[1], dim=dims)
+        rho_b = partial_trace(rho_tilde, sys=[0], dim=dims)
+
+        err = max(
+            np.linalg.norm(rho_a - target_a, ord="fro"),
+            np.linalg.norm(rho_b - target_b, ord="fro"),
+        )
+        if err < tol:
+            return rho_tilde
+
+        t_a = _hermitian_inverse_sqrt(dA * rho_a, eig_floor)
+        if t_a is None:
+            return None
+        rho_tilde = np.kron(t_a, id_b) @ rho_tilde @ np.kron(t_a.conj().T, id_b)
+
+        rho_b_new = partial_trace(rho_tilde, sys=[0], dim=dims)
+        t_b = _hermitian_inverse_sqrt(dB * rho_b_new, eig_floor)
+        if t_b is None:
+            return None
+        rho_tilde = np.kron(id_a, t_b) @ rho_tilde @ np.kron(id_a, t_b.conj().T)
+
+    # Iteration budget exhausted. Accept whatever we have if the marginals
+    # are sufficiently close to the targets; otherwise report failure.
+    rho_a = partial_trace(rho_tilde, sys=[1], dim=dims)
+    rho_b = partial_trace(rho_tilde, sys=[0], dim=dims)
+    err = max(
+        np.linalg.norm(rho_a - target_a, ord="fro"),
+        np.linalg.norm(rho_b - target_b, ord="fro"),
+    )
+    if err < 10 * tol:
+        return rho_tilde
+    return None
+
+
+def _filter_cmc_xi_sum(rho_normal: np.ndarray, dims: list[int]) -> float:
+    r"""Compute :math:`\sum_i \xi_i` for a state already in filter normal form.
+
+    The :math:`\xi_i` are the coefficients in the operator-basis expansion
+
+    .. math::
+
+        \tilde\rho = \frac{1}{d_A d_B} \left(I + \sum_k \xi_k G^A_k \otimes G^B_k\right),
+
+    equal to :math:`d_A d_B` times the operator Schmidt coefficients of
+    :math:`\tilde\rho - I/(d_A d_B)` (which in turn are the singular values
+    of the realignment of that trace-zero operator). See Gittsovich et al.
+    2008, Eq. (66).
+    """
+    dA, dB = dims[0], dims[1]
+    sigma = rho_normal - np.eye(dA * dB, dtype=complex) / (dA * dB)
+    r_sigma = realignment(sigma, dim=dims)
+    singular_values = np.linalg.svd(r_sigma, compute_uv=False)
+    return float(dA * dB * np.sum(np.real(singular_values)))
+
+
+def _filter_cmc_bound(dA: int, dB: int) -> float:
+    r"""Return the Filter CMC separability bound for a :math:`d_A \times d_B` system.
+
+    From Gittsovich et al. 2008, Proposition IV.15, Eq. (72):
+
+    .. math::
+
+        \sum_k \xi_k \le \sqrt{d_A d_B (d_A - 1)(d_B - 1)}.
+
+    This generalizes Proposition IV.13 (:math:`d^2 - d` for the symmetric
+    :math:`d_A = d_B = d` case) and, in practice, is tighter than Eq. (71)
+    across the dimensions of interest here.
+    """
+    return float(np.sqrt(dA * dB * (dA - 1) * (dB - 1)))
+
+
+def _iterative_product_state_subtraction(
+    state: np.ndarray,
+    dims: list[int],
+    tol: float,
+    max_outer_iter: int = 50,
+    n_restarts: int = 5,
+    max_inner_iter: int = 25,
+    rng: np.random.Generator | None = None,
+) -> bool:
+    r"""Try to prove separability by iteratively subtracting product states.
+
+    Loosely modelled on QETLAB's ``sk_iterate`` (with ``s = 1``) and the
+    Gühne method [@guhne2009entanglement]. At each outer iteration, run
+    alternating rank-1 maximization (with a handful of random restarts) to
+    find a product state :math:`|\psi\rangle|\phi\rangle` with high overlap
+    on the residual state, then subtract as much of
+    :math:`|\psi\rangle\langle\psi| \otimes |\phi\rangle\langle\phi|` as
+    positivity allows (via a geometric backoff search). Returns ``True`` if
+    the residual eventually enters the Gurvits-Barnum separable ball or
+    shrinks to numerical zero. Returns ``False`` if the loop stalls
+    (no product state with non-trivial overlap, or subtraction driven to
+    zero) or the iteration budget is exhausted — callers should treat
+    ``False`` as inconclusive rather than as an entanglement verdict.
+
+    The `rng` parameter accepts a `numpy.random.Generator` for reproducible
+    restarts in tests. Callers that don't supply one get a fresh
+    non-deterministic generator, so production calls genuinely randomize
+    across restarts.
+
+    This is a *one-sided* witness: the algorithm can prove separability
+    constructively, but cannot disprove it.
+    """
+    dA, dB = dims[0], dims[1]
+    residual = state.astype(complex, copy=True)
+    if rng is None:
+        rng = np.random.default_rng()
+
+    for _outer in range(max_outer_iter):
+        residual_trace = float(np.real(np.trace(residual)))
+        if residual_trace < tol:
+            return True  # Fully decomposed into product states.
+        if in_separable_ball(residual / residual_trace):
+            return True  # Residual fell into the Gurvits-Barnum ball.
+
+        tensor = residual.reshape(dA, dB, dA, dB)
+        best_overlap = 0.0
+        best_prod_vec: np.ndarray | None = None
+        # Both the inner-loop convergence threshold and the outer "stuck"
+        # threshold scale with the current residual trace, so a small
+        # residual (or a high-dimension diffuse residual) doesn't get
+        # spuriously declared stuck when the best achievable overlap is
+        # naturally below an absolute `tol`.
+        scaled_tol = tol * max(1.0, residual_trace)
+        for _ in range(n_restarts):
+            psi = rng.standard_normal(dA) + 1j * rng.standard_normal(dA)
+            psi /= np.linalg.norm(psi)
+            phi = rng.standard_normal(dB) + 1j * rng.standard_normal(dB)
+            phi /= np.linalg.norm(phi)
+
+            prev_overlap = -np.inf
+            overlap = 0.0
+            for _inner in range(max_inner_iter):
+                # Fix phi, maximize over psi: top eigenvector of
+                # M_psi[i, k] = sum_{j, l} conj(phi_j) T[i, j, k, l] phi_l.
+                m_psi = np.einsum("j,ijkl,l->ik", np.conj(phi), tensor, phi)
+                m_psi = (m_psi + m_psi.conj().T) / 2.0
+                _, vecs = np.linalg.eigh(m_psi)
+                psi = vecs[:, -1]
+
+                # Fix psi, maximize over phi: top eigenvector of
+                # M_phi[j, l] = sum_{i, k} conj(psi_i) T[i, j, k, l] psi_k.
+                m_phi = np.einsum("i,ijkl,k->jl", np.conj(psi), tensor, psi)
+                m_phi = (m_phi + m_phi.conj().T) / 2.0
+                _, vecs = np.linalg.eigh(m_phi)
+                phi = vecs[:, -1]
+
+                prod_vec = np.kron(psi, phi)
+                overlap = float(np.real(prod_vec.conj() @ residual @ prod_vec))
+                if abs(overlap - prev_overlap) < scaled_tol:
+                    break
+                prev_overlap = overlap
+
+            if overlap > best_overlap:
+                best_overlap = overlap
+                best_prod_vec = prod_vec
+
+        if best_prod_vec is None or best_overlap < scaled_tol:
+            return False  # Stuck: no product state with non-trivial overlap.
+
+        # Subtract as much of |prod><prod| as keeps the residual PSD.
+        # Start with the full overlap and back off geometrically on PSD failure.
+        # If the product state has a component in the null space of the residual,
+        # no positive subtraction is possible and the backoff drives s below tol.
+        prod_proj = np.outer(best_prod_vec, best_prod_vec.conj())
+        s_subtract = best_overlap
+        accepted = False
+        for _backoff in range(40):
+            candidate = residual - s_subtract * prod_proj
+            candidate = (candidate + candidate.conj().T) / 2.0
+            min_eig = float(np.linalg.eigvalsh(candidate)[0])
+            if min_eig >= -tol:
+                residual = candidate
+                accepted = True
+                break
+            s_subtract *= 0.5
+            if s_subtract < tol:
+                break
+        if not accepted:
+            return False  # Backoff exhausted; algorithm is stuck.
+
+    return False  # Iteration budget exhausted.
+
+
+def _operator_schmidt_rank_ppt_criterion(
+    state: np.ndarray,
+    dims: list[int],
+    tol: float,
+) -> tuple[bool, str] | None:
+    """Return the Cariello PPT criterion verdict, if it fires."""
+    op_schmidt_rank = np.linalg.matrix_rank(realignment(state, dim=dims), tol=tol)
+    if op_schmidt_rank <= 2:
+        return True, f"operator Schmidt rank = {int(op_schmidt_rank)} <= 2 (Cariello 2013)"
+    return None
+
+
+def _rank4_ppt_3x3_criterion(
+    state: np.ndarray,
+    d_a: int,
+    d_b: int,
+    state_rank: int,
+    tol: float,
+) -> tuple[bool, str] | None:
+    """Return the 3x3 PPT rank-4 separability verdict, if certified."""
+    if d_a != 3 or d_b != 3 or state_rank != 4:
+        return None
+
+    best_overlap = _range_projector_product_overlap_3x3_rank4(state, tol)
+    if best_overlap is not None and 1.0 - best_overlap < 10 * tol:
+        return True, "3x3 rank-4 PPT: range contains a product vector (Chen-Djokovic 2013)"
+    return None
+
+
+def _horodecki_low_rank_ppt_criteria(
+    state: np.ndarray,
+    dims: list[int],
+    state_rank: int,
+    max_dim_val: int,
+    tol: float,
+) -> tuple[tuple[bool, str] | None, np.ndarray | None, np.ndarray | None]:
+    """Run the Horodecki low-rank PPT criteria and return cached marginals."""
+    if state_rank <= max_dim_val:
+        return (True, "rank(rho) <= max(d_A, d_B) (Horodecki et al. 2000)"), None, None
+
+    rho_a_marginal = partial_trace(state, sys=[1], dim=dims)
+    rho_b_marginal = partial_trace(state, sys=[0], dim=dims)
+    rank_marg_a = np.linalg.matrix_rank(rho_a_marginal, tol=tol)
+    rank_marg_b = np.linalg.matrix_rank(rho_b_marginal, tol=tol)
+    if state_rank <= rank_marg_a:
+        return (
+            (True, f"rank(rho)={state_rank} <= rank(rho_A)={rank_marg_a} (Horodecki et al. 2000)"),
+            rho_a_marginal,
+            rho_b_marginal,
+        )
+    if state_rank <= rank_marg_b:
+        return (
+            (True, f"rank(rho)={state_rank} <= rank(rho_B)={rank_marg_b} (Horodecki et al. 2000)"),
+            rho_a_marginal,
+            rho_b_marginal,
+        )
+    return None, rho_a_marginal, rho_b_marginal
+
+
+def _reduction_ppt_criterion(
+    state: np.ndarray,
+    rho_a_marginal: np.ndarray,
+    rho_b_marginal: np.ndarray,
+    d_a: int,
+    d_b: int,
+    tol: float,
+) -> tuple[bool, str] | None:
+    """Return the reduction-criterion verdict, if violated."""
+    op_reduct1 = np.kron(np.eye(d_a), rho_b_marginal) - state
+    op_reduct2 = np.kron(rho_a_marginal, np.eye(d_b)) - state
+    if not (
+        is_positive_semidefinite(op_reduct1, atol=tol, rtol=tol)
+        and is_positive_semidefinite(op_reduct2, atol=tol, rtol=tol)
+    ):
+        return False, "reduction criterion violated (Horodecki 1999)"
+    return None
+
+
+def _realignment_ppt_criteria(
+    state: np.ndarray,
+    dims: list[int],
+    rho_a_marginal: np.ndarray,
+    rho_b_marginal: np.ndarray,
+    d_a: int,
+    d_b: int,
+    tol: float,
+) -> tuple[bool, str] | None:
+    """Return the first realignment/filter-CMC witness verdict that fires."""
+    if trace_norm(realignment(state, dims)) > 1 + tol:
+        return False, "realignment/CCNR: ||R(rho)||_1 > 1 (Chen-Wu 2003)"
+
+    tr_rho_a_sq = np.real(np.trace(rho_a_marginal @ rho_a_marginal))
+    tr_rho_b_sq = np.real(np.trace(rho_b_marginal @ rho_b_marginal))
+    val_a = max(0, 1 - tr_rho_a_sq)
+    val_b = max(0, 1 - tr_rho_b_sq)
+    bound_zhang = np.sqrt(val_a * val_b) if val_a * val_b >= 0 else 0
+    centered_state = state - np.kron(rho_a_marginal, rho_b_marginal)
+    if trace_norm(realignment(centered_state, dims)) > bound_zhang + tol:
+        return False, "Zhang realignment variant: ||R(rho - rho_A (x) rho_B)||_1 exceeds purity bound (Zhang 2008)"
+
+    rho_normal = _filter_normal_form(state, dims, tol)
+    if rho_normal is not None:
+        xi_sum = _filter_cmc_xi_sum(rho_normal, dims)
+        xi_bound = _filter_cmc_bound(d_a, d_b)
+        if xi_sum > xi_bound + tol:
+            return (
+                False,
+                f"Filter CMC: sum xi = {xi_sum:.4g} > bound {xi_bound:.4g} (Gittsovich et al. 2008, Prop. IV.15)",
+            )
+
+    return None
+
+
+def _vidal_tarrach_ppt_criterion(
+    sorted_eigs_desc: np.ndarray,
+    prod_dim_val: int,
+    tol: float,
+    machine_eps: float,
+) -> tuple[bool, str] | None:
+    """Return the Vidal-Tarrach perturbation criterion verdict, if it fires."""
+    if len(sorted_eigs_desc) == prod_dim_val and prod_dim_val > 1:
+        diff_pert = sorted_eigs_desc[1] - sorted_eigs_desc[prod_dim_val - 1]
+        threshold_pert = tol**2 + 2 * machine_eps
+        if diff_pert < threshold_pert:
+            return True, "PPT state close to rank-1 identity perturbation (Vidal-Tarrach 1999)"
+
+    return None
+
+
+def _qubit_qudit_ppt_criteria(
+    state: np.ndarray,
+    dims: list[int],
+    d_a: int,
+    d_b: int,
+    min_dim_val: int,
+    max_dim_val: int,
+    prod_dim_val: int,
+    tol: float,
+    sorted_eigs_desc: np.ndarray,
+) -> tuple[bool, str] | None:
+    """Return the first 2xN PPT criterion verdict that fires."""
+    if min_dim_val != 2 or prod_dim_val == 0:
+        return None
+
+    state_t_2xn = state
+    d_n_val = max_dim_val
+    dim_for_hildebrand_map = [2, d_n_val]
+
+    if d_a != 2 and d_b == 2:
+        state_t_2xn = swap(state, sys=[0, 1], dim=dims)
+        dim_for_hildebrand_map = [d_b, d_a]
+    elif d_a != 2:
+        return None
+
+    if state_t_2xn is state:
+        current_lam_2xn = sorted_eigs_desc
+    else:
+        try:
+            current_lam_2xn = np.linalg.eigvalsh(state_t_2xn)[::-1]
+        except np.linalg.LinAlgError:
+            current_lam_2xn = np.sort(np.real(np.linalg.eigvals(state_t_2xn)))[::-1]
+
+    if (
+        len(current_lam_2xn) >= 2 * d_n_val
+        and (2 * d_n_val - 1) < len(current_lam_2xn)
+        and (2 * d_n_val - 2) >= 0
+        and (2 * d_n_val - 3) >= 0
+    ):
+        lhs = (current_lam_2xn[0] - current_lam_2xn[2 * d_n_val - 2]) ** 2
+        rhs = 4 * current_lam_2xn[2 * d_n_val - 3] * current_lam_2xn[2 * d_n_val - 1] + tol**2
+        if lhs <= rhs:
+            return True, "Johnston spectral condition for 2xN PPT states (2013)"
+
+    a_block = state_t_2xn[:d_n_val, :d_n_val]
+    b_block = state_t_2xn[:d_n_val, d_n_val : 2 * d_n_val]
+    c_block = state_t_2xn[d_n_val : 2 * d_n_val, d_n_val : 2 * d_n_val]
+
+    if b_block.size > 0 and np.linalg.matrix_rank(b_block - b_block.conj().T, tol=tol) <= 1:
+        return True, "Hildebrand 2xN condition: rank(B - B^dagger) <= 1"
+
+    if a_block.size > 0 and b_block.size > 0 and c_block.size > 0:
+        x_2n_ppt_check = np.vstack(
+            (
+                np.hstack(((5 / 6) * a_block - c_block / 6, b_block)),
+                np.hstack((b_block.conj().T, (5 / 6) * c_block - a_block / 6)),
+            )
+        )
+        if is_positive_semidefinite(x_2n_ppt_check, atol=tol, rtol=tol) and is_ppt(
+            x_2n_ppt_check, sys=1, dim=dim_for_hildebrand_map, tol=tol
+        ):
+            return True, "Hildebrand 2xN homothetic-image condition (PSD and PPT)"
+
+        try:
+            eig_a_real = np.real(np.linalg.eigvals(a_block))
+            eig_c_real = np.real(np.linalg.eigvals(c_block))
+            if eig_a_real.size > 0 and eig_c_real.size > 0 and b_block.size > 0:
+                if np.linalg.norm(b_block) ** 2 <= np.min(eig_a_real) * np.min(eig_c_real) + tol**2:
+                    return True, "Johnston Lemma 1 for 2xN PPT states: ||B||^2 <= lambda_min(A) * lambda_min(C)"
+        except np.linalg.LinAlgError:
+            return None
+
+    return None
+
+
+def _positive_map_witness_criteria(
+    state: np.ndarray,
+    dims: list[int],
+    d_a: int,
+    d_b: int,
+    tol: float,
+) -> tuple[bool, str] | None:
+    """Return the first positive-map or witness verdict that fires."""
+    if d_a == 3 and d_b == 3:
+        phi_choi_1975 = _choi_1975_choi_matrix()
+        for p_idx_choi in (1, 2):
+            mapped = partial_channel(state, phi_choi_1975, sys=p_idx_choi, dim=dims)
+            if not is_positive_semidefinite(mapped, atol=tol, rtol=tol):
+                return False, f"Choi 1975 positive-map witness (on subsystem {p_idx_choi}, 3x3)"
+
+        tr_h_rho = float(np.real(np.trace(_TERHAL_2000_TILE_WITNESS_3X3 @ state)))
+        if tr_h_rho < -tol:
+            return False, f"UPB-based witness on tile UPB (Terhal 2000): tr(H*rho)={tr_h_rho:.4g} < 0"
+
+        phi_me3 = max_entangled(3, False, False)
+        phi_proj3 = phi_me3 @ phi_me3.conj().T
+        for t_raw_ha in np.arange(0.1, 1.0, 0.1):
+            for t_iter_ha in (t_raw_ha, 1 / t_raw_ha):
+                denom_ha = 1 - t_iter_ha + t_iter_ha**2
+                if abs(denom_ha) < np.finfo(float).eps:
+                    continue
+
+                a_hk = (1 - t_iter_ha) ** 2 / denom_ha
+                b_hk = t_iter_ha**2 / denom_ha
+                c_hk = 1 / denom_ha
+                phi_map_ha = np.diag([a_hk + 1, c_hk, b_hk, b_hk, a_hk + 1, c_hk, c_hk, b_hk, a_hk + 1]) - phi_proj3
+                mapped = partial_channel(state, phi_map_ha, sys=1, dim=dims)
+                if not is_positive_semidefinite(mapped, atol=tol, rtol=tol):
+                    return False, f"Ha-Kye positive-map witness (3x3, t={t_iter_ha:.4g})"
+
+    for p_idx_bh in (1, 2):
+        current_dim_bh = dims[p_idx_bh - 1]
+        if current_dim_bh > 0 and current_dim_bh % 2 == 0:
+            phi_me_bh = max_entangled(current_dim_bh, False, False)
+            phi_proj_bh = phi_me_bh @ phi_me_bh.conj().T
+            half_dim_bh = current_dim_bh // 2
+            diag_u_elems_bh = np.concatenate([np.ones(half_dim_bh), -np.ones(half_dim_bh)])
+            u_bh_kron_part = np.fliplr(np.diag(diag_u_elems_bh))
+            u_for_phi_constr = np.kron(np.eye(current_dim_bh), u_bh_kron_part)
+            phi_bh_map_choi = (
+                np.eye(current_dim_bh**2)
+                - phi_proj_bh
+                - u_for_phi_constr @ swap_operator(current_dim_bh) @ u_for_phi_constr.conj().T
+            )
+            mapped_state_bh = partial_channel(state, phi_bh_map_choi, sys=p_idx_bh, dim=dims)
+            if not is_positive_semidefinite(mapped_state_bh, atol=tol, rtol=tol):
+                return False, f"Breuer-Hall positive-map witness (on subsystem {p_idx_bh}, dim={current_dim_bh})"
+
+    return None
+
+
+def _dps_hierarchy_criterion(
+    state: np.ndarray,
+    dims: list[int],
+    level: int,
+    tol: float,
+) -> tuple[bool, str] | None:
+    """Return the first DPS verdict that fires."""
+    if level < 2:
+        return None
+
+    for k_actual_level_check in range(2, int(level) + 1):
+        try:
+            if not has_symmetric_extension(rho=state, level=k_actual_level_check, dim=dims, tol=tol):
+                return False, f"no {k_actual_level_check}-symmetric extension (DPS hierarchy)"
+            if has_symmetric_inner_extension(rho=state, level=k_actual_level_check, dim=dims, ppt=True, tol=tol):
+                return True, f"passed inner DPS symmetric extension cone at level={k_actual_level_check}"
+        except ImportError:
+            print("Warning: CVXPY or a solver is not installed; cannot perform symmetric extension check.")
+            return None
+        except Exception as exc:
+            print(f"Warning: Symmetric extension check failed at level {k_actual_level_check} with an error: {exc}")
+            return None
+
+    return None
+
+
+def _sorted_real_eigs_desc(state: np.ndarray) -> np.ndarray | None:
+    """Return eigenvalues sorted descending, or None if both solvers fail."""
+    try:
+        return np.linalg.eigvalsh(state)[::-1]
+    except np.linalg.LinAlgError:
+        try:
+            return np.sort(np.real(np.linalg.eigvals(state)))[::-1]
+        except np.linalg.LinAlgError:
+            return None
