@@ -6,12 +6,12 @@ import numpy as np
 import scipy.special
 
 
-def dicke(num_qubit: int, num_exfootcited: int, return_dm: bool = False) -> np.ndarray:
+def dicke(num_qubit: int, num_excited: int, return_dm: bool = False) -> np.ndarray:
     r"""Produce a Dicke state with specified excitations.
 
-    The Dicke state is a quantum state with a fixed number of excitations (i.e., `num_exfootcited`)
+    The Dicke state is a quantum state with a fixed number of excitations (i.e., `num_excited`)
     distributed across the given number of qubits (i.e., `num_qubit`). It is symmetric and represents
-    an equal superposition of all possible states with the specified number of exfootcited qubits.
+    an equal superposition of all possible states with the specified number of excited qubits.
 
     Example
     Consider generating a Dicke state with 3 qubits and 1 excitation:
@@ -34,23 +34,23 @@ def dicke(num_qubit: int, num_exfootcited: int, return_dm: bool = False) -> np.n
 
     Args:
         num_qubit: The total number of qubits in the system.
-        num_exfootcited: The number of qubits that are in the exfootcited state.
+        num_excited: The number of qubits that are in the excited state.
         return_dm: If True, returns the state as a density matrix (default is False).
 
     Returns:
         The Dicke state vector or density matrix as a NumPy array.
 
     """
-    if num_exfootcited > num_qubit:
+    if num_excited > num_qubit:
         raise ValueError("Number of excitations cannot exceed the number of qubits.")
 
-    num_term = int(scipy.special.comb(num_qubit, num_exfootcited))
-    d_base_exfootcited_pos = list(itertools.combinations(range(num_qubit), num_exfootcited))
+    num_term = int(scipy.special.comb(num_qubit, num_excited))
+    d_base_excited_pos = list(itertools.combinations(range(num_qubit), num_excited))
 
-    index_exfootcited_pos = [sum(2**i for i in pos) for pos in d_base_exfootcited_pos]
+    index_excited_pos = [sum(2**i for i in pos) for pos in d_base_excited_pos]
     dicke_state = np.zeros(2**num_qubit, dtype=np.float64)
 
-    for pos in index_exfootcited_pos:
+    for pos in index_excited_pos:
         dicke_state[pos] = 1
     dicke_state /= np.sqrt(num_term)
 
