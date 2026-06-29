@@ -7,7 +7,7 @@ def is_orthonormal(vectors: list[np.ndarray]) -> bool:
     r"""Check if the vectors are orthonormal.
 
     Args:
-        vectors: A list of `np.ndarray` 1-by-n vectors.
+        vectors: A list of `np.ndarray` vectors, each given as a 1-D array or a column/row vector.
 
     Returns:
         True if vectors are orthonormal; False otherwise.
@@ -44,4 +44,7 @@ def is_orthonormal(vectors: list[np.ndarray]) -> bool:
         ```
 
     """
-    return np.allclose(np.dot(vectors, np.conjugate(vectors).T), np.eye(len(vectors)))
+    # Flatten each vector to 1-D so column vectors (n, 1) and row vectors (1, n) are handled the
+    # same as plain 1-D arrays; the Gram matrix of an orthonormal set is the identity.
+    mat = np.array([np.asarray(vec).reshape(-1) for vec in vectors])
+    return np.allclose(mat @ mat.conj().T, np.eye(len(vectors)))

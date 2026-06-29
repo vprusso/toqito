@@ -25,3 +25,15 @@ def test_is_orthonormal():
     vectors = np.array([vec_1, vec_2, vec_3])
 
     assert is_orthonormal(vectors)
+
+
+def test_is_orthonormal_column_vectors():
+    """Column vectors of shape (n, 1) are accepted (the library's standard convention)."""
+    vectors = [np.array([[1], [0]]), np.array([[0], [1]])]
+    assert is_orthonormal(vectors)
+
+
+def test_is_not_orthonormal_column_vectors():
+    """Non-orthonormal column vectors return False rather than raising."""
+    vectors = [np.array([[1], [0]]), np.array([[1], [1]])]
+    assert not is_orthonormal(vectors)
