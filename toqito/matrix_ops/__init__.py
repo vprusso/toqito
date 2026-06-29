@@ -14,3 +14,5 @@ from toqito.matrix_ops.tensor_unravel import tensor_unravel
 from toqito.matrix_ops.partial_trace import partial_trace
 from toqito.matrix_ops.partial_transpose import partial_transpose
 from toqito.matrix_ops.null_space import null_space
+from toqito.matrix_ops.expr_as_np_array import expr_as_np_array
+from toqito.matrix_ops.np_array_as_expr import np_array_as_expr

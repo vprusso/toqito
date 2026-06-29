@@ -26,7 +26,7 @@ def symmetric_projection(dim: int, p_val: int = 2, partial: bool = False) -> np.
     whose columns form an orthonormal basis for the symmetric subspace (and hence the PS * PS' is the orthogonal
     projection onto the symmetric subspace).
 
-    This function was adapted from the QETLAB package.
+    This function was adapted from the QETLAB package [@qetlablink].
 
     Args:
         dim: The dimension of the local systems.

@@ -13,8 +13,6 @@ from toqito.state_props._renyi_utils import (
 )
 from toqito.state_props.von_neumann_entropy import von_neumann_entropy
 
-_UPARROW_MIN_ALPHA = 0.5
-
 
 def sandwiched_renyi_conditional_entropy(
     rho: np.ndarray,
@@ -23,6 +21,7 @@ def sandwiched_renyi_conditional_entropy(
     variant: str = "downarrow",
     tol: float = 1e-9,
     max_iters: int = 500,
+    uparrow_min_alpha: float = 0.5,
 ) -> float:
     r"""Compute the sandwiched conditional Rényi entropy of a bipartite state.
 
@@ -85,6 +84,10 @@ def sandwiched_renyi_conditional_entropy(
         variant: Either `"downarrow"` or `"uparrow"`.
         tol: Gradient tolerance passed to the L-BFGS-B solver (uparrow only).
         max_iters: Maximum number of solver iterations (uparrow only).
+        uparrow_min_alpha: Smallest `alpha` accepted for the uparrow variant.
+            Defaults to `1/2`, the lower end of the regime where the sandwiched
+            Rényi divergence is jointly convex. Lowering it runs the optimizer
+            in the non-convex regime, where local minima need not be global.
 
     Returns:
         The sandwiched conditional Rényi entropy of `rho`.
@@ -93,7 +96,7 @@ def sandwiched_renyi_conditional_entropy(
         ValueError: If `rho` is not a density matrix, if `alpha <= 0`, if
             `variant` is not `"downarrow"` or `"uparrow"`, if `dim` does not
             describe a bipartite decomposition of `rho`, or if the uparrow
-            variant is requested with `alpha < 1/2`.
+            variant is requested with `alpha < uparrow_min_alpha`.
         RuntimeError: If the uparrow optimizer fails to converge.
 
     Examples:
@@ -147,10 +150,11 @@ def sandwiched_renyi_conditional_entropy(
     if variant == "downarrow":
         return _sandwiched_renyi_conditional_entropy_downarrow(rho, rho_b, alpha, dims[0])
 
-    if alpha < _UPARROW_MIN_ALPHA:
+    if alpha < uparrow_min_alpha:
         raise ValueError(
             "The uparrow sandwiched conditional Rényi entropy is only supported for "
-            "alpha >= 1/2, where the underlying optimization is convex."
+            f"alpha >= {uparrow_min_alpha}, where the underlying optimization is convex. "
+            "Pass `uparrow_min_alpha` to override this guard."
         )
     return _sandwiched_renyi_conditional_entropy_uparrow(
         rho, rho_b, alpha, int(dims[0]), int(dims[1]), tol, max_iters
