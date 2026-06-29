@@ -587,6 +587,31 @@ class TestExtendedNonlocalGame(unittest.TestCase):
             for key, val_expected in custom_bob_povms_dict.items():
                 self.assertTrue(np.array_equal(called_bob_povms_arg[key], val_expected))
 
+    def test_quantum_lb_random_start_seed_controls_unitary_initialization(self):
+        """The see-saw seed should control random Bob POVM initialization."""
+        prob_mat, pred_mat = self.bb84_extended_nonlocal_game()
+        seeded_calls = []
+
+        for _ in range(2):
+            game = ExtendedNonlocalGame(prob_mat, pred_mat)
+            with (
+                mock.patch(
+                    "toqito.nonlocal_games.extended_nonlocal_game.random_unitary", return_value=np.eye(2)
+                ) as mock_random_unitary,
+                mock.patch.object(game, "_ExtendedNonlocalGame__optimize_alice") as mock_opt_alice,
+            ):
+                mock_alice_problem = mock.Mock(spec=cvxpy.Problem)
+                mock_alice_problem.status = cvxpy.SOLVER_ERROR
+                mock_alice_problem.value = None
+                mock_opt_alice.return_value = (defaultdict(lambda: mock.Mock(spec=cvxpy.Variable)), mock_alice_problem)
+
+                game.quantum_value_lower_bound(iters=1, seed=42, initial_bob_is_random=True)
+
+            seeded_calls.append([call.kwargs["seed"] for call in mock_random_unitary.call_args_list])
+
+        self.assertEqual(seeded_calls[0], seeded_calls[1])
+        self.assertTrue(all(isinstance(unitary_seed, int) for unitary_seed in seeded_calls[0]))
+
     @staticmethod
     def four_mub_game():
         """Define the 4-MUB extended nonlocal game (single round, qutrit bases)."""

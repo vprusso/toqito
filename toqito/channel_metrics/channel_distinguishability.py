@@ -111,6 +111,9 @@ def channel_distinguishability(
     if strategy.lower() not in ("bayesian", "minimax"):
         raise ValueError("The strategy must either be Bayesian or Minimax.")
 
+    if primal_dual not in {"primal", "dual"}:
+        raise ValueError("The primal_dual option must be either 'primal' or 'dual'.")
+
     if not np.array_equal(dim_phi, dim_psi):
         raise ValueError("The channels must have the same dimension input and output spaces as each other.")
 

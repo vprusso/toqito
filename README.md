@@ -104,7 +104,7 @@ operators), the optimal probability of distinguishing the four Bell states using
 
 ```python
 from toqito.states import bell
-from toqito.state_opt import state_distinguishability, ppt_distinguishability
+from toqito.state_opt import state_distinguishability
 
 # Define the set of states as the four Bell states:
 states = [bell(0), bell(1), bell(2), bell(3)]
@@ -114,7 +114,7 @@ pos_res, _ = state_distinguishability(states)
 print(f"Distinguishing four Bell states (global measurements): {pos_res}")
 
 # Distinguishing four Bell states (PPT measurements): 0.5000000000098367
-ppt_res, _ = ppt_distinguishability(states, subsystems=[0], dimensions=[2, 2])
+ppt_res, _ = state_distinguishability(states, measurement="ppt", subsystems=[0], dimensions=[2, 2])
 print(f"Distinguishing four Bell states (PPT measurements): {ppt_res}")
 ```
 
