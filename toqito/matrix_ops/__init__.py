@@ -14,3 +14,6 @@ from toqito.matrix_ops.tensor_unravel import tensor_unravel
 from toqito.matrix_ops.partial_trace import partial_trace
 from toqito.matrix_ops.partial_transpose import partial_transpose
 from toqito.matrix_ops.null_space import null_space
+from toqito.matrix_ops.psd_matrix_power import psd_matrix_power
+from toqito.matrix_ops.support_projection import support_projection
+from toqito.matrix_ops.validate_bipartite_dim import validate_bipartite_dim
