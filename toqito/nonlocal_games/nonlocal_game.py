@@ -492,7 +492,7 @@ class NonlocalGame:
         """Compute the non-signaling value of the nonlocal game.
 
         Returns:
-            A value between [0, 1] representing the non-signaling value.
+            A value between `[0, 1]` representing the non-signaling value.
 
         """
         alice_out, bob_out, alice_in, bob_in = self.pred_mat.shape

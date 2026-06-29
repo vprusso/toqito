@@ -19,7 +19,7 @@ def kraus_to_choi(kraus_ops: list[np.ndarray] | list[list[np.ndarray]], sys: int
     In case the map is CP (completely positive), it suffices to input a flat list of operators omitting
     their conjugate transpose (i.e. [\(K_1\),..., \(K_n\)]).
 
-    This function was adapted from the QETLAB package.
+    This function was adapted from the QETLAB package [@qetlablink].
 
     Args:
         kraus_ops: A list of Kraus operators.

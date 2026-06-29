@@ -31,7 +31,7 @@ def apply_channel(mat: np.ndarray, phi_op: np.ndarray | list[list[np.ndarray]]) 
     We assume the quantum channel given as `phi_op` is provided as either the Choi matrix
     of the channel or a set of Kraus operators that define the quantum channel.
 
-    This function is adapted from the QETLAB package.
+    This function is adapted from the QETLAB package [@qetlablink].
 
     Args:
         mat: A matrix.

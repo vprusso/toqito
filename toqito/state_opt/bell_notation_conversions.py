@@ -40,7 +40,7 @@ def cg_to_fc(cg_mat: np.ndarray, behavior: bool = False) -> np.ndarray:
         The matrix in Full Correlator notation.
 
     !!! Note
-        This function is adapted from the QETLAB MATLAB package function ``CG2FC``.
+        This function is adapted from the QETLAB MATLAB package function ``CG2FC`` [@qetlablink].
 
     Examples:
         Consider the CHSH inequality in CG notation for a functional:
@@ -145,7 +145,7 @@ def fc_to_cg(fc_mat: np.ndarray, behavior: bool = False) -> np.ndarray:
         The matrix in Collins-Gisin notation.
 
     !!! Note
-        This function is adapted from the QETLAB MATLAB package function ``FC2CG``.
+        This function is adapted from the QETLAB MATLAB package function ``FC2CG`` [@qetlablink].
 
     Examples:
         Consider the CHSH inequality in FC notation for a functional:
@@ -234,7 +234,7 @@ def cg_to_fp(cg_mat: np.ndarray, desc: list[int], behavior: bool = False) -> np.
         The probability tensor \(V[a, b, x, y]\) in Full Probability notation.
 
     !!! Note
-        This function is adapted from the QETLAB MATLAB package function ``CG2FP``.
+        This function is adapted from the QETLAB MATLAB package function ``CG2FP`` [@qetlablink].
 
     Examples:
         Consider the CHSH inequality functional in CG notation:
@@ -501,7 +501,7 @@ def fp_to_cg(v_mat: np.ndarray, behavior: bool = False) -> np.ndarray:
         The matrix in Collins-Gisin notation.
 
     !!! Note
-        This function is adapted from the QETLAB MATLAB package function ``FP2CG``.
+        This function is adapted from the QETLAB MATLAB package function ``FP2CG`` [@qetlablink].
         For ``behavior=True``, it uses the QETLAB convention for calculating marginal probabilities,
         summing over the other party's outcomes for a *fixed* input setting of the other party
         (\(y=0\) for Alice's marginal \(p_A(a|x)\), \(x=0\) for Bob's marginal \(p_B(b|y)\)).
@@ -649,7 +649,7 @@ def fp_to_fc(v_mat: np.ndarray, behavior: bool = False) -> np.ndarray:
         The matrix in Full Correlator notation.
 
     !!! Note
-        This function is adapted from the QETLAB MATLAB package function ``FP2FC``.
+        This function is adapted from the QETLAB MATLAB package function ``FP2FC`` [@qetlablink].
         For ``behavior=True``, it calculates the *average* marginal correlators \(\langle A_x \rangle\)
         and \(\langle B_y \rangle\) by summing over the other party's inputs
         and dividing by the number of inputs (\(ib\) or \(ia\)).

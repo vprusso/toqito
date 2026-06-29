@@ -30,7 +30,7 @@ def gisin(lambda_var: float, theta: float) -> np.ndarray:
     \]
 
     Args:
-        lambda_var: A real parameter in [0, 1].
+        lambda_var: A real parameter in `[0, 1]`.
         theta: A real parameter.
 
     Returns:

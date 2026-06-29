@@ -33,7 +33,7 @@ def geometric_mean(mat_a: np.ndarray, mat_b: np.ndarray, t: float) -> np.ndarray
     Raises:
       ValueError: If the matrices are not the same size, not 2D, or not square.
       ValueError: If the matrices are not positive definite.
-      ValueError: If the weight is not in the range [-1, 2].
+      ValueError: If the weight is not in the range `[-1, 2]`.
 
     Returns:
       A matrix with the same shape as the inputs.
