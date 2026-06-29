@@ -88,9 +88,11 @@ def is_quantum_channel(
     if isinstance(phi, list):
         phi = kraus_to_choi(phi)
 
-    # A valid quantum channel is a superoperator that is both completely
-    # positive and trace-preserving.
+    # A valid quantum channel is a superoperator that is both completely positive and
+    # trace-preserving. A ValueError here means the input does not have a shape that can describe a
+    # channel (e.g. dimensions that cannot be split), so it is not a quantum channel; other
+    # exceptions indicate genuine problems and should surface rather than be hidden as a False.
     try:
         return is_completely_positive(phi, rtol, atol) and is_trace_preserving(phi, rtol, atol)
-    except Exception:
+    except ValueError:
         return False
