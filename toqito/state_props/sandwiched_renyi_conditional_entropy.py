@@ -13,8 +13,6 @@ from toqito.state_props._renyi_utils import (
 )
 from toqito.state_props.von_neumann_entropy import von_neumann_entropy
 
-_UPARROW_MIN_ALPHA = 0.5
-
 
 def sandwiched_renyi_conditional_entropy(
     rho: np.ndarray,
@@ -147,7 +145,8 @@ def sandwiched_renyi_conditional_entropy(
     if variant == "downarrow":
         return _sandwiched_renyi_conditional_entropy_downarrow(rho, rho_b, alpha, dims[0])
 
-    if alpha < _UPARROW_MIN_ALPHA:
+    uparrow_min_alpha = 0.5
+    if alpha < uparrow_min_alpha:
         raise ValueError(
             "The uparrow sandwiched conditional Rényi entropy is only supported for "
             "alpha >= 1/2, where the underlying optimization is convex."
