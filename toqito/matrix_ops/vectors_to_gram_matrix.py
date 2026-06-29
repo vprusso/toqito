@@ -73,10 +73,7 @@ def vectors_to_gram_matrix(vectors: list[np.ndarray]) -> np.ndarray:
         # Compute Gram matrix using vectorized operations
         return np.dot(stacked_vectors.conj().T, stacked_vectors)
     else:
-        # Mixed states: compute Tr(ρᵢ ρⱼ)
-        n = len(vectors)
-        gram = np.zeros((n, n), dtype=complex)
-        for i in range(n):
-            for j in range(n):
-                gram[i, j] = np.trace(vectors[i] @ vectors[j])
-        return gram
+        # Mixed states: compute G[i, j] = Tr(ρᵢ ρⱼ). Stacking the density matrices and contracting with einsum avoids
+        # the O(n^2) Python loop and the full ρᵢ ρⱼ products (only the trace is needed).
+        stacked = np.stack(vectors)
+        return np.einsum("ikl,jlk->ij", stacked, stacked)
