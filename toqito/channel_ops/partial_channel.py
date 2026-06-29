@@ -28,7 +28,7 @@ def partial_channel(
 
     The input `phi_map` should be provided as a Choi matrix.
 
-    This function is adapted from the QETLAB package.
+    This function is adapted from the QETLAB package [@qetlablink].
 
     Args:
         rho: A matrix.

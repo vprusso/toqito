@@ -26,7 +26,7 @@ def brauer(dim: int, p_val: int) -> np.ndarray:
 
     which is the number of columns of the returned matrix.
 
-    This function has been adapted from QETLAB.
+    This function has been adapted from QETLAB [@qetlablink].
 
     Args:
         dim: Dimension of each local subsystem

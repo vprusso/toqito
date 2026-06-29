@@ -12,7 +12,7 @@ def in_separable_ball(mat: np.ndarray) -> bool | np.bool_:
 
     This function can be used as a method for separability testing of states in certain scenarios.
 
-    This function is adapted from QETLAB.
+    This function is adapted from QETLAB [@qetlablink].
 
     Args:
         mat: A positive semidefinite matrix or a vector of the eigenvalues of a positive semidefinite matrix.

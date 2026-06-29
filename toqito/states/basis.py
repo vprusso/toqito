@@ -1,6 +1,6 @@
-"""A basis state represents the standard basis vectors of some n-dimensional Hilbert Space.
+r"""A basis state represents the standard basis vectors of some \(n\)-dimensional Hilbert space.
 
-Here, n can be given as a parameter as shown below.
+Here, \(n\) can be given as a parameter as shown below.
 """
 
 import numpy as np
@@ -17,7 +17,7 @@ def basis(dim: int, pos: int) -> np.ndarray:
         The column vector of dimension `dim` with all entries set to `0` except the entry at `pos` which is set to `1`.
 
     Raises:
-        ValueError: If the input position is not in the range [0, dim - 1].
+        ValueError: If the input position is not in the range `[0, dim - 1]`.
 
     Examples:
         The standard basis ket vectors given as \(|0 \rangle\) and \(|1 \rangle\) where

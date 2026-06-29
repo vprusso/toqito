@@ -2,7 +2,7 @@
 
 This package collects operator-monotone matrix functions and the associated
 SDP cones (matrix geometric mean, operator relative entropy, matrix logarithm)
-ported from CVXQUAD (Fawzi--Saunderson). They live here rather than in
+ported from CVXQUAD (Fawzi--Saunderson) [@cvxquadlink]. They live here rather than in
 ``matrix_ops`` because they depend on ``matrix_props`` for input validation;
 keeping ``matrix_ops`` free of that back-edge avoids a load-time import cycle
 with ``state_props`` and ``channels``.

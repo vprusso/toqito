@@ -15,7 +15,7 @@ def entanglement_of_formation(rho: np.ndarray, dim: list[int] | int | None = Non
     `rho` being a pure state or a 2-qubit state: it is not known how to
     compute the entanglement-of-formation of higher-dimensional mixed states.
 
-    This function was adapted from QETLAB.
+    This function was adapted from QETLAB [@qetlablink].
 
     Args:
         rho: A matrix or vector.
