@@ -9,19 +9,6 @@ from toqito.matrix_ops import calculate_vector_matrix_dimension, to_density_matr
 from toqito.matrix_props import has_same_dimension
 
 
-def _is_pure_state(vector: np.ndarray) -> bool:
-    """Check if input is a pure state (vector) or mixed state (density matrix).
-
-    Args:
-        vector: Quantum state as vector or density matrix.
-
-    Returns:
-        True if pure state (vector), False if mixed state (density matrix).
-
-    """
-    return vector.ndim == 1 or (vector.ndim == 2 and vector.shape[1] == 1)
-
-
 def state_distinguishability(
     vectors: list[np.ndarray],
     probs: list[float] | None = None,
@@ -220,6 +207,19 @@ def state_distinguishability(
         return _unambiguous_primal(vectors=vectors, dim=dim, probs=probs, solver=solver, **kwargs)
 
     return _unambiguous_dual(vectors=vectors, probs=probs, solver=solver, **kwargs)
+
+
+def _is_pure_state(vector: np.ndarray) -> bool:
+    """Check if input is a pure state (vector) or mixed state (density matrix).
+
+    Args:
+        vector: Quantum state as vector or density matrix.
+
+    Returns:
+        True if pure state (vector), False if mixed state (density matrix).
+
+    """
+    return vector.ndim == 1 or (vector.ndim == 2 and vector.shape[1] == 1)
 
 
 def _min_error_primal(

@@ -20,73 +20,6 @@ from toqito.state_opt.bell_notation_conversions import (
 from toqito.state_opt.npa_hierarchy import bell_npa_constraints
 
 
-def _integer_digits(number: int, base: int, digits: int) -> np.ndarray:
-    """Convert an integer to a fixed-length array of its digits in a given base."""
-    dits = np.zeros(digits, dtype=int)
-    temp_number = number
-    for i in range(digits):
-        dits[digits - 1 - i] = temp_number % base
-        temp_number //= base
-    return dits
-
-
-def _cg_to_fp_cp(p_cg_var: cp.Variable, desc: list[int]) -> list[cp.Expression]:
-    """Generate cp expressions for full probabilities from a CG variable."""
-    oa, ob, ia, ib = desc
-    fp_expressions = []
-
-    def _cg_row_index(a: int, x: int) -> int:
-        return 1 + a + x * (oa - 1)
-
-    def _cg_col_index(b: int, y: int) -> int:
-        return 1 + b + y * (ob - 1)
-
-    for x in range(ia):
-        for y in range(ib):
-            if oa > 1 and ob > 1:
-                for a in range(oa - 1):
-                    for b in range(ob - 1):
-                        row_idx = _cg_row_index(a, x)
-                        col_idx = _cg_col_index(b, y)
-                        fp_expressions.append(p_cg_var[row_idx, col_idx])
-
-            if oa > 1:
-                for a in range(oa - 1):
-                    row_idx = _cg_row_index(a, x)
-                    cg_a_marg = p_cg_var[row_idx, 0]
-                    sum_b = 0
-                    if ob > 1:
-                        sum_b = cp.sum([p_cg_var[row_idx, _cg_col_index(b_prime, y)] for b_prime in range(ob - 1)])
-                    fp_expressions.append(cg_a_marg - sum_b)
-
-            if ob > 1:
-                for b in range(ob - 1):
-                    col_idx = _cg_col_index(b, y)
-                    cg_b_marg = p_cg_var[0, col_idx]
-                    sum_a = 0
-                    if oa > 1:
-                        sum_a = cp.sum([p_cg_var[_cg_row_index(a_prime, x), col_idx] for a_prime in range(oa - 1)])
-                    fp_expressions.append(cg_b_marg - sum_a)
-
-            sum_a_marg = 0
-            if oa > 1:
-                sum_a_marg = cp.sum([p_cg_var[_cg_row_index(a, x), 0] for a in range(oa - 1)])
-
-            sum_b_marg = 0
-            if ob > 1:
-                sum_b_marg = cp.sum([p_cg_var[0, _cg_col_index(b, y)] for b in range(ob - 1)])
-
-            sum_ab_joint = 0
-            if oa > 1 and ob > 1:
-                sum_ab_joint = cp.sum(
-                    [p_cg_var[_cg_row_index(a, x), _cg_col_index(b, y)] for a in range(oa - 1) for b in range(ob - 1)]
-                )
-
-            fp_expressions.append(p_cg_var[0, 0] - sum_a_marg - sum_b_marg + sum_ab_joint)
-
-    return fp_expressions
-
-
 def bell_inequality_max(
     coefficients: np.ndarray,
     desc: list[int],
@@ -574,3 +507,70 @@ def bell_inequality_max_qubits(
     prob.solve(solver=solver_name, verbose=False)
 
     return prob.value
+
+
+def _integer_digits(number: int, base: int, digits: int) -> np.ndarray:
+    """Convert an integer to a fixed-length array of its digits in a given base."""
+    dits = np.zeros(digits, dtype=int)
+    temp_number = number
+    for i in range(digits):
+        dits[digits - 1 - i] = temp_number % base
+        temp_number //= base
+    return dits
+
+
+def _cg_to_fp_cp(p_cg_var: cp.Variable, desc: list[int]) -> list[cp.Expression]:
+    """Generate cp expressions for full probabilities from a CG variable."""
+    oa, ob, ia, ib = desc
+    fp_expressions = []
+
+    def _cg_row_index(a: int, x: int) -> int:
+        return 1 + a + x * (oa - 1)
+
+    def _cg_col_index(b: int, y: int) -> int:
+        return 1 + b + y * (ob - 1)
+
+    for x in range(ia):
+        for y in range(ib):
+            if oa > 1 and ob > 1:
+                for a in range(oa - 1):
+                    for b in range(ob - 1):
+                        row_idx = _cg_row_index(a, x)
+                        col_idx = _cg_col_index(b, y)
+                        fp_expressions.append(p_cg_var[row_idx, col_idx])
+
+            if oa > 1:
+                for a in range(oa - 1):
+                    row_idx = _cg_row_index(a, x)
+                    cg_a_marg = p_cg_var[row_idx, 0]
+                    sum_b = 0
+                    if ob > 1:
+                        sum_b = cp.sum([p_cg_var[row_idx, _cg_col_index(b_prime, y)] for b_prime in range(ob - 1)])
+                    fp_expressions.append(cg_a_marg - sum_b)
+
+            if ob > 1:
+                for b in range(ob - 1):
+                    col_idx = _cg_col_index(b, y)
+                    cg_b_marg = p_cg_var[0, col_idx]
+                    sum_a = 0
+                    if oa > 1:
+                        sum_a = cp.sum([p_cg_var[_cg_row_index(a_prime, x), col_idx] for a_prime in range(oa - 1)])
+                    fp_expressions.append(cg_b_marg - sum_a)
+
+            sum_a_marg = 0
+            if oa > 1:
+                sum_a_marg = cp.sum([p_cg_var[_cg_row_index(a, x), 0] for a in range(oa - 1)])
+
+            sum_b_marg = 0
+            if ob > 1:
+                sum_b_marg = cp.sum([p_cg_var[0, _cg_col_index(b, y)] for b in range(ob - 1)])
+
+            sum_ab_joint = 0
+            if oa > 1 and ob > 1:
+                sum_ab_joint = cp.sum(
+                    [p_cg_var[_cg_row_index(a, x), _cg_col_index(b, y)] for a in range(oa - 1) for b in range(ob - 1)]
+                )
+
+            fp_expressions.append(p_cg_var[0, 0] - sum_a_marg - sum_b_marg + sum_ab_joint)
+
+    return fp_expressions

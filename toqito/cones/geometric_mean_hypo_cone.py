@@ -14,6 +14,58 @@ from toqito.cones._utils import (
 )
 
 
+def geometric_mean_hypo_cone(
+    A: cvxpy.Expression,
+    B: cvxpy.Expression,
+    T: cvxpy.Expression,
+    t: float = 1 / 2,
+    fullhyp: bool = True,
+    *,
+    hermitian: bool = False,
+) -> list[cvxpy.Constraint]:
+    r"""Return CVX constraints for matrix geometric-mean hypograph cone [@fawzi2015matrixgeometric].
+
+    The set of matrices that satisfy the constraints are `A`, `B`, `T` triples such
+    that
+
+    \[
+    G_t(A, B) \geq T
+    \]
+
+    where `G_t(A, B)` is the matrix geometric mean function.
+
+    Args:
+        A: A cvxpy expression representing a matrix.
+        B: A cvxpy expression representing a matrix.
+        T: A cvxpy expression representing a matrix.
+        t: The weight in the range `[0, 1]`.
+        fullhyp: Whether to use the full hypograph or the restricted hypograph.
+        hermitian: Whether the matrices are Hermitian or symmetric.
+
+    Raises:
+        ValueError: If the weight is not in the range `[0, 1]`.
+        ValueError: If the matrices are not the same size.
+        ValueError: If the matrices are not 2D or not square.
+
+    Returns:
+        A list of CVX constraints.
+
+    """
+    if t < 0 or t > 1:
+        raise ValueError("The weight must be in the range [0, 1].")
+
+    if A.shape != B.shape or B.shape != T.shape:
+        raise ValueError("The matrices must be the same size.")
+    _require_square_2d(A, "The matrices")
+
+    if fullhyp:
+        dim = A.shape[0]
+        W = _symmetric_like_variable(dim, hermitian=hermitian)
+        hypo_w = _geometric_mean_cone_recursion(A, B, W, float(t), hermitian=hermitian)
+        return [*hypo_w, W >> T]
+    return _geometric_mean_cone_recursion(A, B, T, float(t), hermitian=hermitian)
+
+
 def _geometric_mean_cone_recursion(
     A: cvxpy.Expression,
     B: cvxpy.Expression,
@@ -97,55 +149,3 @@ def _geometric_mean_cone_recursion(
         )
 
     return _geometric_mean_cone_recursion(B, A, T, 1 - t, hermitian=hermitian)
-
-
-def geometric_mean_hypo_cone(
-    A: cvxpy.Expression,
-    B: cvxpy.Expression,
-    T: cvxpy.Expression,
-    t: float = 1 / 2,
-    fullhyp: bool = True,
-    *,
-    hermitian: bool = False,
-) -> list[cvxpy.Constraint]:
-    r"""Return CVX constraints for matrix geometric-mean hypograph cone [@fawzi2015matrixgeometric].
-
-    The set of matrices that satisfy the constraints are `A`, `B`, `T` triples such
-    that
-
-    \[
-    G_t(A, B) \geq T
-    \]
-
-    where `G_t(A, B)` is the matrix geometric mean function.
-
-    Args:
-        A: A cvxpy expression representing a matrix.
-        B: A cvxpy expression representing a matrix.
-        T: A cvxpy expression representing a matrix.
-        t: The weight in the range `[0, 1]`.
-        fullhyp: Whether to use the full hypograph or the restricted hypograph.
-        hermitian: Whether the matrices are Hermitian or symmetric.
-
-    Raises:
-        ValueError: If the weight is not in the range `[0, 1]`.
-        ValueError: If the matrices are not the same size.
-        ValueError: If the matrices are not 2D or not square.
-
-    Returns:
-        A list of CVX constraints.
-
-    """
-    if t < 0 or t > 1:
-        raise ValueError("The weight must be in the range [0, 1].")
-
-    if A.shape != B.shape or B.shape != T.shape:
-        raise ValueError("The matrices must be the same size.")
-    _require_square_2d(A, "The matrices")
-
-    if fullhyp:
-        dim = A.shape[0]
-        W = _symmetric_like_variable(dim, hermitian=hermitian)
-        hypo_w = _geometric_mean_cone_recursion(A, B, W, float(t), hermitian=hermitian)
-        return [*hypo_w, W >> T]
-    return _geometric_mean_cone_recursion(A, B, T, float(t), hermitian=hermitian)
