@@ -19,7 +19,7 @@ def state_distinguishability(
     solver: str = "cvxopt",
     primal_dual: str = "dual",
     **kwargs: Any,
-) -> tuple[float, list[picos.HermitianVariable] | list[np.ndarray] | tuple[picos.SymmetricVariable]]:
+) -> tuple[float, list[picos.HermitianVariable] | list[np.ndarray] | tuple[picos.HermitianVariable]]:
     r"""Compute probability of state distinguishability [@eldar2003semidefinite].
 
     The "quantum state distinguishability" problem involves a collection of \(n\) quantum states
@@ -435,7 +435,7 @@ def _unambiguous_dual(
     probs: list[float] | None = None,
     solver: str = "cvxopt",
     **kwargs,
-) -> tuple[float, tuple[picos.SymmetricVariable]]:
+) -> tuple[float, tuple[picos.HermitianVariable]]:
     """Solve the dual problem for unambiguous quantum state distinguishability SDP.
 
     Implemented according to Equation (5) of [@gupta2024unambiguous].
@@ -446,12 +446,14 @@ def _unambiguous_dual(
     problem = picos.Problem()
 
     gram = vectors_to_gram_matrix(vectors)
-    lagrangian_variable_big_z = picos.SymmetricVariable("Z", (n, n))
+    # Z is Hermitian, not merely real symmetric: for complex states the Gram matrix is complex
+    # Hermitian, and a real symmetric Z gives the wrong dual value (a large primal-dual gap).
+    lagrangian_variable_big_z = picos.HermitianVariable("Z", (n, n))
 
     problem.add_constraint(lagrangian_variable_big_z >> 0)
     problem.add_list_of_constraints(lagrangian_variable_big_z[i, i] >= probs[i] for i in range(n))
 
-    problem.set_objective("min", picos.trace(gram * lagrangian_variable_big_z))
+    problem.set_objective("min", picos.trace(gram * lagrangian_variable_big_z).real)
 
     problem.solve(solver=solver, **kwargs)
 
