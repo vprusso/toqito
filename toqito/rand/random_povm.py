@@ -88,8 +88,7 @@ def random_povm(dim: int, num_inputs: int, num_outputs: int, seed: int | None = 
         output_povms = []
         for output_block in input_block:
             partial = np.array(output_block, dtype=complex).dot(u_mat).dot(np.diag(d_mat ** (-1 / 2.0)))
-            internal = partial.dot(np.diag(np.ones(dim)) ** (1 / 2.0))
-            output_povms.append(internal.T.conj() @ internal)
+            output_povms.append(partial.T.conj() @ partial)
         povms.append(output_povms)
 
     # This allows us to index the POVMs as [dim, dim, num_inputs, num_outputs].
