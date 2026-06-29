@@ -252,3 +252,10 @@ def test_state_exclusion_invalid_inputs(kwargs, match):
     vectors = [bell(0), bell(1)]
     with pytest.raises(ValueError, match=match):
         state_exclusion(vectors, **kwargs)
+
+
+def test_state_exclusion_identical_states_not_perfectly_excludable():
+    """Linearly-dependent identical states |0>,|0> cannot be excluded (value != 0); see #1563."""
+    states = [np.array([[1.0], [0.0]]), np.array([[1.0], [0.0]])]
+    value, _ = state_exclusion(states, primal_dual="primal")
+    assert value > 1e-6
