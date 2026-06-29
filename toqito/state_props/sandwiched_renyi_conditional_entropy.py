@@ -4,13 +4,11 @@ import numpy as np
 from scipy.optimize import minimize
 
 from toqito.matrix_ops.partial_trace import partial_trace
+from toqito.matrix_ops.psd_matrix_power import psd_matrix_power
+from toqito.matrix_ops.validate_bipartite_dim import validate_bipartite_dim
 from toqito.matrix_props import is_density
-from toqito.state_props._renyi_utils import (
-    psd_matrix_power,
-    support_is_subset,
-    support_overlap,
-    validate_bipartite_dim,
-)
+from toqito.matrix_props.is_support_subset import is_support_subset
+from toqito.matrix_props.support_overlap import support_overlap
 from toqito.state_props.von_neumann_entropy import von_neumann_entropy
 
 
@@ -169,7 +167,7 @@ def _sandwiched_renyi_conditional_entropy_downarrow(
 
     if alpha < 1 and support_overlap(rho, sigma) <= 0:
         return float("-inf")
-    if alpha > 1 and not support_is_subset(rho, sigma):
+    if alpha > 1 and not is_support_subset(rho, sigma):
         return float("-inf")
 
     sandwiched_power = (1 - alpha) / (2 * alpha)
@@ -211,7 +209,7 @@ def _sandwiched_renyi_conditional_entropy_uparrow(
 
         if alpha < 1 and support_overlap(rho, sigma) <= 0:  # pragma: no cover - defensive
             return penalty
-        if alpha > 1 and not support_is_subset(rho, sigma):  # pragma: no cover - defensive
+        if alpha > 1 and not is_support_subset(rho, sigma):  # pragma: no cover - defensive
             return penalty
 
         sigma_power = psd_matrix_power(sigma, sandwich_exp)
