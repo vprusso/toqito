@@ -31,7 +31,7 @@ def test_optimal_clone(input_states, input_probs, num_reps, input_strategy, expe
     """Test functions work as expected."""
     expected_result = expected**num_reps
     calculated_result = optimal_clone(input_states, input_probs, num_reps, input_strategy)
-    assert pytest.approx(expected_result, 0.1) == calculated_result
+    assert pytest.approx(expected_result, 1e-2) == calculated_result
 
 
 @pytest.mark.parametrize(
@@ -45,4 +45,4 @@ def test_optimal_clone_default_reps_strategy(input_states, input_probs, expected
     """Test functions work as expected."""
     expected_result = expected
     calculated_result = optimal_clone(input_states, input_probs)
-    assert pytest.approx(expected_result, 0.1) == calculated_result
+    assert pytest.approx(expected_result, 1e-2) == calculated_result
