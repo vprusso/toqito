@@ -1,21 +1,21 @@
-"""Generates random quantum states using Qiskit."""
+"""Generates random quantum states."""
 
 import numpy as np
 
 
-def random_states(n: int, d: int, seed: int | None = None) -> list[np.ndarray]:
+def random_states(n: int, dim: int, seed: int | None = None) -> list[np.ndarray]:
     r"""Generate a list of random quantum states.
 
     This function generates a list of quantum states, each of a specified dimension. The states are
     valid quantum states distributed according to the Haar measure.
 
     Args:
-        n: int The number of random states to generate.
-        d: int The dimension of each quantum state.
-        seed: int | None A seed used to instantiate numpy's random number generator.
+        n: The number of random states to generate.
+        dim: The dimension of each quantum state. (Named `dim` to match the other `random_*` helpers.)
+        seed: A seed used to instantiate numpy's random number generator.
 
     Returns:
-        A list of `n` numpy arrays, each representing a d-dimensional quantum state as a column vector.
+        A list of `n` numpy arrays, each representing a `dim`-dimensional quantum state as a column vector.
 
     Examples:
         Generating three quantum states each of dimension 4.
@@ -51,6 +51,6 @@ def random_states(n: int, d: int, seed: int | None = None) -> list[np.ndarray]:
 
     """
     gen = np.random.default_rng(seed=seed)
-    samples = gen.normal(size=(n, d)) + 1j * gen.normal(size=(n, d))
+    samples = gen.normal(size=(n, dim)) + 1j * gen.normal(size=(n, dim))
     samples /= np.linalg.norm(samples, axis=1)[:, np.newaxis]
     return [sample.reshape(-1, 1) for sample in samples]

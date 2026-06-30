@@ -22,7 +22,7 @@ def is_stochastic(mat: np.ndarray, mat_type: str) -> bool:
         Returns `True` if the matrix is doubly, right or left stochastic, `False` otherwise.
 
     Raises:
-        TypeError: If something other than `"doubly"`, `"left"`, or `"right"` is used for `mat_type`.
+        ValueError: If something other than `"doubly"`, `"left"`, or `"right"` is used for `mat_type`.
 
     Examples:
         The elements of an identity matrix and a Pauli-X matrix are nonnegative such that the rows and columns
@@ -63,7 +63,7 @@ def is_stochastic(mat: np.ndarray, mat_type: str) -> bool:
 
     """
     if mat_type not in {"left", "right", "doubly"}:
-        raise TypeError("Allowed stochastic matrix types are: left, right, and doubly.")
+        raise ValueError("Allowed stochastic matrix types are: left, right, and doubly.")
 
     if not (is_square(mat) and is_nonnegative(mat)):
         return False

@@ -3,7 +3,7 @@
 import numpy as np
 
 
-def tensor(*args: np.ndarray | int | list[np.ndarray]) -> np.ndarray | None:
+def tensor(*args: np.ndarray | int | list[np.ndarray]) -> np.ndarray:
     r"""Compute the Kronecker tensor product [@wikipediatensor].
 
     Tensor two matrices or vectors together using the standard Kronecker
@@ -124,6 +124,8 @@ def tensor(*args: np.ndarray | int | list[np.ndarray]) -> np.ndarray | None:
 
     # Input is provided as a list of numpy matrices.
     if (len(args) == 1 and isinstance(args[0], list)) or (len(args) == 1 and isinstance(args[0], np.ndarray)):
+        if len(args[0]) == 0:
+            raise ValueError("The `tensor` function requires at least one matrix; the input list is empty.")
         if len(args[0]) == 1:
             return args[0][0]
         if len(args[0]) == 2:

@@ -29,7 +29,7 @@ def test_is_nonnegative(mat, mat_type, expected):
 @pytest.mark.parametrize("bad_type", ["l", "r", 1, (), "d"])
 def test_invalid_type_raises(bad_type):
     """Check that invalid matrix types raise a TypeError."""
-    with pytest.raises(TypeError):
+    with pytest.raises(ValueError):
         is_nonnegative(np.identity(3), bad_type)
 
 

@@ -25,5 +25,5 @@ def test_non_stochastic_matrices(matrix, mat_type):
 @pytest.mark.parametrize("bad_type", ["l", "r", 1, (), "d"])
 def test_invalid_stochastic_type_raises(matrix, bad_type):
     """Invalid mat_type values should raise a TypeError."""
-    with pytest.raises(TypeError):
+    with pytest.raises(ValueError):
         is_stochastic(matrix, bad_type)
