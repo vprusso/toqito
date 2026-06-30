@@ -24,9 +24,7 @@ I_4 = np.eye(4)
 
 def _case_seed(dim: int, t: float, *, hermitian: bool) -> int:
     r = Fraction(float(t)).limit_denominator()
-    return int(
-        dim * 1_000_003 + r.numerator * 10_009 + r.denominator * 100 + int(hermitian)
-    )
+    return int(dim * 1_000_003 + r.numerator * 10_009 + r.denominator * 100 + int(hermitian))
 
 
 def _random_pd_matrix(dim: int, seed: int, *, hermitian: bool) -> np.ndarray:
@@ -47,9 +45,7 @@ def _random_pd_normalized(dim: int, seed: int, *, hermitian: bool) -> np.ndarray
     return m / tr
 
 
-def _numeric_lieb_ando_reference(
-    mat_a: np.ndarray, mat_b: np.ndarray, mat_k: np.ndarray, t: float
-) -> float:
+def _numeric_lieb_ando_reference(mat_a: np.ndarray, mat_b: np.ndarray, mat_k: np.ndarray, t: float) -> float:
     r"""Match lieb_ando numeric branch: real(trace(K^H @ A^{1-t} @ K @ B^t))."""
     a_sym = (mat_a + mat_a.conj().T) / 2
     b_sym = (mat_b + mat_b.conj().T) / 2
@@ -395,9 +391,7 @@ def test_lieb_ando_constant_expressions_match_numeric(
     mat_b = _random_pd_normalized(dim, seed + 1, hermitian=hermitian)
     in_n = np.eye(dim, dtype=mat_a.dtype)
     ref = _numeric_lieb_ando_reference(mat_a, mat_b, in_n, t)
-    val = float(
-        np.real(lieb_ando(cvxpy.Constant(mat_a), cvxpy.Constant(mat_b), in_n, t))
-    )
+    val = float(np.real(lieb_ando(cvxpy.Constant(mat_a), cvxpy.Constant(mat_b), in_n, t)))
     atol = 5e-4 if 0 <= t <= 1 else 5e-3
     np.testing.assert_allclose(val, ref, rtol=1e-4, atol=atol)
 
@@ -419,8 +413,6 @@ def test_lieb_ando_sdp_matches_numeric_complex_nontrivial_k(t: float):
     )
 
     ref = float(np.real(lieb_ando(mat_a, mat_b, mat_k, t)))
-    val = float(
-        np.real(lieb_ando(cvxpy.Constant(mat_a), cvxpy.Constant(mat_b), mat_k, t))
-    )
+    val = float(np.real(lieb_ando(cvxpy.Constant(mat_a), cvxpy.Constant(mat_b), mat_k, t)))
     atol = 5e-4 if 0 <= t <= 1 else 5e-3
     np.testing.assert_allclose(val, ref, rtol=1e-4, atol=atol)

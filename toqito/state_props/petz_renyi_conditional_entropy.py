@@ -120,9 +120,7 @@ def petz_renyi_conditional_entropy(
     return _petz_renyi_conditional_entropy_downarrow(rho, rho_b, alpha, dims[0])
 
 
-def _petz_renyi_conditional_entropy_downarrow(
-    rho: np.ndarray, rho_b: np.ndarray, alpha: float, dim_a: int
-) -> float:
+def _petz_renyi_conditional_entropy_downarrow(rho: np.ndarray, rho_b: np.ndarray, alpha: float, dim_a: int) -> float:
     """Compute the downarrow Petz conditional Rényi entropy."""
     sigma = np.kron(np.eye(dim_a), rho_b)
 

@@ -113,13 +113,9 @@ def channel_relative_entropy(
     if hamiltonian.shape != (in_dim, in_dim):
         raise ValueError("The Hamiltonian must have shape (in_dim, in_dim).")
     if not is_quantum_channel(channel_1):
-        raise ValueError(
-            "Channel relative entropy is only defined if channel_1 is a quantum channel."
-        )
+        raise ValueError("Channel relative entropy is only defined if channel_1 is a quantum channel.")
     if not is_completely_positive(channel_2):
-        raise ValueError(
-            "Channel relative entropy is only defined if channel_2 is completely positive."
-        )
+        raise ValueError("Channel relative entropy is only defined if channel_2 is completely positive.")
     if np.allclose(channel_1, channel_2):
         if mean:
             return 0.0
@@ -156,12 +152,7 @@ def channel_relative_entropy(
         cvx.Maximize(
             cvx.real(
                 cvx.trace(cvx.kron(rho_a, eye_out) @ (choi_1 - choi_2))
-                + cvx.sum(
-                    [
-                        cvx.trace(qs[k] @ (alpha[k] * choi_1 + beta[k] * choi_2))
-                        for k in range(r - 1)
-                    ]
-                )
+                + cvx.sum([cvx.trace(qs[k] @ (alpha[k] * choi_1 + beta[k] * choi_2)) for k in range(r - 1)])
             )
         ),
         cons,
@@ -180,10 +171,7 @@ def channel_relative_entropy(
     upper_cons = (
         [y_var >= 0]
         + [ns[0] - choi_1 + choi_2 >> 0]
-        + [
-            ns[k] - gamma[k - 1] * choi_1 - delta[k - 1] * choi_2 >> 0
-            for k in range(1, r + 1)
-        ]
+        + [ns[k] - gamma[k - 1] * choi_1 - delta[k - 1] * choi_2 >> 0 for k in range(1, r + 1)]
         + [ns[k] >> 0 for k in range(1, r + 1)]
         + [
             x_var * np.eye(in_dim)

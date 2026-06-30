@@ -12,9 +12,7 @@ from toqito.channels import depolarizing, pauli_channel
 from toqito.cones.integral_relative_entropy import _sandwich_parameters
 from toqito.perms import swap_operator
 
-_CHANNEL_RELATIVE_ENTROPY_MOD = importlib.import_module(
-    "toqito.channel_metrics.channel_relative_entropy"
-)
+_CHANNEL_RELATIVE_ENTROPY_MOD = importlib.import_module("toqito.channel_metrics.channel_relative_entropy")
 
 
 def _dense(mat):
@@ -91,9 +89,7 @@ def test_identical_channels_zero():
     """Identical channels should give zero in both bounds and mean modes."""
     choi = depolarizing(2, 1)
 
-    lower, upper = channel_relative_entropy(
-        choi, choi, in_dim=2, epsilon_dec=0.2, mean=False
-    )
+    lower, upper = channel_relative_entropy(choi, choi, in_dim=2, epsilon_dec=0.2, mean=False)
     avg = channel_relative_entropy(choi, choi, in_dim=2, epsilon_dec=0.2, mean=True)
 
     assert lower == 0
@@ -252,9 +248,7 @@ def test_raises_when_lower_sdp_fails(monkeypatch):
     monkeypatch.setattr(_CHANNEL_RELATIVE_ENTROPY_MOD.cvx, "Problem", FakeProblem)
 
     with pytest.raises(RuntimeError, match="Lower-bound SDP failed"):
-        channel_relative_entropy(
-            depolarizing(2, 0.2), depolarizing(2, 0.4), in_dim=2, epsilon_dec=0.2
-        )
+        channel_relative_entropy(depolarizing(2, 0.2), depolarizing(2, 0.4), in_dim=2, epsilon_dec=0.2)
 
 
 def test_raises_when_upper_sdp_fails(monkeypatch):
@@ -280,9 +274,7 @@ def test_raises_when_upper_sdp_fails(monkeypatch):
     monkeypatch.setattr(_CHANNEL_RELATIVE_ENTROPY_MOD.cvx, "Problem", FakeProblem)
 
     with pytest.raises(RuntimeError, match="Upper-bound SDP failed"):
-        channel_relative_entropy(
-            depolarizing(2, 0.2), depolarizing(2, 0.4), in_dim=2, epsilon_dec=0.2
-        )
+        channel_relative_entropy(depolarizing(2, 0.2), depolarizing(2, 0.4), in_dim=2, epsilon_dec=0.2)
 
 
 def test_warns_on_optimal_inaccurate_lower(monkeypatch):
@@ -299,9 +291,7 @@ def test_warns_on_optimal_inaccurate_lower(monkeypatch):
         def __init__(self, objective, constraints):
             self.value = 1.0
             FakeProblem.created += 1
-            self.status = (
-                cvx.OPTIMAL_INACCURATE if FakeProblem.created == 1 else cvx.OPTIMAL
-            )
+            self.status = cvx.OPTIMAL_INACCURATE if FakeProblem.created == 1 else cvx.OPTIMAL
 
         def solve(self, **kwargs):
             pass
@@ -310,9 +300,7 @@ def test_warns_on_optimal_inaccurate_lower(monkeypatch):
     monkeypatch.setattr(_CHANNEL_RELATIVE_ENTROPY_MOD.cvx, "Problem", FakeProblem)
 
     with pytest.warns(UserWarning, match="Lower-bound SDP returned OPTIMAL_INACCURATE"):
-        channel_relative_entropy(
-            depolarizing(2, 0.2), depolarizing(2, 0.4), in_dim=2, epsilon_dec=0.2
-        )
+        channel_relative_entropy(depolarizing(2, 0.2), depolarizing(2, 0.4), in_dim=2, epsilon_dec=0.2)
 
 
 def test_warns_on_optimal_inaccurate_upper(monkeypatch):
@@ -329,9 +317,7 @@ def test_warns_on_optimal_inaccurate_upper(monkeypatch):
         def __init__(self, objective, constraints):
             self.value = 1.0
             FakeProblem.created += 1
-            self.status = (
-                cvx.OPTIMAL if FakeProblem.created == 1 else cvx.OPTIMAL_INACCURATE
-            )
+            self.status = cvx.OPTIMAL if FakeProblem.created == 1 else cvx.OPTIMAL_INACCURATE
 
         def solve(self, **kwargs):
             pass
@@ -340,9 +326,7 @@ def test_warns_on_optimal_inaccurate_upper(monkeypatch):
     monkeypatch.setattr(_CHANNEL_RELATIVE_ENTROPY_MOD.cvx, "Problem", FakeProblem)
 
     with pytest.warns(UserWarning, match="Upper-bound SDP returned OPTIMAL_INACCURATE"):
-        channel_relative_entropy(
-            depolarizing(2, 0.2), depolarizing(2, 0.4), in_dim=2, epsilon_dec=0.2
-        )
+        channel_relative_entropy(depolarizing(2, 0.2), depolarizing(2, 0.4), in_dim=2, epsilon_dec=0.2)
 
 
 @pytest.mark.slow
@@ -363,11 +347,7 @@ def test_channel_relative_entropy_paper_example(param_p: float, expected_mean: f
     # N_deph(rho) = 0.4 rho + 0.6 sigma_z rho sigma_z
     # M_dep(rho) = (1 - 3p/4) rho + p/4 (X rho X + Y rho Y + Z rho Z)
     channel_1 = _dense(pauli_channel(np.array([0.4, 0.0, 0.0, 0.6])))
-    channel_2 = _dense(
-        pauli_channel(
-            np.array([1 - 3 * param_p / 4, param_p / 4, param_p / 4, param_p / 4])
-        )
-    )
+    channel_2 = _dense(pauli_channel(np.array([1 - 3 * param_p / 4, param_p / 4, param_p / 4, param_p / 4])))
 
     lower, upper = channel_relative_entropy(channel_1, channel_2, in_dim=2, mean=False)
     avg = (lower + upper) / 2

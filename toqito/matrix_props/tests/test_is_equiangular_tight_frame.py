@@ -8,10 +8,12 @@ from toqito.matrix_props import is_equiangular_tight_frame
 
 def test_mercedes_benz_etf():
     """Mercedes-Benz (trine) vectors form an ETF in R^2."""
-    mat = np.array([
-        [0, np.sqrt(3) / 2, -np.sqrt(3) / 2],
-        [1, -1 / 2, -1 / 2],
-    ])
+    mat = np.array(
+        [
+            [0, np.sqrt(3) / 2, -np.sqrt(3) / 2],
+            [1, -1 / 2, -1 / 2],
+        ]
+    )
     assert is_equiangular_tight_frame(mat)
 
 
@@ -31,10 +33,12 @@ def test_non_unit_norm_not_etf():
 
 def test_non_equiangular_not_etf():
     """Columns with varying inner products are not an ETF."""
-    mat = np.array([
-        [1, 0, 1 / np.sqrt(2)],
-        [0, 1, 1 / np.sqrt(2)],
-    ])
+    mat = np.array(
+        [
+            [1, 0, 1 / np.sqrt(2)],
+            [0, 1, 1 / np.sqrt(2)],
+        ]
+    )
     assert not is_equiangular_tight_frame(mat)
 
 

@@ -218,12 +218,9 @@ class TestLnQuantumEntropyValueErrors:
         p = cvxpy.Parameter((n, n), symmetric=True)
         assert p.value is None
         msg_constant = (
-            "Constant CVXPY expression has no numeric value; set parameter `.value` "
-            "or pass mat_x as a numpy.ndarray."
+            "Constant CVXPY expression has no numeric value; set parameter `.value` or pass mat_x as a numpy.ndarray."
         )
-        msg_affine = (
-            "Affine mat_x has no numeric initial value; set `.value` for PSD checks."
-        )
+        msg_affine = "Affine mat_x has no numeric initial value; set `.value` for PSD checks."
         pattern = "|".join((re.escape(msg_constant), re.escape(msg_affine)))
         with pytest.raises(ValueError, match=pattern):
             ln_quantum_entropy(p)
@@ -250,9 +247,7 @@ class TestLnQuantumEntropyValueErrors:
         assert expr.value is None
         with pytest.raises(
             ValueError,
-            match=re.escape(
-                "Affine mat_x has no numeric initial value; set `.value` for PSD checks."
-            ),
+            match=re.escape("Affine mat_x has no numeric initial value; set `.value` for PSD checks."),
         ):
             ln_quantum_entropy(expr)
 
@@ -265,8 +260,6 @@ class TestLnQuantumEntropyValueErrors:
         assert expr.value is not None
         with pytest.raises(
             ValueError,
-            match=re.escape(
-                "mat_x must be positive semidefinite at the initial value."
-            ),
+            match=re.escape("mat_x must be positive semidefinite at the initial value."),
         ):
             ln_quantum_entropy(expr)

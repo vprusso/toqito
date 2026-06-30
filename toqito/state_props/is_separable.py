@@ -733,22 +733,13 @@ def _terhal_2000_tile_witness() -> np.ndarray:
         p_b /= np.linalg.norm(p_b)
         prev_val = np.inf
         for _ in range(100):
-            m_a = sum(
-                abs(p_b.conj() @ b) ** 2 * np.outer(a, a.conj())
-                for a, b in zip(alpha_vecs, beta_vecs)
-            )
+            m_a = sum(abs(p_b.conj() @ b) ** 2 * np.outer(a, a.conj()) for a, b in zip(alpha_vecs, beta_vecs))
             _, vecs = np.linalg.eigh((m_a + m_a.conj().T) / 2)
             p_a = vecs[:, 0]
-            m_b = sum(
-                abs(p_a.conj() @ a) ** 2 * np.outer(b, b.conj())
-                for a, b in zip(alpha_vecs, beta_vecs)
-            )
+            m_b = sum(abs(p_a.conj() @ a) ** 2 * np.outer(b, b.conj()) for a, b in zip(alpha_vecs, beta_vecs))
             _, vecs = np.linalg.eigh((m_b + m_b.conj().T) / 2)
             p_b = vecs[:, 0]
-            val = sum(
-                abs(p_a.conj() @ a) ** 2 * abs(p_b.conj() @ b) ** 2
-                for a, b in zip(alpha_vecs, beta_vecs)
-            )
+            val = sum(abs(p_a.conj() @ a) ** 2 * abs(p_b.conj() @ b) ** 2 for a, b in zip(alpha_vecs, beta_vecs))
             if abs(val - prev_val) < 1e-14:
                 break
             prev_val = val
@@ -843,7 +834,7 @@ def _hermitian_inverse_sqrt(herm: np.ndarray, eig_floor: float) -> np.ndarray | 
     eigvals, eigvecs = np.linalg.eigh((herm + herm.conj().T) / 2)
     if np.min(eigvals) < eig_floor:
         return None
-    return eigvecs @ np.diag(eigvals ** -0.5) @ eigvecs.conj().T
+    return eigvecs @ np.diag(eigvals**-0.5) @ eigvecs.conj().T
 
 
 def _filter_normal_form(

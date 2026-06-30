@@ -3,9 +3,7 @@
 import numpy as np
 
 
-def validate_bipartite_dim(
-    rho: np.ndarray, dim: int | list[int] | tuple | np.ndarray | None
-) -> np.ndarray:
+def validate_bipartite_dim(rho: np.ndarray, dim: int | list[int] | tuple | np.ndarray | None) -> np.ndarray:
     r"""Validate and normalize a bipartite dimension specification.
 
     Given a square operator ``rho`` on a tensor-product space and a ``dim``

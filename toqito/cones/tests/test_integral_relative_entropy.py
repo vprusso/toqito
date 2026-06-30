@@ -39,9 +39,7 @@ def test_sandwich_parameters_no_finite_eigenvalues(monkeypatch):
 
     with pytest.raises(
         ValueError,
-        match=re.escape(
-            "Failed to compute sandwich parameters from generalized eigenvalues."
-        ),
+        match=re.escape("Failed to compute sandwich parameters from generalized eigenvalues."),
     ):
         _sandwich_parameters(np.eye(2), np.eye(2) / 2)
 
@@ -129,9 +127,7 @@ def test_evaluate_relative_entropy_integral_lower_sdp_failure(monkeypatch):
         def __init__(self, objective, constraints):
             self.value = 1.0
             FakeProblem.created += 1
-            self.status = (
-                cvxpy.INFEASIBLE if FakeProblem.created == 1 else cvxpy.OPTIMAL
-            )
+            self.status = cvxpy.INFEASIBLE if FakeProblem.created == 1 else cvxpy.OPTIMAL
 
         def solve(self, **kwargs):
             pass
@@ -176,11 +172,7 @@ def test_evaluate_relative_entropy_integral_warns_on_inaccurate_lower(monkeypatc
         def __init__(self, objective, constraints):
             self.value = 0.1
             FakeProblem.created += 1
-            self.status = (
-                cvxpy.OPTIMAL_INACCURATE
-                if FakeProblem.created == 1
-                else cvxpy.OPTIMAL
-            )
+            self.status = cvxpy.OPTIMAL_INACCURATE if FakeProblem.created == 1 else cvxpy.OPTIMAL
 
         def solve(self, **kwargs):
             pass
@@ -201,11 +193,7 @@ def test_evaluate_relative_entropy_integral_warns_on_inaccurate_upper(monkeypatc
         def __init__(self, objective, constraints):
             self.value = 0.1
             FakeProblem.created += 1
-            self.status = (
-                cvxpy.OPTIMAL
-                if FakeProblem.created == 1
-                else cvxpy.OPTIMAL_INACCURATE
-            )
+            self.status = cvxpy.OPTIMAL if FakeProblem.created == 1 else cvxpy.OPTIMAL_INACCURATE
 
         def solve(self, **kwargs):
             pass
@@ -230,8 +218,6 @@ def test_sandwich_parameters_raises_on_lin_alg_error(monkeypatch):
 
     with pytest.raises(
         ValueError,
-        match=re.escape(
-            "Failed to compute sandwich parameters from generalized eigenvalues."
-        ),
+        match=re.escape("Failed to compute sandwich parameters from generalized eigenvalues."),
     ):
         _sandwich_parameters(np.eye(2), np.eye(2) / 2)

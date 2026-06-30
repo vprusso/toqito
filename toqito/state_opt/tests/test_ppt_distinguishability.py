@@ -146,20 +146,32 @@ def test_ppt_distinguishability_yyd_states_no_probs():
 
     # Min-error tests:
     primal_res, _ = state_distinguishability(
-        vectors=states, measurement="ppt", subsystems=[0, 2], dimensions=[2, 2, 2, 2],
-        strategy="min_error", primal_dual="primal",
+        vectors=states,
+        measurement="ppt",
+        subsystems=[0, 2],
+        dimensions=[2, 2, 2, 2],
+        strategy="min_error",
+        primal_dual="primal",
     )
     dual_res, _ = state_distinguishability(
-        vectors=states, measurement="ppt", subsystems=[0, 2], dimensions=[2, 2, 2, 2],
-        strategy="min_error", primal_dual="dual",
+        vectors=states,
+        measurement="ppt",
+        subsystems=[0, 2],
+        dimensions=[2, 2, 2, 2],
+        strategy="min_error",
+        primal_dual="dual",
     )
 
     assert np.isclose(primal_res, 7 / 8, atol=0.001)
     assert np.isclose(dual_res, 7 / 8, atol=0.001)
 
     primal_res, _ = state_distinguishability(
-        vectors=states, measurement="ppt", subsystems=[0, 2], dimensions=[2, 2, 2, 2],
-        strategy="unambiguous", primal_dual="primal",
+        vectors=states,
+        measurement="ppt",
+        subsystems=[0, 2],
+        dimensions=[2, 2, 2, 2],
+        strategy="unambiguous",
+        primal_dual="primal",
     )
 
     assert np.isclose(primal_res, 3 / 4, atol=0.001)

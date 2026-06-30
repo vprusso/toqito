@@ -117,9 +117,7 @@ def quantum_relative_entropy(
         u = eig_x @ (np.abs(overlaps) ** 2)
 
         if np.any(u[eig_y <= tol] > tol):
-            raise ValueError(
-                "D(X||Y) is infinity because im(X) is not contained in im(Y)"
-            )
+            raise ValueError("D(X||Y) is infinity because im(X) is not contained in im(Y)")
         else:
             r1 = np.sum(eig_x[eig_x > tol] * np.log(eig_x[eig_x > tol]))
             r2 = np.sum(u[eig_y > tol] * np.log(eig_y[eig_y > tol]))
@@ -136,9 +134,7 @@ def quantum_relative_entropy(
             mat_y_log = np.asarray(mat_y)
         elif isinstance(mat_y, cvxpy.Expression) and mat_y.is_constant():
             if mat_y.value is None:
-                raise ValueError(
-                    "mat_y has no numeric value; pass a numpy.ndarray or set `.value`."
-                )
+                raise ValueError("mat_y has no numeric value; pass a numpy.ndarray or set `.value`.")
             mat_y_log = np.asarray(mat_y.value)
         else:
             mat_y_log = mat_y
@@ -157,9 +153,7 @@ def quantum_relative_entropy(
         if isinstance(mat_x, np.ndarray):
             x_eval = np.asarray(mat_x)
         elif mat_x.value is None:
-            raise ValueError(
-                "mat_x has no numeric value; pass a numpy.ndarray or set `.value`."
-            )
+            raise ValueError("mat_x has no numeric value; pass a numpy.ndarray or set `.value`.")
         else:
             x_eval = np.asarray(mat_x.value)
         ent_part = -ln_quantum_entropy(mat_x, m, k, -apx)
@@ -167,16 +161,12 @@ def quantum_relative_entropy(
         tr_a_log_b = float(np.real(np.trace(x_eval @ log_y)))
         return ent_part - tr_a_log_b
 
-    if not isinstance(mat_x, cvxpy.Expression) or not isinstance(
-        mat_y, cvxpy.Expression
-    ):
+    if not isinstance(mat_x, cvxpy.Expression) or not isinstance(mat_y, cvxpy.Expression):
         raise ValueError("mat_x and mat_y must be numpy arrays or cvxpy expressions")
     if not mat_x.is_affine() or not mat_y.is_affine():
         raise ValueError("mat_x and mat_y must be affine CVXPY expressions.")
     if mat_x.value is None or mat_y.value is None:
-        raise ValueError(
-            "Affine mat_x and mat_y need numeric initial values; set `.value` for PSD checks."
-        )
+        raise ValueError("Affine mat_x and mat_y need numeric initial values; set `.value` for PSD checks.")
     if not is_positive_semidefinite(mat_x.value):
         raise ValueError("mat_x must be positive semidefinite at the initial value.")
     if not is_positive_semidefinite(mat_y.value):
