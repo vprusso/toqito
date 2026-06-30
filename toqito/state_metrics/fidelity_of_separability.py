@@ -33,12 +33,12 @@ def fidelity_of_separability(
     optimization semidefinite programs (SDP) benchmarks were introduced to
     maximize the fidelity of separability subject to some state constraints
     (Positive Partial Transpose (PPT), symmetric extensions (k-extendibility
-    ) [@hayden2013twomessage] ) This function approximites the fidelity of separability by
+    ) [@hayden2013twomessage] ) This function approximates the fidelity of separability by
     maximizing over PPT states & k-extendible states i.e. an optimization
     problem over states [@watrous2018theory].
 
     The following expression (Equation (H2) from [@philip2023schrodinger] ) defines the
-    constraints for approxiamting
+    constraints for approximating
 
     \(\sqrt{\widetilde{F}_s^1}(\rho_{AB}) {:}=\)
 

@@ -59,7 +59,7 @@ s4 = np.array([0.1, 0.1, 0.1])
     ],
 )
 def test_measured_relative_entropy(r: np.ndarray, s: np.ndarray, eps: float):
-    """Test functions works as expected for valid inputs."""
+    """Test function works as expected for valid inputs."""
     rho = state(r)
     sigma = state(s)
     calculated_result = measured_relative_entropy(rho, sigma, eps)

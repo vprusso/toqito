@@ -1,4 +1,4 @@
-"""Fidelity is a metric that qualifies how close two quantum states are."""
+"""Fidelity is a metric that quantifies how close two quantum states are."""
 
 import warnings
 

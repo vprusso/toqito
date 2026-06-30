@@ -387,7 +387,7 @@ def bell_inequality_max_qubits(
 
 
     Args:
-        joint_coe: The coefficents for terms containing both A and B.
+        joint_coe: The coefficients for terms containing both A and B.
         a_coe: The coefficent for terms only containing A.
         b_coe: The coefficent for terms only containing B.
         a_val: The value of each measurement outcome for A.
@@ -411,7 +411,7 @@ def bell_inequality_max_qubits(
             \end{aligned}
         \]
 
-        The individual and joint coefficents and measurement values are encoded as matrices.
+        The individual and joint coefficients and measurement values are encoded as matrices.
         The upper bound can then be found in `|toqito⟩` as follows.
 
         ```python exec="1" source="above" result="text"

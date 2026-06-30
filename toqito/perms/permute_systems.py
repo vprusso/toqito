@@ -36,7 +36,7 @@ def permute_systems(
         perm: A permutation vector.
         dim: The default has all subsystems of equal dimension.
         row_only: Default: `False`
-        inv_perm: Default: `True`
+        inv_perm: Default: `False`
 
     Returns:
         The matrix or vector that has been permuted.

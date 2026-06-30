@@ -28,7 +28,7 @@ def sk_operator_norm(
 ) -> tuple[float, float]:
     r"""Compute the S(k)-norm of a matrix [@johnston2010family].
 
-    The \(S(k)\)-norm of of a matrix \(X\) is defined as:
+    The \(S(k)\)-norm of a matrix \(X\) is defined as:
 
     \[
         \big|\big| X \big|\big|_{S(k)} := sup_{|v\rangle, |w\rangle}
@@ -311,10 +311,10 @@ def __lower_bound_sk_norm_randomized(
     dim_a, dim_b = dim
 
     psi = max_entangled(k, is_normalized=False)
-    left_swap_entagled_kron_id = swap(np.kron(psi, np.eye(dim_a * dim_b)), [2, 3], [k, k, dim_a, dim_b], row_only=True)
+    left_swap_entangled_kron_id = swap(np.kron(psi, np.eye(dim_a * dim_b)), [2, 3], [k, k, dim_a, dim_b], row_only=True)
 
-    swap_entagled_kron_id = left_swap_entagled_kron_id @ left_swap_entagled_kron_id.conj().T
-    swap_entagled_kron_mat = swap(np.kron(psi @ psi.conj().T, mat), [2, 3], [k, k, dim_a, dim_b], row_only=False)
+    swap_entangled_kron_id = left_swap_entangled_kron_id @ left_swap_entangled_kron_id.conj().T
+    swap_entangled_kron_mat = swap(np.kron(psi @ psi.conj().T, mat), [2, 3], [k, k, dim_a, dim_b], row_only=False)
 
     opt_vec = None
     if start_vec is not None:
@@ -334,7 +334,7 @@ def __lower_bound_sk_norm_randomized(
         opt_schmidt = np.random.randn(max(dim) * k, 2) + 1j * np.random.randn(max(dim) * k, 2)
         opt_schmidt[k * dim_a :, 0] = 0
         opt_schmidt[k * dim_b :, 1] = 0
-        opt_vec = left_swap_entagled_kron_id.conj().T @ np.kron(
+        opt_vec = left_swap_entangled_kron_id.conj().T @ np.kron(
             opt_schmidt[: k * dim_a, 0], opt_schmidt[: k * dim_b, 1]
         )
         opt_vec /= np.linalg.norm(opt_vec, ord=2)
@@ -359,8 +359,8 @@ def __lower_bound_sk_norm_randomized(
             else:
                 v0_mat = np.kron(np.eye(dim_a * k), opt_schmidt[: dim_b * k, 1].reshape((-1, 1)))
 
-            a_mat = v0_mat.conj().T @ swap_entagled_kron_mat @ v0_mat
-            b_mat = v0_mat.conj().T @ swap_entagled_kron_id @ v0_mat
+            a_mat = v0_mat.conj().T @ swap_entangled_kron_mat @ v0_mat
+            b_mat = v0_mat.conj().T @ swap_entangled_kron_id @ v0_mat
 
             largest_eigval, largest_eigvec = scipy.linalg.eigh(
                 a_mat, b=b_mat, subset_by_index=[a_mat.shape[0] - 1, a_mat.shape[0] - 1]
@@ -371,7 +371,7 @@ def __lower_bound_sk_norm_randomized(
                 sk_lower_bound = new_sk_lower_bound
 
                 opt_schmidt[: v0_mat.shape[1], (p + 1) % 2] = largest_eigvec.ravel()
-                opt_vec = left_swap_entagled_kron_id.conj().T @ np.kron(
+                opt_vec = left_swap_entangled_kron_id.conj().T @ np.kron(
                     opt_schmidt[: k * dim_a, 0], opt_schmidt[: k * dim_b, 1]
                 )
 

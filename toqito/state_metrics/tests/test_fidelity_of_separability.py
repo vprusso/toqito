@@ -1,4 +1,4 @@
-"""Tests for State Fidelity of Seperability."""
+"""Tests for State Fidelity of Separability."""
 
 import numpy as np
 import pytest

@@ -15,9 +15,9 @@ def channel_dim(
 
     This function returns the dimensions of the input, output, and environment spaces of
     input channel, in that order. Input and output dimensions are both 1-by-2 vectors
-    containing the row and column dimensions of their spaces. The enviroment dimension
+    containing the row and column dimensions of their spaces. The environment dimension
     is always a scalar, and it is equal to the number of Kraus operators of PHI (if PHI is
-    provided as a Choi matrix then enviroment dimension is the *minimal* number of Kraus
+    provided as a Choi matrix then environment dimension is the *minimal* number of Kraus
     operators of any representation of PHI).
 
     Input DIM should provided if and only if PHI is a Choi matrix with unequal input and
@@ -36,7 +36,7 @@ def channel_dim(
             whose entries are its Kraus operators.
         allow_rect: A flag indicating that the input and output spaces of PHI can be non-square (default True).
         dim: A scalar, vector or matrix containing the input and output dimensions of PHI.
-        compute_env_dim: A flag indicating whether we compute the enviroment dimension.
+        compute_env_dim: A flag indicating whether we compute the environment dimension.
 
     Returns:
         The input, output, and environment dimensions of a channel.
