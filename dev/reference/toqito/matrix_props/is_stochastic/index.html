@@ -9677,7 +9677,7 @@ matrix, and <code>"doubly"</code> for a doubly stochastic matrix.</p>
 <p><span class="doc-section-title">Raises:</span></p>
     <ul>
         <li class="doc-section-item field-body">
-              <code><span title="TypeError">TypeError</span></code>
+              <code><span title="ValueError">ValueError</span></code>
             –
           <div class="doc-md-description">
             <p>If something other than <code>"doubly"</code>, <code>"left"</code>, or <code>"right"</code> is used for <code>mat_type</code>.</p>
@@ -9826,7 +9826,7 @@ matrix.</p>
 <a id="__codelineno-0-22" name="__codelineno-0-22"></a><span class="sd">        Returns `True` if the matrix is doubly, right or left stochastic, `False` otherwise.</span>
 <a id="__codelineno-0-23" name="__codelineno-0-23"></a>
 <a id="__codelineno-0-24" name="__codelineno-0-24"></a><span class="sd">    Raises:</span>
-<a id="__codelineno-0-25" name="__codelineno-0-25"></a><span class="sd">        TypeError: If something other than `&quot;doubly&quot;`, `&quot;left&quot;`, or `&quot;right&quot;` is used for `mat_type`.</span>
+<a id="__codelineno-0-25" name="__codelineno-0-25"></a><span class="sd">        ValueError: If something other than `&quot;doubly&quot;`, `&quot;left&quot;`, or `&quot;right&quot;` is used for `mat_type`.</span>
 <a id="__codelineno-0-26" name="__codelineno-0-26"></a>
 <a id="__codelineno-0-27" name="__codelineno-0-27"></a><span class="sd">    Examples:</span>
 <a id="__codelineno-0-28" name="__codelineno-0-28"></a><span class="sd">        The elements of an identity matrix and a Pauli-X matrix are nonnegative such that the rows and columns</span>
@@ -9867,7 +9867,7 @@ matrix.</p>
 <a id="__codelineno-0-63" name="__codelineno-0-63"></a>
 <a id="__codelineno-0-64" name="__codelineno-0-64"></a><span class="sd">    &quot;&quot;&quot;</span>
 <a id="__codelineno-0-65" name="__codelineno-0-65"></a>    <span class="k">if</span> <span class="n">mat_type</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;left&quot;</span><span class="p">,</span> <span class="s2">&quot;right&quot;</span><span class="p">,</span> <span class="s2">&quot;doubly&quot;</span><span class="p">}:</span>
-<a id="__codelineno-0-66" name="__codelineno-0-66"></a>        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Allowed stochastic matrix types are: left, right, and doubly.&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-66" name="__codelineno-0-66"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Allowed stochastic matrix types are: left, right, and doubly.&quot;</span><span class="p">)</span>
 <a id="__codelineno-0-67" name="__codelineno-0-67"></a>
 <a id="__codelineno-0-68" name="__codelineno-0-68"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">is_square</span><span class="p">(</span><span class="n">mat</span><span class="p">)</span> <span class="ow">and</span> <span class="n">is_nonnegative</span><span class="p">(</span><span class="n">mat</span><span class="p">)):</span>
 <a id="__codelineno-0-69" name="__codelineno-0-69"></a>        <span class="k">return</span> <span class="kc">False</span>

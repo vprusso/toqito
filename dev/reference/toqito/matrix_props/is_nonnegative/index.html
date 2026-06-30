@@ -9679,7 +9679,7 @@ nonnegative matrix.</p>
 <p><span class="doc-section-title">Raises:</span></p>
     <ul>
         <li class="doc-section-item field-body">
-              <code><span title="TypeError">TypeError</span></code>
+              <code><span title="ValueError">ValueError</span></code>
             –
           <div class="doc-md-description">
             <p>If something other than <code>"doubly"</code> or <code>"nonnegative"</code> is used for <code>mat_type</code>.</p>
@@ -9766,7 +9766,7 @@ nonnegative matrix.</p>
 <a id="__codelineno-0-22" name="__codelineno-0-22"></a><span class="sd">        Return `True` if matrix is nonnegative (or doubly nonnegative if specified), and `False` otherwise.</span>
 <a id="__codelineno-0-23" name="__codelineno-0-23"></a>
 <a id="__codelineno-0-24" name="__codelineno-0-24"></a><span class="sd">    Raises:</span>
-<a id="__codelineno-0-25" name="__codelineno-0-25"></a><span class="sd">        TypeError: If something other than `&quot;doubly&quot;` or `&quot;nonnegative&quot;` is used for `mat_type`.</span>
+<a id="__codelineno-0-25" name="__codelineno-0-25"></a><span class="sd">        ValueError: If something other than `&quot;doubly&quot;` or `&quot;nonnegative&quot;` is used for `mat_type`.</span>
 <a id="__codelineno-0-26" name="__codelineno-0-26"></a>
 <a id="__codelineno-0-27" name="__codelineno-0-27"></a><span class="sd">    Examples:</span>
 <a id="__codelineno-0-28" name="__codelineno-0-28"></a><span class="sd">        We expect an identity matrix to be nonnegative.</span>
@@ -9783,7 +9783,7 @@ nonnegative matrix.</p>
 <a id="__codelineno-0-39" name="__codelineno-0-39"></a><span class="sd">    &quot;&quot;&quot;</span>
 <a id="__codelineno-0-40" name="__codelineno-0-40"></a>    <span class="n">valid_types</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;nonnegative&quot;</span><span class="p">,</span> <span class="s2">&quot;doubly&quot;</span><span class="p">}</span>
 <a id="__codelineno-0-41" name="__codelineno-0-41"></a>    <span class="k">if</span> <span class="n">mat_type</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">valid_types</span><span class="p">:</span>
-<a id="__codelineno-0-42" name="__codelineno-0-42"></a>        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid matrix check type: </span><span class="si">{</span><span class="n">mat_type</span><span class="si">}</span><span class="s2">. Must be one of: </span><span class="si">{</span><span class="n">valid_types</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-42" name="__codelineno-0-42"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid matrix check type: </span><span class="si">{</span><span class="n">mat_type</span><span class="si">}</span><span class="s2">. Must be one of: </span><span class="si">{</span><span class="n">valid_types</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
 <a id="__codelineno-0-43" name="__codelineno-0-43"></a>
 <a id="__codelineno-0-44" name="__codelineno-0-44"></a>    <span class="n">is_entrywise_nonnegative</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">input_mat</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">))</span>
 <a id="__codelineno-0-45" name="__codelineno-0-45"></a>
