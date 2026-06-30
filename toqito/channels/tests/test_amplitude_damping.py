@@ -30,7 +30,7 @@ from toqito.channels import amplitude_damping
 def test_amplitude_damping(rho, prob, gamma, expected_kraus):
     """Test amplitude damping for both Kraus operators and application to states."""
     if expected_kraus:
-        result = amplitude_damping(prob=prob, gamma=gamma)
+        result = amplitude_damping(prob=prob, gamma=gamma, return_kraus_ops=True)
         k0_expected = np.sqrt(prob) * np.array([[1, 0], [0, np.sqrt(1 - gamma)]])
         k1_expected = np.sqrt(prob) * np.sqrt(gamma) * np.array([[0, 1], [0, 0]])
         k2_expected = np.sqrt(1 - prob) * np.array([[np.sqrt(1 - gamma), 0], [0, 1]])
@@ -45,7 +45,7 @@ def test_amplitude_damping(rho, prob, gamma, expected_kraus):
             completeness_sum += k.conj().T @ k
         np.testing.assert_almost_equal(completeness_sum, np.eye(2))
     else:
-        kraus_ops = amplitude_damping(prob=prob, gamma=gamma)
+        kraus_ops = amplitude_damping(prob=prob, gamma=gamma, return_kraus_ops=True)
         result = apply_channel(rho, kraus_ops)
 
         expected_output = np.zeros((2, 2), dtype=complex)
@@ -96,7 +96,9 @@ def test_invalid_dimension(rho):
 
 def test_input_and_return_type():
     """Test for input handling and return types."""
-    kraus_ops = amplitude_damping(prob=0.3, gamma=0.4)
+    choi = amplitude_damping(prob=0.3, gamma=0.4)
+    assert choi.shape == (4, 4)
+    kraus_ops = amplitude_damping(prob=0.3, gamma=0.4, return_kraus_ops=True)
     assert len(kraus_ops) == 4
     for op in kraus_ops:
         assert op.shape == (2, 2)
