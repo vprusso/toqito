@@ -9948,11 +9948,11 @@ will have Schmidt rank at least <code>r + 1</code>.</p>
 <a id="__codelineno-0-107" name="__codelineno-0-107"></a>                <span class="n">ct</span> <span class="o">+=</span> <span class="mi">1</span>
 <a id="__codelineno-0-108" name="__codelineno-0-108"></a>                <span class="k">if</span> <span class="n">ct</span> <span class="o">&gt;=</span> <span class="n">dim</span><span class="p">:</span>
 <a id="__codelineno-0-109" name="__codelineno-0-109"></a>                    <span class="c1"># Orthonormalize via QR.</span>
-<a id="__codelineno-0-110" name="__codelineno-0-110"></a>                    <span class="n">Q</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">qr</span><span class="p">(</span><span class="n">E</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;economic&#39;</span><span class="p">)</span>
+<a id="__codelineno-0-110" name="__codelineno-0-110"></a>                    <span class="n">Q</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">qr</span><span class="p">(</span><span class="n">E</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;economic&quot;</span><span class="p">)</span>
 <a id="__codelineno-0-111" name="__codelineno-0-111"></a>                    <span class="k">return</span> <span class="n">Q</span>
 <a id="__codelineno-0-112" name="__codelineno-0-112"></a>
 <a id="__codelineno-0-113" name="__codelineno-0-113"></a>    <span class="c1"># Orthonormalize via QR.</span>
-<a id="__codelineno-0-114" name="__codelineno-0-114"></a>    <span class="n">Q</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">qr</span><span class="p">(</span><span class="n">E</span><span class="p">[:,</span> <span class="p">:</span><span class="n">ct</span><span class="p">],</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;economic&#39;</span><span class="p">)</span>
+<a id="__codelineno-0-114" name="__codelineno-0-114"></a>    <span class="n">Q</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">qr</span><span class="p">(</span><span class="n">E</span><span class="p">[:,</span> <span class="p">:</span><span class="n">ct</span><span class="p">],</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;economic&quot;</span><span class="p">)</span>
 <a id="__codelineno-0-115" name="__codelineno-0-115"></a>    <span class="k">return</span> <span class="n">Q</span>
 </code></pre></div></td></tr></table></div>
             </details>

@@ -9966,9 +9966,7 @@ of the first subsystem:</p>
 <span class="normal"><a href="#__codelineno-0-154">154</a></span>
 <span class="normal"><a href="#__codelineno-0-155">155</a></span>
 <span class="normal"><a href="#__codelineno-0-156">156</a></span>
-<span class="normal"><a href="#__codelineno-0-157">157</a></span>
-<span class="normal"><a href="#__codelineno-0-158">158</a></span>
-<span class="normal"><a href="#__codelineno-0-159">159</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-15" name="__codelineno-0-15"></a><span class="k">def</span><span class="w"> </span><span class="nf">sandwiched_renyi_conditional_entropy</span><span class="p">(</span>
+<span class="normal"><a href="#__codelineno-0-157">157</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-15" name="__codelineno-0-15"></a><span class="k">def</span><span class="w"> </span><span class="nf">sandwiched_renyi_conditional_entropy</span><span class="p">(</span>
 <a id="__codelineno-0-16" name="__codelineno-0-16"></a>    <span class="n">rho</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
 <a id="__codelineno-0-17" name="__codelineno-0-17"></a>    <span class="n">alpha</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
 <a id="__codelineno-0-18" name="__codelineno-0-18"></a>    <span class="n">dim</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="nb">tuple</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -10110,9 +10108,7 @@ of the first subsystem:</p>
 <a id="__codelineno-0-154" name="__codelineno-0-154"></a>            <span class="sa">f</span><span class="s2">&quot;alpha &gt;= </span><span class="si">{</span><span class="n">uparrow_min_alpha</span><span class="si">}</span><span class="s2">, where the underlying optimization is convex. &quot;</span>
 <a id="__codelineno-0-155" name="__codelineno-0-155"></a>            <span class="s2">&quot;Pass `uparrow_min_alpha` to override this guard.&quot;</span>
 <a id="__codelineno-0-156" name="__codelineno-0-156"></a>        <span class="p">)</span>
-<a id="__codelineno-0-157" name="__codelineno-0-157"></a>    <span class="k">return</span> <span class="n">_sandwiched_renyi_conditional_entropy_uparrow</span><span class="p">(</span>
-<a id="__codelineno-0-158" name="__codelineno-0-158"></a>        <span class="n">rho</span><span class="p">,</span> <span class="n">rho_b</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">dims</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="nb">int</span><span class="p">(</span><span class="n">dims</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="n">tol</span><span class="p">,</span> <span class="n">max_iters</span>
-<a id="__codelineno-0-159" name="__codelineno-0-159"></a>    <span class="p">)</span>
+<a id="__codelineno-0-157" name="__codelineno-0-157"></a>    <span class="k">return</span> <span class="n">_sandwiched_renyi_conditional_entropy_uparrow</span><span class="p">(</span><span class="n">rho</span><span class="p">,</span> <span class="n">rho_b</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">dims</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="nb">int</span><span class="p">(</span><span class="n">dims</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="n">tol</span><span class="p">,</span> <span class="n">max_iters</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>

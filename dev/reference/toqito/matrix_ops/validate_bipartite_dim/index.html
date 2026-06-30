@@ -9763,69 +9763,65 @@ not positive, or do not multiply to the dimension of <code>rho</code>.</p>
 <span class="normal"><a href="#__codelineno-0-61">61</a></span>
 <span class="normal"><a href="#__codelineno-0-62">62</a></span>
 <span class="normal"><a href="#__codelineno-0-63">63</a></span>
-<span class="normal"><a href="#__codelineno-0-64">64</a></span>
-<span class="normal"><a href="#__codelineno-0-65">65</a></span>
-<span class="normal"><a href="#__codelineno-0-66">66</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-6" name="__codelineno-0-6"></a><span class="k">def</span><span class="w"> </span><span class="nf">validate_bipartite_dim</span><span class="p">(</span>
-<a id="__codelineno-0-7" name="__codelineno-0-7"></a>    <span class="n">rho</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">dim</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="nb">tuple</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span>
-<a id="__codelineno-0-8" name="__codelineno-0-8"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<a id="__codelineno-0-9" name="__codelineno-0-9"></a><span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Validate and normalize a bipartite dimension specification.</span>
-<a id="__codelineno-0-10" name="__codelineno-0-10"></a>
-<a id="__codelineno-0-11" name="__codelineno-0-11"></a><span class="sd">    Given a square operator ``rho`` on a tensor-product space and a ``dim``</span>
-<a id="__codelineno-0-12" name="__codelineno-0-12"></a><span class="sd">    argument describing how that space splits into two subsystems, return the</span>
-<a id="__codelineno-0-13" name="__codelineno-0-13"></a><span class="sd">    two subsystem dimensions as a length-two integer array.</span>
-<a id="__codelineno-0-14" name="__codelineno-0-14"></a>
-<a id="__codelineno-0-15" name="__codelineno-0-15"></a><span class="sd">    If ``dim`` is ``None`` the two subsystems are assumed equal, which requires</span>
-<a id="__codelineno-0-16" name="__codelineno-0-16"></a><span class="sd">    the dimension of ``rho`` to be a perfect square. A scalar ``dim`` is taken as</span>
-<a id="__codelineno-0-17" name="__codelineno-0-17"></a><span class="sd">    the first subsystem dimension and must divide the dimension of ``rho``.</span>
-<a id="__codelineno-0-18" name="__codelineno-0-18"></a>
-<a id="__codelineno-0-19" name="__codelineno-0-19"></a><span class="sd">    Args:</span>
-<a id="__codelineno-0-20" name="__codelineno-0-20"></a><span class="sd">        rho: A square operator on the bipartite space.</span>
-<a id="__codelineno-0-21" name="__codelineno-0-21"></a><span class="sd">        dim: The subsystem dimensions. Either ``None`` (assume equal</span>
-<a id="__codelineno-0-22" name="__codelineno-0-22"></a><span class="sd">            subsystems), a scalar (the first subsystem dimension), or a pair of</span>
-<a id="__codelineno-0-23" name="__codelineno-0-23"></a><span class="sd">            dimensions whose product matches the dimension of ``rho``.</span>
-<a id="__codelineno-0-24" name="__codelineno-0-24"></a>
-<a id="__codelineno-0-25" name="__codelineno-0-25"></a><span class="sd">    Returns:</span>
-<a id="__codelineno-0-26" name="__codelineno-0-26"></a><span class="sd">        A length-two integer array of subsystem dimensions.</span>
-<a id="__codelineno-0-27" name="__codelineno-0-27"></a>
-<a id="__codelineno-0-28" name="__codelineno-0-28"></a><span class="sd">    Raises:</span>
-<a id="__codelineno-0-29" name="__codelineno-0-29"></a><span class="sd">        ValueError: If the dimensions cannot be inferred, are not integers, are</span>
-<a id="__codelineno-0-30" name="__codelineno-0-30"></a><span class="sd">            not positive, or do not multiply to the dimension of ``rho``.</span>
-<a id="__codelineno-0-31" name="__codelineno-0-31"></a>
-<a id="__codelineno-0-32" name="__codelineno-0-32"></a><span class="sd">    Examples:</span>
-<a id="__codelineno-0-33" name="__codelineno-0-33"></a><span class="sd">        With equal subsystems the dimensions are inferred from the size of</span>
-<a id="__codelineno-0-34" name="__codelineno-0-34"></a><span class="sd">        ``rho``:</span>
-<a id="__codelineno-0-35" name="__codelineno-0-35"></a>
-<a id="__codelineno-0-36" name="__codelineno-0-36"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;</span>
-<a id="__codelineno-0-37" name="__codelineno-0-37"></a><span class="sd">        import numpy as np</span>
-<a id="__codelineno-0-38" name="__codelineno-0-38"></a><span class="sd">        from toqito.matrix_ops import validate_bipartite_dim</span>
-<a id="__codelineno-0-39" name="__codelineno-0-39"></a>
-<a id="__codelineno-0-40" name="__codelineno-0-40"></a><span class="sd">        print(validate_bipartite_dim(np.eye(6), [2, 3]))</span>
-<a id="__codelineno-0-41" name="__codelineno-0-41"></a><span class="sd">        ```</span>
-<a id="__codelineno-0-42" name="__codelineno-0-42"></a>
-<a id="__codelineno-0-43" name="__codelineno-0-43"></a><span class="sd">    &quot;&quot;&quot;</span>
-<a id="__codelineno-0-44" name="__codelineno-0-44"></a>    <span class="n">n</span> <span class="o">=</span> <span class="n">rho</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<a id="__codelineno-0-45" name="__codelineno-0-45"></a>
-<a id="__codelineno-0-46" name="__codelineno-0-46"></a>    <span class="k">if</span> <span class="n">dim</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-<a id="__codelineno-0-47" name="__codelineno-0-47"></a>        <span class="n">d</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">n</span><span class="p">)))</span>
-<a id="__codelineno-0-48" name="__codelineno-0-48"></a>        <span class="k">if</span> <span class="n">d</span> <span class="o">*</span> <span class="n">d</span> <span class="o">!=</span> <span class="n">n</span><span class="p">:</span>
-<a id="__codelineno-0-49" name="__codelineno-0-49"></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Cannot infer bipartite subsystem dimensions directly. Please provide `dim`.&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-50" name="__codelineno-0-50"></a>        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">d</span><span class="p">,</span> <span class="n">d</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
-<a id="__codelineno-0-51" name="__codelineno-0-51"></a>
-<a id="__codelineno-0-52" name="__codelineno-0-52"></a>    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dim</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
-<a id="__codelineno-0-53" name="__codelineno-0-53"></a>        <span class="k">if</span> <span class="n">dim</span> <span class="o">&lt;=</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">n</span> <span class="o">%</span> <span class="n">dim</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
-<a id="__codelineno-0-54" name="__codelineno-0-54"></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;If `dim` is a scalar, it must be a positive divisor of the matrix dimension.&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-55" name="__codelineno-0-55"></a>        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">dim</span><span class="p">,</span> <span class="n">n</span> <span class="o">//</span> <span class="n">dim</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
-<a id="__codelineno-0-56" name="__codelineno-0-56"></a>
-<a id="__codelineno-0-57" name="__codelineno-0-57"></a>    <span class="n">dims</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">dim</span><span class="p">)</span>
-<a id="__codelineno-0-58" name="__codelineno-0-58"></a>    <span class="k">if</span> <span class="n">dims</span><span class="o">.</span><span class="n">ndim</span> <span class="o">!=</span> <span class="mi">1</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">dims</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">:</span>
-<a id="__codelineno-0-59" name="__codelineno-0-59"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;`dim` must describe exactly two subsystem dimensions.&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-60" name="__codelineno-0-60"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">issubdtype</span><span class="p">(</span><span class="n">dims</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">integer</span><span class="p">):</span>
-<a id="__codelineno-0-61" name="__codelineno-0-61"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;`dim` must contain integer subsystem dimensions.&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-62" name="__codelineno-0-62"></a>    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">dims</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">):</span>
-<a id="__codelineno-0-63" name="__codelineno-0-63"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Subsystem dimensions in `dim` must be positive.&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-64" name="__codelineno-0-64"></a>    <span class="k">if</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">dims</span><span class="p">))</span> <span class="o">!=</span> <span class="n">n</span><span class="p">:</span>
-<a id="__codelineno-0-65" name="__codelineno-0-65"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The product of `dim` must match the dimension of `rho`.&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-66" name="__codelineno-0-66"></a>    <span class="k">return</span> <span class="n">dims</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+<span class="normal"><a href="#__codelineno-0-64">64</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-6" name="__codelineno-0-6"></a><span class="k">def</span><span class="w"> </span><span class="nf">validate_bipartite_dim</span><span class="p">(</span><span class="n">rho</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">dim</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="nb">tuple</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7"></a><span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Validate and normalize a bipartite dimension specification.</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8"></a>
+<a id="__codelineno-0-9" name="__codelineno-0-9"></a><span class="sd">    Given a square operator ``rho`` on a tensor-product space and a ``dim``</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10"></a><span class="sd">    argument describing how that space splits into two subsystems, return the</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11"></a><span class="sd">    two subsystem dimensions as a length-two integer array.</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12"></a>
+<a id="__codelineno-0-13" name="__codelineno-0-13"></a><span class="sd">    If ``dim`` is ``None`` the two subsystems are assumed equal, which requires</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14"></a><span class="sd">    the dimension of ``rho`` to be a perfect square. A scalar ``dim`` is taken as</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15"></a><span class="sd">    the first subsystem dimension and must divide the dimension of ``rho``.</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16"></a>
+<a id="__codelineno-0-17" name="__codelineno-0-17"></a><span class="sd">    Args:</span>
+<a id="__codelineno-0-18" name="__codelineno-0-18"></a><span class="sd">        rho: A square operator on the bipartite space.</span>
+<a id="__codelineno-0-19" name="__codelineno-0-19"></a><span class="sd">        dim: The subsystem dimensions. Either ``None`` (assume equal</span>
+<a id="__codelineno-0-20" name="__codelineno-0-20"></a><span class="sd">            subsystems), a scalar (the first subsystem dimension), or a pair of</span>
+<a id="__codelineno-0-21" name="__codelineno-0-21"></a><span class="sd">            dimensions whose product matches the dimension of ``rho``.</span>
+<a id="__codelineno-0-22" name="__codelineno-0-22"></a>
+<a id="__codelineno-0-23" name="__codelineno-0-23"></a><span class="sd">    Returns:</span>
+<a id="__codelineno-0-24" name="__codelineno-0-24"></a><span class="sd">        A length-two integer array of subsystem dimensions.</span>
+<a id="__codelineno-0-25" name="__codelineno-0-25"></a>
+<a id="__codelineno-0-26" name="__codelineno-0-26"></a><span class="sd">    Raises:</span>
+<a id="__codelineno-0-27" name="__codelineno-0-27"></a><span class="sd">        ValueError: If the dimensions cannot be inferred, are not integers, are</span>
+<a id="__codelineno-0-28" name="__codelineno-0-28"></a><span class="sd">            not positive, or do not multiply to the dimension of ``rho``.</span>
+<a id="__codelineno-0-29" name="__codelineno-0-29"></a>
+<a id="__codelineno-0-30" name="__codelineno-0-30"></a><span class="sd">    Examples:</span>
+<a id="__codelineno-0-31" name="__codelineno-0-31"></a><span class="sd">        With equal subsystems the dimensions are inferred from the size of</span>
+<a id="__codelineno-0-32" name="__codelineno-0-32"></a><span class="sd">        ``rho``:</span>
+<a id="__codelineno-0-33" name="__codelineno-0-33"></a>
+<a id="__codelineno-0-34" name="__codelineno-0-34"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;</span>
+<a id="__codelineno-0-35" name="__codelineno-0-35"></a><span class="sd">        import numpy as np</span>
+<a id="__codelineno-0-36" name="__codelineno-0-36"></a><span class="sd">        from toqito.matrix_ops import validate_bipartite_dim</span>
+<a id="__codelineno-0-37" name="__codelineno-0-37"></a>
+<a id="__codelineno-0-38" name="__codelineno-0-38"></a><span class="sd">        print(validate_bipartite_dim(np.eye(6), [2, 3]))</span>
+<a id="__codelineno-0-39" name="__codelineno-0-39"></a><span class="sd">        ```</span>
+<a id="__codelineno-0-40" name="__codelineno-0-40"></a>
+<a id="__codelineno-0-41" name="__codelineno-0-41"></a><span class="sd">    &quot;&quot;&quot;</span>
+<a id="__codelineno-0-42" name="__codelineno-0-42"></a>    <span class="n">n</span> <span class="o">=</span> <span class="n">rho</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<a id="__codelineno-0-43" name="__codelineno-0-43"></a>
+<a id="__codelineno-0-44" name="__codelineno-0-44"></a>    <span class="k">if</span> <span class="n">dim</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-0-45" name="__codelineno-0-45"></a>        <span class="n">d</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">n</span><span class="p">)))</span>
+<a id="__codelineno-0-46" name="__codelineno-0-46"></a>        <span class="k">if</span> <span class="n">d</span> <span class="o">*</span> <span class="n">d</span> <span class="o">!=</span> <span class="n">n</span><span class="p">:</span>
+<a id="__codelineno-0-47" name="__codelineno-0-47"></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Cannot infer bipartite subsystem dimensions directly. Please provide `dim`.&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-48" name="__codelineno-0-48"></a>        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">d</span><span class="p">,</span> <span class="n">d</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+<a id="__codelineno-0-49" name="__codelineno-0-49"></a>
+<a id="__codelineno-0-50" name="__codelineno-0-50"></a>    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dim</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+<a id="__codelineno-0-51" name="__codelineno-0-51"></a>        <span class="k">if</span> <span class="n">dim</span> <span class="o">&lt;=</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">n</span> <span class="o">%</span> <span class="n">dim</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+<a id="__codelineno-0-52" name="__codelineno-0-52"></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;If `dim` is a scalar, it must be a positive divisor of the matrix dimension.&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-53" name="__codelineno-0-53"></a>        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">dim</span><span class="p">,</span> <span class="n">n</span> <span class="o">//</span> <span class="n">dim</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+<a id="__codelineno-0-54" name="__codelineno-0-54"></a>
+<a id="__codelineno-0-55" name="__codelineno-0-55"></a>    <span class="n">dims</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">dim</span><span class="p">)</span>
+<a id="__codelineno-0-56" name="__codelineno-0-56"></a>    <span class="k">if</span> <span class="n">dims</span><span class="o">.</span><span class="n">ndim</span> <span class="o">!=</span> <span class="mi">1</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">dims</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">:</span>
+<a id="__codelineno-0-57" name="__codelineno-0-57"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;`dim` must describe exactly two subsystem dimensions.&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-58" name="__codelineno-0-58"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">issubdtype</span><span class="p">(</span><span class="n">dims</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">integer</span><span class="p">):</span>
+<a id="__codelineno-0-59" name="__codelineno-0-59"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;`dim` must contain integer subsystem dimensions.&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-60" name="__codelineno-0-60"></a>    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">dims</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">):</span>
+<a id="__codelineno-0-61" name="__codelineno-0-61"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Subsystem dimensions in `dim` must be positive.&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-62" name="__codelineno-0-62"></a>    <span class="k">if</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">dims</span><span class="p">))</span> <span class="o">!=</span> <span class="n">n</span><span class="p">:</span>
+<a id="__codelineno-0-63" name="__codelineno-0-63"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The product of `dim` must match the dimension of `rho`.&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-64" name="__codelineno-0-64"></a>    <span class="k">return</span> <span class="n">dims</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
