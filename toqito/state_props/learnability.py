@@ -237,7 +237,7 @@ def _convert_states(
         density_matrices.append(rho)
 
         if all_pure:
-            if is_rank_one(rho, tol=tol):
+            if is_rank_one(rho, rtol=tol):
                 pure_vectors.append(_extract_state_vector(state_array, rho))
             else:
                 all_pure = False
