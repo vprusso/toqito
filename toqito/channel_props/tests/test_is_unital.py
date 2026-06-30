@@ -57,3 +57,10 @@ def test_is_unital_isometry_true_unspecified_dim():
     choi = kraus_to_choi([v_mat])
     with np.testing.assert_raises(ValueError):
         is_unital(choi)
+
+
+def test_is_unital_non_unital_false():
+    """A non-unital channel (reset-to-|0>) returns False, exercising the False branch."""
+    k0 = np.array([[1.0, 0.0], [0.0, 0.0]])
+    k1 = np.array([[0.0, 1.0], [0.0, 0.0]])
+    np.testing.assert_equal(is_unital([k0, k1]), False)
