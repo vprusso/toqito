@@ -2,6 +2,9 @@
 
 import numpy as np
 from scipy.linalg import null_space
+from scipy.sparse import eye as sparse_eye
+from scipy.sparse import kron as sparse_kron
+from scipy.sparse import vstack as sparse_vstack
 
 
 def commutant(A: np.ndarray | list[np.ndarray]) -> list[np.ndarray]:
@@ -41,6 +44,14 @@ def commutant(A: np.ndarray | list[np.ndarray]) -> list[np.ndarray]:
 
     Returns:
         A list of matrices forming an orthonormal basis for the commutant.
+
+    Note:
+        The commutant conditions are assembled as the \(\text{dim}^2 \times \text{dim}^2\) operators
+        \(A_i \otimes I - I \otimes A_i^T\). These are built as sparse matrices to keep construction
+        memory low, but the null space is obtained from a dense SVD, so the overall cost is
+        \(O(\text{num\_ops} \cdot \text{dim}^6)\) time and \(O(\text{num\_ops} \cdot \text{dim}^4)\)
+        memory for the dense system that is factorized. This is the dominant cost for moderate
+        ``dim``.
 
     Examples:
         Consider the following set of matrices:
@@ -100,14 +111,17 @@ def commutant(A: np.ndarray | list[np.ndarray]) -> list[np.ndarray]:
     # Extract number of operators and dimension.
     num_ops, dim, _ = A.shape
 
-    # Construct the commutant condition (A ⊗ I - I ⊗ A^T) vec(X) = 0.
-    comm_matrices = [np.kron(A[i], np.eye(dim)) - np.kron(np.eye(dim), A[i].T) for i in range(num_ops)]
+    # Construct the commutant condition (A ⊗ I - I ⊗ A^T) vec(X) = 0. The Kronecker operators are
+    # highly structured, so build them sparsely to avoid materializing num_ops dense dim^2 x dim^2
+    # blocks before stacking.
+    identity = sparse_eye(dim, format="csr", dtype=A.dtype)
+    comm_matrices = [sparse_kron(A[i], identity) - sparse_kron(identity, A[i].T) for i in range(num_ops)]
 
-    # Stack into a 2D matrix for null_space computation.
-    comm_matrix = np.vstack(comm_matrices) if len(comm_matrices) > 1 else comm_matrices[0]
+    # Stack into a single 2D matrix and densify once for the SVD-based null space.
+    comm_matrix = sparse_vstack(comm_matrices, format="csr")
 
     # Compute null space.
-    null_basis = null_space(comm_matrix)  # Basis vectors for commuting matrices
+    null_basis = null_space(comm_matrix.toarray())  # Basis vectors for commuting matrices
 
     # Reshape each basis vector into a matrix of size (dim x dim).
     return [null_basis[:, i].reshape((dim, dim)) for i in range(null_basis.shape[1])]
