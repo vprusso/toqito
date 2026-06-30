@@ -1,6 +1,7 @@
 r"""Integral-representation SDPs for quantum relative entropy [@kossmann2024optimisingrelativeentropy]."""
 
 import warnings
+from typing import Any
 
 import cvxpy
 import numpy as np
@@ -153,7 +154,7 @@ def evaluate_relative_entropy_integral(
     epsilon_dec: float = 1e-2,
     mean: bool = True,
     solver: str = "SCS",
-    **solve_kwargs,
+    **solve_kwargs: Any,
 ) -> float | tuple[float, float]:
     r"""Estimate \(D(X\|Y)\) via integral SDP lower/upper bounds [@kossmann2024optimisingrelativeentropy].
 
