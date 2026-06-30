@@ -1,6 +1,9 @@
 """Test symmetric_projection."""
 
+import re
+
 import numpy as np
+import pytest
 
 from toqito.perms import symmetric_projection
 
@@ -121,15 +124,11 @@ def test_symmetric_projection_dim_4_pval_2_partial_true():
 
 def test_symmetric_projection_invalid_dim():
     """Test for invalid dimension."""
-    try:
+    with pytest.raises(ValueError, match=re.escape("InvalidDim: `dim` must be at least 1.")):
         symmetric_projection(dim=0, p_val=2)
-    except ValueError as e:
-        assert str(e) == "InvalidDim: `dim` must be at least 1."
 
 
 def test_symmetric_projection_invalid_pval():
     """Test for invalid p_val."""
-    try:
+    with pytest.raises(ValueError, match=re.escape("InvalidPVal: `p_val` must be at least 1.")):
         symmetric_projection(dim=2, p_val=0)
-    except ValueError as e:
-        assert str(e) == "InvalidPVal: `p_val` must be at least 1."
