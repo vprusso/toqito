@@ -1,10 +1,9 @@
 """Applies a channel to a subsystem of an operator."""
 
-import itertools
-
 import numpy as np
 
 from toqito.channel_ops import apply_channel
+from toqito.channel_props._kraus_format import normalize_kraus
 from toqito.perms import permute_systems
 from toqito.states import max_entangled
 
@@ -103,20 +102,11 @@ def partial_channel(
 
     if isinstance(phi_map, list):
         # Compute the Kraus operators on the full system.
-        s_phi_1, s_phi_2 = len(phi_map), len(phi_map[0])
-        phi_list = []
-        # Map is completely positive if input is given as:
-        # 1. [K1, K2, .. Kr]
-        # 2. [[K1], [K2], .. [Kr]]
-        # 3. [[K1, K2, .. Kr]] and r > 2
-        if isinstance(phi_map[0], np.ndarray):
-            phi_list = phi_map
-        elif s_phi_2 == 1 or s_phi_1 == 1 and s_phi_2 > 2:
-            phi_list = list(itertools.chain(*phi_map))
+        left_ops, right_ops, is_cp = normalize_kraus(phi_map)
 
-        if phi_list:
+        if is_cp:
             phi = []
-            for m in phi_list:
+            for m in left_ops:
                 phi.append(
                     np.kron(
                         np.kron(np.identity(prod_dim_r1), m),
@@ -126,18 +116,18 @@ def partial_channel(
             phi_x = apply_channel(rho, phi)
         else:
             phi_1 = []
-            for m in phi_map:
+            for m in left_ops:
                 phi_1.append(
                     np.kron(
-                        np.kron(np.identity(prod_dim_r1), m[0]),
+                        np.kron(np.identity(prod_dim_r1), m),
                         np.identity(prod_dim_r2),
                     )
                 )
             phi_2 = []
-            for m in phi_map:
+            for m in right_ops:
                 phi_2.append(
                     np.kron(
-                        np.kron(np.identity(prod_dim_c1), m[1]),
+                        np.kron(np.identity(prod_dim_c1), m),
                         np.identity(prod_dim_c2),
                     )
                 )
