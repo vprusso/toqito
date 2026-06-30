@@ -1194,9 +1194,7 @@ def test_choi_1975_map_detects_npt_isotropic_3x3_via_partial_channel():
 
     for sys in (0, 1):
         mapped = partial_channel(rho_iso, J_choi, sys=sys, dim=[3, 3])
-        assert not is_positive_semidefinite(mapped), (
-            f"Choi 1975 map should produce a non-PSD image on sys={sys}"
-        )
+        assert not is_positive_semidefinite(mapped), f"Choi 1975 map should produce a non-PSD image on sys={sys}"
 
 
 def test_rank_marginal_horodecki_is_separable_3x4_low_rank():

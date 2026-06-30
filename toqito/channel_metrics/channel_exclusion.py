@@ -166,8 +166,7 @@ def _min_error_primal(
     problem = pc.Problem()
 
     strategy_ops = [
-        pc.HermitianVariable(f"W[{idx}]", (dim_in * dim_out, dim_in * dim_out))
-        for idx in range(n_channels)
+        pc.HermitianVariable(f"W[{idx}]", (dim_in * dim_out, dim_in * dim_out)) for idx in range(n_channels)
     ]
     x_var = pc.HermitianVariable("X", (dim_in, dim_in))
 

@@ -218,9 +218,7 @@ def test_quantum_relative_entropy_constant_x_constant_y_branch():
     mat_a = (mat_a + mat_a.T) / 2
     mat_a = mat_a / np.trace(mat_a)
     mat_b = np.eye(n) / n
-    got = quantum_relative_entropy(
-        cvxpy.Constant(mat_a), cvxpy.Constant(mat_b), m=3, k=3, apx=0
-    )
+    got = quantum_relative_entropy(cvxpy.Constant(mat_a), cvxpy.Constant(mat_b), m=3, k=3, apx=0)
     want = quantum_relative_entropy(mat_a, mat_b, m=3, k=3, apx=0)
     np.testing.assert_allclose(got, want, rtol=1e-10, atol=1e-10)
 
@@ -237,9 +235,7 @@ def test_quantum_relative_entropy_constant_x_affine_y_branch(space_optimized: bo
     mat_b = np.eye(n) / n
     expr_x = cvxpy.Constant(mat_a)
     expr_y = _affine_fixed_at(mat_b, hermitian=False)
-    got = quantum_relative_entropy(
-        expr_x, expr_y, m=3, k=3, apx=0, space_optimized=space_optimized
-    )
+    got = quantum_relative_entropy(expr_x, expr_y, m=3, k=3, apx=0, space_optimized=space_optimized)
     want = quantum_relative_entropy(mat_a, mat_b, m=3, k=3, apx=0)
     np.testing.assert_allclose(float(got), want, rtol=1e-4, atol=1e-4)
 
@@ -331,9 +327,7 @@ class TestQuantumRelativeEntropyValueErrors:
         y_var = cvxpy.Variable((n, n), symmetric=True)
         with pytest.raises(
             ValueError,
-            match=re.escape(
-                "mat_x and mat_y must be numpy arrays or cvxpy expressions"
-            ),
+            match=re.escape("mat_x and mat_y must be numpy arrays or cvxpy expressions"),
         ):
             quantum_relative_entropy(np.eye(n), y_var)
 
@@ -372,9 +366,7 @@ class TestQuantumRelativeEntropyValueErrors:
 
     def test_space_optimized_invalid(self):
         """Reject non-boolean ``space_optimized``."""
-        with pytest.raises(
-            ValueError, match=re.escape("space_optimized must be a boolean")
-        ):
+        with pytest.raises(ValueError, match=re.escape("space_optimized must be a boolean")):
             quantum_relative_entropy(np.eye(2), np.eye(2), space_optimized="yes")
 
     def test_mat_x_not_psd(self):
@@ -398,17 +390,13 @@ class TestQuantumRelativeEntropyValueErrors:
     def test_mat_x_not_hermitian(self):
         """Reject non-Hermitian numeric ``mat_x``."""
         mat_x = np.array([[1.0, 1.0], [0.0, 1.0]], dtype=np.complex128)
-        with pytest.raises(
-            ValueError, match=re.escape("mat_x must be a Hermitian matrix")
-        ):
+        with pytest.raises(ValueError, match=re.escape("mat_x must be a Hermitian matrix")):
             quantum_relative_entropy(mat_x, np.eye(2))
 
     def test_mat_y_not_hermitian(self):
         """Reject non-Hermitian numeric ``mat_y``."""
         mat_y = np.array([[1.0, 1.0], [0.0, 1.0]], dtype=np.complex128)
-        with pytest.raises(
-            ValueError, match=re.escape("mat_y must be a Hermitian matrix")
-        ):
+        with pytest.raises(ValueError, match=re.escape("mat_y must be a Hermitian matrix")):
             quantum_relative_entropy(np.eye(2), mat_y)
 
     def test_constant_x_no_value(self):
@@ -432,9 +420,7 @@ class TestQuantumRelativeEntropyValueErrors:
         p_y = cvxpy.Parameter((n, n), symmetric=True)
         with pytest.raises(
             ValueError,
-            match=re.escape(
-                "mat_y has no numeric value; pass a numpy.ndarray or set `.value`."
-            ),
+            match=re.escape("mat_y has no numeric value; pass a numpy.ndarray or set `.value`."),
         ):
             quantum_relative_entropy(p_x, p_y)
 
@@ -496,9 +482,7 @@ class TestQuantumRelativeEntropyAffineValueErrors:
         t_y = cvxpy.Variable()
         with pytest.raises(
             ValueError,
-            match=re.escape(
-                "Affine mat_x and mat_y need numeric initial values; set `.value` for PSD checks."
-            ),
+            match=re.escape("Affine mat_x and mat_y need numeric initial values; set `.value` for PSD checks."),
         ):
             quantum_relative_entropy(
                 t_x * np.eye(n),
@@ -512,9 +496,7 @@ class TestQuantumRelativeEntropyAffineValueErrors:
         t = cvxpy.Variable()
         with pytest.raises(
             ValueError,
-            match=re.escape(
-                "mat_x has no numeric value; pass a numpy.ndarray or set `.value`."
-            ),
+            match=re.escape("mat_x has no numeric value; pass a numpy.ndarray or set `.value`."),
         ):
             quantum_relative_entropy(
                 t * np.eye(n),
@@ -529,9 +511,7 @@ class TestQuantumRelativeEntropyAffineValueErrors:
         t.value = -1.0
         with pytest.raises(
             ValueError,
-            match=re.escape(
-                "mat_x must be positive semidefinite at the initial value."
-            ),
+            match=re.escape("mat_x must be positive semidefinite at the initial value."),
         ):
             quantum_relative_entropy(
                 t * np.eye(n),
@@ -548,9 +528,7 @@ class TestQuantumRelativeEntropyAffineValueErrors:
         t_y.value = 1.0
         with pytest.raises(
             ValueError,
-            match=re.escape(
-                "mat_x must be positive semidefinite at the initial value."
-            ),
+            match=re.escape("mat_x must be positive semidefinite at the initial value."),
         ):
             quantum_relative_entropy(
                 t_x * np.eye(n),
@@ -567,9 +545,7 @@ class TestQuantumRelativeEntropyAffineValueErrors:
         t_y.value = -1.0
         with pytest.raises(
             ValueError,
-            match=re.escape(
-                "mat_y must be positive semidefinite at the initial value."
-            ),
+            match=re.escape("mat_y must be positive semidefinite at the initial value."),
         ):
             quantum_relative_entropy(
                 t_x * np.eye(n),

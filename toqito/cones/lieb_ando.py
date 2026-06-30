@@ -3,7 +3,6 @@ r"""Computes \(f(A, B, K, t) = \operatorname{tr}(K^{\dagger} A^{1-t} K B^{t})\) 
 # Adapted from CVXQUAD (https://github.com/hfawzi/cvxquad), BSD-2-Clause.
 # Original implementation by Fawzi, Saunderson, et al.
 
-
 import cvxpy
 import numpy as np
 from scipy.linalg import fractional_matrix_power
@@ -72,9 +71,7 @@ def lieb_ando(
     _require_square_2d(mat_b, "mat_b")
     _require_2d(mat_k, "mat_k")
     if mat_k.shape[0] != mat_a.shape[0] or mat_k.shape[1] != mat_b.shape[1]:
-        raise ValueError(
-            "mat_k must have the same number of rows as mat_a and the same number of columns as mat_b."
-        )
+        raise ValueError("mat_k must have the same number of rows as mat_a and the same number of columns as mat_b.")
 
     if isinstance(mat_a, np.ndarray) and isinstance(mat_b, np.ndarray):
         if not is_positive_semidefinite(mat_a) or not is_positive_semidefinite(mat_b):
@@ -83,17 +80,13 @@ def lieb_ando(
         b_raised = fractional_matrix_power(mat_b, t)
         return float(np.real(np.trace(mat_k.conj().T @ a_raised @ mat_k @ b_raised)))
     elif isinstance(mat_a, np.ndarray):
-        if not is_positive_semidefinite(mat_a) or not is_positive_semidefinite(
-            mat_b.value
-        ):
+        if not is_positive_semidefinite(mat_a) or not is_positive_semidefinite(mat_b.value):
             raise ValueError("mat_a and mat_b must be positive semidefinite.")
         mat_kak = mat_k.conj().T @ fractional_matrix_power(mat_a, 1 - t) @ mat_k
         mat_kak = (mat_kak + mat_kak.conj().T) / 2
         return trace_matrix_power(mat_b, t, mat_kak)
     elif isinstance(mat_b, np.ndarray):
-        if not is_positive_semidefinite(mat_a.value) or not is_positive_semidefinite(
-            mat_b
-        ):
+        if not is_positive_semidefinite(mat_a.value) or not is_positive_semidefinite(mat_b):
             raise ValueError("mat_a and mat_b must be positive semidefinite.")
         mat_kkb = mat_k @ fractional_matrix_power(mat_b, t) @ mat_k.conj().T
         mat_kkb = (mat_kkb + mat_kkb.conj().T) / 2
@@ -101,18 +94,12 @@ def lieb_ando(
     else:
         if not mat_a.is_affine() or not mat_b.is_affine():
             raise ValueError("mat_a and mat_b must be affine expressions.")
-        if not is_positive_semidefinite(mat_a.value) or not is_positive_semidefinite(
-            mat_b.value
-        ):
+        if not is_positive_semidefinite(mat_a.value) or not is_positive_semidefinite(mat_b.value):
             raise ValueError("mat_a and mat_b must be positive semidefinite.")
 
         n = mat_a.shape[0]
         m = mat_b.shape[0]
-        is_cplx = (
-            np.any(np.imag(mat_a.value) != 0)
-            or np.any(np.imag(mat_b.value) != 0)
-            or np.any(np.imag(mat_k) != 0)
-        )
+        is_cplx = np.any(np.imag(mat_a.value) != 0) or np.any(np.imag(mat_b.value) != 0) or np.any(np.imag(mat_k) != 0)
         Kvec = np.reshape(mat_k.T, (n * m, 1), order="F")
         KvKv = Kvec @ Kvec.conj().T
         KvKv = (KvKv + KvKv.conj().T) / 2
@@ -127,18 +114,14 @@ def lieb_ando(
         mat_a_kron = cvxpy.kron(mat_a, np.eye(m))
         mat_b_kron = cvxpy.kron(np.eye(n), cvxpy.conj(mat_b))
         if t >= 0 and t <= 1:
-            cons = geometric_mean_hypo_cone(
-                mat_a_kron, mat_b_kron, T, t, fullhyp=False, hermitian=is_cplx
-            )
+            cons = geometric_mean_hypo_cone(mat_a_kron, mat_b_kron, T, t, fullhyp=False, hermitian=is_cplx)
             problem = cvxpy.Problem(cvxpy.Maximize(obj), cons)
             result = problem.solve()
             if problem.status not in (cvxpy.OPTIMAL, cvxpy.OPTIMAL_INACCURATE):
                 raise ValueError(f"The SDP did not solve successfully (status: {problem.status}).")
             return result
         elif (t >= -1 and t <= 0) or (t >= 1 and t <= 2):
-            cons = geometric_mean_epi_cone(
-                mat_a_kron, mat_b_kron, T, t, hermitian=is_cplx
-            )
+            cons = geometric_mean_epi_cone(mat_a_kron, mat_b_kron, T, t, hermitian=is_cplx)
             problem = cvxpy.Problem(cvxpy.Minimize(obj), cons)
             result = problem.solve()
             if problem.status not in (cvxpy.OPTIMAL, cvxpy.OPTIMAL_INACCURATE):

@@ -86,9 +86,7 @@ def trace_matrix_log(
     if not mat_x.is_affine():
         raise ValueError("mat_x must be an affine CVXPY expression.")
     if mat_x.value is None:
-        raise ValueError(
-            "Affine mat_x has no numeric initial value; set `.value` for PSD checks."
-        )
+        raise ValueError("Affine mat_x has no numeric initial value; set `.value` for PSD checks.")
     if not is_positive_semidefinite(mat_x.value):
         raise ValueError("mat_x must be positive semidefinite at the initial value.")
 

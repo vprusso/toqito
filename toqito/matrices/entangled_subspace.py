@@ -107,9 +107,9 @@ def entangled_subspace(
                 ct += 1
                 if ct >= dim:
                     # Orthonormalize via QR.
-                    Q, _ = qr(E, mode='economic')
+                    Q, _ = qr(E, mode="economic")
                     return Q
 
     # Orthonormalize via QR.
-    Q, _ = qr(E[:, :ct], mode='economic')
+    Q, _ = qr(E[:, :ct], mode="economic")
     return Q

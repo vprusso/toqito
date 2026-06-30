@@ -154,9 +154,7 @@ def sandwiched_renyi_conditional_entropy(
             f"alpha >= {uparrow_min_alpha}, where the underlying optimization is convex. "
             "Pass `uparrow_min_alpha` to override this guard."
         )
-    return _sandwiched_renyi_conditional_entropy_uparrow(
-        rho, rho_b, alpha, int(dims[0]), int(dims[1]), tol, max_iters
-    )
+    return _sandwiched_renyi_conditional_entropy_uparrow(rho, rho_b, alpha, int(dims[0]), int(dims[1]), tol, max_iters)
 
 
 def _sandwiched_renyi_conditional_entropy_downarrow(

@@ -77,8 +77,7 @@ def bitflip(
         raise ValueError("Input matrix must be 2x2 for the bitflip channel.")
 
     warnings.warn(
-        "Passing `input_mat` to `bitflip` is deprecated; "
-        "use `apply_channel(input_mat, bitflip(...))` instead.",
+        "Passing `input_mat` to `bitflip` is deprecated; use `apply_channel(input_mat, bitflip(...))` instead.",
         DeprecationWarning,
         stacklevel=2,
     )

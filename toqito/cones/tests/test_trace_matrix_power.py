@@ -22,9 +22,7 @@ I_3 = np.eye(3)
 
 def _case_seed(dim: int, t: float, *, hermitian: bool) -> int:
     r = Fraction(float(t)).limit_denominator()
-    return int(
-        dim * 1_000_003 + r.numerator * 10_009 + r.denominator * 100 + int(hermitian)
-    )
+    return int(dim * 1_000_003 + r.numerator * 10_009 + r.denominator * 100 + int(hermitian))
 
 
 def _random_pd_matrix(dim: int, seed: int, *, hermitian: bool) -> np.ndarray:
@@ -174,9 +172,7 @@ def test_trace_matrix_power_sdp_raises_non_affine():
     """Only affine mat_a is admitted (matching CVXQUAD DCP check)."""
     var_x = cvxpy.Variable((2, 2), symmetric=True)
     non_affine_a = var_x @ var_x
-    with pytest.raises(
-        ValueError, match=re.escape("The matrix mat_a must be an affine expression.")
-    ):
+    with pytest.raises(ValueError, match=re.escape("The matrix mat_a must be an affine expression.")):
         trace_matrix_power(non_affine_a, 0.5)
 
 
@@ -200,12 +196,8 @@ def test_trace_matrix_power_numeric_identity_half():
 
 def test_trace_matrix_power_numeric_identity_with_c():
     """Weighted trace on a simple PSD pair."""
-    ref = _numeric_reference(
-        np.array([[4.0, 2.0], [2.0, 1.0]]), 0.8, np.diag([3.0, 0.5])
-    )
-    val = trace_matrix_power(
-        np.array([[4.0, 2.0], [2.0, 1.0]]), 0.8, np.diag([3.0, 0.5])
-    )
+    ref = _numeric_reference(np.array([[4.0, 2.0], [2.0, 1.0]]), 0.8, np.diag([3.0, 0.5]))
+    val = trace_matrix_power(np.array([[4.0, 2.0], [2.0, 1.0]]), 0.8, np.diag([3.0, 0.5]))
     assert val == pytest.approx(ref)
 
 

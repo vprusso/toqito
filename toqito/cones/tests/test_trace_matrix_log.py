@@ -94,9 +94,7 @@ def test_trace_matrix_log(dim: int, mk: int, apx: int, hermitian: bool):
         atol=1e-8,
     )
 
-    cvx_val, status = _trace_matrix_log_sdp_at_fixed_a(
-        mat_a, mat_c, m=mk, k=mk, apx=apx
-    )
+    cvx_val, status = _trace_matrix_log_sdp_at_fixed_a(mat_a, mat_c, m=mk, k=mk, apx=apx)
     assert status in {cvxpy.OPTIMAL, cvxpy.OPTIMAL_INACCURATE}, status
     assert cvx_val is not None
 
@@ -254,12 +252,9 @@ class TestTraceMatrixLogValueErrors:
         p = cvxpy.Parameter((n, n), symmetric=True)
         assert p.value is None
         msg_constant = (
-            "Constant CVXPY expression has no numeric value; set parameter `.value` "
-            "or pass mat_x as a numpy.ndarray."
+            "Constant CVXPY expression has no numeric value; set parameter `.value` or pass mat_x as a numpy.ndarray."
         )
-        msg_affine = (
-            "Affine mat_x has no numeric initial value; set `.value` for PSD checks."
-        )
+        msg_affine = "Affine mat_x has no numeric initial value; set `.value` for PSD checks."
         pattern = "|".join((re.escape(msg_constant), re.escape(msg_affine)))
         with pytest.raises(ValueError, match=pattern):
             trace_matrix_log(p, np.eye(n))
@@ -286,9 +281,7 @@ class TestTraceMatrixLogValueErrors:
         assert expr.value is None
         with pytest.raises(
             ValueError,
-            match=re.escape(
-                "Affine mat_x has no numeric initial value; set `.value` for PSD checks."
-            ),
+            match=re.escape("Affine mat_x has no numeric initial value; set `.value` for PSD checks."),
         ):
             trace_matrix_log(expr, np.eye(n))
 
@@ -301,8 +294,6 @@ class TestTraceMatrixLogValueErrors:
         assert expr.value is not None
         with pytest.raises(
             ValueError,
-            match=re.escape(
-                "mat_x must be positive semidefinite at the initial value."
-            ),
+            match=re.escape("mat_x must be positive semidefinite at the initial value."),
         ):
             trace_matrix_log(expr, np.eye(n))

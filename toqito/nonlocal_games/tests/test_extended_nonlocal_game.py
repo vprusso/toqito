@@ -224,9 +224,7 @@ class TestExtendedNonlocalGame(unittest.TestCase):
         prob_mat, pred_mat = self.bb84_extended_nonlocal_game()
         bb84 = ExtendedNonlocalGame(prob_mat, pred_mat)
         unconstrained = bb84.commuting_measurement_value_upper_bound()
-        binding = bb84.commuting_measurement_value_upper_bound(
-            constraints=forbid_bb84_diagonal_answers_at(0, 0)
-        )
+        binding = bb84.commuting_measurement_value_upper_bound(constraints=forbid_bb84_diagonal_answers_at(0, 0))
         bb84_optimum = np.cos(np.pi / 8) ** 2
 
         self.assertTrue(np.isclose(unconstrained, bb84_optimum, atol=1e-5))
@@ -311,9 +309,7 @@ class TestExtendedNonlocalGame(unittest.TestCase):
 
         # Sparse dict: forbid both diagonal winners at (x=0, y=0).
         sparse_constraint = ({(0, 0, 0, 0): 1.0, (1, 1, 0, 0): 1.0}, "==", 0.0)
-        ub_sparse = game.commuting_measurement_value_upper_bound(
-            k=1, constraints=[sparse_constraint]
-        )
+        ub_sparse = game.commuting_measurement_value_upper_bound(k=1, constraints=[sparse_constraint])
 
         # Dense ndarray: same constraint, shape (A_out=2, B_out=2, A_in=2, B_in=2).
         # Index order is [a, b, x, y].

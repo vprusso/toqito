@@ -14,9 +14,7 @@ from toqito.cones.operator_relative_entropy_epi_cone import (
 from toqito.matrix_props import is_positive_semidefinite
 
 
-def ln_quantum_entropy(
-    mat_x: np.ndarray | cvxpy.Expression, m: int = 3, k: int = 3, apx: int = 0
-) -> float:
+def ln_quantum_entropy(mat_x: np.ndarray | cvxpy.Expression, m: int = 3, k: int = 3, apx: int = 0) -> float:
     r"""Compute the quantum entropy \(-\operatorname{tr}(X \log X)\) for PSD \(X\).
 
     Note that this function uses the natural logarithm (base e) and not the base-2 logarithm.
@@ -68,9 +66,7 @@ def ln_quantum_entropy(
     if not mat_x.is_affine():
         raise ValueError("mat_x must be an affine CVXPY expression.")
     if mat_x.value is None:
-        raise ValueError(
-            "Affine mat_x has no numeric initial value; set `.value` for PSD checks."
-        )
+        raise ValueError("Affine mat_x has no numeric initial value; set `.value` for PSD checks.")
     if not is_positive_semidefinite(mat_x.value):
         raise ValueError("mat_x must be positive semidefinite at the initial value.")
 

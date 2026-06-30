@@ -118,9 +118,7 @@ def operator_relative_entropy_epi_cone(
             top_right = e_h @ X
             bot_left = X @ e
             bot_right = (1.0 - si) * X + si * z_var
-            constraints.append(
-                cvxpy.bmat([[top_left, top_right], [bot_left, bot_right]]) >> 0
-            )
+            constraints.append(cvxpy.bmat([[top_left, top_right], [bot_left, bot_right]]) >> 0)
 
     t_sum = sum(t_pages)
     constraints.append((2.0**k) * t_sum + TAU >> 0)

@@ -40,9 +40,7 @@ def _d_op_reference(mat_a: np.ndarray, mat_b: np.ndarray) -> np.ndarray:
 @pytest.mark.parametrize("mk", [1, 3])
 @pytest.mark.parametrize("apx", [-1, 0, 1])
 @pytest.mark.parametrize("hermitian", [False, True])
-def test_operator_relative_entropy_epi_cone_trace_minimum(
-    dim: int, mk: int, apx: int, hermitian: bool
-):
+def test_operator_relative_entropy_epi_cone_trace_minimum(dim: int, mk: int, apx: int, hermitian: bool):
     """Minimize ``trace(TAU)`` and compare ``TAU`` to the operator relative entropy reference."""
     if mk == 1 and apx == 0:
         pytest.skip("CVXQUAD skips (m,k)=(1,1) with Pade apx=0.")
@@ -205,9 +203,7 @@ def test_operator_relative_entropy_epi_cone_e_not_2d():
 
 def test_operator_relative_entropy_epi_cone_e_row_mismatch():
     """Reject ``e`` whose row count does not match ``X``."""
-    with pytest.raises(
-        ValueError, match=re.escape("The number of rows of e must match X.")
-    ):
+    with pytest.raises(ValueError, match=re.escape("The number of rows of e must match X.")):
         operator_relative_entropy_epi_cone(
             cvxpy.Constant(np.eye(2)),
             cvxpy.Constant(np.eye(2)),
@@ -218,9 +214,7 @@ def test_operator_relative_entropy_epi_cone_e_row_mismatch():
 
 def test_operator_relative_entropy_epi_cone_tau_r_mismatch():
     """Reject ``TAU`` when its size does not match ``e.shape[1]``."""
-    with pytest.raises(
-        ValueError, match=re.escape("TAU must be r x r with r = e.shape[1].")
-    ):
+    with pytest.raises(ValueError, match=re.escape("TAU must be r x r with r = e.shape[1].")):
         operator_relative_entropy_epi_cone(
             cvxpy.Constant(np.eye(2)),
             cvxpy.Constant(np.eye(2)),

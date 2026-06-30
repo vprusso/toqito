@@ -23,15 +23,11 @@ def _sandwich_parameters(rho: np.ndarray, sigma: np.ndarray) -> tuple[float, flo
         w_xy = _generalized_eigenvalues(rho, sigma)
         w_yx = _generalized_eigenvalues(sigma, rho)
     except LinAlgError as exc:
-        raise ValueError(
-            "Failed to compute sandwich parameters from generalized eigenvalues."
-        ) from exc
+        raise ValueError("Failed to compute sandwich parameters from generalized eigenvalues.") from exc
     finite_xy = w_xy[np.isfinite(w_xy)]
     finite_yx = w_yx[np.isfinite(w_yx)]
     if finite_xy.size == 0 or finite_yx.size == 0:
-        raise ValueError(
-            "Failed to compute sandwich parameters from generalized eigenvalues."
-        )
+        raise ValueError("Failed to compute sandwich parameters from generalized eigenvalues.")
     lam = float(np.max(finite_xy))
     mu = float(np.min(finite_yx))
     return mu, lam
