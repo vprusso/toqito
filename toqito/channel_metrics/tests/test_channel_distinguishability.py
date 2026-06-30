@@ -7,16 +7,16 @@ from toqito.channel_ops import kraus_to_choi
 from toqito.channels import amplitude_damping, dephasing, depolarizing, phase_damping
 
 # Creating two amplitude damping channels.
-amp_damp_1 = kraus_to_choi(amplitude_damping(gamma=0.22))
-amp_damp_2 = kraus_to_choi(amplitude_damping(gamma=0.35))
+amp_damp_1 = kraus_to_choi(amplitude_damping(gamma=0.22, return_kraus_ops=True))
+amp_damp_2 = kraus_to_choi(amplitude_damping(gamma=0.35, return_kraus_ops=True))
 
 # In Kraus representation.
 amp_damp_1_kraus = amplitude_damping(gamma=0.22)
 amp_damp_2_kraus = amplitude_damping(gamma=0.35)
 
 # Creating two phase damping channels.
-ph_damp_1 = kraus_to_choi(phase_damping(gamma=0.22))
-ph_damp_2 = kraus_to_choi(phase_damping(gamma=0.35))
+ph_damp_1 = kraus_to_choi(phase_damping(gamma=0.22, return_kraus_ops=True))
+ph_damp_2 = kraus_to_choi(phase_damping(gamma=0.35, return_kraus_ops=True))
 
 
 @pytest.mark.parametrize(

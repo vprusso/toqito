@@ -106,11 +106,10 @@ def test_pauli_channel_choi_matrix_properties(num_qubits):
 
 
 @pytest.mark.parametrize("prob", [np.array([0.1, 0.2, 0.3, 0.4]), np.random.rand(16)])
-def test_pauli_channel_kraus_operators_legacy(prob):
-    """The deprecated `return_kraus_ops=True` path still returns valid Kraus operators."""
+def test_pauli_channel_kraus_operators(prob):
+    """`return_kraus_ops=True` returns the list of valid Kraus operators."""
     prob = prob / np.sum(prob)
-    with pytest.warns(DeprecationWarning, match="choi_to_kraus"):
-        _, kraus_operators = pauli_channel(prob=prob, return_kraus_ops=True)
+    kraus_operators = pauli_channel(prob=prob, return_kraus_ops=True)
 
     assert len(kraus_operators) == len(prob)
 
@@ -130,10 +129,9 @@ def test_pauli_channel_kraus_operators_legacy(prob):
         np.array([0.25, 0.0, 0.25, 0.5]),
     ],
 )
-def test_pauli_channel_zero_probability_legacy(prob):
-    """Deprecated path: when probabilities are zero, the per-index Kraus operator is zero."""
-    with pytest.warns(DeprecationWarning, match="choi_to_kraus"):
-        _, kraus_ops = pauli_channel(prob=prob, return_kraus_ops=True)
+def test_pauli_channel_zero_probability(prob):
+    """When probabilities are zero, the per-index Kraus operator is zero."""
+    kraus_ops = pauli_channel(prob=prob, return_kraus_ops=True)
 
     for i, k in enumerate(kraus_ops):
         if prob[i] == 0:
@@ -150,9 +148,9 @@ def test_pauli_channel_input_mat_is_deprecated():
     np.testing.assert_almost_equal(legacy, np.asarray(modern))
 
 
-def test_pauli_channel_return_kraus_ops_is_deprecated():
-    """Passing `return_kraus_ops=True` still works but emits a DeprecationWarning."""
+def test_pauli_channel_return_kraus_ops():
+    """`return_kraus_ops=True` returns the flat list of Kraus operators (one per probability)."""
     prob = np.array([0.25, 0.25, 0.25, 0.25])
-    with pytest.warns(DeprecationWarning, match="choi_to_kraus"):
-        result = pauli_channel(prob=prob, return_kraus_ops=True)
-    assert len(result) == 2
+    result = pauli_channel(prob=prob, return_kraus_ops=True)
+    assert len(result) == len(prob)
+    assert all(op.shape == (2, 2) for op in result)

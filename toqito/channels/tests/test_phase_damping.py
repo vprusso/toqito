@@ -12,7 +12,7 @@ from toqito.channels import phase_damping
 @pytest.mark.parametrize("gamma", [0.0, 0.3, 0.5, 0.7, 1.0])
 def test_kraus_operators(gamma):
     """Test if the function returns correct Kraus operators for given gamma."""
-    kraus_ops = phase_damping(gamma=gamma)
+    kraus_ops = phase_damping(gamma=gamma, return_kraus_ops=True)
 
     k0_expected = np.diag([1, np.sqrt(1 - gamma)])
     k1_expected = np.diag([0, np.sqrt(gamma)])
@@ -44,7 +44,7 @@ def test_kraus_operators(gamma):
 )
 def test_apply_to_states(rho, gamma):
     """Apply the channel to various input states rho."""
-    kraus_ops = phase_damping(gamma=gamma)
+    kraus_ops = phase_damping(gamma=gamma, return_kraus_ops=True)
 
     expected_output = np.zeros((2, 2), dtype=complex)
     for k in kraus_ops:
@@ -91,7 +91,9 @@ def test_invalid_dimension(rho):
 
 def test_input_and_return_type():
     """Test for input handling and return types."""
-    kraus_ops = phase_damping(gamma=0.4)
+    choi = phase_damping(gamma=0.4)
+    assert choi.shape == (4, 4)
+    kraus_ops = phase_damping(gamma=0.4, return_kraus_ops=True)
     assert len(kraus_ops) == 2
     for op in kraus_ops:
         assert op.shape == (2, 2)

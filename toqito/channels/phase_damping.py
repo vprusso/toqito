@@ -4,12 +4,15 @@ import warnings
 
 import numpy as np
 
+from toqito.channel_ops.kraus_to_choi import kraus_to_choi
+
 
 def phase_damping(
     input_mat: np.ndarray | None = None,
     gamma: float = 0,
+    return_kraus_ops: bool = False,
 ) -> np.ndarray | list[np.ndarray]:
-    r"""Return the Kraus operators of the phase damping channel [@nielsen2011quantum].
+    r"""Return the phase damping channel [@nielsen2011quantum].
 
     The phase damping channel describes how quantum information is lost due to environmental interactions,
     causing dephasing in the computational basis without losing energy.
@@ -26,13 +29,15 @@ def phase_damping(
             convenience path will be removed in a future release. Prefer
             `apply_channel(input_mat, phase_damping(gamma=...))`.
         gamma: The dephasing rate (between 0 and 1), representing the probability of phase decoherence.
+        return_kraus_ops: If `True`, return the list of Kraus operators instead of the Choi matrix.
 
     Returns:
-        The list of Kraus operators describing the channel. When the deprecated `input_mat`
-        argument is provided, the channel applied to that input is returned instead.
+        The Choi matrix of the channel, or its list of Kraus operators when `return_kraus_ops` is
+        `True`. When the deprecated `input_mat` argument is provided, the channel applied to that
+        input is returned instead.
 
     Examples:
-        Obtain the Kraus operators and apply the channel via `apply_channel`:
+        Apply the channel (returned as a Choi matrix) to a state via `apply_channel`:
 
         ```python exec="1" source="above" result="text"
         import numpy as np
@@ -53,7 +58,8 @@ def phase_damping(
     k1 = np.diag([0, np.sqrt(gamma)])
 
     if input_mat is None:
-        return [k0, k1]
+        kraus_ops = [k0, k1]
+        return kraus_ops if return_kraus_ops else kraus_to_choi(kraus_ops)
 
     if input_mat.shape != (2, 2):
         raise ValueError("Input matrix must be 2x2 for the phase damping channel.")

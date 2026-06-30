@@ -3,7 +3,7 @@
 import numpy as np
 
 
-def depolarizing(dim: int, param_p: float = 0) -> np.ndarray:
+def depolarizing(dim: int, param_p: float = 0, return_kraus_ops: bool = False) -> np.ndarray | list[np.ndarray]:
     r"""Produce the partially depolarizing channel.
 
     (Section: Replacement Channels and the Completely Depolarizing Channel from
@@ -43,9 +43,11 @@ def depolarizing(dim: int, param_p: float = 0) -> np.ndarray:
         dim: The dimensionality on which the channel acts.
         param_p: Parameter \(p \in [0, 1]\) that interpolates between the completely depolarizing
             channel (\(p = 0\)) and the identity channel (\(p = 1\)). Default 0.
+        return_kraus_ops: If `True`, return a list of Kraus operators instead of the Choi matrix.
 
     Returns:
-        The Choi matrix of the partially depolarizing channel.
+        The Choi matrix of the partially depolarizing channel, or a list of Kraus operators when
+        `return_kraus_ops` is `True`.
 
     Raises:
         ValueError: If `param_p` is outside the interval [0,1].
@@ -101,6 +103,22 @@ def depolarizing(dim: int, param_p: float = 0) -> np.ndarray:
     # Compute the Choi matrix of the depolarizing channel.
     if param_p > 1 or param_p < 0:
         raise ValueError("The depolarizing probability must be between 0 and 1.")
+
+    if return_kraus_ops:
+        # Phi_p(rho) = sqrt(p) I rho sqrt(p) I + sum_{i,j} (1-p)/d |i><j| rho |j><i|, so the Kraus
+        # operators are sqrt(p) I together with sqrt((1-p)/d) |i><j| for all i, j. Zero-weight
+        # operators are omitted.
+        kraus_ops = []
+        if param_p > 0:
+            kraus_ops.append(np.sqrt(param_p) * np.eye(dim))
+        coeff = np.sqrt((1 - param_p) / dim)
+        if coeff > 0:
+            for i in range(dim):
+                for j in range(dim):
+                    op = np.zeros((dim, dim))
+                    op[i, j] = coeff
+                    kraus_ops.append(op)
+        return kraus_ops
 
     result = np.zeros((dim**2, dim**2), dtype=np.float64)
     np.fill_diagonal(result, (1 - param_p) / dim)

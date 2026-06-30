@@ -10,7 +10,7 @@ from toqito.channels import bitflip
 @pytest.mark.parametrize("prob", [0.0, 0.3, 0.5, 1.0])
 def test_kraus_operators(prob):
     """Test if the function returns correct Kraus operators for given probability."""
-    kraus_ops = bitflip(prob=prob)
+    kraus_ops = bitflip(prob=prob, return_kraus_ops=True)
     expected_kraus_ops = [
         np.sqrt(1 - prob) * np.eye(2),
         np.sqrt(prob) * np.array([[0, 1], [1, 0]]),
