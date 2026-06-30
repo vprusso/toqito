@@ -22,7 +22,7 @@ def is_nonnegative(input_mat: np.ndarray, mat_type: str = "nonnegative") -> bool
         Return `True` if matrix is nonnegative (or doubly nonnegative if specified), and `False` otherwise.
 
     Raises:
-        TypeError: If something other than `"doubly"` or `"nonnegative"` is used for `mat_type`.
+        ValueError: If something other than `"doubly"` or `"nonnegative"` is used for `mat_type`.
 
     Examples:
         We expect an identity matrix to be nonnegative.
@@ -39,7 +39,7 @@ def is_nonnegative(input_mat: np.ndarray, mat_type: str = "nonnegative") -> bool
     """
     valid_types = {"nonnegative", "doubly"}
     if mat_type not in valid_types:
-        raise TypeError(f"Invalid matrix check type: {mat_type}. Must be one of: {valid_types}.")
+        raise ValueError(f"Invalid matrix check type: {mat_type}. Must be one of: {valid_types}.")
 
     is_entrywise_nonnegative = bool(np.all(input_mat >= 0))
 

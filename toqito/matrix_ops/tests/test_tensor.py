@@ -38,8 +38,6 @@ matrix4 = np.array([[7, 8]])
         ((e_0, 3), 2, np.kron(np.kron(e_0, e_0), e_0)),
         # tensor product of vector with n = 3
         ((e_0, 4), 2, np.kron(np.kron(np.kron(e_0, e_0), e_0), e_0)),
-        # tensor product of empty list
-        ([], 1, None),
         # tensor product of list with one item
         ([e_0], 1, e_0),
         # tensor product of list with two items
@@ -78,3 +76,9 @@ def test_tensor_empty_args():
     r"""Test tensor with no arguments."""
     with pytest.raises(ValueError, match="The `tensor` function must take either a matrix or vector."):
         tensor()
+
+
+def test_tensor_empty_list():
+    r"""An empty input list raises ValueError rather than silently returning None."""
+    with pytest.raises(ValueError, match="at least one matrix"):
+        tensor([])
