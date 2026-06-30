@@ -32,7 +32,7 @@ rho5 = cvxpy.bmat([[1 / 2, 0, 0, 1 / 2], [0, 0, 0, 0], [0, 0, 0, 0], [1 / 2, 0, 
     ],
 )
 def test_matsumoto_fidelity(input1, input2, expected):
-    """Test functions works as expected for valid inputs."""
+    """Test function works as expected for valid inputs."""
     calculated_result = matsumoto_fidelity(input1, input2)
     assert abs(calculated_result - expected) <= 1e-03
 

@@ -37,7 +37,7 @@ def is_product(rho: np.ndarray, dim: int | list[int] | np.ndarray | None = None)
                            \end{pmatrix} \in \text{D}(\mathcal{X}).
         \]
 
-        We can provide the input as either the vector \(u\) or the denisty matrix \(\rho\).
+        We can provide the input as either the vector \(u\) or the density matrix \(\rho\).
         In either case, this represents an entangled state (and hence a non-product state).
 
         ```python exec="1" source="above" result="text" session="is_product_example"

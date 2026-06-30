@@ -20,7 +20,7 @@ depolarizing_channel = depolarizing(4)
     ],
 )
 def test_channel_fidelity(input1, input2, expected_value):
-    """Test functions works as expected for valid inputs."""
+    """Test function works as expected for valid inputs."""
     calculated_value = channel_fidelity(input1, input2, 1e-4)
     assert pytest.approx(expected_value, 1e-4) == calculated_value
 
@@ -39,7 +39,7 @@ def test_channel_fidelity(input1, input2, expected_value):
     ],
 )
 def test_channel_fidelity_raises_error(input1, input2, expected_msg):
-    """Test functions works as expected for valid inputs."""
+    """Test function works as expected for valid inputs."""
     with pytest.raises(ValueError, match=expected_msg):
         channel_fidelity(input1, input2)
 

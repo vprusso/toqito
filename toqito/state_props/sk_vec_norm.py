@@ -8,7 +8,7 @@ from toqito.state_ops import schmidt_decomposition
 def sk_vector_norm(rho: np.ndarray, k: int = 1, dim: int | list[int] | None = None) -> float | np.floating:
     r"""Compute the S(k)-norm of a vector [@johnston2010family].
 
-    The \(S(k)\)-norm of of a vector \(|v \rangle\) is
+    The \(S(k)\)-norm of a vector \(|v \rangle\) is
     defined as:
 
     \[
@@ -39,7 +39,7 @@ def sk_vector_norm(rho: np.ndarray, k: int = 1, dim: int | list[int] | None = No
         from toqito.states import max_entangled
         from toqito.state_props import sk_vector_norm
         import numpy as np
-        # Maximally entagled state.
+        # Maximally entangled state.
         v = max_entangled(4)
         print(sk_vector_norm(v))
         ```

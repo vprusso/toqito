@@ -1,6 +1,6 @@
 """Add functions for channel fidelity of Separability as defined in [@philip2023schrodinger].
 
-The constrainsts for this function are positive partial transpose (PPT)
+The constraints for this function are positive partial transpose (PPT)
 & k-extendible channels.
 """
 
@@ -120,7 +120,7 @@ def fidelity_of_separability(
     if not is_pure(psi):
         raise ValueError("This function only works for pure states.")
 
-    # We first permure psi_{BAR} to psi_{RAB} to simplify the code.
+    # We first permute psi_{BAR} to psi_{RAB} to simplify the code.
     psi = permute_systems(psi, [2, 1, 0], psi_dims)
     dim_b, dim_a, dim_r = psi_dims
     psi_dims = [dim_r, dim_a, dim_b]
@@ -131,7 +131,7 @@ def fidelity_of_separability(
     # Dimension of the Choi matrix of the extended channel.
     choi_dims = [dim_r] + [dim_a] * k
 
-    # List of extenstion systems and dimension of the Choi matrix.
+    # List of extension systems and dimension of the Choi matrix.
     sys_ext = list(range(2, 2 + k - 1))
     dim_choi = dim_r * (dim_a**k)
 

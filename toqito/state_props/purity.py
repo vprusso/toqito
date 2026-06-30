@@ -1,4 +1,4 @@
-"""Calcultes the purity of a quantum state."""
+"""Calculates the purity of a quantum state."""
 
 import numpy as np
 
@@ -8,8 +8,7 @@ from toqito.matrix_props import is_density
 def purity(rho: np.ndarray) -> float:
     r"""Compute the purity of a quantum state [@wikipediapurity].
 
-    The negativity of a subsystem can be defined in terms of a density matrix \(\rho\): The
-    purity of a quantum state \(\rho\) is defined as
+    The purity of a quantum state \(\rho\) is defined as
 
     \[
         \text{Tr}(\rho^2),

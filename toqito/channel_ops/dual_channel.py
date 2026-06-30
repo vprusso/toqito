@@ -49,7 +49,7 @@ def dual_channel(
         ValueError: If matrices are not Choi matrix.
 
     Examples:
-        When a channel is represented by a 1-D list of of Kraus operators, the CPTP dual channel can be determined
+        When a channel is represented by a 1-D list of Kraus operators, the CPTP dual channel can be determined
         as shown below.
 
         ```python exec="1" source="above" result="text"

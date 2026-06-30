@@ -39,7 +39,7 @@ def channel_fidelity(choi_1: np.ndarray, choi_2: np.ndarray, eps: float = 1e-7) 
     Args:
         choi_1: The Choi matrix of the first quantum channel.
         choi_2: The Choi matrix of the second quantum channel.
-        eps: The solver tolerance for convergence to feasability.
+        eps: The solver tolerance for convergence to feasibility.
 
     Returns:
         The channel fidelity between the channels specified by the quantum channels corresponding to the Choi matrices

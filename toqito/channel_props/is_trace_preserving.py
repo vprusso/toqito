@@ -24,7 +24,7 @@ def is_trace_preserving(
 
     for every operator \(X \in \text{L}(\mathcal{X})\).
 
-    Given the corresponding Choi matrix of the channel, a neccessary and sufficient condition is
+    Given the corresponding Choi matrix of the channel, a necessary and sufficient condition is
 
     \[
         \text{Tr}_{\mathcal{Y}} \left( J(\Phi) \right) = \mathbb{I}_{\mathcal{X}}
@@ -37,7 +37,7 @@ def is_trace_preserving(
     The dimensions of the subsystems are given by the vector `dim`. By default,
     both subsystems have equal dimension.
 
-    Alternatively, given a list of Kraus operators, a neccessary and sufficient condition is
+    Alternatively, given a list of Kraus operators, a necessary and sufficient condition is
 
     \[
         \sum_{a \in \Sigma} A_a^* B_a = \mathbb{I}_{\mathcal{X}}

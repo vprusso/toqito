@@ -34,6 +34,6 @@ from toqito.states import pusey_barrett_rudolph
     ],
 )
 def test_pusey_barrett_rudolph(n, theta, expected_value):
-    """Test functions works as expected for valid inputs."""
+    """Test function works as expected for valid inputs."""
     states = pusey_barrett_rudolph(n, theta)
     np.testing.assert_equal(states, expected_value)

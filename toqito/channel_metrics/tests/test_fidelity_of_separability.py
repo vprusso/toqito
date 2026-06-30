@@ -1,4 +1,4 @@
-"""Tests for channel Fidelity of Seperability."""
+"""Tests for channel Fidelity of Separability."""
 
 import numpy as np
 import pytest
