@@ -110,11 +110,12 @@ def is_k_incoherent(mat: np.ndarray, k: int, tol: float = 1e-15) -> bool:
         P_expr = P_expr + proj.T @ A_j @ proj
     constraints.append(mat == P_expr)
     prob = cp.Problem(cp.Minimize(1), constraints)
-    opt_val = prob.solve(solver=cp.SCS, verbose=False)
+    prob.solve(solver=cp.SCS, verbose=False)
 
-    # A failed solve returns None; guard against it so this returns False rather than raising a TypeError inside
-    # min(...). An infeasible solve returns +inf, which min(...) handles correctly.
-    if opt_val is None:
-        return False
-    # MATLAB sets ikinc = 1 - min(cvx_optval, 1); here we interpret an optimum near 1 as True.
-    return np.isclose(1 - min(opt_val, 1), 1.0)
+    # `mat` is k-incoherent exactly when this feasibility SDP has a solution: a feasible point is a
+    # decomposition of `mat` into PSD operators supported on k-element subsets. So the answer is
+    # whether the SDP is feasible, not the (constant) objective value. The previous
+    # `1 - min(opt_val, 1)` was always 0 for a feasible solve (opt_val == 1) and so always returned
+    # False. OPTIMAL_INACCURATE is treated as feasible; near the boundary of the cone the solver
+    # cannot resolve feasibility exactly, so a definitive answer there is solver-limited.
+    return prob.status in (cp.OPTIMAL, cp.OPTIMAL_INACCURATE)
