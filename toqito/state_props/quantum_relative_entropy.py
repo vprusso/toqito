@@ -3,6 +3,8 @@ r"""Quantum relative entropy for positive semidefinite matrices."""
 # Adapted from CVXQUAD (https://github.com/hfawzi/cvxquad), BSD-2-Clause.
 # Original implementation by Fawzi, Saunderson, et al.
 
+from typing import Any
+
 import cvxpy
 import numpy as np
 from scipy.linalg import logm
@@ -26,7 +28,7 @@ def quantum_relative_entropy(
     space_optimized: bool = False,
     epsilon_dec: float = 1e-2,
     solver: str = "SCS",
-    **solve_kwargs,
+    **solve_kwargs: Any,
 ) -> float:
     r"""Compute the quantum relative entropy \(D(X||Y)\) for PSD \(X\) and \(Y\).
 
