@@ -2718,6 +2718,8 @@
       
         
       
+        
+      
     
     
     
@@ -2838,6 +2840,34 @@
     
   
     <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code>geometric_mean_hypo_cone
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cones/integral_relative_entropy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code>integral_relative_entropy
   
 
     
@@ -9599,7 +9629,7 @@
 
 
 <a href="#toqito.state_opt.state_distinguishability.state_distinguishability" class="headerlink" title="Permanent link">&para;</a></h2>
-<div class="doc-signature highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">state_distinguishability</span><span class="p">(</span><span class="n">vectors</span><span class="p">:</span> <span class="n"><span title="list">list</span></span><span class="p">[</span><span class="n"><span title="numpy.ndarray">ndarray</span></span><span class="p">],</span> <span class="n">probs</span><span class="p">:</span> <span class="n"><span title="list">list</span></span><span class="p">[</span><span class="n"><span title="float">float</span></span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">strategy</span><span class="p">:</span> <span class="n"><span title="str">str</span></span> <span class="o">=</span> <span class="s1">&#39;min_error&#39;</span><span class="p">,</span> <span class="n">measurement</span><span class="p">:</span> <span class="n"><span title="str">str</span></span> <span class="o">=</span> <span class="s1">&#39;positive&#39;</span><span class="p">,</span> <span class="n">subsystems</span><span class="p">:</span> <span class="n"><span title="list">list</span></span><span class="p">[</span><span class="n"><span title="int">int</span></span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">dimensions</span><span class="p">:</span> <span class="n"><span title="list">list</span></span><span class="p">[</span><span class="n"><span title="int">int</span></span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">solver</span><span class="p">:</span> <span class="n"><span title="str">str</span></span> <span class="o">=</span> <span class="s1">&#39;cvxopt&#39;</span><span class="p">,</span> <span class="n">primal_dual</span><span class="p">:</span> <span class="n"><span title="str">str</span></span> <span class="o">=</span> <span class="s1">&#39;dual&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n"><span title="typing.Any">Any</span></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><span title="tuple">tuple</span></span><span class="p">[</span><span class="n"><span title="float">float</span></span><span class="p">,</span> <span class="n"><span title="list">list</span></span><span class="p">[</span><span class="n"><span title="picos.HermitianVariable">HermitianVariable</span></span><span class="p">]</span> <span class="o">|</span> <span class="n"><span title="list">list</span></span><span class="p">[</span><span class="n"><span title="numpy.ndarray">ndarray</span></span><span class="p">]</span> <span class="o">|</span> <span class="n"><span title="tuple">tuple</span></span><span class="p">[</span><span class="n"><span title="picos.SymmetricVariable">SymmetricVariable</span></span><span class="p">]]</span>
+<div class="doc-signature highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">state_distinguishability</span><span class="p">(</span><span class="n">vectors</span><span class="p">:</span> <span class="n"><span title="list">list</span></span><span class="p">[</span><span class="n"><span title="numpy.ndarray">ndarray</span></span><span class="p">],</span> <span class="n">probs</span><span class="p">:</span> <span class="n"><span title="list">list</span></span><span class="p">[</span><span class="n"><span title="float">float</span></span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">strategy</span><span class="p">:</span> <span class="n"><span title="str">str</span></span> <span class="o">=</span> <span class="s1">&#39;min_error&#39;</span><span class="p">,</span> <span class="n">measurement</span><span class="p">:</span> <span class="n"><span title="str">str</span></span> <span class="o">=</span> <span class="s1">&#39;positive&#39;</span><span class="p">,</span> <span class="n">subsystems</span><span class="p">:</span> <span class="n"><span title="list">list</span></span><span class="p">[</span><span class="n"><span title="int">int</span></span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">dimensions</span><span class="p">:</span> <span class="n"><span title="list">list</span></span><span class="p">[</span><span class="n"><span title="int">int</span></span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">solver</span><span class="p">:</span> <span class="n"><span title="str">str</span></span> <span class="o">=</span> <span class="s1">&#39;cvxopt&#39;</span><span class="p">,</span> <span class="n">primal_dual</span><span class="p">:</span> <span class="n"><span title="str">str</span></span> <span class="o">=</span> <span class="s1">&#39;dual&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n"><span title="typing.Any">Any</span></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><span title="tuple">tuple</span></span><span class="p">[</span><span class="n"><span title="float">float</span></span><span class="p">,</span> <span class="n"><span title="list">list</span></span><span class="p">[</span><span class="n"><span title="picos.HermitianVariable">HermitianVariable</span></span><span class="p">]</span> <span class="o">|</span> <span class="n"><span title="list">list</span></span><span class="p">[</span><span class="n"><span title="numpy.ndarray">ndarray</span></span><span class="p">]</span> <span class="o">|</span> <span class="n"><span title="tuple">tuple</span></span><span class="p">[</span><span class="n"><span title="picos.HermitianVariable">HermitianVariable</span></span><span class="p">]]</span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
@@ -9764,7 +9794,7 @@ measurements and "ppt" for PPT (positive partial transpose) measurements.</p>
           </div>
         </li>
         <li class="doc-section-item field-body">
-              <code><span title="list">list</span>[<span title="picos.HermitianVariable">HermitianVariable</span>] | <span title="list">list</span>[<span title="numpy.ndarray">ndarray</span>] | <span title="tuple">tuple</span>[<span title="picos.SymmetricVariable">SymmetricVariable</span>]</code>
+              <code><span title="list">list</span>[<span title="picos.HermitianVariable">HermitianVariable</span>] | <span title="list">list</span>[<span title="numpy.ndarray">ndarray</span>] | <span title="tuple">tuple</span>[<span title="picos.HermitianVariable">HermitianVariable</span>]</code>
           –
           <div class="doc-md-description">
             <p>set of measurements.</p>
@@ -10059,7 +10089,7 @@ measurement operators which may be of interest to us.</p>
 <a id="__codelineno-0-19" name="__codelineno-0-19"></a>    <span class="n">solver</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;cvxopt&quot;</span><span class="p">,</span>
 <a id="__codelineno-0-20" name="__codelineno-0-20"></a>    <span class="n">primal_dual</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;dual&quot;</span><span class="p">,</span>
 <a id="__codelineno-0-21" name="__codelineno-0-21"></a>    <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
-<a id="__codelineno-0-22" name="__codelineno-0-22"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="n">picos</span><span class="o">.</span><span class="n">HermitianVariable</span><span class="p">]</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">|</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">picos</span><span class="o">.</span><span class="n">SymmetricVariable</span><span class="p">]]:</span>
+<a id="__codelineno-0-22" name="__codelineno-0-22"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="n">picos</span><span class="o">.</span><span class="n">HermitianVariable</span><span class="p">]</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">|</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">picos</span><span class="o">.</span><span class="n">HermitianVariable</span><span class="p">]]:</span>
 <a id="__codelineno-0-23" name="__codelineno-0-23"></a><span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Compute probability of state distinguishability [@eldar2003semidefinite].</span>
 <a id="__codelineno-0-24" name="__codelineno-0-24"></a>
 <a id="__codelineno-0-25" name="__codelineno-0-25"></a><span class="sd">    The &quot;quantum state distinguishability&quot; problem involves a collection of \(n\) quantum states</span>
