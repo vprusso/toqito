@@ -1,11 +1,19 @@
 """Checks if the matrix is totally positive."""
 
+import warnings
 from itertools import combinations
 
 import numpy as np
 
 
-def is_totally_positive(mat: np.ndarray, tol: float = 1e-6, sub_sizes: list | None = None) -> bool:
+def is_totally_positive(
+    mat: np.ndarray,
+    rtol: float = 0.0,
+    atol: float = 1e-6,
+    sub_sizes: list | None = None,
+    *,
+    tol: float | None = None,
+) -> bool:
     r"""Determine whether a matrix is totally positive [@wikipediatotallypositive].
 
     A totally positive matrix is a square matrix where all the minors are positive. Equivalently, the determinant of
@@ -13,8 +21,11 @@ def is_totally_positive(mat: np.ndarray, tol: float = 1e-6, sub_sizes: list | No
 
     Args:
         mat: Matrix to check.
-        tol: The absolute tolerance parameter (default 1e-06).
+        rtol: Relative tolerance applied (against the largest matrix entry) when testing entries
+            for negativity. Defaults to ``0.0``, so by default only ``atol`` is used.
+        atol: Absolute tolerance parameter (default 1e-06).
         sub_sizes: List of sizes of submatrices to consider. Default is all sizes up to `min(mat.shape)`.
+        tol: Deprecated alias retained for backward compatibility; if given it sets ``atol``.
 
     Returns:
         Return `True` if matrix is totally positive, and `False` otherwise.
@@ -88,10 +99,21 @@ def is_totally_positive(mat: np.ndarray, tol: float = 1e-6, sub_sizes: list | No
         ```
 
     """
+    if tol is not None:
+        warnings.warn(
+            "`tol` is deprecated; use `atol` (and optionally `rtol`) instead.",
+            DeprecationWarning,
+            stacklevel=2,
+        )
+        atol = tol
+
     if mat.size == 0:
         raise ValueError("Empty matrix to be neither totally positive nor not totally positive.")
 
     dims = mat.shape
+
+    # Entries are flagged as negative when they fall below the combined relative/absolute threshold.
+    neg_thresh = atol + rtol * np.abs(mat).max()
 
     if sub_sizes is None:
         sub_sizes = range(1, min(dims) + 1)
@@ -99,7 +121,7 @@ def is_totally_positive(mat: np.ndarray, tol: float = 1e-6, sub_sizes: list | No
     for j in sub_sizes:
         # Handle 1x1 determinants separately.
         if j == 1:
-            r, _ = np.where(np.minimum(np.real(mat), -np.abs(np.imag(mat))) < -tol)
+            r, _ = np.where(np.minimum(np.real(mat), -np.abs(np.imag(mat))) < -neg_thresh)
             if r.size > 0:
                 return False
 
@@ -111,6 +133,6 @@ def is_totally_positive(mat: np.ndarray, tol: float = 1e-6, sub_sizes: list | No
             for kr in sub_ind_r:
                 for kc in sub_ind_c:
                     d = np.linalg.det(mat[np.ix_(kr, kc)])
-                    if d < tol or abs(np.imag(d)) > tol:
+                    if d < atol or abs(np.imag(d)) > atol:
                         return False
     return True
