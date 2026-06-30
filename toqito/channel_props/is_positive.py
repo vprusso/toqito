@@ -3,7 +3,7 @@
 import numpy as np
 
 from toqito.channel_ops import kraus_to_choi
-from toqito.matrix_props import is_positive_semidefinite
+from toqito.matrix_props import is_block_positive, is_hermitian
 
 
 def is_positive(
@@ -24,8 +24,17 @@ def is_positive(
 
     for every positive semidefinite operator \(P \in \text{Pos}(\mathcal{X})\).
 
-    Alternatively, a channel is positive if the corresponding Choi matrix of the channel is both
-    Hermitian-preserving and positive semidefinite.
+    A map is positive if and only if its Choi matrix is block positive (i.e. 1-block positive).
+    This is strictly weaker than complete positivity (which corresponds to the Choi matrix being
+    positive semidefinite), so a positive-but-not-completely-positive map such as the transpose
+    map is correctly reported as positive here while `is_completely_positive` reports it as not
+    completely positive.
+
+    Note:
+        Deciding block positivity is co-NP-hard in general; this routes through
+        [`is_block_positive`][toqito.matrix_props.is_block_positive.is_block_positive], which uses
+        an S(k)-norm computation and may raise `RuntimeError` for borderline operators it cannot
+        resolve.
 
     Args:
         phi: The channel provided as either a Choi matrix or a list of Kraus operators.
@@ -36,32 +45,15 @@ def is_positive(
         True if the channel is positive, and False otherwise.
 
     Examples:
-        We can specify the input as a list of Kraus operators. Consider the map \(\Phi\) defined as
-
-        \[
-            \Phi(X) = X - U X U^*
-        \]
-
-        where
-
-        \[
-            U = \frac{1}{\sqrt{2}}
-            \begin{pmatrix}
-                1 & 1 \\
-                -1 & -1
-            \end{pmatrix}.
-        \]
-
-        This map is not completely positive, as we can verify as follows.
+        The transpose map is positive but not completely positive. Its Choi matrix is the swap
+        operator, so we can verify that it is positive even though it is not completely positive.
 
         ```python exec="1" source="above" result="text"
-        import numpy as np
-        from toqito.channel_props import is_positive
+        from toqito.channel_props import is_positive, is_completely_positive
+        from toqito.perms import swap_operator
 
-        unitary_mat = np.array([[1, 1], [-1, -1]]) / np.sqrt(2)
-        kraus_ops = [[np.identity(2), np.identity(2)], [unitary_mat, -unitary_mat]]
-
-        print(is_positive(kraus_ops))
+        transpose_choi = swap_operator(2)
+        print(is_positive(transpose_choi), is_completely_positive(transpose_choi))
         ```
 
         We can also specify the input as a Choi matrix. For instance, consider the Choi matrix
@@ -80,4 +72,8 @@ def is_positive(
     # of Kraus operators.
     if isinstance(phi, list):
         phi = kraus_to_choi(phi)
-    return is_positive_semidefinite(phi, rtol, atol)
+    # A positive map is Hermiticity preserving, so its Choi matrix must be Hermitian.
+    if not is_hermitian(phi, rtol=rtol, atol=atol):
+        return False
+    # The map is positive iff its Choi matrix is block positive (1-block positive).
+    return is_block_positive(phi, k=1, rtol=rtol)
