@@ -82,7 +82,8 @@ def channel_exclusion(
 
     Args:
         channels: List of channels, each provided as a Choi matrix or as Kraus operators.
-        probs: Prior probabilities for the channels. If omitted, a uniform distribution is used.
+        probs: Prior weights for the channels. If omitted, a uniform distribution is used. Weights
+            need not be normalized (matching ``state_exclusion``); they are normalized internally.
         strategy: Exclusion strategy. In Phase 1, only `"min_error"` is implemented.
         solver: Optimization option for `picos` solver. Default is `"cvxopt"`.
         primal_dual: Option for the optimization problem (`"primal"` or `"dual"`).
@@ -123,8 +124,10 @@ def channel_exclusion(
         raise ValueError("Prior probabilities must be non-negative.")
 
     probs_sum = float(np.sum(probs_arr))
-    if abs(probs_sum - 1) > PROBABILITY_TOLERANCE:
-        raise ValueError("Prior probabilities must sum to 1 within tolerance.")
+    if probs_sum <= PROBABILITY_TOLERANCE:
+        raise ValueError("Prior probabilities must have a positive sum.")
+    # Accept unnormalized weights (matching state_exclusion, e.g. antidistinguishability passes
+    # [1, ..., 1]) by normalizing internally.
     probs_arr = probs_arr / probs_sum
 
     choi_channels: list[np.ndarray] = []
