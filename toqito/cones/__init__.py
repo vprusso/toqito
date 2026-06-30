@@ -11,6 +11,7 @@ with ``state_props`` and ``channels``.
 from toqito.cones.geometric_mean import geometric_mean
 from toqito.cones.geometric_mean_epi_cone import geometric_mean_epi_cone
 from toqito.cones.geometric_mean_hypo_cone import geometric_mean_hypo_cone
+from toqito.cones.integral_relative_entropy import evaluate_relative_entropy_integral
 from toqito.cones.lieb_ando import lieb_ando
 from toqito.cones.ln_quantum_entropy import ln_quantum_entropy
 from toqito.cones.operator_relative_entropy_epi_cone import (
