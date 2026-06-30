@@ -7,6 +7,39 @@ from toqito.state_opt import state_distinguishability
 from toqito.states import basis, bell
 
 
+def test_ppt_distinguishability_four_bell_states_no_resource():
+    """The four Bell states with equal priors are PPT-distinguishable with probability 1/2.
+
+    This is the bare (no resource state) case of :footcite:`Bandyopadhyay_2015_Limitations`,
+    corresponding to the closed form 1/2 (1 + sqrt(1 - eps^2)) at eps = 1. It is a small,
+    fast instance that exercises both the PPT primal and dual SDP branches so that a
+    regression in the PPT SDP construction is caught by the default (non-slow) suite.
+    """
+    states = [bell(0), bell(1), bell(2), bell(3)]
+    probs = [1 / 4, 1 / 4, 1 / 4, 1 / 4]
+
+    primal_res, _ = state_distinguishability(
+        vectors=states,
+        probs=probs,
+        measurement="ppt",
+        subsystems=[0],
+        dimensions=[2, 2],
+        strategy="min_error",
+        primal_dual="primal",
+    )
+    dual_res, _ = state_distinguishability(
+        vectors=states,
+        probs=probs,
+        measurement="ppt",
+        subsystems=[0],
+        dimensions=[2, 2],
+        strategy="min_error",
+        primal_dual="dual",
+    )
+    assert np.isclose(primal_res, 1 / 2, atol=0.001)
+    assert np.isclose(dual_res, 1 / 2, atol=0.001)
+
+
 @pytest.mark.slow
 def test_ppt_distinguishability_yyd_density_matrices():
     """PPT distinguishing the YYD states from :footcite:`Yu_2012_Four` should yield `7/8 ~ 0.875`.
