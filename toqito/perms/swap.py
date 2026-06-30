@@ -25,7 +25,8 @@ def swap(
 
     Args:
         rho: A vector or matrix to have its subsystems swapped.
-        sys: Default: [1, 2]
+        sys: The subsystems to swap, indexed starting from 1 (one-based). Default: [1, 2]. Note that
+            `partial_trace` and `partial_transpose` index subsystems starting from 0 (zero-based).
         dim: Default: `[sqrt(len(X), sqrt(len(X)))]`
         row_only: Default: `False`
 

@@ -46,7 +46,8 @@ def partial_transpose(
 
     Args:
         rho: A matrix.
-        sys: Scalar or vector specifying the size of the subsystems.
+        sys: The subsystem(s) to transpose, indexed starting from 0 (zero-based); defaults to `[1]`
+            (the second subsystem). Note that `swap` indexes subsystems starting from 1 (one-based).
         dim: Dimension of the subsystems. If `None`, all dimensions are assumed to be equal.
 
     Returns:
