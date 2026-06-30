@@ -9635,7 +9635,7 @@
     <div class="doc doc-contents ">
 
         <p>Compute the S(k)-norm of a vector <sup><a id="cite-toqito-state_props-sk_vec_norm-sk_vector_norm-1" href="#ref-toqito-state_props-sk_vec_norm-sk_vector_norm-1">1</a></sup>.</p>
-<p>The <span class="arithmatex">\(S(k)\)</span>-norm of of a vector <span class="arithmatex">\(|v \rangle\)</span> is
+<p>The <span class="arithmatex">\(S(k)\)</span>-norm of a vector <span class="arithmatex">\(|v \rangle\)</span> is
 defined as:</p>
 <div class="arithmatex">\[
     \big|\big| |v\rangle \big|\big|_{s(k)} := \text{sup}_{|w\rangle} \Big\{
@@ -9699,7 +9699,7 @@ states".</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.states</span><span class="w"> </span><span class="kn">import</span> <span class="n">max_entangled</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.state_props</span><span class="w"> </span><span class="kn">import</span> <span class="n">sk_vector_norm</span>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="c1"># Maximally entagled state.</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="c1"># Maximally entangled state.</span>
 <a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="n">v</span> <span class="o">=</span> <span class="n">max_entangled</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
 <a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="nb">print</span><span class="p">(</span><span class="n">sk_vector_norm</span><span class="p">(</span><span class="n">v</span><span class="p">))</span>
 </code></pre></div>
@@ -9780,7 +9780,7 @@ states".</p>
 <span class="normal"><a href="#__codelineno-0-73">73</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-8" name="__codelineno-0-8"></a><span class="k">def</span><span class="w"> </span><span class="nf">sk_vector_norm</span><span class="p">(</span><span class="n">rho</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">dim</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">floating</span><span class="p">:</span>
 <a id="__codelineno-0-9" name="__codelineno-0-9"></a><span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Compute the S(k)-norm of a vector [@johnston2010family].</span>
 <a id="__codelineno-0-10" name="__codelineno-0-10"></a>
-<a id="__codelineno-0-11" name="__codelineno-0-11"></a><span class="sd">    The \(S(k)\)-norm of of a vector \(|v \rangle\) is</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11"></a><span class="sd">    The \(S(k)\)-norm of a vector \(|v \rangle\) is</span>
 <a id="__codelineno-0-12" name="__codelineno-0-12"></a><span class="sd">    defined as:</span>
 <a id="__codelineno-0-13" name="__codelineno-0-13"></a>
 <a id="__codelineno-0-14" name="__codelineno-0-14"></a><span class="sd">    \[</span>
@@ -9811,7 +9811,7 @@ states".</p>
 <a id="__codelineno-0-39" name="__codelineno-0-39"></a><span class="sd">        from toqito.states import max_entangled</span>
 <a id="__codelineno-0-40" name="__codelineno-0-40"></a><span class="sd">        from toqito.state_props import sk_vector_norm</span>
 <a id="__codelineno-0-41" name="__codelineno-0-41"></a><span class="sd">        import numpy as np</span>
-<a id="__codelineno-0-42" name="__codelineno-0-42"></a><span class="sd">        # Maximally entagled state.</span>
+<a id="__codelineno-0-42" name="__codelineno-0-42"></a><span class="sd">        # Maximally entangled state.</span>
 <a id="__codelineno-0-43" name="__codelineno-0-43"></a><span class="sd">        v = max_entangled(4)</span>
 <a id="__codelineno-0-44" name="__codelineno-0-44"></a><span class="sd">        print(sk_vector_norm(v))</span>
 <a id="__codelineno-0-45" name="__codelineno-0-45"></a><span class="sd">        ```</span>

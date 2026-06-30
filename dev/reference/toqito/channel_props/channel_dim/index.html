@@ -9637,9 +9637,9 @@
         <p>Compute the input, output, and environment dimensions of a channel.</p>
 <p>This function returns the dimensions of the input, output, and environment spaces of
 input channel, in that order. Input and output dimensions are both 1-by-2 vectors
-containing the row and column dimensions of their spaces. The enviroment dimension
+containing the row and column dimensions of their spaces. The environment dimension
 is always a scalar, and it is equal to the number of Kraus operators of PHI (if PHI is
-provided as a Choi matrix then enviroment dimension is the <em>minimal</em> number of Kraus
+provided as a Choi matrix then environment dimension is the <em>minimal</em> number of Kraus
 operators of any representation of PHI).</p>
 <p>Input DIM should provided if and only if PHI is a Choi matrix with unequal input and
 output dimensions (since it is impossible to determine the input and output dimensions
@@ -9690,7 +9690,7 @@ whose entries are its Kraus operators.</p>
 )
           –
           <div class="doc-md-description">
-            <p>A flag indicating whether we compute the enviroment dimension.</p>
+            <p>A flag indicating whether we compute the environment dimension.</p>
           </div>
         </li>
     </ul>
@@ -9840,9 +9840,9 @@ whose entries are its Kraus operators.</p>
 <a id="__codelineno-0-15" name="__codelineno-0-15"></a>
 <a id="__codelineno-0-16" name="__codelineno-0-16"></a><span class="sd">    This function returns the dimensions of the input, output, and environment spaces of</span>
 <a id="__codelineno-0-17" name="__codelineno-0-17"></a><span class="sd">    input channel, in that order. Input and output dimensions are both 1-by-2 vectors</span>
-<a id="__codelineno-0-18" name="__codelineno-0-18"></a><span class="sd">    containing the row and column dimensions of their spaces. The enviroment dimension</span>
+<a id="__codelineno-0-18" name="__codelineno-0-18"></a><span class="sd">    containing the row and column dimensions of their spaces. The environment dimension</span>
 <a id="__codelineno-0-19" name="__codelineno-0-19"></a><span class="sd">    is always a scalar, and it is equal to the number of Kraus operators of PHI (if PHI is</span>
-<a id="__codelineno-0-20" name="__codelineno-0-20"></a><span class="sd">    provided as a Choi matrix then enviroment dimension is the *minimal* number of Kraus</span>
+<a id="__codelineno-0-20" name="__codelineno-0-20"></a><span class="sd">    provided as a Choi matrix then environment dimension is the *minimal* number of Kraus</span>
 <a id="__codelineno-0-21" name="__codelineno-0-21"></a><span class="sd">    operators of any representation of PHI).</span>
 <a id="__codelineno-0-22" name="__codelineno-0-22"></a>
 <a id="__codelineno-0-23" name="__codelineno-0-23"></a><span class="sd">    Input DIM should provided if and only if PHI is a Choi matrix with unequal input and</span>
@@ -9861,7 +9861,7 @@ whose entries are its Kraus operators.</p>
 <a id="__codelineno-0-36" name="__codelineno-0-36"></a><span class="sd">            whose entries are its Kraus operators.</span>
 <a id="__codelineno-0-37" name="__codelineno-0-37"></a><span class="sd">        allow_rect: A flag indicating that the input and output spaces of PHI can be non-square (default True).</span>
 <a id="__codelineno-0-38" name="__codelineno-0-38"></a><span class="sd">        dim: A scalar, vector or matrix containing the input and output dimensions of PHI.</span>
-<a id="__codelineno-0-39" name="__codelineno-0-39"></a><span class="sd">        compute_env_dim: A flag indicating whether we compute the enviroment dimension.</span>
+<a id="__codelineno-0-39" name="__codelineno-0-39"></a><span class="sd">        compute_env_dim: A flag indicating whether we compute the environment dimension.</span>
 <a id="__codelineno-0-40" name="__codelineno-0-40"></a>
 <a id="__codelineno-0-41" name="__codelineno-0-41"></a><span class="sd">    Returns:</span>
 <a id="__codelineno-0-42" name="__codelineno-0-42"></a><span class="sd">        The input, output, and environment dimensions of a channel.</span>

@@ -9634,7 +9634,7 @@
 
     <div class="doc doc-contents ">
 
-        <p>Check if matrix is diagnal dominant (DD) <sup><a id="cite-toqito-matrix_props-is_diagonally_dominant-is_diagonally_dominant-1" href="#ref-toqito-matrix_props-is_diagonally_dominant-is_diagonally_dominant-1">1</a></sup>.</p>
+        <p>Check if matrix is diagonal dominant (DD) <sup><a id="cite-toqito-matrix_props-is_diagonally_dominant-is_diagonally_dominant-1" href="#ref-toqito-matrix_props-is_diagonally_dominant-is_diagonally_dominant-1">1</a></sup>.</p>
 <p>A matrix is diagonally dominant if the matrix is square
 and if for every row of the matrix, the magnitude of the diagonal entry in a row is greater
 than or equal to the sum of the magnitudes of all the other (non-diagonal) entries in that row.</p>
@@ -9669,7 +9669,7 @@ than or equal to the sum of the magnitudes of all the other (non-diagonal) entri
               <code><span title="bool">bool</span></code>
           –
           <div class="doc-md-description">
-            <p>Return <code>True</code> if matrix is diagnally dominant, and <code>False</code> otherwise.</p>
+            <p>Return <code>True</code> if matrix is diagonally dominant, and <code>False</code> otherwise.</p>
           </div>
         </li>
     </ul>
@@ -9781,7 +9781,7 @@ than or equal to the sum of the magnitudes of all the other (non-diagonal) entri
 <span class="normal"><a href="#__codelineno-0-69">69</a></span>
 <span class="normal"><a href="#__codelineno-0-70">70</a></span>
 <span class="normal"><a href="#__codelineno-0-71">71</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-8" name="__codelineno-0-8"></a><span class="k">def</span><span class="w"> </span><span class="nf">is_diagonally_dominant</span><span class="p">(</span><span class="n">mat</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">is_strict</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-<a id="__codelineno-0-9" name="__codelineno-0-9"></a><span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Check if matrix is diagnal dominant (DD) [@wikipediadiagonallydominant].</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9"></a><span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Check if matrix is diagonal dominant (DD) [@wikipediadiagonallydominant].</span>
 <a id="__codelineno-0-10" name="__codelineno-0-10"></a>
 <a id="__codelineno-0-11" name="__codelineno-0-11"></a><span class="sd">    A matrix is diagonally dominant if the matrix is square</span>
 <a id="__codelineno-0-12" name="__codelineno-0-12"></a><span class="sd">    and if for every row of the matrix, the magnitude of the diagonal entry in a row is greater</span>
@@ -9792,7 +9792,7 @@ than or equal to the sum of the magnitudes of all the other (non-diagonal) entri
 <a id="__codelineno-0-17" name="__codelineno-0-17"></a><span class="sd">        is_strict: Whether the inequality is strict.</span>
 <a id="__codelineno-0-18" name="__codelineno-0-18"></a>
 <a id="__codelineno-0-19" name="__codelineno-0-19"></a><span class="sd">    Returns:</span>
-<a id="__codelineno-0-20" name="__codelineno-0-20"></a><span class="sd">        Return `True` if matrix is diagnally dominant, and `False` otherwise.</span>
+<a id="__codelineno-0-20" name="__codelineno-0-20"></a><span class="sd">        Return `True` if matrix is diagonally dominant, and `False` otherwise.</span>
 <a id="__codelineno-0-21" name="__codelineno-0-21"></a>
 <a id="__codelineno-0-22" name="__codelineno-0-22"></a><span class="sd">    Examples:</span>
 <a id="__codelineno-0-23" name="__codelineno-0-23"></a><span class="sd">        The following is an example of a 3-by-3 diagonal matrix:</span>

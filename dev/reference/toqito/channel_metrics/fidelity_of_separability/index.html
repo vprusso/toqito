@@ -9600,7 +9600,7 @@
     <div class="doc doc-contents first">
 
         <p>Add functions for channel fidelity of Separability as defined in <sup><a id="cite-toqito-channel_metrics-fidelity_of_separability-1" href="#ref-toqito-channel_metrics-fidelity_of_separability-1">1</a></sup>.</p>
-<p>The constrainsts for this function are positive partial transpose (PPT)
+<p>The constraints for this function are positive partial transpose (PPT)
 &amp; k-extendible channels.</p>
 <p><strong>References</strong></p>
 <p><span id="ref-toqito-channel_metrics-fidelity_of_separability-1"><sup><a href="#cite-toqito-channel_metrics-fidelity_of_separability-1">1</a></sup> Philip, Aby and Rethinasamy, Soorya and Russo, Vincent and Wilde, Mark. <em>Schr\"odinger as a Quantum Programmer: Estimating Entanglement via Steering</em>. (2023).</span></p>
@@ -10068,7 +10068,7 @@ value possible i.e. very close to 1.</p>
 <a id="__codelineno-0-120" name="__codelineno-0-120"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">is_pure</span><span class="p">(</span><span class="n">psi</span><span class="p">):</span>
 <a id="__codelineno-0-121" name="__codelineno-0-121"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;This function only works for pure states.&quot;</span><span class="p">)</span>
 <a id="__codelineno-0-122" name="__codelineno-0-122"></a>
-<a id="__codelineno-0-123" name="__codelineno-0-123"></a>    <span class="c1"># We first permure psi_{BAR} to psi_{RAB} to simplify the code.</span>
+<a id="__codelineno-0-123" name="__codelineno-0-123"></a>    <span class="c1"># We first permute psi_{BAR} to psi_{RAB} to simplify the code.</span>
 <a id="__codelineno-0-124" name="__codelineno-0-124"></a>    <span class="n">psi</span> <span class="o">=</span> <span class="n">permute_systems</span><span class="p">(</span><span class="n">psi</span><span class="p">,</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">psi_dims</span><span class="p">)</span>
 <a id="__codelineno-0-125" name="__codelineno-0-125"></a>    <span class="n">dim_b</span><span class="p">,</span> <span class="n">dim_a</span><span class="p">,</span> <span class="n">dim_r</span> <span class="o">=</span> <span class="n">psi_dims</span>
 <a id="__codelineno-0-126" name="__codelineno-0-126"></a>    <span class="n">psi_dims</span> <span class="o">=</span> <span class="p">[</span><span class="n">dim_r</span><span class="p">,</span> <span class="n">dim_a</span><span class="p">,</span> <span class="n">dim_b</span><span class="p">]</span>
@@ -10079,7 +10079,7 @@ value possible i.e. very close to 1.</p>
 <a id="__codelineno-0-131" name="__codelineno-0-131"></a>    <span class="c1"># Dimension of the Choi matrix of the extended channel.</span>
 <a id="__codelineno-0-132" name="__codelineno-0-132"></a>    <span class="n">choi_dims</span> <span class="o">=</span> <span class="p">[</span><span class="n">dim_r</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="n">dim_a</span><span class="p">]</span> <span class="o">*</span> <span class="n">k</span>
 <a id="__codelineno-0-133" name="__codelineno-0-133"></a>
-<a id="__codelineno-0-134" name="__codelineno-0-134"></a>    <span class="c1"># List of extenstion systems and dimension of the Choi matrix.</span>
+<a id="__codelineno-0-134" name="__codelineno-0-134"></a>    <span class="c1"># List of extension systems and dimension of the Choi matrix.</span>
 <a id="__codelineno-0-135" name="__codelineno-0-135"></a>    <span class="n">sys_ext</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">k</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
 <a id="__codelineno-0-136" name="__codelineno-0-136"></a>    <span class="n">dim_choi</span> <span class="o">=</span> <span class="n">dim_r</span> <span class="o">*</span> <span class="p">(</span><span class="n">dim_a</span><span class="o">**</span><span class="n">k</span><span class="p">)</span>
 <a id="__codelineno-0-137" name="__codelineno-0-137"></a>
