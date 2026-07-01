@@ -1,5 +1,7 @@
 """Check if a set of quantum channels is antidistinguishable."""
 
+from typing import Any
+
 import numpy as np
 
 from toqito.channel_metrics import channel_exclusion
@@ -9,7 +11,7 @@ def is_channel_antidistinguishable(
     channels: list[np.ndarray | list[np.ndarray] | list[list[np.ndarray]]],
     solver: str = "cvxopt",
     atol: float = 1e-6,
-    **kwargs,
+    **kwargs: Any,
 ) -> bool:
     r"""Check whether a collection of quantum channels is antidistinguishable.
 
