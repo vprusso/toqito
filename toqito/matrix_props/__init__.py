@@ -21,6 +21,7 @@ from toqito.matrix_props.is_positive_definite import is_positive_definite
 from toqito.matrix_props.is_commuting import is_commuting
 from toqito.matrix_props.is_projection import is_projection
 from toqito.matrix_props.is_unitary import is_unitary
+from toqito.matrix_props.is_isometry import is_isometry
 from toqito.matrix_props.majorizes import majorizes
 from toqito.matrix_props.sk_norm import sk_operator_norm
 from toqito.matrix_props.is_block_positive import is_block_positive
