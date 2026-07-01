@@ -6,6 +6,7 @@ import sys
 __all__ = [
     "channel_dim",
     "choi_rank",
+    "is_channel_antidistinguishable",
     "is_completely_positive",
     "is_extremal",
     "is_herm_preserving",
