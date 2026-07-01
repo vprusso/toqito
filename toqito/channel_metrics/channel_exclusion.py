@@ -39,8 +39,6 @@ import picos as pc
 from toqito.channel_ops import kraus_to_choi
 from toqito.channel_props.channel_dim import channel_dim
 
-PROBABILITY_TOLERANCE = 1e-8
-
 
 def channel_exclusion(
     channels: list[np.ndarray | list[np.ndarray] | list[list[np.ndarray]]],
@@ -48,6 +46,7 @@ def channel_exclusion(
     strategy: str = "min_error",
     solver: str = "cvxopt",
     primal_dual: str = "dual",
+    probability_tolerance: float = 1e-8,
     **kwargs: Any,
 ) -> tuple[float, list[np.ndarray]]:
     r"""Compute minimum-error channel exclusion for a collection of channels.
@@ -87,6 +86,9 @@ def channel_exclusion(
         strategy: Exclusion strategy. In Phase 1, only `"min_error"` is implemented.
         solver: Optimization option for `picos` solver. Default is `"cvxopt"`.
         primal_dual: Option for the optimization problem (`"primal"` or `"dual"`).
+        probability_tolerance: Numerical tolerance used when validating the prior weights: weights
+            below ``-probability_tolerance`` are rejected as negative, and a weight sum at or below
+            ``probability_tolerance`` is rejected as non-positive. Default is ``1e-8``.
         kwargs: Additional arguments to pass to picos' solve method.
 
     Returns:
@@ -120,11 +122,11 @@ def channel_exclusion(
         raise ValueError("The number of probabilities must match the number of channels.")
 
     probs_arr = np.array(probs, dtype=float)
-    if np.any(probs_arr < -PROBABILITY_TOLERANCE):
+    if np.any(probs_arr < -probability_tolerance):
         raise ValueError("Prior probabilities must be non-negative.")
 
     probs_sum = float(np.sum(probs_arr))
-    if probs_sum <= PROBABILITY_TOLERANCE:
+    if probs_sum <= probability_tolerance:
         raise ValueError("Prior probabilities must have a positive sum.")
     # Accept unnormalized weights (matching state_exclusion, e.g. antidistinguishability passes
     # [1, ..., 1]) by normalizing internally.
