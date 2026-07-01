@@ -11,6 +11,13 @@ on:
   release:
     types: [published]
   workflow_dispatch:
+    inputs:
+      version:
+        description: >-
+          Version to deploy as 'latest' (e.g. 1.1.8). Run the workflow from that version's tag so
+          the built docs match the release. Leave empty to deploy only the dev docs.
+        required: false
+        default: ""
 
 permissions:
   contents: write
@@ -52,16 +59,24 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-      - name: Deploy dev docs (on push to master)
-        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+      - name: Deploy dev docs (push to master, or manual run without a version)
+        if: >-
+          github.event_name == 'push' ||
+          (github.event_name == 'workflow_dispatch' && inputs.version == '')
         run: |
           cd docs
           uv run mike deploy --push dev
 
-      - name: Deploy versioned docs (on release)
-        if: github.event_name == 'release'
+      - name: Deploy versioned docs (release, or manual run with a version)
+        if: >-
+          github.event_name == 'release' ||
+          (github.event_name == 'workflow_dispatch' && inputs.version != '')
         run: |
-          VERSION=${GITHUB_REF#refs/tags/}
+          if [ "${{ github.event_name }}" = "release" ]; then
+            VERSION=${GITHUB_REF#refs/tags/}
+          else
+            VERSION="${{ inputs.version }}"
+          fi
           VERSION=${VERSION#v}
           VERSION=${VERSION#.}
           cd docs
