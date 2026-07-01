@@ -79,6 +79,7 @@ plugins:
         - "re:.*\\.tests($|\\.)"
   
   - gallery:
+      conf_script: content/gallery_conf.py
       examples_dirs: content/examples
       gallery_dirs: content/generated/gallery
       filename_pattern: \.py$
