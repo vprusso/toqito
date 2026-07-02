@@ -13,13 +13,13 @@ from toqito.channel_props.channel_dim import channel_dim
 def channel_distinguishability(
     phi: np.ndarray | list[np.ndarray] | list[list[np.ndarray]],
     psi: np.ndarray | list[np.ndarray] | list[list[np.ndarray]],
-    p: list[float] | None,
+    probs: list[float] | None = None,
     dim: int | list[int] | np.ndarray | None = None,
     strategy: str = "bayesian",
     solver: str = "cvxopt",
     primal_dual: str = "dual",
     **kwargs: Any,
-) -> float | np.floating:
+) -> tuple[float, list[np.ndarray]]:
     r"""Compute the optimal probability of distinguishing two quantum channels.
 
     Bayesian and minimax discrimination of two quantum channels are implemented.
@@ -44,7 +44,9 @@ def channel_distinguishability(
              or as a (1d or 2d) list of numpy arrays whose entries are its Kraus operators.
         psi: A superoperator. It should be provided either as a Choi matrix,
              or as a (1d or 2d) list of numpy arrays whose entries are its Kraus operators.
-        p: Prior probabilities of the two channels.
+        probs: Prior weights of the two channels (Bayesian strategy only). If omitted, a uniform
+            distribution is used. Weights need not be normalized (matching ``state_exclusion``);
+            they are normalized internally.
         dim: Input and output dimensions of the channels.
         strategy: Whether to perform Bayesian or minimax discrimination task. Possible
                   values are "Bayesian" and "minimax". Default option is `strategy="Bayesian"`.
@@ -53,13 +55,15 @@ def channel_distinguishability(
         kwargs: Additional arguments to pass to picos' solve method.
 
     Returns:
-        The optimal probability of discriminating two quantum channels.
+        A tuple ``(value, operators)``. ``value`` is the optimal probability of discriminating the
+        two channels. ``operators`` holds the optimal strategy operators for the minimax SDP
+        branches (the measurement operators for ``primal_dual="primal"`` and the dual operator for
+        ``primal_dual="dual"``) and is an empty list for the closed-form Bayesian branch.
 
     Raises:
-        ValueError: If prior probabilities not provided at all for Bayesian strategy.
         ValueError: If strategy is neither Bayesian nor minimax.
         ValueError: If channels have different input or output dimensions.
-        ValueError: If prior probabilities do not add up to 1.
+        ValueError: If the prior weights are negative or sum to zero.
         ValueError: If number of prior probabilities not equal to 2.
 
     Examples:
@@ -70,12 +74,13 @@ def channel_distinguishability(
         from toqito.channel_ops import kraus_to_choi
         from toqito.channel_metrics import channel_distinguishability
         # Define two amplitude damping channels with gamma=0.25 and gamma=0.5
-        choi_ch_1 = kraus_to_choi(amplitude_damping(gamma=0.25))
-        choi_ch_2 = kraus_to_choi(amplitude_damping(gamma=0.5))
+        choi_ch_1 = kraus_to_choi(amplitude_damping(gamma=0.25, return_kraus_ops=True))
+        choi_ch_2 = kraus_to_choi(amplitude_damping(gamma=0.5, return_kraus_ops=True))
 
-        p = [0.5, 0.5]
+        probs = [0.5, 0.5]
 
-        print(channel_distinguishability(choi_ch_1, choi_ch_2, p))
+        value, _ = channel_distinguishability(choi_ch_1, choi_ch_2, probs)
+        print(value)
         ```
 
         Optimal probability of distinguishing two amplitude damping channels in the minimax setting:
@@ -85,10 +90,13 @@ def channel_distinguishability(
         from toqito.channel_ops import kraus_to_choi
         from toqito.channel_metrics import channel_distinguishability
         # Define two amplitude damping channels with gamma=0.25 and gamma=0.5
-        choi_ch_1 = kraus_to_choi(amplitude_damping(gamma=0.25))
-        choi_ch_2 = kraus_to_choi(amplitude_damping(gamma=0.5))
+        choi_ch_1 = kraus_to_choi(amplitude_damping(gamma=0.25, return_kraus_ops=True))
+        choi_ch_2 = kraus_to_choi(amplitude_damping(gamma=0.5, return_kraus_ops=True))
 
-        print(channel_distinguishability(choi_ch_1, choi_ch_2, None, [2, 2], strategy="minimax",primal_dual="primal"))
+        value, _ = channel_distinguishability(
+            choi_ch_1, choi_ch_2, None, [2, 2], strategy="minimax", primal_dual="primal"
+        )
+        print(value)
         ```
 
     """
@@ -118,20 +126,26 @@ def channel_distinguishability(
         raise ValueError("The channels must have the same dimension input and output spaces as each other.")
 
     if strategy.lower() == "bayesian":
-        if p is None:
-            raise ValueError("Must provide valid prior probabilities for Bayesian strategy.")
+        # Default to a uniform prior, and accept unnormalized weights (matching state_exclusion).
+        probs = [1 / 2, 1 / 2] if probs is None else probs
 
-        if len(p) != 2:
-            raise ValueError("p must be a probability distribution with 2 entries.")
+        if len(probs) != 2:
+            raise ValueError("probs must be a probability distribution with 2 entries.")
 
-        if max(p) >= 1:
-            return 1
+        probs_arr = np.array(probs, dtype=float)
+        if np.any(probs_arr < 0):
+            raise ValueError("Prior probabilities must be non-negative.")
+        probs_sum = float(np.sum(probs_arr))
+        if probs_sum <= 0:
+            raise ValueError("Prior probabilities must have a positive sum.")
+        probs_arr = probs_arr / probs_sum
 
-        if abs(sum(p) - 1) != 0:
-            raise ValueError("Sum of prior probabilities must add up to 1.")
+        if max(probs_arr) >= 1:
+            return 1.0, []
 
         # optimal success probability is minimizing error probability (Bayes risk).
-        return 1 / 2 * (1 + completely_bounded_trace_norm(p[0] * phi - p[1] * psi))
+        value = 1 / 2 * (1 + completely_bounded_trace_norm(probs_arr[0] * phi - probs_arr[1] * psi))
+        return float(value), []
 
     if primal_dual == "primal":
         return _minimax_primal(phi, psi, d_in_phi[0], d_out_phi[0], solver=solver, **kwargs)
@@ -146,7 +160,7 @@ def _minimax_dual(
     dimB: int,
     solver: str = "cvxopt",
     **kwargs,
-) -> float:
+) -> tuple[float, list[np.ndarray]]:
     """Find the dual problem for minimax quantum channel distinguishability SDP."""
     J_var = list([phi, psi])
 
@@ -168,7 +182,7 @@ def _minimax_dual(
 
     problem.solve(solver=solver, **kwargs)
 
-    return problem.value
+    return problem.value, [np.array(Y_var.value)]
 
 
 def _minimax_primal(
@@ -178,7 +192,7 @@ def _minimax_primal(
     dimB: int,
     solver: str = "cvxopt",
     **kwargs,
-) -> float:
+) -> tuple[float, list[np.ndarray]]:
     """Find the primal problem for minimax quantum channel distinguishability SDP."""
     J_var = list([phi, psi])
 
@@ -198,4 +212,4 @@ def _minimax_primal(
 
     problem.solve(solver=solver, **kwargs)
 
-    return problem.value
+    return problem.value, [np.array(var.value) for var in P_var]

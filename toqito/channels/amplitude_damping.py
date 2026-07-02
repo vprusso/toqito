@@ -4,13 +4,16 @@ import warnings
 
 import numpy as np
 
+from toqito.channel_ops.kraus_to_choi import kraus_to_choi
+
 
 def amplitude_damping(
     input_mat: np.ndarray | None = None,
     gamma: float = 0,
     prob: float = 1,
+    return_kraus_ops: bool = False,
 ) -> np.ndarray | list[np.ndarray]:
-    r"""Return the Kraus operators of the generalized amplitude damping channel.
+    r"""Return the generalized amplitude damping channel.
 
     The generalized amplitude damping channel models energy dissipation in a quantum system,
     where the system can lose energy to its environment with a certain probability. The
@@ -41,13 +44,15 @@ def amplitude_damping(
             `apply_channel(input_mat, amplitude_damping(gamma=..., prob=...))`.
         gamma: The damping rate, a float between 0 and 1. Represents the probability of energy dissipation.
         prob: The probability of energy loss, a float between 0 and 1.
+        return_kraus_ops: If `True`, return the list of Kraus operators instead of the Choi matrix.
 
     Returns:
-        The list of Kraus operators describing the channel. When the deprecated `input_mat`
-        argument is provided, the channel applied to that input is returned instead.
+        The Choi matrix of the channel, or its list of Kraus operators when `return_kraus_ops` is
+        `True`. When the deprecated `input_mat` argument is provided, the channel applied to that
+        input is returned instead.
 
     Examples:
-        Obtain the Kraus operators and apply the channel via `apply_channel`:
+        Apply the channel (returned as a Choi matrix) to a state via `apply_channel`:
 
         ```python exec="1" source="above" result="text"
         import numpy as np
@@ -73,7 +78,8 @@ def amplitude_damping(
     k3 = np.sqrt(1 - prob) * np.sqrt(gamma) * np.array([[0, 0], [1, 0]])
 
     if input_mat is None:
-        return [k0, k1, k2, k3]
+        kraus_ops = [k0, k1, k2, k3]
+        return kraus_ops if return_kraus_ops else kraus_to_choi(kraus_ops)
 
     if input_mat.shape != (2, 2):
         raise ValueError("Input matrix must be 2x2 for the generalized amplitude damping channel.")

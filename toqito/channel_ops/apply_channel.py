@@ -1,9 +1,8 @@
 """Applies a quantum channel to an operator."""
 
-import itertools
-
 import numpy as np
 
+from toqito.channel_props._kraus_format import normalize_kraus
 from toqito.perms import swap, vec
 
 
@@ -101,26 +100,8 @@ def apply_channel(mat: np.ndarray, phi_op: np.ndarray | list[list[np.ndarray]]) 
 
     # The superoperator was given as a list of Kraus operators:
     if isinstance(phi_op, list):
-        s_phi_op = [len(phi_op), len(phi_op[0])]
-
-        phi_0_list = []
-        phi_1_list = []
-
-        # Map is completely positive if input is given as:
-        # 1. [K1, K2, .. Kr]
-        # 2. [[K1], [K2], .. [Kr]]
-        # 3. [[K1, K2, .. Kr]] and r > 2
-        if isinstance(phi_op[0], np.ndarray):
-            phi_0_list = phi_op
-        elif s_phi_op[1] == 1 or (s_phi_op[0] == 1 and s_phi_op[1] > 2):
-            phi_0_list = list(itertools.chain(*phi_op))
-        else:
-            # Input is given as: [[A1, B1], [A2, B2], .. [Ar, Br]]
-            phi_0_list = [k_mat[0] for k_mat in phi_op]
-            phi_1_list = [k_mat[1].conj().T for k_mat in phi_op]
-
-        if not phi_1_list:
-            phi_1_list = [k_mat.conj().T for k_mat in phi_0_list]
+        phi_0_list, phi_1_raw, _ = normalize_kraus(phi_op)
+        phi_1_list = [k_mat.conj().T for k_mat in phi_1_raw]
 
         k_1 = np.concatenate(phi_0_list, axis=1)
         k_2 = np.concatenate(phi_1_list, axis=0)

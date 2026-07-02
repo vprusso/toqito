@@ -35,7 +35,7 @@ from toqito.matrix_props import is_totally_positive
 )
 def test_is_totally_positive(mat, tol, sub_sizes, expected_result):
     """Test function works as expected for a valid input."""
-    np.testing.assert_equal(is_totally_positive(mat, tol, sub_sizes), expected_result)
+    np.testing.assert_equal(is_totally_positive(mat, atol=tol, sub_sizes=sub_sizes), expected_result)
 
 
 @pytest.mark.parametrize(
@@ -48,4 +48,10 @@ def test_is_totally_positive(mat, tol, sub_sizes, expected_result):
 def test_is_totally_positive_invalid(mat, tol, sub_sizes):
     """Test function works as expected for an invalid input."""
     with np.testing.assert_raises(ValueError):
-        is_totally_positive(mat, tol, sub_sizes)
+        is_totally_positive(mat, atol=tol, sub_sizes=sub_sizes)
+
+
+def test_is_totally_positive_deprecated_tol_alias_warns():
+    """The deprecated `tol` keyword still works but emits a DeprecationWarning."""
+    with pytest.warns(DeprecationWarning, match="tol"):
+        np.testing.assert_equal(is_totally_positive(np.array([[1, 2], [2, 5]]), tol=1e-6), True)

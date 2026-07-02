@@ -107,13 +107,16 @@ def test_dephasing_condition(mat, k, expected):
             3,
             True,
         ),
-        # Fallback: use an SDP to decide incoherence.
+        # SDP fallback, unambiguously outside the cone: a full-support rank-1 pure state
+        # |psi><psi| with psi = (1, 1, 1, 1)/2 has four nonzero entries, so it is not
+        # 3-incoherent and the feasibility SDP is infeasible.
+        (np.full((4, 4), 0.25), 3, False),
+        # SDP fallback, unambiguously inside the cone: a sum of two rank-1 states each
+        # supported on three coordinates is 3-incoherent by construction (feasible SDP).
         (
-            np.array(
-                [[0.35, 0.30, 0.00, 0.00], [0.30, 0.25, 0.00, 0.00], [0.00, 0.00, 0.25, 0.05], [0.00, 0.00, 0.05, 0.15]]
-            ),
+            (np.outer([1, 1, 1, 0], [1, 1, 1, 0]) + np.outer([0, 1, 1, 1], [0, 1, 1, 1])).astype(float),
             3,
-            False,
+            True,
         ),
     ],
 )
@@ -148,23 +151,16 @@ def test_incoherent_ball_example():
     assert is_k_incoherent(mat, k) is True
 
 
-def test_recursive_and_sdp_branch(monkeypatch):
-    """Check for SDP k-incoherent."""
-    # Choose a 4x4 state that does not trigger earlier branches.
-    X = np.array([[0.3, 0.1, 0.05, 0.05], [0.1, 0.25, 0.05, 0.05], [0.05, 0.05, 0.2, 0.05], [0.05, 0.05, 0.05, 0.2]])
-    X = X / np.trace(X)
+def test_recursive_and_sdp_branch():
+    """The SDP fallback returns True for a feasible (genuinely k-incoherent) instance.
 
-    # Force the hierarchical recursion to be indeterminate by monkeypatching the recursive call to return False.
-    monkeypatch.setattr(
-        "toqito.matrix_props.is_k_incoherent", lambda Y, k_val, tol=1e-15: False if k_val == 2 else False
-    )
-
-    # Force the SDP branch by monkeypatching the solver to return 0.0 so that 1 - min(0.0, 1) equals 1.
-    def fake_solve(self, *args, **kwargs):
-        return 0.0
-
-    monkeypatch.setattr(cp.Problem, "solve", fake_solve)
-    assert is_k_incoherent(X, 3) is True
+    The matrix is a sum of two rank-1 states each supported on three coordinates, so it is
+    3-incoherent by construction. It passes through the earlier branches (its comparison matrix
+    is not PSD and the k=2 recursion is False), so the decision is made by the feasibility SDP,
+    which is feasible here.
+    """
+    mat = (np.outer([1, 1, 1, 0], [1, 1, 1, 0]) + np.outer([0, 1, 1, 1], [0, 1, 1, 1])).astype(float)
+    assert is_k_incoherent(mat, 3) is True
 
 
 @pytest.mark.parametrize(
@@ -177,6 +173,13 @@ def test_recursive_and_sdp_branch(monkeypatch):
 def test_sdp_branch(mat, k, expected):
     """Explicitly test the SDP branch for k-incoherence."""
     assert is_k_incoherent(mat, k) is True
+
+
+def test_is_k_incoherent_deprecated_tol_alias_warns():
+    """The deprecated `tol` keyword still works but emits a DeprecationWarning."""
+    diag = np.diag([0.5, 0.5])
+    with pytest.warns(DeprecationWarning, match="tol"):
+        assert is_k_incoherent(diag, 1, tol=1e-15) is True
 
 
 def test_non_square():
@@ -201,11 +204,11 @@ def test_hierarchical_recursion(monkeypatch):
     orig_is_k_incoherent = is_k_incoherent
 
     # Monkey-patch is_k_incoherent so that when called with k == 2 it returns True.
-    def fake_is_k_incoherent(mat, k, tol=1e-15):
+    def fake_is_k_incoherent(mat, k, rtol=1e-05, atol=1e-15, *, tol=None):
         if k == 2:
             return True
         else:
-            return orig_is_k_incoherent(mat, k, tol)
+            return orig_is_k_incoherent(mat, k, rtol=rtol, atol=atol)
 
     monkeypatch.setattr("toqito.matrix_props.is_k_incoherent", fake_is_k_incoherent)
 
@@ -228,11 +231,11 @@ def test_hierarchical_recursion_branch():
     orig_is_k_incoherent = is_k_incoherent.__globals__["is_k_incoherent"]
 
     # Override is_k_incoherent so that when called with k==2 it returns True.
-    def fake_is_k_incoherent(mat, k, tol=1e-15):
+    def fake_is_k_incoherent(mat, k, rtol=1e-05, atol=1e-15, *, tol=None):
         if k == 2:
             return True
         else:
-            return orig_is_k_incoherent(mat, k, tol)
+            return orig_is_k_incoherent(mat, k, rtol=rtol, atol=atol)
 
     # Patch the global lookup so that recursive calls use fake_is_k_incoherent.
     is_k_incoherent.__globals__["is_k_incoherent"] = fake_is_k_incoherent

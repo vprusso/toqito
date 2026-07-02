@@ -122,13 +122,16 @@ def measure(
 
     # Single-operator case.
     if not isinstance(measurement, (list, tuple)):
+        if not state_update:
+            # Only the probability Tr(M rho M^dagger) = Tr(M^dagger M rho) is needed.
+            return np.trace(measurement.conj().T @ measurement @ state).real
         result = measurement @ state @ measurement.conj().T
         prob = np.trace(result).real
         if prob > tol:
             post_state = result / prob
         else:
             post_state = np.zeros_like(state)
-        return (prob, post_state) if state_update else prob
+        return prob, post_state
 
     # List-of-operators case.
     if len(measurement) == 0:

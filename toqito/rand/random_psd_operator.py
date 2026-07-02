@@ -115,9 +115,10 @@ def random_psd_operator(
         if not is_real:
             rand_mat = rand_mat + 1j * gen.random((dim, dim))
         rand_mat = (rand_mat.conj().T + rand_mat) / 2
+        # eigh already returns an orthonormal eigenvector matrix, so the extra qr is redundant: it
+        # only flips column signs, which cancel in V diag V^dagger.
         eigenvals, eigenvecs = np.linalg.eigh(rand_mat)
-        q_mat, _ = np.linalg.qr(eigenvecs)
-        return q_mat @ np.diag(np.abs(eigenvals)) @ q_mat.conj().T
+        return eigenvecs @ np.diag(np.abs(eigenvals)) @ eigenvecs.conj().T
 
     if distribution == "wishart":
         if scale is None:

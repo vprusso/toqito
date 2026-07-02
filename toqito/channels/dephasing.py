@@ -5,7 +5,7 @@ import numpy as np
 from toqito.states import max_entangled
 
 
-def dephasing(dim: int, param_p: float = 0) -> np.ndarray:
+def dephasing(dim: int, param_p: float = 0, return_kraus_ops: bool = False) -> np.ndarray | list[np.ndarray]:
     r"""Produce the partially dephasing channel.
 
     (Section: The Completely Dephasing Channel from [@watrous2018theory]).
@@ -44,9 +44,11 @@ def dephasing(dim: int, param_p: float = 0) -> np.ndarray:
         dim: The dimensionality on which the channel acts.
         param_p: Parameter \(p \in [0, 1]\) that interpolates between the completely dephasing
             channel (\(p = 0\)) and the identity channel (\(p = 1\)). Default 0.
+        return_kraus_ops: If `True`, return a list of Kraus operators instead of the Choi matrix.
 
     Returns:
-        The Choi matrix of the partially dephasing channel.
+        The Choi matrix of the partially dephasing channel, or a list of Kraus operators when
+        `return_kraus_ops` is `True`.
 
     Raises:
         ValueError: If `param_p` is outside the interval [0, 1].
@@ -105,6 +107,20 @@ def dephasing(dim: int, param_p: float = 0) -> np.ndarray:
         raise ValueError("The dephasing parameter must be between 0 and 1.")
 
     # Compute the Choi matrix of the dephasing channel.
+
+    if return_kraus_ops:
+        # Phi_p(rho) = p rho + (1-p) sum_i <i|rho|i> |i><i|, so the Kraus operators are sqrt(p) I
+        # together with sqrt(1-p) |i><i| for each i. Zero-weight operators are omitted.
+        kraus_ops = []
+        if param_p > 0:
+            kraus_ops.append(np.sqrt(param_p) * np.eye(dim))
+        coeff = np.sqrt(1 - param_p)
+        if coeff > 0:
+            for i in range(dim):
+                op = np.zeros((dim, dim))
+                op[i, i] = coeff
+                kraus_ops.append(op)
+        return kraus_ops
 
     psi = max_entangled(dim=dim, is_sparse=False, is_normalized=False)
     psi_proj = psi @ psi.conj().T

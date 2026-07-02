@@ -47,12 +47,21 @@ def test_channel_exclusion_primal_dual_agree_mixed_representations():
     assert abs(primal_value - dual_value) <= 1e-5
 
 
-def test_channel_exclusion_invalid_probability_sum():
-    """Probabilities must sum to 1 up to a small tolerance."""
+def test_channel_exclusion_accepts_unnormalized_weights():
+    """Unnormalized weights are accepted and normalized internally (matching state_exclusion)."""
     channels = [depolarizing(2, 0.2), depolarizing(2, 0.9)]
 
-    with pytest.raises(ValueError, match="Prior probabilities must sum to 1 within tolerance."):
-        channel_exclusion(channels=channels, probs=[0.7, 0.4])
+    val_unnormalized, _ = channel_exclusion(channels=channels, probs=[2.0, 2.0])
+    val_normalized, _ = channel_exclusion(channels=channels, probs=[0.5, 0.5])
+    assert val_unnormalized == pytest.approx(val_normalized, abs=1e-6)
+
+
+def test_channel_exclusion_invalid_probability_sum():
+    """Weights summing to zero are rejected."""
+    channels = [depolarizing(2, 0.2), depolarizing(2, 0.9)]
+
+    with pytest.raises(ValueError, match="Prior probabilities must have a positive sum."):
+        channel_exclusion(channels=channels, probs=[0.0, 0.0])
 
 
 def test_channel_exclusion_invalid_number_of_channels():

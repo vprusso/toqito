@@ -7,16 +7,16 @@ from toqito.channel_ops import kraus_to_choi
 from toqito.channels import amplitude_damping, dephasing, depolarizing, phase_damping
 
 # Creating two amplitude damping channels.
-amp_damp_1 = kraus_to_choi(amplitude_damping(gamma=0.22))
-amp_damp_2 = kraus_to_choi(amplitude_damping(gamma=0.35))
+amp_damp_1 = kraus_to_choi(amplitude_damping(gamma=0.22, return_kraus_ops=True))
+amp_damp_2 = kraus_to_choi(amplitude_damping(gamma=0.35, return_kraus_ops=True))
 
 # In Kraus representation.
-amp_damp_1_kraus = amplitude_damping(gamma=0.22)
-amp_damp_2_kraus = amplitude_damping(gamma=0.35)
+amp_damp_1_kraus = amplitude_damping(gamma=0.22, return_kraus_ops=True)
+amp_damp_2_kraus = amplitude_damping(gamma=0.35, return_kraus_ops=True)
 
 # Creating two phase damping channels.
-ph_damp_1 = kraus_to_choi(phase_damping(gamma=0.22))
-ph_damp_2 = kraus_to_choi(phase_damping(gamma=0.35))
+ph_damp_1 = kraus_to_choi(phase_damping(gamma=0.22, return_kraus_ops=True))
+ph_damp_2 = kraus_to_choi(phase_damping(gamma=0.35, return_kraus_ops=True))
 
 
 @pytest.mark.parametrize(
@@ -30,14 +30,17 @@ ph_damp_2 = kraus_to_choi(phase_damping(gamma=0.35))
         (amp_damp_1_kraus, amp_damp_2, [0.2, 0.8], [2, 2], 0.8),
         # Both channels in Kraus representation.
         (amp_damp_1_kraus, amp_damp_2_kraus, [0.2, 0.8], [2, 2], 0.8),
-        # Same as previous channels but max(p) > 1.
-        (amp_damp_1_kraus, amp_damp_2, [0.2, 1.8], [2, 2], 1),
+        # Degenerate prior (certain which channel): trivially distinguishable.
+        (amp_damp_1_kraus, amp_damp_2, [1.0, 0.0], [2, 2], 1),
+        # Unnormalized weights are accepted and normalized internally ([2, 8] -> [0.2, 0.8]).
+        (amp_damp_1, amp_damp_2, [2, 8], [2, 2], 0.8),
     ],
 )
 def test_channel_distinguishability_bayesian(test_input_1, test_input_2, prior_prob, dim, expected):
     """Test function for Bayesian channel discrimination."""
-    calculated_value = channel_distinguishability(test_input_1, test_input_2, prior_prob, dim)
+    calculated_value, operators = channel_distinguishability(test_input_1, test_input_2, prior_prob, dim)
     assert pytest.approx(expected, 1e-3) == calculated_value
+    assert operators == []
 
 
 @pytest.mark.parametrize(
@@ -51,7 +54,7 @@ def test_channel_distinguishability_bayesian(test_input_1, test_input_2, prior_p
 )
 def test_channel_distinguishability_minimax(test_input_1, test_input_2, prior_prob, dim, primal_dual, expected):
     """Test function for minimax channel discrimination."""
-    calculated_value = channel_distinguishability(
+    calculated_value, operators = channel_distinguishability(
         test_input_1,
         test_input_2,
         prior_prob,
@@ -60,6 +63,8 @@ def test_channel_distinguishability_minimax(test_input_1, test_input_2, prior_pr
         primal_dual=primal_dual,
     )
     assert pytest.approx(expected, 1e-3) == calculated_value
+    # The minimax SDP branches return optimal strategy operators.
+    assert len(operators) >= 1
 
 
 @pytest.mark.parametrize(
@@ -131,29 +136,29 @@ def test_channel_distinguishability_invalid_primal_dual():
 @pytest.mark.parametrize(
     "test_input1, test_input_2, prior_prob, dim, expected_msg",
     [
-        # Sum of prior probabilities greater than 1.
-        (
-            dephasing(2),
-            dephasing(2),
-            [0.5, 0.9],
-            [2, 2],
-            "Sum of prior probabilities must add up to 1.",
-        ),
         # Length of prior probability list not equal to two.
         (
             dephasing(2),
             dephasing(2),
             [0.5],
             [2, 2],
-            "p must be a probability distribution with 2 entries.",
+            "probs must be a probability distribution with 2 entries.",
         ),
-        # Prior probability must be provided for Bayesian strategy.
+        # Negative weights are rejected.
         (
             dephasing(2),
             dephasing(2),
-            None,
+            [-0.5, 1.5],
             [2, 2],
-            "Must provide valid prior probabilities for Bayesian strategy.",
+            "Prior probabilities must be non-negative.",
+        ),
+        # Weights summing to zero are rejected.
+        (
+            dephasing(2),
+            dephasing(2),
+            [0.0, 0.0],
+            [2, 2],
+            "Prior probabilities must have a positive sum.",
         ),
     ],
 )
@@ -161,3 +166,10 @@ def test_bayesian_channel_distinguishability_invalid_inputs(test_input1, test_in
     """Test function raises error as expected for invalid inputs for bayesian setting."""
     with pytest.raises(ValueError, match=expected_msg):
         channel_distinguishability(test_input1, test_input_2, prior_prob, dim)
+
+
+def test_bayesian_channel_distinguishability_uniform_default():
+    """When probs is omitted, the Bayesian strategy uses a uniform prior."""
+    value_default, _ = channel_distinguishability(dephasing(2), dephasing(2), None, [2, 2])
+    value_uniform, _ = channel_distinguishability(dephasing(2), dephasing(2), [0.5, 0.5], [2, 2])
+    assert pytest.approx(value_uniform, 1e-6) == value_default

@@ -1,8 +1,8 @@
 """Channel dimensions coputes and returns the input, output and environment dimensions of a channel."""
 
-import itertools
-
 import numpy as np
+
+from toqito.channel_props._kraus_format import normalize_kraus
 
 
 def channel_dim(
@@ -46,28 +46,16 @@ def channel_dim(
     dim_out = np.zeros(2, dtype=int)
 
     if isinstance(phi, list):
-        sz_phi_op = [len(phi), len(phi[0])]
+        left_ops, right_ops, is_cpt = normalize_kraus(phi)
 
-        # Map is completely positive if input is given as:
-        # 1. [K1, K2, .. Kr]
-        # 2. [[K1], [K2], .. [Kr]]
-        # 3. [[K1, K2, .. Kr]] and r > 2
-        is_cpt = False
-        if isinstance(phi[0], list) and (sz_phi_op[1] == 1 or (sz_phi_op[0] == 1 and sz_phi_op[1] > 2)):
-            # get a flat list of Kraus operators.
-            phi = list(itertools.chain(*phi))
-            is_cpt = True
-
-        dim_e = len(phi)
-        if isinstance(phi[0], np.ndarray):
-            dim_out[0], dim_in[0] = phi[0].shape
+        dim_e = len(left_ops)
+        dim_out[0], dim_in[0] = left_ops[0].shape
+        if is_cpt:
             # input and output are squares.
             dim_in[1] = dim_in[0]
             dim_out[1] = dim_out[0]
-            is_cpt = True
         else:
-            dim_out[0], dim_in[0] = phi[0][0].shape
-            dim_out[1], dim_in[1] = phi[0][1].shape
+            dim_out[1], dim_in[1] = right_ops[0].shape
 
         if dim is None:
             dim = np.vstack([dim_in, dim_out]).T
@@ -80,10 +68,11 @@ def channel_dim(
         if np.any(dim != np.vstack([dim_in, dim_out]).T):
             raise ValueError("The dimensions of PHI do not match those provided in the DIM argument.")
 
-        if (is_cpt and any(k_mat.shape != (dim[0, 1], dim[0, 0]) for k_mat in phi)) or (
+        if (is_cpt and any(k_mat.shape != (dim[0, 1], dim[0, 0]) for k_mat in left_ops)) or (
             not is_cpt
             and any(
-                k_mat[0].shape != (dim[0, 1], dim[0, 0]) or k_mat[1].shape != (dim[1, 1], dim[1, 0]) for k_mat in phi
+                left.shape != (dim[0, 1], dim[0, 0]) or right.shape != (dim[1, 1], dim[1, 0])
+                for left, right in zip(left_ops, right_ops)
             )
         ):
             raise ValueError("The Kraus operators of PHI do not all have the same size.")

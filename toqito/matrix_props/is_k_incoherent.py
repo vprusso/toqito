@@ -1,5 +1,6 @@
 """Checks if the matrix is $k$-incoherent."""
 
+import warnings
 from itertools import combinations
 
 import cvxpy as cp
@@ -9,7 +10,9 @@ from toqito.matrices import comparison
 from toqito.matrix_props import is_positive_semidefinite, is_square
 
 
-def is_k_incoherent(mat: np.ndarray, k: int, tol: float = 1e-15) -> bool:
+def is_k_incoherent(
+    mat: np.ndarray, k: int, rtol: float = 1e-05, atol: float = 1e-15, *, tol: float | None = None
+) -> bool:
     r"""Determine whether a quantum state is k-incoherent [@johnston2022absolutely].
 
     For a positive integers, \(k\) and \(n\), the matrix \(X \in \text{Pos}(\mathbb{C}^n)\) is called
@@ -32,7 +35,9 @@ def is_k_incoherent(mat: np.ndarray, k: int, tol: float = 1e-15) -> bool:
     Args:
         mat: Density matrix to test.
         k: The positive integer coherence level.
-        tol: Tolerance for numerical comparisons (default is 1e-15).
+        rtol: Relative tolerance for the diagonal comparison (default 1e-05).
+        atol: Absolute tolerance for the diagonal comparison (default 1e-15).
+        tol: Deprecated alias retained for backward compatibility; if given it sets ``atol``.
 
     Returns:
         True if `mat` is k-incoherent, False otherwise.
@@ -57,6 +62,14 @@ def is_k_incoherent(mat: np.ndarray, k: int, tol: float = 1e-15) -> bool:
             [is_absolutely_k_incoherent()][toqito.matrix_props.is_absolutely_k_incoherent.is_absolutely_k_incoherent]
 
     """
+    if tol is not None:
+        warnings.warn(
+            "`tol` is deprecated; use `rtol` and `atol` instead.",
+            DeprecationWarning,
+            stacklevel=2,
+        )
+        atol = tol
+
     if k <= 0:
         raise ValueError("k must be a positive integer.")
     if not is_square(mat):
@@ -68,7 +81,7 @@ def is_k_incoherent(mat: np.ndarray, k: int, tol: float = 1e-15) -> bool:
         return True
 
     # If `mat` is diagonal, it is declared k-incoherent.
-    if np.allclose(mat, np.diag(np.diag(mat)), atol=tol):
+    if np.allclose(mat, np.diag(np.diag(mat)), rtol=rtol, atol=atol):
         return True
 
     # For k == 1, only diagonal states are 1-incoherent.
@@ -89,7 +102,7 @@ def is_k_incoherent(mat: np.ndarray, k: int, tol: float = 1e-15) -> bool:
         return True
 
     # Hierarchical recursion: for k >= 2 check incoherence for k-1.
-    rec = is_k_incoherent(mat, k - 1)
+    rec = is_k_incoherent(mat, k - 1, rtol=rtol, atol=atol)
     if rec is not None and rec is not False:
         return rec
 
@@ -110,11 +123,12 @@ def is_k_incoherent(mat: np.ndarray, k: int, tol: float = 1e-15) -> bool:
         P_expr = P_expr + proj.T @ A_j @ proj
     constraints.append(mat == P_expr)
     prob = cp.Problem(cp.Minimize(1), constraints)
-    opt_val = prob.solve(solver=cp.SCS, verbose=False)
+    prob.solve(solver=cp.SCS, verbose=False)
 
-    # A failed solve returns None; guard against it so this returns False rather than raising a TypeError inside
-    # min(...). An infeasible solve returns +inf, which min(...) handles correctly.
-    if opt_val is None:
-        return False
-    # MATLAB sets ikinc = 1 - min(cvx_optval, 1); here we interpret an optimum near 1 as True.
-    return np.isclose(1 - min(opt_val, 1), 1.0)
+    # `mat` is k-incoherent exactly when this feasibility SDP has a solution: a feasible point is a
+    # decomposition of `mat` into PSD operators supported on k-element subsets. So the answer is
+    # whether the SDP is feasible, not the (constant) objective value. The previous
+    # `1 - min(opt_val, 1)` was always 0 for a feasible solve (opt_val == 1) and so always returned
+    # False. OPTIMAL_INACCURATE is treated as feasible; near the boundary of the cone the solver
+    # cannot resolve feasibility exactly, so a definitive answer there is solver-limited.
+    return prob.status in (cp.OPTIMAL, cp.OPTIMAL_INACCURATE)
