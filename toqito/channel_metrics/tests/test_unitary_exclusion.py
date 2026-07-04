@@ -21,9 +21,7 @@ def pauli_roots(theta: float) -> list[np.ndarray]:
 @pytest.mark.parametrize("primal_dual", ["primal", "dual"])
 def test_paulis_antidistinguishable_with_bell_probe(primal_dual):
     """The three Pauli unitaries are perfectly excludable with a maximally entangled probe."""
-    value, measurements = unitary_exclusion(
-        PAULIS, probe=bell(0), primal_dual=primal_dual, cvxopt_kktsolver="ldl"
-    )
+    value, measurements = unitary_exclusion(PAULIS, probe=bell(0), primal_dual=primal_dual, cvxopt_kktsolver="ldl")
     assert abs(value) <= 1e-6
     assert len(measurements) == 3
 
