@@ -9,3 +9,4 @@ from toqito.channel_metrics.completely_bounded_trace_norm import completely_boun
 from toqito.channel_metrics.completely_bounded_spectral_norm import completely_bounded_spectral_norm
 from toqito.channel_metrics.channel_distinguishability import channel_distinguishability
 from toqito.channel_metrics.channel_exclusion import channel_exclusion
+from toqito.channel_metrics.unitary_exclusion import unitary_exclusion
