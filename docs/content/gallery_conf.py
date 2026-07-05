@@ -46,4 +46,6 @@ def _populate_subsections(self) -> None:
 
 Gallery.populate_subsections = _populate_subsections
 
-conf = {"subsection_order": SUBSECTION_ORDER}
+# remove_config_comments strips gallery directives (e.g. mkdocs_gallery_thumbnail_path)
+# from the rendered pages instead of showing them as literal text.
+conf = {"subsection_order": SUBSECTION_ORDER, "remove_config_comments": True}

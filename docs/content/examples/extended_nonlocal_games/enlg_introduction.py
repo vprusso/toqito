@@ -240,5 +240,8 @@ non-signaling strategies as well as the relationships between their values.
 # games and use `|toqito⟩` to calculate their various values.
 #
 # %%
-# mkdocs_gallery_thumbnail_path = 'figures/extended_nonlocal_game.svg'
 # We will start by examining the BB84 extended nonlocal game in [The BB84 extended nonlocal game](enlg_bb84.md)
+
+# %%
+
+# mkdocs_gallery_thumbnail_path = 'figures/extended_nonlocal_game.svg'

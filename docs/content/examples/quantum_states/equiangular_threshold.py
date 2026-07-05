@@ -2,7 +2,7 @@
 
 In this tutorial, we explore a sharp threshold for the antidistinguishability
 of a special class of quantum states known as equiangular states. We will
-numerically verify a tight bound presented in the paper by Johnson et.al
+numerically verify a tight bound presented in the paper by Johnston et al.
 [@johnston2025tight] and visualize the "sharp cliff" where this
 property changes.
 
@@ -17,12 +17,13 @@ This tutorial builds upon the concepts introduced in the [Quantum state exclusio
 # any two distinct states is a constant, i.e.,
 # $|\langle \psi_i | \psi_j \rangle| = \gamma$ for all $i \neq j$.
 #
-# Johnston et.al [@johnston2025tight]
-# introduced a simple and powerful necessary condition for a set of states to be
-# antidistinguishable.
+# A simple and powerful necessary condition for a set of states to be
+# antidistinguishable was established in [@russo2023inner]; a simpler proof,
+# along with a demonstration that the bound is tight, was later given in
+# [@johnston2025tight].
 #
 # According to **Corollary 4.2 from** [@johnston2025tight], when $n \geq 2$, $S = \{|
-# \psi_0\rangle, \ldots, |\psi_{n-1}\rangle\}$ is not anstidistinguishable if the following condition is satisfied.
+# \psi_0\rangle, \ldots, |\psi_{n-1}\rangle\}$ is not antidistinguishable if the following condition is satisfied.
 #
 # $$
 # |\langle \psi_i | \psi_j \rangle| > \frac{n-2}{n-1}

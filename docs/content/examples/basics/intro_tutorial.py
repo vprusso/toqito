@@ -7,7 +7,7 @@ entanglement and PPT.
 """
 # %%
 # This is an introduction to the functionality in `|toqito⟩` and is not meant to serve as an
-# introduction to quantum information. For more information, please consult the book [@nielsen2011quantum] or the freely available lecture notes [@watrous2018theory].
+# introduction to quantum information. For more information, please consult the book [@nielsen2011quantum] or the freely available book [@watrous2018theory].
 #
 # This tutorial assumes you have `|toqito⟩` installed on your machine. If you
 # do not, please consult the installation instructions in [Getting Started](../../../getting-started.md).
@@ -757,7 +757,7 @@ measure(proj_1, rho)
 # G_i = P^{-1/2} \left(p_i \rho_i\right) P^{-1/2} \quad \text{where} \quad P = \sum_{i=1}^n p_i \rho_i.
 # $$
 #
-# This measurement was initially defined in [@hughston1993complete] and has found applications in quantum state discrimination tasks.
+# This measurement was initially defined in [@belavkin1975optimal] and later studied in [@hughston1993complete], and has found applications in quantum state discrimination tasks.
 # While not always optimal, the PGM provides a reasonable measurement strategy that can be computed efficiently.
 #
 # For example, consider the following trine states:
@@ -781,10 +781,11 @@ pgm
 #
 # Similarly, we can consider so-called "pretty bad measurement" (PBM) on the set of trine states [@mcirvin2024pretty].
 #
-# The pretty bad measurement (PBM) is a set of POVMs $(B_1, \ldots, B_n)$ defined as
+# The pretty bad measurement (PBM) is a set of POVMs $(B_1, \ldots, B_n)$ defined in
+# terms of the pretty good measurement operators $(G_1, \ldots, G_n)$ as
 #
 # $$
-# B_i = \left(P + (n-1)p_i \rho_i\right)^{-1} p_i \rho_i \left(P + (n-1)p_i \rho_i\right)^{-1} \quad \text{where} \quad P = \sum_{i=1}^n p_i \rho_i.
+# B_i = \frac{1}{n-1}\left(\mathbb{I} - G_i\right).
 # $$
 #
 # Like the PGM, the PBM provides a measurement strategy for quantum state discrimination, but with different properties that can be useful in certain contexts.

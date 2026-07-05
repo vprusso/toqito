@@ -414,7 +414,7 @@ print(f"Maximum quantum value after multiple runs is: {max(results)}")
 # $$
 #
 # It is well-known that both the classical and quantum value of this nonlocal
-# game is $2/3$ [@cleve2010consequences]. We can verify this fact using `|toqito⟩`.
+# game is $2/3$ [@watrous2020advanced]. We can verify this fact using `|toqito⟩`.
 # The following example encodes the FFL game. We then calculate the classical
 # value and calculate lower bounds on the quantum value of the FFL game.
 #
