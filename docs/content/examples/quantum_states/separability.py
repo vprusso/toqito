@@ -23,14 +23,14 @@ entangled states, Werner states, and random density matrices.
 # !!! note
 #
 #     Determining separability is **NP-hard** in general
-#     [@gurvits2002largest]. The `is_separable` function in `|toqito⟩`
+#     [@gurvits2003classical]. The `is_separable` function in `|toqito⟩`
 #     applies a hierarchy of increasingly powerful tests, returning
 #     `True` (separable) or `False` (entangled) based on which test
 #     provides a definitive answer.
 #
 # ## The hierarchy of checks
 #
-# The `is_separable` function runs through 13 tests in order:
+# The `is_separable` function runs through the following tests in order:
 #
 # 1. **Trivial cases** — one subsystem has dimension 1
 # 2. **Pure states** — Schmidt rank check
@@ -123,8 +123,8 @@ print(f"Random state is separable: {sep} (reason: {reason})")
 # %%
 # ## Example: States near the maximally mixed state
 #
-# The Gurvits-Barnum separable ball criterion guarantees that states
-# sufficiently close to $I/d$ are separable. The maximally mixed state
+# The Gurvits-Barnum separable ball criterion [@gurvits2002largest]
+# guarantees that states sufficiently close to $I/d$ are separable. The maximally mixed state
 # itself is trivially separable.
 
 # %%
@@ -157,4 +157,5 @@ print(f"Near-mixed state is separable: {sep} (reason: {reason})")
 # $$
 
 # %%
+
 # mkdocs_gallery_thumbnail_path = 'figures/quantum_state_distinguish.svg'

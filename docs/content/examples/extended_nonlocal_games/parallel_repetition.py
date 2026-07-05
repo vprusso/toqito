@@ -99,8 +99,9 @@ print(f"Exact (cos²(π/8)):    {exact:.5f}")
 # ### Strong parallel repetition for unentangled strategies
 #
 # For unentangled (classical) strategies, strong parallel repetition
-# *does* hold. The unentangled value of the 2-fold repetition should
-# equal the square of the single-game value:
+# *does* hold, as shown in [@johnston2016extended]. The unentangled
+# value of the 2-fold repetition should equal the square of the
+# single-game value:
 #
 # $$
 # \omega(G_{BB84}^2) = \omega(G_{BB84})^2 = \cos^4(\pi/8) \approx 0.729.
@@ -120,7 +121,7 @@ print(f"Strong parallel rep holds: {np.isclose(omega_ue_2, expected_ue_2, atol=1
 # ### Failure of strong parallel repetition for non-signaling strategies
 #
 # In contrast, the non-signaling value does *not* satisfy strong
-# parallel repetition. As shown in [@cosentino2015quantum], the
+# parallel repetition. As shown in [@russo2017extended], the
 # non-signaling value of $G_{BB84}^2$ is strictly greater than
 # $\omega_{ns}(G_{BB84})^2$:
 #
@@ -159,7 +160,9 @@ print(f"ω_ns(G²) > ω_ns(G)²: {omega_ns_2 > expected_ns_2 + 1e-3}")
 #    repetition remains an open question for many extended nonlocal
 #    games, including BB84.
 #
-# For further details, see [@cosentino2015quantum].
+# For further details, see [@johnston2016extended] and
+# [@russo2017extended].
 
 # %%
+
 # mkdocs_gallery_thumbnail_path = 'figures/extended_nonlocal_game.svg'
