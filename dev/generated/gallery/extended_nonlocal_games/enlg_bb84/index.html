@@ -9982,21 +9982,20 @@ however, in this case, it will prove to be useful.</p>
 <p>It turns out that strong parallel repetition does <em>not</em> hold in the
 non-signaling scenario for the BB84 game. This was shown in <sup id="fnref:russo2017extended"><a class="footnote-ref" href="#fn:russo2017extended">3</a></sup>, and we
 can observe this by the following snippet.</p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 188-203 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 188-202 -->
 
 <div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c1"># The non-signaling value of BB84 under parallel repetition.</span>
 <a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>
-<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="c1"># mkdocs_gallery_thumbnail_path = &#39;figures/bb84_bases.png&#39;</span>
-<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.nonlocal_games.extended_nonlocal_game</span><span class="w"> </span><span class="kn">import</span> <span class="n">ExtendedNonlocalGame</span>
-<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>
-<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="c1"># Define the bb84 game for two parallel repetitions.</span>
-<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="n">bb84_2_reps</span> <span class="o">=</span> <span class="n">ExtendedNonlocalGame</span><span class="p">(</span><span class="n">bb84_prob_mat</span><span class="p">,</span> <span class="n">bb84_pred_mat</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-<a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>
-<a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a><span class="c1"># The non-signaling value for two parallel repetitions is cos(pi/8)**4 \approx 0.73825</span>
-<a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a><span class="nb">print</span><span class="p">(</span>
-<a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a>    <span class="s2">&quot;The non-signaling value for two parallel repetitions is &quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">around</span><span class="p">(</span><span class="n">bb84_2_reps</span><span class="o">.</span><span class="n">nonsignaling_value</span><span class="p">(),</span> <span class="n">decimals</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-<a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a><span class="p">)</span>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.nonlocal_games.extended_nonlocal_game</span><span class="w"> </span><span class="kn">import</span> <span class="n">ExtendedNonlocalGame</span>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="c1"># Define the bb84 game for two parallel repetitions.</span>
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="n">bb84_2_reps</span> <span class="o">=</span> <span class="n">ExtendedNonlocalGame</span><span class="p">(</span><span class="n">bb84_prob_mat</span><span class="p">,</span> <span class="n">bb84_pred_mat</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>
+<a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a><span class="c1"># The non-signaling value for two parallel repetitions is cos(pi/8)**4 \approx 0.73825</span>
+<a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a><span class="nb">print</span><span class="p">(</span>
+<a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a>    <span class="s2">&quot;The non-signaling value for two parallel repetitions is &quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">around</span><span class="p">(</span><span class="n">bb84_2_reps</span><span class="o">.</span><span class="n">nonsignaling_value</span><span class="p">(),</span> <span class="n">decimals</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a><span class="p">)</span>
 </code></pre></div>
 <p class="mkd-glr-script-out">Out:</p>
 <div class="mkd-glr-script-out-disp highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>The<span class="w"> </span>non-signaling<span class="w"> </span>value<span class="w"> </span><span class="k">for</span><span class="w"> </span>two<span class="w"> </span>parallel<span class="w"> </span>repetitions<span class="w"> </span>is<span class="w">  </span><span class="m">0</span>.74
@@ -10010,7 +10009,7 @@ have that</p>
 \]</div>
 <p>for <span class="arithmatex">\(r = 2\)</span>.</p>
 <p>Next, we will explore another well-known example, <a href="../enlg_chsh/">The CHSH extended nonlocal game</a>, and see how its properties compare.</p>
-<p><strong>Total running time of the script:</strong> ( 0 minutes  10.389 seconds)</p>
+<p><strong>Total running time of the script:</strong> ( 0 minutes  9.518 seconds)</p>
 <div id="download_links"></div>
 
 <p><a class="md-button center" href="../enlg_bb84.py"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M256 32c0-17.7-14.3-32-32-32s-32 14.3-32 32v210.7l-41.4-41.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l96 96c12.5 12.5 32.8 12.5 45.3 0l96-96c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 242.7zM64 320c-35.3 0-64 28.7-64 64v32c0 35.3 28.7 64 64 64h320c35.3 0 64-28.7 64-64v-32c0-35.3-28.7-64-64-64h-46.9l-56.6 56.6c-31.2 31.2-81.9 31.2-113.1 0L110.9 320zm304 56a24 24 0 1 1 0 48 24 24 0 1 1 0-48"/></svg></span> Download Python source code: enlg_bb84.py</a></p>
@@ -10023,10 +10022,10 @@ have that</p>
 <p>Marco Tomamichel, Serge Fehr, Jędrzej Kaniewski, and Stephanie Wehner. A monogamy-of-entanglement game with applications to device-independent quantum cryptography. <em>New Journal of Physics</em>, 15(10):103002, oct 2013. URL: <a href="http://dx.doi.org/10.1088/1367-2630/15/10/103002">http://dx.doi.org/10.1088/1367-2630/15/10/103002</a>, <a href="https://doi.org/10.1088/1367-2630/15/10/103002">doi:10.1088/1367-2630/15/10/103002</a>.&#160;<a class="footnote-backref" href="#fnref:tomamichel2013monogamy" title="Jump back to footnote 1 in the text">&#8617;</a></p>
 </li>
 <li id="fn:johnston2016extended">
-<p>Nathaniel Johnston, Rajat Mittal, Vincent Russo, and John Watrous. Extended non-local games and monogamy-of-entanglement games. <em>Proceedings of the Royal Society A: Mathematical, Physical and Engineering Sciences</em>, 472(2189):20160003, May 2016. URL: <a href="https://arxiv.org/abs/1510.02083">https://arxiv.org/abs/1510.02083</a>.&#160;<a class="footnote-backref" href="#fnref:johnston2016extended" title="Jump back to footnote 2 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:johnston2016extended" title="Jump back to footnote 2 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:johnston2016extended" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+<p>Nathaniel Johnston, Rajat Mittal, Vincent Russo, and John Watrous. Extended non-local games and monogamy-of-entanglement games. <em>Proceedings of the Royal Society A: Mathematical, Physical and Engineering Sciences</em>, 472(2189):20160003, May 2016. URL: <a href="https://arxiv.org/abs/1510.02083">https://arxiv.org/abs/1510.02083</a>, <a href="https://doi.org/10.1098/rspa.2016.0003">doi:10.1098/rspa.2016.0003</a>.&#160;<a class="footnote-backref" href="#fnref:johnston2016extended" title="Jump back to footnote 2 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:johnston2016extended" title="Jump back to footnote 2 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:johnston2016extended" title="Jump back to footnote 2 in the text">&#8617;</a></p>
 </li>
 <li id="fn:russo2017extended">
-<p>Vincent Russo. Extended nonlocal games. 2017. <a href="https://arxiv.org/abs/1704.07375">arXiv:1704.07375</a>.&#160;<a class="footnote-backref" href="#fnref:russo2017extended" title="Jump back to footnote 3 in the text">&#8617;</a></p>
+<p>Vincent Russo. Extended nonlocal games. 2017. PhD thesis, University of Waterloo. <a href="https://arxiv.org/abs/1704.07375">arXiv:1704.07375</a>.&#160;<a class="footnote-backref" href="#fnref:russo2017extended" title="Jump back to footnote 3 in the text">&#8617;</a></p>
 </li>
 </ol>
 </div>

@@ -9984,16 +9984,17 @@ BB84 quantum key distribution protocol: the computational basis
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>Non-signaling<span class="w"> </span>value:<span class="w">  </span><span class="m">0</span>.75000
 <a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>Exact<span class="w"> </span><span class="o">(</span>cos²<span class="o">(</span>π/8<span class="o">))</span>:<span class="w">    </span><span class="m">0</span>.85355
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 99-108 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 99-109 -->
 
 <h3 id="strong-parallel-repetition-for-unentangled-strategies">Strong parallel repetition for unentangled strategies<a class="headerlink" href="#strong-parallel-repetition-for-unentangled-strategies" title="Permanent link">&para;</a></h3>
 <p>For unentangled (classical) strategies, strong parallel repetition
-<em>does</em> hold. The unentangled value of the 2-fold repetition should
-equal the square of the single-game value:</p>
+<em>does</em> hold, as shown in <sup id="fnref:johnston2016extended"><a class="footnote-ref" href="#fn:johnston2016extended">1</a></sup>. The unentangled
+value of the 2-fold repetition should equal the square of the
+single-game value:</p>
 <div class="arithmatex">\[
 \omega(G_{BB84}^2) = \omega(G_{BB84})^2 = \cos^4(\pi/8) \approx 0.729.
 \]</div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 110-119 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 111-120 -->
 
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">bb84_2_reps</span> <span class="o">=</span> <span class="n">ExtendedNonlocalGame</span><span class="p">(</span><span class="n">bb84_prob_mat</span><span class="p">,</span> <span class="n">bb84_pred_mat</span><span class="p">,</span> <span class="n">reps</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 <a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
@@ -10011,11 +10012,11 @@ equal the square of the single-game value:</p>
 <a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>ω<span class="o">(</span>G<span class="o">)</span>²<span class="w"> </span>expected:<span class="w">      </span><span class="m">0</span>.72855
 <a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>Strong<span class="w"> </span>parallel<span class="w"> </span>rep<span class="w"> </span>holds:<span class="w"> </span>False
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 120-134 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 121-135 -->
 
 <h3 id="failure-of-strong-parallel-repetition-for-non-signaling-strategies">Failure of strong parallel repetition for non-signaling strategies<a class="headerlink" href="#failure-of-strong-parallel-repetition-for-non-signaling-strategies" title="Permanent link">&para;</a></h3>
 <p>In contrast, the non-signaling value does <em>not</em> satisfy strong
-parallel repetition. As shown in <sup id="fnref:cosentino2015quantum"><a class="footnote-ref" href="#fn:cosentino2015quantum">1</a></sup>, the
+parallel repetition. As shown in <sup id="fnref:russo2017extended"><a class="footnote-ref" href="#fn:russo2017extended">2</a></sup>, the
 non-signaling value of <span class="arithmatex">\(G_{BB84}^2\)</span> is strictly greater than
 <span class="arithmatex">\(\omega_{ns}(G_{BB84})^2\)</span>:</p>
 <div class="arithmatex">\[
@@ -10024,7 +10025,7 @@ non-signaling value of <span class="arithmatex">\(G_{BB84}^2\)</span> is strictl
 <p>This demonstrates that non-signaling strategies can exploit
 correlations across parallel rounds in a way that classical strategies
 cannot.</p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 136-143 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 137-144 -->
 
 <div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="n">omega_ns_2</span> <span class="o">=</span> <span class="n">bb84_2_reps</span><span class="o">.</span><span class="n">nonsignaling_value</span><span class="p">()</span>
 <a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="n">expected_ns_2</span> <span class="o">=</span> <span class="n">exact</span><span class="o">**</span><span class="mi">2</span>
@@ -10038,7 +10039,7 @@ cannot.</p>
 <a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>ω_ns<span class="o">(</span>G<span class="o">)</span>²:<span class="w">            </span><span class="m">0</span>.72855
 <a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>ω_ns<span class="o">(</span>G²<span class="o">)</span><span class="w"> </span>&gt;<span class="w"> </span>ω_ns<span class="o">(</span>G<span class="o">)</span>²:<span class="w"> </span>False
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 144-163 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 145-165 -->
 
 <h2 id="implications">Implications<a class="headerlink" href="#implications" title="Permanent link">&para;</a></h2>
 <p>The failure of strong parallel repetition for non-signaling strategies
@@ -10061,11 +10062,9 @@ has significant implications:</p>
    games, including BB84.</p>
 </li>
 </ol>
-<p>For further details, see <sup id="fnref2:cosentino2015quantum"><a class="footnote-ref" href="#fn:cosentino2015quantum">1</a></sup>.</p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 165-166 -->
-
-<p>mkdocs_gallery_thumbnail_path = 'figures/extended_nonlocal_game.svg'</p>
-<p><strong>Total running time of the script:</strong> ( 0 minutes  7.509 seconds)</p>
+<p>For further details, see <sup id="fnref2:johnston2016extended"><a class="footnote-ref" href="#fn:johnston2016extended">1</a></sup> and
+<sup id="fnref2:russo2017extended"><a class="footnote-ref" href="#fn:russo2017extended">2</a></sup>.</p>
+<p><strong>Total running time of the script:</strong> ( 0 minutes  6.822 seconds)</p>
 <div id="download_links"></div>
 
 <p><a class="md-button center" href="../parallel_repetition.py"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M256 32c0-17.7-14.3-32-32-32s-32 14.3-32 32v210.7l-41.4-41.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l96 96c12.5 12.5 32.8 12.5 45.3 0l96-96c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 242.7zM64 320c-35.3 0-64 28.7-64 64v32c0 35.3 28.7 64 64 64h320c35.3 0 64-28.7 64-64v-32c0-35.3-28.7-64-64-64h-46.9l-56.6 56.6c-31.2 31.2-81.9 31.2-113.1 0L110.9 320zm304 56a24 24 0 1 1 0 48 24 24 0 1 1 0-48"/></svg></span> Download Python source code: parallel_repetition.py</a></p>
@@ -10074,8 +10073,11 @@ has significant implications:</p>
 <div class="footnote">
 <hr />
 <ol>
-<li id="fn:cosentino2015quantum">
-<p>Alessandro Cosentino. Quantum state local distinguishability via convex optimization. 2015. URL: <a href="https://uwspace.uwaterloo.ca/handle/10012/9572">https://uwspace.uwaterloo.ca/handle/10012/9572</a>.&#160;<a class="footnote-backref" href="#fnref:cosentino2015quantum" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:cosentino2015quantum" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+<li id="fn:johnston2016extended">
+<p>Nathaniel Johnston, Rajat Mittal, Vincent Russo, and John Watrous. Extended non-local games and monogamy-of-entanglement games. <em>Proceedings of the Royal Society A: Mathematical, Physical and Engineering Sciences</em>, 472(2189):20160003, May 2016. URL: <a href="https://arxiv.org/abs/1510.02083">https://arxiv.org/abs/1510.02083</a>, <a href="https://doi.org/10.1098/rspa.2016.0003">doi:10.1098/rspa.2016.0003</a>.&#160;<a class="footnote-backref" href="#fnref:johnston2016extended" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:johnston2016extended" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+<li id="fn:russo2017extended">
+<p>Vincent Russo. Extended nonlocal games. 2017. PhD thesis, University of Waterloo. <a href="https://arxiv.org/abs/1704.07375">arXiv:1704.07375</a>.&#160;<a class="footnote-backref" href="#fnref:russo2017extended" title="Jump back to footnote 2 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:russo2017extended" title="Jump back to footnote 2 in the text">&#8617;</a></p>
 </li>
 </ol>
 </div>

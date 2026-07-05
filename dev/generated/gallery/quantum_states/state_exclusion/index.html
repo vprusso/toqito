@@ -9864,8 +9864,8 @@ Bell states and trine states.</p>
 distinguishability.
 It may be useful to consult the <a href="../state_distinguishability/">quantum state distinguishability</a>
 tutorial on this topic.</p>
-<p>Further information beyond the scope of this tutorial can be found in the text
-<sup id="fnref:pusey2012reality"><a class="footnote-ref" href="#fn:pusey2012reality">1</a></sup> as well as the course <sup id="fnref:bandyopadhyay2014conclusive"><a class="footnote-ref" href="#fn:bandyopadhyay2014conclusive">2</a></sup>.</p>
+<p>Further information beyond the scope of this tutorial can be found in the papers
+<sup id="fnref:pusey2012reality"><a class="footnote-ref" href="#fn:pusey2012reality">1</a></sup> and <sup id="fnref:bandyopadhyay2014conclusive"><a class="footnote-ref" href="#fn:bandyopadhyay2014conclusive">2</a></sup>.</p>
 <h2 id="the-state-exclusion-problem">The state exclusion problem<a class="headerlink" href="#the-state-exclusion-problem" title="Permanent link">&para;</a></h2>
 <p>The quantum state exclusion problem is phrased as follows.</p>
 <p><em>1.</em> Alice possesses an ensemble of <span class="arithmatex">\(n\)</span> quantum states:</p>
@@ -10098,23 +10098,22 @@ G =
 \]</div>
 <p>As an example, we can generate a random collection of quantum states, obtain the corresponding Gram matrix, and compute
 whether the set of states are antidistinguishable and <span class="arithmatex">\((n-1)\)</span>-incoherent.</p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 243-258 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 243-257 -->
 
 <div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.matrix_ops</span><span class="w"> </span><span class="kn">import</span> <span class="n">vectors_to_gram_matrix</span>
 <a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.matrix_props</span><span class="w"> </span><span class="kn">import</span> <span class="n">is_k_incoherent</span>
 <a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.rand</span><span class="w"> </span><span class="kn">import</span> <span class="n">random_states</span>
 <a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.state_props</span><span class="w"> </span><span class="kn">import</span> <span class="n">is_antidistinguishable</span>
 <a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>
-<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="c1"># mkdocs_gallery_thumbnail_path = &#39;figures/trine.png&#39;</span>
-<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="n">n</span><span class="p">,</span> <span class="n">d</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span>
-<a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a><span class="n">states</span> <span class="o">=</span> <span class="n">random_states</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
-<a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a><span class="n">gram</span> <span class="o">=</span> <span class="n">vectors_to_gram_matrix</span><span class="p">(</span><span class="n">states</span><span class="p">)</span>
-<a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a>
-<a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Is Antidistinguishable: </span><span class="si">{</span><span class="n">is_antidistinguishable</span><span class="p">(</span><span class="n">states</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-<a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Is (n-1)-incoherent: </span><span class="si">{</span><span class="n">is_k_incoherent</span><span class="p">(</span><span class="n">gram</span><span class="p">,</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-<a id="__codelineno-13-13" name="__codelineno-13-13" href="#__codelineno-13-13"></a>
-<a id="__codelineno-13-14" name="__codelineno-13-14" href="#__codelineno-13-14"></a><span class="c1"># As can be seen, whether the random set of states are antidistinguishable or not aligns with whether they are</span>
-<a id="__codelineno-13-15" name="__codelineno-13-15" href="#__codelineno-13-15"></a><span class="c1"># $(n-1)$-incoherent or not as well.</span>
+<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="n">n</span><span class="p">,</span> <span class="n">d</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span>
+<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="n">states</span> <span class="o">=</span> <span class="n">random_states</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
+<a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a><span class="n">gram</span> <span class="o">=</span> <span class="n">vectors_to_gram_matrix</span><span class="p">(</span><span class="n">states</span><span class="p">)</span>
+<a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a>
+<a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Is Antidistinguishable: </span><span class="si">{</span><span class="n">is_antidistinguishable</span><span class="p">(</span><span class="n">states</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Is (n-1)-incoherent: </span><span class="si">{</span><span class="n">is_k_incoherent</span><span class="p">(</span><span class="n">gram</span><span class="p">,</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a>
+<a id="__codelineno-13-13" name="__codelineno-13-13" href="#__codelineno-13-13"></a><span class="c1"># As can be seen, whether the random set of states are antidistinguishable or not aligns with whether they are</span>
+<a id="__codelineno-13-14" name="__codelineno-13-14" href="#__codelineno-13-14"></a><span class="c1"># $(n-1)$-incoherent or not as well.</span>
 </code></pre></div>
 <p class="mkd-glr-script-out">Out:</p>
 <div class="mkd-glr-script-out-disp highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>Is<span class="w"> </span>Antidistinguishable:<span class="w"> </span>True
@@ -10139,7 +10138,7 @@ whether the set of states are antidistinguishable and <span class="arithmatex">\
 <p>Nathaniel Johnston, Shirin Moein, Rajesh Pereira, and Sarah Plosker. Absolutely k-incoherent quantum states and spectral inequalities for the factor width of a matrix. <em>Physical Review A</em>, 106(5):052417, 2022.&#160;<a class="footnote-backref" href="#fnref:johnston2022absolutely" title="Jump back to footnote 3 in the text">&#8617;</a></p>
 </li>
 <li id="fn:johnston2025tight">
-<p>Nathaniel Johnston, Vincent Russo, and Jamie Sikora. Tight bounds for antidistinguishability and circulant sets of pure quantum states. <em>Quantum</em>, 9:1622, 2025.&#160;<a class="footnote-backref" href="#fnref:johnston2025tight" title="Jump back to footnote 4 in the text">&#8617;</a></p>
+<p>Nathaniel Johnston, Vincent Russo, and Jamie Sikora. Tight bounds for antidistinguishability and circulant sets of pure quantum states. <em>Quantum</em>, 9:1622, 2025. URL: <a href="https://doi.org/10.22331/q-2025-02-04-1622">https://doi.org/10.22331/q-2025-02-04-1622</a>, <a href="https://doi.org/10.22331/q-2025-02-04-1622">doi:10.22331/q-2025-02-04-1622</a>.&#160;<a class="footnote-backref" href="#fnref:johnston2025tight" title="Jump back to footnote 4 in the text">&#8617;</a></p>
 </li>
 </ol>
 </div>

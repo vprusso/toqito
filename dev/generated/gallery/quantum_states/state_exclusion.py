@@ -11,8 +11,8 @@ Bell states and trine states.
 # It may be useful to consult the [quantum state distinguishability](state_distinguishability.md)
 # tutorial on this topic.
 #
-# Further information beyond the scope of this tutorial can be found in the text
-# [@pusey2012reality] as well as the course [@bandyopadhyay2014conclusive].
+# Further information beyond the scope of this tutorial can be found in the papers
+# [@pusey2012reality] and [@bandyopadhyay2014conclusive].
 #
 # ## The state exclusion problem
 #

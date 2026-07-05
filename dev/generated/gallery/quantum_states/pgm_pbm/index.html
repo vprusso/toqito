@@ -9814,7 +9814,7 @@ to download the full example code</p>
 novel counterpart, the "pretty bad measurement" (PBM). The PGM, also known as the
 square-root measurement, is a widely used measurement for quantum
 state discrimination <sup id="fnref:belavkin1975optimal"><a class="footnote-ref" href="#fn:belavkin1975optimal">1</a></sup><sup id="fnref:hughston1993complete"><a class="footnote-ref" href="#fn:hughston1993complete">2</a></sup>. The PBM, in contrast,
-was recently introduced by McIrvin et. al. <sup id="fnref:mcirvin2024pretty"><a class="footnote-ref" href="#fn:mcirvin2024pretty">3</a></sup>. Both these measurements
+was recently introduced by McIrvin et al. <sup id="fnref:mcirvin2024pretty"><a class="footnote-ref" href="#fn:mcirvin2024pretty">3</a></sup>. Both these measurements
 provide elegant, easy-to-construct tools for two opposing goals in quantum
 information: state discrimination and state exclusion.
 PGM is useful for the former while PBM is of use for the latter.</p>
@@ -9859,7 +9859,7 @@ B_i = \frac{1}{k-1}(\mathbb{I} - G_i)
 <div class="arithmatex">\[
 P_{\text{PBM}} = \sum_{i=1}^k p_i \text{Tr}(\rho_i B_i)
 \]</div>
-<p>A key result from McIrvin et.al <sup id="fnref2:mcirvin2024pretty"><a class="footnote-ref" href="#fn:mcirvin2024pretty">3</a></sup> is the tight relationship
+<p>A key result from McIrvin et al. <sup id="fnref2:mcirvin2024pretty"><a class="footnote-ref" href="#fn:mcirvin2024pretty">3</a></sup> is the tight relationship
 between the success probabilities of these two measurements:</p>
 <div class="arithmatex">\[
 P_{\text{PGM}} + (k-1)P_{\text{PBM}} = 1
@@ -9871,7 +9871,7 @@ P_{\text{Best}} \ge P_{\text{PGM}} \ge \frac{1}{k} \ge P_{\text{PBM}} \ge P_{\te
 \]</div>
 <p>We will verify this hierarchy with a concrete example.</p>
 <h3 id="numerical-example-the-trine-states">Numerical Example: The Trine States<a class="headerlink" href="#numerical-example-the-trine-states" title="Permanent link">&para;</a></h3>
-<p>Figure 3 from McIrvin et.al <sup id="fnref3:mcirvin2024pretty"><a class="footnote-ref" href="#fn:mcirvin2024pretty">3</a></sup> analyzes the performance
+<p>Figure 3 from McIrvin et al. <sup id="fnref3:mcirvin2024pretty"><a class="footnote-ref" href="#fn:mcirvin2024pretty">3</a></sup> analyzes the performance
 of these measurements for the three <strong>trine states</strong> with a uniform prior
 probability. The trine states are a classic example of a set that is
 antidistinguishable but not distinguishable, a property demonstrated in the <a href="../state_exclusion/">Quantum state exclusion</a> tutorial.</p>
@@ -10010,7 +10010,7 @@ of random states.</p>
 <!-- GENERATED FROM PYTHON SOURCE LINES 197-205 -->
 
 <h2 id="visualizing-performance-on-random-states">Visualizing Performance on Random States<a class="headerlink" href="#visualizing-performance-on-random-states" title="Permanent link">&para;</a></h2>
-<p>Figures 4 and 5 from McIrvin et. al <sup id="fnref4:mcirvin2024pretty"><a class="footnote-ref" href="#fn:mcirvin2024pretty">3</a></sup> show that for many randomly generated
+<p>Figures 4 and 5 from McIrvin et al. <sup id="fnref4:mcirvin2024pretty"><a class="footnote-ref" href="#fn:mcirvin2024pretty">3</a></sup> show that for many randomly generated
 states, the PGM and PBM probabilities cluster around the blind guessing
 baseline of <span class="arithmatex">\(1/k\)</span>. We can reproduce a similar plot.</p>
 <p>We will generate 100 random ensembles of <span class="arithmatex">\(k=4\)</span> qubit states and plot
@@ -10077,7 +10077,7 @@ numerical evidence for the inequalities
 <span class="arithmatex">\(P_{\text{PGM}} \ge 1/k \ge P_{\text{PBM}}\)</span>, confirming that the PGM is
 always a better-than-random guess and the PBM is always a worse-than-random
 guess for state discrimination.</p>
-<p><strong>Total running time of the script:</strong> ( 0 minutes  0.251 seconds)</p>
+<p><strong>Total running time of the script:</strong> ( 0 minutes  0.196 seconds)</p>
 <div id="download_links"></div>
 
 <p><a class="md-button center" href="../pgm_pbm.py"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M256 32c0-17.7-14.3-32-32-32s-32 14.3-32 32v210.7l-41.4-41.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l96 96c12.5 12.5 32.8 12.5 45.3 0l96-96c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 242.7zM64 320c-35.3 0-64 28.7-64 64v32c0 35.3 28.7 64 64 64h320c35.3 0 64-28.7 64-64v-32c0-35.3-28.7-64-64-64h-46.9l-56.6 56.6c-31.2 31.2-81.9 31.2-113.1 0L110.9 320zm304 56a24 24 0 1 1 0 48 24 24 0 1 1 0-48"/></svg></span> Download Python source code: pgm_pbm.py</a></p>

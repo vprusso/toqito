@@ -9846,22 +9846,23 @@ to download the full example code</p>
 <h1 id="equiangular-states-and-the-antidistinguishability-threshold">Equiangular States and the Antidistinguishability Threshold<a class="headerlink" href="#equiangular-states-and-the-antidistinguishability-threshold" title="Permanent link">&para;</a></h1>
 <p>In this tutorial, we explore a sharp threshold for the antidistinguishability
 of a special class of quantum states known as equiangular states. We will
-numerically verify a tight bound presented in the paper by Johnson et.al
+numerically verify a tight bound presented in the paper by Johnston et al.
 <sup id="fnref:johnston2025tight"><a class="footnote-ref" href="#fn:johnston2025tight">1</a></sup> and visualize the "sharp cliff" where this
 property changes.</p>
 <p>This tutorial builds upon the concepts introduced in the <a href="../state_exclusion/">Quantum state exclusion</a> tutorial.</p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 13-65 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 13-66 -->
 
 <h2 id="antidistinguishability-threshold-for-equiangular-states">Antidistinguishability Threshold for Equiangular States<a class="headerlink" href="#antidistinguishability-threshold-for-equiangular-states" title="Permanent link">&para;</a></h2>
 <p>A set of <span class="arithmatex">\(n\)</span> pure states <span class="arithmatex">\(\{|\psi_0\rangle, \ldots, |\psi_{n-1}\rangle\}\)</span>
 is called <em>equiangular</em> if the absolute value of the inner product between
 any two distinct states is a constant, i.e.,
 <span class="arithmatex">\(|\langle \psi_i | \psi_j \rangle| = \gamma\)</span> for all <span class="arithmatex">\(i \neq j\)</span>.</p>
-<p>Johnston et.al <sup id="fnref2:johnston2025tight"><a class="footnote-ref" href="#fn:johnston2025tight">1</a></sup>
-introduced a simple and powerful necessary condition for a set of states to be
-antidistinguishable.</p>
+<p>A simple and powerful necessary condition for a set of states to be
+antidistinguishable was established in <sup id="fnref:russo2023inner"><a class="footnote-ref" href="#fn:russo2023inner">2</a></sup>; a simpler proof,
+along with a demonstration that the bound is tight, was later given in
+<sup id="fnref2:johnston2025tight"><a class="footnote-ref" href="#fn:johnston2025tight">1</a></sup>.</p>
 <p>According to <strong>Corollary 4.2 from</strong> <sup id="fnref3:johnston2025tight"><a class="footnote-ref" href="#fn:johnston2025tight">1</a></sup>, when <span class="arithmatex">\(n \geq 2\)</span>, <span class="arithmatex">\(S = \{|
-\psi_0\rangle, \ldots, |\psi_{n-1}\rangle\}\)</span> is not anstidistinguishable if the following condition is satisfied.</p>
+\psi_0\rangle, \ldots, |\psi_{n-1}\rangle\}\)</span> is not antidistinguishable if the following condition is satisfied.</p>
 <div class="arithmatex">\[
 |\langle \psi_i | \psi_j \rangle| &gt; \frac{n-2}{n-1}
 \quad \forall \ i \neq j,
@@ -9892,7 +9893,7 @@ the <a class="autorefs autorefs-internal" title="            state_exclusion" hr
 <li>Confirm that the states <em>at</em> the threshold are antidistinguishable
 (error probability is <span class="arithmatex">\(0\)</span>) and the states <em>above</em> it are not (error probability is &gt; <span class="arithmatex">\(0\)</span>).</li>
 </ol>
-<!-- GENERATED FROM PYTHON SOURCE LINES 65-101 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 66-102 -->
 
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
@@ -9940,7 +9941,7 @@ the <a class="autorefs autorefs-internal" title="            state_exclusion" hr
 <a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">  </span>-<span class="w"> </span>Optimal<span class="w"> </span>error<span class="w"> </span>probability<span class="w"> </span>is<span class="w"> </span><span class="m">7</span>.58e-05
 <a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">  </span>-<span class="w"> </span>Is<span class="w"> </span>the<span class="w"> </span><span class="nb">set</span><span class="w"> </span>antidistinguishable?<span class="w"> </span>False<span class="w"> </span><span class="o">(</span>as<span class="w"> </span>expected<span class="o">)</span>
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 102-109 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 103-110 -->
 
 <h2 id="antidistinguishability-and-n-1-incoherence">Antidistinguishability and (n-1)-Incoherence<a class="headerlink" href="#antidistinguishability-and-n-1-incoherence" title="Permanent link">&para;</a></h2>
 <p>The core theoretical result of (Theorem 3.2) <sup id="fnref5:johnston2025tight"><a class="footnote-ref" href="#fn:johnston2025tight">1</a></sup>
@@ -9948,7 +9949,7 @@ is that a set of <span class="arithmatex">\(n\)</span> pure states is antidistin
 Gram matrix is <span class="arithmatex">\((n-1)\)</span>-incoherent. Our numerical results above,
 obtained by solving the state exclusion SDP, implicitly verify this
 property for the Gram matrix as well.</p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 111-125 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 112-126 -->
 
 <h3 id="visualizing-the-threshold">Visualizing the Threshold<a class="headerlink" href="#visualizing-the-threshold" title="Permanent link">&para;</a></h3>
 <p>We can make this "sharp cliff" even clearer by plotting the optimal error
@@ -9961,7 +9962,7 @@ probability of error. The plot should show this probability lifting off from
 each respective <span class="arithmatex">\(n\)</span>.</p>
 <p>A Gram matrix for equiangular states is positive semidefinite (and thus
 physically valid) if and only if <span class="arithmatex">\(-1/(n-1) \leq \gamma \leq 1\)</span>.</p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 125-167 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 126-168 -->
 
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
@@ -10005,7 +10006,7 @@ physically valid) if and only if <span class="arithmatex">\(-1/(n-1) \leq \gamma
 <a id="__codelineno-2-40" name="__codelineno-2-40" href="#__codelineno-2-40"></a><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </code></pre></div>
 <p><img alt="Antidistinguishability Threshold for Equiangular States" class="mkd-glr-single-img" src="../images/mkd_glr_equiangular_threshold_001.png" srcset="../images/mkd_glr_equiangular_threshold_001.png" /></p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 168-174 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 169-175 -->
 
 <p>This plot, which numerically reproduces the results from Figure 2 of
 <sup id="fnref7:johnston2025tight"><a class="footnote-ref" href="#fn:johnston2025tight">1</a></sup>, shows that the optimal
@@ -10013,7 +10014,7 @@ probability of error is exactly <span class="arithmatex">\(0\)</span> for all
 <span class="arithmatex">\(\gamma \leq (n-2)/(n-1)\)</span>, indicating that the states are perfectly
 antidistinguishable. The moment <span class="arithmatex">\(\gamma\)</span> exceeds this value, the
 probability becomes non-zero, meaning perfect exclusion is no longer possible.</p>
-<p><strong>Total running time of the script:</strong> ( 0 minutes  18.883 seconds)</p>
+<p><strong>Total running time of the script:</strong> ( 0 minutes  18.087 seconds)</p>
 <div id="download_links"></div>
 
 <p><a class="md-button center" href="../equiangular_threshold.py"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M256 32c0-17.7-14.3-32-32-32s-32 14.3-32 32v210.7l-41.4-41.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l96 96c12.5 12.5 32.8 12.5 45.3 0l96-96c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 242.7zM64 320c-35.3 0-64 28.7-64 64v32c0 35.3 28.7 64 64 64h320c35.3 0 64-28.7 64-64v-32c0-35.3-28.7-64-64-64h-46.9l-56.6 56.6c-31.2 31.2-81.9 31.2-113.1 0L110.9 320zm304 56a24 24 0 1 1 0 48 24 24 0 1 1 0-48"/></svg></span> Download Python source code: equiangular_threshold.py</a></p>
@@ -10023,7 +10024,10 @@ probability becomes non-zero, meaning perfect exclusion is no longer possible.</
 <hr />
 <ol>
 <li id="fn:johnston2025tight">
-<p>Nathaniel Johnston, Vincent Russo, and Jamie Sikora. Tight bounds for antidistinguishability and circulant sets of pure quantum states. <em>Quantum</em>, 9:1622, 2025.&#160;<a class="footnote-backref" href="#fnref:johnston2025tight" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:johnston2025tight" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:johnston2025tight" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:johnston2025tight" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:johnston2025tight" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref6:johnston2025tight" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref7:johnston2025tight" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+<p>Nathaniel Johnston, Vincent Russo, and Jamie Sikora. Tight bounds for antidistinguishability and circulant sets of pure quantum states. <em>Quantum</em>, 9:1622, 2025. URL: <a href="https://doi.org/10.22331/q-2025-02-04-1622">https://doi.org/10.22331/q-2025-02-04-1622</a>, <a href="https://doi.org/10.22331/q-2025-02-04-1622">doi:10.22331/q-2025-02-04-1622</a>.&#160;<a class="footnote-backref" href="#fnref:johnston2025tight" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:johnston2025tight" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:johnston2025tight" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:johnston2025tight" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:johnston2025tight" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref6:johnston2025tight" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref7:johnston2025tight" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+<li id="fn:russo2023inner">
+<p>Vincent Russo and Jamie Sikora. A note on the inner products of pure states and their antidistinguishability. <em>Physical Review A</em>, 107:L030202, 2023. <a href="https://arxiv.org/abs/2206.08313">arXiv:2206.08313</a>, <a href="https://doi.org/10.1103/PhysRevA.107.L030202">doi:10.1103/PhysRevA.107.L030202</a>.&#160;<a class="footnote-backref" href="#fnref:russo2023inner" title="Jump back to footnote 2 in the text">&#8617;</a></p>
 </li>
 </ol>
 </div>

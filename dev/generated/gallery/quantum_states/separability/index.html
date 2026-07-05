@@ -9926,13 +9926,13 @@ states:</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Determining separability is <strong>NP-hard</strong> in general
-<sup id="fnref:gurvits2002largest"><a class="footnote-ref" href="#fn:gurvits2002largest">1</a></sup>. The <code>is_separable</code> function in <code>|toqito⟩</code>
+<sup id="fnref:gurvits2003classical"><a class="footnote-ref" href="#fn:gurvits2003classical">1</a></sup>. The <code>is_separable</code> function in <code>|toqito⟩</code>
 applies a hierarchy of increasingly powerful tests, returning
 <code>True</code> (separable) or <code>False</code> (entangled) based on which test
 provides a definitive answer.</p>
 </div>
 <h2 id="the-hierarchy-of-checks">The hierarchy of checks<a class="headerlink" href="#the-hierarchy-of-checks" title="Permanent link">&para;</a></h2>
-<p>The <code>is_separable</code> function runs through 13 tests in order:</p>
+<p>The <code>is_separable</code> function runs through the following tests in order:</p>
 <ol>
 <li><strong>Trivial cases</strong> — one subsystem has dimension 1</li>
 <li><strong>Pure states</strong> — Schmidt rank check</li>
@@ -10034,8 +10034,8 @@ this with <code>|toqito⟩</code>.</p>
 <!-- GENERATED FROM PYTHON SOURCE LINES 124-129 -->
 
 <h2 id="example-states-near-the-maximally-mixed-state">Example: States near the maximally mixed state<a class="headerlink" href="#example-states-near-the-maximally-mixed-state" title="Permanent link">&para;</a></h2>
-<p>The Gurvits-Barnum separable ball criterion guarantees that states
-sufficiently close to <span class="arithmatex">\(I/d\)</span> are separable. The maximally mixed state
+<p>The Gurvits-Barnum separable ball criterion <sup id="fnref:gurvits2002largest"><a class="footnote-ref" href="#fn:gurvits2002largest">2</a></sup>
+guarantees that states sufficiently close to <span class="arithmatex">\(I/d\)</span> are separable. The maximally mixed state
 itself is trivially separable.</p>
 <!-- GENERATED FROM PYTHON SOURCE LINES 131-132 -->
 
@@ -10060,7 +10060,7 @@ itself is trivially separable.</p>
 
 <h2 id="the-symmetric-extension-hierarchy">The symmetric extension hierarchy<a class="headerlink" href="#the-symmetric-extension-hierarchy" title="Permanent link">&para;</a></h2>
 <p>When the simpler criteria are inconclusive, <code>is_separable</code> falls back
-to the symmetric extension (DPS) hierarchy <sup id="fnref:doherty2004complete"><a class="footnote-ref" href="#fn:doherty2004complete">2</a></sup>.
+to the symmetric extension (DPS) hierarchy <sup id="fnref:doherty2004complete"><a class="footnote-ref" href="#fn:doherty2004complete">3</a></sup>.
 This is an SDP-based test: if a state has a <span class="arithmatex">\(k\)</span>-symmetric extension
 for all <span class="arithmatex">\(k\)</span>, it is separable. If it fails at any level <span class="arithmatex">\(k\)</span>, it is
 entangled.</p>
@@ -10070,9 +10070,6 @@ Higher levels are more powerful but computationally more expensive.</p>
 \text{separable} \subset \cdots \subset k\text{-extendible}
 \subset \cdots \subset 2\text{-extendible} \subset \text{PPT}
 \]</div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 160-161 -->
-
-<p>mkdocs_gallery_thumbnail_path = 'figures/quantum_state_distinguish.svg'</p>
 <p><strong>Total running time of the script:</strong> ( 0 minutes  0.007 seconds)</p>
 <div id="download_links"></div>
 
@@ -10082,11 +10079,14 @@ Higher levels are more powerful but computationally more expensive.</p>
 <div class="footnote">
 <hr />
 <ol>
+<li id="fn:gurvits2003classical">
+<p>Leonid Gurvits. Classical deterministic complexity of edmonds' problem and quantum entanglement. In <em>Proceedings of the Thirty-Fifth Annual ACM Symposium on Theory of Computing</em>, 10–19. 2003. <a href="https://arxiv.org/abs/quant-ph/0303055">arXiv:quant-ph/0303055</a>, <a href="https://doi.org/10.1145/780542.780545">doi:10.1145/780542.780545</a>.&#160;<a class="footnote-backref" href="#fnref:gurvits2003classical" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
 <li id="fn:gurvits2002largest">
-<p>Leonid Gurvits and Howard Barnum. Largest separable balls around the maximally mixed bipartite quantum state. <em>Physical Review A</em>, Dec 2002. URL: <a href="http://dx.doi.org/10.1103/PhysRevA.66.062311">http://dx.doi.org/10.1103/PhysRevA.66.062311</a>, <a href="https://doi.org/10.1103/physreva.66.062311">doi:10.1103/physreva.66.062311</a>.&#160;<a class="footnote-backref" href="#fnref:gurvits2002largest" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+<p>Leonid Gurvits and Howard Barnum. Largest separable balls around the maximally mixed bipartite quantum state. <em>Physical Review A</em>, Dec 2002. URL: <a href="http://dx.doi.org/10.1103/PhysRevA.66.062311">http://dx.doi.org/10.1103/PhysRevA.66.062311</a>, <a href="https://doi.org/10.1103/physreva.66.062311">doi:10.1103/physreva.66.062311</a>.&#160;<a class="footnote-backref" href="#fnref:gurvits2002largest" title="Jump back to footnote 2 in the text">&#8617;</a></p>
 </li>
 <li id="fn:doherty2004complete">
-<p>Andrew C. Doherty, Pablo A. Parrilo, and Federico M. Spedalieri. Complete family of separability criteria. <em>Physical Review A</em>, 69(2):022308, 2004. <a href="https://doi.org/10.1103/PhysRevA.69.022308">doi:10.1103/PhysRevA.69.022308</a>.&#160;<a class="footnote-backref" href="#fnref:doherty2004complete" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+<p>Andrew C. Doherty, Pablo A. Parrilo, and Federico M. Spedalieri. Complete family of separability criteria. <em>Physical Review A</em>, 69(2):022308, 2004. <a href="https://doi.org/10.1103/PhysRevA.69.022308">doi:10.1103/PhysRevA.69.022308</a>.&#160;<a class="footnote-backref" href="#fnref:doherty2004complete" title="Jump back to footnote 3 in the text">&#8617;</a></p>
 </li>
 </ol>
 </div>

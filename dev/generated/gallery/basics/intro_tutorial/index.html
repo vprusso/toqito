@@ -10061,7 +10061,7 @@ entanglement and PPT.</p>
 <!-- GENERATED FROM PYTHON SOURCE LINES 9-39 -->
 
 <p>This is an introduction to the functionality in <code>|toqito⟩</code> and is not meant to serve as an
-introduction to quantum information. For more information, please consult the book <sup id="fnref:nielsen2011quantum"><a class="footnote-ref" href="#fn:nielsen2011quantum">1</a></sup> or the freely available lecture notes <sup id="fnref:watrous2018theory"><a class="footnote-ref" href="#fn:watrous2018theory">2</a></sup>.</p>
+introduction to quantum information. For more information, please consult the book <sup id="fnref:nielsen2011quantum"><a class="footnote-ref" href="#fn:nielsen2011quantum">1</a></sup> or the freely available book <sup id="fnref:watrous2018theory"><a class="footnote-ref" href="#fn:watrous2018theory">2</a></sup>.</p>
 <p>This tutorial assumes you have <code>|toqito⟩</code> installed on your machine. If you
 do not, please consult the installation instructions in <a href="../../../../getting-started/">Getting Started</a>.</p>
 <h2 id="states">States<a class="headerlink" href="#states" title="Permanent link">&para;</a></h2>
@@ -10080,13 +10080,12 @@ set of matrices that are positive semidefinite with trace equal to <span class="
 | 0 \rangle = [1, 0]^{\text{T}} \quad \text{and} \quad | 1 \rangle = [0, 1]^{\text{T}}
 \]</div>
 <p>can be defined in <code>|toqito⟩</code> as such</p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 39-46 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 39-45 -->
 
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.matrices</span><span class="w"> </span><span class="kn">import</span> <span class="n">standard_basis</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="c1"># mkdocs_gallery_thumbnail_path = &#39;figures/logo.png&#39;</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="c1"># |0&gt;</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="n">standard_basis</span><span class="p">(</span><span class="mi">2</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="c1"># |0&gt;</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">standard_basis</span><span class="p">(</span><span class="mi">2</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 </code></pre></div>
 <p class="mkd-glr-script-out">Out:</p>
 <div class="mkd-glr-script-out-disp highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>array<span class="o">([[</span><span class="m">1</span>.<span class="o">]</span>,
@@ -10860,7 +10859,7 @@ P_0 = e_0 e_0^* \quad \text{and} \quad P_1 = e_1 e_1^*.
 <div class="arithmatex">\[
 G_i = P^{-1/2} \left(p_i \rho_i\right) P^{-1/2} \quad \text{where} \quad P = \sum_{i=1}^n p_i \rho_i.
 \]</div>
-<p>This measurement was initially defined in <sup id="fnref:hughston1993complete"><a class="footnote-ref" href="#fn:hughston1993complete">3</a></sup> and has found applications in quantum state discrimination tasks.
+<p>This measurement was initially defined in <sup id="fnref:belavkin1975optimal"><a class="footnote-ref" href="#fn:belavkin1975optimal">3</a></sup> and later studied in <sup id="fnref:hughston1993complete"><a class="footnote-ref" href="#fn:hughston1993complete">4</a></sup>, and has found applications in quantum state discrimination tasks.
 While not always optimal, the PGM provides a reasonable measurement strategy that can be computed efficiently.</p>
 <p>For example, consider the following trine states:</p>
 <div class="arithmatex">\[
@@ -10884,13 +10883,14 @@ u_2 = -\frac{1}{2}\left(|0\rangle - \sqrt{3}|1\rangle\right).
 <a id="__codelineno-54-3" name="__codelineno-54-3" href="#__codelineno-54-3"></a><span class="w">       </span><span class="o">[</span><span class="m">0</span>.28867513,<span class="w"> </span><span class="m">0</span>.5<span class="w">       </span><span class="o">]])</span>,<span class="w"> </span>array<span class="o">([[</span><span class="w"> </span><span class="m">0</span>.16666667,<span class="w"> </span>-0.28867513<span class="o">]</span>,
 <a id="__codelineno-54-4" name="__codelineno-54-4" href="#__codelineno-54-4"></a><span class="w">       </span><span class="o">[</span>-0.28867513,<span class="w">  </span><span class="m">0</span>.5<span class="w">       </span><span class="o">]])]</span>
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 780-797 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 780-798 -->
 
 <h3 id="pretty-bad-measurement">Pretty Bad Measurement<a class="headerlink" href="#pretty-bad-measurement" title="Permanent link">&para;</a></h3>
-<p>Similarly, we can consider so-called "pretty bad measurement" (PBM) on the set of trine states <sup id="fnref:mcirvin2024pretty"><a class="footnote-ref" href="#fn:mcirvin2024pretty">4</a></sup>.</p>
-<p>The pretty bad measurement (PBM) is a set of POVMs <span class="arithmatex">\((B_1, \ldots, B_n)\)</span> defined as</p>
+<p>Similarly, we can consider so-called "pretty bad measurement" (PBM) on the set of trine states <sup id="fnref:mcirvin2024pretty"><a class="footnote-ref" href="#fn:mcirvin2024pretty">5</a></sup>.</p>
+<p>The pretty bad measurement (PBM) is a set of POVMs <span class="arithmatex">\((B_1, \ldots, B_n)\)</span> defined in
+terms of the pretty good measurement operators <span class="arithmatex">\((G_1, \ldots, G_n)\)</span> as</p>
 <div class="arithmatex">\[
-B_i = \left(P + (n-1)p_i \rho_i\right)^{-1} p_i \rho_i \left(P + (n-1)p_i \rho_i\right)^{-1} \quad \text{where} \quad P = \sum_{i=1}^n p_i \rho_i.
+B_i = \frac{1}{n-1}\left(\mathbb{I} - G_i\right).
 \]</div>
 <p>Like the PGM, the PBM provides a measurement strategy for quantum state discrimination, but with different properties that can be useful in certain contexts.</p>
 <div class="arithmatex">\[
@@ -10898,7 +10898,7 @@ u_0 = |0\rangle, \quad
 u_1 = -\frac{1}{2}\left(|0\rangle + \sqrt{3}|1\rangle\right), \quad \text{and} \quad
 u_2 = -\frac{1}{2}\left(|0\rangle - \sqrt{3}|1\rangle\right).
 \]</div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 797-806 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 798-807 -->
 
 <div class="highlight"><pre><span></span><code><a id="__codelineno-55-1" name="__codelineno-55-1" href="#__codelineno-55-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.measurements</span><span class="w"> </span><span class="kn">import</span> <span class="n">pretty_bad_measurement</span>
 <a id="__codelineno-55-2" name="__codelineno-55-2" href="#__codelineno-55-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.states</span><span class="w"> </span><span class="kn">import</span> <span class="n">trine</span>
@@ -10914,7 +10914,7 @@ u_2 = -\frac{1}{2}\left(|0\rangle - \sqrt{3}|1\rangle\right).
 <a id="__codelineno-56-3" name="__codelineno-56-3" href="#__codelineno-56-3"></a><span class="w">       </span><span class="o">[</span>-0.14433757,<span class="w">  </span><span class="m">0</span>.25<span class="w">      </span><span class="o">]])</span>,<span class="w"> </span>array<span class="o">([[</span><span class="m">0</span>.41666667,<span class="w"> </span><span class="m">0</span>.14433757<span class="o">]</span>,
 <a id="__codelineno-56-4" name="__codelineno-56-4" href="#__codelineno-56-4"></a><span class="w">       </span><span class="o">[</span><span class="m">0</span>.14433757,<span class="w"> </span><span class="m">0</span>.25<span class="w">      </span><span class="o">]])]</span>
 </code></pre></div>
-<p><strong>Total running time of the script:</strong> ( 0 minutes  3.277 seconds)</p>
+<p><strong>Total running time of the script:</strong> ( 0 minutes  3.305 seconds)</p>
 <div id="download_links"></div>
 
 <p><a class="md-button center" href="../intro_tutorial.py"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M256 32c0-17.7-14.3-32-32-32s-32 14.3-32 32v210.7l-41.4-41.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l96 96c12.5 12.5 32.8 12.5 45.3 0l96-96c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 242.7zM64 320c-35.3 0-64 28.7-64 64v32c0 35.3 28.7 64 64 64h320c35.3 0 64-28.7 64-64v-32c0-35.3-28.7-64-64-64h-46.9l-56.6 56.6c-31.2 31.2-81.9 31.2-113.1 0L110.9 320zm304 56a24 24 0 1 1 0 48 24 24 0 1 1 0-48"/></svg></span> Download Python source code: intro_tutorial.py</a></p>
@@ -10929,11 +10929,14 @@ u_2 = -\frac{1}{2}\left(|0\rangle - \sqrt{3}|1\rangle\right).
 <li id="fn:watrous2018theory">
 <p>John Watrous. <em>The Theory of Quantum Information</em>. Cambridge University Press, 2018. URL: <a href="https://cs.uwaterloo.ca/~watrous/TQI/TQI.pdf">https://cs.uwaterloo.ca/~watrous/TQI/TQI.pdf</a>, <a href="https://doi.org/10.1017/9781316848142">doi:10.1017/9781316848142</a>.&#160;<a class="footnote-backref" href="#fnref:watrous2018theory" title="Jump back to footnote 2 in the text">&#8617;</a></p>
 </li>
+<li id="fn:belavkin1975optimal">
+<p>V. P. Belavkin. Optimal distinction of non-orthogonal quantum signals. <em>Radio Engineering and Electronic Physics</em>, 20:39–47, 1975.&#160;<a class="footnote-backref" href="#fnref:belavkin1975optimal" title="Jump back to footnote 3 in the text">&#8617;</a></p>
+</li>
 <li id="fn:hughston1993complete">
-<p>Lane P Hughston, Richard Jozsa, and William K Wootters. A complete classification of quantum ensembles having a given density matrix. <em>Physics Letters A</em>, 183(1):14–18, 1993.&#160;<a class="footnote-backref" href="#fnref:hughston1993complete" title="Jump back to footnote 3 in the text">&#8617;</a></p>
+<p>Lane P Hughston, Richard Jozsa, and William K Wootters. A complete classification of quantum ensembles having a given density matrix. <em>Physics Letters A</em>, 183(1):14–18, 1993.&#160;<a class="footnote-backref" href="#fnref:hughston1993complete" title="Jump back to footnote 4 in the text">&#8617;</a></p>
 </li>
 <li id="fn:mcirvin2024pretty">
-<p>Caleb McIrvin, Ankith Mohan, and Jamie Sikora. The pretty bad measurement. 2024. <a href="https://arxiv.org/abs/2403.17252">arXiv:2403.17252</a>.&#160;<a class="footnote-backref" href="#fnref:mcirvin2024pretty" title="Jump back to footnote 4 in the text">&#8617;</a></p>
+<p>Caleb McIrvin, Ankith Mohan, and Jamie Sikora. The pretty bad measurement. 2024. <a href="https://arxiv.org/abs/2403.17252">arXiv:2403.17252</a>.&#160;<a class="footnote-backref" href="#fnref:mcirvin2024pretty" title="Jump back to footnote 5 in the text">&#8617;</a></p>
 </li>
 </ol>
 </div>
