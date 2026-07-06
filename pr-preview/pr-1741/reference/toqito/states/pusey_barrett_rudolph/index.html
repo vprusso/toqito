@@ -9779,7 +9779,9 @@
 
 
 <a href="#toqito.states.pusey_barrett_rudolph.pusey_barrett_rudolph" class="headerlink" title="Permanent link">&para;</a></h2>
-<div class="doc-signature highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">pusey_barrett_rudolph</span><span class="p">(</span><span class="n">n</span><span class="p">:</span> <span class="n"><span title="int">int</span></span><span class="p">,</span> <span class="n">theta</span><span class="p">:</span> <span class="n"><span title="float">float</span></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><span title="list">list</span></span><span class="p">[</span><span class="n"><span title="numpy.ndarray">ndarray</span></span><span class="p">]</span>
+<div class="doc-signature highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">pusey_barrett_rudolph</span><span class="p">(</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="n">n</span><span class="p">:</span> <span class="n"><span title="int">int</span></span><span class="p">,</span> <span class="n">theta</span><span class="p">:</span> <span class="n"><span title="float">float</span></span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><span title="list">list</span></span><span class="p">[</span><span class="n"><span title="numpy.ndarray">ndarray</span></span><span class="p">]</span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
@@ -9807,7 +9809,7 @@
               (<code><span title="int">int</span></code>)
           –
           <div class="doc-md-description">
-            <p>The number of states in the set.</p>
+            <p>The number of tensor copies used to construct the state set.</p>
           </div>
         </li>
         <li class="doc-section-item field-body">
@@ -9827,7 +9829,7 @@
               <code><span title="list">list</span>[<span title="numpy.ndarray">ndarray</span>]</code>
           –
           <div class="doc-md-description">
-            <p>Vector of trine states.</p>
+            <p>List of Pusey-Barrett-Rudolph state vectors.</p>
           </div>
         </li>
     </ul>
@@ -9923,11 +9925,11 @@
 <a id="__codelineno-0-30" name="__codelineno-0-30"></a><span class="sd">    These PBR states are defined in Equation (A6) from [@pusey2012reality].</span>
 <a id="__codelineno-0-31" name="__codelineno-0-31"></a>
 <a id="__codelineno-0-32" name="__codelineno-0-32"></a><span class="sd">    Args:</span>
-<a id="__codelineno-0-33" name="__codelineno-0-33"></a><span class="sd">        n: The number of states in the set.</span>
+<a id="__codelineno-0-33" name="__codelineno-0-33"></a><span class="sd">        n: The number of tensor copies used to construct the state set.</span>
 <a id="__codelineno-0-34" name="__codelineno-0-34"></a><span class="sd">        theta: Angle parameter that defines the states.</span>
 <a id="__codelineno-0-35" name="__codelineno-0-35"></a>
 <a id="__codelineno-0-36" name="__codelineno-0-36"></a><span class="sd">    Returns:</span>
-<a id="__codelineno-0-37" name="__codelineno-0-37"></a><span class="sd">        Vector of trine states.</span>
+<a id="__codelineno-0-37" name="__codelineno-0-37"></a><span class="sd">        List of Pusey-Barrett-Rudolph state vectors.</span>
 <a id="__codelineno-0-38" name="__codelineno-0-38"></a>
 <a id="__codelineno-0-39" name="__codelineno-0-39"></a><span class="sd">    Examples:</span>
 <a id="__codelineno-0-40" name="__codelineno-0-40"></a><span class="sd">        Generating the PBR states can be done by simply invoking the function with a given choice of `n` and</span>

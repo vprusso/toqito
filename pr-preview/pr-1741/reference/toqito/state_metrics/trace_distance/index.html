@@ -9780,7 +9780,9 @@
 
 
 <a href="#toqito.state_metrics.trace_distance.trace_distance" class="headerlink" title="Permanent link">&para;</a></h2>
-<div class="doc-signature highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">trace_distance</span><span class="p">(</span><span class="n">rho</span><span class="p">:</span> <span class="n"><span title="numpy.ndarray">ndarray</span></span><span class="p">,</span> <span class="n">sigma</span><span class="p">:</span> <span class="n"><span title="numpy.ndarray">ndarray</span></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><span title="float">float</span></span> <span class="o">|</span> <span class="n"><span title="numpy.floating">floating</span></span>
+<div class="doc-signature highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">trace_distance</span><span class="p">(</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="n">rho</span><span class="p">:</span> <span class="n"><span title="numpy.ndarray">ndarray</span></span><span class="p">,</span> <span class="n">sigma</span><span class="p">:</span> <span class="n"><span title="numpy.ndarray">ndarray</span></span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><span title="float">float</span></span> <span class="o">|</span> <span class="n"><span title="numpy.floating">floating</span></span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
@@ -9846,14 +9848,14 @@
 \]</div>
 <p>The corresponding density matrix of <span class="arithmatex">\(u\)</span> may be calculated by:</p>
 <div class="arithmatex">\[
-    \rho = u u^* = \begin{pmatrix}
+    \rho = u u^* = \frac{1}{2}\begin{pmatrix}
                      1 &amp; 0 &amp; 0 &amp; 1 \\
                      0 &amp; 0 &amp; 0 &amp; 0 \\
                      0 &amp; 0 &amp; 0 &amp; 0 \\
                      1 &amp; 0 &amp; 0 &amp; 1
                    \end{pmatrix} \in \text{D}(\mathcal{X}).
 \]</div>
-<p>The trace distance between <span class="arithmatex">\(\rho\)</span> and another state <span class="arithmatex">\(\sigma\)</span> is equal to <span class="arithmatex">\(0\)</span> if any only if
+<p>The trace distance between <span class="arithmatex">\(\rho\)</span> and another state <span class="arithmatex">\(\sigma\)</span> is equal to <span class="arithmatex">\(0\)</span> if and only if
 <span class="arithmatex">\(\rho = \sigma\)</span>. We can check this using the <code>|toqito⟩</code> package.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.states</span><span class="w"> </span><span class="kn">import</span> <span class="n">bell</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.state_metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">trace_distance</span>
@@ -9959,7 +9961,7 @@
 <a id="__codelineno-0-40" name="__codelineno-0-40"></a><span class="sd">        The corresponding density matrix of \(u\) may be calculated by:</span>
 <a id="__codelineno-0-41" name="__codelineno-0-41"></a>
 <a id="__codelineno-0-42" name="__codelineno-0-42"></a><span class="sd">        \[</span>
-<a id="__codelineno-0-43" name="__codelineno-0-43"></a><span class="sd">            \rho = u u^* = \begin{pmatrix}</span>
+<a id="__codelineno-0-43" name="__codelineno-0-43"></a><span class="sd">            \rho = u u^* = \frac{1}{2}\begin{pmatrix}</span>
 <a id="__codelineno-0-44" name="__codelineno-0-44"></a><span class="sd">                             1 &amp; 0 &amp; 0 &amp; 1 \\</span>
 <a id="__codelineno-0-45" name="__codelineno-0-45"></a><span class="sd">                             0 &amp; 0 &amp; 0 &amp; 0 \\</span>
 <a id="__codelineno-0-46" name="__codelineno-0-46"></a><span class="sd">                             0 &amp; 0 &amp; 0 &amp; 0 \\</span>
@@ -9967,7 +9969,7 @@
 <a id="__codelineno-0-48" name="__codelineno-0-48"></a><span class="sd">                           \end{pmatrix} \in \text{D}(\mathcal{X}).</span>
 <a id="__codelineno-0-49" name="__codelineno-0-49"></a><span class="sd">        \]</span>
 <a id="__codelineno-0-50" name="__codelineno-0-50"></a>
-<a id="__codelineno-0-51" name="__codelineno-0-51"></a><span class="sd">        The trace distance between \(\rho\) and another state \(\sigma\) is equal to \(0\) if any only if</span>
+<a id="__codelineno-0-51" name="__codelineno-0-51"></a><span class="sd">        The trace distance between \(\rho\) and another state \(\sigma\) is equal to \(0\) if and only if</span>
 <a id="__codelineno-0-52" name="__codelineno-0-52"></a><span class="sd">        \(\rho = \sigma\). We can check this using the `|toqito⟩` package.</span>
 <a id="__codelineno-0-53" name="__codelineno-0-53"></a>
 <a id="__codelineno-0-54" name="__codelineno-0-54"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;</span>

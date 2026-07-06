@@ -9779,7 +9779,11 @@
 
 
 <a href="#toqito.measurements.pretty_bad_measurement.pretty_bad_measurement" class="headerlink" title="Permanent link">&para;</a></h2>
-<div class="doc-signature highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">pretty_bad_measurement</span><span class="p">(</span><span class="n">states</span><span class="p">:</span> <span class="n"><span title="list">list</span></span><span class="p">[</span><span class="n"><span title="numpy.ndarray">ndarray</span></span><span class="p">],</span> <span class="n">probs</span><span class="p">:</span> <span class="n"><span title="list">list</span></span><span class="p">[</span><span class="n"><span title="float">float</span></span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">tol</span><span class="p">:</span> <span class="n"><span title="float">float</span></span> <span class="o">=</span> <span class="mf">1e-08</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><span title="list">list</span></span><span class="p">[</span><span class="n"><span title="numpy.ndarray">ndarray</span></span><span class="p">]</span>
+<div class="doc-signature highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">pretty_bad_measurement</span><span class="p">(</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="n">states</span><span class="p">:</span> <span class="n"><span title="list">list</span></span><span class="p">[</span><span class="n"><span title="numpy.ndarray">ndarray</span></span><span class="p">],</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    <span class="n">probs</span><span class="p">:</span> <span class="n"><span title="list">list</span></span><span class="p">[</span><span class="n"><span title="float">float</span></span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    <span class="n">tol</span><span class="p">:</span> <span class="n"><span title="float">float</span></span> <span class="o">=</span> <span class="mf">1e-08</span><span class="p">,</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><span title="list">list</span></span><span class="p">[</span><span class="n"><span title="numpy.ndarray">ndarray</span></span><span class="p">]</span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
@@ -9787,7 +9791,7 @@
         <p>Return the set of pretty bad measurements from a set of vectors and corresponding probabilities.</p>
 <p>This computes the "pretty bad measurement" (PBM) as defined in
 <sup><a id="cite-toqito-measurements-pretty_bad_measurement-pretty_bad_measurement-1" href="#ref-toqito-measurements-pretty_bad_measurement-pretty_bad_measurement-1">1</a></sup>. The PBM is an analogue to the "pretty
-good measurement" defined in [@belavkin1975optimal, @hughston1993complete]
+good measurement" defined in <sup><a id="cite-toqito-measurements-pretty_bad_measurement-pretty_bad_measurement-2" href="#ref-toqito-measurements-pretty_bad_measurement-pretty_bad_measurement-2">2</a></sup><sup><a id="cite-toqito-measurements-pretty_bad_measurement-pretty_bad_measurement-3" href="#ref-toqito-measurements-pretty_bad_measurement-pretty_bad_measurement-3">3</a></sup>
 and is useful for approximating the optimal measurement
 for state exclusion.</p>
 <p>The PBM is defined in terms of the pretty good measurement (PGM).
@@ -9887,7 +9891,9 @@ is the set of POVMs <span class="arithmatex">\((B_1, \ldots, B_n)\)</span> where
 <a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>       [0.14433757, 0.25      ]])]
 </code></pre></div>
         <p><strong>References</strong></p>
-<p><span id="ref-toqito-measurements-pretty_bad_measurement-pretty_bad_measurement-1"><sup><a href="#cite-toqito-measurements-pretty_bad_measurement-pretty_bad_measurement-1">1</a></sup> McIrvin, Caleb and Mohan, Ankith and Sikora, Jamie. <em>The pretty bad measurement</em>. (2024).</span></p>
+<p><span id="ref-toqito-measurements-pretty_bad_measurement-pretty_bad_measurement-1"><sup><a href="#cite-toqito-measurements-pretty_bad_measurement-pretty_bad_measurement-1">1</a></sup> McIrvin, Caleb and Mohan, Ankith and Sikora, Jamie. <em>The pretty bad measurement</em>. (2024).</span><br>
+<span id="ref-toqito-measurements-pretty_bad_measurement-pretty_bad_measurement-2"><sup><a href="#cite-toqito-measurements-pretty_bad_measurement-pretty_bad_measurement-2">2</a></sup> Belavkin, V.. <em>Optimal distinction of non-orthogonal quantum signals</em>. <strong>Radio Engineering and Electronic Physics</strong>. vol. 20. (1975).</span><br>
+<span id="ref-toqito-measurements-pretty_bad_measurement-pretty_bad_measurement-3"><sup><a href="#cite-toqito-measurements-pretty_bad_measurement-pretty_bad_measurement-3">3</a></sup> Hughston, Lane and Jozsa, Richard and Wootters, William. <em>A complete classification of quantum ensembles having a given density matrix</em>. <strong>Physics Letters A</strong>. vol. 183(1). (1993).</span></p>
 
 
             <details class="mkdocstrings-source">
@@ -9974,7 +9980,7 @@ is the set of POVMs <span class="arithmatex">\((B_1, \ldots, B_n)\)</span> where
 <a id="__codelineno-0-12" name="__codelineno-0-12"></a>
 <a id="__codelineno-0-13" name="__codelineno-0-13"></a><span class="sd">    This computes the &quot;pretty bad measurement&quot; (PBM) as defined in</span>
 <a id="__codelineno-0-14" name="__codelineno-0-14"></a><span class="sd">    [@mcirvin2024pretty]. The PBM is an analogue to the &quot;pretty</span>
-<a id="__codelineno-0-15" name="__codelineno-0-15"></a><span class="sd">    good measurement&quot; defined in [@belavkin1975optimal, @hughston1993complete]</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15"></a><span class="sd">    good measurement&quot; defined in [@belavkin1975optimal;@hughston1993complete]</span>
 <a id="__codelineno-0-16" name="__codelineno-0-16"></a><span class="sd">    and is useful for approximating the optimal measurement</span>
 <a id="__codelineno-0-17" name="__codelineno-0-17"></a><span class="sd">    for state exclusion.</span>
 <a id="__codelineno-0-18" name="__codelineno-0-18"></a>
@@ -10026,7 +10032,7 @@ is the set of POVMs <span class="arithmatex">\((B_1, \ldots, B_n)\)</span> where
 <a id="__codelineno-0-64" name="__codelineno-0-64"></a>    <span class="k">if</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
 <a id="__codelineno-0-65" name="__codelineno-0-65"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The pretty bad measurement is undefined for fewer than two states (it divides by n - 1).&quot;</span><span class="p">)</span>
 <a id="__codelineno-0-66" name="__codelineno-0-66"></a>
-<a id="__codelineno-0-67" name="__codelineno-0-67"></a>    <span class="c1"># If not probabilities are explicitly given, assume a uniform distribution.</span>
+<a id="__codelineno-0-67" name="__codelineno-0-67"></a>    <span class="c1"># If probabilities are not explicitly given, assume a uniform distribution.</span>
 <a id="__codelineno-0-68" name="__codelineno-0-68"></a>    <span class="k">if</span> <span class="n">probs</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
 <a id="__codelineno-0-69" name="__codelineno-0-69"></a>        <span class="n">probs</span> <span class="o">=</span> <span class="n">n</span> <span class="o">*</span> <span class="p">[</span><span class="mi">1</span> <span class="o">/</span> <span class="n">n</span><span class="p">]</span>
 <a id="__codelineno-0-70" name="__codelineno-0-70"></a>
