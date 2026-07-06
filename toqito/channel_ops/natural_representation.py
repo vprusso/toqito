@@ -27,4 +27,7 @@ def natural_representation(kraus_ops: list[np.ndarray]) -> np.ndarray:
         raise ValueError("All Kraus operators must have the same dimensions.")
 
     # Compute the natural representation.
-    return np.sum([tensor(k, np.conjugate(k)) for k in kraus_ops], axis=0)
+    natural_rep = tensor(kraus_ops[0], np.conjugate(kraus_ops[0]))
+    for k_mat in kraus_ops[1:]:
+        natural_rep += tensor(k_mat, np.conjugate(k_mat))
+    return natural_rep

@@ -42,7 +42,6 @@ def breuer(dim: int, lam: float) -> np.ndarray:
         raise ValueError(f"The value {dim} must be an even positive integer.")
 
     v_mat = np.fliplr(np.diag((-1) ** np.mod(np.arange(1, dim + 1), 2)))
-    max_entangled(dim)
     psi = np.dot(np.kron(np.identity(dim), v_mat), max_entangled(dim))
 
     return lam * (psi * psi.conj().T) + (1 - lam) * 2 * symmetric_projection(dim) / (dim * (dim + 1))
