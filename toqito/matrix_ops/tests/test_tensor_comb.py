@@ -192,6 +192,10 @@ def test_tensor_comb_density_matrix(states, k, mode, expected_comb_keys, expecte
         ),
         # empty input
         ([], 2, False, "injective", "Input list of states cannot be empty."),
+        # invalid sequence length
+        ([np.array([1, 0]), np.array([0, 1])], 0, False, "injective", "k must be a positive integer."),
+        # invalid sequence length
+        ([np.array([1, 0]), np.array([0, 1])], -1, False, "injective", "k must be a positive integer."),
     ],
 )
 def test_raised_errors(test_input, test_k, test_density_matrix, test_mode, expected_msg):

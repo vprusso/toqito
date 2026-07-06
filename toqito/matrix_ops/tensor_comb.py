@@ -64,6 +64,9 @@ def tensor_comb(
     if not states:
         raise ValueError("Input list of states cannot be empty.")
 
+    if k <= 0:
+        raise ValueError("k must be a positive integer.")
+
     if mode not in ("injective", "non-injective", "diagonal"):
         raise ValueError("mode must be injective, non-injective, or diagonal.")
 

@@ -58,7 +58,10 @@ def pretty_good_measurement(
     """
     n = len(states)
 
-    # If not probabilities are explicitly given, assume a uniform distribution.
+    if n == 0:
+        raise ValueError("The list of states must contain at least one state.")
+
+    # If probabilities are not explicitly given, assume a uniform distribution.
     if probs is None:
         probs = n * [1 / n]
 
