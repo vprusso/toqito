@@ -69,4 +69,4 @@ def is_tight_frame(vectors: list[np.ndarray], tol: float = 1e-8) -> bool:
     if frame_bound < tol:
         return False
 
-    return np.allclose(frame_op, frame_bound * np.eye(dim), atol=tol)
+    return np.allclose(frame_op, frame_bound * np.eye(dim), rtol=0, atol=tol)

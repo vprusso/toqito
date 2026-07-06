@@ -65,11 +65,11 @@ def is_equiangular_tight_frame(mat: np.ndarray, tol: float = 1e-8) -> bool:
 
     if num_vecs < 2:
         # A single vector trivially satisfies ETF conditions if it has unit norm.
-        return np.isclose(np.linalg.norm(mat[:, 0]), 1.0, atol=tol) if num_vecs == 1 else False
+        return np.isclose(np.linalg.norm(mat[:, 0]), 1.0, rtol=0, atol=tol) if num_vecs == 1 else False
 
     # 1. Check unit norms.
     norms = np.linalg.norm(mat, axis=0)
-    if not np.allclose(norms, 1.0, atol=tol):
+    if not np.allclose(norms, 1.0, rtol=0, atol=tol):
         return False
 
     # 2. Check equiangularity.
