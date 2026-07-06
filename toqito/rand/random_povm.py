@@ -83,11 +83,15 @@ def random_povm(dim: int, num_inputs: int, num_outputs: int, seed: int | None = 
     gram_vectors = gen.normal(size=(num_inputs, num_outputs, dim, dim))
     for input_block in gram_vectors:
         normalizer = sum(np.array(output_block).T.conj() @ output_block for output_block in input_block)
-        u_mat, d_mat, _ = np.linalg.svd(normalizer)
+        # ``normalizer`` is Hermitian PSD, so ``eigh`` yields the same factorization as ``svd``
+        # (eigenvectors match the left singular vectors up to sign and eigenvalues equal the
+        # singular values) while being strictly cheaper; only ``U`` and ``D^{-1/2}`` are needed.
+        d_mat, u_mat = np.linalg.eigh(normalizer)
+        scale = u_mat * (d_mat ** (-1 / 2.0))
 
         output_povms = []
         for output_block in input_block:
-            partial = np.array(output_block, dtype=complex).dot(u_mat).dot(np.diag(d_mat ** (-1 / 2.0)))
+            partial = np.array(output_block, dtype=complex).dot(scale)
             output_povms.append(partial.T.conj() @ partial)
         povms.append(output_povms)
 
