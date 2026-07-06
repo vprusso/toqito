@@ -11,7 +11,7 @@ class QuantumHedging:
     r"""Calculate optimal winning probabilities for hedging scenarios.
 
     Calculate the maximal and minimal winning probabilities for quantum
-    hedging to occur in certain two-party scenarios [@arunachalam2017quantum, @molina2012hedging].
+    hedging to occur in certain two-party scenarios [@arunachalam2017quantum;@molina2012hedging].
 
     Examples:
         This example illustrates the initial example of perfect hedging when Alice
