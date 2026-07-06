@@ -9791,7 +9791,7 @@
     E(\rho, \sigma) = \text{Tr}(\rho \sigma) +
     \sqrt{2 \left[ \text{Tr}(\rho \sigma)^2 - \text{Tr}(\rho \sigma \rho \sigma) \right]},
 \]</div>
-<p>where <span class="arithmatex">\(\sigma\)</span> and <span class="arithmatex">\(\rho\)</span> are density matrices. The sub-fidelity serves as an lower bound for the
+<p>where <span class="arithmatex">\(\sigma\)</span> and <span class="arithmatex">\(\rho\)</span> are density matrices. The sub-fidelity serves as a lower bound for the
 fidelity.</p>
 
 
@@ -9863,7 +9863,7 @@ fidelity.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>0.77389339119464
 </code></pre></div>
 <p>As the sub-fidelity is a lower bound on the fidelity, that is <span class="arithmatex">\(E(\rho, \sigma) \leq F(\rho, \sigma)\)</span>, we can
-use <code>|toqito⟩</code> to observe that <span class="arithmatex">\(E(\rho, \sigma) \approx 0.599\leq F(\rho, \sigma \approx 0.774\)</span>.</p>
+use <code>|toqito⟩</code> to observe that <span class="arithmatex">\(E(\rho, \sigma) \approx 0.599 \leq F(\rho, \sigma) \approx 0.774\)</span>.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.states</span><span class="w"> </span><span class="kn">import</span> <span class="n">basis</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.state_metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">sub_fidelity</span>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
@@ -9964,7 +9964,7 @@ use <code>|toqito⟩</code> to observe that <span class="arithmatex">\(E(\rho, \
 <a id="__codelineno-0-18" name="__codelineno-0-18"></a><span class="sd">        \sqrt{2 \left[ \text{Tr}(\rho \sigma)^2 - \text{Tr}(\rho \sigma \rho \sigma) \right]},</span>
 <a id="__codelineno-0-19" name="__codelineno-0-19"></a><span class="sd">    \]</span>
 <a id="__codelineno-0-20" name="__codelineno-0-20"></a>
-<a id="__codelineno-0-21" name="__codelineno-0-21"></a><span class="sd">    where \(\sigma\) and \(\rho\) are density matrices. The sub-fidelity serves as an lower bound for the</span>
+<a id="__codelineno-0-21" name="__codelineno-0-21"></a><span class="sd">    where \(\sigma\) and \(\rho\) are density matrices. The sub-fidelity serves as a lower bound for the</span>
 <a id="__codelineno-0-22" name="__codelineno-0-22"></a><span class="sd">    fidelity.</span>
 <a id="__codelineno-0-23" name="__codelineno-0-23"></a>
 <a id="__codelineno-0-24" name="__codelineno-0-24"></a><span class="sd">    Args:</span>
@@ -10003,7 +10003,7 @@ use <code>|toqito⟩</code> to observe that <span class="arithmatex">\(E(\rho, \
 <a id="__codelineno-0-57" name="__codelineno-0-57"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-58" name="__codelineno-0-58"></a>
 <a id="__codelineno-0-59" name="__codelineno-0-59"></a><span class="sd">        As the sub-fidelity is a lower bound on the fidelity, that is \(E(\rho, \sigma) \leq F(\rho, \sigma)\), we can</span>
-<a id="__codelineno-0-60" name="__codelineno-0-60"></a><span class="sd">        use `|toqito⟩` to observe that \(E(\rho, \sigma) \approx 0.599\leq F(\rho, \sigma \approx 0.774\).</span>
+<a id="__codelineno-0-60" name="__codelineno-0-60"></a><span class="sd">        use `|toqito⟩` to observe that \(E(\rho, \sigma) \approx 0.599 \leq F(\rho, \sigma) \approx 0.774\).</span>
 <a id="__codelineno-0-61" name="__codelineno-0-61"></a>
 <a id="__codelineno-0-62" name="__codelineno-0-62"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;</span>
 <a id="__codelineno-0-63" name="__codelineno-0-63"></a><span class="sd">        from toqito.states import basis</span>
