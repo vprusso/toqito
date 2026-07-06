@@ -645,6 +645,13 @@ def _locc_min_error(
     num_states = len(states)
     num_a = num_states if num_alice_outcomes is None else num_alice_outcomes
 
+    # Both alternating SDPs have identical variables and constraints on every see-saw step and restart; only the fixed
+    # opponent operators (constants in the objective) change. Build each `cvxpy.Problem` once with those operators
+    # exposed as `cvxpy.Parameter`s, then re-solve after assigning `.value` each step. This avoids re-canonicalizing
+    # (which dominates the runtime of these small SDPs) on every iteration.
+    bob_problem, bob_vars, bob_params = _locc_build_bob(probs, num_a, num_states, dim_b)
+    alice_problem, alice_vars, alice_params = _locc_build_alice(num_a, dim_a)
+
     best = float("inf")
     best_strategy: tuple[list[np.ndarray], dict, int] | None = None
     for rep in range(reps):
@@ -655,8 +662,8 @@ def _locc_min_error(
         prev = float("inf")
         current = float("inf")
         for _ in range(max_iters):
-            bob = _locc_optimize_bob(states, probs, dim_a, dim_b, alice)
-            alice = _locc_optimize_alice(states, probs, dim_a, dim_b, bob, num_a)
+            bob = _locc_optimize_bob(bob_problem, bob_vars, bob_params, states, dim_a, dim_b, alice)
+            alice = _locc_optimize_alice(alice_problem, alice_vars, alice_params, states, probs, dim_a, dim_b, bob)
             current = _locc_error(states, probs, alice, bob, num_a)
             if abs(prev - current) < tol:
                 break
@@ -671,45 +678,73 @@ def _locc_min_error(
     return best, measurements
 
 
-def _locc_optimize_bob(states, probs, dim_a, dim_b, alice):
-    """Fix Alice's POVM and optimize Bob's conditional exclusion POVMs."""
-    num_a, num_states = len(alice), len(states)
+def _locc_build_bob(probs, num_a, num_states, dim_b):
+    """Build Bob's exclusion SDP once, exposing Alice's fixed conditional states as parameters.
+
+    Returns the problem together with Bob's POVM variables and the per-``(a, k)`` conditional-state parameters
+    (``partial_trace`` of Alice's outcome ``a`` on state ``k``) whose ``.value`` is refreshed each see-saw step.
+    """
     bob = {(a, k): cvxpy.Variable((dim_b, dim_b), hermitian=True) for a in range(num_a) for k in range(num_states)}
+    conditionals = {
+        (a, k): cvxpy.Parameter((dim_b, dim_b), complex=True) for a in range(num_a) for k in range(num_states)
+    }
 
     constraints = []
     error = 0
     for a in range(num_a):
-        conditional = [
-            partial_trace(np.kron(alice[a], np.identity(dim_b)) @ states[k], [0], [dim_a, dim_b])
-            for k in range(num_states)
-        ]
         for k in range(num_states):
             constraints.append(bob[a, k] >> 0)
-            error += probs[k] * cvxpy.trace(bob[a, k] @ conditional[k])
+            error += probs[k] * cvxpy.trace(bob[a, k] @ conditionals[a, k])
         constraints.append(sum(bob[a, k] for k in range(num_states)) == np.identity(dim_b))
 
-    cvxpy.Problem(cvxpy.Minimize(cvxpy.real(error)), constraints).solve()
-    return {key: np.array(var.value) for key, var in bob.items()}
+    problem = cvxpy.Problem(cvxpy.Minimize(cvxpy.real(error)), constraints)
+    return problem, bob, conditionals
 
 
-def _locc_optimize_alice(states, probs, dim_a, dim_b, bob, num_a):
-    """Fix Bob's conditional POVMs and optimize Alice's POVM."""
-    num_states = len(states)
+def _locc_optimize_bob(problem, bob_vars, conditionals, states, dim_a, dim_b, alice):
+    """Fix Alice's POVM and optimize Bob's conditional exclusion POVMs by re-solving the prebuilt SDP."""
+    num_a, num_states = len(alice), len(states)
+    for a in range(num_a):
+        for k in range(num_states):
+            conditionals[a, k].value = partial_trace(
+                np.kron(alice[a], np.identity(dim_b)) @ states[k], [0], [dim_a, dim_b]
+            )
+
+    problem.solve()
+    return {key: np.array(var.value) for key, var in bob_vars.items()}
+
+
+def _locc_build_alice(num_a, dim_a):
+    """Build Alice's exclusion SDP once, exposing Bob's fixed operators as per-outcome ``tau`` parameters.
+
+    Returns the problem together with Alice's POVM variables and the per-outcome ``tau`` parameters (the
+    probability-weighted partial traces induced by Bob's conditional POVMs) whose ``.value`` is refreshed each step.
+    """
     alice = [cvxpy.Variable((dim_a, dim_a), hermitian=True) for _ in range(num_a)]
+    taus = [cvxpy.Parameter((dim_a, dim_a), complex=True) for _ in range(num_a)]
 
     constraints = [a >> 0 for a in alice]
     constraints.append(sum(alice) == np.identity(dim_a))
 
     error = 0
     for a in range(num_a):
-        tau = sum(
+        error += cvxpy.trace(alice[a] @ taus[a])
+
+    problem = cvxpy.Problem(cvxpy.Minimize(cvxpy.real(error)), constraints)
+    return problem, alice, taus
+
+
+def _locc_optimize_alice(problem, alice_vars, taus, states, probs, dim_a, dim_b, bob):
+    """Fix Bob's conditional POVMs and optimize Alice's POVM by re-solving the prebuilt SDP."""
+    num_a, num_states = len(alice_vars), len(states)
+    for a in range(num_a):
+        taus[a].value = sum(
             probs[k] * partial_trace(np.kron(np.identity(dim_a), bob[a, k]) @ states[k], [1], [dim_a, dim_b])
             for k in range(num_states)
         )
-        error += cvxpy.trace(alice[a] @ tau)
 
-    cvxpy.Problem(cvxpy.Minimize(cvxpy.real(error)), constraints).solve()
-    return [np.array(a.value) for a in alice]
+    problem.solve()
+    return [np.array(a.value) for a in alice_vars]
 
 
 def _locc_error(states, probs, alice, bob, num_a):
