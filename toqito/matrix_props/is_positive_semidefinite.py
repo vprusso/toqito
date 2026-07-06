@@ -60,5 +60,6 @@ def is_positive_semidefinite(mat: np.ndarray, rtol: float = 1e-05, atol: float =
     """
     if not is_hermitian(mat, rtol, atol):
         return False
-    evals, _ = np.linalg.eigh(mat)
-    return all(x >= -abs(atol) for x in evals)
+    evals = np.linalg.eigvalsh(mat)
+    scale = max(1.0, np.max(np.abs(evals)))
+    return bool(np.min(evals) >= -(atol + rtol * scale))
