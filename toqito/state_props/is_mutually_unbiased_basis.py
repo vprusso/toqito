@@ -89,15 +89,14 @@ def is_mutually_unbiased_basis(vectors: list[np.ndarray | list[float | Any]]) ->
     if num_vectors % dim != 0:
         return False
 
-    num_bases = num_vectors // dim
+    # Stack the vectors as the columns of a `dim x num_vectors` matrix and form the
+    # Gram matrix of squared-magnitude inner products in a single BLAS matmul:
+    # `gram[a, b] = |<vectors[a], vectors[b]>|^2`.
+    mat = np.column_stack([np.asarray(vector).reshape(-1) for vector in vectors])
+    gram = np.abs(mat.conj().T @ mat) ** 2
 
-    # Check the inner product between vectors from different bases.
-    for i in range(num_bases):
-        for j in range(i + 1, num_bases):
-            for k in range(dim):
-                for litem in range(dim):
-                    # Compute inner product between vectors from different bases.
-                    inner_product = np.abs(np.vdot(vectors[i * dim + k], vectors[j * dim + litem])) ** 2
-                    if not np.isclose(inner_product, 1 / dim):
-                        return False
-    return True
+    # Mutual unbiasedness requires |<e_i|f_j>|^2 = 1/dim for every pair of vectors drawn
+    # from two *different* bases, i.e. every entry in the off-diagonal `dim x dim` blocks.
+    basis_index = np.arange(num_vectors) // dim
+    cross_basis = basis_index[:, None] != basis_index[None, :]
+    return bool(np.allclose(gram[cross_basis], 1 / dim))
