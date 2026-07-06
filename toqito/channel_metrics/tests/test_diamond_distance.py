@@ -4,6 +4,7 @@ import numpy as np
 import pytest
 
 from toqito.channel_metrics import diamond_distance
+from toqito.channel_ops import kraus_to_choi
 from toqito.channels import dephasing, depolarizing
 
 
@@ -20,6 +21,38 @@ def test_diamond_norm_valid_inputs(test_input1, test_input_2, expected):
     """Test function works as expected for valid inputs."""
     calculated_value = diamond_distance(test_input1, test_input_2)
     assert pytest.approx(expected, 1e-3) == calculated_value
+
+
+def test_diamond_norm_qutrit_unitaries():
+    """Qutrit unitary channels (a non-power-of-2 dimension) are handled correctly (issue #1596).
+
+    For unitary channels the diamond distance is determined by the eigenvalues of U^dagger V.
+    For U = diag(1, 1, exp(i * theta)) versus the identity, it equals 2 * sin(theta / 2).
+    """
+    theta = np.pi / 2
+    unitary = np.diag([1, 1, np.exp(1j * theta)])
+    choi_u = kraus_to_choi([[unitary, unitary]])
+    choi_id = kraus_to_choi([[np.eye(3), np.eye(3)]])
+    assert pytest.approx(2 * np.sin(theta / 2), abs=1e-3) == diamond_distance(choi_u, choi_id)
+
+
+@pytest.mark.parametrize(
+    "test_input_2, expected",
+    [
+        # The two isometries map |1> to orthogonal states, so the channels are perfectly
+        # distinguishable and the diamond distance is 2.
+        (np.array([[1, 0], [0, 0], [0, 1]]), 2),
+        # V2 = |0><0| + (cos(t)|1> + sin(t)|2>)<1| with t = pi / 6. For isometry channels the
+        # diamond distance is 2 * sin(t) = 1.
+        (np.array([[1, 0], [0, np.cos(np.pi / 6)], [0, np.sin(np.pi / 6)]]), 1),
+    ],
+)
+def test_diamond_norm_rectangular_channels(test_input_2, expected):
+    """Channels with unequal input/output dimensions are handled via `dim` (issue #1596)."""
+    isometry_1 = np.array([[1, 0], [0, 1], [0, 0]])
+    choi_1 = kraus_to_choi([[isometry_1, isometry_1]])
+    choi_2 = kraus_to_choi([[test_input_2, test_input_2]])
+    assert pytest.approx(expected, abs=1e-3) == diamond_distance(choi_1, choi_2, dim=[2, 3])
 
 
 @pytest.mark.parametrize(
