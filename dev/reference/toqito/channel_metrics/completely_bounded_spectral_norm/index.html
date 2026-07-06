@@ -9779,7 +9779,7 @@
 
 
 <a href="#toqito.channel_metrics.completely_bounded_spectral_norm.completely_bounded_spectral_norm" class="headerlink" title="Permanent link">&para;</a></h2>
-<div class="doc-signature highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">completely_bounded_spectral_norm</span><span class="p">(</span><span class="n">phi</span><span class="p">:</span> <span class="n"><span title="numpy.ndarray">ndarray</span></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><span title="float">float</span></span> <span class="o">|</span> <span class="n"><span title="numpy.floating">floating</span></span>
+<div class="doc-signature highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">completely_bounded_spectral_norm</span><span class="p">(</span><span class="n">phi</span><span class="p">:</span> <span class="n"><span title="numpy.ndarray">ndarray</span></span><span class="p">,</span> <span class="n">dim</span><span class="p">:</span> <span class="n"><span title="int">int</span></span> <span class="o">|</span> <span class="n"><span title="list">list</span></span><span class="p">[</span><span class="n"><span title="int">int</span></span><span class="p">]</span> <span class="o">|</span> <span class="n"><span title="numpy.ndarray">ndarray</span></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><span title="float">float</span></span> <span class="o">|</span> <span class="n"><span title="numpy.floating">floating</span></span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
@@ -9796,6 +9796,20 @@
           –
           <div class="doc-md-description">
             <p>superoperator</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>dim</code></b>
+              (<code><span title="int">int</span> | <span title="list">list</span>[<span title="int">int</span>] | <span title="numpy.ndarray">ndarray</span> | None</code>, default:
+                  <code>None</code>
+)
+          –
+          <div class="doc-md-description">
+            <p>A scalar or vector containing the input and output dimensions of <code>phi</code>. This only
+needs to be provided if the input and output dimensions of the channel differ (e.g. a
+channel mapping a qubit to a qutrit), since they cannot be inferred from the Choi
+matrix alone in that case. If the channel maps <span class="arithmatex">\(M_m\)</span> to <span class="arithmatex">\(M_n\)</span>, then <code>dim</code> is
+the vector <code>[m, n]</code>.</p>
           </div>
         </li>
     </ul>
@@ -9830,8 +9844,7 @@
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>toqito/channel_metrics/completely_bounded_spectral_norm.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-0-10">10</a></span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-10">10</a></span>
 <span class="normal"><a href="#__codelineno-0-11">11</a></span>
 <span class="normal"><a href="#__codelineno-0-12">12</a></span>
 <span class="normal"><a href="#__codelineno-0-13">13</a></span>
@@ -9853,30 +9866,53 @@
 <span class="normal"><a href="#__codelineno-0-29">29</a></span>
 <span class="normal"><a href="#__codelineno-0-30">30</a></span>
 <span class="normal"><a href="#__codelineno-0-31">31</a></span>
-<span class="normal"><a href="#__codelineno-0-32">32</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-9" name="__codelineno-0-9"></a><span class="k">def</span><span class="w"> </span><span class="nf">completely_bounded_spectral_norm</span><span class="p">(</span><span class="n">phi</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">floating</span><span class="p">:</span>
-<a id="__codelineno-0-10" name="__codelineno-0-10"></a><span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Compute the completely bounded spectral norm of a quantum channel.</span>
-<a id="__codelineno-0-11" name="__codelineno-0-11"></a>
-<a id="__codelineno-0-12" name="__codelineno-0-12"></a><span class="sd">    As defined in [@watrous2009semidefinite] and [@qetlablink].</span>
-<a id="__codelineno-0-13" name="__codelineno-0-13"></a>
-<a id="__codelineno-0-14" name="__codelineno-0-14"></a><span class="sd">    Args:</span>
-<a id="__codelineno-0-15" name="__codelineno-0-15"></a><span class="sd">        phi: superoperator</span>
+<span class="normal"><a href="#__codelineno-0-32">32</a></span>
+<span class="normal"><a href="#__codelineno-0-33">33</a></span>
+<span class="normal"><a href="#__codelineno-0-34">34</a></span>
+<span class="normal"><a href="#__codelineno-0-35">35</a></span>
+<span class="normal"><a href="#__codelineno-0-36">36</a></span>
+<span class="normal"><a href="#__codelineno-0-37">37</a></span>
+<span class="normal"><a href="#__codelineno-0-38">38</a></span>
+<span class="normal"><a href="#__codelineno-0-39">39</a></span>
+<span class="normal"><a href="#__codelineno-0-40">40</a></span>
+<span class="normal"><a href="#__codelineno-0-41">41</a></span>
+<span class="normal"><a href="#__codelineno-0-42">42</a></span>
+<span class="normal"><a href="#__codelineno-0-43">43</a></span>
+<span class="normal"><a href="#__codelineno-0-44">44</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-10" name="__codelineno-0-10"></a><span class="k">def</span><span class="w"> </span><span class="nf">completely_bounded_spectral_norm</span><span class="p">(</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11"></a>    <span class="n">phi</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">dim</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">floating</span><span class="p">:</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13"></a><span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Compute the completely bounded spectral norm of a quantum channel.</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14"></a>
+<a id="__codelineno-0-15" name="__codelineno-0-15"></a><span class="sd">    As defined in [@watrous2009semidefinite] and [@qetlablink].</span>
 <a id="__codelineno-0-16" name="__codelineno-0-16"></a>
-<a id="__codelineno-0-17" name="__codelineno-0-17"></a><span class="sd">    Returns:</span>
-<a id="__codelineno-0-18" name="__codelineno-0-18"></a><span class="sd">        The completely bounded spectral norm of the channel</span>
-<a id="__codelineno-0-19" name="__codelineno-0-19"></a>
-<a id="__codelineno-0-20" name="__codelineno-0-20"></a><span class="sd">    Examples:</span>
-<a id="__codelineno-0-21" name="__codelineno-0-21"></a><span class="sd">        To compute the completely bounded spectral norm of a depolarizing channel:</span>
-<a id="__codelineno-0-22" name="__codelineno-0-22"></a>
-<a id="__codelineno-0-23" name="__codelineno-0-23"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;</span>
-<a id="__codelineno-0-24" name="__codelineno-0-24"></a><span class="sd">        from toqito.channels import depolarizing</span>
-<a id="__codelineno-0-25" name="__codelineno-0-25"></a><span class="sd">        from toqito.channel_metrics import completely_bounded_spectral_norm</span>
-<a id="__codelineno-0-26" name="__codelineno-0-26"></a><span class="sd">        # Define the depolarizing channel</span>
-<a id="__codelineno-0-27" name="__codelineno-0-27"></a><span class="sd">        choi_depolarizing = depolarizing(dim=2, param_p=0.2)</span>
-<a id="__codelineno-0-28" name="__codelineno-0-28"></a><span class="sd">        print(completely_bounded_spectral_norm(choi_depolarizing))</span>
-<a id="__codelineno-0-29" name="__codelineno-0-29"></a><span class="sd">        ```</span>
+<a id="__codelineno-0-17" name="__codelineno-0-17"></a><span class="sd">    Args:</span>
+<a id="__codelineno-0-18" name="__codelineno-0-18"></a><span class="sd">        phi: superoperator</span>
+<a id="__codelineno-0-19" name="__codelineno-0-19"></a><span class="sd">        dim: A scalar or vector containing the input and output dimensions of `phi`. This only</span>
+<a id="__codelineno-0-20" name="__codelineno-0-20"></a><span class="sd">            needs to be provided if the input and output dimensions of the channel differ (e.g. a</span>
+<a id="__codelineno-0-21" name="__codelineno-0-21"></a><span class="sd">            channel mapping a qubit to a qutrit), since they cannot be inferred from the Choi</span>
+<a id="__codelineno-0-22" name="__codelineno-0-22"></a><span class="sd">            matrix alone in that case. If the channel maps \(M_m\) to \(M_n\), then `dim` is</span>
+<a id="__codelineno-0-23" name="__codelineno-0-23"></a><span class="sd">            the vector `[m, n]`.</span>
+<a id="__codelineno-0-24" name="__codelineno-0-24"></a>
+<a id="__codelineno-0-25" name="__codelineno-0-25"></a><span class="sd">    Returns:</span>
+<a id="__codelineno-0-26" name="__codelineno-0-26"></a><span class="sd">        The completely bounded spectral norm of the channel</span>
+<a id="__codelineno-0-27" name="__codelineno-0-27"></a>
+<a id="__codelineno-0-28" name="__codelineno-0-28"></a><span class="sd">    Examples:</span>
+<a id="__codelineno-0-29" name="__codelineno-0-29"></a><span class="sd">        To compute the completely bounded spectral norm of a depolarizing channel:</span>
 <a id="__codelineno-0-30" name="__codelineno-0-30"></a>
-<a id="__codelineno-0-31" name="__codelineno-0-31"></a><span class="sd">    &quot;&quot;&quot;</span>
-<a id="__codelineno-0-32" name="__codelineno-0-32"></a>    <span class="k">return</span> <span class="n">completely_bounded_trace_norm</span><span class="p">(</span><span class="n">dual_channel</span><span class="p">(</span><span class="n">phi</span><span class="p">))</span>
+<a id="__codelineno-0-31" name="__codelineno-0-31"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;</span>
+<a id="__codelineno-0-32" name="__codelineno-0-32"></a><span class="sd">        from toqito.channels import depolarizing</span>
+<a id="__codelineno-0-33" name="__codelineno-0-33"></a><span class="sd">        from toqito.channel_metrics import completely_bounded_spectral_norm</span>
+<a id="__codelineno-0-34" name="__codelineno-0-34"></a><span class="sd">        # Define the depolarizing channel</span>
+<a id="__codelineno-0-35" name="__codelineno-0-35"></a><span class="sd">        choi_depolarizing = depolarizing(dim=2, param_p=0.2)</span>
+<a id="__codelineno-0-36" name="__codelineno-0-36"></a><span class="sd">        print(completely_bounded_spectral_norm(choi_depolarizing))</span>
+<a id="__codelineno-0-37" name="__codelineno-0-37"></a><span class="sd">        ```</span>
+<a id="__codelineno-0-38" name="__codelineno-0-38"></a>
+<a id="__codelineno-0-39" name="__codelineno-0-39"></a><span class="sd">    &quot;&quot;&quot;</span>
+<a id="__codelineno-0-40" name="__codelineno-0-40"></a>    <span class="c1"># The dual channel swaps the input and output spaces, so the dimensions passed along to the</span>
+<a id="__codelineno-0-41" name="__codelineno-0-41"></a>    <span class="c1"># completely bounded trace norm are reversed.</span>
+<a id="__codelineno-0-42" name="__codelineno-0-42"></a>    <span class="n">dim_in</span><span class="p">,</span> <span class="n">dim_out</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">channel_dim</span><span class="p">(</span><span class="n">phi</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="n">dim</span><span class="p">,</span> <span class="n">allow_rect</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">compute_env_dim</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<a id="__codelineno-0-43" name="__codelineno-0-43"></a>    <span class="n">dim_in</span><span class="p">,</span> <span class="n">dim_out</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">dim_in</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">dim_out</span><span class="p">)</span>
+<a id="__codelineno-0-44" name="__codelineno-0-44"></a>    <span class="k">return</span> <span class="n">completely_bounded_trace_norm</span><span class="p">(</span><span class="n">dual_channel</span><span class="p">(</span><span class="n">phi</span><span class="p">,</span> <span class="n">dims</span><span class="o">=</span><span class="p">[</span><span class="n">dim_in</span><span class="p">,</span> <span class="n">dim_out</span><span class="p">]),</span> <span class="n">dim</span><span class="o">=</span><span class="p">[</span><span class="n">dim_out</span><span class="p">,</span> <span class="n">dim_in</span><span class="p">])</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>

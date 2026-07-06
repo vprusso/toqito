@@ -9788,11 +9788,11 @@
         <p>Compute the Bures angle of two density matrices <sup><a id="cite-toqito-state_metrics-bures_angle-bures_angle-1" href="#ref-toqito-state_metrics-bures_angle-bures_angle-1">1</a></sup>.</p>
 <p>Calculate the Bures angle between two density matrices <code>rho_1</code> and <code>rho_2</code> defined by:</p>
 <div class="arithmatex">\[
-    \arccos{\sqrt{F (\rho_1, \rho_2)}}
+    \arccos{F (\rho_1, \rho_2)}
 \]</div>
-<p>where <span class="arithmatex">\(F(\cdot)\)</span> denotes the fidelity between <span class="arithmatex">\(\rho_1\)</span> and <span class="arithmatex">\(\rho_2\)</span>. The return is a value between
-<span class="arithmatex">\(0\)</span> and <span class="arithmatex">\(\pi / 2\)</span>, with <span class="arithmatex">\(0\)</span> corresponding to matrices <code>rho_1 = rho_2</code> and <span class="arithmatex">\(\pi / 2\)</span>
-corresponding to the case <code>rho_1</code> and <code>rho_2</code> with orthogonal support.</p>
+<p>where <span class="arithmatex">\(F(\cdot)\)</span> denotes the root fidelity between <span class="arithmatex">\(\rho_1\)</span> and <span class="arithmatex">\(\rho_2\)</span>. The return is a value
+between <span class="arithmatex">\(0\)</span> and <span class="arithmatex">\(\pi / 2\)</span>, with <span class="arithmatex">\(0\)</span> corresponding to matrices <code>rho_1 = rho_2</code> and
+<span class="arithmatex">\(\pi / 2\)</span> corresponding to the case <code>rho_1</code> and <code>rho_2</code> with orthogonal support.</p>
 
 
 <p><span class="doc-section-title">Parameters:</span></p>
@@ -9961,12 +9961,12 @@ corresponding to the case <code>rho_1</code> and <code>rho_2</code> with orthogo
 <a id="__codelineno-0-14" name="__codelineno-0-14"></a><span class="sd">    Calculate the Bures angle between two density matrices `rho_1` and `rho_2` defined by:</span>
 <a id="__codelineno-0-15" name="__codelineno-0-15"></a>
 <a id="__codelineno-0-16" name="__codelineno-0-16"></a><span class="sd">    \[</span>
-<a id="__codelineno-0-17" name="__codelineno-0-17"></a><span class="sd">        \arccos{\sqrt{F (\rho_1, \rho_2)}}</span>
+<a id="__codelineno-0-17" name="__codelineno-0-17"></a><span class="sd">        \arccos{F (\rho_1, \rho_2)}</span>
 <a id="__codelineno-0-18" name="__codelineno-0-18"></a><span class="sd">    \]</span>
 <a id="__codelineno-0-19" name="__codelineno-0-19"></a>
-<a id="__codelineno-0-20" name="__codelineno-0-20"></a><span class="sd">    where \(F(\cdot)\) denotes the fidelity between \(\rho_1\) and \(\rho_2\). The return is a value between</span>
-<a id="__codelineno-0-21" name="__codelineno-0-21"></a><span class="sd">    \(0\) and \(\pi / 2\), with \(0\) corresponding to matrices `rho_1 = rho_2` and \(\pi / 2\)</span>
-<a id="__codelineno-0-22" name="__codelineno-0-22"></a><span class="sd">    corresponding to the case `rho_1` and `rho_2` with orthogonal support.</span>
+<a id="__codelineno-0-20" name="__codelineno-0-20"></a><span class="sd">    where \(F(\cdot)\) denotes the root fidelity between \(\rho_1\) and \(\rho_2\). The return is a value</span>
+<a id="__codelineno-0-21" name="__codelineno-0-21"></a><span class="sd">    between \(0\) and \(\pi / 2\), with \(0\) corresponding to matrices `rho_1 = rho_2` and</span>
+<a id="__codelineno-0-22" name="__codelineno-0-22"></a><span class="sd">    \(\pi / 2\) corresponding to the case `rho_1` and `rho_2` with orthogonal support.</span>
 <a id="__codelineno-0-23" name="__codelineno-0-23"></a>
 <a id="__codelineno-0-24" name="__codelineno-0-24"></a><span class="sd">    Args:</span>
 <a id="__codelineno-0-25" name="__codelineno-0-25"></a><span class="sd">        rho_1: Density operator.</span>
@@ -10023,7 +10023,7 @@ corresponding to the case <code>rho_1</code> and <code>rho_2</code> with orthogo
 <a id="__codelineno-0-76" name="__codelineno-0-76"></a>    <span class="c1"># sqrtm-based fidelity can push it just above 1 for near-identical states, which would make</span>
 <a id="__codelineno-0-77" name="__codelineno-0-77"></a>    <span class="c1"># arccos receive an argument greater than 1 and yield NaN.</span>
 <a id="__codelineno-0-78" name="__codelineno-0-78"></a>    <span class="n">fid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">fidelity</span><span class="p">(</span><span class="n">rho_1</span><span class="p">,</span> <span class="n">rho_2</span><span class="p">),</span> <span class="n">decimals</span><span class="p">),</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
-<a id="__codelineno-0-79" name="__codelineno-0-79"></a>    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arccos</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">fid</span><span class="p">)))</span>
+<a id="__codelineno-0-79" name="__codelineno-0-79"></a>    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arccos</span><span class="p">(</span><span class="n">fid</span><span class="p">))</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
