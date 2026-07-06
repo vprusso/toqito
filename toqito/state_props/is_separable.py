@@ -533,7 +533,11 @@ def is_separable(
         return False, "inconclusive: strength=0 capped after PPT pre-checks"
 
     # --- 5b. Operator Schmidt Rank <= 2 (Cariello 2013) ---
-    verdict = _operator_schmidt_rank_ppt_criterion(current_state, dims_list, tol)
+    # The singular values of the realignment feed both the operator Schmidt-rank
+    # check here (count of s > tol) and the CCNR trace-norm check below (sum of s),
+    # so compute this SVD once and reuse it.
+    realignment_svals = np.linalg.svd(realignment(current_state, dim=dims_list), compute_uv=False)
+    verdict = _operator_schmidt_rank_ppt_criterion(realignment_svals, tol)
     if verdict is not None:
         return verdict
 
@@ -574,7 +578,9 @@ def is_separable(
         return verdict
 
     # --- 9. Realignment/CCNR Criteria ---
-    verdict = _realignment_ppt_criteria(current_state, dims_list, rho_A_marginal, rho_B_marginal, dA, dB, tol)
+    verdict = _realignment_ppt_criteria(
+        current_state, dims_list, realignment_svals, rho_A_marginal, rho_B_marginal, dA, dB, tol
+    )
     if verdict is not None:
         return verdict
 
@@ -1062,14 +1068,17 @@ def _iterative_product_state_subtraction(
 
 
 def _operator_schmidt_rank_ppt_criterion(
-    state: np.ndarray,
-    dims: list[int],
+    realignment_svals: np.ndarray,
     tol: float,
 ) -> tuple[bool, str] | None:
-    """Return the Cariello PPT criterion verdict, if it fires."""
-    op_schmidt_rank = np.linalg.matrix_rank(realignment(state, dim=dims), tol=tol)
+    """Return the Cariello PPT criterion verdict, if it fires.
+
+    The operator Schmidt rank is the number of singular values of the realignment
+    that exceed `tol`, matching ``np.linalg.matrix_rank(..., tol=tol)``.
+    """
+    op_schmidt_rank = int(np.count_nonzero(realignment_svals > tol))
     if op_schmidt_rank <= 2:
-        return True, f"operator Schmidt rank = {int(op_schmidt_rank)} <= 2 (Cariello 2013)"
+        return True, f"operator Schmidt rank = {op_schmidt_rank} <= 2 (Cariello 2013)"
     return None
 
 
@@ -1142,14 +1151,19 @@ def _reduction_ppt_criterion(
 def _realignment_ppt_criteria(
     state: np.ndarray,
     dims: list[int],
+    realignment_svals: np.ndarray,
     rho_a_marginal: np.ndarray,
     rho_b_marginal: np.ndarray,
     d_a: int,
     d_b: int,
     tol: float,
 ) -> tuple[bool, str] | None:
-    """Return the first realignment/filter-CMC witness verdict that fires."""
-    if trace_norm(realignment(state, dims)) > 1 + tol:
+    """Return the first realignment/filter-CMC witness verdict that fires.
+
+    ``realignment_svals`` are the singular values of ``realignment(state, dims)``;
+    their sum is the CCNR trace norm ``||R(rho)||_1``.
+    """
+    if realignment_svals.sum() > 1 + tol:
         return False, "realignment/CCNR: ||R(rho)||_1 > 1 (Chen-Wu 2003)"
 
     tr_rho_a_sq = np.real(np.trace(rho_a_marginal @ rho_a_marginal))
