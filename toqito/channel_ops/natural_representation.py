@@ -22,6 +22,9 @@ def natural_representation(kraus_ops: list[np.ndarray]) -> np.ndarray:
         ```
 
     """
+    if not kraus_ops:
+        raise ValueError("The list of Kraus operators cannot be empty.")
+
     dim = kraus_ops[0].shape
     if not all(k.shape == dim for k in kraus_ops):
         raise ValueError("All Kraus operators must have the same dimensions.")

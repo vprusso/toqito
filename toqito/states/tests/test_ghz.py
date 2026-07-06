@@ -57,6 +57,8 @@ def test_ghz_4_7():
         (2, 0, None),
         # Invalid coefficients.
         (2, 3, [1, 2, 3, 4, 5]),
+        # Zero-norm coefficients.
+        (2, 3, [0, 0]),
     ],
 )
 def test_ghz_invalid_input(dim, num_qubits, coeff):

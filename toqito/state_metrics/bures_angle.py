@@ -14,12 +14,12 @@ def bures_angle(rho_1: np.ndarray, rho_2: np.ndarray) -> float:
     Calculate the Bures angle between two density matrices `rho_1` and `rho_2` defined by:
 
     \[
-        \arccos{\sqrt{F (\rho_1, \rho_2)}}
+        \arccos{F (\rho_1, \rho_2)}
     \]
 
-    where \(F(\cdot)\) denotes the fidelity between \(\rho_1\) and \(\rho_2\). The return is a value between
-    \(0\) and \(\pi / 2\), with \(0\) corresponding to matrices `rho_1 = rho_2` and \(\pi / 2\)
-    corresponding to the case `rho_1` and `rho_2` with orthogonal support.
+    where \(F(\cdot)\) denotes the root fidelity between \(\rho_1\) and \(\rho_2\). The return is a value
+    between \(0\) and \(\pi / 2\), with \(0\) corresponding to matrices `rho_1 = rho_2` and
+    \(\pi / 2\) corresponding to the case `rho_1` and `rho_2` with orthogonal support.
 
     Args:
         rho_1: Density operator.
@@ -73,5 +73,6 @@ def bures_angle(rho_1: np.ndarray, rho_2: np.ndarray) -> float:
         raise ValueError("InvalidDim: `rho_1` and `rho_2` must be matrices of the same size.")
     # Clamp to [0, 1]: floating-point error in the sqrtm-based fidelity can push it just above 1 for
     # near-identical states, which would make arccos receive an argument greater than 1 and yield NaN.
+    # `fidelity` returns the root fidelity, so the Bures angle is arccos of that value directly.
     fid = np.clip(fidelity(rho_1, rho_2), 0.0, 1.0)
-    return np.real(np.arccos(np.sqrt(fid)))
+    return np.real(np.arccos(fid))

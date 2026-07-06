@@ -57,6 +57,12 @@ def test_natural_representation_different_dimensions():
         natural_representation([k1, k2])
 
 
+def test_natural_representation_empty_kraus_list():
+    """Test natural_representation with an empty Kraus list."""
+    with pytest.raises(ValueError, match="The list of Kraus operators cannot be empty."):
+        natural_representation([])
+
+
 def test_natural_representation_trace_preserving():
     """Test that the natural representation produces a trace-preserving map."""
     nat_rep = natural_representation(depol_channel)
