@@ -46,14 +46,14 @@ def test_bures_angle_pure_states():
     np.testing.assert_equal(np.isclose(ang, 0.5718, rtol=1e-03), True)
 
 
-def test_bures_angle_does_not_round_fidelity():
-    """Test bures_angle does not round distinct states to zero."""
+def test_bures_angle_keeps_distinct_states_nonzero():
+    """Test bures_angle keeps distinct states nonzero."""
     e_0, e_1 = basis(2, 0), basis(2, 1)
     psi = 0.6 * e_0 + 0.8 * e_1
     rho = psi @ psi.conj().T
     sigma = e_0 @ e_0.conj().T
 
-    np.testing.assert_equal(bures_angle(rho, sigma, decimals=0) > 0, True)
+    np.testing.assert_equal(bures_angle(rho, sigma) > 0, True)
 
 
 def test_bures_angle_non_square():

@@ -8,7 +8,7 @@ import numpy as np
 from toqito.state_metrics import fidelity
 
 
-def bures_angle(rho_1: np.ndarray, rho_2: np.ndarray, decimals: int = 10) -> float:
+def bures_angle(rho_1: np.ndarray, rho_2: np.ndarray) -> float:
     r"""Compute the Bures angle of two density matrices [@wikipediabures].
 
     Calculate the Bures angle between two density matrices `rho_1` and `rho_2` defined by:
@@ -24,7 +24,6 @@ def bures_angle(rho_1: np.ndarray, rho_2: np.ndarray, decimals: int = 10) -> flo
     Args:
         rho_1: Density operator.
         rho_2: Density operator.
-        decimals: Deprecated; retained for backward compatibility.
 
     Returns:
         The Bures angle between `rho_1` and `rho_2`.
