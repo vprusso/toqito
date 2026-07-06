@@ -388,8 +388,8 @@ def bell_inequality_max_qubits(
 
     Args:
         joint_coe: The coefficients for terms containing both A and B.
-        a_coe: The coefficent for terms only containing A.
-        b_coe: The coefficent for terms only containing B.
+        a_coe: The coefficient for terms only containing A.
+        b_coe: The coefficient for terms only containing B.
         a_val: The value of each measurement outcome for A.
         b_val: The value of each measurement outcome for B.
         solver_name: The solver used.

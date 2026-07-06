@@ -18,7 +18,7 @@ def sub_fidelity(rho: np.ndarray, sigma: np.ndarray) -> float:
         \sqrt{2 \left[ \text{Tr}(\rho \sigma)^2 - \text{Tr}(\rho \sigma \rho \sigma) \right]},
     \]
 
-    where \(\sigma\) and \(\rho\) are density matrices. The sub-fidelity serves as an lower bound for the
+    where \(\sigma\) and \(\rho\) are density matrices. The sub-fidelity serves as a lower bound for the
     fidelity.
 
     Args:

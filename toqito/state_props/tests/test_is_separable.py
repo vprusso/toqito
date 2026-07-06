@@ -111,7 +111,7 @@ def entangled_qutrit_qutrit_state():
         np.kron([1, 0, 0], [1, 0, 0]) + np.kron([0, 1, 0], [0, 1, 0]) + np.kron([0, 0, 1], [0, 0, 1])
     )
     rho = np.outer(psi, psi.conj())
-    assert np.isclose(np.trace(rho), 1.0)  # Trace of fixture state shouldbe 1
+    assert np.isclose(np.trace(rho), 1.0)  # Trace of fixture state should be 1
     assert is_positive_semidefinite(rho, 1e-9)  # Fixture state should be PSD
     return rho
 
@@ -138,7 +138,7 @@ def separable_state_2x3_rank3():
     rho3 = np.kron(np.outer(psi_A1, psi_A1.conj()), np.outer(psi_B2, psi_B2.conj()))
     rho = (rho1 + rho2 + rho3) / 3
     assert np.isclose(np.trace(rho), 1)  # Trace of fixture state should be 1
-    assert np.all(np.linalg.eigvalsh(rho) >= -1e-9)  # Fixture state shoul be PSD
+    assert np.all(np.linalg.eigvalsh(rho) >= -1e-9)  # Fixture state should be PSD
     return rho
 
 

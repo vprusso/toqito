@@ -77,7 +77,7 @@ def is_unitary(phi: np.ndarray | list[list[np.ndarray]]) -> bool:
         try:
             phi = choi_to_kraus(phi)
         except ValueError:
-            # if we fail to obtain a Kraus representation then input/ouput spaces might be
+            # if we fail to obtain a Kraus representation then input/output spaces might be
             # non squares or their dimensions are not equal. Hence the channel is not unitary.
             return False
 

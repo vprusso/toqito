@@ -19,11 +19,11 @@ probs = [1 / 4, 1 / 4, 1 / 4, 1 / 4]
     [
         # Probability of counterfeit attack on Wiesner's quantum money
         (states, probs, 1, False, 3 / 4),
-        # Probability of counterfeit attack on Wiesner's quantum money with 2 parallel repitions
+        # Probability of counterfeit attack on Wiesner's quantum money with 2 parallel repetitions
         (states, probs, 2, False, 3 / 4),
         # Counterfeit attack on Wiesner's quantum money (primal problem)
         (states, probs, 1, True, 3 / 4),
-        # Counterfeit attack on Wiesner's quantum money (primal problem) with 2 parallel repitions
+        # Counterfeit attack on Wiesner's quantum money (primal problem) with 2 parallel repetitions
         (states, probs, 2, True, 3 / 4),
     ],
 )
