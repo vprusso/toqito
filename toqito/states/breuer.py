@@ -47,7 +47,6 @@ def breuer(dim: int, lam: float) -> np.ndarray:
         raise ValueError("The weight `lam` must be between 0 and 1.")
 
     v_mat = np.fliplr(np.diag((-1) ** np.mod(np.arange(1, dim + 1), 2)))
-    max_entangled(dim)
     psi = np.dot(np.kron(np.identity(dim), v_mat), max_entangled(dim))
 
     return lam * (psi * psi.conj().T) + (1 - lam) * 2 * symmetric_projection(dim) / (dim * (dim + 1))

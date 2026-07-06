@@ -5,7 +5,7 @@ The trace distance is calculated via density matrices.
 
 import numpy as np
 
-from toqito.matrix_props import is_density, trace_norm
+from toqito.matrix_props import is_density
 
 
 def trace_distance(rho: np.ndarray, sigma: np.ndarray) -> float | np.floating:
@@ -64,4 +64,4 @@ def trace_distance(rho: np.ndarray, sigma: np.ndarray) -> float | np.floating:
     """
     if not is_density(rho) or not is_density(sigma):
         raise ValueError("Trace distance only defined for density matrices.")
-    return trace_norm(rho - sigma) / 2
+    return np.sum(np.abs(np.linalg.eigvalsh(rho - sigma))) / 2
