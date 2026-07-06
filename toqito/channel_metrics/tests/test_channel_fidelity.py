@@ -44,6 +44,27 @@ def test_channel_fidelity_raises_error(input1, input2, expected_msg):
         channel_fidelity(input1, input2)
 
 
+@pytest.mark.parametrize(
+    "dim",
+    [
+        # Qutrit channels (a non-power-of-2 dimension).
+        3,
+        # Dimension-6 channels (a non-power-of-2, non-prime dimension).
+        6,
+    ],
+)
+def test_channel_fidelity_qudit(dim):
+    """Qudit dimensions such as 3 and 6 are handled correctly (issue #1596).
+
+    The channel fidelity of a channel with itself is 1 and the root channel fidelity between the
+    dephasing and (completely) depolarizing channels is 1/sqrt(dim).
+    """
+    dephasing_choi = dephasing(dim)
+    depolarizing_choi = depolarizing(dim)
+    assert channel_fidelity(dephasing_choi, dephasing_choi, 1e-4) == pytest.approx(1, abs=1e-3)
+    assert channel_fidelity(dephasing_choi, depolarizing_choi, 1e-4) == pytest.approx(1 / np.sqrt(dim), abs=1e-3)
+
+
 def test_channel_fidelity_non_perfect_square_dim_raises():
     """A Choi matrix whose dimension is not a perfect square is rejected before the SDP."""
     mat = np.eye(6, dtype=complex)
