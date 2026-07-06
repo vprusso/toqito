@@ -63,13 +63,13 @@ def majorizes(a_var: np.ndarray | list[int], b_var: np.ndarray | list[int]) -> b
         a_var = np.sort(a_var)[::-1]
     # Otherwise, just sort in descending order.
     else:
-        _, a_var, _ = np.linalg.svd(a_var)
+        a_var = np.linalg.svd(a_var, compute_uv=False)
 
     # Do the same for second input argument.
     if len(b_var.shape) == 1:
         b_var = np.sort(b_var)[::-1]
     else:
-        _, b_var, _ = np.linalg.svd(b_var)
+        b_var = np.linalg.svd(b_var, compute_uv=False)
 
     la_var = len(a_var)
     lb_var = len(b_var)
