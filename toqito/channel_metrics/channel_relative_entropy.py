@@ -154,12 +154,7 @@ def channel_relative_entropy(
         + [cvx.kron(rho_a, eye_out) - qs[k] >> 0 for k in range(r - 1)]
     )
     lower_prob = cvx.Problem(
-        cvx.Maximize(
-            cvx.real(
-                cvx.trace(cvx.kron(rho_a, eye_out) @ (choi_1 - choi_2))
-                + lower_integral_terms
-            )
-        ),
+        cvx.Maximize(cvx.real(cvx.trace(cvx.kron(rho_a, eye_out) @ (choi_1 - choi_2)) + lower_integral_terms)),
         cons,
     )
     lower_prob.solve(solver=solver, **solve_kwargs)
