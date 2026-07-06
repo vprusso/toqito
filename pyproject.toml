@@ -11,7 +11,20 @@ maintainers = [
     { name = "Vincent Russo", email = "vincentrusso1@gmail.com" },
     { name = "Purva Thakre", email = "quantum.purvat@gmail.com" },
 ]
-keywords = ["quantum information", "quantum computing", "nonlocal games"]
+keywords = [
+    "quantum information",
+    "quantum information theory",
+    "quantum computing",
+    "quantum states",
+    "quantum channels",
+    "quantum measurements",
+    "entanglement",
+    "density matrices",
+    "nonlocal games",
+    "semidefinite programming",
+    "cvxpy",
+    "numpy",
+]
 classifiers = [
     "Development Status :: 5 - Production/Stable",
     "Intended Audience :: Science/Research",
