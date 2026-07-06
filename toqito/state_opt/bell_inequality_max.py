@@ -953,7 +953,7 @@ def _fc_to_fp(fc_mat: np.ndarray, behavior: bool = False) -> np.ndarray:
         The probability tensor \(V[a, b, x, y]\) in Full Probability notation (oa=2, ob=2).
 
     !!! Note
-        This function is adapted from the QETLAB MATLAB package function ``FC2FP`` [@QETLAB].
+        This function is adapted from the QETLAB MATLAB package function ``FC2FP`` [@qetlablink].
         For `behavior=True`, it applies the standard formula relating probabilities to correlators:
         \(P(a', b' | x, y) = (1 + a'\langle A_x \rangle + b'\langle B_y \rangle +\)
         \(a'b'\langle A_x B_y \rangle) / 4\),
