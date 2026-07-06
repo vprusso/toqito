@@ -1,7 +1,7 @@
 <p align="center">
  <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/vprusso/toqito/master/docs/content/figures/logo-dark.svg" width="60%">
-   <img src="https://raw.githubusercontent.com/vprusso/toqito/master/docs/content/figures/logo.svg" width="60%">
+   <source media="(prefers-color-scheme: dark)" srcset="docs/content/figures/logo-dark.svg" width="60%">
+   <img src="docs/content/figures/logo.svg" width="60%" alt="toqito logo">
  </picture>
  </p>
 
