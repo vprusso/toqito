@@ -46,7 +46,10 @@ depol_channel = choi_to_kraus(depol_choi)
 def test_natural_representation_valid_inputs(kraus_ops, expected):
     """Test natural_representation function with valid inputs."""
     actual = natural_representation(kraus_ops)
-    np.testing.assert_allclose(actual, expected)
+    # The einsum contraction and the reference ``sum(tensor(k, conj(k)))`` accumulate in a
+    # different order, so structurally-zero entries can land at ~1e-16 instead of exactly 0 on
+    # some BLAS builds. Use an absolute tolerance so the comparison is not sensitive to that.
+    np.testing.assert_allclose(actual, expected, atol=1e-12)
 
 
 def test_natural_representation_different_dimensions():
