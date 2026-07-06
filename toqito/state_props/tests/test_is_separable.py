@@ -1,5 +1,6 @@
 """Test is_separable."""
 
+import inspect
 from unittest import mock
 
 import numpy as np
@@ -21,6 +22,35 @@ from toqito.state_props.is_separable import (
     _range_projector_product_overlap_3x3_rank4,
 )
 from toqito.states import basis, bell, horodecki, isotropic, max_entangled, tile
+
+# Capture the genuine LAPACK-backed ``eigvalsh`` before any test patches it. The
+# white-box tests below force ``is_separable``'s *own* ``eigvalsh`` calls to fail
+# so its ``eigvals`` fallbacks are exercised. Since #1752, ``is_positive_semidefinite``
+# also uses ``eigvalsh`` and runs early in the ``is_separable`` path (via ``is_ppt``
+# and the PSD guard), so a blanket ``eigvalsh`` failure would raise inside the PSD
+# check instead of exercising the intended fallback. These helpers scope the failure
+# to ``is_separable``'s direct calls, letting ``is_positive_semidefinite`` compute
+# normally.
+_REAL_EIGVALSH = np.linalg.eigvalsh
+
+
+def _eigvalsh_fail_outside_psd(error_msg="mocked eigvalsh fail"):
+    """Return an ``eigvalsh`` replacement that fails everywhere except inside PSD checks.
+
+    Passed as the ``new`` value of ``mock.patch`` (not ``side_effect``) so the
+    replacement is invoked directly and its caller frame is the real caller of
+    ``np.linalg.eigvalsh``. Calls made by ``is_positive_semidefinite`` pass through
+    to the genuine routine; every other caller (i.e. ``is_separable``'s own eigen
+    computations) receives a ``LinAlgError`` so its ``eigvals`` fallback runs.
+    """
+
+    def _patched(*args, **kwargs):
+        if inspect.currentframe().f_back.f_code.co_name == "is_positive_semidefinite":
+            return _REAL_EIGVALSH(*args, **kwargs)
+        raise np.linalg.LinAlgError(error_msg)
+
+    return _patched
+
 
 # --- Parameterized Tests for Invalid Inputs ---
 """
@@ -379,7 +409,7 @@ def test_rank4_range_overlap_inconclusive_falls_through():
 
 def test_eig_calc_fails_rank1_pert_check_skipped():
     """Rank-1 perturbation check skipped if eigenvalue calculation fails."""
-    with mock.patch("numpy.linalg.eigvalsh", side_effect=np.linalg.LinAlgError("mocked eig error")):
+    with mock.patch("numpy.linalg.eigvalsh", _eigvalsh_fail_outside_psd("mocked eig error")):
         with mock.patch("numpy.linalg.eigvals", side_effect=np.linalg.LinAlgError("mocked eig error")):
             assert is_separable(np.eye(8) / 8.0, dim=[2, 4])[0]
 
@@ -387,7 +417,7 @@ def test_eig_calc_fails_rank1_pert_check_skipped():
 def test_2xN_swapped_eig_calc_fails_fallback():
     """Fallback eigenvalue calculation in 2xN if eigvalsh fails."""
     rho_3x2_prod = np.kron(np.eye(3) / 3.0, np.eye(2) / 2.0)
-    with mock.patch("numpy.linalg.eigvalsh", side_effect=np.linalg.LinAlgError("mocked eigvalsh error")):
+    with mock.patch("numpy.linalg.eigvalsh", _eigvalsh_fail_outside_psd("mocked eigvalsh error")):
         assert is_separable(rho_3x2_prod, dim=[3, 2])[0]
 
 
@@ -692,7 +722,7 @@ def test_3x3_rank4_block_helper_finds_lower_rank():
 def test_2xN_eig_lam_eigvalsh_fails_eigvals_succeeds():
     """2xN: eigvalsh for current_lam_2xn fails, fallback eigvals works."""
     rho_2xN_sep = np.eye(8) / 8.0  # 2x4 separable state
-    with mock.patch("numpy.linalg.eigvalsh", side_effect=np.linalg.LinAlgError("mocked error")):
+    with mock.patch("numpy.linalg.eigvalsh", _eigvalsh_fail_outside_psd("mocked error")):
         assert is_separable(rho_2xN_sep, dim=[2, 4])[0]  # Should use eigvals fallback
 
 
@@ -884,7 +914,7 @@ def test_rank1_pert_eigvalsh_fails_eigvals_fallback():
     with mock.patch("toqito.state_props.is_separable.in_separable_ball", return_value=False):
         with mock.patch("numpy.linalg.matrix_rank", side_effect=matrix_rank_rank1_side_effect):
             with mock.patch("toqito.state_props.is_separable.trace_norm", return_value=0.5):
-                with mock.patch("numpy.linalg.eigvalsh", side_effect=np.linalg.LinAlgError("mocked eigvalsh fail")):
+                with mock.patch("numpy.linalg.eigvalsh", _eigvalsh_fail_outside_psd("mocked eigvalsh fail")):
                     assert is_separable(rho, dim=[dim_sys, dim_sys], tol=test_tol)[0]
 
 
