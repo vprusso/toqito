@@ -58,7 +58,7 @@ def pretty_good_measurement(
     """
     n = len(states)
 
-    # If not probabilities are explicitly given, assume a uniform distribution.
+    # If probabilities are not explicitly given, assume a uniform distribution.
     if probs is None:
         probs = n * [1 / n]
 

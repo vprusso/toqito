@@ -40,7 +40,7 @@ def trace_distance(rho: np.ndarray, sigma: np.ndarray) -> float | np.floating:
         The corresponding density matrix of \(u\) may be calculated by:
 
         \[
-            \rho = u u^* = \begin{pmatrix}
+            \rho = u u^* = \frac{1}{2}\begin{pmatrix}
                              1 & 0 & 0 & 1 \\
                              0 & 0 & 0 & 0 \\
                              0 & 0 & 0 & 0 \\
@@ -48,7 +48,7 @@ def trace_distance(rho: np.ndarray, sigma: np.ndarray) -> float | np.floating:
                            \end{pmatrix} \in \text{D}(\mathcal{X}).
         \]
 
-        The trace distance between \(\rho\) and another state \(\sigma\) is equal to \(0\) if any only if
+        The trace distance between \(\rho\) and another state \(\sigma\) is equal to \(0\) if and only if
         \(\rho = \sigma\). We can check this using the `|toqito⟩` package.
 
         ```python exec="1" source="above" result="text"

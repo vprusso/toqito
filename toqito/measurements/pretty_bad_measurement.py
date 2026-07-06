@@ -64,7 +64,7 @@ def pretty_bad_measurement(
     if n < 2:
         raise ValueError("The pretty bad measurement is undefined for fewer than two states (it divides by n - 1).")
 
-    # If not probabilities are explicitly given, assume a uniform distribution.
+    # If probabilities are not explicitly given, assume a uniform distribution.
     if probs is None:
         probs = n * [1 / n]
 
