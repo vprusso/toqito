@@ -8,7 +8,7 @@ import numpy as np
 from toqito.state_metrics import fidelity
 
 
-def bures_angle(rho_1: np.ndarray, rho_2: np.ndarray, decimals: int = 10) -> float:
+def bures_angle(rho_1: np.ndarray, rho_2: np.ndarray) -> float:
     r"""Compute the Bures angle of two density matrices [@wikipediabures].
 
     Calculate the Bures angle between two density matrices `rho_1` and `rho_2` defined by:
@@ -24,7 +24,6 @@ def bures_angle(rho_1: np.ndarray, rho_2: np.ndarray, decimals: int = 10) -> flo
     Args:
         rho_1: Density operator.
         rho_2: Density operator.
-        decimals: Number of decimal places to round to (default 10).
 
     Returns:
         The Bures angle between `rho_1` and `rho_2`.
@@ -72,8 +71,8 @@ def bures_angle(rho_1: np.ndarray, rho_2: np.ndarray, decimals: int = 10) -> flo
     # Perform error checking.
     if not np.all(rho_1.shape == rho_2.shape):
         raise ValueError("InvalidDim: `rho_1` and `rho_2` must be matrices of the same size.")
-    # Round fidelity to `decimals` places, then clamp to [0, 1]: floating-point error in the
-    # sqrtm-based fidelity can push it just above 1 for near-identical states, which would make
-    # arccos receive an argument greater than 1 and yield NaN.
-    fid = np.clip(np.round(fidelity(rho_1, rho_2), decimals), 0.0, 1.0)
+    # Clamp to [0, 1]: floating-point error in the sqrtm-based fidelity can push it just above 1 for
+    # near-identical states, which would make arccos receive an argument greater than 1 and yield NaN.
+    # `fidelity` returns the root fidelity, so the Bures angle is arccos of that value directly.
+    fid = np.clip(fidelity(rho_1, rho_2), 0.0, 1.0)
     return np.real(np.arccos(fid))
