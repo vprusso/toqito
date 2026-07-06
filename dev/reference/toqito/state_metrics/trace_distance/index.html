@@ -9780,7 +9780,9 @@
 
 
 <a href="#toqito.state_metrics.trace_distance.trace_distance" class="headerlink" title="Permanent link">&para;</a></h2>
-<div class="doc-signature highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">trace_distance</span><span class="p">(</span><span class="n">rho</span><span class="p">:</span> <span class="n"><span title="numpy.ndarray">ndarray</span></span><span class="p">,</span> <span class="n">sigma</span><span class="p">:</span> <span class="n"><span title="numpy.ndarray">ndarray</span></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><span title="float">float</span></span> <span class="o">|</span> <span class="n"><span title="numpy.floating">floating</span></span>
+<div class="doc-signature highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">trace_distance</span><span class="p">(</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="n">rho</span><span class="p">:</span> <span class="n"><span title="numpy.ndarray">ndarray</span></span><span class="p">,</span> <span class="n">sigma</span><span class="p">:</span> <span class="n"><span title="numpy.ndarray">ndarray</span></span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><span title="float">float</span></span> <span class="o">|</span> <span class="n"><span title="numpy.floating">floating</span></span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
@@ -9983,7 +9985,7 @@
 <a id="__codelineno-0-64" name="__codelineno-0-64"></a><span class="sd">    &quot;&quot;&quot;</span>
 <a id="__codelineno-0-65" name="__codelineno-0-65"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">is_density</span><span class="p">(</span><span class="n">rho</span><span class="p">)</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">is_density</span><span class="p">(</span><span class="n">sigma</span><span class="p">):</span>
 <a id="__codelineno-0-66" name="__codelineno-0-66"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Trace distance only defined for density matrices.&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-67" name="__codelineno-0-67"></a>    <span class="k">return</span> <span class="n">trace_norm</span><span class="p">(</span><span class="n">rho</span> <span class="o">-</span> <span class="n">sigma</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+<a id="__codelineno-0-67" name="__codelineno-0-67"></a>    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigvalsh</span><span class="p">(</span><span class="n">rho</span> <span class="o">-</span> <span class="n">sigma</span><span class="p">)))</span> <span class="o">/</span> <span class="mi">2</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>

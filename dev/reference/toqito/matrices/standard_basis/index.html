@@ -9779,7 +9779,9 @@
 
 
 <a href="#toqito.matrices.standard_basis.standard_basis" class="headerlink" title="Permanent link">&para;</a></h2>
-<div class="doc-signature highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">standard_basis</span><span class="p">(</span><span class="n">dim</span><span class="p">:</span> <span class="n"><span title="int">int</span></span><span class="p">,</span> <span class="n">flatten</span><span class="p">:</span> <span class="n"><span title="bool">bool</span></span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><span title="list">list</span></span><span class="p">[</span><span class="n"><span title="numpy.ndarray">ndarray</span></span><span class="p">]</span>
+<div class="doc-signature highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">standard_basis</span><span class="p">(</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="n">dim</span><span class="p">:</span> <span class="n"><span title="int">int</span></span><span class="p">,</span> <span class="n">flatten</span><span class="p">:</span> <span class="n"><span title="bool">bool</span></span> <span class="o">=</span> <span class="kc">False</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><span title="list">list</span></span><span class="p">[</span><span class="n"><span title="numpy.ndarray">ndarray</span></span><span class="p">]</span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
@@ -9795,7 +9797,7 @@ given dimension:</p>
     .
     |n&gt; = (0, 0, 0, ..., 1)^T
 \]</div>
-<p>This function was inspired by [@seshadri2021git, @seshadri2021theory, @seshadri2021versatile]</p>
+<p>This function was inspired by <sup><a id="cite-toqito-matrices-standard_basis-standard_basis-1" href="#ref-toqito-matrices-standard_basis-standard_basis-1">1</a></sup><sup><a id="cite-toqito-matrices-standard_basis-standard_basis-2" href="#ref-toqito-matrices-standard_basis-standard_basis-2">2</a></sup><sup><a id="cite-toqito-matrices-standard_basis-standard_basis-3" href="#ref-toqito-matrices-standard_basis-standard_basis-3">3</a></sup></p>
 
 
 <p><span class="doc-section-title">Parameters:</span></p>
@@ -9842,6 +9844,10 @@ given dimension:</p>
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>       [0.]]), array([[0.],
 <a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>       [1.]])]
 </code></pre></div>
+        <p><strong>References</strong></p>
+<p><span id="ref-toqito-matrices-standard_basis-standard_basis-1"><sup><a href="#cite-toqito-matrices-standard_basis-standard_basis-1">1</a></sup> Seshadri, Akshay. <em>Minimax Fidelity Estimation</em>. <a href="https://github.com/akshayseshadri/minimax-fidelity-estimation">link</a>.</span><br>
+<span id="ref-toqito-matrices-standard_basis-standard_basis-2"><sup><a href="#cite-toqito-matrices-standard_basis-standard_basis-2">2</a></sup> Seshadri, Akshay and Ringbauer, Martin and Monz, Thomas and Becker, Stephen. <em>Theory of versatile fidelity estimation with confidence</em>. (2021).</span><br>
+<span id="ref-toqito-matrices-standard_basis-standard_basis-3"><sup><a href="#cite-toqito-matrices-standard_basis-standard_basis-3">3</a></sup> Seshadri, Akshay and Ringbauer, Martin and Blatt, Rainer and Monz, Thomas and Becker, Stephen. <em>Versatile fidelity estimation with confidence</em>. (2021).</span></p>
 
 
             <details class="mkdocstrings-source">
@@ -9898,7 +9904,7 @@ given dimension:</p>
 <a id="__codelineno-0-18" name="__codelineno-0-18"></a><span class="sd">        |n&gt; = (0, 0, 0, ..., 1)^T</span>
 <a id="__codelineno-0-19" name="__codelineno-0-19"></a><span class="sd">    \]</span>
 <a id="__codelineno-0-20" name="__codelineno-0-20"></a>
-<a id="__codelineno-0-21" name="__codelineno-0-21"></a><span class="sd">    This function was inspired by [@seshadri2021git, @seshadri2021theory, @seshadri2021versatile]</span>
+<a id="__codelineno-0-21" name="__codelineno-0-21"></a><span class="sd">    This function was inspired by [@seshadri2021git;@seshadri2021theory;@seshadri2021versatile]</span>
 <a id="__codelineno-0-22" name="__codelineno-0-22"></a>
 <a id="__codelineno-0-23" name="__codelineno-0-23"></a><span class="sd">    Args:</span>
 <a id="__codelineno-0-24" name="__codelineno-0-24"></a><span class="sd">        dim: The dimension of the basis.</span>
