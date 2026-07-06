@@ -18,20 +18,21 @@ def ghz(dim: int, num_qubits: int, coeff: list[int] | None = None) -> np.ndarray
     as
 
     \[
-        |GHZ \rangle = \frac{1}{\sqrt{n}} \left(|0\rangle^{\otimes n} +
-        |1 \rangle^{\otimes n} \right)).
+        |GHZ \rangle = \frac{1}{\sqrt{2}} \left(|0\rangle^{\otimes n} +
+        |1 \rangle^{\otimes n} \right).
     \]
 
     Args:
         dim: The local dimension.
         num_qubits: The number of parties (qubits/qudits)
-        coeff: (default `[1, 1, ..., 1])/sqrt(dim)`: a 1-by-`dim` vector of coefficients.
+        coeff: Default is `[1, 1, ..., 1] / sqrt(dim)`, a 1-by-`dim` vector of coefficients.
 
     Returns:
         Numpy vector array as GHZ state.
 
     Raises:
         ValueError: Number of qubits is not a positive integer.
+        ValueError: Coefficient vector has zero norm.
 
     Examples:
         When `dim = 2`, and `num_qubits = 3` this produces the standard GHZ state
@@ -71,6 +72,8 @@ def ghz(dim: int, num_qubits: int, coeff: list[int] | None = None) -> np.ndarray
 
     # Normalize coefficients if they are not.
     norm = np.linalg.norm(coeff)
+    if np.isclose(norm, 0.0):
+        raise ValueError("InvalidCoeff: The variable `coeff` must have nonzero norm.")
     if not np.isclose(norm, 1.0):
         coeff = coeff / norm
 
