@@ -9999,7 +9999,7 @@ called the <em>frame bound</em> and equals <span class="arithmatex">\(n/d\)</spa
 <a id="__codelineno-0-69" name="__codelineno-0-69"></a>    <span class="k">if</span> <span class="n">frame_bound</span> <span class="o">&lt;</span> <span class="n">tol</span><span class="p">:</span>
 <a id="__codelineno-0-70" name="__codelineno-0-70"></a>        <span class="k">return</span> <span class="kc">False</span>
 <a id="__codelineno-0-71" name="__codelineno-0-71"></a>
-<a id="__codelineno-0-72" name="__codelineno-0-72"></a>    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">frame_op</span><span class="p">,</span> <span class="n">frame_bound</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">dim</span><span class="p">),</span> <span class="n">atol</span><span class="o">=</span><span class="n">tol</span><span class="p">)</span>
+<a id="__codelineno-0-72" name="__codelineno-0-72"></a>    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">frame_op</span><span class="p">,</span> <span class="n">frame_bound</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">dim</span><span class="p">),</span> <span class="n">rtol</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="n">tol</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
