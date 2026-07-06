@@ -1,4 +1,4 @@
-"""Channel dimensions coputes and returns the input, output and environment dimensions of a channel."""
+"""Channel dimensions computes and returns the input, output and environment dimensions of a channel."""
 
 import numpy as np
 

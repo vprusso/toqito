@@ -8,7 +8,7 @@ from toqito.matrices import cyclic_permutation_matrix
 
 @pytest.mark.parametrize("n", [10])
 def test_cyclic_permutation_matrix_fixed(n):
-    """Test cyclic permuation matrix."""
+    """Test cyclic permutation matrix."""
     res = cyclic_permutation_matrix(n)
     assert np.allclose(np.linalg.matrix_power(res, n), np.eye(n))
 
@@ -22,14 +22,14 @@ def test_cyclic_permutation_matrix_fixed(n):
     ],
 )
 def test_cyclic_permutation_matrix_successive(n, k):
-    """Test a successive cyclic permuation matrix."""
+    """Test a successive cyclic permutation matrix."""
     res = cyclic_permutation_matrix(n, k)
     assert np.allclose(np.linalg.matrix_power(res, n), np.eye(n))
 
 
 @pytest.mark.parametrize("n", [2, 4, 6, 8, 10])
 def test_cyclic_permutation_matrix_checks(n):
-    """Test to confrim a proper cyclic permutation."""
+    """Test to confirm a proper cyclic permutation."""
     res = cyclic_permutation_matrix(n)
 
     # Shape check

@@ -1,4 +1,4 @@
-"""Generate the 1D contraint."""
+"""Generate the 1D constraint."""
 
 import numpy as np
 
