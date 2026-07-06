@@ -27,7 +27,7 @@ def matsumoto_fidelity(rho: np.ndarray, sigma: np.ndarray) -> float | np.floatin
     For singular states it is defined by the limit
 
     \[
-        \rho\#\sigma = \lim_{\epsilon\to0}(\rho+\epsilon\mathbb{I})\#(+\epsilon\mathbb{I}).
+        \rho\#\sigma = \lim_{\epsilon\to0}(\rho+\epsilon\mathbb{I})\#(\sigma+\epsilon\mathbb{I}).
     \]
 
     The return is a value between \(0\) and \(1\), with \(0\) corresponding to matrices `rho` and
@@ -100,21 +100,22 @@ def matsumoto_fidelity(rho: np.ndarray, sigma: np.ndarray) -> float | np.floatin
         raise ValueError("Matsumoto fidelity is only defined for density operators.")
 
     # If `rho` or `sigma` are *not* cvxpy variables, compute Matsumoto fidelity directly.
-    # For numerical stability, invert the matrix with larger determinant
+    # For numerical stability, invert the matrix with larger determinant.
     if np.abs(scipy.linalg.det(sigma)) > np.abs(scipy.linalg.det(rho)):
         rho, sigma = sigma, rho
 
-    # If rho is singular, add epsilon
-    # Suppress LinAlgWarning from sqrtm on rank-deficient density matrices — the result is still valid.
+    eigvals, eigvecs = np.linalg.eigh(rho)
+    eigvals = np.maximum(eigvals, 0)
+    tol = np.finfo(float).eps * rho.shape[0] * max(1.0, np.max(eigvals))
+
+    sq_rho = eigvecs @ np.diag(np.sqrt(eigvals)) @ eigvecs.conj().T
+    inv_sqrt_eigvals = np.zeros_like(eigvals)
+    nonzero_eigvals = eigvals > tol
+    inv_sqrt_eigvals[nonzero_eigvals] = 1 / np.sqrt(eigvals[nonzero_eigvals])
+    sqinv_rho = eigvecs @ np.diag(inv_sqrt_eigvals) @ eigvecs.conj().T
+
+    # Suppress LinAlgWarning from sqrtm on rank-deficient density matrices; the result is still valid.
     with warnings.catch_warnings():
         warnings.simplefilter("ignore", scipy.linalg.LinAlgWarning)
-        try:
-            sq_rho = scipy.linalg.sqrtm(rho)
-            sqinv_rho = scipy.linalg.inv(sq_rho)
-        except np.linalg.LinAlgError:
-            # If rho is singular, regularize by adding epsilon on the diagonal (not to every entry).
-            sq_rho = scipy.linalg.sqrtm(rho + 1e-7 * np.eye(rho.shape[0]))
-            sqinv_rho = scipy.linalg.inv(sq_rho)
-
         sq_mfid = sq_rho @ scipy.linalg.sqrtm(sqinv_rho @ sigma @ sqinv_rho) @ sq_rho
     return np.real(np.trace(sq_mfid))

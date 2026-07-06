@@ -37,6 +37,21 @@ def test_matsumoto_fidelity(input1, input2, expected):
     assert abs(calculated_result - expected) <= 1e-03
 
 
+def test_matsumoto_fidelity_identical_singular_states():
+    """Test identical singular pure states have Matsumoto fidelity one."""
+    rho = e_0 @ e_0.conj().T
+
+    np.testing.assert_allclose(matsumoto_fidelity(rho, rho), 1)
+
+
+def test_matsumoto_fidelity_orthogonal_singular_states():
+    """Test orthogonal singular pure states have Matsumoto fidelity zero."""
+    rho = e_0 @ e_0.conj().T
+    sigma = e_1 @ e_1.conj().T
+
+    np.testing.assert_allclose(matsumoto_fidelity(rho, sigma), 0)
+
+
 rho3 = np.array([[1 / 2, 0, 0, 1 / 2], [0, 0, 0, 0], [1 / 2, 0, 0, 1 / 2]])
 sigma3 = np.array([[1 / 2, 0, 0, 1 / 2], [0, 0, 0, 0], [1 / 2, 0, 0, 1 / 2]])
 
