@@ -72,3 +72,9 @@ def test_pgm_invalid_states(states, probs):
     """Ensures that number of states and number of probabilities are equal."""
     with np.testing.assert_raises(ValueError):
         pretty_good_measurement(states, probs)
+
+
+def test_pgm_empty_states():
+    """Ensures at least one state is provided."""
+    with np.testing.assert_raises(ValueError):
+        pretty_good_measurement([])

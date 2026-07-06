@@ -12,7 +12,7 @@ def pretty_bad_measurement(
 
     This computes the "pretty bad measurement" (PBM) as defined in
     [@mcirvin2024pretty]. The PBM is an analogue to the "pretty
-    good measurement" defined in [@Belavkin_1975_Optimal,Hughston_1993_Complete]
+    good measurement" defined in [@belavkin1975optimal, @hughston1993complete]
     and is useful for approximating the optimal measurement
     for state exclusion.
 

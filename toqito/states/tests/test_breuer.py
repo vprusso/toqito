@@ -9,7 +9,7 @@ from toqito.states import breuer
 @pytest.mark.parametrize(
     "dim, lam, expected_result",
     [
-        # Generate Breuer state of dimension 4 with weight 0.1.
+        # Generate Breuer state of local dimension 2 with weight 0.1.
         (2, 0.1, np.array([[0.3, 0, 0, 0], [0, 0.2, 0.1, 0], [0, 0.1, 0.2, 0], [0, 0, 0, 0.3]])),
     ],
 )
@@ -21,8 +21,12 @@ def test_breuer(dim, lam, expected_result):
 @pytest.mark.parametrize(
     "dim, lam",
     [
-        # Ensures that an odd dimension if not accepted.
-        (3, 0.1)
+        # Ensures that an odd dimension is not accepted.
+        (3, 0.1),
+        # Ensures that negative weights are not accepted.
+        (2, -0.1),
+        # Ensures that weights greater than one are not accepted.
+        (2, 1.1),
     ],
 )
 def test_breuer_invalid(dim, lam):
