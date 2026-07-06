@@ -24,7 +24,7 @@ def bures_distance(rho_1: np.ndarray, rho_2: np.ndarray, decimals: int = 10) -> 
     Args:
         rho_1: Density operator.
         rho_2: Density operator.
-        decimals: Number of decimal places to round to (default 10).
+        decimals: Deprecated; retained for backward compatibility.
 
     Returns:
         The Bures distance between `rho_1` and `rho_2`.
@@ -73,8 +73,7 @@ def bures_distance(rho_1: np.ndarray, rho_2: np.ndarray, decimals: int = 10) -> 
     # Perform some error checking.
     if not np.all(rho_1.shape == rho_2.shape):
         raise ValueError("InvalidDim: `rho_1` and `rho_2` must be matrices of the same size.")
-    # Round fidelity to `decimals` places, then clamp to [0, 1]: floating-point error in the
-    # sqrtm-based fidelity can push it just above 1 for near-identical states, which would make
-    # the radicand negative and yield NaN.
-    fid = np.clip(np.round(fidelity(rho_1, rho_2), decimals), 0.0, 1.0)
+    # Clamp to [0, 1]: floating-point error in the sqrtm-based fidelity can push it just above 1 for
+    # near-identical states, which would make the radicand negative and yield NaN.
+    fid = np.clip(fidelity(rho_1, rho_2), 0.0, 1.0)
     return np.sqrt(2.0 * (1.0 - fid))
