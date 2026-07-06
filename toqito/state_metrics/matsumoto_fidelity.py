@@ -27,7 +27,7 @@ def matsumoto_fidelity(rho: np.ndarray, sigma: np.ndarray) -> float | np.floatin
     For singular states it is defined by the limit
 
     \[
-        \rho\#\sigma = \lim_{\epsilon\to0}(\rho+\epsilon\mathbb{I})\#(+\epsilon\mathbb{I}).
+        \rho\#\sigma = \lim_{\epsilon\to0}(\rho+\epsilon\mathbb{I})\#(\sigma+\epsilon\mathbb{I}).
     \]
 
     The return is a value between \(0\) and \(1\), with \(0\) corresponding to matrices `rho` and
@@ -100,21 +100,33 @@ def matsumoto_fidelity(rho: np.ndarray, sigma: np.ndarray) -> float | np.floatin
         raise ValueError("Matsumoto fidelity is only defined for density operators.")
 
     # If `rho` or `sigma` are *not* cvxpy variables, compute Matsumoto fidelity directly.
-    # For numerical stability, invert the matrix with larger determinant
+    # For numerical stability, invert the matrix with larger determinant.
     if np.abs(scipy.linalg.det(sigma)) > np.abs(scipy.linalg.det(rho)):
         rho, sigma = sigma, rho
 
-    # If rho is singular, add epsilon
-    # Suppress LinAlgWarning from sqrtm on rank-deficient density matrices — the result is still valid.
+    eigvals, eigvecs = np.linalg.eigh(rho)
+    eigvals = np.maximum(eigvals, 0)
+    tol = np.finfo(float).eps * rho.shape[0] * max(1.0, np.max(eigvals))
+
+    # The closed-form geometric mean rho^{1/2} sqrt(rho^{-1/2} sigma rho^{-1/2}) rho^{1/2} is exact
+    # whenever the inverted state `rho` (the larger-determinant one after the swap above) is
+    # invertible, even if `sigma` is singular. When `rho` is singular as well -- i.e. both states are
+    # rank deficient -- the pseudoinverse discards the part of `sigma` outside the support of `rho`
+    # and no longer reproduces the limit definition (for example it returns 1/sqrt(2) instead of 0
+    # for |0><0| and |+><+|, whose supports intersect trivially). Fall back to the exact geometric-mean
+    # characterization tr(rho # sigma) = max{ tr(W) : [[rho, W], [W, sigma]] >> 0 } in that case, which
+    # matches the semidefinite-programming branch above and handles non-commuting supports correctly.
+    if np.min(eigvals) <= tol:
+        w_var = cvxpy.Variable(rho.shape, hermitian=True)
+        objective = cvxpy.Maximize(cvxpy.real(cvxpy.trace(w_var)))
+        constraints = [cvxpy.bmat([[rho, w_var], [w_var, sigma]]) >> 0]
+        return cvxpy.Problem(objective, constraints).solve(solver=cvxpy.CLARABEL)
+
+    sq_rho = eigvecs @ np.diag(np.sqrt(eigvals)) @ eigvecs.conj().T
+    sqinv_rho = eigvecs @ np.diag(1 / np.sqrt(eigvals)) @ eigvecs.conj().T
+
+    # Suppress LinAlgWarning from sqrtm on rank-deficient `sigma`; the result is still valid.
     with warnings.catch_warnings():
         warnings.simplefilter("ignore", scipy.linalg.LinAlgWarning)
-        try:
-            sq_rho = scipy.linalg.sqrtm(rho)
-            sqinv_rho = scipy.linalg.inv(sq_rho)
-        except np.linalg.LinAlgError:
-            # If rho is singular, regularize by adding epsilon on the diagonal (not to every entry).
-            sq_rho = scipy.linalg.sqrtm(rho + 1e-7 * np.eye(rho.shape[0]))
-            sqinv_rho = scipy.linalg.inv(sq_rho)
-
         sq_mfid = sq_rho @ scipy.linalg.sqrtm(sqinv_rho @ sigma @ sqinv_rho) @ sq_rho
     return np.real(np.trace(sq_mfid))
