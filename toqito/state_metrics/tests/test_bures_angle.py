@@ -22,7 +22,7 @@ def test_bures_angle_non_identical_states_1():
     sigma = 2 / 3 * e_0 @ e_0.conj().T + 1 / 3 * e_1 @ e_1.conj().T
 
     ang = bures_angle(rho, sigma)
-    np.testing.assert_equal(np.isclose(ang, 0.06499, rtol=1e-03), True)
+    np.testing.assert_equal(np.isclose(ang, 0.09188, rtol=1e-03), True)
 
 
 def test_bures_angle_non_identical_states_2():
@@ -32,7 +32,7 @@ def test_bures_angle_non_identical_states_2():
     sigma = 1 / 8 * e_0 @ e_0.conj().T + 7 / 8 * e_1 @ e_1.conj().T
 
     ang = bures_angle(rho, sigma)
-    np.testing.assert_equal(np.isclose(ang, 0.4955, rtol=1e-03), True)
+    np.testing.assert_equal(np.isclose(ang, 0.68583, rtol=1e-03), True)
 
 
 def test_bures_angle_pure_states():
@@ -43,7 +43,7 @@ def test_bures_angle_pure_states():
     sigma = e_0 @ e_0.conj().T
 
     ang = bures_angle(rho, sigma)
-    np.testing.assert_equal(np.isclose(ang, 0.5718, rtol=1e-03), True)
+    np.testing.assert_equal(np.isclose(ang, np.pi / 4, rtol=1e-03), True)
 
 
 def test_bures_angle_non_square():
