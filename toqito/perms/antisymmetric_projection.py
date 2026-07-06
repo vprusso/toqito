@@ -1,11 +1,12 @@
 """Antisymmetric projection operator produces an orthogonal projection onto an anti-symmetric subspace."""
 
+import math
 from itertools import permutations
 
 import numpy as np
 from scipy.linalg import orth
 
-from toqito.perms import perm_sign, permutation_operator
+from toqito.perms import perm_sign
 
 
 def antisymmetric_projection(dim: int, p_param: int = 2, partial: bool = False) -> np.ndarray:
@@ -78,15 +79,19 @@ def antisymmetric_projection(dim: int, p_param: int = 2, partial: bool = False) 
     if dim < p_param:
         return np.zeros((dimp, dimp * (1 - partial)))
 
-    p_list = np.array(list(permutations(np.arange(p_param))))
-    p_fac = p_list.shape[0]
-
+    p_fac = math.factorial(p_param)
     anti_proj = np.zeros((dimp, dimp))
-    for j in range(p_fac):
-        # `perm_sign` expects 1-based permutation labels, while `p_list` is 0-based, so shift by 1.
-        anti_proj += perm_sign(p_list[j, :] + 1) * permutation_operator(
-            dim * np.ones(p_param), p_list[j, :], False, True
-        )
+
+    # Accumulate the projector directly by indexing rather than summing `p_fac` dense
+    # permutation operators. Each permutation `perm` of the `p_param` subsystems corresponds
+    # to the permutation matrix `identity[rows, :]`, where `rows` reorders the tensor axes;
+    # adding its sign to entry `(rows[k], k)` for every permutation builds the same sum.
+    base = np.arange(dimp)
+    idx = base.reshape((dim,) * p_param)
+    for perm in permutations(range(p_param)):
+        # `perm_sign` expects 1-based permutation labels, while `perm` is 0-based, so shift by 1.
+        anti_proj_sign = perm_sign(np.array(perm) + 1)
+        anti_proj[np.transpose(idx, perm).ravel(), base] += anti_proj_sign
     anti_proj = anti_proj / p_fac
 
     if partial:
