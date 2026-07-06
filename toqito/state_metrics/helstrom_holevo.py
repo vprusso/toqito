@@ -35,7 +35,7 @@ def helstrom_holevo(rho: np.ndarray, sigma: np.ndarray) -> float | np.floating:
         The corresponding density matrix of \(u\) may be calculated by:
 
         \[
-            \rho = u u^* = \begin{pmatrix}
+            \rho = u u^* = \frac{1}{2}\begin{pmatrix}
                              1 & 0 & 0 & 1 \\
                              0 & 0 & 0 & 0 \\
                              0 & 0 & 0 & 0 \\

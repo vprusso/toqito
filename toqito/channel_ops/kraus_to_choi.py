@@ -58,7 +58,7 @@ def kraus_to_choi(kraus_ops: list[np.ndarray] | list[list[np.ndarray]], sys: int
     if sys < 0:
         raise ValueError("The `sys` parameter must be non-negative.")
 
-    if not kraus_ops:
+    if len(kraus_ops) == 0:
         raise ValueError("The list of Kraus operators cannot be empty.")
 
     if sys == 2:

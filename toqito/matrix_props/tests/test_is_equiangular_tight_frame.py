@@ -80,3 +80,10 @@ def test_empty_matrix():
     """Matrix with no columns."""
     mat = np.zeros((3, 0))
     assert not is_equiangular_tight_frame(mat)
+
+
+def test_etf_does_not_use_default_relative_tolerance():
+    """Test ETF norm checks use only the requested absolute tolerance."""
+    mat = np.array([[1 + 5e-6], [0]])
+
+    assert not is_equiangular_tight_frame(mat, tol=1e-8)

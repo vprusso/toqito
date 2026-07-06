@@ -57,7 +57,7 @@ def sub_fidelity(rho: np.ndarray, sigma: np.ndarray) -> float:
         ```
 
         As the sub-fidelity is a lower bound on the fidelity, that is \(E(\rho, \sigma) \leq F(\rho, \sigma)\), we can
-        use `|toqito⟩` to observe that \(E(\rho, \sigma) \approx 0.599\leq F(\rho, \sigma \approx 0.774\).
+        use `|toqito⟩` to observe that \(E(\rho, \sigma) \approx 0.599 \leq F(\rho, \sigma) \approx 0.774\).
 
         ```python exec="1" source="above" result="text"
         from toqito.states import basis

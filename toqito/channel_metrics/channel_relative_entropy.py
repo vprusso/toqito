@@ -143,18 +143,18 @@ def channel_relative_entropy(
     qs = [cvx.Variable((n, n), complex=True) for _ in range(r - 1)]
     rho_a = cvx.Variable((in_dim, in_dim), complex=True)
     eye_out = np.eye(out_dim)
+    eye_in = np.eye(in_dim)
+    lower_integral_terms = 0
+    for k, q_var in enumerate(qs):
+        lower_integral_terms += cvx.trace(q_var @ (alpha[k] * choi_1 + beta[k] * choi_2))
+
     cons = (
         [cvx.trace(rho_a) == 1, rho_a >> 0]
         + [qs[k] >> 0 for k in range(r - 1)]
         + [cvx.kron(rho_a, eye_out) - qs[k] >> 0 for k in range(r - 1)]
     )
     lower_prob = cvx.Problem(
-        cvx.Maximize(
-            cvx.real(
-                cvx.trace(cvx.kron(rho_a, eye_out) @ (choi_1 - choi_2))
-                + cvx.sum([cvx.trace(qs[k] @ (alpha[k] * choi_1 + beta[k] * choi_2)) for k in range(r - 1)])
-            )
-        ),
+        cvx.Maximize(cvx.real(cvx.trace(cvx.kron(rho_a, eye_out) @ (choi_1 - choi_2)) + lower_integral_terms)),
         cons,
     )
     lower_prob.solve(solver=solver, **solve_kwargs)
@@ -168,17 +168,16 @@ def channel_relative_entropy(
     x_var, y_var = cvx.Variable(), cvx.Variable()
     gamma, delta = _make_gamma(t), _make_delta(t)
     ns = [cvx.Variable((n, n), hermitian=True) for _ in range(r + 1)]
+    traced_ns = 0
+    for n_var in ns:
+        traced_ns += partial_trace(n_var, dim=[in_dim, out_dim])
+
     upper_cons = (
         [y_var >= 0]
         + [ns[0] - choi_1 + choi_2 >> 0]
         + [ns[k] - gamma[k - 1] * choi_1 - delta[k - 1] * choi_2 >> 0 for k in range(1, r + 1)]
         + [ns[k] >> 0 for k in range(1, r + 1)]
-        + [
-            x_var * np.eye(in_dim)
-            + y_var * hamiltonian
-            - sum(partial_trace(ns[i], dim=[in_dim, out_dim]) for i in range(r + 1))
-            >> 0
-        ]
+        + [x_var * eye_in + y_var * hamiltonian - traced_ns >> 0]
     )
     upper_prob = cvx.Problem(cvx.Minimize(cvx.real(x_var + y_var * energy)), upper_cons)
     upper_prob.solve(solver=solver, **solve_kwargs)

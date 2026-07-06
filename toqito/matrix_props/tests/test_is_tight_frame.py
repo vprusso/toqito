@@ -68,3 +68,11 @@ def test_inconsistent_dimensions_raises():
 def test_zero_vectors_have_zero_frame_bound_and_are_not_tight_frame():
     """A set of zero vectors has frame bound 0 and cannot form a tight frame."""
     assert not is_tight_frame([np.zeros(3), np.zeros(3)])
+
+
+def test_tight_frame_does_not_use_default_relative_tolerance():
+    """Test tight frame checks use only the requested absolute tolerance."""
+    e0 = np.array([1, 0])
+    e1 = np.array([0, 1 + 5e-6])
+
+    assert not is_tight_frame([e0, e1], tol=1e-8)
