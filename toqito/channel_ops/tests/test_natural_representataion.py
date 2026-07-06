@@ -63,6 +63,12 @@ def test_natural_representation_empty_kraus_list():
         natural_representation([])
 
 
+def test_natural_representation_accepts_stacked_ndarray():
+    """A 3D ndarray of stacked Kraus operators is accepted like the equivalent list."""
+    stacked = np.stack(bit_flip_channel)
+    np.testing.assert_allclose(natural_representation(stacked), natural_representation(bit_flip_channel))
+
+
 def test_natural_representation_trace_preserving():
     """Test that the natural representation produces a trace-preserving map."""
     nat_rep = natural_representation(depol_channel)

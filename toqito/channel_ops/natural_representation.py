@@ -22,7 +22,7 @@ def natural_representation(kraus_ops: list[np.ndarray]) -> np.ndarray:
         ```
 
     """
-    if not kraus_ops:
+    if len(kraus_ops) == 0:
         raise ValueError("The list of Kraus operators cannot be empty.")
 
     dim = kraus_ops[0].shape
