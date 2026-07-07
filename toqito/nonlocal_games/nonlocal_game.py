@@ -327,7 +327,12 @@ class NonlocalGame:
 
         """
         # Get number of inputs and outputs.
-        _, num_outputs_bob, _, num_inputs_bob = self.pred_mat.shape
+        (
+            num_outputs_alice,
+            num_outputs_bob,
+            num_inputs_alice,
+            num_inputs_bob,
+        ) = self.pred_mat.shape
 
         # A master generator yields an independent, reproducible seed for each random restart so the whole routine is
         # deterministic when `seed` is provided.
@@ -336,6 +341,79 @@ class NonlocalGame:
         # Cap the inner alternating loop so a non-converging instance cannot spin forever.
         max_seesaw_steps = 100
 
+        # Both alternating SDPs have identical variables and constraints on every see-saw step and restart; only the
+        # fixed opponent operators (constants in the objective) change. Build each `cvxpy.Problem` exactly once with
+        # the opponent operators exposed as `cvxpy.Parameter`s, then re-solve after assigning `.value` each step. This
+        # avoids re-canonicalizing (which dominates the runtime of these small SDPs) on every iteration.
+
+        # --- Alice's SDP: optimize Alice's measurements with Bob's fixed. ---
+        # `bob_params[y, b]` holds the conjugate transpose of Bob's fixed operator B_b^y, matching the original
+        # `bob_val = B_b^y.conj().T` used inside the trace.
+        alice_povms = defaultdict(cvxpy.Variable)
+        for x_ques in range(num_inputs_alice):
+            for a_ans in range(num_outputs_alice):
+                alice_povms[x_ques, a_ans] = cvxpy.Variable((dim, dim), hermitian=True)
+        tau = cvxpy.Variable((dim, dim), hermitian=True)
+        bob_params = {}
+        for y_ques in range(num_inputs_bob):
+            for b_ans in range(num_outputs_bob):
+                bob_params[y_ques, b_ans] = cvxpy.Parameter((dim, dim), complex=True)
+
+        # .. math::
+        #    \sum_{(x,y) \in \Sigma} \pi(x, y) V(a,b|x,y) \ip{B_b^y}{A_a^x}
+        alice_win = 0
+        for x_ques in range(num_inputs_alice):
+            for y_ques in range(num_inputs_bob):
+                for a_ans in range(num_outputs_alice):
+                    for b_ans in range(num_outputs_bob):
+                        alice_win += (
+                            self.prob_mat[x_ques, y_ques]
+                            * self.pred_mat[a_ans, b_ans, x_ques, y_ques]
+                            * cvxpy.trace(bob_params[y_ques, b_ans] @ alice_povms[x_ques, a_ans])
+                        )
+
+        alice_constraints = []
+        for x_ques in range(num_inputs_alice):
+            alice_sum_a = 0
+            for a_ans in range(num_outputs_alice):
+                alice_sum_a += alice_povms[x_ques, a_ans]
+                alice_constraints.append(alice_povms[x_ques, a_ans] >> 0)
+            alice_constraints.append(alice_sum_a == tau)
+        alice_constraints.append(cvxpy.trace(tau) == 1)
+        alice_constraints.append(tau >> 0)
+        alice_problem = cvxpy.Problem(cvxpy.Maximize(cvxpy.real(alice_win)), alice_constraints)
+
+        # --- Bob's SDP: optimize Bob's measurements with Alice's fixed. ---
+        # `alice_params[x, a]` holds Alice's fixed operator A_a^x.
+        bob_povms = defaultdict(cvxpy.Variable)
+        for y_ques in range(num_inputs_bob):
+            for b_ans in range(num_outputs_bob):
+                bob_povms[y_ques, b_ans] = cvxpy.Variable((dim, dim), hermitian=True)
+        alice_params = {}
+        for x_ques in range(num_inputs_alice):
+            for a_ans in range(num_outputs_alice):
+                alice_params[x_ques, a_ans] = cvxpy.Parameter((dim, dim), complex=True)
+
+        bob_win = 0
+        for x_ques in range(num_inputs_alice):
+            for y_ques in range(num_inputs_bob):
+                for a_ans in range(num_outputs_alice):
+                    for b_ans in range(num_outputs_bob):
+                        bob_win += (
+                            self.prob_mat[x_ques, y_ques]
+                            * self.pred_mat[a_ans, b_ans, x_ques, y_ques]
+                            * cvxpy.trace(bob_povms[y_ques, b_ans].H @ alice_params[x_ques, a_ans])
+                        )
+
+        bob_constraints = []
+        for y_ques in range(num_inputs_bob):
+            bob_sum_b = 0
+            for b_ans in range(num_outputs_bob):
+                bob_sum_b += bob_povms[y_ques, b_ans]
+                bob_constraints.append(bob_povms[y_ques, b_ans] >> 0)
+            bob_constraints.append(bob_sum_b == np.identity(dim))
+        bob_problem = cvxpy.Problem(cvxpy.Maximize(cvxpy.real(bob_win)), bob_constraints)
+
         best_lower_bound = float("-inf")
         for _ in range(iters):
             # Generate a set of random POVMs for Bob. These measurements serve
@@ -343,10 +421,10 @@ class NonlocalGame:
             # algorithm.
             restart_seed = int(rng.integers(0, 2**32 - 1))
             bob_tmp = random_povm(dim, num_inputs_bob, num_outputs_bob, seed=restart_seed)
-            bob_povms = defaultdict(int)
+            bob_ops = {}
             for y_ques in range(num_inputs_bob):
                 for b_ans in range(num_outputs_bob):
-                    bob_povms[y_ques, b_ans] = bob_tmp[:, :, y_ques, b_ans]
+                    bob_ops[y_ques, b_ans] = bob_tmp[:, :, y_ques, b_ans]
 
             # Run the alternating projection algorithm between the two SDPs.
             prev_win = float("-inf")
@@ -356,8 +434,18 @@ class NonlocalGame:
                 # Bob's. If this is the first iteration, then the previously
                 # randomly generated operators in the outer loop are Bob's.
                 # Otherwise, Bob's operators come from running the next SDP.
-                alice_povms, _ = self.__optimize_alice(dim, bob_povms)
-                bob_povms, lower_bound = self.__optimize_bob(dim, alice_povms)
+                for y_ques in range(num_inputs_bob):
+                    for b_ans in range(num_outputs_bob):
+                        bob_params[y_ques, b_ans].value = bob_ops[y_ques, b_ans].conj().T
+                alice_problem.solve(verbose=False)
+                for x_ques in range(num_inputs_alice):
+                    for a_ans in range(num_outputs_alice):
+                        alice_params[x_ques, a_ans].value = alice_povms[x_ques, a_ans].value
+
+                lower_bound = bob_problem.solve(verbose=False)
+                for y_ques in range(num_inputs_bob):
+                    for b_ans in range(num_outputs_bob):
+                        bob_ops[y_ques, b_ans] = bob_povms[y_ques, b_ans].value
 
                 # As the SDPs keep alternating, check if the winning probability
                 # becomes any higher. If so, replace with new best.
@@ -371,109 +459,6 @@ class NonlocalGame:
             best_lower_bound = max(best, best_lower_bound)
 
         return best_lower_bound
-
-    def __optimize_alice(self, dim, bob_povms) -> tuple[dict, float]:
-        """Fix Bob's measurements and optimize over Alice's measurements."""
-        # Get number of inputs and outputs.
-        (
-            num_outputs_alice,
-            num_outputs_bob,
-            num_inputs_alice,
-            num_inputs_bob,
-        ) = self.pred_mat.shape
-
-        # The cvxpy package does not support optimizing over 4-dimensional
-        # objects. To overcome this, we use a dictionary to index between the
-        # questions and answers, while the cvxpy variables held at this
-        # positions are `dim`-by-`dim` cvxpy variables.
-        alice_povms = defaultdict(cvxpy.Variable)
-        for x_ques in range(num_inputs_alice):
-            for a_ans in range(num_outputs_alice):
-                alice_povms[x_ques, a_ans] = cvxpy.Variable((dim, dim), hermitian=True)
-
-        tau = cvxpy.Variable((dim, dim), hermitian=True)
-
-        # .. math::
-        #    \sum_{(x,y) \in \Sigma} \pi(x, y) V(a,b|x,y) \ip{B_b^y}{A_a^x}
-        win = 0
-        for x_ques in range(num_inputs_alice):
-            for y_ques in range(num_inputs_bob):
-                for a_ans in range(num_outputs_alice):
-                    for b_ans in range(num_outputs_bob):
-                        bob_povm = bob_povms[y_ques, b_ans]
-                        if isinstance(bob_povm, np.ndarray):
-                            bob_val = bob_povm.conj().T
-                        else:
-                            bob_val = bob_povm.value.conj().T
-                        win += (
-                            self.prob_mat[x_ques, y_ques]
-                            * self.pred_mat[a_ans, b_ans, x_ques, y_ques]
-                            * cvxpy.trace(bob_val @ alice_povms[x_ques, a_ans])
-                        )
-
-        objective = cvxpy.Maximize(cvxpy.real(win))
-
-        constraints = []
-
-        # Sum over "a" for all "x" for Alice's measurements.
-        for x_ques in range(num_inputs_alice):
-            alice_sum_a = 0
-            for a_ans in range(num_outputs_alice):
-                alice_sum_a += alice_povms[x_ques, a_ans]
-                constraints.append(alice_povms[x_ques, a_ans] >> 0)
-            constraints.append(alice_sum_a == tau)
-
-        constraints.append(cvxpy.trace(tau) == 1)
-        constraints.append(tau >> 0)
-
-        problem = cvxpy.Problem(objective, constraints)
-
-        lower_bound = problem.solve(verbose=False)
-        return alice_povms, lower_bound
-
-    def __optimize_bob(self, dim, alice_povms) -> tuple[dict, float]:
-        """Fix Alice's measurements and optimize over Bob's measurements."""
-        # Get number of inputs and outputs.
-        (
-            num_outputs_alice,
-            num_outputs_bob,
-            num_inputs_alice,
-            num_inputs_bob,
-        ) = self.pred_mat.shape
-
-        # Now, optimize over Bob's measurement operators and fix Alice's
-        # operators as those are coming from the previous SDP.
-        bob_povms = defaultdict(cvxpy.Variable)
-        for y_ques in range(num_inputs_bob):
-            for b_ans in range(num_outputs_bob):
-                bob_povms[y_ques, b_ans] = cvxpy.Variable((dim, dim), hermitian=True)
-
-        win = 0
-        for x_ques in range(num_inputs_alice):
-            for y_ques in range(num_inputs_bob):
-                for a_ans in range(num_outputs_alice):
-                    for b_ans in range(num_outputs_bob):
-                        win += (
-                            self.prob_mat[x_ques, y_ques]
-                            * self.pred_mat[a_ans, b_ans, x_ques, y_ques]
-                            * cvxpy.trace(bob_povms[y_ques, b_ans].H @ alice_povms[x_ques, a_ans].value)
-                        )
-
-        objective = cvxpy.Maximize(cvxpy.real(win))
-        constraints = []
-
-        # Sum over "b" for all "y" for Bob's measurements.
-        for y_ques in range(num_inputs_bob):
-            bob_sum_b = 0
-            for b_ans in range(num_outputs_bob):
-                bob_sum_b += bob_povms[y_ques, b_ans]
-                constraints.append(bob_povms[y_ques, b_ans] >> 0)
-            constraints.append(bob_sum_b == np.identity(dim))
-
-        problem = cvxpy.Problem(objective, constraints)
-
-        lower_bound = problem.solve(verbose=False)
-        return bob_povms, lower_bound
 
     def nonsignaling_value(self) -> float:
         """Compute the non-signaling value of the nonlocal game.
