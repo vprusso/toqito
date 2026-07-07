@@ -6,8 +6,6 @@ from itertools import permutations
 import numpy as np
 from scipy.linalg import orth
 
-from toqito.perms import permutation_operator
-
 
 def symmetric_projection(dim: int, p_val: int = 2, partial: bool = False) -> np.ndarray:
     r"""Produce the projection onto the symmetric subspace [@chen2014symmetric].
@@ -85,12 +83,17 @@ def symmetric_projection(dim: int, p_val: int = 2, partial: bool = False) -> np.
     if p_val == 1:
         return np.eye(dim)
 
-    p_list = np.array(list(permutations(np.arange(p_val))))
     p_fac = math.factorial(p_val)
     sym_proj = np.zeros((dimp, dimp))
 
-    for perm in p_list:
-        sym_proj += permutation_operator(dim * np.ones(p_val), perm, False, True)
+    # Accumulate the projector directly by indexing rather than summing `p_fac` dense
+    # permutation operators. Each permutation `perm` of the `p_val` subsystems corresponds
+    # to the permutation matrix `identity[rows, :]`, where `rows` reorders the tensor axes;
+    # adding one to entry `(rows[k], k)` for every permutation builds the same sum.
+    base = np.arange(dimp)
+    idx = base.reshape((dim,) * p_val)
+    for perm in permutations(range(p_val)):
+        sym_proj[np.transpose(idx, perm).ravel(), base] += 1
     sym_proj /= p_fac
 
     if partial:
