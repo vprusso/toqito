@@ -216,13 +216,14 @@ def symmetric_extension_hierarchy(
     sym = symmetric_projection(dim_y, level)
 
     dim_xyy = np.prod(dim_list)
+    i_kron_sym = np.kron(np.identity(dim_x), sym)
     for k, item in enumerate(states):
         meas.append(cvxpy.Variable((dim_xy, dim_xy), hermitian=True))
         x_var.append(cvxpy.Variable((dim_xyy, dim_xyy), hermitian=True))
         constraints.append(partial_trace(x_var[k], sys_list, dim_list) == meas[k])
         constraints.append(x_var[k] >> 0)
         constraints.append(meas[k] >> 0)
-        constraints.append(np.kron(np.identity(dim_x), sym) @ x_var[k] @ np.kron(np.identity(dim_x), sym) == x_var[k])
+        constraints.append(i_kron_sym @ x_var[k] @ i_kron_sym == x_var[k])
         constraints.append(partial_transpose(x_var[k], [0], dim_list) >> 0)
         for sys in range(level - 1):
             constraints.append(partial_transpose(x_var[k], [sys + 2], dim_list) >> 0)
