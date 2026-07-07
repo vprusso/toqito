@@ -45,6 +45,40 @@ uv sync
 
 You are now free to make the desired changes in your fork of `|toqito⟩`.
 
+## Repository layout
+
+The library lives under `toqito/`, organised into subpackages by the kind of
+object they act on. Each subpackage `toqito/<module>/` contains one public
+function per file and its unit tests under `toqito/<module>/tests/`.
+
+| Subpackage | Contents |
+| --- | --- |
+| `states` | Named quantum states (Bell, GHZ, W, Werner, ...). |
+| `state_props` | Predicates and quantities on states (separability, entanglement, entropy, PPT, ...). |
+| `state_metrics` | Distances and fidelities between states (fidelity, trace distance, Bures, ...). |
+| `state_opt` | Optimisation over states (distinguishability, exclusion, symmetric extension, ...). |
+| `state_ops` | Operations that produce or transform states. |
+| `channels` | Named quantum channels (depolarizing, dephasing, amplitude damping, ...). |
+| `channel_props` | Predicates and dimensions of channels (`channel_dim`, `is_completely_positive`, ...). |
+| `channel_metrics` | Distances and norms between channels (diamond norm, CB norms, channel fidelity, ...). |
+| `channel_ops` | Channel representations and application (`kraus_to_choi`, `apply_channel`, ...). |
+| `matrices` | Named matrices (Pauli, Hadamard, generalized Gell-Mann, ...). |
+| `matrix_props` | Matrix predicates (`is_positive_semidefinite`, `is_unitary`, ...). |
+| `matrix_ops` | Matrix operations (`partial_trace`, `partial_transpose`, `tensor`, ...). |
+| `perms` | Permutation and symmetric/antisymmetric-subspace operators. |
+| `measurements`, `measurement_ops`, `measurement_props` | POVMs and measurement utilities. |
+| `nonlocal_games` | Nonlocal and extended nonlocal games, XOR games. |
+| `cones` | Matrix-analysis cones used by the SDP-based routines. |
+| `rand` | Random states, channels, unitaries, and POVMs. |
+
+Documentation sources live in `docs/` (this guide, the getting-started page, the
+`docs/content/examples/` gallery, and `docs/content/refs.bib` bibliography).
+Tooling configuration lives in `pyproject.toml`.
+
+When adding a function, put it in the subpackage that matches what it operates
+on, add a test beside it under that subpackage's `tests/` directory, and export
+it from the subpackage `__init__.py`.
+
 ## Making Changes
 
 1.  Add some really awesome code to your local fork. It's usually a

@@ -59,4 +59,5 @@ def purity(rho: np.ndarray) -> float:
     if not is_density(rho):
         raise ValueError("Purity is only defined for density operators.")
     # "np.real" get rid of the close-to-0 imaginary part.
-    return np.real(np.trace(np.linalg.matrix_power(rho, 2)))
+    # Tr(rho^2) = sum_{i, j} rho_{i, j} rho_{j, i}, computed entrywise to avoid the O(n^3) matmul.
+    return np.real(np.sum(rho * rho.T))

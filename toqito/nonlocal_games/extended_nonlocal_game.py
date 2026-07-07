@@ -310,6 +310,13 @@ class ExtendedNonlocalGame:
             solver_params = {"eps_abs": tol, "eps_rel": tol, "max_iters": 50000, "verbose": False}
         rng = np.random.default_rng(seed) if seed is not None else None
 
+        # Both alternating SDPs have identical variables and constraints on every see-saw step; only the fixed opponent
+        # operators (constants in the objective) change. `__optimize_alice`/`__optimize_bob` build their `cvxpy.Problem`
+        # once and cache it here, exposing the fixed operators as `cvxpy.Parameter`s reassigned each step. Reset the
+        # cache so a fresh call rebuilds from the current game dimensions.
+        self._seesaw_alice = None
+        self._seesaw_bob = None
+
         # Get number of inputs and outputs for Bob's measurements.
         _, _, _, num_outputs_bob, _, num_inputs_bob = self.pred_mat.shape
 
@@ -426,45 +433,56 @@ class ExtendedNonlocalGame:
         # `dim`-by-`dim` cvxpy variables.
         self.__get_game_dims()
 
-        rho_xa_cvxpy_vars = defaultdict(cvxpy.Variable)
-        for x_ques in range(self.num_alice_in):
-            for a_ans in range(self.num_alice_out):
-                rho_xa_cvxpy_vars[x_ques, a_ans] = cvxpy.Variable(
-                    (self.referee_dim * self.num_bob_out, self.referee_dim * self.num_bob_out),
-                    hermitian=True,
-                    name=f"rho_A_{x_ques}{a_ans}",
-                )
-        tau_A_cvxpy_var = cvxpy.Variable(
-            (self.referee_dim * self.num_bob_out, self.referee_dim * self.num_bob_out), hermitian=True, name="tau_A"
-        )
+        # Build the SDP once and cache it; only the fixed Bob operators (constant objective coefficients) change between
+        # see-saw steps. They enter through one `cvxpy.Parameter` per (x, a): the coefficient
+        # `sum_{y, b} pi(x, y) (v_xyab kron B_b^y)`, matched to the original per-term `op_for_trace.conj().T` by storing
+        # its conjugate transpose. This collapses the 4-nested objective loop to one term per (x, a).
+        if getattr(self, "_seesaw_alice", None) is None:
+            dim = self.referee_dim * self.num_bob_out
+            rho_xa_cvxpy_vars = defaultdict(cvxpy.Variable)
+            for x_ques in range(self.num_alice_in):
+                for a_ans in range(self.num_alice_out):
+                    rho_xa_cvxpy_vars[x_ques, a_ans] = cvxpy.Variable(
+                        (dim, dim), hermitian=True, name=f"rho_A_{x_ques}{a_ans}"
+                    )
+            tau_A_cvxpy_var = cvxpy.Variable((dim, dim), hermitian=True, name="tau_A")
 
-        win_objective = cvxpy.Constant(0)
-        for x_q in range(self.num_alice_in):
-            for y_q in range(self.num_bob_in):
-                if self.prob_mat[x_q, y_q] == 0:
-                    continue
+            coeff_params = {}
+            win_objective = cvxpy.Constant(0)
+            for x_q in range(self.num_alice_in):
                 for a_ans_alice in range(self.num_alice_out):
+                    coeff_params[x_q, a_ans_alice] = cvxpy.Parameter((dim, dim), complex=True)
+                    win_objective += cvxpy.trace(coeff_params[x_q, a_ans_alice] @ rho_xa_cvxpy_vars[x_q, a_ans_alice])
+
+            objective = cvxpy.Maximize(cvxpy.real(win_objective))
+            constraints = []
+            for x_q_constr in range(self.num_alice_in):
+                rho_sum_a_constr = 0
+                for a_ans_constr in range(self.num_alice_out):
+                    constraints.append(rho_xa_cvxpy_vars[x_q_constr, a_ans_constr] >> 0)
+                    rho_sum_a_constr += rho_xa_cvxpy_vars[x_q_constr, a_ans_constr]
+                constraints.append(rho_sum_a_constr == tau_A_cvxpy_var)
+            constraints.append(cvxpy.trace(tau_A_cvxpy_var) == 1)
+            constraints.append(tau_A_cvxpy_var >> 0)
+
+            self._seesaw_alice = (cvxpy.Problem(objective, constraints), rho_xa_cvxpy_vars, coeff_params)
+
+        problem, rho_xa_cvxpy_vars, coeff_params = self._seesaw_alice
+
+        # Refresh the fixed-Bob coefficients for the current Bob POVMs.
+        dim = self.referee_dim * self.num_bob_out
+        for x_q in range(self.num_alice_in):
+            for a_ans_alice in range(self.num_alice_out):
+                coeff = np.zeros((dim, dim), dtype=complex)
+                for y_q in range(self.num_bob_in):
+                    if self.prob_mat[x_q, y_q] == 0:
+                        continue
                     for b_ans_bob in range(self.num_bob_out):
-                        # fixed_bob_povms_np is guaranteed to be np.ndarray here
                         v_xyab = self.pred_mat[:, :, a_ans_alice, b_ans_bob, x_q, y_q]
                         b_yb = fixed_bob_povms_np[y_q, b_ans_bob]
-                        op_for_trace = np.kron(v_xyab, b_yb)
-                        win_objective += self.prob_mat[x_q, y_q] * cvxpy.trace(
-                            op_for_trace.conj().T @ rho_xa_cvxpy_vars[x_q, a_ans_alice]
-                        )
+                        coeff += self.prob_mat[x_q, y_q] * np.kron(v_xyab, b_yb)
+                coeff_params[x_q, a_ans_alice].value = coeff.conj().T
 
-        objective = cvxpy.Maximize(cvxpy.real(win_objective))
-        constraints = []
-        for x_q_constr in range(self.num_alice_in):
-            rho_sum_a_constr = 0
-            for a_ans_constr in range(self.num_alice_out):
-                constraints.append(rho_xa_cvxpy_vars[x_q_constr, a_ans_constr] >> 0)
-                rho_sum_a_constr += rho_xa_cvxpy_vars[x_q_constr, a_ans_constr]
-            constraints.append(rho_sum_a_constr == tau_A_cvxpy_var)
-        constraints.append(cvxpy.trace(tau_A_cvxpy_var) == 1)
-        constraints.append(tau_A_cvxpy_var >> 0)
-
-        problem = cvxpy.Problem(objective, constraints)
         problem.solve(solver=solver, **solver_params)  # Use passed solver and params
 
         return rho_xa_cvxpy_vars, problem
@@ -480,40 +498,54 @@ class ExtendedNonlocalGame:
         # To overcome this, we use a dictionary to index between the questions and
         # answers, while the cvxpy variables held at this positions are
         # `dim`-by-`dim` cvxpy variables.
+        #
+        # Build the SDP once and cache it; only the fixed Alice operators `rho_xa` (constants in the objective) change
+        # between see-saw steps, so they enter as one `cvxpy.Parameter` per (x, a) whose `.value` is reassigned below.
+        if getattr(self, "_seesaw_bob", None) is None:
+            rho_dim = self.referee_dim * self.num_bob_out
+            bob_povm_cvxpy_vars = defaultdict(cvxpy.Variable)
+            for y_ques in range(self.num_bob_in):
+                for b_ans in range(self.num_bob_out):
+                    bob_povm_cvxpy_vars[y_ques, b_ans] = cvxpy.Variable(
+                        (self.num_bob_out, self.num_bob_out), hermitian=True, name=f"B_POVM_{y_ques}{b_ans}"
+                    )
 
-        bob_povm_cvxpy_vars = defaultdict(cvxpy.Variable)
-        for y_ques in range(self.num_bob_in):
-            for b_ans in range(self.num_bob_out):
-                bob_povm_cvxpy_vars[y_ques, b_ans] = cvxpy.Variable(
-                    (self.num_bob_out, self.num_bob_out), hermitian=True, name=f"B_POVM_{y_ques}{b_ans}"
-                )
-
-        win_objective = cvxpy.Constant(0)
-
-        for x_q in range(self.num_alice_in):
-            for y_q in range(self.num_bob_in):
-                if self.prob_mat[x_q, y_q] == 0:
-                    continue
+            rho_params = {}
+            for x_q in range(self.num_alice_in):
                 for a_ans_alice in range(self.num_alice_out):
-                    rho_xa_val = alice_rho_cvxpy_vars[x_q, a_ans_alice].value
+                    rho_params[x_q, a_ans_alice] = cvxpy.Parameter((rho_dim, rho_dim), complex=True)
 
-                    for b_ans_bob in range(self.num_bob_out):
-                        v_xyab = self.pred_mat[:, :, a_ans_alice, b_ans_bob, x_q, y_q]
-                        win_objective += self.prob_mat[x_q, y_q] * cvxpy.trace(
-                            cvxpy.kron(v_xyab, bob_povm_cvxpy_vars[y_q, b_ans_bob]) @ rho_xa_val
-                        )
+            win_objective = cvxpy.Constant(0)
+            for x_q in range(self.num_alice_in):
+                for y_q in range(self.num_bob_in):
+                    if self.prob_mat[x_q, y_q] == 0:
+                        continue
+                    for a_ans_alice in range(self.num_alice_out):
+                        for b_ans_bob in range(self.num_bob_out):
+                            v_xyab = self.pred_mat[:, :, a_ans_alice, b_ans_bob, x_q, y_q]
+                            win_objective += self.prob_mat[x_q, y_q] * cvxpy.trace(
+                                cvxpy.kron(v_xyab, bob_povm_cvxpy_vars[y_q, b_ans_bob]) @ rho_params[x_q, a_ans_alice]
+                            )
 
-        objective = cvxpy.Maximize(cvxpy.real(win_objective))
-        constraints = []
-        ident_bob_space = np.identity(self.num_bob_out)
-        for y_q_constr in range(self.num_bob_in):
-            sum_b_povm = 0
-            for b_ans_constr in range(self.num_bob_out):
-                constraints.append(bob_povm_cvxpy_vars[y_q_constr, b_ans_constr] >> 0)
-                sum_b_povm += bob_povm_cvxpy_vars[y_q_constr, b_ans_constr]
-            constraints.append(sum_b_povm == ident_bob_space)
+            objective = cvxpy.Maximize(cvxpy.real(win_objective))
+            constraints = []
+            ident_bob_space = np.identity(self.num_bob_out)
+            for y_q_constr in range(self.num_bob_in):
+                sum_b_povm = 0
+                for b_ans_constr in range(self.num_bob_out):
+                    constraints.append(bob_povm_cvxpy_vars[y_q_constr, b_ans_constr] >> 0)
+                    sum_b_povm += bob_povm_cvxpy_vars[y_q_constr, b_ans_constr]
+                constraints.append(sum_b_povm == ident_bob_space)
 
-        problem = cvxpy.Problem(objective, constraints)
+            self._seesaw_bob = (cvxpy.Problem(objective, constraints), bob_povm_cvxpy_vars, rho_params)
+
+        problem, bob_povm_cvxpy_vars, rho_params = self._seesaw_bob
+
+        # Refresh the fixed-Alice operators for the current Alice solution.
+        for x_q in range(self.num_alice_in):
+            for a_ans_alice in range(self.num_alice_out):
+                rho_params[x_q, a_ans_alice].value = alice_rho_cvxpy_vars[x_q, a_ans_alice].value
+
         problem.solve(solver=solver, **solver_params)  # Use passed solver and params
 
         return bob_povm_cvxpy_vars, problem

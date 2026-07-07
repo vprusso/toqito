@@ -2,7 +2,7 @@
 
 import numpy as np
 
-from toqito.matrices import gen_pauli_x, gen_pauli_z
+from toqito.matrices import gen_pauli_z
 
 
 def gen_pauli(k_1: int, k_2: int, dim: int) -> np.ndarray:
@@ -66,9 +66,12 @@ def gen_pauli(k_1: int, k_2: int, dim: int) -> np.ndarray:
         ```
 
     """
-    gpx_val = gen_pauli_x(dim)
     gpz_val = gen_pauli_z(dim)
 
-    gen_pauli_w = np.linalg.matrix_power(gpx_val, k_1) @ np.linalg.matrix_power(gpz_val, k_2)
+    # X^{k_1} is a cyclic column shift of the identity, and Z^{k_2} is the entrywise power of the
+    # diagonal gen_pauli_z operator. Right-multiplication by the diagonal Z^{k_2} scales column j,
+    # so the product X^{k_1} Z^{k_2} is the shifted identity times the diagonal broadcast over rows.
+    z_diag = np.diag(gpz_val) ** k_2
+    gen_pauli_w = np.roll(np.identity(dim), -k_1 % dim, axis=1) * z_diag
 
     return gen_pauli_w
