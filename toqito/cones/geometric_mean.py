@@ -1,7 +1,6 @@
 """Calculates the t-weighted matrix geometric mean of two matrices."""
 
 import numpy as np
-from scipy.linalg import fractional_matrix_power, sqrtm
 
 from toqito.cones._utils import _require_square_2d
 from toqito.matrix_props.is_positive_definite import is_positive_definite
@@ -47,7 +46,13 @@ def geometric_mean(mat_a: np.ndarray, mat_b: np.ndarray, t: float) -> np.ndarray
     if not is_positive_definite(mat_a) or not is_positive_definite(mat_b):
         raise ValueError("The matrices must be positive definite.")
 
-    sqrt_a = sqrtm(mat_a)
-    a_inv_sqrt = fractional_matrix_power(mat_a, -1 / 2)
+    eigvals_a, eigvecs_a = np.linalg.eigh(mat_a)
+    sqrt_eigvals = np.sqrt(eigvals_a)
+    sqrt_a = (eigvecs_a * sqrt_eigvals) @ eigvecs_a.conj().T
+    a_inv_sqrt = (eigvecs_a * (1 / sqrt_eigvals)) @ eigvecs_a.conj().T
+
     middle_term = a_inv_sqrt @ mat_b @ a_inv_sqrt
-    return sqrt_a @ fractional_matrix_power(middle_term, t) @ sqrt_a
+    middle_term = (middle_term + middle_term.conj().T) / 2
+    eigvals_mid, eigvecs_mid = np.linalg.eigh(middle_term)
+    middle_pow = (eigvecs_mid * eigvals_mid**t) @ eigvecs_mid.conj().T
+    return sqrt_a @ middle_pow @ sqrt_a
