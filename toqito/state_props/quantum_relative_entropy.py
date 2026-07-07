@@ -3,6 +3,8 @@ r"""Quantum relative entropy for positive semidefinite matrices."""
 # Adapted from CVXQUAD (https://github.com/hfawzi/cvxquad), BSD-2-Clause.
 # Original implementation by Fawzi, Saunderson, et al.
 
+import contextlib
+import warnings
 from typing import Any
 
 import cvxpy
@@ -17,6 +19,22 @@ from toqito.cones.operator_relative_entropy_epi_cone import (
 )
 from toqito.cones.trace_matrix_log import trace_matrix_log
 from toqito.matrix_props import is_hermitian, is_positive_semidefinite
+
+
+@contextlib.contextmanager
+def _silence_singular_logm_warning():
+    """Silence scipy's cosmetic "logm input matrix is exactly singular" warning.
+
+    The numeric relative-entropy paths evaluate ``scipy.linalg.logm`` (directly and via
+    ``ln_quantum_entropy``/``trace_matrix_log``) on rank-deficient density matrices, which is
+    routine for pure states and for the reduced/lifted operators used by callers such as
+    ``quantum_conditional_entropy``. The singular directions contribute the correct
+    ``0 * (-inf) = 0`` to the trace, so the returned value is valid and the warning is noise. The
+    filter matches only that exact message, so genuine warnings still propagate.
+    """
+    with warnings.catch_warnings():
+        warnings.filterwarnings("ignore", message="The logm input matrix is exactly singular.")
+        yield
 
 
 def quantum_relative_entropy(
@@ -140,8 +158,9 @@ def quantum_relative_entropy(
             mat_y_log = np.asarray(mat_y.value)
         else:
             mat_y_log = mat_y
-        tr_a_log_b = trace_matrix_log(mat_y_log, x_val, m, k, -apx)
-        return -ln_quantum_entropy(x_val, m, k) - tr_a_log_b
+        with _silence_singular_logm_warning():
+            tr_a_log_b = trace_matrix_log(mat_y_log, x_val, m, k, -apx)
+            return -ln_quantum_entropy(x_val, m, k) - tr_a_log_b
     elif isinstance(mat_y, cvxpy.Expression) and mat_y.is_constant():
         if mat_y.value is None:
             raise ValueError(
@@ -158,10 +177,11 @@ def quantum_relative_entropy(
             raise ValueError("mat_x has no numeric value; pass a numpy.ndarray or set `.value`.")
         else:
             x_eval = np.asarray(mat_x.value)
-        ent_part = -ln_quantum_entropy(mat_x, m, k, -apx)
-        log_y = logm(y_val)
-        tr_a_log_b = float(np.real(np.trace(x_eval @ log_y)))
-        return ent_part - tr_a_log_b
+        with _silence_singular_logm_warning():
+            ent_part = -ln_quantum_entropy(mat_x, m, k, -apx)
+            log_y = logm(y_val)
+            tr_a_log_b = float(np.real(np.trace(x_eval @ log_y)))
+            return ent_part - tr_a_log_b
 
     if not isinstance(mat_x, cvxpy.Expression) or not isinstance(mat_y, cvxpy.Expression):
         raise ValueError("mat_x and mat_y must be numpy arrays or cvxpy expressions")
