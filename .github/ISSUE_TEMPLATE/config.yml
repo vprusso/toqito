@@ -1,0 +1,11 @@
+blank_issues_enabled: true
+contact_links:
+  - name: 📖 Contributing Guide
+    url: https://vprusso.github.io/toqito/contributing-guide/
+    about: Dev setup, testing, code style, and how to add a new feature.
+  - name: 🧑‍🔬 Good first issues
+    url: https://github.com/vprusso/toqito/labels/good%20first%20issue
+    about: Small, self-contained tasks to get started.
+  - name: 💬 Questions and usage help
+    url: https://github.com/vprusso/toqito/discussions
+    about: For questions about using toqito, please open a discussion.
