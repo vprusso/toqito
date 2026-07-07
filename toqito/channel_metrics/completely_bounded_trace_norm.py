@@ -8,7 +8,6 @@ import picos as pc
 from toqito.channel_ops import apply_channel, dual_channel
 from toqito.channel_props import is_completely_positive, is_trace_preserving
 from toqito.channel_props.channel_dim import channel_dim
-from toqito.matrix_props import trace_norm
 
 
 def completely_bounded_trace_norm(
@@ -67,8 +66,12 @@ def completely_bounded_trace_norm(
         # Quantum channels have a completely bounded trace norm of 1.
         if is_trace_preserving(phi, dim=[dim_in, dim_out]):
             return 1
-        v = apply_channel(np.eye(dim_ly), dual_channel(phi, dims=[dim_in, dim_out]))
-        return trace_norm(v)
+        # For a completely positive map, the completely bounded trace norm equals the operator
+        # (spectral) norm of the adjoint applied to the identity, ||Phi^*(I_out)||_inf (Watrous,
+        # The Theory of Quantum Information, Section 3.3). `dual_channel` gives Phi^*, and the
+        # identity is on the output space of dimension `dim_out`.
+        v = apply_channel(np.eye(dim_out), dual_channel(phi, dims=[dim_in, dim_out]))
+        return np.linalg.norm(v, 2)
 
     # SDP
     sdp = pc.Problem()
