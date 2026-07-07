@@ -1,5 +1,7 @@
 """Tests for quantum_conditional_entropy."""
 
+import warnings
+
 import cvxpy
 import numpy as np
 import pytest
@@ -162,3 +164,18 @@ def test_sdp_maximize_over_density_matrices():
     val = prob.solve(solver=cvxpy.SCS, verbose=False)
     assert prob.status in {cvxpy.OPTIMAL, cvxpy.OPTIMAL_INACCURATE}, prob.status
     assert val is not None
+
+
+def test_pure_state_does_not_leak_singular_logm_warning():
+    """A rank-deficient input must not surface scipy's singular-logm warning.
+
+    ``quantum_conditional_entropy`` routes through ``quantum_relative_entropy``'s numeric ``logm``
+    path, which is evaluated on singular operators for pure and reduced states. The result is valid,
+    so the cosmetic ``"The logm input matrix is exactly singular."`` warning must be suppressed at
+    the source rather than by callers.
+    """
+    with warnings.catch_warnings(record=True) as record:
+        warnings.simplefilter("always")
+        result = quantum_conditional_entropy(MAX_ENTANGLED_STATE, _DIM, sys=0)
+    assert np.isclose(result, -np.log(2))
+    assert not any("logm input matrix is exactly singular" in str(w.message) for w in record)
