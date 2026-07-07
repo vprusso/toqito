@@ -98,6 +98,18 @@ class TestNonlocalGame(unittest.TestCase):
         res = chsh.quantum_value_lower_bound(4)
         self.assertLessEqual(res, np.cos(np.pi / 8) ** 2 + 1e-2)
 
+    def test_chsh_lower_bound_converges_early(self):
+        """With a loose tolerance the see-saw stabilizes and stops before the step cap.
+
+        This exercises the early-convergence break in the see-saw loop: after the first
+        step the winning probability changes by less than ``tol`` between steps, so the
+        optimization terminates early rather than running every step.
+        """
+        prob_mat, pred_mat = self.chsh_nonlocal_game()
+        chsh = NonlocalGame(prob_mat, pred_mat)
+        res = chsh.quantum_value_lower_bound(tol=1e-1, seed=42)
+        self.assertLessEqual(res, np.cos(np.pi / 8) ** 2 + 1e-2)
+
     def test_chsh_lower_bound_seed_reproducible(self):
         """A fixed seed makes the see-saw lower bound reproducible and a valid bound."""
         prob_mat, pred_mat = self.chsh_nonlocal_game()
