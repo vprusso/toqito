@@ -65,7 +65,9 @@ def is_absolutely_k_incoherent(mat: np.ndarray, k: int, tol: float = 1e-15) -> b
 
     # Compute eigenvalues and rank.
     eigvals = np.linalg.eigvalsh(mat)
-    rankX = np.linalg.matrix_rank(mat, tol=tol)
+    # For a Hermitian matrix the singular values equal the absolute eigenvalues, so the rank (number
+    # of singular values above ``tol``) can be read off the already-computed eigenvalues.
+    rankX = int(np.count_nonzero(np.abs(eigvals) > tol))
     lmax = np.max(eigvals)
 
     # Trivial: only the maximally mixed state is absolutely 1-incoherent.
