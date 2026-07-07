@@ -644,17 +644,18 @@ def test_is_trace_prserving(input_mat, expected_result, sys_arg, dim_arg):
 
 
 @pytest.mark.parametrize(
-    "sys_value",
+    "sys_value, bad_index",
     [
-        2,  # int out-of-bounds
-        [2],  # list out-of-bounds
-        [-1],  # negative index
+        (2, 2),  # int out-of-bounds
+        ([2], 2),  # list out-of-bounds
+        ([-1], -1),  # negative index
     ],
 )
-def test_sys_out_of_bounds(sys_value):
-    """Test that out-of-bounds subsystem indices raise ValueError."""
+def test_sys_out_of_bounds(sys_value, bad_index):
+    """Out-of-bounds subsystem indices raise ValueError naming the offending index."""
     mat = np.eye(4)
-    with pytest.raises(ValueError, match="out of bounds"):
+    expected = f"Subsystem index {bad_index} is out of bounds; must be in [0, 2)."
+    with pytest.raises(ValueError, match=re.escape(expected)):
         partial_trace(mat, sys_value, [2, 2])
 
 
