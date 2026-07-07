@@ -1,10 +1,7 @@
 """Fidelity is a metric that quantifies how close two quantum states are."""
 
-import warnings
-
 import cvxpy
 import numpy as np
-import scipy
 
 from toqito.matrix_props import is_density
 
@@ -87,9 +84,11 @@ def fidelity(rho: np.ndarray, sigma: np.ndarray) -> float:
         raise ValueError("Fidelity is only defined for density operators.")
 
     # If `rho` or `sigma` are *not* cvxpy variables, compute fidelity normally, since this is much faster.
-    # Suppress LinAlgWarning from sqrtm on rank-deficient density matrices — the result is still valid.
-    with warnings.catch_warnings():
-        warnings.simplefilter("ignore", scipy.linalg.LinAlgWarning)
-        sq_rho = scipy.linalg.sqrtm(rho)
-        sq_fid = scipy.linalg.sqrtm(sq_rho @ sigma @ sq_rho)
-    return np.real(np.trace(sq_fid))
+    # Since `rho` is Hermitian PSD, its square root is obtained from an eigendecomposition, and the trace norm
+    # of `sq_rho @ sigma @ sq_rho` is the sum of the square roots of that matrix's (real, non-negative)
+    # eigenvalues. This avoids two dense Schur-based `scipy.linalg.sqrtm` calls. Tiny negative eigenvalues from
+    # floating-point error are clipped to zero.
+    w, v = np.linalg.eigh(rho)
+    sq_rho = (v * np.sqrt(np.clip(w, 0, None))) @ v.conj().T
+    m_mat = sq_rho @ sigma @ sq_rho
+    return np.sum(np.sqrt(np.clip(np.linalg.eigvalsh(m_mat), 0, None)))

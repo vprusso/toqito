@@ -71,8 +71,11 @@ def bures_angle(rho_1: np.ndarray, rho_2: np.ndarray) -> float:
     # Perform error checking.
     if not np.all(rho_1.shape == rho_2.shape):
         raise ValueError("InvalidDim: `rho_1` and `rho_2` must be matrices of the same size.")
-    # Clamp to [0, 1]: floating-point error in the sqrtm-based fidelity can push it just above 1 for
-    # near-identical states, which would make arccos receive an argument greater than 1 and yield NaN.
-    # `fidelity` returns the root fidelity, so the Bures angle is arccos of that value directly.
+    # `fidelity` returns the root fidelity, mathematically in [0, 1], so the Bures angle is arccos of
+    # it directly. Floating-point error in its eigh-based computation can leave it a few ULPs on either
+    # side of 1 for (near-)identical states. Clamp into range so arccos stays real, and snap a
+    # numerically saturated fidelity to exactly 1 so identical states yield an angle of 0.
     fid = np.clip(fidelity(rho_1, rho_2), 0.0, 1.0)
+    if fid > 1.0 - 1e-12:
+        fid = 1.0
     return np.real(np.arccos(fid))
