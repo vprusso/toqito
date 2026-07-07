@@ -2,8 +2,6 @@
 
 import numpy as np
 
-from toqito.matrix_ops import tensor
-
 
 def natural_representation(kraus_ops: list[np.ndarray]) -> np.ndarray:
     r"""Convert a set of Kraus operators to the natural representation of a quantum channel.
@@ -29,8 +27,10 @@ def natural_representation(kraus_ops: list[np.ndarray]) -> np.ndarray:
     if not all(k.shape == dim for k in kraus_ops):
         raise ValueError("All Kraus operators must have the same dimensions.")
 
-    # Compute the natural representation.
-    natural_rep = tensor(kraus_ops[0], np.conjugate(kraus_ops[0]))
-    for k_mat in kraus_ops[1:]:
-        natural_rep += tensor(k_mat, np.conjugate(k_mat))
-    return natural_rep
+    # Compute the natural representation as a single contraction. Stacking the
+    # Kraus operators into a (r, out, in) array and contracting
+    # \(\sum_i K_i \otimes K_i^*\) with one einsum avoids materializing the r
+    # separate Kronecker products before summing.
+    stacked = np.asarray(kraus_ops)
+    out_dim, in_dim = dim
+    return np.einsum("rab,rcd->acbd", stacked, stacked.conj()).reshape(out_dim * out_dim, in_dim * in_dim)
