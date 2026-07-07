@@ -10,6 +10,20 @@ def expr_as_np_array(cvx_expr: Expression) -> np.ndarray:
     Args:
         cvx_expr: The cvxpy expression to be converted.
 
+    Examples:
+        Convert a 2x2 CVXPY variable into a NumPy array.
+
+        ```python exec="1" source="above"
+        import cvxpy as cp
+
+        from toqito.matrix_ops import expr_as_np_array
+
+        x = cp.Variable((2, 2))
+        arr = expr_as_np_array(x)
+
+        print(arr.shape)
+        ```
+
     Returns:
         The numpy array of the cvxpy expression.
 
