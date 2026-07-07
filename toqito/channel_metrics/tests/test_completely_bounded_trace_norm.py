@@ -34,8 +34,9 @@ solvers = ["cvxopt"]
     [
         # The diamond norm of a quantum channel is 1
         (dephasing(2), 1),
-        # the diamond norm of a CP map
-        (np.eye(4), 4.0),
+        # A completely positive, non-trace-preserving map: the CB trace norm is the spectral norm
+        # of Phi^*(I). Here the Choi is I_4, i.e. Phi(rho) = Tr(rho) I_2, so the value is 2, not 4.
+        (np.eye(4), 2.0),
         # unitaries channel, phi, diameter in terms of the eigenvalues of U
         (phi, diameter),
         # qutrit unitaries channel (non-power-of-2 dimension)
@@ -81,3 +82,14 @@ def test_cb_trace_norm_invalid_input():
     ):
         phi1 = np.array([[1, 2, 3], [4, 5, 6]])
         completely_bounded_trace_norm(phi1)
+
+
+def test_cb_trace_norm_cp_non_trace_preserving():
+    """CB trace norm of a completely positive, non-trace-preserving map.
+
+    For ``Phi(rho) = A rho A^dagger`` with ``A = diag(1, 2)``, the completely bounded trace norm is
+    the spectral norm of ``Phi^*(I) = A^dagger A = diag(1, 4)``, i.e. 4. Regression for the
+    CP-branch bug that returned the trace norm of a wrongly-sized operator.
+    """
+    a_op = np.diag([1.0, 2.0])
+    assert abs(completely_bounded_trace_norm(kraus_to_choi([a_op])) - 4.0) <= 1e-6
