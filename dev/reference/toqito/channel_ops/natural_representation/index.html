@@ -9806,7 +9806,9 @@ where <span class="arithmatex">\(K_i^*\)</span> is the complex conjugate of <spa
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>toqito/channel_ops/natural_representation.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-8"> 8</a></span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-0-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-0-8"> 8</a></span>
 <span class="normal"><a href="#__codelineno-0-9"> 9</a></span>
 <span class="normal"><a href="#__codelineno-0-10">10</a></span>
 <span class="normal"><a href="#__codelineno-0-11">11</a></span>
@@ -9834,35 +9836,37 @@ where <span class="arithmatex">\(K_i^*\)</span> is the complex conjugate of <spa
 <span class="normal"><a href="#__codelineno-0-33">33</a></span>
 <span class="normal"><a href="#__codelineno-0-34">34</a></span>
 <span class="normal"><a href="#__codelineno-0-35">35</a></span>
-<span class="normal"><a href="#__codelineno-0-36">36</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-8" name="__codelineno-0-8"></a><span class="k">def</span><span class="w"> </span><span class="nf">natural_representation</span><span class="p">(</span><span class="n">kraus_ops</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<a id="__codelineno-0-9" name="__codelineno-0-9"></a><span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Convert a set of Kraus operators to the natural representation of a quantum channel.</span>
-<a id="__codelineno-0-10" name="__codelineno-0-10"></a>
-<a id="__codelineno-0-11" name="__codelineno-0-11"></a><span class="sd">    The natural representation of a quantum channel is given by:</span>
-<a id="__codelineno-0-12" name="__codelineno-0-12"></a><span class="sd">    \(\Phi = \sum_i K_i \otimes K_i^*\)</span>
-<a id="__codelineno-0-13" name="__codelineno-0-13"></a><span class="sd">    where \(K_i^*\) is the complex conjugate of \(K_i\).</span>
-<a id="__codelineno-0-14" name="__codelineno-0-14"></a>
-<a id="__codelineno-0-15" name="__codelineno-0-15"></a><span class="sd">    Examples:</span>
-<a id="__codelineno-0-16" name="__codelineno-0-16"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;</span>
-<a id="__codelineno-0-17" name="__codelineno-0-17"></a><span class="sd">        import numpy as np</span>
-<a id="__codelineno-0-18" name="__codelineno-0-18"></a><span class="sd">        from toqito.channel_ops import natural_representation</span>
-<a id="__codelineno-0-19" name="__codelineno-0-19"></a><span class="sd">        k0 = np.sqrt(1/2) * np.array([[1, 0], [0, 1]])</span>
-<a id="__codelineno-0-20" name="__codelineno-0-20"></a><span class="sd">        k1 = np.sqrt(1/2) * np.array([[0, 1], [1, 0]])</span>
-<a id="__codelineno-0-21" name="__codelineno-0-21"></a><span class="sd">        print(natural_representation([k0, k1]))</span>
-<a id="__codelineno-0-22" name="__codelineno-0-22"></a><span class="sd">        ```</span>
-<a id="__codelineno-0-23" name="__codelineno-0-23"></a>
-<a id="__codelineno-0-24" name="__codelineno-0-24"></a><span class="sd">    &quot;&quot;&quot;</span>
-<a id="__codelineno-0-25" name="__codelineno-0-25"></a>    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">kraus_ops</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-<a id="__codelineno-0-26" name="__codelineno-0-26"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The list of Kraus operators cannot be empty.&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-27" name="__codelineno-0-27"></a>
-<a id="__codelineno-0-28" name="__codelineno-0-28"></a>    <span class="n">dim</span> <span class="o">=</span> <span class="n">kraus_ops</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span>
-<a id="__codelineno-0-29" name="__codelineno-0-29"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">(</span><span class="n">k</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="n">dim</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">kraus_ops</span><span class="p">):</span>
-<a id="__codelineno-0-30" name="__codelineno-0-30"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;All Kraus operators must have the same dimensions.&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-31" name="__codelineno-0-31"></a>
-<a id="__codelineno-0-32" name="__codelineno-0-32"></a>    <span class="c1"># Compute the natural representation.</span>
-<a id="__codelineno-0-33" name="__codelineno-0-33"></a>    <span class="n">natural_rep</span> <span class="o">=</span> <span class="n">tensor</span><span class="p">(</span><span class="n">kraus_ops</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">conjugate</span><span class="p">(</span><span class="n">kraus_ops</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
-<a id="__codelineno-0-34" name="__codelineno-0-34"></a>    <span class="k">for</span> <span class="n">k_mat</span> <span class="ow">in</span> <span class="n">kraus_ops</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
-<a id="__codelineno-0-35" name="__codelineno-0-35"></a>        <span class="n">natural_rep</span> <span class="o">+=</span> <span class="n">tensor</span><span class="p">(</span><span class="n">k_mat</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">conjugate</span><span class="p">(</span><span class="n">k_mat</span><span class="p">))</span>
-<a id="__codelineno-0-36" name="__codelineno-0-36"></a>    <span class="k">return</span> <span class="n">natural_rep</span>
+<span class="normal"><a href="#__codelineno-0-36">36</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-6" name="__codelineno-0-6"></a><span class="k">def</span><span class="w"> </span><span class="nf">natural_representation</span><span class="p">(</span><span class="n">kraus_ops</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7"></a><span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Convert a set of Kraus operators to the natural representation of a quantum channel.</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8"></a>
+<a id="__codelineno-0-9" name="__codelineno-0-9"></a><span class="sd">    The natural representation of a quantum channel is given by:</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10"></a><span class="sd">    \(\Phi = \sum_i K_i \otimes K_i^*\)</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11"></a><span class="sd">    where \(K_i^*\) is the complex conjugate of \(K_i\).</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12"></a>
+<a id="__codelineno-0-13" name="__codelineno-0-13"></a><span class="sd">    Examples:</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15"></a><span class="sd">        import numpy as np</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16"></a><span class="sd">        from toqito.channel_ops import natural_representation</span>
+<a id="__codelineno-0-17" name="__codelineno-0-17"></a><span class="sd">        k0 = np.sqrt(1/2) * np.array([[1, 0], [0, 1]])</span>
+<a id="__codelineno-0-18" name="__codelineno-0-18"></a><span class="sd">        k1 = np.sqrt(1/2) * np.array([[0, 1], [1, 0]])</span>
+<a id="__codelineno-0-19" name="__codelineno-0-19"></a><span class="sd">        print(natural_representation([k0, k1]))</span>
+<a id="__codelineno-0-20" name="__codelineno-0-20"></a><span class="sd">        ```</span>
+<a id="__codelineno-0-21" name="__codelineno-0-21"></a>
+<a id="__codelineno-0-22" name="__codelineno-0-22"></a><span class="sd">    &quot;&quot;&quot;</span>
+<a id="__codelineno-0-23" name="__codelineno-0-23"></a>    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">kraus_ops</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+<a id="__codelineno-0-24" name="__codelineno-0-24"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The list of Kraus operators cannot be empty.&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-25" name="__codelineno-0-25"></a>
+<a id="__codelineno-0-26" name="__codelineno-0-26"></a>    <span class="n">dim</span> <span class="o">=</span> <span class="n">kraus_ops</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span>
+<a id="__codelineno-0-27" name="__codelineno-0-27"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">(</span><span class="n">k</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="n">dim</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">kraus_ops</span><span class="p">):</span>
+<a id="__codelineno-0-28" name="__codelineno-0-28"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;All Kraus operators must have the same dimensions.&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-29" name="__codelineno-0-29"></a>
+<a id="__codelineno-0-30" name="__codelineno-0-30"></a>    <span class="c1"># Compute the natural representation as a single contraction. Stacking the</span>
+<a id="__codelineno-0-31" name="__codelineno-0-31"></a>    <span class="c1"># Kraus operators into a (r, out, in) array and contracting</span>
+<a id="__codelineno-0-32" name="__codelineno-0-32"></a>    <span class="c1"># \(\sum_i K_i \otimes K_i^*\) with one einsum avoids materializing the r</span>
+<a id="__codelineno-0-33" name="__codelineno-0-33"></a>    <span class="c1"># separate Kronecker products before summing.</span>
+<a id="__codelineno-0-34" name="__codelineno-0-34"></a>    <span class="n">stacked</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">kraus_ops</span><span class="p">)</span>
+<a id="__codelineno-0-35" name="__codelineno-0-35"></a>    <span class="n">out_dim</span><span class="p">,</span> <span class="n">in_dim</span> <span class="o">=</span> <span class="n">dim</span>
+<a id="__codelineno-0-36" name="__codelineno-0-36"></a>    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">einsum</span><span class="p">(</span><span class="s2">&quot;rab,rcd-&gt;acbd&quot;</span><span class="p">,</span> <span class="n">stacked</span><span class="p">,</span> <span class="n">stacked</span><span class="o">.</span><span class="n">conj</span><span class="p">())</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">out_dim</span> <span class="o">*</span> <span class="n">out_dim</span><span class="p">,</span> <span class="n">in_dim</span> <span class="o">*</span> <span class="n">in_dim</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
