@@ -9914,7 +9914,8 @@
 <span class="normal"><a href="#__codelineno-0-59">59</a></span>
 <span class="normal"><a href="#__codelineno-0-60">60</a></span>
 <span class="normal"><a href="#__codelineno-0-61">61</a></span>
-<span class="normal"><a href="#__codelineno-0-62">62</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-8" name="__codelineno-0-8"></a><span class="k">def</span><span class="w"> </span><span class="nf">purity</span><span class="p">(</span><span class="n">rho</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="normal"><a href="#__codelineno-0-62">62</a></span>
+<span class="normal"><a href="#__codelineno-0-63">63</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-8" name="__codelineno-0-8"></a><span class="k">def</span><span class="w"> </span><span class="nf">purity</span><span class="p">(</span><span class="n">rho</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <a id="__codelineno-0-9" name="__codelineno-0-9"></a><span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Compute the purity of a quantum state [@wikipediapurity].</span>
 <a id="__codelineno-0-10" name="__codelineno-0-10"></a>
 <a id="__codelineno-0-11" name="__codelineno-0-11"></a><span class="sd">    The purity of a quantum state \(\rho\) is defined as</span>
@@ -9968,7 +9969,8 @@
 <a id="__codelineno-0-59" name="__codelineno-0-59"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">is_density</span><span class="p">(</span><span class="n">rho</span><span class="p">):</span>
 <a id="__codelineno-0-60" name="__codelineno-0-60"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Purity is only defined for density operators.&quot;</span><span class="p">)</span>
 <a id="__codelineno-0-61" name="__codelineno-0-61"></a>    <span class="c1"># &quot;np.real&quot; get rid of the close-to-0 imaginary part.</span>
-<a id="__codelineno-0-62" name="__codelineno-0-62"></a>    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">matrix_power</span><span class="p">(</span><span class="n">rho</span><span class="p">,</span> <span class="mi">2</span><span class="p">)))</span>
+<a id="__codelineno-0-62" name="__codelineno-0-62"></a>    <span class="c1"># Tr(rho^2) = sum_{i, j} rho_{i, j} rho_{j, i}, computed entrywise to avoid the O(n^3) matmul.</span>
+<a id="__codelineno-0-63" name="__codelineno-0-63"></a>    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">rho</span> <span class="o">*</span> <span class="n">rho</span><span class="o">.</span><span class="n">T</span><span class="p">))</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>

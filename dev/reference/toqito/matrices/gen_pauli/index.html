@@ -9943,7 +9943,10 @@ from 0 to <code>dim-1</code>, inclusive.</p>
 <span class="normal"><a href="#__codelineno-0-71">71</a></span>
 <span class="normal"><a href="#__codelineno-0-72">72</a></span>
 <span class="normal"><a href="#__codelineno-0-73">73</a></span>
-<span class="normal"><a href="#__codelineno-0-74">74</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-8" name="__codelineno-0-8"></a><span class="k">def</span><span class="w"> </span><span class="nf">gen_pauli</span><span class="p">(</span><span class="n">k_1</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">k_2</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">dim</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="normal"><a href="#__codelineno-0-74">74</a></span>
+<span class="normal"><a href="#__codelineno-0-75">75</a></span>
+<span class="normal"><a href="#__codelineno-0-76">76</a></span>
+<span class="normal"><a href="#__codelineno-0-77">77</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-8" name="__codelineno-0-8"></a><span class="k">def</span><span class="w"> </span><span class="nf">gen_pauli</span><span class="p">(</span><span class="n">k_1</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">k_2</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">dim</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
 <a id="__codelineno-0-9" name="__codelineno-0-9"></a><span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Produce generalized Pauli operator [@wikipediageneralizedpauli].</span>
 <a id="__codelineno-0-10" name="__codelineno-0-10"></a>
 <a id="__codelineno-0-11" name="__codelineno-0-11"></a><span class="sd">    Generates a `dim`-by-`dim` unitary operator. More specifically,</span>
@@ -10004,12 +10007,15 @@ from 0 to <code>dim-1</code>, inclusive.</p>
 <a id="__codelineno-0-66" name="__codelineno-0-66"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-67" name="__codelineno-0-67"></a>
 <a id="__codelineno-0-68" name="__codelineno-0-68"></a><span class="sd">    &quot;&quot;&quot;</span>
-<a id="__codelineno-0-69" name="__codelineno-0-69"></a>    <span class="n">gpx_val</span> <span class="o">=</span> <span class="n">gen_pauli_x</span><span class="p">(</span><span class="n">dim</span><span class="p">)</span>
-<a id="__codelineno-0-70" name="__codelineno-0-70"></a>    <span class="n">gpz_val</span> <span class="o">=</span> <span class="n">gen_pauli_z</span><span class="p">(</span><span class="n">dim</span><span class="p">)</span>
-<a id="__codelineno-0-71" name="__codelineno-0-71"></a>
-<a id="__codelineno-0-72" name="__codelineno-0-72"></a>    <span class="n">gen_pauli_w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">matrix_power</span><span class="p">(</span><span class="n">gpx_val</span><span class="p">,</span> <span class="n">k_1</span><span class="p">)</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">matrix_power</span><span class="p">(</span><span class="n">gpz_val</span><span class="p">,</span> <span class="n">k_2</span><span class="p">)</span>
-<a id="__codelineno-0-73" name="__codelineno-0-73"></a>
-<a id="__codelineno-0-74" name="__codelineno-0-74"></a>    <span class="k">return</span> <span class="n">gen_pauli_w</span>
+<a id="__codelineno-0-69" name="__codelineno-0-69"></a>    <span class="n">gpz_val</span> <span class="o">=</span> <span class="n">gen_pauli_z</span><span class="p">(</span><span class="n">dim</span><span class="p">)</span>
+<a id="__codelineno-0-70" name="__codelineno-0-70"></a>
+<a id="__codelineno-0-71" name="__codelineno-0-71"></a>    <span class="c1"># X^{k_1} is a cyclic column shift of the identity, and Z^{k_2} is the entrywise power of the</span>
+<a id="__codelineno-0-72" name="__codelineno-0-72"></a>    <span class="c1"># diagonal gen_pauli_z operator. Right-multiplication by the diagonal Z^{k_2} scales column j,</span>
+<a id="__codelineno-0-73" name="__codelineno-0-73"></a>    <span class="c1"># so the product X^{k_1} Z^{k_2} is the shifted identity times the diagonal broadcast over rows.</span>
+<a id="__codelineno-0-74" name="__codelineno-0-74"></a>    <span class="n">z_diag</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">gpz_val</span><span class="p">)</span> <span class="o">**</span> <span class="n">k_2</span>
+<a id="__codelineno-0-75" name="__codelineno-0-75"></a>    <span class="n">gen_pauli_w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="n">dim</span><span class="p">),</span> <span class="o">-</span><span class="n">k_1</span> <span class="o">%</span> <span class="n">dim</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">z_diag</span>
+<a id="__codelineno-0-76" name="__codelineno-0-76"></a>
+<a id="__codelineno-0-77" name="__codelineno-0-77"></a>    <span class="k">return</span> <span class="n">gen_pauli_w</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
