@@ -1,5 +1,7 @@
 """Test vectors_to_gram_matrix."""
 
+import re
+
 import numpy as np
 import pytest
 
@@ -44,15 +46,21 @@ def test_vectors_to_gram_matrix_mixed_states(states, expected_result):
 
 
 @pytest.mark.parametrize(
-    "vectors",
+    "vectors, expected_message",
     [
         # Vectors of different sizes.
-        ([np.array([1, 2, 3]), np.array([1, 2])]),
+        (
+            [np.array([1, 2, 3]), np.array([1, 2])],
+            "All vectors must have the same shape; expected (3,), got (2,).",
+        ),
         # Density matrices of different sizes.
-        ([np.eye(2), np.eye(3)]),
+        (
+            [np.eye(2), np.eye(3)],
+            "All vectors must have the same shape; expected (2, 2), got (3, 3).",
+        ),
     ],
 )
-def test_vectors_to_gram_matrix_invalid_input(vectors):
-    """Test function works as expected for an invalid input."""
-    with np.testing.assert_raises(ValueError):
+def test_vectors_to_gram_matrix_invalid_input(vectors, expected_message):
+    """Test function reports the expected and offending shapes for mismatched input."""
+    with pytest.raises(ValueError, match=re.escape(expected_message)):
         vectors_to_gram_matrix(vectors)

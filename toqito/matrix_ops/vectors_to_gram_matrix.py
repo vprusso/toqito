@@ -60,8 +60,9 @@ def vectors_to_gram_matrix(vectors: list[np.ndarray]) -> np.ndarray:
 
     """
     # Check that all vectors are of the same shape
-    if not all(v.shape == vectors[0].shape for v in vectors):
-        raise ValueError("All vectors must be of the same shape.")
+    for v in vectors:
+        if v.shape != vectors[0].shape:
+            raise ValueError(f"All vectors must have the same shape; expected {vectors[0].shape}, got {v.shape}.")
 
     first_input = vectors[0]
 
