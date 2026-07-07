@@ -169,6 +169,7 @@ def test_permute_systems_invalid_dim_mismatch_perm():
 
 
 def test_permute_systems_row_vector_with_explicit_dim():
+    """Ensure row-vector input with explicit subsystem dimensions is permuted correctly."""
     assert np.array_equal(
         permute_systems(
             np.arange(8).reshape(1, 8),
