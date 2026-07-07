@@ -68,7 +68,7 @@ def tensor_comb(
         raise ValueError("k must be a positive integer.")
 
     if mode not in ("injective", "non-injective", "diagonal"):
-        raise ValueError("mode must be injective, non-injective, or diagonal.")
+        raise ValueError(f"mode must be injective, non-injective, or diagonal; got {mode!r}.")
 
     if mode == "injective" and k > len(states):
         raise ValueError("k must be less than or equal to the number of states for injective sequences.")

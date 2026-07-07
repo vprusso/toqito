@@ -188,7 +188,7 @@ def test_tensor_comb_density_matrix(states, k, mode, expected_comb_keys, expecte
             2,
             False,
             "invalid",
-            "mode must be injective, non-injective, or diagonal.",
+            "mode must be injective, non-injective, or diagonal; got 'invalid'.",
         ),
         # empty input
         ([], 2, False, "injective", "Input list of states cannot be empty."),
