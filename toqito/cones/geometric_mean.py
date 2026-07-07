@@ -42,7 +42,7 @@ def geometric_mean(mat_a: np.ndarray, mat_b: np.ndarray, t: float) -> np.ndarray
         raise ValueError("The matrices must be the same size.")
     _require_square_2d(mat_a, "The matrices")
     if t < -1 or t > 2:
-        raise ValueError("The weight must be in the range [-1, 2].")
+        raise ValueError(f"The weight t must be in the range [-1, 2]; got {t}.")
     if not is_positive_definite(mat_a) or not is_positive_definite(mat_b):
         raise ValueError("The matrices must be positive definite.")
 
