@@ -2,7 +2,7 @@
 
 import numpy as np
 
-from toqito.matrix_props import is_density, trace_norm
+from toqito.matrix_props import is_density
 
 
 def helstrom_holevo(rho: np.ndarray, sigma: np.ndarray) -> float | np.floating:
@@ -65,4 +65,4 @@ def helstrom_holevo(rho: np.ndarray, sigma: np.ndarray) -> float | np.floating:
     """
     if not is_density(rho) or not is_density(sigma):
         raise ValueError("Helstrom-Holevo is only defined for density operators.")
-    return 1 / 2 + 1 / 2 * (trace_norm(rho - sigma)) / 2
+    return 1 / 2 + 1 / 2 * (np.sum(np.abs(np.linalg.eigvalsh(rho - sigma)))) / 2
