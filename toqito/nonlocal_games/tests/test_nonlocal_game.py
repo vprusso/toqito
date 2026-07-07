@@ -1,5 +1,6 @@
 """Tests for NonlocalGame class."""
 
+import re
 import unittest
 
 import numpy as np
@@ -80,7 +81,15 @@ class TestNonlocalGame(unittest.TestCase):
 
     def test_bcs_game_without_constraint(self):
         """Empty list of constraints raises exception."""
-        self.assertRaises(ValueError, NonlocalGame.from_bcs_game, [])
+        with pytest.raises(ValueError, match="At least 1 constraint is required"):
+            NonlocalGame.from_bcs_game([])
+
+    def test_bcs_game_degenerate_constraint(self):
+        """A constraint with no dependent variables raises exception."""
+        # A constant constraint tensor does not depend on any variable.
+        constraint = np.ones((2, 2))
+        with pytest.raises(ValueError, match=re.escape("Constraint 0 is degenerate (has no dependent variables).")):
+            NonlocalGame.from_bcs_game([constraint])
 
     def test_chsh_lower_bound(self):
         """Calculate the lower bound on the quantum value for the CHSH game."""
