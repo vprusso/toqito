@@ -14,6 +14,19 @@ def np_array_as_expr(np_arr: np.ndarray) -> Expression:
     Returns:
         The cvxpy expression of the numpy array.
 
+    Examples:
+        Convert a 2-by-2 numpy array into a constant cvxpy expression:
+
+        ```python exec="1" source="above" result="text"
+        import numpy as np
+        from toqito.matrix_ops import np_array_as_expr
+
+        arr = np.array([[1, 2], [3, 4]])
+        expr = np_array_as_expr(arr)
+        print(expr.shape)
+        print(expr.value)
+        ```
+
     """
     as_list = np_arr.tolist()
     expr = bmat(as_list)
