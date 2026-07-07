@@ -702,13 +702,14 @@ def test_full_rank_ppt_state_above_threshold():
     # Use a PPT entangled state (Horodecki state) could have chances pass Basic Realignment Return true
     rho = horodecki(a_param=0.5, dim=[3, 3])
 
-    # Mock matrix ranks to exceed the rank-sum threshold (7+7=14 fails, 8+7=15 passes)
-    # *and* to keep rank(rho) above both marginal ranks so the rank-marginal check
-    # does not fire. After #1506 the call order is:
-    #   state_rank, op_Schmidt_rank_internal, rank_marg_A, rank_marg_B
+    # Mock matrix ranks to keep rank(rho) above both marginal ranks so the
+    # rank-marginal check does not fire. The operator Schmidt rank is now derived
+    # from a single shared realignment SVD (not `np.linalg.matrix_rank`), so the
+    # `matrix_rank` call order is:
+    #   state_rank, rank_marg_A, rank_marg_B
     # (rank_pt_A is no longer computed because the rank-sum branch is gone.)
     with mock.patch("numpy.linalg.matrix_rank") as mock_rank:
-        mock_rank.side_effect = [8, 8, 3, 3]
+        mock_rank.side_effect = [8, 3, 3]
         with mock.patch("toqito.state_props.in_separable_ball", return_value=False):
             assert not is_separable(rho, dim=[3, 3], level=1)[0]
 
@@ -760,32 +761,51 @@ def test_entangled_zhang_variant_catches_L401():
     assert is_ppt(rho, dim=[3, 3])
 
     original_matrix_rank = np.linalg.matrix_rank
-    # Call order after the #1506 fix is state_rank, op_Schmidt_rank_internal,
-    # rank_marg_A, rank_marg_B. rank_pt_A is no longer computed because the
-    # rank-sum branch of Horodecki section 7 has been removed as an
-    # incorrect sufficient condition. op_sr > 2 bypasses the Cariello check;
-    # marginal ranks are kept below state_r so rank-marginal does not fire
-    # either. Zhang variant then catches the entanglement.
-    mock_ranks_horodecki_op_fail = [7, 8, 3, 3]
+    # The operator Schmidt rank and the CCNR trace norm are now both derived from
+    # a single shared realignment SVD, so `np.linalg.matrix_rank` is called only
+    # for state_rank, rank_marg_A, rank_marg_B (rank_pt_A is not computed because
+    # the rank-sum branch of Horodecki section 7 was removed as an incorrect
+    # sufficient condition). Marginal ranks are kept below state_rank so the
+    # rank-marginal check does not fire.
+    mock_ranks_horodecki_op_fail = [7, 3, 3]
 
     def matrix_rank_zhang_side_effect(matrix_arg, tol=None):
         if mock_ranks_horodecki_op_fail:  # Pop if list is not empty
             return mock_ranks_horodecki_op_fail.pop(0)
         return original_matrix_rank(matrix_arg, tol=tol)
 
+    original_svd = np.linalg.svd
+    svd_tracker = {"count": 0}
+
+    def mocked_svd_for_zhang(matrix_input, *args, **kwargs):
+        # The first SVD in the criteria chain is the shared realignment SVD whose
+        # singular values feed both the operator-Schmidt-rank check (count > tol)
+        # and the CCNR trace-norm check (sum). Return three equal singular values:
+        # count = 3 > 2 bypasses the Cariello check, and sum = 0.9 <= 1 keeps the
+        # CCNR check from firing, so control reaches the Zhang variant below.
+        svd_tracker["count"] += 1
+        if svd_tracker["count"] == 1:
+            return np.array([0.3, 0.3, 0.3])
+        return original_svd(matrix_input, *args, **kwargs)
+
     original_trace_norm_func = trace_norm
     call_tracker = {"count": 0}
 
     def mocked_trace_norm_for_zhang(matrix_input, **kwargs_tn):
+        # The Zhang variant is the first (and only) trace_norm consumer reached
+        # here; return a value above the purity bound so the variant fires.
         call_tracker["count"] += 1
         if call_tracker["count"] == 1:
-            return 0.5
+            return 5.0
         return original_trace_norm_func(matrix_input, **kwargs_tn)
 
     with mock.patch("toqito.state_props.is_separable.in_separable_ball", return_value=False):
         with mock.patch("numpy.linalg.matrix_rank", side_effect=matrix_rank_zhang_side_effect):
-            with mock.patch("toqito.state_props.is_separable.trace_norm", side_effect=mocked_trace_norm_for_zhang):
-                assert not is_separable(rho, dim=[3, 3], level=0)[0]
+            with mock.patch("numpy.linalg.svd", side_effect=mocked_svd_for_zhang):
+                with mock.patch("toqito.state_props.is_separable.trace_norm", side_effect=mocked_trace_norm_for_zhang):
+                    sep, reason = is_separable(rho, dim=[3, 3], level=0)
+                    assert not sep
+                    assert "Zhang" in reason
 
 
 def test_rank1_pert_eigvalsh_fails_eigvals_fallback():
