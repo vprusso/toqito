@@ -110,8 +110,8 @@ non_hermitian = np.array([[1.0, 2.0], [0.0, 1.0]])
         # same shape but not 2D
         (A_not2d, B_not2d, 0.5, "The matrices must be 2D."),
         # weight out of range
-        (A_diag, B_diag, -1.01, "The weight must be in the range [-1, 2]."),
-        (A_diag, B_diag, 2.01, "The weight must be in the range [-1, 2]."),
+        (A_diag, B_diag, -1.01, "The weight t must be in the range [-1, 2]; got -1.01."),
+        (A_diag, B_diag, 2.01, "The weight t must be in the range [-1, 2]; got 2.01."),
         # positive semidefinite but not positive definite
         (rho_psd, sigma_pd, 0.5, "The matrices must be positive definite."),
         # non-Hermitian: fails Hermitian check in ``is_positive_definite``).
