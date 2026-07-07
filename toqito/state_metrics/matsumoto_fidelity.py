@@ -1,7 +1,5 @@
 """Matsumoto fidelity is the maximum classical fidelity associated with a classical-to-quantum preparation procedure."""
 
-import warnings
-
 import cvxpy
 import numpy as np
 import scipy
@@ -122,11 +120,16 @@ def matsumoto_fidelity(rho: np.ndarray, sigma: np.ndarray) -> float | np.floatin
         constraints = [cvxpy.bmat([[rho, w_var], [w_var, sigma]]) >> 0]
         return cvxpy.Problem(objective, constraints).solve(solver=cvxpy.CLARABEL)
 
-    sq_rho = eigvecs @ np.diag(np.sqrt(eigvals)) @ eigvecs.conj().T
-    sqinv_rho = eigvecs @ np.diag(1 / np.sqrt(eigvals)) @ eigvecs.conj().T
+    sqrt_eigvals = np.sqrt(eigvals)
+    sq_rho = (eigvecs * sqrt_eigvals) @ eigvecs.conj().T
+    sqinv_rho = (eigvecs / sqrt_eigvals) @ eigvecs.conj().T
 
-    # Suppress LinAlgWarning from sqrtm on rank-deficient `sigma`; the result is still valid.
-    with warnings.catch_warnings():
-        warnings.simplefilter("ignore", scipy.linalg.LinAlgWarning)
-        sq_mfid = sq_rho @ scipy.linalg.sqrtm(sqinv_rho @ sigma @ sqinv_rho) @ sq_rho
+    # The inner matrix `M = rho^{-1/2} sigma rho^{-1/2}` is Hermitian positive semidefinite, so its
+    # principal square root follows from an eigendecomposition. This is cheaper and more stable than
+    # a general `scipy.linalg.sqrtm`, and avoids the LinAlgWarning it raises on rank-deficient `sigma`.
+    m_mat = sqinv_rho @ sigma @ sqinv_rho
+    m_mat = (m_mat + m_mat.conj().T) / 2
+    m_eigvals, m_eigvecs = np.linalg.eigh(m_mat)
+    sqrt_m = (m_eigvecs * np.sqrt(np.maximum(m_eigvals, 0))) @ m_eigvecs.conj().T
+    sq_mfid = sq_rho @ sqrt_m @ sq_rho
     return np.real(np.trace(sq_mfid))
