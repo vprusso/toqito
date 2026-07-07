@@ -392,6 +392,17 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#repository-layout" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Repository layout
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#making-changes" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -9800,6 +9811,17 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#repository-layout" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Repository layout
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#making-changes" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -9968,6 +9990,94 @@ describes how to merge code changes into <code>|toqito⟩</code>.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>uv<span class="w"> </span>sync
 </code></pre></div>
 <p>You are now free to make the desired changes in your fork of <code>|toqito⟩</code>.</p>
+<h2 id="repository-layout">Repository layout<a class="headerlink" href="#repository-layout" title="Permanent link">&para;</a></h2>
+<p>The library lives under <code>toqito/</code>, organised into subpackages by the kind of
+object they act on. Each subpackage <code>toqito/&lt;module&gt;/</code> contains one public
+function per file and its unit tests under <code>toqito/&lt;module&gt;/tests/</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Subpackage</th>
+<th>Contents</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>states</code></td>
+<td>Named quantum states (Bell, GHZ, W, Werner, ...).</td>
+</tr>
+<tr>
+<td><code>state_props</code></td>
+<td>Predicates and quantities on states (separability, entanglement, entropy, PPT, ...).</td>
+</tr>
+<tr>
+<td><code>state_metrics</code></td>
+<td>Distances and fidelities between states (fidelity, trace distance, Bures, ...).</td>
+</tr>
+<tr>
+<td><code>state_opt</code></td>
+<td>Optimisation over states (distinguishability, exclusion, symmetric extension, ...).</td>
+</tr>
+<tr>
+<td><code>state_ops</code></td>
+<td>Operations that produce or transform states.</td>
+</tr>
+<tr>
+<td><code>channels</code></td>
+<td>Named quantum channels (depolarizing, dephasing, amplitude damping, ...).</td>
+</tr>
+<tr>
+<td><code>channel_props</code></td>
+<td>Predicates and dimensions of channels (<code>channel_dim</code>, <code>is_completely_positive</code>, ...).</td>
+</tr>
+<tr>
+<td><code>channel_metrics</code></td>
+<td>Distances and norms between channels (diamond norm, CB norms, channel fidelity, ...).</td>
+</tr>
+<tr>
+<td><code>channel_ops</code></td>
+<td>Channel representations and application (<code>kraus_to_choi</code>, <code>apply_channel</code>, ...).</td>
+</tr>
+<tr>
+<td><code>matrices</code></td>
+<td>Named matrices (Pauli, Hadamard, generalized Gell-Mann, ...).</td>
+</tr>
+<tr>
+<td><code>matrix_props</code></td>
+<td>Matrix predicates (<code>is_positive_semidefinite</code>, <code>is_unitary</code>, ...).</td>
+</tr>
+<tr>
+<td><code>matrix_ops</code></td>
+<td>Matrix operations (<code>partial_trace</code>, <code>partial_transpose</code>, <code>tensor</code>, ...).</td>
+</tr>
+<tr>
+<td><code>perms</code></td>
+<td>Permutation and symmetric/antisymmetric-subspace operators.</td>
+</tr>
+<tr>
+<td><code>measurements</code>, <code>measurement_ops</code>, <code>measurement_props</code></td>
+<td>POVMs and measurement utilities.</td>
+</tr>
+<tr>
+<td><code>nonlocal_games</code></td>
+<td>Nonlocal and extended nonlocal games, XOR games.</td>
+</tr>
+<tr>
+<td><code>cones</code></td>
+<td>Matrix-analysis cones used by the SDP-based routines.</td>
+</tr>
+<tr>
+<td><code>rand</code></td>
+<td>Random states, channels, unitaries, and POVMs.</td>
+</tr>
+</tbody>
+</table>
+<p>Documentation sources live in <code>docs/</code> (this guide, the getting-started page, the
+<code>docs/content/examples/</code> gallery, and <code>docs/content/refs.bib</code> bibliography).
+Tooling configuration lives in <code>pyproject.toml</code>.</p>
+<p>When adding a function, put it in the subpackage that matches what it operates
+on, add a test beside it under that subpackage's <code>tests/</code> directory, and export
+it from the subpackage <code>__init__.py</code>.</p>
 <h2 id="making-changes">Making Changes<a class="headerlink" href="#making-changes" title="Permanent link">&para;</a></h2>
 <ol>
 <li>Add some really awesome code to your local fork. It's usually a
