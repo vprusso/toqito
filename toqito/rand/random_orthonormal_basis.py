@@ -13,8 +13,11 @@ def random_orthonormal_basis(dim: int, is_real: bool = False, seed: int | None =
 
     Args:
         dim: Number of elements in the random orthonormal basis.
-        is_real: Bool
+        is_real: Boolean denoting whether the returned basis vectors will have all real entries or not.
         seed: A seed used to instantiate numpy's random number generator.
+
+    Returns:
+        A list of `dim` orthonormal basis vectors, each of dimension `dim`.
 
     Examples:
         To generate a random orthonormal basis of dimension \(4\),
