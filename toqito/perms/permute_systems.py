@@ -152,12 +152,15 @@ def permute_systems(
         dim_arr = dim
 
     if is_vec:
-        # 1 if column vector
-        if len(input_mat.shape) > 1:
-            vec_orien = 0
-        # 2 if row vector
-        else:
+        if len(input_mat.shape) == 1:
+            # 1-D array: treat as row vector
             vec_orien = 1
+        elif input_mat.shape[0] == 1:
+            # (1, D) row vector
+            vec_orien = 1
+        else:
+            # (D, 1) column vector
+            vec_orien = 0
 
     if len(dim_arr.shape) == 1:
         # Force dim to be a row vector.
