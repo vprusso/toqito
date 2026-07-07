@@ -102,6 +102,56 @@ def channel_exclusion(
         ValueError: If `strategy` is not supported.
         ValueError: If `strategy="unambiguous"` is requested with `primal_dual="dual"`.
 
+    Examples:
+        Consider the two identical depolarizing channels
+
+        \[
+            \Phi_1(\rho) = (1 - 0.3) \rho + 0.3 \frac{\mathbb{I}}{2}, \quad
+            \Phi_2(\rho) = (1 - 0.3) \rho + 0.3 \frac{\mathbb{I}}{2}.
+        \]
+
+        Since the channels are identical, it is not possible to exclude either
+        with better than random guessing. The optimal error probability is 0.5.
+
+        ```python exec="1" source="above" result="text"
+        import numpy as np
+        from toqito.channel_metrics import channel_exclusion
+        from toqito.channels import depolarizing
+
+        channels = [depolarizing(2, 0.3), depolarizing(2, 0.3)]
+        val, _ = channel_exclusion(channels, probs=[0.5, 0.5], primal_dual="dual")
+
+        print(np.around(val, decimals=2))
+        ```
+
+        Two different depolarizing channels can be excluded with a lower error
+        probability.
+
+        ```python exec="1" source="above" result="text"
+        import numpy as np
+        from toqito.channel_metrics import channel_exclusion
+        from toqito.channels import depolarizing
+
+        channels = [depolarizing(2, 0.2), depolarizing(2, 0.7)]
+        val, _ = channel_exclusion(channels, probs=[0.5, 0.5], primal_dual="dual")
+
+        print(np.around(val, decimals=2))
+        ```
+
+        Channels can also be provided as Kraus operators.
+
+        ```python exec="1" source="above" result="text"
+        import numpy as np
+        from toqito.channel_metrics import channel_exclusion
+
+        X = np.array([[0.0, 1.0], [1.0, 0.0]])
+        Z = np.array([[1.0, 0.0], [0.0, -1.0]])
+
+        val, _ = channel_exclusion([[X], [Z]], probs=[0.5, 0.5], primal_dual="dual")
+
+        print(np.around(val, decimals=2))
+        ```
+
     """
     if len(channels) < 2:
         raise ValueError("At least 2 channels are required for channel exclusion.")
