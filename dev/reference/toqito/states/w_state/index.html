@@ -9814,7 +9814,7 @@ the ground state.</p>
 )
           –
           <div class="doc-md-description">
-            <p>default is <code>[1, 1, ..., 1]/sqrt(num_qubits)</code>: a 1-by-<code>num_qubts</code> vector of coefficients.</p>
+            <p>default is <code>[1, 1, ..., 1]/sqrt(num_qubits)</code>: a 1-by-<code>num_qubits</code> vector of coefficients.</p>
           </div>
         </li>
     </ul>
@@ -9826,7 +9826,7 @@ the ground state.</p>
               <code><span title="ValueError">ValueError</span></code>
             –
           <div class="doc-md-description">
-            <p>The number of qubits must be greater than or equal to 1.</p>
+            <p>The number of qubits must be at least 2.</p>
           </div>
         </li>
     </ul>
@@ -9971,10 +9971,10 @@ the ground state.</p>
 <a id="__codelineno-0-20" name="__codelineno-0-20"></a>
 <a id="__codelineno-0-21" name="__codelineno-0-21"></a><span class="sd">    Args:</span>
 <a id="__codelineno-0-22" name="__codelineno-0-22"></a><span class="sd">        num_qubits: An integer representing the number of qubits.</span>
-<a id="__codelineno-0-23" name="__codelineno-0-23"></a><span class="sd">        coeff: default is `[1, 1, ..., 1]/sqrt(num_qubits)`: a 1-by-`num_qubts` vector of coefficients.</span>
+<a id="__codelineno-0-23" name="__codelineno-0-23"></a><span class="sd">        coeff: default is `[1, 1, ..., 1]/sqrt(num_qubits)`: a 1-by-`num_qubits` vector of coefficients.</span>
 <a id="__codelineno-0-24" name="__codelineno-0-24"></a>
 <a id="__codelineno-0-25" name="__codelineno-0-25"></a><span class="sd">    Raises:</span>
-<a id="__codelineno-0-26" name="__codelineno-0-26"></a><span class="sd">        ValueError: The number of qubits must be greater than or equal to 1.</span>
+<a id="__codelineno-0-26" name="__codelineno-0-26"></a><span class="sd">        ValueError: The number of qubits must be at least 2.</span>
 <a id="__codelineno-0-27" name="__codelineno-0-27"></a>
 <a id="__codelineno-0-28" name="__codelineno-0-28"></a><span class="sd">    Examples:</span>
 <a id="__codelineno-0-29" name="__codelineno-0-29"></a><span class="sd">        Using `|toqito⟩`, we can generate the \(3\)-qubit W-state</span>
