@@ -63,3 +63,21 @@ def test_is_pseudo_hermitian_value_error():
         mat,
         singular_signature,
     )
+
+
+def test_is_pseudo_hermitian_near_singular_signature():
+    """Verify invertibility verdict on a boundary near-singular signature.
+
+    Because the signature invertibility check uses `np.linalg.eigvalsh`, it may treat
+    extremely small eigenvalues differently from a singular-value-based (SVD) check at
+    the boundary limits (e.g. counting a boundary singular value/eigenvalue near 9e-16
+    as non-zero). This test pins this expected boundary behavior.
+    """
+    mat = np.array([[1, 1j], [-1j, 1]])
+
+    # This signature is close to the threshold where SVD (matrix_rank) and eigvalsh diverge.
+    # eigvalsh considers it invertible, while SVD considers it rank-deficient.
+    sig = np.array([[0.88272365, 1.06919942 + 0.107872574j], [1.06919942 - 0.107872574j, 1.30825078]])
+
+    # Should not raise ValueError under eigvalsh (returns False instead of raising)
+    assert not is_pseudo_hermitian(mat, sig)

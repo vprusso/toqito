@@ -19,9 +19,16 @@ def is_pseudo_hermitian(mat: np.ndarray, signature: np.ndarray, rtol: float = 1e
     - \(H^{\dagger}\) is the conjugate transpose (Hermitian transpose) of \(H\),
     - \(\eta\) is a Hermitian, invertible matrix.
 
+    .. note::
+        The invertibility of the signature matrix is checked using an approximate
+        eigenvalue-based method (`np.linalg.eigvalsh`), which may differ slightly
+        near machine-precision boundary limits compared to a singular-value-based check
+        like `np.linalg.matrix_rank`.
+
     Args:
         mat: The matrix to check.
         signature: The signature matrix \(\eta\), which must be Hermitian and invertible.
+            Note: The invertibility check is approximate, calculated via `np.linalg.eigvalsh`.
         rtol: The relative tolerance parameter (default 1e-05).
         atol: The absolute tolerance parameter (default 1e-08).
 
@@ -29,7 +36,7 @@ def is_pseudo_hermitian(mat: np.ndarray, signature: np.ndarray, rtol: float = 1e
         Return `True` if the matrix is pseudo-Hermitian, and `False` otherwise.
 
     Raises:
-        ValueError: If `signature` is not Hermitian or not invertible.
+        ValueError: If `signature` is not Hermitian or not invertible (calculated approximately).
 
     Examples:
         Consider the following matrix:
@@ -86,7 +93,11 @@ def is_pseudo_hermitian(mat: np.ndarray, signature: np.ndarray, rtol: float = 1e
     if not is_hermitian(signature, rtol=rtol, atol=atol):
         raise ValueError("Signature not hermitian matrix.")
 
-    if np.linalg.matrix_rank(signature) != signature.shape[0]:
+    # Since the signature is Hermitian, its singular values are the absolute values of its eigenvalues.
+    # We can check invertibility using eigvalsh instead of a full SVD (matrix_rank).
+    eigvals = np.linalg.eigvalsh(signature)
+    tol_rank = np.max(np.abs(eigvals)) * max(signature.shape) * np.finfo(eigvals.dtype).eps
+    if np.count_nonzero(np.abs(eigvals) > tol_rank) != signature.shape[0]:
         raise ValueError("Signature is not invertible.")
 
     if not is_square(mat) or not has_same_dimension([mat, signature]):
