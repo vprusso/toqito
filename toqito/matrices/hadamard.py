@@ -1,5 +1,7 @@
 """Generates a Hadamard matrix."""
 
+import functools
+
 import numpy as np
 
 
@@ -37,26 +39,7 @@ def hadamard(n_param: int = 1) -> np.ndarray:
     if n_param < 1:
         raise ValueError("Provided parameter for matrix dimensions is invalid.")
 
-    return 2 ** (-n_param / 2) * np.array(
-        [[(-1) ** _hamming_distance(i & j) for i in range(2**n_param)] for j in range(2**n_param)]
-    )
-
-
-def _hamming_distance(x_param: int) -> int:
-    """Calculate the bit-wise Hamming distance of `x_param` from 0.
-
-    The Hamming distance is the number of 1s in the integer `x_param`.
-
-    Args:
-        n_param: A non-negative integer (default = 1).
-        x_param: A non-negative integer.
-
-    Returns:
-        The Hamming distance of `x_param` from 0.
-
-    """
-    tot = 0
-    while x_param:
-        tot += 1
-        x_param &= x_param - 1
-    return tot
+    # H_n is the n-fold Kronecker product of the unnormalized 1-qubit Hadamard matrix, scaled
+    # by 2^{-n/2}. This has entries 2^{-n/2} (-1)^{i . j} with the bitwise dot product i . j.
+    h_1 = np.array([[1, 1], [1, -1]])
+    return 2 ** (-n_param / 2) * functools.reduce(np.kron, [h_1] * n_param)
