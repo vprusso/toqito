@@ -95,8 +95,21 @@ def is_mutually_unbiased_basis(vectors: list[np.ndarray | list[float | Any]]) ->
     mat = np.column_stack([np.asarray(vector).reshape(-1) for vector in vectors])
     gram = np.abs(mat.conj().T @ mat) ** 2
 
+    # Check that each consecutive block of `dim` vectors forms an orthonormal basis.
+    identity = np.eye(dim)
+
+    for basis_start in range(0, num_vectors, dim):
+        basis_block = gram[
+            basis_start : basis_start + dim,
+            basis_start : basis_start + dim,
+        ]
+
+        if not np.allclose(basis_block, identity, atol=1e-10):
+            return False
+
     # Mutual unbiasedness requires |<e_i|f_j>|^2 = 1/dim for every pair of vectors drawn
-    # from two *different* bases, i.e. every entry in the off-diagonal `dim x dim` blocks.
+    # from two *different* bases.
     basis_index = np.arange(num_vectors) // dim
     cross_basis = basis_index[:, None] != basis_index[None, :]
-    return bool(np.allclose(gram[cross_basis], 1 / dim))
+
+    return bool(np.allclose(gram[cross_basis], 1 / dim, atol=1e-10))
