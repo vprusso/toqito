@@ -55,6 +55,15 @@ def tsallis_entropy(
     Returns:
         The Tsallis entropy \(S_t(A)\) as a float.
 
+    Examples:
+        ```python exec="1" source="above" result="text"
+        import numpy as np
+        from toqito.cones import tsallis_entropy
+        mat_x = np.diag([0.25, 0.75])
+        t = 0.5
+        print(tsallis_entropy(mat_x, t))
+        ```
+
     """
     if not isinstance(mat_x, (np.ndarray, cvxpy.Expression)):
         raise ValueError("mat_x must be a numpy array or a cvxpy expression")

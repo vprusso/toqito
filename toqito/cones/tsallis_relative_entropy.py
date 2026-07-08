@@ -64,6 +64,16 @@ def tsallis_relative_entropy(
     Returns:
         The Tsallis relative entropy \(S_t(A\|B)\) as a float.
 
+    Examples:
+        ```python exec="1" source="above" result="text"
+        import numpy as np
+        from toqito.cones import tsallis_relative_entropy
+        mat_x = np.diag([0.25, 0.75])
+        mat_y = np.diag([0.5, 0.5])
+        t = 0.5
+        print(tsallis_relative_entropy(mat_x, mat_y, t))
+        ```
+
     """
     if not isinstance(mat_x, (np.ndarray, cvxpy.Expression)):
         raise ValueError("mat_x must be a numpy array or a cvxpy expression")
