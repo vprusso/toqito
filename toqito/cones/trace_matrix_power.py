@@ -5,11 +5,11 @@ r"""Computes the trace of \(C A^{t}\) for positive semidefinite matrices \(A\) a
 
 import cvxpy
 import numpy as np
-from scipy.linalg import fractional_matrix_power
 
 from toqito.cones._utils import _require_square_2d
 from toqito.cones.geometric_mean_epi_cone import geometric_mean_epi_cone
 from toqito.cones.geometric_mean_hypo_cone import geometric_mean_hypo_cone
+from toqito.matrix_ops import psd_matrix_power
 from toqito.matrix_props import is_positive_semidefinite
 
 
@@ -76,7 +76,7 @@ def trace_matrix_power(mat_a: np.ndarray | cvxpy.Expression, t: float, mat_c: np
     if isinstance(mat_a, np.ndarray):
         if not is_positive_semidefinite(mat_a):
             raise ValueError("The matrix mat_a must be positive semidefinite.")
-        return float(np.real(np.trace(mat_c @ fractional_matrix_power(mat_a, t))))
+        return float(np.real(np.trace(mat_c @ psd_matrix_power(mat_a, t))))
 
     # Affine path
     if isinstance(mat_a, cvxpy.Expression):

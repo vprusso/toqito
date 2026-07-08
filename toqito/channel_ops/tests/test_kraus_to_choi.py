@@ -143,3 +143,16 @@ def test_kraus_to_choi_raises_on_negative_sys():
     """Ensure negative `sys` raises ValueError."""
     with pytest.raises(ValueError):
         kraus_to_choi(kraus_ops_transpose, sys=-1)
+
+
+def test_kraus_to_choi_raises_on_empty_kraus_list():
+    """Ensure empty Kraus lists raise ValueError."""
+    with pytest.raises(ValueError, match="The list of Kraus operators cannot be empty."):
+        kraus_to_choi([])
+
+
+def test_kraus_to_choi_accepts_stacked_ndarray():
+    """A 3D ndarray of stacked Kraus operators is accepted like the equivalent list."""
+    kraus_list = [np.array([[1, 0], [0, 0]], dtype=complex), np.array([[0, 0], [0, 1]], dtype=complex)]
+    stacked = np.stack(kraus_list)
+    np.testing.assert_allclose(kraus_to_choi(stacked), kraus_to_choi(kraus_list))

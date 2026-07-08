@@ -87,10 +87,7 @@ def is_unitary(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08) -> boo
         return False
 
     uc_u_mat = mat.conj().T @ mat
-    u_uc_mat = mat @ mat.conj().T
     id_mat = np.eye(len(mat))
 
-    # If U^* @ U = I U @ U^*, the matrix "U" is unitary.
-    return bool(
-        np.allclose(uc_u_mat, id_mat, rtol=rtol, atol=atol) and np.allclose(u_uc_mat, id_mat, rtol=rtol, atol=atol)
-    )
+    # For a square matrix, U^* @ U = I implies U @ U^* = I, so checking one product suffices.
+    return bool(np.allclose(uc_u_mat, id_mat, rtol=rtol, atol=atol))

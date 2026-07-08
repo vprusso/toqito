@@ -89,16 +89,26 @@ def is_unextendible_product_basis(vecs: list[np.ndarray], dims: list[int]) -> tu
     # Acquire generator to m-partitions of [0, n-1].
     parts_unordered = set_partitions(list(range(num_vecs)), num_parties)
 
+    # Memoize null-space SVDs. For a fixed party ``i`` the null space depends only
+    # on the *set* of columns in the block (row order does not change the null
+    # space), so each distinct ``(frozenset(block), i)`` pair is computed once per
+    # partition rather than once for every one of the ``m!`` orderings.
+    null_space_cache: dict[tuple[frozenset, int], np.ndarray] = {}
+
     for part_unordered in parts_unordered:
         for part_ordered in permutations(part_unordered):
             # Witness vectors.
             wit = []
             witness_found = True
             for i in range(num_parties):
-                # For the i-th party, acquire the matrix.
-                mat = np.stack([vecs_split[col, i, :] for col in part_ordered[i]])
-                # Find the basis of the null space.
-                null_basis = null_space(mat)
+                # Find the basis of the null space (memoized on the block/party).
+                cache_key = (frozenset(part_ordered[i]), i)
+                null_basis = null_space_cache.get(cache_key)
+                if null_basis is None:
+                    # For the i-th party, acquire the matrix.
+                    mat = np.stack([vecs_split[col, i, :] for col in part_ordered[i]])
+                    null_basis = null_space(mat)
+                    null_space_cache[cache_key] = null_basis
                 # If null space is empty then break.
                 if null_basis.shape[1] == 0:
                     witness_found = False

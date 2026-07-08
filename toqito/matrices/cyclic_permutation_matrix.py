@@ -45,9 +45,7 @@ def cyclic_permutation_matrix(n: int, k: int = 1) -> np.ndarray:
     if not isinstance(k, int):
         raise TypeError("'k' must be an integer.")
 
-    p_mat = np.zeros((n, n), dtype=int)
-    np.fill_diagonal(p_mat[1:], 1)
-    p_mat[0, -1] = 1
-
-    result_mat = np.linalg.matrix_power(p_mat, k)
-    return result_mat
+    # P^k cyclically shifts the rows of the identity down by k, equivalent to rolling the identity
+    # by k % n along axis 0. This matches np.linalg.matrix_power(P, k), including negative k, since
+    # Python's modulo maps -k to n - k.
+    return np.roll(np.identity(n, dtype=int), k % n, axis=0)

@@ -140,20 +140,39 @@ def abs_ppt_constraints(
                 available[k] = True
 
     def _check_cross(order_matrix: np.ndarray, p: int) -> bool:
-        r"""Check if the order matrix satisfies the "criss-cross" check in [@johnston2014counting]."""
-        for j in range(p - 3):
-            for k in range(2, p):
-                for m in range(p - 2):
-                    for n in range(1, p):
-                        for x in range(p - 1):
-                            for g in range(1, p):
-                                if (
-                                    order_matrix[min(j, k)][max(j, k)] > order_matrix[min(m, n)][max(m, n)]
-                                    and order_matrix[min(n, g)][max(n, g)] > order_matrix[min(k, x)][max(k, x)]
-                                    and order_matrix[min(j, g)][max(j, g)] < order_matrix[min(m, x)][max(m, x)]
-                                ):
-                                    return False
-        return True
+        r"""Check if the order matrix satisfies the "criss-cross" check in [@johnston2014counting].
+
+        This is a vectorized reformulation of the six-nested ``O(p^6)`` loop. Because only the upper
+        triangle (plus diagonal) of ``order_matrix`` is populated, every ``order_matrix[min(a, b)][max(a, b)]``
+        access is a lookup into the symmetric completion ``sym`` of ``order_matrix``. The check fails iff there
+        exists a triple of index pairs ``(j, k), (m, n), (x, g)`` in the loop ranges such that all three
+        comparisons hold simultaneously; numpy broadcasting evaluates every such combination at once.
+        """
+        # Symmetric completion: sym[a, b] == order_matrix[min(a, b)][max(a, b)] since the lower triangle is 0.
+        sym = order_matrix + order_matrix.T - np.diag(np.diag(order_matrix))
+
+        # Loop ranges, matching the original nested loops exactly.
+        j = np.arange(0, p - 3)  # range(p - 3)
+        k = np.arange(2, p)  # range(2, p)
+        m = np.arange(0, p - 2)  # range(p - 2)
+        n = np.arange(1, p)  # range(1, p)
+        x = np.arange(0, p - 1)  # range(p - 1)
+        g = np.arange(1, p)  # range(1, p)
+
+        # Any empty range means there are no triples to check, so the matrix trivially passes.
+        if min(len(j), len(k), len(m), len(n), len(x), len(g)) == 0:
+            return True
+
+        # Pairwise value blocks; reshape onto distinct broadcast axes (j, k, m, n, x, g).
+        s_jk = sym[np.ix_(j, k)].reshape(len(j), len(k), 1, 1, 1, 1)
+        s_mn = sym[np.ix_(m, n)].reshape(1, 1, len(m), len(n), 1, 1)
+        s_ng = sym[np.ix_(n, g)].reshape(1, 1, 1, len(n), 1, len(g))
+        s_kx = sym[np.ix_(k, x)].reshape(1, len(k), 1, 1, len(x), 1)
+        s_jg = sym[np.ix_(j, g)].reshape(len(j), 1, 1, 1, 1, len(g))
+        s_mx = sym[np.ix_(m, x)].reshape(1, 1, len(m), 1, len(x), 1)
+
+        violation = (s_jk > s_mn) & (s_ng > s_kx) & (s_jg < s_mx)
+        return not violation.any()
 
     def _create_constraint(eigs: np.ndarray, order_matrix: np.ndarray, p: int) -> np.ndarray:
         r"""Return constraint matrix from order matrix."""

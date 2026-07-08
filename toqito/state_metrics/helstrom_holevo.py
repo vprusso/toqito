@@ -1,8 +1,8 @@
-"""Helstrom-Holevo metric gives the bst success probability to distinguish two mixed states."""
+"""Helstrom-Holevo metric gives the best success probability to distinguish two mixed states."""
 
 import numpy as np
 
-from toqito.matrix_props import is_density, trace_norm
+from toqito.matrix_props import is_density
 
 
 def helstrom_holevo(rho: np.ndarray, sigma: np.ndarray) -> float | np.floating:
@@ -35,7 +35,7 @@ def helstrom_holevo(rho: np.ndarray, sigma: np.ndarray) -> float | np.floating:
         The corresponding density matrix of \(u\) may be calculated by:
 
         \[
-            \rho = u u^* = \begin{pmatrix}
+            \rho = u u^* = \frac{1}{2}\begin{pmatrix}
                              1 & 0 & 0 & 1 \\
                              0 & 0 & 0 & 0 \\
                              0 & 0 & 0 & 0 \\
@@ -65,4 +65,4 @@ def helstrom_holevo(rho: np.ndarray, sigma: np.ndarray) -> float | np.floating:
     """
     if not is_density(rho) or not is_density(sigma):
         raise ValueError("Helstrom-Holevo is only defined for density operators.")
-    return 1 / 2 + 1 / 2 * (trace_norm(rho - sigma)) / 2
+    return 1 / 2 + 1 / 2 * (np.sum(np.abs(np.linalg.eigvalsh(rho - sigma)))) / 2

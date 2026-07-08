@@ -1,8 +1,10 @@
 """Tests for XORGame class."""
 
+import re
 import unittest
 
 import numpy as np
+import pytest
 
 from toqito.nonlocal_games.xor_game import XORGame
 
@@ -134,42 +136,6 @@ class TestXORGame(unittest.TestCase):
         res = game.classical_value()
         self.assertEqual(res, 0.625)
 
-    def test_negative_prob_mat(self):
-        """Tests for invalid negative probability matrix."""
-        with self.assertRaises(ValueError):
-            prob_mat = np.array([[1 / 4, -1 / 4], [1 / 4, 1 / 4]])
-            pred_mat = np.array([[0, 0], [0, 1]])
-
-            game = XORGame(prob_mat, pred_mat)
-            game.quantum_value()
-
-    def test_invalid_prob_mat(self):
-        """Tests for invalid probability matrix."""
-        with self.assertRaises(ValueError):
-            prob_mat = np.array([[1 / 4, 1], [1 / 4, 1 / 4]])
-            pred_mat = np.array([[0, 0], [0, 1]])
-
-            game = XORGame(prob_mat, pred_mat)
-            game.quantum_value()
-
-    def test_non_square_prob_mat(self):
-        """Tests for invalid non-square probability matrix."""
-        with self.assertRaises(ValueError):
-            prob_mat = np.array([[1 / 4, 1 / 4, 1 / 4], [1 / 4, 1 / 4, 1 / 4]])
-            pred_mat = np.array([[0, 0], [0, 1]])
-
-            game = XORGame(prob_mat, pred_mat)
-            game.quantum_value()
-
-    def test_zero_prob_mat(self):
-        """Tests for zero probability matrix."""
-        with self.assertRaises(ValueError):
-            prob_mat = np.array([[1 / 4, 0], [1 / 4, 0]])
-            pred_mat = np.array([[0, 0], [0, 1]])
-
-            game = XORGame(prob_mat, pred_mat)
-            game.quantum_value()
-
     def test_chsh_game_nonsignaling_value(self):
         """Non-signaling value for the CHSH game."""
         prob_mat = 1 / 4 * np.ones((2, 2))
@@ -195,3 +161,32 @@ class TestXORGame(unittest.TestCase):
         nlg_chsh = xor_chsh.to_nonlocal_game()
 
         self.assertEqual(xor_chsh.classical_value(), nlg_chsh.classical_value())
+
+
+@pytest.mark.parametrize(
+    "prob_mat, pred_mat, expected_msg",
+    [
+        # prob_mat and pred_mat shapes differ
+        (
+            1 / 4 * np.ones((2, 2)),
+            np.array([[0, 0, 0], [0, 1, 0], [0, 0, 1]]),
+            "Invalid: The matrices `prob_mat` and `pred_mat` must be matrices of the same size.",
+        ),
+        # prob_mat has a negative entry
+        (
+            np.array([[1 / 2, 1 / 2], [1 / 2, -1 / 2]]),
+            np.array([[0, 0], [0, 1]]),
+            "Invalid: The variable `prob_mat` must be a probability matrix: its entries must be non-negative.",
+        ),
+        # prob_mat entries do not sum to 1
+        (
+            1 / 2 * np.ones((2, 2)),
+            np.array([[0, 0], [0, 1]]),
+            "Invalid: The variable `prob_mat` must be a probability matrix: its entries must sum to 1.",
+        ),
+    ],
+)
+def test_xor_game_invalid_input(prob_mat, pred_mat, expected_msg):
+    """Constructor raises for a shape mismatch or an invalid probability matrix."""
+    with pytest.raises(ValueError, match=re.escape(expected_msg)):
+        XORGame(prob_mat, pred_mat)

@@ -37,9 +37,9 @@ hierarchy levels.
 #
 #     For more details, see the original paper
 #     [@navascues2008convergent] as well as the lecture notes by
-#     Watrous in [@watrous2018theory]. The hierarchy can also be
+#     Watrous in [@watrous2020advanced]. The hierarchy can also be
 #     generalized to extended nonlocal games, as described in
-#     [@cosentino2015quantum].
+#     [@johnston2016extended] and [@russo2017extended].
 #
 # ## Using the NPA hierarchy in `|toqito⟩`
 #
@@ -172,4 +172,5 @@ print(f"Known quantum value:        {exact_val:.6f}")
 # measurement operators.
 
 # %%
+
 # mkdocs_gallery_thumbnail_path = 'figures/nonlocal_game.svg'

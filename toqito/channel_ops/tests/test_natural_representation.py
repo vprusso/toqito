@@ -46,7 +46,10 @@ depol_channel = choi_to_kraus(depol_choi)
 def test_natural_representation_valid_inputs(kraus_ops, expected):
     """Test natural_representation function with valid inputs."""
     actual = natural_representation(kraus_ops)
-    np.testing.assert_allclose(actual, expected)
+    # The einsum contraction and the reference ``sum(tensor(k, conj(k)))`` accumulate in a
+    # different order, so structurally-zero entries can land at ~1e-16 instead of exactly 0 on
+    # some BLAS builds. Use an absolute tolerance so the comparison is not sensitive to that.
+    np.testing.assert_allclose(actual, expected, atol=1e-12)
 
 
 def test_natural_representation_different_dimensions():
@@ -55,6 +58,18 @@ def test_natural_representation_different_dimensions():
     k2 = np.array([[1, 0, 0], [0, 1, 0]])
     with pytest.raises(ValueError, match="All Kraus operators must have the same dimensions."):
         natural_representation([k1, k2])
+
+
+def test_natural_representation_empty_kraus_list():
+    """Test natural_representation with an empty Kraus list."""
+    with pytest.raises(ValueError, match="The list of Kraus operators cannot be empty."):
+        natural_representation([])
+
+
+def test_natural_representation_accepts_stacked_ndarray():
+    """A 3D ndarray of stacked Kraus operators is accepted like the equivalent list."""
+    stacked = np.stack(bit_flip_channel)
+    np.testing.assert_allclose(natural_representation(stacked), natural_representation(bit_flip_channel))
 
 
 def test_natural_representation_trace_preserving():

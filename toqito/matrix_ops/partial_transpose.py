@@ -157,6 +157,23 @@ def partial_transpose(
         dim = dim.T.flatten()
         dim = np.array([dim, dim])
 
+    # Fast path: square / equal-dimension subsystems with a numeric (non-cvxpy)
+    # input. Here the row and column subsystem dimensions coincide, so the
+    # partial transpose is a pure index swap on a `(dim + dim)` tensor: reshape
+    # `rho` into a rank-`2 * num_sys` tensor, swap each traced subsystem's row
+    # axis `s` with its column axis `s + num_sys`, then reshape back. This
+    # avoids the gathered full copy that `permute_systems` materializes. The
+    # genuine non-square case (a 2-row `dim` with differing row/column
+    # dimensions) and cvxpy/object inputs fall through to the `permute_systems`
+    # implementation below, which is left unchanged.
+    if np.issubdtype(rho.dtype, np.number) and np.array_equal(dim[0, :], dim[1, :]):
+        sub_dims = dim[0, :].astype(int)
+        axes = list(range(2 * num_sys))
+        for s in sys:
+            axes[s], axes[s + num_sys] = axes[s + num_sys], axes[s]
+        mat_dim = int(np.prod(sub_dims))
+        return rho.reshape(np.concatenate([sub_dims, sub_dims])).transpose(axes).reshape(mat_dim, mat_dim)
+
     prod_dim_r = int(np.prod(dim[0, :]))
     prod_dim_c = int(np.prod(dim[1, :]))
 

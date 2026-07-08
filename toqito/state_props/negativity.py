@@ -1,9 +1,8 @@
 """Calculates the negativity property of a quantum state."""
 
 import numpy as np
-from picos import partial_transpose
 
-from toqito.matrix_ops import to_density_matrix
+from toqito.matrix_ops import partial_transpose, to_density_matrix
 
 
 def negativity(rho: np.ndarray, dim: list[int] | int | None = None) -> float | np.floating:

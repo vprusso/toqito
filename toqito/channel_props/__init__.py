@@ -15,6 +15,7 @@ __all__ = [
     "is_trace_preserving",
     "is_unital",
     "is_unitary",
+    "is_unitary_antidistinguishable",
 ]
 
 

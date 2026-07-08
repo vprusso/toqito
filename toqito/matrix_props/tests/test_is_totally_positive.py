@@ -1,5 +1,7 @@
 """Test is_totally_positive."""
 
+import re
+
 import numpy as np
 import pytest
 
@@ -47,7 +49,7 @@ def test_is_totally_positive(mat, tol, sub_sizes, expected_result):
 )
 def test_is_totally_positive_invalid(mat, tol, sub_sizes):
     """Test function works as expected for an invalid input."""
-    with np.testing.assert_raises(ValueError):
+    with pytest.raises(ValueError, match=re.escape("Cannot determine total positivity of an empty matrix.")):
         is_totally_positive(mat, atol=tol, sub_sizes=sub_sizes)
 
 

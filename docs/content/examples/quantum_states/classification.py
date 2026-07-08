@@ -99,8 +99,8 @@ print(f"Average classification error (k=1): {learnability_result['value']}")
 
 # %%
 # ## k-Incoherence
-# The notion of $k$-incoherence comes from
-# [@johnston2022absolutely]. For a positive integers, $k$ and
+# The notion of $k$-incoherence, as studied in
+# [@johnston2022absolutely], is defined as follows. For positive integers $k$ and
 # $n$, the matrix $X \in \text{Pos}(\mathbb{C}^n)$ is called
 # $k$-incoherent if there exists a positive integer $m$, a set
 # $S = \{|\psi_0\rangle, |\psi_1\rangle,\ldots, |\psi_{m-1}\rangle\}
@@ -135,7 +135,7 @@ print(is_k_incoherent(mat, 2))
 # ## Factor width
 #
 # Another closely related definition to $k$-incoherence is that of
-# factor width [@barioli2003maximal][@johnston2025factor][@boman2005factor] below.
+# factor width [@boman2005factor][@johnston2025factor] below.
 #
 # Let $k$ be a positive integer. The factor width of a positive
 # semidefinite matrix $X$ is the smallest $k$ such that it is
@@ -160,7 +160,7 @@ result = factor_width(hadamard, k=1)
 print(result["feasible"])
 
 # %%
-# This example comes directly from [@johnston2025factor]. Suppose we want to determine the factor width of
+# This example comes directly from [@johnston2025complexity]. Suppose we want to determine the factor width of
 # the rank-$3$ matrix
 #
 # $$
@@ -178,7 +178,7 @@ print(result["feasible"])
 #
 # $$
 # \begin{aligned}
-# R_1 = \{S_1, S_2, S_3, S_3\}, \quad \text{where} \quad S_1 & = \operatorname{span}\{(0,1,-1,1), (0,1,-3,1)\}, \\
+# R_1 = \{S_1, S_2, S_3, S_4\}, \quad \text{where} \quad S_1 & = \operatorname{span}\{(0,1,-1,1), (0,1,-3,1)\}, \\
 # S_2 & = \operatorname{span}\{(1,0,2,-1), (3,0,2,-3)\}, \\
 # S_3 & = \operatorname{span}\{(1,2,0,1), (3,2,0,-1)\}, \ \ \text{and} \\
 # S_4 & = \operatorname{span}\{(1,1,1,0), (3,3,1,0)\}.

@@ -101,13 +101,24 @@ def apply_channel(mat: np.ndarray, phi_op: np.ndarray | list[list[np.ndarray]]) 
     # The superoperator was given as a list of Kraus operators:
     if isinstance(phi_op, list):
         phi_0_list, phi_1_raw, _ = normalize_kraus(phi_op)
-        phi_1_list = [k_mat.conj().T for k_mat in phi_1_raw]
 
-        k_1 = np.concatenate(phi_0_list, axis=1)
-        k_2 = np.concatenate(phi_1_list, axis=0)
+        # Contract the Kraus operators against `mat` with two plain 2D BLAS matmuls instead of
+        # building the dense block-diagonal `kron(I_r, mat)` (mostly zeros). For left operators
+        # `A_i` and right operators `B_i` of shape ``(d_out, d_in)`` this computes
+        # ``sum_i A_i @ mat @ B_i.conj().T`` exactly.
+        num_ops = len(phi_0_list)
+        d_out, d_in = phi_0_list[0].shape
+        a_stack = np.stack(phi_0_list)
+        b_stack = np.stack(phi_1_raw)
 
-        a_mat = np.kron(np.identity(len(phi_0_list)), mat)
-        return k_1 @ a_mat @ k_2
+        left = (
+            (a_stack.reshape(num_ops * d_out, d_in) @ mat)
+            .reshape(num_ops, d_out, d_in)
+            .transpose(1, 0, 2)
+            .reshape(d_out, num_ops * d_in)
+        )
+        right = b_stack.conj().transpose(0, 2, 1).reshape(num_ops * d_in, d_out)
+        return left @ right
 
     # The superoperator was given as a Choi matrix:
     if isinstance(phi_op, np.ndarray):

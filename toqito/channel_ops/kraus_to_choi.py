@@ -58,6 +58,9 @@ def kraus_to_choi(kraus_ops: list[np.ndarray] | list[list[np.ndarray]], sys: int
     if sys < 0:
         raise ValueError("The `sys` parameter must be non-negative.")
 
+    if len(kraus_ops) == 0:
+        raise ValueError("The list of Kraus operators cannot be empty.")
+
     if sys == 2:
         # Fast path for the default convention (apply the channel to the second subsystem of the unnormalized
         # maximally entangled state). The Choi matrix is then sum_i vec(A_i) vec(B_i)^dagger, where vec stacks the

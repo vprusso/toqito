@@ -5,12 +5,12 @@ r"""Computes \(f(A, B, K, t) = \operatorname{tr}(K^{\dagger} A^{1-t} K B^{t})\) 
 
 import cvxpy
 import numpy as np
-from scipy.linalg import fractional_matrix_power
 
 from toqito.cones._utils import _require_2d, _require_square_2d
 from toqito.cones.geometric_mean_epi_cone import geometric_mean_epi_cone
 from toqito.cones.geometric_mean_hypo_cone import geometric_mean_hypo_cone
 from toqito.cones.trace_matrix_power import trace_matrix_power
+from toqito.matrix_ops import psd_matrix_power
 from toqito.matrix_props import is_positive_semidefinite
 
 
@@ -76,19 +76,19 @@ def lieb_ando(
     if isinstance(mat_a, np.ndarray) and isinstance(mat_b, np.ndarray):
         if not is_positive_semidefinite(mat_a) or not is_positive_semidefinite(mat_b):
             raise ValueError("mat_a and mat_b must be positive semidefinite.")
-        a_raised = fractional_matrix_power(mat_a, 1 - t)
-        b_raised = fractional_matrix_power(mat_b, t)
+        a_raised = psd_matrix_power(mat_a, 1 - t)
+        b_raised = psd_matrix_power(mat_b, t)
         return float(np.real(np.trace(mat_k.conj().T @ a_raised @ mat_k @ b_raised)))
     elif isinstance(mat_a, np.ndarray):
         if not is_positive_semidefinite(mat_a) or not is_positive_semidefinite(mat_b.value):
             raise ValueError("mat_a and mat_b must be positive semidefinite.")
-        mat_kak = mat_k.conj().T @ fractional_matrix_power(mat_a, 1 - t) @ mat_k
+        mat_kak = mat_k.conj().T @ psd_matrix_power(mat_a, 1 - t) @ mat_k
         mat_kak = (mat_kak + mat_kak.conj().T) / 2
         return trace_matrix_power(mat_b, t, mat_kak)
     elif isinstance(mat_b, np.ndarray):
         if not is_positive_semidefinite(mat_a.value) or not is_positive_semidefinite(mat_b):
             raise ValueError("mat_a and mat_b must be positive semidefinite.")
-        mat_kkb = mat_k @ fractional_matrix_power(mat_b, t) @ mat_k.conj().T
+        mat_kkb = mat_k @ psd_matrix_power(mat_b, t) @ mat_k.conj().T
         mat_kkb = (mat_kkb + mat_kkb.conj().T) / 2
         return trace_matrix_power(mat_a, 1 - t, mat_kkb)
     else:

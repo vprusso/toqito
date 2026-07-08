@@ -388,8 +388,8 @@ def bell_inequality_max_qubits(
 
     Args:
         joint_coe: The coefficients for terms containing both A and B.
-        a_coe: The coefficent for terms only containing A.
-        b_coe: The coefficent for terms only containing B.
+        a_coe: The coefficient for terms only containing A.
+        b_coe: The coefficient for terms only containing B.
         a_val: The value of each measurement outcome for A.
         b_val: The value of each measurement outcome for B.
         solver_name: The solver used.
@@ -447,6 +447,17 @@ def bell_inequality_max_qubits(
 
     tot_dim = 2 ** (2 * m + 2)
     obj_mat = np.zeros((tot_dim, tot_dim), dtype=float)
+    dim_party = 2 ** (m + 1)
+    identity = np.eye(dim_party)
+    alice_ops = {}
+    bob_ops = {}
+
+    for outcome in range(2):
+        for setting in range(1, m + 1):
+            perm_setting = [setting if i == 0 else (0 if i == setting else i) for i in range(m + 1)]
+            op = outcome * identity + ((-1) ** outcome) * permutation_operator([2] * (m + 1), perm_setting, 0, 1)
+            alice_ops[(outcome, setting)] = op
+            bob_ops[(outcome, setting)] = op
 
     # Nested loops to compute the objective matrix.
     for a in range(2):  # a = 0 to 1
@@ -460,14 +471,8 @@ def bell_inequality_max_qubits(
                     if x == 1:
                         b_coeff += b_coe[y - 1, 0] * b_val[b, 0]
 
-                    # Construct Alice and Bob's extended measurement operators.
-                    perm_x = [x if i == 0 else (0 if i == x else i) for i in range(m + 1)]
-                    perm_y = [y if i == 0 else (0 if i == y else i) for i in range(m + 1)]
-                    M = a * np.eye(2 ** (m + 1)) + ((-1) ** a) * permutation_operator([2] * (m + 1), perm_x, 0, 1)
-                    N = b * np.eye(2 ** (m + 1)) + ((-1) ** b) * permutation_operator([2] * (m + 1), perm_y, 0, 1)
-
                     # Adding the result of the tensor product to the objective matrix.
-                    obj_mat += b_coeff * np.kron(M, N)
+                    obj_mat += b_coeff * np.kron(alice_ops[(a, x)], bob_ops[(b, y)])
 
     # Symmetrize the matrix to avoid numerical issues.
     obj_mat = (obj_mat + obj_mat.T) / 2
@@ -953,7 +958,7 @@ def _fc_to_fp(fc_mat: np.ndarray, behavior: bool = False) -> np.ndarray:
         The probability tensor \(V[a, b, x, y]\) in Full Probability notation (oa=2, ob=2).
 
     !!! Note
-        This function is adapted from the QETLAB MATLAB package function ``FC2FP`` [@QETLAB].
+        This function is adapted from the QETLAB MATLAB package function ``FC2FP`` [@qetlablink].
         For `behavior=True`, it applies the standard formula relating probabilities to correlators:
         \(P(a', b' | x, y) = (1 + a'\langle A_x \rangle + b'\langle B_y \rangle +\)
         \(a'b'\langle A_x B_y \rangle) / 4\),

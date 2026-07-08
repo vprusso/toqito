@@ -61,28 +61,32 @@ def tensor_comb(
         ```
 
     """
-    if not states:
+    if len(states) == 0:
         raise ValueError("Input list of states cannot be empty.")
 
+    if not isinstance(k, (int, np.integer)) or k <= 0:
+        raise ValueError("k must be a positive integer.")
+
     if mode not in ("injective", "non-injective", "diagonal"):
-        raise ValueError("mode must be injective, non-injective, or diagonal.")
+        raise ValueError(f"mode must be injective, non-injective, or diagonal; got {mode!r}.")
 
     if mode == "injective" and k > len(states):
         raise ValueError("k must be less than or equal to the number of states for injective sequences.")
 
     # Generate sequences based on the selected mode.
     if mode == "injective":
-        sequences = list(itertools.permutations(range(len(states)), k))
+        sequences = itertools.permutations(range(len(states)), k)
     elif mode == "non-injective":
-        sequences = list(itertools.product(range(len(states)), repeat=k))
+        sequences = itertools.product(range(len(states)), repeat=k)
     else:  # mode == "diagonal"
-        sequences = [(i,) * k for i in range(len(states))]
+        sequences = ((i,) * k for i in range(len(states)))
 
     sequences_of_states = {}
     for seq in sequences:
-        state_sequence = [states[i] for i in seq]
-        sequence_tensor_product = np.array(state_sequence[0])
-        for state in state_sequence[1:]:
+        state_iter = iter(seq)
+        sequence_tensor_product = np.array(states[next(state_iter)])
+        for state_idx in state_iter:
+            state = states[state_idx]
             sequence_tensor_product = np.kron(sequence_tensor_product, state)
 
         if density_matrix:

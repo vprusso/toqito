@@ -1,4 +1,4 @@
-"""Channel dimensions coputes and returns the input, output and environment dimensions of a channel."""
+"""Channel dimensions computes and returns the input, output and environment dimensions of a channel."""
 
 import numpy as np
 
@@ -40,6 +40,24 @@ def channel_dim(
 
     Returns:
         The input, output, and environment dimensions of a channel.
+
+    Examples:
+        The dimensions of a channel can be computed from a list of Kraus operators.
+        For example, the following Kraus operators describe a qubit bit-flip
+        channel:
+
+        ```python exec="1" source="above" result="text"
+        import numpy as np
+        from toqito.channel_props import channel_dim
+
+        kraus_ops = [
+            np.sqrt(0.5) * np.eye(2),
+            np.sqrt(0.5) * np.array([[0, 1], [1, 0]]),
+        ]
+        dim_in, dim_out, dim_env = channel_dim(kraus_ops)
+
+        print(dim_in, dim_out, dim_env)
+        ```
 
     """
     dim_in = np.zeros(2, dtype=int)

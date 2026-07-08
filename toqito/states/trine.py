@@ -12,8 +12,8 @@ def trine() -> list[np.ndarray]:
 
     \[
         u_1 = |0\rangle, \quad
-        u_1 = -\frac{1}{2}\left(|0\rangle + \sqrt{3}|1\rangle\right), \quad \text{and} \quad
-        u_2 = -\frac{1}{2}\left(|0\rangle - \sqrt{3}|1\rangle\right).
+        u_2 = -\frac{1}{2}\left(|0\rangle + \sqrt{3}|1\rangle\right), \quad \text{and} \quad
+        u_3 = -\frac{1}{2}\left(|0\rangle - \sqrt{3}|1\rangle\right).
     \]
 
     Returns:

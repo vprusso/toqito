@@ -12,7 +12,7 @@ def pretty_bad_measurement(
 
     This computes the "pretty bad measurement" (PBM) as defined in
     [@mcirvin2024pretty]. The PBM is an analogue to the "pretty
-    good measurement" defined in [@Belavkin_1975_Optimal,Hughston_1993_Complete]
+    good measurement" defined in [@belavkin1975optimal;@hughston1993complete]
     and is useful for approximating the optimal measurement
     for state exclusion.
 
@@ -64,7 +64,7 @@ def pretty_bad_measurement(
     if n < 2:
         raise ValueError("The pretty bad measurement is undefined for fewer than two states (it divides by n - 1).")
 
-    # If not probabilities are explicitly given, assume a uniform distribution.
+    # If probabilities are not explicitly given, assume a uniform distribution.
     if probs is None:
         probs = n * [1 / n]
 

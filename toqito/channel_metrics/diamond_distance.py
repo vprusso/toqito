@@ -3,7 +3,9 @@
 import numpy as np
 
 
-def diamond_distance(choi_1: np.ndarray, choi_2: np.ndarray) -> float | np.floating:
+def diamond_distance(
+    choi_1: np.ndarray, choi_2: np.ndarray, dim: int | list[int] | np.ndarray | None = None
+) -> float | np.floating:
     r"""Return the diamond norm distance between two quantum channels.
 
     This function is a wrapper around
@@ -16,12 +18,21 @@ def diamond_distance(choi_1: np.ndarray, choi_2: np.ndarray) -> float | np.float
 
 
     Args:
-        choi_1: A 4**N by 4**N matrix (where N is the number of qubits).
-        choi_2: A 4**N by 4**N matrix (where N is the number of qubits).
+        choi_1: A (d_in * d_out) by (d_in * d_out) Choi matrix of the first channel.
+        choi_2: A (d_in * d_out) by (d_in * d_out) Choi matrix of the second channel.
+        dim: A scalar or vector containing the input and output dimensions of the channels. This
+            only needs to be provided if the input and output dimensions of the channels differ
+            (e.g. channels mapping a qubit to a qutrit), since they cannot be inferred from the
+            Choi matrices alone in that case. If the channels map \(M_m\) to \(M_n\), then
+            `dim` is the vector `[m, n]`.
 
     Raises:
         ValueError: If matrices are not of equal dimension.
         ValueError: If matrices are not square.
+
+    Returns:
+        The diamond-norm distance between the two channels, i.e. the diamond norm of the
+        difference of their Choi matrices (a float between 0 and 2).
 
     Examples:
         Consider the depolarizing and identity channels in a 2-dimensional space. The depolarizing channel parameter is
@@ -51,4 +62,4 @@ def diamond_distance(choi_1: np.ndarray, choi_2: np.ndarray) -> float | np.float
     """
     from toqito.channel_metrics import completely_bounded_trace_norm  # noqa
 
-    return completely_bounded_trace_norm(choi_1 - choi_2)
+    return completely_bounded_trace_norm(choi_1 - choi_2, dim=dim)

@@ -1,5 +1,6 @@
 """Test is_separable."""
 
+import inspect
 from unittest import mock
 
 import numpy as np
@@ -21,6 +22,35 @@ from toqito.state_props.is_separable import (
     _range_projector_product_overlap_3x3_rank4,
 )
 from toqito.states import basis, bell, horodecki, isotropic, max_entangled, tile
+
+# Capture the genuine LAPACK-backed ``eigvalsh`` before any test patches it. The
+# white-box tests below force ``is_separable``'s *own* ``eigvalsh`` calls to fail
+# so its ``eigvals`` fallbacks are exercised. Since #1752, ``is_positive_semidefinite``
+# also uses ``eigvalsh`` and runs early in the ``is_separable`` path (via ``is_ppt``
+# and the PSD guard), so a blanket ``eigvalsh`` failure would raise inside the PSD
+# check instead of exercising the intended fallback. These helpers scope the failure
+# to ``is_separable``'s direct calls, letting ``is_positive_semidefinite`` compute
+# normally.
+_REAL_EIGVALSH = np.linalg.eigvalsh
+
+
+def _eigvalsh_fail_outside_psd(error_msg="mocked eigvalsh fail"):
+    """Return an ``eigvalsh`` replacement that fails everywhere except inside PSD checks.
+
+    Passed as the ``new`` value of ``mock.patch`` (not ``side_effect``) so the
+    replacement is invoked directly and its caller frame is the real caller of
+    ``np.linalg.eigvalsh``. Calls made by ``is_positive_semidefinite`` pass through
+    to the genuine routine; every other caller (i.e. ``is_separable``'s own eigen
+    computations) receives a ``LinAlgError`` so its ``eigvals`` fallback runs.
+    """
+
+    def _patched(*args, **kwargs):
+        if inspect.currentframe().f_back.f_code.co_name == "is_positive_semidefinite":
+            return _REAL_EIGVALSH(*args, **kwargs)
+        raise np.linalg.LinAlgError(error_msg)
+
+    return _patched
+
 
 # --- Parameterized Tests for Invalid Inputs ---
 """
@@ -111,7 +141,7 @@ def entangled_qutrit_qutrit_state():
         np.kron([1, 0, 0], [1, 0, 0]) + np.kron([0, 1, 0], [0, 1, 0]) + np.kron([0, 0, 1], [0, 0, 1])
     )
     rho = np.outer(psi, psi.conj())
-    assert np.isclose(np.trace(rho), 1.0)  # Trace of fixture state shouldbe 1
+    assert np.isclose(np.trace(rho), 1.0)  # Trace of fixture state should be 1
     assert is_positive_semidefinite(rho, 1e-9)  # Fixture state should be PSD
     return rho
 
@@ -138,7 +168,7 @@ def separable_state_2x3_rank3():
     rho3 = np.kron(np.outer(psi_A1, psi_A1.conj()), np.outer(psi_B2, psi_B2.conj()))
     rho = (rho1 + rho2 + rho3) / 3
     assert np.isclose(np.trace(rho), 1)  # Trace of fixture state should be 1
-    assert np.all(np.linalg.eigvalsh(rho) >= -1e-9)  # Fixture state shoul be PSD
+    assert np.all(np.linalg.eigvalsh(rho) >= -1e-9)  # Fixture state should be PSD
     return rho
 
 
@@ -379,7 +409,7 @@ def test_rank4_range_overlap_inconclusive_falls_through():
 
 def test_eig_calc_fails_rank1_pert_check_skipped():
     """Rank-1 perturbation check skipped if eigenvalue calculation fails."""
-    with mock.patch("numpy.linalg.eigvalsh", side_effect=np.linalg.LinAlgError("mocked eig error")):
+    with mock.patch("numpy.linalg.eigvalsh", _eigvalsh_fail_outside_psd("mocked eig error")):
         with mock.patch("numpy.linalg.eigvals", side_effect=np.linalg.LinAlgError("mocked eig error")):
             assert is_separable(np.eye(8) / 8.0, dim=[2, 4])[0]
 
@@ -387,7 +417,7 @@ def test_eig_calc_fails_rank1_pert_check_skipped():
 def test_2xN_swapped_eig_calc_fails_fallback():
     """Fallback eigenvalue calculation in 2xN if eigvalsh fails."""
     rho_3x2_prod = np.kron(np.eye(3) / 3.0, np.eye(2) / 2.0)
-    with mock.patch("numpy.linalg.eigvalsh", side_effect=np.linalg.LinAlgError("mocked eigvalsh error")):
+    with mock.patch("numpy.linalg.eigvalsh", _eigvalsh_fail_outside_psd("mocked eigvalsh error")):
         assert is_separable(rho_3x2_prod, dim=[3, 2])[0]
 
 
@@ -692,7 +722,7 @@ def test_3x3_rank4_block_helper_finds_lower_rank():
 def test_2xN_eig_lam_eigvalsh_fails_eigvals_succeeds():
     """2xN: eigvalsh for current_lam_2xn fails, fallback eigvals works."""
     rho_2xN_sep = np.eye(8) / 8.0  # 2x4 separable state
-    with mock.patch("numpy.linalg.eigvalsh", side_effect=np.linalg.LinAlgError("mocked error")):
+    with mock.patch("numpy.linalg.eigvalsh", _eigvalsh_fail_outside_psd("mocked error")):
         assert is_separable(rho_2xN_sep, dim=[2, 4])[0]  # Should use eigvals fallback
 
 
@@ -702,13 +732,14 @@ def test_full_rank_ppt_state_above_threshold():
     # Use a PPT entangled state (Horodecki state) could have chances pass Basic Realignment Return true
     rho = horodecki(a_param=0.5, dim=[3, 3])
 
-    # Mock matrix ranks to exceed the rank-sum threshold (7+7=14 fails, 8+7=15 passes)
-    # *and* to keep rank(rho) above both marginal ranks so the rank-marginal check
-    # does not fire. After #1506 the call order is:
-    #   state_rank, op_Schmidt_rank_internal, rank_marg_A, rank_marg_B
+    # Mock matrix ranks to keep rank(rho) above both marginal ranks so the
+    # rank-marginal check does not fire. The operator Schmidt rank is now derived
+    # from a single shared realignment SVD (not `np.linalg.matrix_rank`), so the
+    # `matrix_rank` call order is:
+    #   state_rank, rank_marg_A, rank_marg_B
     # (rank_pt_A is no longer computed because the rank-sum branch is gone.)
     with mock.patch("numpy.linalg.matrix_rank") as mock_rank:
-        mock_rank.side_effect = [8, 8, 3, 3]
+        mock_rank.side_effect = [8, 3, 3]
         with mock.patch("toqito.state_props.in_separable_ball", return_value=False):
             assert not is_separable(rho, dim=[3, 3], level=1)[0]
 
@@ -760,32 +791,51 @@ def test_entangled_zhang_variant_catches_L401():
     assert is_ppt(rho, dim=[3, 3])
 
     original_matrix_rank = np.linalg.matrix_rank
-    # Call order after the #1506 fix is state_rank, op_Schmidt_rank_internal,
-    # rank_marg_A, rank_marg_B. rank_pt_A is no longer computed because the
-    # rank-sum branch of Horodecki section 7 has been removed as an
-    # incorrect sufficient condition. op_sr > 2 bypasses the Cariello check;
-    # marginal ranks are kept below state_r so rank-marginal does not fire
-    # either. Zhang variant then catches the entanglement.
-    mock_ranks_horodecki_op_fail = [7, 8, 3, 3]
+    # The operator Schmidt rank and the CCNR trace norm are now both derived from
+    # a single shared realignment SVD, so `np.linalg.matrix_rank` is called only
+    # for state_rank, rank_marg_A, rank_marg_B (rank_pt_A is not computed because
+    # the rank-sum branch of Horodecki section 7 was removed as an incorrect
+    # sufficient condition). Marginal ranks are kept below state_rank so the
+    # rank-marginal check does not fire.
+    mock_ranks_horodecki_op_fail = [7, 3, 3]
 
     def matrix_rank_zhang_side_effect(matrix_arg, tol=None):
         if mock_ranks_horodecki_op_fail:  # Pop if list is not empty
             return mock_ranks_horodecki_op_fail.pop(0)
         return original_matrix_rank(matrix_arg, tol=tol)
 
+    original_svd = np.linalg.svd
+    svd_tracker = {"count": 0}
+
+    def mocked_svd_for_zhang(matrix_input, *args, **kwargs):
+        # The first SVD in the criteria chain is the shared realignment SVD whose
+        # singular values feed both the operator-Schmidt-rank check (count > tol)
+        # and the CCNR trace-norm check (sum). Return three equal singular values:
+        # count = 3 > 2 bypasses the Cariello check, and sum = 0.9 <= 1 keeps the
+        # CCNR check from firing, so control reaches the Zhang variant below.
+        svd_tracker["count"] += 1
+        if svd_tracker["count"] == 1:
+            return np.array([0.3, 0.3, 0.3])
+        return original_svd(matrix_input, *args, **kwargs)
+
     original_trace_norm_func = trace_norm
     call_tracker = {"count": 0}
 
     def mocked_trace_norm_for_zhang(matrix_input, **kwargs_tn):
+        # The Zhang variant is the first (and only) trace_norm consumer reached
+        # here; return a value above the purity bound so the variant fires.
         call_tracker["count"] += 1
         if call_tracker["count"] == 1:
-            return 0.5
+            return 5.0
         return original_trace_norm_func(matrix_input, **kwargs_tn)
 
     with mock.patch("toqito.state_props.is_separable.in_separable_ball", return_value=False):
         with mock.patch("numpy.linalg.matrix_rank", side_effect=matrix_rank_zhang_side_effect):
-            with mock.patch("toqito.state_props.is_separable.trace_norm", side_effect=mocked_trace_norm_for_zhang):
-                assert not is_separable(rho, dim=[3, 3], level=0)[0]
+            with mock.patch("numpy.linalg.svd", side_effect=mocked_svd_for_zhang):
+                with mock.patch("toqito.state_props.is_separable.trace_norm", side_effect=mocked_trace_norm_for_zhang):
+                    sep, reason = is_separable(rho, dim=[3, 3], level=0)
+                    assert not sep
+                    assert "Zhang" in reason
 
 
 def test_rank1_pert_eigvalsh_fails_eigvals_fallback():
@@ -884,7 +934,7 @@ def test_rank1_pert_eigvalsh_fails_eigvals_fallback():
     with mock.patch("toqito.state_props.is_separable.in_separable_ball", return_value=False):
         with mock.patch("numpy.linalg.matrix_rank", side_effect=matrix_rank_rank1_side_effect):
             with mock.patch("toqito.state_props.is_separable.trace_norm", return_value=0.5):
-                with mock.patch("numpy.linalg.eigvalsh", side_effect=np.linalg.LinAlgError("mocked eigvalsh fail")):
+                with mock.patch("numpy.linalg.eigvalsh", _eigvalsh_fail_outside_psd("mocked eigvalsh fail")):
                     assert is_separable(rho, dim=[dim_sys, dim_sys], tol=test_tol)[0]
 
 

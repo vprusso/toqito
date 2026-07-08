@@ -12,7 +12,7 @@ def pretty_good_measurement(
 
     This computes the "pretty good measurement" (PGM), also known as the
     square-root measurement, which is a widely used measurement for quantum
-    state discrimination [@Belavkin_1975_Optimal,Hughston_1993_Complete].
+    state discrimination [@belavkin1975optimal;@hughston1993complete].
 
     The PGM is the set of POVMs \((G_1, \ldots, G_n)\) such that
 
@@ -58,7 +58,10 @@ def pretty_good_measurement(
     """
     n = len(states)
 
-    # If not probabilities are explicitly given, assume a uniform distribution.
+    if n == 0:
+        raise ValueError("The list of states must contain at least one state.")
+
+    # If probabilities are not explicitly given, assume a uniform distribution.
     if probs is None:
         probs = n * [1 / n]
 

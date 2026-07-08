@@ -167,13 +167,14 @@ def partial_trace(
     # Validate sys indices and compute subsystem product.
     if isinstance(sys, int):
         if sys < 0 or sys >= num_sys:
-            raise ValueError("Subsystem indices in `sys` are out of bounds.")
+            raise ValueError(f"Subsystem index {sys} is out of bounds; must be in [0, {num_sys}).")
         prod_dim_sys = dim[sys]
         sys = np.array([sys])
 
     elif isinstance(sys, (list, tuple, np.ndarray)):
-        if any(s < 0 or s >= num_sys for s in sys):
-            raise ValueError("Subsystem indices in `sys` are out of bounds.")
+        for s in sys:
+            if s < 0 or s >= num_sys:
+                raise ValueError(f"Subsystem index {s} is out of bounds; must be in [0, {num_sys}).")
         prod_dim_sys = int(np.prod([dim[i] for i in sys]))
         sys = np.array(sys)
 
@@ -182,6 +183,24 @@ def partial_trace(
 
     sub_prod = prod_dim // prod_dim_sys
     sub_sys_size = prod_dim_sys
+
+    # Fast path: numeric (non-cvxpy) input. `input_mat` is square with equal row
+    # and column subsystem dimensions, so the partial trace is a direct tensor
+    # contraction: reshape into a `(dim + dim)` tensor and contract each traced
+    # subsystem's row index against its matching column index via `np.einsum`.
+    # This avoids the gathered full copy that `permute_systems` materializes.
+    # Object-dtype (cvxpy) inputs fall through to the `permute_systems`
+    # implementation below, which is left unchanged.
+    if np.issubdtype(input_mat.dtype, np.number):
+        sub_dims = dim.astype(int)
+        tensor = input_mat.reshape(np.concatenate([sub_dims, sub_dims]))
+        sys_set = {int(s) for s in sys}
+        row_sub = list(range(num_sys))
+        col_sub = [i if i in sys_set else i + num_sys for i in range(num_sys)]
+        keep = [i for i in range(num_sys) if i not in sys_set]
+        out_sub = keep + [i + num_sys for i in keep]
+        result = np.einsum(tensor, row_sub + col_sub, out_sub, optimize=True)
+        return result.reshape(sub_prod, sub_prod)
 
     remaining_sys = np.setdiff1d(np.arange(num_sys), sys, assume_unique=True)
     perm = np.concatenate([remaining_sys, sys]).astype(np.int32)

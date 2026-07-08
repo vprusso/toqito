@@ -103,7 +103,7 @@ def test_state_exclusion_unambiguous(vectors, probs, solver, primal_dual, expect
     val, _ = state_exclusion(
         vectors=vectors, probs=probs, solver=solver, primal_dual=primal_dual, strategy="unambiguous", **kwargs
     )
-    # Accuracy is quite low bcause of primals=None
+    # Accuracy is quite low because of primals=None
     assert abs(val - expected_result) <= 1e-3
 
 

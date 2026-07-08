@@ -18,7 +18,7 @@ def standard_basis(dim: int, flatten: bool = False) -> list[np.ndarray]:
         |n> = (0, 0, 0, ..., 1)^T
     \]
 
-    This function was inspired by [@Seshadri_2021_Git, Seshadri_2021_Theory, Seshadri_2021_Versatile]
+    This function was inspired by [@seshadri2021git;@seshadri2021theory;@seshadri2021versatile]
 
     Args:
         dim: The dimension of the basis.

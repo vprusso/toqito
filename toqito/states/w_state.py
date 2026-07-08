@@ -20,10 +20,10 @@ def w_state(num_qubits: int, coeff: list[int] | None = None) -> np.ndarray:
 
     Args:
         num_qubits: An integer representing the number of qubits.
-        coeff: default is `[1, 1, ..., 1]/sqrt(num_qubits)`: a 1-by-`num_qubts` vector of coefficients.
+        coeff: default is `[1, 1, ..., 1]/sqrt(num_qubits)`: a 1-by-`num_qubits` vector of coefficients.
 
     Raises:
-        ValueError: The number of qubits must be greater than or equal to 1.
+        ValueError: The number of qubits must be at least 2.
 
     Examples:
         Using `|toqito⟩`, we can generate the \(3\)-qubit W-state
