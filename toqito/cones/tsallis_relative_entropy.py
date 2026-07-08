@@ -92,9 +92,9 @@ def tsallis_relative_entropy(
         if not is_positive_semidefinite(mat_y):
             raise ValueError("mat_y must be a positive semidefinite matrix")
         if t == 0:
-            from toqito.state_props.quantum_relative_entropy import (
-                quantum_relative_entropy,
-            )
+            # Deferred import: quantum_relative_entropy imports from toqito.cones, so a top-level
+            # import here would create a circular import.
+            from toqito.state_props.quantum_relative_entropy import quantum_relative_entropy  # noqa: PLC0415
 
             return quantum_relative_entropy(mat_x, mat_y)
         n = int(mat_x.shape[0])
@@ -109,26 +109,23 @@ def tsallis_relative_entropy(
     if mat_x.is_constant() and mat_y.is_constant():
         if mat_x.value is None or mat_y.value is None:
             raise ValueError(
-                "Constant CVXPY expression has no numeric value; set parameter `.value` "
-                "or pass a numpy.ndarray."
+                "Constant CVXPY expression has no numeric value; set parameter `.value` or pass a numpy.ndarray."
             )
-        return tsallis_relative_entropy(
-            np.asarray(mat_x.value), np.asarray(mat_y.value), t
-        )
+        return tsallis_relative_entropy(np.asarray(mat_x.value), np.asarray(mat_y.value), t)
 
     if not mat_x.is_affine() or not mat_y.is_affine():
         raise ValueError("mat_x and mat_y must be affine CVXPY expressions.")
     if mat_x.value is None or mat_y.value is None:
-        raise ValueError(
-            "Affine mat_x and mat_y need numeric initial values; set `.value` for PSD checks."
-        )
+        raise ValueError("Affine mat_x and mat_y need numeric initial values; set `.value` for PSD checks.")
     if not is_positive_semidefinite(mat_x.value):
         raise ValueError("mat_x must be positive semidefinite at the initial value.")
     if not is_positive_semidefinite(mat_y.value):
         raise ValueError("mat_y must be positive semidefinite at the initial value.")
 
     if t == 0:
-        from toqito.state_props.quantum_relative_entropy import quantum_relative_entropy
+        # Deferred import: quantum_relative_entropy imports from toqito.cones, so a top-level
+        # import here would create a circular import.
+        from toqito.state_props.quantum_relative_entropy import quantum_relative_entropy  # noqa: PLC0415
 
         return quantum_relative_entropy(mat_x, mat_y)
 

@@ -3,7 +3,6 @@
 # Adapted from CVXQUAD (https://github.com/hfawzi/cvxquad), BSD-2-Clause.
 # Original implementation by Fawzi, Saunderson, et al.
 
-
 import cvxpy
 import numpy as np
 
@@ -22,19 +21,14 @@ def _constant_value(expr: np.ndarray | cvxpy.Expression) -> np.ndarray:
     if isinstance(expr, np.ndarray):
         return np.asarray(expr, dtype=float)
     if expr.value is None:
-        raise ValueError(
-            "Constant CVXPY expression has no numeric value; set `.value` "
-            "or pass a numpy.ndarray."
-        )
+        raise ValueError("Constant CVXPY expression has no numeric value; set `.value` or pass a numpy.ndarray.")
     return np.asarray(expr.value, dtype=float)
 
 
 def _broadcast_shape(
     vec_x: np.ndarray | cvxpy.Expression,
     vec_y: np.ndarray | cvxpy.Expression,
-) -> tuple[
-    np.ndarray | cvxpy.Expression, np.ndarray | cvxpy.Expression, tuple[int, ...]
-]:
+) -> tuple[np.ndarray | cvxpy.Expression, np.ndarray | cvxpy.Expression, tuple[int, ...]]:
     """Broadcast ``vec_x`` and ``vec_y`` like CVXQUAD ``rel_entr_quad.m``."""
     x_size = int(np.size(vec_x))
     y_size = int(np.size(vec_y))
@@ -116,9 +110,7 @@ def relative_entropy_quadrature(
         return x_b * np.log(x_b / y_b)
 
     if _is_constant(vec_x) and _is_constant(vec_y):
-        return relative_entropy_quadrature(
-            _constant_value(vec_x), _constant_value(vec_y), m, k
-        )
+        return relative_entropy_quadrature(_constant_value(vec_x), _constant_value(vec_y), m, k)
 
     if isinstance(vec_x, np.ndarray):
         vec_x = cvxpy.Constant(vec_x)
@@ -126,16 +118,10 @@ def relative_entropy_quadrature(
         vec_y = cvxpy.Constant(vec_y)
 
     if not (vec_x.is_affine() or vec_y.is_affine()):
-        raise ValueError(
-            "At least one of vec_x and vec_y must be an affine CVXPY expression."
-        )
+        raise ValueError("At least one of vec_x and vec_y must be an affine CVXPY expression.")
     if vec_x.value is None or vec_y.value is None:
-        raise ValueError(
-            "Affine vec_x and vec_y need numeric initial values; set `.value`."
-        )
-    if np.any(np.asarray(vec_x.value).reshape(-1) <= 0) or np.any(
-        np.asarray(vec_y.value).reshape(-1) <= 0
-    ):
+        raise ValueError("Affine vec_x and vec_y need numeric initial values; set `.value`.")
+    if np.any(np.asarray(vec_x.value).reshape(-1) <= 0) or np.any(np.asarray(vec_y.value).reshape(-1) <= 0):
         raise ValueError("vec_x and vec_y must be positive at the initial value.")
 
     n = int(np.prod(sz))
@@ -149,16 +135,8 @@ def relative_entropy_quadrature(
     constraints = []
     eye1 = np.eye(1)
     for idx in range(n):
-        xi = (
-            cvxpy.reshape(vec_x, (1, 1), order="C")
-            if x_scalar
-            else cvxpy.reshape(x_flat[idx], (1, 1), order="C")
-        )
-        yi = (
-            cvxpy.reshape(vec_y, (1, 1), order="C")
-            if y_scalar
-            else cvxpy.reshape(y_flat[idx], (1, 1), order="C")
-        )
+        xi = cvxpy.reshape(vec_x, (1, 1), order="C") if x_scalar else cvxpy.reshape(x_flat[idx], (1, 1), order="C")
+        yi = cvxpy.reshape(vec_y, (1, 1), order="C") if y_scalar else cvxpy.reshape(y_flat[idx], (1, 1), order="C")
         zi = cvxpy.reshape(z_flat[idx], (1, 1), order="C")
         constraints.extend(
             operator_relative_entropy_epi_cone(

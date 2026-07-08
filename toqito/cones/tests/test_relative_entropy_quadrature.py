@@ -214,10 +214,7 @@ class TestRelativeEntropyQuadratureValueErrors:
         assert p.value is None
         with pytest.raises(
             ValueError,
-            match=re.escape(
-                "Constant CVXPY expression has no numeric value; set `.value` "
-                "or pass a numpy.ndarray."
-            ),
+            match=re.escape("Constant CVXPY expression has no numeric value; set `.value` or pass a numpy.ndarray."),
         ):
             relative_entropy_quadrature(p, cvxpy.Constant(np.array([0.5, 0.5])))
 
