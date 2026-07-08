@@ -37,6 +37,20 @@ def geometric_mean(mat_a: np.ndarray, mat_b: np.ndarray, t: float) -> np.ndarray
     Returns:
       A matrix with the same shape as the inputs.
 
+    Examples:
+        For the commuting positive definite matrices \(A = \text{diag}(2, 4)\) and
+        \(B = \text{diag}(8, 16)\), the weighted mean reduces to \(G_t(A, B) = A^{1-t}B^t\),
+        so for \(t = 1/2\) the result is \(\text{diag}(\sqrt{2 \cdot 8}, \sqrt{4 \cdot 16})\):
+
+        ```python exec="1" source="above" result="text"
+        import numpy as np
+        from toqito.cones import geometric_mean
+
+        mat_a = np.diag([2.0, 4.0])
+        mat_b = np.diag([8.0, 16.0])
+        print(geometric_mean(mat_a, mat_b, 1 / 2))
+        ```
+
     """
     if mat_a.shape != mat_b.shape:
         raise ValueError("The matrices must be the same size.")
