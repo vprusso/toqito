@@ -108,7 +108,7 @@ def is_totally_positive(
         atol = tol
 
     if mat.size == 0:
-        raise ValueError("Empty matrix to be neither totally positive nor not totally positive.")
+        raise ValueError("Cannot determine total positivity of an empty matrix.")
 
     dims = mat.shape
 

@@ -50,6 +50,11 @@ def pauli(ind: int | str | list[int] | list[str], is_sparse: bool = False) -> np
         is_sparse: Returns a compressed sparse row array if set to True and a non compressed sparse row array if set to
             False.
 
+    Returns:
+        The requested Pauli operator: a single 2-by-2 Pauli matrix when `ind` is a scalar, or the
+        tensor product of the indicated Pauli matrices when `ind` is a list. Returned as a
+        `scipy.sparse.csr_array` if `is_sparse` is True and as a `np.ndarray` otherwise.
+
     Examples:
         Example for identity Pauli matrix.
 

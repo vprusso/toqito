@@ -109,7 +109,7 @@ def gell_mann(ind: int, is_sparse: bool = False) -> np.ndarray | csr_array:
     elif ind == 8:
         gm_op = np.array([[1, 0, 0], [0, 1, 0], [0, 0, -2]]) / np.sqrt(3)
     else:
-        raise ValueError("Gell-Mann index values can only be values from 0 to 8 (inclusive).")
+        raise ValueError(f"Gell-Mann index must be an integer in [0, 8]; got {ind}.")
 
     if is_sparse:
         gm_op_out = csr_array(gm_op)
