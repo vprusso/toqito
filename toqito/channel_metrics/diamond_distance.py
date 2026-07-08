@@ -30,6 +30,10 @@ def diamond_distance(
         ValueError: If matrices are not of equal dimension.
         ValueError: If matrices are not square.
 
+    Returns:
+        The diamond-norm distance between the two channels, i.e. the diamond norm of the
+        difference of their Choi matrices (a float between 0 and 2).
+
     Examples:
         Consider the depolarizing and identity channels in a 2-dimensional space. The depolarizing channel parameter is
         set to 0.2:

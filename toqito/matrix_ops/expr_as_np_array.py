@@ -13,6 +13,20 @@ def expr_as_np_array(cvx_expr: Expression) -> np.ndarray:
     Returns:
         The numpy array of the cvxpy expression.
 
+    Examples:
+        Convert a 2-by-2 cvxpy variable into a numpy array whose entries are the
+        scalar cvxpy expressions indexing into it:
+
+        ```python exec="1" source="above" result="text"
+        import cvxpy
+        from toqito.matrix_ops import expr_as_np_array
+
+        x_var = cvxpy.Variable((2, 2), name="X")
+        arr = expr_as_np_array(x_var)
+        print(arr.shape)
+        print(arr[0, 1])
+        ```
+
     """
     if cvx_expr.is_scalar():
         return np.array(cvx_expr)
