@@ -1,6 +1,9 @@
 """Test gell_mann."""
 
+import re
+
 import numpy as np
+import pytest
 from scipy.sparse import csr_array
 
 from toqito.matrices import gell_mann
@@ -93,7 +96,7 @@ def test_gell_mann_idx_8():
 
 def test_gell_mann_invalid_idx():
     """Invalid Gell-Mann parameters."""
-    with np.testing.assert_raises(ValueError):
+    with pytest.raises(ValueError, match=re.escape("Gell-Mann index must be an integer in [0, 8]; got 9.")):
         gell_mann(9)
 
 
