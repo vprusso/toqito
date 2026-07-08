@@ -10155,7 +10155,7 @@ the entire matrix <span class="arithmatex">\(X\)</span>. The determinant of <spa
 <a id="__codelineno-0-108" name="__codelineno-0-108"></a>        <span class="n">atol</span> <span class="o">=</span> <span class="n">tol</span>
 <a id="__codelineno-0-109" name="__codelineno-0-109"></a>
 <a id="__codelineno-0-110" name="__codelineno-0-110"></a>    <span class="k">if</span> <span class="n">mat</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-<a id="__codelineno-0-111" name="__codelineno-0-111"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Empty matrix to be neither totally positive nor not totally positive.&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-111" name="__codelineno-0-111"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Cannot determine total positivity of an empty matrix.&quot;</span><span class="p">)</span>
 <a id="__codelineno-0-112" name="__codelineno-0-112"></a>
 <a id="__codelineno-0-113" name="__codelineno-0-113"></a>    <span class="n">dims</span> <span class="o">=</span> <span class="n">mat</span><span class="o">.</span><span class="n">shape</span>
 <a id="__codelineno-0-114" name="__codelineno-0-114"></a>
