@@ -167,13 +167,14 @@ def partial_trace(
     # Validate sys indices and compute subsystem product.
     if isinstance(sys, int):
         if sys < 0 or sys >= num_sys:
-            raise ValueError("Subsystem indices in `sys` are out of bounds.")
+            raise ValueError(f"Subsystem index {sys} is out of bounds; must be in [0, {num_sys}).")
         prod_dim_sys = dim[sys]
         sys = np.array([sys])
 
     elif isinstance(sys, (list, tuple, np.ndarray)):
-        if any(s < 0 or s >= num_sys for s in sys):
-            raise ValueError("Subsystem indices in `sys` are out of bounds.")
+        for s in sys:
+            if s < 0 or s >= num_sys:
+                raise ValueError(f"Subsystem index {s} is out of bounds; must be in [0, {num_sys}).")
         prod_dim_sys = int(np.prod([dim[i] for i in sys]))
         sys = np.array(sys)
 
