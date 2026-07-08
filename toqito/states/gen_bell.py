@@ -29,6 +29,11 @@ def gen_bell(k_1: int, k_2: int, dim: int) -> np.ndarray:
         k_2: An integer 0 <= k_2 <= n.
         dim: The dimension of the generalized Bell state.
 
+    Returns:
+        The `dim^2`-by-`dim^2` density matrix of the generalized Bell state, i.e.
+        \(\frac{1}{d} \text{vec}(W_{k_1, k_2}) \text{vec}(W_{k_1, k_2})^*\) for the
+        corresponding generalized Pauli (Weyl) operator \(W_{k_1, k_2}\).
+
     Examples:
         For \(d = 2\) and \(k_1 = k_2 = 0\), this generates the following matrix
 
