@@ -17,5 +17,8 @@ from toqito.cones.ln_quantum_entropy import ln_quantum_entropy
 from toqito.cones.operator_relative_entropy_epi_cone import (
     operator_relative_entropy_epi_cone,
 )
+from toqito.cones.relative_entropy_quadrature import relative_entropy_quadrature
 from toqito.cones.trace_matrix_log import trace_matrix_log
 from toqito.cones.trace_matrix_power import trace_matrix_power
+from toqito.cones.tsallis_entropy import tsallis_entropy
+from toqito.cones.tsallis_relative_entropy import tsallis_relative_entropy
