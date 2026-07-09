@@ -511,7 +511,7 @@ class TestQuantumRelativeEntropyAffineValueErrors:
         t.value = -1.0
         with pytest.raises(
             ValueError,
-            match="free CVXPY variables",
+            match=re.escape("Affine or variable CVXPY inputs are not yet supported; pass numeric matrices."),
         ):
             quantum_relative_entropy(
                 t * np.eye(n),

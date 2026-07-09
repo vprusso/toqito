@@ -7,7 +7,7 @@ import cvxpy
 import numpy as np
 from scipy.linalg import LinAlgError, eig, eigh
 
-from toqito.cones._utils import _contains_effective_variables
+from toqito.cones._utils import _reject_nonconstant_cvxpy
 from toqito.matrix_props import is_positive_semidefinite
 
 
@@ -187,27 +187,28 @@ def evaluate_relative_entropy_integral(
         RuntimeError: If a bound SDP fails to solve.
 
     """
-    if isinstance(mat_x, cvxpy.Expression) and _contains_effective_variables(mat_x):
-        raise ValueError(
-            "mat_x must not contain free CVXPY variables; use a constant expression or formulate constraints directly."
-        )
-
-    if isinstance(mat_y, cvxpy.Expression) and _contains_effective_variables(mat_y):
-        raise ValueError(
-            "mat_y must not contain free CVXPY variables; use a constant expression or formulate constraints directly."
-        )
-    mat_x = np.asarray(mat_x)
-    mat_y = np.asarray(mat_y)
+    if isinstance(mat_x, cvxpy.Expression) and mat_x.value is not None:
+        mat_x_eval = np.asarray(mat_x.value)
+    else:
+        mat_x_eval = np.asarray(mat_x)
+    if isinstance(mat_y, cvxpy.Expression) and mat_y.value is not None:
+        mat_y_eval = np.asarray(mat_y.value)
+    else:
+        mat_y_eval = np.asarray(mat_y)
     if mat_x.shape != mat_y.shape:
         raise ValueError("mat_x and mat_y must have the same shape.")
-    if not is_positive_semidefinite(mat_x):
+    if not is_positive_semidefinite(mat_x_eval):
         raise ValueError("mat_x must be a positive semidefinite matrix.")
-    if not is_positive_semidefinite(mat_y):
+    if not is_positive_semidefinite(mat_y_eval):
         raise ValueError("mat_y must be a positive semidefinite matrix.")
-    if np.allclose(mat_x, mat_y):
+    _reject_nonconstant_cvxpy(mat_x, mat_y)
+    if np.allclose(mat_x_eval, mat_y_eval):
         if mean:
             return 0.0
         return 0.0, 0.0
+
+    mat_x = mat_x_eval
+    mat_y = mat_y_eval
 
     n = int(mat_x.shape[0])
     is_cplx = np.iscomplexobj(mat_x) or np.iscomplexobj(mat_y)

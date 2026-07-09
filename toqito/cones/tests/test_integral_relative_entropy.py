@@ -232,18 +232,24 @@ def test_evaluate_relative_entropy_integral_numpy_still_works():
 
 
 def test_evaluate_relative_entropy_integral_free_variable_mat_x_raises():
-    """A free CVXPY Variable in mat_x must raise ValueError mentioning free CVXPY variables."""
+    """A free CVXPY Variable in mat_x must raise the shared nonconstant guard message."""
     x_var = cvxpy.Variable((2, 2), symmetric=True)
     x_var.value = np.diag([0.7, 0.3])
     mat_y = np.diag([0.6, 0.4])
-    with pytest.raises(ValueError, match="free CVXPY variables"):
+    with pytest.raises(
+        ValueError,
+        match=re.escape("Affine or variable CVXPY inputs are not yet supported; pass numeric matrices."),
+    ):
         evaluate_relative_entropy_integral(x_var, mat_y)
 
 
 def test_evaluate_relative_entropy_integral_free_variable_mat_y_raises():
-    """A free CVXPY Variable in mat_y must raise ValueError mentioning free CVXPY variables."""
+    """A free CVXPY Variable in mat_y must raise the shared nonconstant guard message."""
     mat_x = np.diag([0.7, 0.3])
     y_var = cvxpy.Variable((2, 2), symmetric=True)
     y_var.value = np.diag([0.6, 0.4])
-    with pytest.raises(ValueError, match="free CVXPY variables"):
+    with pytest.raises(
+        ValueError,
+        match=re.escape("Affine or variable CVXPY inputs are not yet supported; pass numeric matrices."),
+    ):
         evaluate_relative_entropy_integral(mat_x, y_var)

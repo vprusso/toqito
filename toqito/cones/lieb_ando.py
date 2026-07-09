@@ -6,7 +6,7 @@ r"""Computes \(f(A, B, K, t) = \operatorname{tr}(K^{\dagger} A^{1-t} K B^{t})\) 
 import cvxpy
 import numpy as np
 
-from toqito.cones._utils import _contains_effective_variables, _require_2d, _require_square_2d
+from toqito.cones._utils import _reject_nonconstant_cvxpy, _require_2d, _require_square_2d
 from toqito.cones.geometric_mean_epi_cone import geometric_mean_epi_cone
 from toqito.cones.geometric_mean_hypo_cone import geometric_mean_hypo_cone
 from toqito.cones.trace_matrix_power import trace_matrix_power
@@ -92,20 +92,11 @@ def lieb_ando(
         mat_kkb = (mat_kkb + mat_kkb.conj().T) / 2
         return trace_matrix_power(mat_a, 1 - t, mat_kkb)
     else:
-        if _contains_effective_variables(mat_a):
-            raise ValueError(
-                "mat_a must not contain free CVXPY variables; "
-                "use a constant expression or formulate cone constraints directly."
-            )
-        if _contains_effective_variables(mat_b):
-            raise ValueError(
-                "mat_b must not contain free CVXPY variables; "
-                "use a constant expression or formulate cone constraints directly."
-            )
         if not mat_a.is_affine() or not mat_b.is_affine():
             raise ValueError("mat_a and mat_b must be affine expressions.")
         if not is_positive_semidefinite(mat_a.value) or not is_positive_semidefinite(mat_b.value):
             raise ValueError("mat_a and mat_b must be positive semidefinite.")
+        _reject_nonconstant_cvxpy(mat_a, mat_b)
 
         n = mat_a.shape[0]
         m = mat_b.shape[0]

@@ -247,7 +247,7 @@ class TestLnQuantumEntropyValueErrors:
         assert expr.value is None
         with pytest.raises(
             ValueError,
-            match="free CVXPY variables",
+            match=re.escape("Affine or variable CVXPY inputs are not yet supported; pass numeric matrices."),
         ):
             ln_quantum_entropy(expr)
 
@@ -260,7 +260,7 @@ class TestLnQuantumEntropyValueErrors:
         assert expr.value is not None
         with pytest.raises(
             ValueError,
-            match="free CVXPY variables",
+            match="Affine or variable CVXPY inputs are not yet supported; pass numeric matrices.",
         ):
             ln_quantum_entropy(expr)
 
@@ -280,8 +280,9 @@ def test_ln_quantum_entropy_constant_cvxpy_still_works():
 
 
 def test_ln_quantum_entropy_free_variable_raises():
-    """A free CVXPY Variable must raise ValueError mentioning free CVXPY variables."""
+    """A free CVXPY Variable with a valid PSD .value now proceeds through the SDP path."""
     x_var = cvxpy.Variable((2, 2), symmetric=True)
     x_var.value = np.diag([0.7, 0.3])
-    with pytest.raises(ValueError, match="free CVXPY variables"):
-        ln_quantum_entropy(x_var)
+    val = ln_quantum_entropy(x_var)
+    ref = float(np.real(-np.trace(np.diag([0.7, 0.3]) @ logm(np.diag([0.7, 0.3])))))
+    np.testing.assert_allclose(float(val), ref, rtol=5e-3, atol=1e-5)

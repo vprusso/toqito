@@ -281,7 +281,7 @@ class TestTraceMatrixLogValueErrors:
         assert expr.value is None
         with pytest.raises(
             ValueError,
-            match="free CVXPY variables",
+            match=re.escape("Affine or variable CVXPY inputs are not yet supported; pass numeric matrices."),
         ):
             trace_matrix_log(expr, np.eye(n))
 
@@ -294,7 +294,7 @@ class TestTraceMatrixLogValueErrors:
         assert expr.value is not None
         with pytest.raises(
             ValueError,
-            match="free CVXPY variables",
+            match="Affine or variable CVXPY inputs are not yet supported; pass numeric matrices.",
         ):
             trace_matrix_log(expr, np.eye(n))
 
@@ -314,8 +314,10 @@ def test_trace_matrix_log_constant_cvxpy_still_works():
 
 
 def test_trace_matrix_log_free_variable_raises():
-    """A free CVXPY Variable must raise ValueError mentioning free CVXPY variables."""
+    """A free CVXPY Variable with a valid PSD .value now proceeds through the SDP path."""
     x_var = cvxpy.Variable((2, 2), symmetric=True)
     x_var.value = np.diag([0.7, 0.3])
-    with pytest.raises(ValueError, match="free CVXPY variables"):
-        trace_matrix_log(x_var)
+    mat_c = np.eye(2)
+    val = trace_matrix_log(x_var, mat_c)
+    ref = float(np.real(np.trace(mat_c @ logm(np.diag([0.7, 0.3])))))
+    np.testing.assert_allclose(float(val), ref, rtol=5e-3, atol=1e-5)
