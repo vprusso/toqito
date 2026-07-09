@@ -247,7 +247,7 @@ class TestLnQuantumEntropyValueErrors:
         assert expr.value is None
         with pytest.raises(
             ValueError,
-            match=re.escape("Affine mat_x has no numeric initial value; set `.value` for PSD checks."),
+            match="free CVXPY variables",
         ):
             ln_quantum_entropy(expr)
 
@@ -260,6 +260,28 @@ class TestLnQuantumEntropyValueErrors:
         assert expr.value is not None
         with pytest.raises(
             ValueError,
-            match=re.escape("mat_x must be positive semidefinite at the initial value."),
+            match="free CVXPY variables",
         ):
             ln_quantum_entropy(expr)
+
+
+def test_ln_quantum_entropy_numpy_still_works():
+    """Numeric numpy path is unaffected by the guard."""
+    mat_x = np.diag([0.7, 0.3])
+    result = ln_quantum_entropy(mat_x)
+    assert np.isfinite(result)
+
+
+def test_ln_quantum_entropy_constant_cvxpy_still_works():
+    """A CVXPY Constant (no free variables) must not be rejected."""
+    mat_x = np.diag([0.7, 0.3])
+    result = ln_quantum_entropy(cvxpy.Constant(mat_x))
+    assert np.isfinite(result)
+
+
+def test_ln_quantum_entropy_free_variable_raises():
+    """A free CVXPY Variable must raise ValueError mentioning free CVXPY variables."""
+    x_var = cvxpy.Variable((2, 2), symmetric=True)
+    x_var.value = np.diag([0.7, 0.3])
+    with pytest.raises(ValueError, match="free CVXPY variables"):
+        ln_quantum_entropy(x_var)

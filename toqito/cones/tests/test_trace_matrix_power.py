@@ -169,10 +169,10 @@ def test_trace_matrix_power_raises_mat_a_neither_ndarray_nor_cvx_expression():
 
 
 def test_trace_matrix_power_sdp_raises_non_affine():
-    """Only affine mat_a is admitted (matching CVXQUAD DCP check)."""
+    """Only affine mat_a is admitted; free-variable guard fires before the affine check."""
     var_x = cvxpy.Variable((2, 2), symmetric=True)
     non_affine_a = var_x @ var_x
-    with pytest.raises(ValueError, match=re.escape("The matrix mat_a must be an affine expression.")):
+    with pytest.raises(ValueError, match="free CVXPY variables"):
         trace_matrix_power(non_affine_a, 0.5)
 
 
@@ -264,3 +264,26 @@ def test_trace_matrix_power_sdp_matches_numeric_epigraph_region(
     mat_a_const = cvxpy.Constant(mat_a_np)
     val = trace_matrix_power(mat_a_const, t, mat_c_np)
     np.testing.assert_allclose(float(val), ref, rtol=2.5e-2, atol=1e-2)
+
+
+def test_trace_matrix_power_numpy_still_works():
+    """Numeric numpy path is unaffected by the guard."""
+    mat_a = np.diag([0.7, 0.3])
+    result = trace_matrix_power(mat_a, 0.5)
+    assert result > 0
+
+
+def test_trace_matrix_power_constant_cvxpy_still_works():
+    """A CVXPY Constant (no free variables) must not be rejected."""
+    mat_a = np.diag([0.7, 0.3])
+    mat_a_const = cvxpy.Constant(mat_a)
+    result = trace_matrix_power(mat_a_const, 0.5)
+    assert result > 0
+
+
+def test_trace_matrix_power_free_variable_raises():
+    """A free CVXPY Variable must raise ValueError mentioning free CVXPY variables."""
+    x_var = cvxpy.Variable((2, 2), symmetric=True)
+    x_var.value = np.diag([0.7, 0.3])
+    with pytest.raises(ValueError, match="free CVXPY variables"):
+        trace_matrix_power(x_var, 0.5)

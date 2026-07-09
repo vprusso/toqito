@@ -7,7 +7,7 @@ import cvxpy
 import numpy as np
 from scipy.linalg import logm
 
-from toqito.cones._utils import _require_square_2d
+from toqito.cones._utils import _contains_effective_variables, _require_square_2d
 from toqito.cones.operator_relative_entropy_epi_cone import (
     operator_relative_entropy_epi_cone,
 )
@@ -65,6 +65,11 @@ def ln_quantum_entropy(mat_x: np.ndarray | cvxpy.Expression, m: int = 3, k: int 
 
     if not mat_x.is_affine():
         raise ValueError("mat_x must be an affine CVXPY expression.")
+    if _contains_effective_variables(mat_x):
+        raise ValueError(
+            "mat_x must not contain free CVXPY variables; "
+            "use a constant expression or formulate cone constraints directly."
+        )
     if mat_x.value is None:
         raise ValueError("Affine mat_x has no numeric initial value; set `.value` for PSD checks.")
     if not is_positive_semidefinite(mat_x.value):

@@ -7,6 +7,7 @@ import cvxpy
 import numpy as np
 from scipy.linalg import LinAlgError, eig, eigh
 
+from toqito.cones._utils import _contains_effective_variables
 from toqito.matrix_props import is_positive_semidefinite
 
 
@@ -148,8 +149,8 @@ def _integral_correction(lam: float) -> float:
 
 
 def evaluate_relative_entropy_integral(
-    mat_x: np.ndarray,
-    mat_y: np.ndarray,
+    mat_x: np.ndarray | cvxpy.Expression,
+    mat_y: np.ndarray | cvxpy.Expression,
     *,
     epsilon_dec: float = 1e-2,
     mean: bool = True,
@@ -180,10 +181,21 @@ def evaluate_relative_entropy_integral(
         Either the midpoint estimate or the pair ``(lower, upper)``.
 
     Raises:
-        ValueError: If inputs are not PSD, shapes mismatch, or \(\mu,\lambda\) are degenerate.
+        ValueError: If inputs contain unsupported free CVXPY variables,
+            are not PSD, shapes mismatch, or \(\mu,\lambda\) are
+            degenerate.
         RuntimeError: If a bound SDP fails to solve.
 
     """
+    if isinstance(mat_x, cvxpy.Expression) and _contains_effective_variables(mat_x):
+        raise ValueError(
+            "mat_x must not contain free CVXPY variables; use a constant expression or formulate constraints directly."
+        )
+
+    if isinstance(mat_y, cvxpy.Expression) and _contains_effective_variables(mat_y):
+        raise ValueError(
+            "mat_y must not contain free CVXPY variables; use a constant expression or formulate constraints directly."
+        )
     mat_x = np.asarray(mat_x)
     mat_y = np.asarray(mat_y)
     if mat_x.shape != mat_y.shape:
