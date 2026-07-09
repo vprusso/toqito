@@ -61,6 +61,12 @@ def test_pgm_invalid_probs(states, probs):
         pretty_good_measurement(states, probs)
 
 
+def test_pgm_negative_probability_raises():
+    """Ensures that probability vectors must be nonnegative."""
+    with pytest.raises(ValueError, match="nonnegative"):
+        pretty_good_measurement(trine(), [-1 / 3, 2 / 3, 2 / 3])
+
+
 @pytest.mark.parametrize(
     "states, probs",
     [
