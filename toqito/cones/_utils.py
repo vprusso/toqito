@@ -6,6 +6,15 @@ from typing import Any
 import cvxpy
 import numpy as np
 
+_AFFINE_VARIABLE_NOT_SUPPORTED = "Affine or variable CVXPY inputs are not yet supported; pass numeric matrices."
+
+
+def _reject_nonconstant_cvxpy(*exprs: np.ndarray | cvxpy.Expression) -> None:
+    """Raise if any CVXPY expression is not constant (numeric evaluation only)."""
+    for expr in exprs:
+        if isinstance(expr, cvxpy.Expression) and not expr.is_constant():
+            raise ValueError(_AFFINE_VARIABLE_NOT_SUPPORTED)
+
 
 def _contains_effective_variables(expr: cvxpy.Expression) -> bool:
     """Check whether CVXPY variables affect the expression value.

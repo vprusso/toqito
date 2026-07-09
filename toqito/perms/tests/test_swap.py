@@ -3,7 +3,7 @@
 import numpy as np
 import pytest
 
-from toqito.perms import swap
+from toqito.perms import permute_systems, swap
 
 
 @pytest.mark.parametrize(
@@ -502,6 +502,17 @@ from toqito.perms import swap
 def test_swap(input_matrix, sys, dim, row_only, expected_result):
     """Test swap operation."""
     result = swap(input_matrix, sys, dim, row_only)
+    assert np.allclose(result, expected_result)
+
+
+def test_swap_with_rectangular_dim_counts_subsystems_by_columns():
+    """Test swap accepts a two-row dim form with more than two subsystems."""
+    test_matrix = np.arange(96).reshape(12, 8)
+    dim = [[2, 2, 3], [2, 2, 2]]
+    expected_result = permute_systems(test_matrix, [2, 1, 0], dim)
+
+    result = swap(test_matrix, [1, 3], dim)
+
     assert np.allclose(result, expected_result)
 
 
