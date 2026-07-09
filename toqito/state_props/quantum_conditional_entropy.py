@@ -55,8 +55,6 @@ def quantum_conditional_entropy(
         Compute \(H(A|B)\) for a Bell state and for a product state:
 
         ```python exec="1" source="above" result="text"
-        import warnings
-
         import numpy as np
 
         from toqito.state_props import quantum_conditional_entropy
@@ -65,10 +63,8 @@ def quantum_conditional_entropy(
         bell_state = np.outer(psi, psi.conj())
         product_state = np.diag([1 / 2, 0, 1 / 2, 0])
 
-        with warnings.catch_warnings():
-            warnings.filterwarnings("ignore", message="The logm input matrix is exactly singular.")
-            bell_entropy = quantum_conditional_entropy(bell_state, [2, 2], sys=0)
-            product_entropy = quantum_conditional_entropy(product_state, [2, 2], sys=0)
+        bell_entropy = quantum_conditional_entropy(bell_state, [2, 2], sys=0)
+        product_entropy = quantum_conditional_entropy(product_state, [2, 2], sys=0)
 
         print(f"Bell state H(A|B): {bell_entropy:.6f}")
         print(f"Product state H(A|B): {product_entropy:.6f}")
