@@ -99,6 +99,20 @@ def quantum_relative_entropy(
     Returns:
         The quantum relative entropy \(D(X||Y)\) as a float.
 
+    Examples:
+        Compute \(D(|0\rangle\langle 0| \parallel I / 2)\), which is
+        \(\ln(2)\) in nats.
+
+        ```python exec="1" source="above" result="text"
+        import numpy as np
+
+        from toqito.state_props import quantum_relative_entropy
+
+        rho = np.array([[1.0, 0.0], [0.0, 0.0]])
+        sigma = np.identity(2) / 2
+        print(f"{quantum_relative_entropy(rho, sigma):.6f}")
+        ```
+
     """
     if not isinstance(mat_x, (np.ndarray, cvxpy.Expression)):
         raise ValueError("mat_x must be a numpy array or a cvxpy expression")
