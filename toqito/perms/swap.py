@@ -141,7 +141,7 @@ def swap(
         if not all(isinstance(d, (int, float, np.integer, np.floating)) for d in np.ravel(dim)):
             raise TypeError("dim entries must be int or float values.")
         dim = np.array(dim, dtype=int)
-        num_sys = len(dim)
+        num_sys = dim.shape[1] if dim.ndim == 2 and dim.shape[0] == 2 else len(dim)
 
     if len(sys) != 2:
         raise ValueError("InvalidSys: sys must be a vector with exactly two elements.")
