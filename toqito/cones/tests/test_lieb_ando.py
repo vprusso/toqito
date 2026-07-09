@@ -210,22 +210,26 @@ def test_lieb_ando_raises_cv_expression_shapes_and_psd_and_t(
 
 
 def test_lieb_ando_raises_non_affine_both_expressions():
-    """Both arguments must be affine when they are CVXPY expressions."""
+    """Both arguments must be affine when they are CVXPY expressions.
+
+    The is_affine() check fires before the nonconstant guard, so a
+    non-affine expression raises the affine error message.
+    """
     var_x = cvxpy.Variable((2, 2), symmetric=True)
     non_affine = var_x @ var_x
     with pytest.raises(
         ValueError,
-        match=re.escape("mat_a and mat_b must be affine expressions."),
+        match="mat_a and mat_b must be affine expressions.",
     ):
         lieb_ando(non_affine, cvxpy.Constant(I_2), I_2, 0.5)
     with pytest.raises(
         ValueError,
-        match=re.escape("mat_a and mat_b must be affine expressions."),
+        match="mat_a and mat_b must be affine expressions.",
     ):
         lieb_ando(cvxpy.Constant(I_2), non_affine, I_2, 0.5)
     with pytest.raises(
         ValueError,
-        match=re.escape("mat_a and mat_b must be affine expressions."),
+        match="mat_a and mat_b must be affine expressions.",
     ):
         lieb_ando(non_affine, non_affine, I_2, 0.5)
 
@@ -416,3 +420,47 @@ def test_lieb_ando_sdp_matches_numeric_complex_nontrivial_k(t: float):
     val = float(np.real(lieb_ando(cvxpy.Constant(mat_a), cvxpy.Constant(mat_b), mat_k, t)))
     atol = 5e-4 if 0 <= t <= 1 else 5e-3
     np.testing.assert_allclose(val, ref, rtol=1e-4, atol=atol)
+
+
+def test_lieb_ando_numpy_still_works():
+    """Numeric numpy path is unaffected by the guard."""
+    mat_a = np.diag([0.7, 0.3])
+    mat_b = np.diag([0.6, 0.4])
+    mat_k = np.eye(2)
+    result = lieb_ando(mat_a, mat_b, mat_k, 0.5)
+    assert result > 0
+
+
+def test_lieb_ando_constant_cvxpy_still_works():
+    """CVXPY Constants (no free variables) must not be rejected."""
+    mat_a = np.diag([0.7, 0.3])
+    mat_b = np.diag([0.6, 0.4])
+    mat_k = np.eye(2)
+    result = lieb_ando(cvxpy.Constant(mat_a), cvxpy.Constant(mat_b), mat_k, 0.5)
+    assert result > 0
+
+
+def test_lieb_ando_free_variable_mat_a_raises():
+    """A free CVXPY Variable in mat_a must raise the shared nonconstant guard message."""
+    mat_b = np.diag([0.6, 0.4])
+    mat_k = np.eye(2)
+    x_var = cvxpy.Variable((2, 2), symmetric=True)
+    x_var.value = np.diag([0.7, 0.3])
+    with pytest.raises(
+        ValueError,
+        match=re.escape("Affine or variable CVXPY inputs are not yet supported; pass numeric matrices."),
+    ):
+        lieb_ando(x_var, cvxpy.Constant(mat_b), mat_k, 0.5)
+
+
+def test_lieb_ando_free_variable_mat_b_raises():
+    """A free CVXPY Variable in mat_b must raise the shared nonconstant guard message."""
+    mat_a = np.diag([0.7, 0.3])
+    mat_k = np.eye(2)
+    y_var = cvxpy.Variable((2, 2), symmetric=True)
+    y_var.value = np.diag([0.6, 0.4])
+    with pytest.raises(
+        ValueError,
+        match=re.escape("Affine or variable CVXPY inputs are not yet supported; pass numeric matrices."),
+    ):
+        lieb_ando(cvxpy.Constant(mat_a), y_var, mat_k, 0.5)

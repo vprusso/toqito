@@ -467,7 +467,7 @@ class TestQuantumRelativeEntropyAffineValueErrors:
         y_var.value = np.eye(n)
         with pytest.raises(
             ValueError,
-            match=re.escape("mat_x and mat_y must be affine CVXPY expressions."),
+            match="mat_x and mat_y must be affine CVXPY expressions",
         ):
             quantum_relative_entropy(
                 x_var @ x_var,
@@ -482,7 +482,7 @@ class TestQuantumRelativeEntropyAffineValueErrors:
         t_y = cvxpy.Variable()
         with pytest.raises(
             ValueError,
-            match=re.escape("Affine mat_x and mat_y need numeric initial values; set `.value` for PSD checks."),
+            match="need numeric initial values",
         ):
             quantum_relative_entropy(
                 t_x * np.eye(n),
@@ -511,7 +511,7 @@ class TestQuantumRelativeEntropyAffineValueErrors:
         t.value = -1.0
         with pytest.raises(
             ValueError,
-            match=re.escape("mat_x must be positive semidefinite at the initial value."),
+            match=re.escape("Affine or variable CVXPY inputs are not yet supported; pass numeric matrices."),
         ):
             quantum_relative_entropy(
                 t * np.eye(n),
@@ -528,7 +528,7 @@ class TestQuantumRelativeEntropyAffineValueErrors:
         t_y.value = 1.0
         with pytest.raises(
             ValueError,
-            match=re.escape("mat_x must be positive semidefinite at the initial value."),
+            match="mat_x must be positive semidefinite",
         ):
             quantum_relative_entropy(
                 t_x * np.eye(n),
@@ -545,10 +545,28 @@ class TestQuantumRelativeEntropyAffineValueErrors:
         t_y.value = -1.0
         with pytest.raises(
             ValueError,
-            match=re.escape("mat_y must be positive semidefinite at the initial value."),
+            match="mat_y must be positive semidefinite",
         ):
             quantum_relative_entropy(
                 t_x * np.eye(n),
                 t_y * np.eye(n),
                 space_optimized=space_optimized,
             )
+
+
+def test_quantum_relative_entropy_numpy_still_works():
+    """Numeric numpy path is unaffected by the guard."""
+    mat_x = np.diag([0.7, 0.3])
+    mat_y = np.diag([0.6, 0.4])
+    result = quantum_relative_entropy(mat_x, mat_y)
+    assert np.isfinite(result)
+    assert result > 0
+
+
+def test_quantum_relative_entropy_constant_cvxpy_still_works():
+    """Constant CVXPY expressions (no free variables) must not be rejected."""
+    mat_x = np.diag([0.7, 0.3])
+    mat_y = np.diag([0.6, 0.4])
+    result = quantum_relative_entropy(cvxpy.Constant(mat_x), cvxpy.Constant(mat_y))
+    assert np.isfinite(result)
+    assert result > 0

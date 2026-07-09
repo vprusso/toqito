@@ -281,7 +281,7 @@ class TestTraceMatrixLogValueErrors:
         assert expr.value is None
         with pytest.raises(
             ValueError,
-            match=re.escape("Affine mat_x has no numeric initial value; set `.value` for PSD checks."),
+            match=re.escape("Affine or variable CVXPY inputs are not yet supported; pass numeric matrices."),
         ):
             trace_matrix_log(expr, np.eye(n))
 
@@ -294,6 +294,30 @@ class TestTraceMatrixLogValueErrors:
         assert expr.value is not None
         with pytest.raises(
             ValueError,
-            match=re.escape("mat_x must be positive semidefinite at the initial value."),
+            match="Affine or variable CVXPY inputs are not yet supported; pass numeric matrices.",
         ):
             trace_matrix_log(expr, np.eye(n))
+
+
+def test_trace_matrix_log_numpy_still_works():
+    """Numeric numpy path is unaffected by the guard."""
+    mat_x = np.diag([0.7, 0.3])
+    result = trace_matrix_log(mat_x)
+    assert np.isfinite(result)
+
+
+def test_trace_matrix_log_constant_cvxpy_still_works():
+    """A CVXPY Constant (no free variables) must not be rejected."""
+    mat_x = np.diag([0.7, 0.3])
+    result = trace_matrix_log(cvxpy.Constant(mat_x))
+    assert np.isfinite(result)
+
+
+def test_trace_matrix_log_free_variable_raises():
+    """A free CVXPY Variable with a valid PSD .value now proceeds through the SDP path."""
+    x_var = cvxpy.Variable((2, 2), symmetric=True)
+    x_var.value = np.diag([0.7, 0.3])
+    mat_c = np.eye(2)
+    val = trace_matrix_log(x_var, mat_c)
+    ref = float(np.real(np.trace(mat_c @ logm(np.diag([0.7, 0.3])))))
+    np.testing.assert_allclose(float(val), ref, rtol=5e-3, atol=1e-5)

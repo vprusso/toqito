@@ -7,10 +7,7 @@ import cvxpy
 import numpy as np
 from scipy.linalg import logm
 
-from toqito.cones._utils import _require_square_2d
-from toqito.cones.operator_relative_entropy_epi_cone import (
-    operator_relative_entropy_epi_cone,
-)
+from toqito.cones._utils import _AFFINE_VARIABLE_NOT_SUPPORTED, _require_square_2d
 from toqito.matrix_props import is_positive_semidefinite
 
 
@@ -83,38 +80,12 @@ def trace_matrix_log(
             )
         return trace_matrix_log(np.asarray(x_val), mat_c, m, k, apx)
 
+    # Affine non-constant expression: evaluate numerically via .value.
     if not mat_x.is_affine():
         raise ValueError("mat_x must be an affine CVXPY expression.")
     if mat_x.value is None:
-        raise ValueError("Affine mat_x has no numeric initial value; set `.value` for PSD checks.")
-    if not is_positive_semidefinite(mat_x.value):
-        raise ValueError("mat_x must be positive semidefinite at the initial value.")
-
-    n = int(mat_x.shape[0])
-    is_cplx = np.any(np.imag(mat_x.value) != 0) or np.any(np.imag(mat_c) != 0)
-    if is_cplx:
-        tau = cvxpy.Variable((n, n), hermitian=True)
-    else:
-        tau = cvxpy.Variable((n, n), symmetric=True)
-
-    eye_n = cvxpy.Constant(np.eye(n))
-    # Negate apx: cone is epigraph of D_op(I, X) = -log X; flip so apx bounds +log X for the caller.
-    cons = operator_relative_entropy_epi_cone(
-        eye_n,
-        mat_x,
-        tau,
-        m=m,
-        k=k,
-        e=np.eye(n),
-        apx=-apx,
-        hermitian=is_cplx,
-    )
-    c_expr = cvxpy.Constant(mat_c)
-    obj = -cvxpy.trace(c_expr @ tau)
-    if is_cplx:
-        obj = cvxpy.real(obj)
-    prob = cvxpy.Problem(cvxpy.Maximize(obj), cons)
-    result = prob.solve(solver=cvxpy.SCS, verbose=False)
-    if prob.status not in (cvxpy.OPTIMAL, cvxpy.OPTIMAL_INACCURATE):
-        raise ValueError(f"The SDP did not solve successfully (status: {prob.status}).")
-    return result
+        raise ValueError(_AFFINE_VARIABLE_NOT_SUPPORTED)
+    x_val = np.asarray(mat_x.value)
+    if not is_positive_semidefinite(x_val):
+        raise ValueError(_AFFINE_VARIABLE_NOT_SUPPORTED)
+    return trace_matrix_log(x_val, mat_c, m, k, apx)

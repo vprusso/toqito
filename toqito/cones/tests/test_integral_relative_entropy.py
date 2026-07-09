@@ -221,3 +221,35 @@ def test_sandwich_parameters_raises_on_lin_alg_error(monkeypatch):
         match=re.escape("Failed to compute sandwich parameters from generalized eigenvalues."),
     ):
         _sandwich_parameters(np.eye(2), np.eye(2) / 2)
+
+
+def test_evaluate_relative_entropy_integral_numpy_still_works():
+    """Numeric numpy path is unaffected by the guard."""
+    mat_x = np.diag([0.7, 0.3])
+    mat_y = np.diag([0.6, 0.4])
+    result = evaluate_relative_entropy_integral(mat_x, mat_y)
+    assert np.isfinite(result)
+
+
+def test_evaluate_relative_entropy_integral_free_variable_mat_x_raises():
+    """A free CVXPY Variable in mat_x must raise the shared nonconstant guard message."""
+    x_var = cvxpy.Variable((2, 2), symmetric=True)
+    x_var.value = np.diag([0.7, 0.3])
+    mat_y = np.diag([0.6, 0.4])
+    with pytest.raises(
+        ValueError,
+        match=re.escape("Affine or variable CVXPY inputs are not yet supported; pass numeric matrices."),
+    ):
+        evaluate_relative_entropy_integral(x_var, mat_y)
+
+
+def test_evaluate_relative_entropy_integral_free_variable_mat_y_raises():
+    """A free CVXPY Variable in mat_y must raise the shared nonconstant guard message."""
+    mat_x = np.diag([0.7, 0.3])
+    y_var = cvxpy.Variable((2, 2), symmetric=True)
+    y_var.value = np.diag([0.6, 0.4])
+    with pytest.raises(
+        ValueError,
+        match=re.escape("Affine or variable CVXPY inputs are not yet supported; pass numeric matrices."),
+    ):
+        evaluate_relative_entropy_integral(mat_x, y_var)

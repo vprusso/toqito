@@ -6,7 +6,7 @@ r"""Computes \(f(A, B, K, t) = \operatorname{tr}(K^{\dagger} A^{1-t} K B^{t})\) 
 import cvxpy
 import numpy as np
 
-from toqito.cones._utils import _require_2d, _require_square_2d
+from toqito.cones._utils import _reject_nonconstant_cvxpy, _require_2d, _require_square_2d
 from toqito.cones.geometric_mean_epi_cone import geometric_mean_epi_cone
 from toqito.cones.geometric_mean_hypo_cone import geometric_mean_hypo_cone
 from toqito.cones.trace_matrix_power import trace_matrix_power
@@ -96,6 +96,7 @@ def lieb_ando(
             raise ValueError("mat_a and mat_b must be affine expressions.")
         if not is_positive_semidefinite(mat_a.value) or not is_positive_semidefinite(mat_b.value):
             raise ValueError("mat_a and mat_b must be positive semidefinite.")
+        _reject_nonconstant_cvxpy(mat_a, mat_b)
 
         n = mat_a.shape[0]
         m = mat_b.shape[0]
