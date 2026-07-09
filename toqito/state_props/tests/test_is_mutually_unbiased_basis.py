@@ -81,3 +81,15 @@ e_0, e_1 = basis(2, 0), basis(2, 1)
 def test_is_mutually_unbiased(states, expected_result):
     """Test function works as expected for a valid input."""
     np.testing.assert_equal(is_mutually_unbiased_basis(states), expected_result)
+
+
+def test_non_orthonormal_basis():
+    """Test that non-orthonormal vector sets are rejected."""
+    e0, e1 = basis(2, 0), basis(2, 1)
+
+    v = 1 / np.sqrt(2) * (e0 + e1)
+
+    np.testing.assert_equal(
+        is_mutually_unbiased_basis([e0, e1, v, v]),
+        False,
+    )
