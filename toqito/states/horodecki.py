@@ -62,6 +62,14 @@ def horodecki(a_param: float, dim: list[int] | None = None) -> np.ndarray:
         [@horodecki1997separability] and the 2x4 Horodecki state is defined explicitly in Section 4.2 of
         [@horodecki1997separability].
 
+    Args:
+        a_param: State parameter in the interval [0, 1].
+        dim: Local dimensions of the state. Supported values are [3, 3] and [2, 4];
+            defaults to [3, 3].
+
+    Returns:
+        The Horodecki density matrix for the requested dimensions.
+
     Examples:
         The following code generates a Horodecki state in \(\mathbb{C}^3 \otimes \mathbb{C}^3\)
 

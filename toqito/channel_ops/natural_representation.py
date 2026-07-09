@@ -10,6 +10,13 @@ def natural_representation(kraus_ops: list[np.ndarray]) -> np.ndarray:
     \(\Phi = \sum_i K_i \otimes K_i^*\)
     where \(K_i^*\) is the complex conjugate of \(K_i\).
 
+    Args:
+        kraus_ops: A list of Kraus operators, or a stacked ndarray whose first
+            axis indexes the Kraus operators.
+
+    Returns:
+        The natural-representation matrix of the quantum channel.
+
     Examples:
         ```python exec="1" source="above" result="text"
         import numpy as np
