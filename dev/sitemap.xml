@@ -321,11 +321,23 @@
          <lastmod>2026-07-09</lastmod>
     </url>
     <url>
+         <loc>https://vprusso.github.io/toqito/dev/reference/toqito/cones/relative_entropy_quadrature/</loc>
+         <lastmod>2026-07-09</lastmod>
+    </url>
+    <url>
          <loc>https://vprusso.github.io/toqito/dev/reference/toqito/cones/trace_matrix_log/</loc>
          <lastmod>2026-07-09</lastmod>
     </url>
     <url>
          <loc>https://vprusso.github.io/toqito/dev/reference/toqito/cones/trace_matrix_power/</loc>
+         <lastmod>2026-07-09</lastmod>
+    </url>
+    <url>
+         <loc>https://vprusso.github.io/toqito/dev/reference/toqito/cones/tsallis_entropy/</loc>
+         <lastmod>2026-07-09</lastmod>
+    </url>
+    <url>
+         <loc>https://vprusso.github.io/toqito/dev/reference/toqito/cones/tsallis_relative_entropy/</loc>
          <lastmod>2026-07-09</lastmod>
     </url>
     <url>
