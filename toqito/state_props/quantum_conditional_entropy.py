@@ -51,6 +51,25 @@ def quantum_conditional_entropy(
     Returns:
         The conditional entropy in nats.
 
+    Examples:
+        Compute \(H(A|B)\) for a Bell state and for a product state:
+
+        ```python exec="1" source="above" result="text"
+        import numpy as np
+
+        from toqito.state_props import quantum_conditional_entropy
+
+        psi = np.array([1, 0, 0, 1]) / np.sqrt(2)
+        bell_state = np.outer(psi, psi.conj())
+        product_state = np.diag([1 / 2, 0, 1 / 2, 0])
+
+        bell_entropy = quantum_conditional_entropy(bell_state, [2, 2], sys=0)
+        product_entropy = quantum_conditional_entropy(product_state, [2, 2], sys=0)
+
+        print(f"Bell state H(A|B): {bell_entropy:.6f}")
+        print(f"Product state H(A|B): {product_entropy:.6f}")
+        ```
+
     """
     if sys not in [0, 1]:
         raise ValueError("sys must be 0 or 1")
