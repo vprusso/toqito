@@ -8,17 +8,14 @@ import pytest
 
 from toqito.cones.relative_entropy_quadrature import relative_entropy_quadrature
 
+_NOT_SUPPORTED = re.escape(
+    "Affine or variable CVXPY inputs are not yet supported; pass numeric matrices."
+)
+
 
 def _rand_positive(n: int, seed: int) -> np.ndarray:
     rng = np.random.default_rng(seed)
     return rng.uniform(0.1, 1.0, size=n)
-
-
-def _affine_fixed_at(vec: np.ndarray) -> cvxpy.Expression:
-    """``Constant(v) + w - w`` with ``w.value = 0`` (algebraically ``v``)."""
-    w_var = cvxpy.Variable(vec.shape)
-    w_var.value = np.zeros(vec.shape)
-    return cvxpy.Constant(vec) + w_var - w_var
 
 
 def test_relative_entropy_quadrature_numeric():
@@ -27,6 +24,16 @@ def test_relative_entropy_quadrature_numeric():
     vec_y = np.array([0.5, 0.5])
     expected = vec_x * np.log(vec_x / vec_y)
     np.testing.assert_allclose(relative_entropy_quadrature(vec_x, vec_y), expected, rtol=1e-12)
+
+
+def test_relative_entropy_quadrature_rejects_nonconstant_affine():
+    """Non-constant affine expressions are rejected."""
+    vec_x = np.array([0.3, 0.7])
+    w_var = cvxpy.Variable(2)
+    w_var.value = np.zeros(2)
+    expr = cvxpy.Constant(vec_x) + w_var - w_var
+    with pytest.raises(ValueError, match=_NOT_SUPPORTED):
+        relative_entropy_quadrature(expr, np.array([0.5, 0.5]))
 
 
 def test_relative_entropy_quadrature_broadcast_scalar_x():
@@ -53,6 +60,15 @@ def test_relative_entropy_quadrature_constant_cvxpy():
     y_c = cvxpy.Constant(vec_y)
     expected = vec_x * np.log(vec_x / vec_y)
     np.testing.assert_allclose(relative_entropy_quadrature(x_c, y_c), expected, rtol=1e-12)
+
+
+def test_relative_entropy_quadrature_constant_cvxpy_with_numpy():
+    """Mixed constant CVXPY and numpy inputs promote ``vec_y`` to ``Constant``."""
+    vec_x = np.array([0.25, 0.75])
+    vec_y = np.array([0.5, 0.5])
+    expected = vec_x * np.log(vec_x / vec_y)
+    got = relative_entropy_quadrature(cvxpy.Constant(vec_x), vec_y)
+    np.testing.assert_allclose(got, expected, rtol=1e-12)
 
 
 def test_relative_entropy_quadrature_numpy_with_constant_cvxpy():
@@ -88,82 +104,26 @@ def test_relative_entropy_quadrature_broadcast_scalar_y_cvxpy():
     )
 
 
-def test_relative_entropy_quadrature_numpy_with_affine():
-    """A numpy input with an affine CVXPY partner promotes to ``Constant``."""
-    vec_x = np.array([0.25, 0.75])
-    vec_y = np.array([0.5, 0.5])
-    ref_sum = float(np.sum(vec_x * np.log(vec_x / vec_y)))
-    val = relative_entropy_quadrature(vec_x, _affine_fixed_at(vec_y), m=3, k=3)
-    assert val == pytest.approx(ref_sum, rel=0, abs=1e-2)
-
-
-def test_relative_entropy_quadrature_affine_with_numpy():
-    """An affine CVXPY input with a numpy partner promotes to ``Constant``."""
-    vec_x = np.array([0.25, 0.75])
-    vec_y = np.array([0.5, 0.5])
-    ref_sum = float(np.sum(vec_x * np.log(vec_x / vec_y)))
-    val = relative_entropy_quadrature(_affine_fixed_at(vec_x), vec_y, m=3, k=3)
-    assert val == pytest.approx(ref_sum, rel=0, abs=1e-2)
-
-
-def test_relative_entropy_quadrature_sdp_failure(monkeypatch):
-    """A failed SDP solve should raise ``ValueError``."""
-
-    class FakeProblem:
-        def __init__(self, objective, constraints):
-            self.value = 1.0
-            self.status = cvxpy.INFEASIBLE
-
-        def solve(self, **kwargs):
-            pass
-
-    monkeypatch.setattr(cvxpy, "Problem", FakeProblem)
-
-    vec_x = np.array([0.3, 0.7])
-    vec_y = np.array([0.5, 0.5])
-    with pytest.raises(ValueError, match=re.escape("The SDP did not solve successfully")):
-        relative_entropy_quadrature(_affine_fixed_at(vec_x), _affine_fixed_at(vec_y), m=3, k=3)
+def test_relative_entropy_quadrature_rejects_bare_variable():
+    """Bare ``Variable`` inputs are not supported."""
+    x_var = cvxpy.Variable(2)
+    x_var.value = np.array([0.3, 0.7])
+    with pytest.raises(ValueError, match=_NOT_SUPPORTED):
+        relative_entropy_quadrature(x_var, np.array([0.5, 0.5]))
 
 
 @pytest.mark.parametrize("n", [3, 5, 8])
-@pytest.mark.parametrize("mk", [1, 3])
-@pytest.mark.parametrize(
-    ("x_affine", "y_affine"),
-    [
-        (True, True),
-        (True, False),
-        (False, True),
-    ],
-    ids=["both_affine", "x_affine_y_constant", "x_constant_y_affine"],
-)
-def test_relative_entropy_quadrature_grid(
-    n: int,
-    mk: int,
-    x_affine: bool,
-    y_affine: bool,
-) -> None:
-    """Numeric and affine SDP accuracy over a random positive grid."""
-    seed = n * 100_003 + mk * 17 + int(x_affine) * 2 + int(y_affine)
-    vec_x = _rand_positive(n, seed=seed)
-    vec_y = _rand_positive(n, seed=seed + 1)
-
+def test_relative_entropy_quadrature_numeric_grid(n: int) -> None:
+    """Numeric inputs match the element-wise reference."""
+    vec_x = _rand_positive(n, seed=n * 100_003)
+    vec_y = _rand_positive(n, seed=n * 100_003 + 1)
     ref_vec = vec_x * np.log(vec_x / vec_y)
-    ref_sum = float(np.sum(ref_vec))
-
     np.testing.assert_allclose(
         relative_entropy_quadrature(vec_x, vec_y),
         ref_vec,
         rtol=1e-10,
         atol=1e-10,
     )
-
-    x_expr = _affine_fixed_at(vec_x) if x_affine else cvxpy.Constant(vec_x)
-    y_expr = _affine_fixed_at(vec_y) if y_affine else cvxpy.Constant(vec_y)
-    val = relative_entropy_quadrature(x_expr, y_expr, m=mk, k=mk)
-    if mk == 1:
-        assert abs(val - ref_sum) <= max(0.15, 0.12 * abs(ref_sum))
-    else:
-        assert val == pytest.approx(ref_sum, rel=0, abs=1e-2)
 
 
 class TestRelativeEntropyQuadratureValueErrors:
@@ -218,35 +178,17 @@ class TestRelativeEntropyQuadratureValueErrors:
         ):
             relative_entropy_quadrature(p, cvxpy.Constant(np.array([0.5, 0.5])))
 
-    def test_neither_affine(self) -> None:
-        """Reject inputs when neither ``vec_x`` nor ``vec_y`` is affine."""
+    def test_nonconstant_variable(self) -> None:
+        """Reject non-constant CVXPY inputs."""
+        x_var = cvxpy.Variable(2, nonneg=True)
+        y_c = cvxpy.Constant(np.array([0.5, 0.5]))
+        with pytest.raises(ValueError, match=_NOT_SUPPORTED):
+            relative_entropy_quadrature(x_var, y_c)
+
+    def test_nonconstant_quadratic(self) -> None:
+        """Reject non-constant quadratic CVXPY inputs."""
         x_var = cvxpy.Variable(2, nonneg=True)
         x_var.value = np.array([0.3, 0.7])
-        y_var = cvxpy.Variable(2, nonneg=True)
-        y_var.value = np.array([0.5, 0.5])
-        with pytest.raises(
-            ValueError,
-            match=re.escape("At least one of vec_x and vec_y must be an affine CVXPY expression."),
-        ):
-            relative_entropy_quadrature(cvxpy.square(x_var), cvxpy.square(y_var))
-
-    def test_affine_missing_initial_value(self) -> None:
-        """Reject affine inputs with no initial ``.value`` for positivity checks."""
-        x_var = cvxpy.Variable(2, nonneg=True)
         y_c = cvxpy.Constant(np.array([0.5, 0.5]))
-        with pytest.raises(
-            ValueError,
-            match=re.escape("Affine vec_x and vec_y need numeric initial values; set `.value`."),
-        ):
-            relative_entropy_quadrature(x_var, y_c)
-
-    def test_non_positive_at_initial_value(self) -> None:
-        """Reject affine inputs that are not positive at ``.value``."""
-        x_var = cvxpy.Variable(2)
-        x_var.value = np.array([0.3, -0.1])
-        y_c = cvxpy.Constant(np.array([0.5, 0.5]))
-        with pytest.raises(
-            ValueError,
-            match=re.escape("vec_x and vec_y must be positive at the initial value."),
-        ):
-            relative_entropy_quadrature(x_var, y_c)
+        with pytest.raises(ValueError, match=_NOT_SUPPORTED):
+            relative_entropy_quadrature(cvxpy.square(x_var), y_c)
