@@ -9981,7 +9981,20 @@ is mutually unbiased with <span class="arithmatex">\(\mathcal{B}_x^{\prime}\)</s
 <span class="normal"><a href="#__codelineno-0-99"> 99</a></span>
 <span class="normal"><a href="#__codelineno-0-100">100</a></span>
 <span class="normal"><a href="#__codelineno-0-101">101</a></span>
-<span class="normal"><a href="#__codelineno-0-102">102</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-8" name="__codelineno-0-8"></a><span class="k">def</span><span class="w"> </span><span class="nf">is_mutually_unbiased_basis</span><span class="p">(</span><span class="n">vectors</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span> <span class="o">|</span> <span class="n">Any</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="normal"><a href="#__codelineno-0-102">102</a></span>
+<span class="normal"><a href="#__codelineno-0-103">103</a></span>
+<span class="normal"><a href="#__codelineno-0-104">104</a></span>
+<span class="normal"><a href="#__codelineno-0-105">105</a></span>
+<span class="normal"><a href="#__codelineno-0-106">106</a></span>
+<span class="normal"><a href="#__codelineno-0-107">107</a></span>
+<span class="normal"><a href="#__codelineno-0-108">108</a></span>
+<span class="normal"><a href="#__codelineno-0-109">109</a></span>
+<span class="normal"><a href="#__codelineno-0-110">110</a></span>
+<span class="normal"><a href="#__codelineno-0-111">111</a></span>
+<span class="normal"><a href="#__codelineno-0-112">112</a></span>
+<span class="normal"><a href="#__codelineno-0-113">113</a></span>
+<span class="normal"><a href="#__codelineno-0-114">114</a></span>
+<span class="normal"><a href="#__codelineno-0-115">115</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-8" name="__codelineno-0-8"></a><span class="k">def</span><span class="w"> </span><span class="nf">is_mutually_unbiased_basis</span><span class="p">(</span><span class="n">vectors</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span> <span class="o">|</span> <span class="n">Any</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <a id="__codelineno-0-9" name="__codelineno-0-9"></a><span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Check if list of vectors constitute a mutually unbiased basis [@wikipediamub].</span>
 <a id="__codelineno-0-10" name="__codelineno-0-10"></a>
 <a id="__codelineno-0-11" name="__codelineno-0-11"></a><span class="sd">    We say that two orthonormal bases</span>
@@ -10071,11 +10084,24 @@ is mutually unbiased with <span class="arithmatex">\(\mathcal{B}_x^{\prime}\)</s
 <a id="__codelineno-0-95" name="__codelineno-0-95"></a>    <span class="n">mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">vector</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">vector</span> <span class="ow">in</span> <span class="n">vectors</span><span class="p">])</span>
 <a id="__codelineno-0-96" name="__codelineno-0-96"></a>    <span class="n">gram</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">mat</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">mat</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>
 <a id="__codelineno-0-97" name="__codelineno-0-97"></a>
-<a id="__codelineno-0-98" name="__codelineno-0-98"></a>    <span class="c1"># Mutual unbiasedness requires |&lt;e_i|f_j&gt;|^2 = 1/dim for every pair of vectors drawn</span>
-<a id="__codelineno-0-99" name="__codelineno-0-99"></a>    <span class="c1"># from two *different* bases, i.e. every entry in the off-diagonal `dim x dim` blocks.</span>
-<a id="__codelineno-0-100" name="__codelineno-0-100"></a>    <span class="n">basis_index</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">num_vectors</span><span class="p">)</span> <span class="o">//</span> <span class="n">dim</span>
-<a id="__codelineno-0-101" name="__codelineno-0-101"></a>    <span class="n">cross_basis</span> <span class="o">=</span> <span class="n">basis_index</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">!=</span> <span class="n">basis_index</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="p">:]</span>
-<a id="__codelineno-0-102" name="__codelineno-0-102"></a>    <span class="k">return</span> <span class="nb">bool</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">gram</span><span class="p">[</span><span class="n">cross_basis</span><span class="p">],</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">dim</span><span class="p">))</span>
+<a id="__codelineno-0-98" name="__codelineno-0-98"></a>    <span class="c1"># Check that each consecutive block of `dim` vectors forms an orthonormal basis.</span>
+<a id="__codelineno-0-99" name="__codelineno-0-99"></a>    <span class="n">identity</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">dim</span><span class="p">)</span>
+<a id="__codelineno-0-100" name="__codelineno-0-100"></a>
+<a id="__codelineno-0-101" name="__codelineno-0-101"></a>    <span class="k">for</span> <span class="n">basis_start</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">num_vectors</span><span class="p">,</span> <span class="n">dim</span><span class="p">):</span>
+<a id="__codelineno-0-102" name="__codelineno-0-102"></a>        <span class="n">basis_block</span> <span class="o">=</span> <span class="n">gram</span><span class="p">[</span>
+<a id="__codelineno-0-103" name="__codelineno-0-103"></a>            <span class="n">basis_start</span> <span class="p">:</span> <span class="n">basis_start</span> <span class="o">+</span> <span class="n">dim</span><span class="p">,</span>
+<a id="__codelineno-0-104" name="__codelineno-0-104"></a>            <span class="n">basis_start</span> <span class="p">:</span> <span class="n">basis_start</span> <span class="o">+</span> <span class="n">dim</span><span class="p">,</span>
+<a id="__codelineno-0-105" name="__codelineno-0-105"></a>        <span class="p">]</span>
+<a id="__codelineno-0-106" name="__codelineno-0-106"></a>
+<a id="__codelineno-0-107" name="__codelineno-0-107"></a>        <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">basis_block</span><span class="p">,</span> <span class="n">identity</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="mf">1e-10</span><span class="p">):</span>
+<a id="__codelineno-0-108" name="__codelineno-0-108"></a>            <span class="k">return</span> <span class="kc">False</span>
+<a id="__codelineno-0-109" name="__codelineno-0-109"></a>
+<a id="__codelineno-0-110" name="__codelineno-0-110"></a>    <span class="c1"># Mutual unbiasedness requires |&lt;e_i|f_j&gt;|^2 = 1/dim for every pair of vectors drawn</span>
+<a id="__codelineno-0-111" name="__codelineno-0-111"></a>    <span class="c1"># from two *different* bases.</span>
+<a id="__codelineno-0-112" name="__codelineno-0-112"></a>    <span class="n">basis_index</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">num_vectors</span><span class="p">)</span> <span class="o">//</span> <span class="n">dim</span>
+<a id="__codelineno-0-113" name="__codelineno-0-113"></a>    <span class="n">cross_basis</span> <span class="o">=</span> <span class="n">basis_index</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">!=</span> <span class="n">basis_index</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="p">:]</span>
+<a id="__codelineno-0-114" name="__codelineno-0-114"></a>
+<a id="__codelineno-0-115" name="__codelineno-0-115"></a>    <span class="k">return</span> <span class="nb">bool</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">gram</span><span class="p">[</span><span class="n">cross_basis</span><span class="p">],</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">dim</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="mf">1e-10</span><span class="p">))</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
