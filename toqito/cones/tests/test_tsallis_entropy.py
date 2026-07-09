@@ -10,9 +10,7 @@ from scipy.linalg import logm
 from toqito.cones.ln_quantum_entropy import ln_quantum_entropy
 from toqito.cones.tsallis_entropy import tsallis_entropy
 
-_NOT_SUPPORTED = re.escape(
-    "Affine or variable CVXPY inputs are not yet supported; pass numeric matrices."
-)
+_NOT_SUPPORTED = re.escape("Affine or variable CVXPY inputs are not yet supported; pass numeric matrices.")
 
 
 def _tsallis_entropy_reference(mat_x: np.ndarray, t: float) -> float:

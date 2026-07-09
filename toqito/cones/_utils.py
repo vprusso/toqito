@@ -6,9 +6,7 @@ from typing import Any
 import cvxpy
 import numpy as np
 
-_AFFINE_VARIABLE_NOT_SUPPORTED = (
-    "Affine or variable CVXPY inputs are not yet supported; pass numeric matrices."
-)
+_AFFINE_VARIABLE_NOT_SUPPORTED = "Affine or variable CVXPY inputs are not yet supported; pass numeric matrices."
 
 
 def _reject_nonconstant_cvxpy(*exprs: np.ndarray | cvxpy.Expression) -> None:

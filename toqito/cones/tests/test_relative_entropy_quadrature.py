@@ -8,9 +8,7 @@ import pytest
 
 from toqito.cones.relative_entropy_quadrature import relative_entropy_quadrature
 
-_NOT_SUPPORTED = re.escape(
-    "Affine or variable CVXPY inputs are not yet supported; pass numeric matrices."
-)
+_NOT_SUPPORTED = re.escape("Affine or variable CVXPY inputs are not yet supported; pass numeric matrices.")
 
 
 def _rand_positive(n: int, seed: int) -> np.ndarray:
