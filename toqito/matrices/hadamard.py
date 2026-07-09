@@ -26,6 +26,12 @@ def hadamard(n_param: int = 1) -> np.ndarray:
         \left(-1\right)^{i \cdot j}
     \]
 
+    Args:
+        n_param: Number of tensor factors. Must be at least 1.
+
+    Returns:
+        The `2^{n_param}`-dimensional Hadamard matrix.
+
     Examples:
         The standard 1-qubit Hadamard matrix can be generated in `toqito` as
 
