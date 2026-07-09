@@ -6,7 +6,7 @@ r"""Computes \(f(A, B, K, t) = \operatorname{tr}(K^{\dagger} A^{1-t} K B^{t})\) 
 import cvxpy
 import numpy as np
 
-from toqito.cones._utils import _require_2d, _require_square_2d
+from toqito.cones._utils import _contains_effective_variables, _require_2d, _require_square_2d
 from toqito.cones.geometric_mean_epi_cone import geometric_mean_epi_cone
 from toqito.cones.geometric_mean_hypo_cone import geometric_mean_hypo_cone
 from toqito.cones.trace_matrix_power import trace_matrix_power
@@ -47,6 +47,7 @@ def lieb_ando(
         ValueError: If ``mat_a`` and ``mat_b`` are not positive semidefinite.
         ValueError: If ``t`` is not in the range `[-1, 2]` and ``mat_a`` and ``mat_b`` are cvxpy expressions.
         ValueError: If ``mat_a`` and ``mat_b`` are not affine expressions.
+        ValueError: If ``mat_a`` or ``mat_b`` contain free CVXPY variables.
 
     Examples:
         ```python
@@ -82,12 +83,22 @@ def lieb_ando(
     elif isinstance(mat_a, np.ndarray):
         if not is_positive_semidefinite(mat_a) or not is_positive_semidefinite(mat_b.value):
             raise ValueError("mat_a and mat_b must be positive semidefinite.")
+        if _contains_effective_variables(mat_b):
+            raise ValueError(
+                "mat_b must not contain free CVXPY variables; use a constant expression "
+                "or formulate cone constraints directly."
+            )
         mat_kak = mat_k.conj().T @ psd_matrix_power(mat_a, 1 - t) @ mat_k
         mat_kak = (mat_kak + mat_kak.conj().T) / 2
         return trace_matrix_power(mat_b, t, mat_kak)
     elif isinstance(mat_b, np.ndarray):
         if not is_positive_semidefinite(mat_a.value) or not is_positive_semidefinite(mat_b):
             raise ValueError("mat_a and mat_b must be positive semidefinite.")
+        if _contains_effective_variables(mat_a):
+            raise ValueError(
+                "mat_a must not contain free CVXPY variables; use a constant expression "
+                "or formulate cone constraints directly."
+            )
         mat_kkb = mat_k @ psd_matrix_power(mat_b, t) @ mat_k.conj().T
         mat_kkb = (mat_kkb + mat_kkb.conj().T) / 2
         return trace_matrix_power(mat_a, 1 - t, mat_kkb)
@@ -96,6 +107,11 @@ def lieb_ando(
             raise ValueError("mat_a and mat_b must be affine expressions.")
         if not is_positive_semidefinite(mat_a.value) or not is_positive_semidefinite(mat_b.value):
             raise ValueError("mat_a and mat_b must be positive semidefinite.")
+        if _contains_effective_variables(mat_a) or _contains_effective_variables(mat_b):
+            raise ValueError(
+                "mat_a and mat_b must not contain free CVXPY variables; use constant expressions "
+                "or formulate cone constraints directly."
+            )
 
         n = mat_a.shape[0]
         m = mat_b.shape[0]

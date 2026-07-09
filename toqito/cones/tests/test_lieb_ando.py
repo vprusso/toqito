@@ -230,6 +230,16 @@ def test_lieb_ando_raises_non_affine_both_expressions():
         lieb_ando(non_affine, non_affine, I_2, 0.5)
 
 
+def test_lieb_ando_raises_free_affine_variables():
+    """Reject affine CVXPY inputs whose variables affect the internally solved SDP."""
+    mat_a = cvxpy.Variable((2, 2), symmetric=True)
+    mat_b = cvxpy.Variable((2, 2), symmetric=True)
+    mat_a.value = np.diag([0.7, 0.3])
+    mat_b.value = np.diag([0.6, 0.4])
+    with pytest.raises(ValueError, match="free CVXPY variables"):
+        lieb_ando(mat_a, mat_b, I_2, 0.5)
+
+
 def test_lieb_ando_raises_psd_mixed_numeric_a_expression_b():
     """Numeric mat_a PSD but mat_b constant value not PSD."""
     psd_a = np.array([[4.0, 2.0], [2.0, 1.0]])

@@ -7,7 +7,7 @@ import cvxpy
 import numpy as np
 from scipy.linalg import logm
 
-from toqito.cones._utils import _require_square_2d
+from toqito.cones._utils import _contains_effective_variables, _require_square_2d
 from toqito.cones.operator_relative_entropy_epi_cone import (
     operator_relative_entropy_epi_cone,
 )
@@ -50,6 +50,7 @@ def trace_matrix_log(
         ValueError: If mat_x and mat_c do not have the same shape.
         ValueError: If mat_x is not an affine CVXPY expression.
         ValueError: If mat_x has no numeric initial value.
+        ValueError: If mat_x contains free CVXPY variables.
 
 
     Returns:
@@ -89,6 +90,11 @@ def trace_matrix_log(
         raise ValueError("Affine mat_x has no numeric initial value; set `.value` for PSD checks.")
     if not is_positive_semidefinite(mat_x.value):
         raise ValueError("mat_x must be positive semidefinite at the initial value.")
+    if _contains_effective_variables(mat_x):
+        raise ValueError(
+            "mat_x must not contain free CVXPY variables; use a constant expression "
+            "or formulate cone constraints directly."
+        )
 
     n = int(mat_x.shape[0])
     is_cplx = np.any(np.imag(mat_x.value) != 0) or np.any(np.imag(mat_c) != 0)

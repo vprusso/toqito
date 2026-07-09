@@ -263,3 +263,10 @@ class TestLnQuantumEntropyValueErrors:
             match=re.escape("mat_x must be positive semidefinite at the initial value."),
         ):
             ln_quantum_entropy(expr)
+
+    def test_affine_expression_with_free_variables(self):
+        """Reject affine ``mat_x`` whose variables affect the internally solved SDP."""
+        mat_x = cvxpy.Variable((2, 2), symmetric=True)
+        mat_x.value = np.diag([0.7, 0.3])
+        with pytest.raises(ValueError, match="free CVXPY variables"):
+            ln_quantum_entropy(mat_x)

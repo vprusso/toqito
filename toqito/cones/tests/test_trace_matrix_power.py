@@ -176,6 +176,14 @@ def test_trace_matrix_power_sdp_raises_non_affine():
         trace_matrix_power(non_affine_a, 0.5)
 
 
+def test_trace_matrix_power_sdp_raises_free_affine_variables():
+    """Reject affine CVXPY inputs whose variables affect the internally solved SDP."""
+    mat_a = cvxpy.Variable((2, 2), symmetric=True)
+    mat_a.value = np.diag([0.7, 0.3])
+    with pytest.raises(ValueError, match="free CVXPY variables"):
+        trace_matrix_power(mat_a, 0.5)
+
+
 def test_trace_matrix_power_sdp_raises_mat_c_not_numpy():
     """CVXPY mat_a requires mat_c to be a numpy array or None."""
     msg = "mat_c must be a numpy.ndarray or None."

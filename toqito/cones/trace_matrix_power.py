@@ -6,7 +6,7 @@ r"""Computes the trace of \(C A^{t}\) for positive semidefinite matrices \(A\) a
 import cvxpy
 import numpy as np
 
-from toqito.cones._utils import _require_square_2d
+from toqito.cones._utils import _contains_effective_variables, _require_square_2d
 from toqito.cones.geometric_mean_epi_cone import geometric_mean_epi_cone
 from toqito.cones.geometric_mean_hypo_cone import geometric_mean_hypo_cone
 from toqito.matrix_ops import psd_matrix_power
@@ -41,6 +41,7 @@ def trace_matrix_power(mat_a: np.ndarray | cvxpy.Expression, t: float, mat_c: np
         ValueError: If `mat_a` is not positive semidefinite.
         ValueError: If `t` is not in the range `[-1, 2]` and mat_a is a cvxpy expression.
         ValueError: If `mat_a` is not an affine expression (unless it is a numpy array).
+        ValueError: If `mat_a` contains free CVXPY variables.
         ValueError: If `mat_c` is not the same size as `mat_a` (unless it is None).
 
     Examples:
@@ -86,6 +87,11 @@ def trace_matrix_power(mat_a: np.ndarray | cvxpy.Expression, t: float, mat_c: np
             raise ValueError("The matrix mat_a must be an affine expression.")
         if not is_positive_semidefinite(mat_a.value):
             raise ValueError("The matrix mat_a must be positive semidefinite.")
+        if _contains_effective_variables(mat_a):
+            raise ValueError(
+                "mat_a must not contain free CVXPY variables; use a constant expression "
+                "or formulate cone constraints directly."
+            )
         n = mat_a.shape[0]
         is_cplx = np.any(np.imag(mat_a.value) != 0)
         if is_cplx:

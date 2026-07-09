@@ -519,6 +519,22 @@ class TestQuantumRelativeEntropyAffineValueErrors:
                 space_optimized=space_optimized,
             )
 
+    def test_constant_y_branch_affine_x_with_free_variables(self, space_optimized: bool):
+        """Reject affine ``mat_x`` whose variables affect the internally solved SDP."""
+        mat_x = cvxpy.Variable((2, 2), symmetric=True)
+        mat_x.value = np.diag([0.7, 0.3])
+        mat_y = cvxpy.Constant(np.diag([0.6, 0.4]))
+        with pytest.raises(ValueError, match="free CVXPY variables"):
+            quantum_relative_entropy(mat_x, mat_y, space_optimized=space_optimized)
+
+    def test_constant_x_branch_affine_y_with_free_variables(self, space_optimized: bool):
+        """Reject affine ``mat_y`` whose variables affect the internally solved SDP."""
+        mat_x = cvxpy.Constant(np.diag([0.7, 0.3]))
+        mat_y = cvxpy.Variable((2, 2), symmetric=True)
+        mat_y.value = np.diag([0.6, 0.4])
+        with pytest.raises(ValueError, match="free CVXPY variables"):
+            quantum_relative_entropy(mat_x, mat_y, space_optimized=space_optimized)
+
     def test_joint_affine_x_not_psd_at_value(self, space_optimized: bool):
         """Reject joint-affine ``mat_x`` that is not PSD at ``.value``."""
         n = 2
@@ -535,6 +551,15 @@ class TestQuantumRelativeEntropyAffineValueErrors:
                 t_y * np.eye(n),
                 space_optimized=space_optimized,
             )
+
+    def test_joint_affine_with_free_variables(self, space_optimized: bool):
+        """Reject joint-affine inputs whose variables affect the internally solved SDP."""
+        mat_x = cvxpy.Variable((2, 2), symmetric=True)
+        mat_y = cvxpy.Variable((2, 2), symmetric=True)
+        mat_x.value = np.diag([0.7, 0.3])
+        mat_y.value = np.diag([0.6, 0.4])
+        with pytest.raises(ValueError, match="free CVXPY variables"):
+            quantum_relative_entropy(mat_x, mat_y, space_optimized=space_optimized)
 
     def test_joint_affine_y_not_psd_at_value(self, space_optimized: bool):
         """Reject joint-affine ``mat_y`` that is not PSD at ``.value``."""

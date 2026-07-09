@@ -11,7 +11,7 @@ import cvxpy
 import numpy as np
 from scipy.linalg import logm
 
-from toqito.cones._utils import _require_square_2d
+from toqito.cones._utils import _contains_effective_variables, _require_square_2d
 from toqito.cones.integral_relative_entropy import evaluate_relative_entropy_integral
 from toqito.cones.ln_quantum_entropy import ln_quantum_entropy
 from toqito.cones.operator_relative_entropy_epi_cone import (
@@ -95,6 +95,7 @@ def quantum_relative_entropy(
         ValueError: If the approximation is not -1, 0, or 1.
         ValueError: If ``mat_x`` and ``mat_y`` do not have the same shape.
         ValueError: If ``space_optimized`` is not a boolean.
+        ValueError: If ``mat_x`` or ``mat_y`` contain free CVXPY variables.
 
     Returns:
         The quantum relative entropy \(D(X||Y)\) as a float.
@@ -193,6 +194,11 @@ def quantum_relative_entropy(
         raise ValueError("mat_x must be positive semidefinite at the initial value.")
     if not is_positive_semidefinite(mat_y.value):
         raise ValueError("mat_y must be positive semidefinite at the initial value.")
+    if _contains_effective_variables(mat_x) or _contains_effective_variables(mat_y):
+        raise ValueError(
+            "mat_x and mat_y must not contain free CVXPY variables; use constant expressions "
+            "or formulate cone constraints directly."
+        )
 
     if space_optimized:
         return evaluate_relative_entropy_integral(
