@@ -9,8 +9,12 @@ from toqito.states import dicke
 @pytest.mark.parametrize(
     "num_qubit, num_excited, expected_state",
     [
+        # Dicke state for 3 qubits and 0 excitations
+        (3, 0, np.array([1, 0, 0, 0, 0, 0, 0, 0])),
         # Dicke state for 3 qubits and 1 excitation
         (3, 1, np.array([0, 1 / np.sqrt(3), 1 / np.sqrt(3), 0, 1 / np.sqrt(3), 0, 0, 0])),
+        # Dicke state for 3 qubits and 3 excitations
+        (3, 3, np.array([0, 0, 0, 0, 0, 0, 0, 1])),
         # Dicke state for 4 qubits and 2 excitations (corrected expected state)
         (
             4,
