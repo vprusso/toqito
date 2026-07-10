@@ -106,8 +106,8 @@ def channel_exclusion(
         Consider the two identical depolarizing channels
 
         \[
-            \Phi_1(\rho) = (1 - 0.3) \rho + 0.3 \frac{\mathbb{I}}{2}, \quad
-            \Phi_2(\rho) = (1 - 0.3) \rho + 0.3 \frac{\mathbb{I}}{2}.
+            \Phi_1(\rho) = 0.3 \rho + 0.7 \operatorname{Tr}(\rho) \frac{\mathbb{I}}{2}, \quad
+            \Phi_2(\rho) = 0.3 \rho + 0.7 \operatorname{Tr}(\rho) \frac{\mathbb{I}}{2}.
         \]
 
         Since the channels are identical, it is not possible to exclude either
