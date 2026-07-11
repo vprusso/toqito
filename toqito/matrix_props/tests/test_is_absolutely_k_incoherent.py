@@ -1,6 +1,5 @@
 """Test is_absolutely_k_incoherent."""
 
-import cvxpy as cp
 import numpy as np
 import pytest
 
@@ -47,9 +46,10 @@ from toqito.matrix_props import is_absolutely_k_incoherent
         # equal.
         (np.diag([0.5, 0.5, 0, 0]), 3, True),
         # [1] Theorem 4 branch (non-equal nonzero eigenvalues).
-        # For n = 4 and k = 3, a matrix with eigenvalues [0.6, 0.4, 0, 0] has rank 2 but the nonzero eigenvalues differ.
-        # (This will fall through to the SDP branch; see monkeypatched test below.)
-        (np.diag([0.6, 0.4, 0, 0]), 3, True),
+        # For n = 4 and k = 3, a matrix with eigenvalues [0.6, 0.4, 0, 0] has rank 2 but the nonzero
+        # eigenvalues differ; the spectral condition sqrt(0.6) > sqrt(0.4) shows it is not absolutely
+        # 3-incoherent.
+        (np.diag([0.6, 0.4, 0, 0]), 3, False),
         # k == 2 branch (Frobenius norm fails).
         # For n = 3, a pure state with Frobenius norm squared = 1 (which is greater than 1/(3-1)=0.5) returns False.
         (np.diag([1, 0, 0]), 2, False),
@@ -64,15 +64,19 @@ from toqito.matrix_props import is_absolutely_k_incoherent
         # For n = 4 and k = 3 (n - 1), if lmax > 1 - 1/4 (i.e. lmax > 0.75), then it returns False.
         (np.diag([0.8, 0.1, 0.1, 0]), 3, False),
         # [1] Theorem 8 branch.
-        # For n = 4 and k = 3, if lmax is below the cutoff (0.75), then the SDP is executed and (assuming feasibility)
-        # returns True.
-        (np.diag([0.7, 0.15, 0.15, 0]), 3, True),
+        # For n = 4 and k = 3: sqrt(0.7) > 2 sqrt(0.15), so the Theorem 8 condition fails.
+        (np.diag([0.7, 0.15, 0.15, 0]), 3, False),
         # k <= 0 raise ValueError.
         (np.diag([0.8, 0.1, 0.1, 0]), 0, False),
         (np.diag([0.34, 0.22, 0.22, 0.22]), 2, True),
         (np.diag([0.9, 0.05, 0.05]), 2, False),
-        (np.diag([0.7, 0.15, 0.15, 0]), 3, True),
+        (np.diag([0.7, 0.15, 0.15, 0]), 3, False),
+        # sqrt(0.6) < 2 sqrt(0.2), so the Theorem 8 condition holds.
+        (np.diag([0.6, 0.2, 0.2, 0]), 3, True),
         (np.diag([0.8, 0.1, 0.05, 0.05]), 3, False),
+        # Regression: a first-order SDP solver falsely reported this spectrum feasible for the
+        # Theorem 8 SDP; the closed-form condition correctly rejects it.
+        (np.diag([0.75948417, 0.18316435, 0.03951963, 0.01305637, 0.00477548]), 4, False),
     ],
 )
 def test_is_absolutely_k_incoherent(mat, k, expected):
@@ -93,53 +97,19 @@ def test_is_absolutely_k_incoherent_non_square():
         is_absolutely_k_incoherent(mat, 1)
 
 
-def test_sdp_not_optimal(monkeypatch):
-    """Test that if the SDP returns a value not close to 1.0, is_absolutely_k_incoherent returns False."""
-    # Create a 4x4 matrix that triggers the SDP branch.
-    mat = np.diag([0.7, 0.15, 0.15, 0])
-
-    def fake_solve(self, *args, **kwargs):
-        return 0.5
-
-    monkeypatch.setattr(cp.Problem, "solve", fake_solve)
+def test_non_equal_eigenvalues_branch():
+    """Rank n-k+1 with unequal nonzero eigenvalues is not absolutely (n-1)-incoherent."""
+    mat = np.diag([0.6, 0.4, 0, 0])
     assert is_absolutely_k_incoherent(mat, 3) is False
 
 
-def test_non_equal_eigenvalues_branch(monkeypatch):
-    """Test the branch when rankX == n-k+1 but nonzero eigenvalues are not equal."""
-    # Use n = 4, k = 3 with eigenvalues [0.6, 0.4, 0, 0].
-    mat = np.diag([0.6, 0.4, 0, 0])
-
-    # In the unpatched code, this falls to the SDP branch.
-    # Force the SDP branch to return an objective value near 1.
-    def fake_solve(self, *args, **kwargs):
-        return 1.0
-
-    monkeypatch.setattr(cp.Problem, "solve", fake_solve)
-    # Expect True as the final result.
-    assert is_absolutely_k_incoherent(mat, 3) is True
-
-
-def test_k_equals_n_minus_one_true(monkeypatch):
-    """When k = n - 1 and the SDP succeeds, the function returns True."""
+def test_k_equals_n_minus_one_true():
+    """When k = n - 1 and the Theorem 8 spectral condition holds, the function returns True."""
     mat = np.diag([0.6, 0.2, 0.2, 0.0])
-
-    def fake_solve(self, *args, **kwargs):
-        return 1.0
-
-    monkeypatch.setattr(cp.Problem, "solve", fake_solve)
     assert is_absolutely_k_incoherent(mat, 3) is True
 
 
 def test_k_equals_n_minus_one_large_eigenvalue():
     """When k = n - 1 and the largest eigenvalue exceeds the bound, return False immediately."""
     mat = np.diag([0.9, 0.05, 0.05, 0.0])
-    assert is_absolutely_k_incoherent(mat, 3) is False
-
-
-def test_is_absolutely_k_incoherent_solver_returns_none(monkeypatch):
-    """A failed solve (solver returns None) yields False instead of raising a TypeError."""
-    monkeypatch.setattr(cp.Problem, "solve", lambda self, *a, **k: None)
-    # diag([0.6, 0.2, 0.2, 0]) with k = n - 1 reaches the SDP branch; with the guard it must not raise.
-    mat = np.diag([0.6, 0.2, 0.2, 0.0])
     assert is_absolutely_k_incoherent(mat, 3) is False

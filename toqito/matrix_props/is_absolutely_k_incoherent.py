@@ -1,8 +1,5 @@
 """Checks if the matrix is absolutely $k$-incoherent."""
 
-import warnings
-
-import cvxpy as cp
 import numpy as np
 
 from toqito.matrix_props import is_positive_semidefinite, is_square
@@ -15,8 +12,9 @@ def is_absolutely_k_incoherent(mat: np.ndarray, k: int, tol: float = 1e-15) -> b
     if \(U \rho U^* \in \mathbb{I}_{k, n}\) for all unitary matrices \(U \in \text{U}(\mathbb{C}^n)\).
 
     This function checks if the provided density matrix is absolutely k-incoherent based on the criteria introduced in
-    [@johnston2022absolutely] and the corresponding QETLAB functionality [@qetlablink]. When
-    necessary, an SDP is set up via ``cvxpy``.
+    [@johnston2022absolutely] and the corresponding QETLAB functionality [@qetlablink]. For
+    :code:`k = n - 1` the SDP characterization of [@johnston2022absolutely] (Theorem 8) reduces to a
+    closed-form spectral condition, which is used directly.
 
     The notion of absolute k-incoherence is connected to the notion of quantum state antidistinguishability as discussed
     in [@johnston2025tight].
@@ -98,30 +96,12 @@ def is_absolutely_k_incoherent(mat: np.ndarray, k: int, tol: float = 1e-15) -> b
         elif n <= 3:
             return False
     elif k == n - 1:
-        # [1] Corollary 1: Check maximum eigenvalue condition.
-        if lmax > 1 - 1 / n:
-            return False
-        else:
-            # [1] Theorem 8: Solve an SDP to decide absolute (n-1)-incoherence.
-            lam = np.sort(np.real(eigvals))[::-1]
-            n_eig = len(lam)
-            L = cp.Variable((n_eig, n_eig), symmetric=True)
-            constraints = []
-            # Constraint: L[0, 0] == -lam[0] - sum(L[0, 1:]) - sum(L[1:, 0])
-            constraints.append(L[0, 0] == -lam[0] - cp.sum(L[0, 1:]) - cp.sum(L[1:, 0]))
-            # For indices j = 1 to n_eig-1, enforce L[j, j] == lam[j]
-            for j in range(1, n_eig):
-                constraints.append(L[j, j] == lam[j])
-            # L must be positive semidefinite.
-            constraints.append(L >> 0)
-            # Dummy objective function.
-            objective = cp.Minimize(1)
-            prob = cp.Problem(objective, constraints)
-            with warnings.catch_warnings():
-                warnings.filterwarnings("ignore", message="Solution may be inaccurate")
-                opt_val = prob.solve(solver=cp.SCS, eps=1e-8, verbose=False)
-            # Guard against a failed solve (opt_val is None) so np.isclose does not raise; a feasible solution
-            # (optimal value near 1) means absolute (n-1)-incoherence holds.
-            if opt_val is not None and np.isclose(opt_val, 1.0):
-                return True
+        # [1] Theorem 8 gives an SDP characterization of absolute (n-1)-incoherence. That SDP
+        # admits a closed-form solution: factoring the Gram-type matrix in the SDP shows that it
+        # is feasible if and only if
+        #     sqrt(lmax) <= sum of sqrt of the remaining eigenvalues.
+        # This spectral test is exact, so no SDP solve is needed (solving the feasibility SDP
+        # numerically is also unreliable; first-order solvers can report false feasibility).
+        lam = np.sort(np.real(eigvals))[::-1]
+        return bool(np.sqrt(lam[0]) <= np.sum(np.sqrt(np.clip(lam[1:], 0, None))) + np.sqrt(tol))
     return False

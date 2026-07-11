@@ -24,11 +24,6 @@ Careful points (followed in tests and code)
     `W_inc ⪰ 0` with `Σ_i W_i + W_inc = X ⊗ I_Y`, and the objective minimizes
     `Σ_j p_j ⟨J(Φ_j), W_inc⟩` subject to `⟨J(Φ_i), W_i⟩ = 0` for conclusive outcomes.
 
-    The examples previously shown here were removed to avoid broken doctest-style
-    snippets in the rendered documentation. The supported usage remains the same:
-    pass Choi matrices directly or provide Kraus operators and choose either the
-    minimum-error or unambiguous strategy.
-
 """
 
 from typing import Any
