@@ -48,7 +48,7 @@ def channel_dim(
 
         ```python exec="1" source="above" result="text"
         import numpy as np
-        from toqito.channel_props import channel_dim
+        from toqito.channel_props.channel_dim import channel_dim
 
         kraus_ops = [
             np.sqrt(0.5) * np.eye(2),
