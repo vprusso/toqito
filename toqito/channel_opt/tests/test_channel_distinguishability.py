@@ -3,8 +3,8 @@
 import numpy as np
 import pytest
 
-from toqito.channel_metrics import channel_distinguishability
 from toqito.channel_ops import kraus_to_choi
+from toqito.channel_opt import channel_distinguishability
 from toqito.channels import amplitude_damping, dephasing, depolarizing, phase_damping
 from toqito.matrices import pauli
 

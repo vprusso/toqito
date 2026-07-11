@@ -3,6 +3,7 @@
 __all__ = [
     "channel_metrics",
     "channel_ops",
+    "channel_opt",
     "channel_props",
     "channels",
     "cones",

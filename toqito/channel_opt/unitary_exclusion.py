@@ -4,7 +4,7 @@ from typing import Any
 
 import numpy as np
 
-from toqito.channel_metrics.channel_exclusion import channel_exclusion
+from toqito.channel_opt.channel_exclusion import channel_exclusion
 from toqito.matrix_props import is_unitary
 from toqito.state_opt.state_exclusion import state_exclusion
 
@@ -45,7 +45,7 @@ def unitary_exclusion(
     - **Optimal probe** (`probe=None`): the error probability is minimized over *all* input
       strategies simultaneously (probe states of unbounded ancilla dimension together with output
       measurements) by solving the lifted tester SDP
-      [`channel_exclusion`][toqito.channel_metrics.channel_exclusion.channel_exclusion] with each
+      [`channel_exclusion`][toqito.channel_opt.channel_exclusion.channel_exclusion] with each
       unitary treated as the channel \(\rho \mapsto U_k \rho U_k^*\). This yields the exclusion value
       of the unitaries themselves, certifying a global optimum that no choice of probe can improve
       upon.
@@ -79,7 +79,7 @@ def unitary_exclusion(
 
         ```python exec="1" source="above" result="text"
         import numpy as np
-        from toqito.channel_metrics import unitary_exclusion
+        from toqito.channel_opt import unitary_exclusion
         from toqito.states import bell
 
         paulis = [
@@ -96,7 +96,7 @@ def unitary_exclusion(
 
         ```python exec="1" source="above" result="text"
         import numpy as np
-        from toqito.channel_metrics import unitary_exclusion
+        from toqito.channel_opt import unitary_exclusion
 
         theta = np.pi / 3
         paulis = [

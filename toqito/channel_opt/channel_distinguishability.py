@@ -114,7 +114,7 @@ def channel_distinguishability(
         ```python exec="1" source="above" result="text"
         from toqito.channels import amplitude_damping
         from toqito.channel_ops import kraus_to_choi
-        from toqito.channel_metrics import channel_distinguishability
+        from toqito.channel_opt import channel_distinguishability
         # Define two amplitude damping channels with gamma=0.25 and gamma=0.5
         choi_ch_1 = kraus_to_choi(amplitude_damping(gamma=0.25, return_kraus_ops=True))
         choi_ch_2 = kraus_to_choi(amplitude_damping(gamma=0.5, return_kraus_ops=True))
@@ -130,7 +130,7 @@ def channel_distinguishability(
 
         ```python exec="1" source="above" result="text"
         from toqito.channels import depolarizing
-        from toqito.channel_metrics import channel_distinguishability
+        from toqito.channel_opt import channel_distinguishability
         # Define three depolarizing channels with distinct noise parameters.
         channels = [depolarizing(2, 0.1), depolarizing(2, 0.5), depolarizing(2, 0.9)]
 
@@ -143,7 +143,7 @@ def channel_distinguishability(
         ```python exec="1" source="above" result="text"
         from toqito.channels import amplitude_damping
         from toqito.channel_ops import kraus_to_choi
-        from toqito.channel_metrics import channel_distinguishability
+        from toqito.channel_opt import channel_distinguishability
         # Define two amplitude damping channels with gamma=0.25 and gamma=0.5
         choi_ch_1 = kraus_to_choi(amplitude_damping(gamma=0.25, return_kraus_ops=True))
         choi_ch_2 = kraus_to_choi(amplitude_damping(gamma=0.5, return_kraus_ops=True))

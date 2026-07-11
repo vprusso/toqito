@@ -4,7 +4,7 @@ from typing import Any
 
 import numpy as np
 
-from toqito.channel_metrics.unitary_exclusion import unitary_exclusion
+from toqito.channel_opt.unitary_exclusion import unitary_exclusion
 
 
 def is_unitary_antidistinguishable(
@@ -30,7 +30,7 @@ def is_unitary_antidistinguishable(
     strategies, so the result depends only on the unitaries themselves.
 
     The optimal value is obtained from
-    [`unitary_exclusion`][toqito.channel_metrics.unitary_exclusion.unitary_exclusion] with uniform
+    [`unitary_exclusion`][toqito.channel_opt.unitary_exclusion.unitary_exclusion] with uniform
     prior weights; the set is antidistinguishable exactly when that value is (numerically) zero. The
     less computationally intensive dual formulation is used, matching
     [`is_antidistinguishable`][toqito.state_props.is_antidistinguishable.is_antidistinguishable].

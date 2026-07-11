@@ -3,7 +3,7 @@
 import numpy as np
 import pytest
 
-from toqito.channel_metrics import unitary_exclusion
+from toqito.channel_opt import unitary_exclusion
 from toqito.states import bell
 
 PAULIS = [
