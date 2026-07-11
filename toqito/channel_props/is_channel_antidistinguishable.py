@@ -4,7 +4,7 @@ from typing import Any
 
 import numpy as np
 
-from toqito.channel_metrics import channel_exclusion
+from toqito.channel_opt import channel_exclusion
 
 
 def is_channel_antidistinguishable(
@@ -24,7 +24,7 @@ def is_channel_antidistinguishable(
     here via the channel exclusion SDP (Section 3.5 of [@watrous2018theory]).
 
     The optimal value is obtained from
-    [`channel_exclusion`][toqito.channel_metrics.channel_exclusion.channel_exclusion] with uniform
+    [`channel_exclusion`][toqito.channel_opt.channel_exclusion.channel_exclusion] with uniform
     prior weights; the set is antidistinguishable exactly when that value is (numerically) zero. The
     less computationally intensive dual formulation is used, matching
     [`is_antidistinguishable`][toqito.state_props.is_antidistinguishable.is_antidistinguishable].

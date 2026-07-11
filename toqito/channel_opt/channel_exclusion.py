@@ -110,7 +110,7 @@ def channel_exclusion(
 
         ```python exec="1" source="above" result="text"
         import numpy as np
-        from toqito.channel_metrics import channel_exclusion
+        from toqito.channel_opt import channel_exclusion
         from toqito.channels import depolarizing
 
         channels = [depolarizing(2, 0.3), depolarizing(2, 0.3)]
@@ -124,7 +124,7 @@ def channel_exclusion(
 
         ```python exec="1" source="above" result="text"
         import numpy as np
-        from toqito.channel_metrics import channel_exclusion
+        from toqito.channel_opt import channel_exclusion
         from toqito.channels import depolarizing
 
         channels = [depolarizing(2, 0.2), depolarizing(2, 0.7)]
@@ -137,7 +137,7 @@ def channel_exclusion(
 
         ```python exec="1" source="above" result="text"
         import numpy as np
-        from toqito.channel_metrics import channel_exclusion
+        from toqito.channel_opt import channel_exclusion
 
         X = np.array([[0.0, 1.0], [1.0, 0.0]])
         Z = np.array([[1.0, 0.0], [0.0, -1.0]])

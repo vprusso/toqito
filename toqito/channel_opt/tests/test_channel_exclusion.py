@@ -3,8 +3,9 @@
 import numpy as np
 import pytest
 
-from toqito.channel_metrics import channel_exclusion, completely_bounded_trace_norm
+from toqito.channel_metrics import completely_bounded_trace_norm
 from toqito.channel_ops import kraus_to_choi
+from toqito.channel_opt import channel_exclusion
 from toqito.channels import amplitude_damping, depolarizing
 from toqito.state_opt import state_exclusion
 
