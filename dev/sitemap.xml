@@ -117,14 +117,6 @@
          <lastmod>2026-07-11</lastmod>
     </url>
     <url>
-         <loc>https://vprusso.github.io/toqito/dev/reference/toqito/channel_metrics/channel_distinguishability/</loc>
-         <lastmod>2026-07-11</lastmod>
-    </url>
-    <url>
-         <loc>https://vprusso.github.io/toqito/dev/reference/toqito/channel_metrics/channel_exclusion/</loc>
-         <lastmod>2026-07-11</lastmod>
-    </url>
-    <url>
          <loc>https://vprusso.github.io/toqito/dev/reference/toqito/channel_metrics/channel_fidelity/</loc>
          <lastmod>2026-07-11</lastmod>
     </url>
@@ -150,10 +142,6 @@
     </url>
     <url>
          <loc>https://vprusso.github.io/toqito/dev/reference/toqito/channel_metrics/fidelity_of_separability/</loc>
-         <lastmod>2026-07-11</lastmod>
-    </url>
-    <url>
-         <loc>https://vprusso.github.io/toqito/dev/reference/toqito/channel_metrics/unitary_exclusion/</loc>
          <lastmod>2026-07-11</lastmod>
     </url>
     <url>
@@ -190,6 +178,22 @@
     </url>
     <url>
          <loc>https://vprusso.github.io/toqito/dev/reference/toqito/channel_ops/partial_channel/</loc>
+         <lastmod>2026-07-11</lastmod>
+    </url>
+    <url>
+         <loc>https://vprusso.github.io/toqito/dev/reference/toqito/channel_opt/</loc>
+         <lastmod>2026-07-11</lastmod>
+    </url>
+    <url>
+         <loc>https://vprusso.github.io/toqito/dev/reference/toqito/channel_opt/channel_distinguishability/</loc>
+         <lastmod>2026-07-11</lastmod>
+    </url>
+    <url>
+         <loc>https://vprusso.github.io/toqito/dev/reference/toqito/channel_opt/channel_exclusion/</loc>
+         <lastmod>2026-07-11</lastmod>
+    </url>
+    <url>
+         <loc>https://vprusso.github.io/toqito/dev/reference/toqito/channel_opt/unitary_exclusion/</loc>
          <lastmod>2026-07-11</lastmod>
     </url>
     <url>
