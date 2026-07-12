@@ -13,8 +13,8 @@ from scipy.linalg import logm
 from toqito.cones.operator_relative_entropy_epi_cone import (
     operator_relative_entropy_epi_cone,
 )
-from toqito.cones.trace_matrix_log import trace_matrix_log
 from toqito.matrix_props import is_positive_semidefinite
+from toqito.matrix_props.trace_matrix_log import trace_matrix_log
 
 
 def _rand_psd(dim: int, seed: int, *, hermitian: bool) -> np.ndarray:

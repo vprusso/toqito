@@ -10,11 +10,11 @@ import numpy as np
 import pytest
 from scipy.linalg import logm
 
-from toqito.cones.ln_quantum_entropy import ln_quantum_entropy
 from toqito.cones.operator_relative_entropy_epi_cone import (
     operator_relative_entropy_epi_cone,
 )
 from toqito.matrix_props import is_positive_semidefinite
+from toqito.state_props.ln_quantum_entropy import ln_quantum_entropy
 
 
 def _rand_psd(dim: int, seed: int, *, hermitian: bool) -> np.ndarray:

@@ -53,7 +53,7 @@ def tsallis_entropy(
     Examples:
         ```python exec="1" source="above" result="text"
         import numpy as np
-        from toqito.cones import tsallis_entropy
+        from toqito.state_props import tsallis_entropy
         mat_x = np.diag([0.25, 0.75])
         t = 0.5
         print(tsallis_entropy(mat_x, t))

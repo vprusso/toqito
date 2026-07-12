@@ -12,13 +12,13 @@ import numpy as np
 from scipy.linalg import logm
 
 from toqito.cones._utils import _require_square_2d
-from toqito.cones.integral_relative_entropy import evaluate_relative_entropy_integral
-from toqito.cones.ln_quantum_entropy import ln_quantum_entropy
 from toqito.cones.operator_relative_entropy_epi_cone import (
     operator_relative_entropy_epi_cone,
 )
-from toqito.cones.trace_matrix_log import trace_matrix_log
 from toqito.matrix_props import is_hermitian, is_positive_semidefinite
+from toqito.matrix_props.trace_matrix_log import trace_matrix_log
+from toqito.state_props.integral_relative_entropy import evaluate_relative_entropy_integral
+from toqito.state_props.ln_quantum_entropy import ln_quantum_entropy
 
 
 @contextlib.contextmanager

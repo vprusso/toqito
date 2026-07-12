@@ -6,7 +6,7 @@ import cvxpy
 import numpy as np
 import pytest
 
-from toqito.cones.relative_entropy_quadrature import relative_entropy_quadrature
+from toqito.state_props.relative_entropy_quadrature import relative_entropy_quadrature
 
 _NOT_SUPPORTED = re.escape("Affine or variable CVXPY inputs are not yet supported; pass numeric matrices.")
 

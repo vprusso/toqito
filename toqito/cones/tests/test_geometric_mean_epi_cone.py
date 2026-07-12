@@ -10,8 +10,8 @@ import cvxpy
 import numpy as np
 import pytest
 
-from toqito.cones.geometric_mean import geometric_mean
 from toqito.cones.geometric_mean_epi_cone import geometric_mean_epi_cone
+from toqito.matrix_ops.geometric_mean import geometric_mean
 
 DIMS = (3, 5)
 # t in [-1, 0] (epi branch t <= 0) and [1, 2] (branch t >= 1); disjoint from hypo (0, 1).

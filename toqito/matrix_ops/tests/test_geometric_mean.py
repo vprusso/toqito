@@ -5,7 +5,7 @@ import re
 import numpy as np
 import pytest
 
-from toqito.cones import geometric_mean
+from toqito.matrix_ops import geometric_mean
 
 A_diag = np.diag([2.0, 4.0])
 B_diag = np.diag([8.0, 1.0])

@@ -3,7 +3,6 @@
 import numpy as np
 
 from toqito.cones._utils import _require_square_2d
-from toqito.matrix_props.is_positive_definite import is_positive_definite
 
 
 def geometric_mean(mat_a: np.ndarray, mat_b: np.ndarray, t: float) -> np.ndarray:
@@ -44,7 +43,7 @@ def geometric_mean(mat_a: np.ndarray, mat_b: np.ndarray, t: float) -> np.ndarray
 
         ```python exec="1" source="above" result="text"
         import numpy as np
-        from toqito.cones import geometric_mean
+        from toqito.matrix_ops import geometric_mean
 
         mat_a = np.diag([2.0, 4.0])
         mat_b = np.diag([8.0, 16.0])
@@ -57,6 +56,10 @@ def geometric_mean(mat_a: np.ndarray, mat_b: np.ndarray, t: float) -> np.ndarray
     _require_square_2d(mat_a, "The matrices")
     if t < -1 or t > 2:
         raise ValueError(f"The weight t must be in the range [-1, 2]; got {t}.")
+    # Deferred import: matrix_ops must stay free of a matrix_props back-edge (avoids a
+    # load-time import cycle with state_props/channels).
+    from toqito.matrix_props.is_positive_definite import is_positive_definite  # noqa: PLC0415
+
     if not is_positive_definite(mat_a) or not is_positive_definite(mat_b):
         raise ValueError("The matrices must be positive definite.")
 

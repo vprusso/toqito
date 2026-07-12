@@ -7,8 +7,8 @@ import numpy as np
 import pytest
 from scipy.linalg import logm
 
-from toqito.cones.ln_quantum_entropy import ln_quantum_entropy
-from toqito.cones.tsallis_entropy import tsallis_entropy
+from toqito.state_props.ln_quantum_entropy import ln_quantum_entropy
+from toqito.state_props.tsallis_entropy import tsallis_entropy
 
 _NOT_SUPPORTED = re.escape("Affine or variable CVXPY inputs are not yet supported; pass numeric matrices.")
 

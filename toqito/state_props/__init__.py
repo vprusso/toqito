@@ -43,3 +43,8 @@ from toqito.state_props.sandwiched_renyi_conditional_entropy import (
     sandwiched_renyi_conditional_entropy,
 )
 from toqito.state_props.learnability import learnability
+from toqito.state_props.ln_quantum_entropy import ln_quantum_entropy
+from toqito.state_props.tsallis_entropy import tsallis_entropy
+from toqito.state_props.tsallis_relative_entropy import tsallis_relative_entropy
+from toqito.state_props.integral_relative_entropy import evaluate_relative_entropy_integral
+from toqito.state_props.relative_entropy_quadrature import relative_entropy_quadrature

@@ -46,3 +46,6 @@ from toqito.matrix_props.is_equiangular_tight_frame import is_equiangular_tight_
 from toqito.matrix_props.nonnegative_rank import nonnegative_rank
 from toqito.matrix_props.support_overlap import support_overlap
 from toqito.matrix_props.is_support_subset import is_support_subset
+from toqito.matrix_props.trace_matrix_log import trace_matrix_log
+from toqito.matrix_props.trace_matrix_power import trace_matrix_power
+from toqito.matrix_props.lieb_ando import lieb_ando

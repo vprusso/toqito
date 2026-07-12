@@ -72,7 +72,7 @@ def relative_entropy_quadrature(
     Examples:
         ```python exec="1" source="above" result="text"
         import numpy as np
-        from toqito.cones import relative_entropy_quadrature
+        from toqito.state_props import relative_entropy_quadrature
         vec_x = np.array([0.3, 0.7])
         vec_y = np.array([0.5, 0.5])
         print(relative_entropy_quadrature(vec_x, vec_y))
