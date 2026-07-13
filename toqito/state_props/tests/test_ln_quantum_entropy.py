@@ -10,9 +10,7 @@ import numpy as np
 import pytest
 from scipy.linalg import logm
 
-from toqito.cones.operator_relative_entropy_epi_cone import (
-    operator_relative_entropy_epi_cone,
-)
+from toqito.cones.ln_quantum_entropy_hypo_cone import ln_quantum_entropy_hypo_cone
 from toqito.matrix_props import is_positive_semidefinite
 from toqito.state_props.ln_quantum_entropy import ln_quantum_entropy
 
@@ -45,29 +43,18 @@ def _ln_quantum_entropy_sdp_at_fixed_x(
     k: int,
     apx: int,
 ) -> tuple[float, str]:
-    """SDP for ``ln_quantum_entropy`` at fixed ``X = mat_x`` (CVXQUAD ``X == A`` case)."""
-    n = mat_x.shape[0]
-    is_cplx = np.any(np.imag(mat_x) != 0)
-    if is_cplx:
-        tau = cvxpy.Variable((n, n), hermitian=True)
-    else:
-        tau = cvxpy.Variable((n, n), symmetric=True)
-    eye_n = cvxpy.Constant(np.eye(n))
-    x_c = cvxpy.Constant(mat_x)
-    cons = operator_relative_entropy_epi_cone(
-        x_c,
-        eye_n,
-        tau,
+    """SDP for ``ln_quantum_entropy`` at fixed ``X = mat_x`` via the hypo cone."""
+    is_cplx = bool(np.any(np.imag(mat_x) != 0))
+    t = cvxpy.Variable()
+    cons = ln_quantum_entropy_hypo_cone(
+        cvxpy.Constant(mat_x),
+        t,
         m=m,
         k=k,
-        e=np.eye(n),
-        apx=-apx,
+        apx=apx,
         hermitian=is_cplx,
     )
-    obj = -cvxpy.trace(tau)
-    if is_cplx:
-        obj = cvxpy.real(obj)
-    prob = cvxpy.Problem(cvxpy.Maximize(obj), cons)
+    prob = cvxpy.Problem(cvxpy.Maximize(t), cons)
     val = prob.solve(solver=cvxpy.SCS, verbose=False)
     return val, prob.status
 
@@ -88,7 +75,7 @@ def test_ln_quantum_entropy(dim: int, mk: int, apx: int, hermitian: bool):
 
     h_ref = _ln_quantum_entropy_reference(mat_a)
     np.testing.assert_allclose(
-        ln_quantum_entropy(mat_a, m=mk, k=mk, apx=apx),
+        ln_quantum_entropy(mat_a),
         h_ref,
         rtol=1e-8,
         atol=1e-8,
@@ -126,13 +113,18 @@ def test_ln_quantum_entropy_constant_cvx_expression():
     mat_a = (mat_a + mat_a.T) / 2
     mat_a = mat_a / np.trace(mat_a)
     expr = cvxpy.Constant(mat_a)
-    got = ln_quantum_entropy(expr, m=3, k=3, apx=0)
-    want = ln_quantum_entropy(mat_a, m=3, k=3, apx=0)
+    got = ln_quantum_entropy(expr)
+    want = ln_quantum_entropy(mat_a)
     np.testing.assert_allclose(got, want, rtol=1e-10, atol=1e-10)
 
 
-def test_ln_quantum_entropy_affine_real_sdp():
-    """Non-constant affine ``mat_x`` hits the cone SDP; ``Constant(A)+W-W`` is algebraically ``A``."""
+_NOT_SUPPORTED = re.escape(
+    "Affine or variable CVXPY inputs are not yet supported; pass numeric matrices."
+)
+
+
+def test_ln_quantum_entropy_rejects_nonconstant_affine():
+    """Non-constant affine expressions are rejected; use the hypo cone for composition."""
     n = 3
     rng = np.random.default_rng(13)
     g = rng.standard_normal((n, n))
@@ -144,13 +136,12 @@ def test_ln_quantum_entropy_affine_real_sdp():
     w_var.value = np.zeros((n, n))
     mat_x = cvxpy.Constant(mat_a) + w_var - w_var
     assert mat_x.is_affine() and not mat_x.is_constant()
-    val = ln_quantum_entropy(mat_x, m=3, k=3, apx=1)
-    ref = _ln_quantum_entropy_reference(mat_a)
-    np.testing.assert_allclose(float(val), ref, rtol=5e-4, atol=1e-6)
+    with pytest.raises(ValueError, match=_NOT_SUPPORTED):
+        ln_quantum_entropy(mat_x)
 
 
-def test_ln_quantum_entropy_affine_hermitian_sdp():
-    """Hermitian ``Constant(A)+W-W`` exercises the complex Hermitian-variable SDP path."""
+def test_ln_quantum_entropy_rejects_hermitian_affine():
+    """Hermitian non-constant affine expressions are rejected."""
     n = 2
     rng = np.random.default_rng(17)
     g = rng.standard_normal((n, n)) + 1j * rng.standard_normal((n, n))
@@ -162,9 +153,8 @@ def test_ln_quantum_entropy_affine_hermitian_sdp():
     w_var.value = np.zeros((n, n), dtype=np.complex128)
     mat_x = cvxpy.Constant(mat_a) + w_var - w_var
     assert mat_x.is_affine() and not mat_x.is_constant()
-    val = ln_quantum_entropy(mat_x, m=3, k=3, apx=-1)
-    ref = _ln_quantum_entropy_reference(mat_a)
-    np.testing.assert_allclose(float(val), ref, rtol=5e-4, atol=1e-6)
+    with pytest.raises(ValueError, match=_NOT_SUPPORTED):
+        ln_quantum_entropy(mat_x)
 
 
 class TestLnQuantumEntropyValueErrors:
@@ -188,21 +178,6 @@ class TestLnQuantumEntropyValueErrors:
         with pytest.raises(ValueError, match=re.escape("mat_x must be square.")):
             ln_quantum_entropy(np.zeros((2, 3)))
 
-    def test_m_invalid(self):
-        """Reject quadrature count ``m`` below 1."""
-        with pytest.raises(ValueError, match=re.escape("m must be at least 1")):
-            ln_quantum_entropy(np.eye(2), m=0)
-
-    def test_k_invalid(self):
-        """Reject square-root count ``k`` below 1."""
-        with pytest.raises(ValueError, match=re.escape("k must be at least 1")):
-            ln_quantum_entropy(np.eye(2), k=0)
-
-    def test_apx_invalid(self):
-        """Reject approximation flag outside ``{-1, 0, 1}``."""
-        with pytest.raises(ValueError, match=re.escape("apx must be -1, 0, or 1")):
-            ln_quantum_entropy(np.eye(2), apx=2)
-
     def test_mat_x_numpy_not_psd(self):
         """Reject non-PSD numeric ``mat_x``."""
         mat_x = np.array([[1.0, 2.0], [2.0, 1.0]])
@@ -217,51 +192,29 @@ class TestLnQuantumEntropyValueErrors:
         n = 2
         p = cvxpy.Parameter((n, n), symmetric=True)
         assert p.value is None
-        msg_constant = (
-            "Constant CVXPY expression has no numeric value; set parameter `.value` or pass mat_x as a numpy.ndarray."
-        )
-        msg_affine = "Affine mat_x has no numeric initial value; set `.value` for PSD checks."
-        pattern = "|".join((re.escape(msg_constant), re.escape(msg_affine)))
-        with pytest.raises(ValueError, match=pattern):
+        with pytest.raises(
+            ValueError,
+            match=re.escape(
+                "Constant CVXPY expression has no numeric value; set parameter `.value` "
+                "or pass mat_x as a numpy.ndarray."
+            ),
+        ):
             ln_quantum_entropy(p)
 
-    def test_expression_not_affine(self):
-        """Reject non-affine CVXPY ``mat_x``."""
+    def test_nonconstant_quadratic(self):
+        """Reject non-constant quadratic CVXPY inputs."""
         n = 2
         x_var = cvxpy.Variable((n, n), symmetric=True)
         x_var.value = np.eye(n)
-        expr = x_var @ x_var
-        assert not expr.is_affine()
-        with pytest.raises(
-            ValueError,
-            match=re.escape("mat_x must be an affine CVXPY expression."),
-        ):
-            ln_quantum_entropy(expr)
+        with pytest.raises(ValueError, match=_NOT_SUPPORTED):
+            ln_quantum_entropy(cvxpy.square(x_var))
 
-    def test_affine_expression_no_value(self):
-        """Reject affine ``mat_x`` with no initial ``.value`` for PSD checks."""
+    def test_nonconstant_variable(self):
+        """Reject non-constant CVXPY variables."""
         n = 2
         t = cvxpy.Variable()
         expr = t * np.eye(n)
-        assert expr.is_affine()
-        assert expr.value is None
-        with pytest.raises(
-            ValueError,
-            match=re.escape("Affine or variable CVXPY inputs are not yet supported; pass numeric matrices."),
-        ):
-            ln_quantum_entropy(expr)
-
-    def test_affine_expression_not_psd_at_value(self):
-        """Reject affine ``mat_x`` that is not PSD at ``.value``."""
-        n = 2
-        t = cvxpy.Variable()
-        expr = t * np.eye(n)
-        t.value = -1.0
-        assert expr.value is not None
-        with pytest.raises(
-            ValueError,
-            match="Affine or variable CVXPY inputs are not yet supported; pass numeric matrices.",
-        ):
+        with pytest.raises(ValueError, match=_NOT_SUPPORTED):
             ln_quantum_entropy(expr)
 
 
@@ -280,9 +233,8 @@ def test_ln_quantum_entropy_constant_cvxpy_still_works():
 
 
 def test_ln_quantum_entropy_free_variable_raises():
-    """A free CVXPY Variable with a valid PSD .value now proceeds through the SDP path."""
+    """A free CVXPY Variable with ``.value`` set is rejected (use the hypo cone)."""
     x_var = cvxpy.Variable((2, 2), symmetric=True)
     x_var.value = np.diag([0.7, 0.3])
-    val = ln_quantum_entropy(x_var)
-    ref = float(np.real(-np.trace(np.diag([0.7, 0.3]) @ logm(np.diag([0.7, 0.3])))))
-    np.testing.assert_allclose(float(val), ref, rtol=5e-3, atol=1e-5)
+    with pytest.raises(ValueError, match=_NOT_SUPPORTED):
+        ln_quantum_entropy(x_var)

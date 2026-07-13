@@ -165,16 +165,16 @@ def quantum_relative_entropy(
         x_val = np.asarray(mat_x.value)
         # tr(A log B): trace_matrix_log(X, C) = tr(C log X) with X = B, C = A.
         if isinstance(mat_y, np.ndarray):
-            mat_y_log = np.asarray(mat_y)
-        elif isinstance(mat_y, cvxpy.Expression) and mat_y.is_constant():
+            y_eval = np.asarray(mat_y)
+        elif isinstance(mat_y, cvxpy.Expression):
             if mat_y.value is None:
                 raise ValueError("mat_y has no numeric value; pass a numpy.ndarray or set `.value`.")
-            mat_y_log = np.asarray(mat_y.value)
+            y_eval = np.asarray(mat_y.value)
         else:
-            mat_y_log = mat_y
+            raise ValueError("mat_y must be a numpy array or a cvxpy expression")
         with _silence_singular_logm_warning():
-            tr_a_log_b = trace_matrix_log(mat_y_log, x_val, m, k, -apx)
-            return -ln_quantum_entropy(x_val, m, k) - tr_a_log_b
+            tr_a_log_b = trace_matrix_log(y_eval, x_val)
+            return -ln_quantum_entropy(x_val) - tr_a_log_b
     elif isinstance(mat_y, cvxpy.Expression) and mat_y.is_constant():
         if mat_y.value is None:
             raise ValueError(
@@ -192,7 +192,7 @@ def quantum_relative_entropy(
         else:
             x_eval = np.asarray(mat_x.value)
         with _silence_singular_logm_warning():
-            ent_part = -ln_quantum_entropy(mat_x, m, k, -apx)
+            ent_part = -ln_quantum_entropy(x_eval)
             log_y = logm(y_val)
             tr_a_log_b = float(np.real(np.trace(x_eval @ log_y)))
             return ent_part - tr_a_log_b
