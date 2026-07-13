@@ -1,14 +1,11 @@
 """Implements the bitflip quantum gate channel."""
 
-import warnings
-
 import numpy as np
 
 from toqito.channel_ops.kraus_to_choi import kraus_to_choi
 
 
 def bitflip(
-    input_mat: np.ndarray | None = None,
     prob: float = 0,
     return_kraus_ops: bool = False,
 ) -> np.ndarray | list[np.ndarray]:
@@ -36,16 +33,12 @@ def bitflip(
     \]
 
     Args:
-        input_mat: Deprecated. Passing a matrix here applies the channel to that matrix; this
-            convenience path will be removed in a future release. Prefer
-            `apply_channel(input_mat, bitflip(prob=...))`.
         prob: The probability of a bitflip occurring.
         return_kraus_ops: If `True`, return the list of Kraus operators instead of the Choi matrix.
 
     Returns:
         The Choi matrix of the channel, or its list of Kraus operators when `return_kraus_ops` is
-        `True`. When the deprecated `input_mat` argument is provided, the channel applied to that
-        input is returned instead.
+        `True`.
 
     Examples:
         Obtain the Kraus operators for the bitflip channel with probability 0.3:
@@ -75,19 +68,5 @@ def bitflip(
     k0 = np.sqrt(1 - prob) * np.eye(2)
     k1 = np.sqrt(prob) * np.array([[0, 1], [1, 0]])
 
-    if input_mat is None:
-        kraus_ops = [k0, k1]
-        return kraus_ops if return_kraus_ops else kraus_to_choi(kraus_ops)
-
-    if input_mat.shape != (2, 2):
-        raise ValueError("Input matrix must be 2x2 for the bitflip channel.")
-
-    warnings.warn(
-        "Passing `input_mat` to `bitflip` is deprecated; use `apply_channel(input_mat, bitflip(...))` instead.",
-        DeprecationWarning,
-        stacklevel=2,
-    )
-
-    input_mat = np.asarray(input_mat, dtype=complex)
-
-    return k0 @ input_mat @ k0.conj().T + k1 @ input_mat @ k1.conj().T
+    kraus_ops = [k0, k1]
+    return kraus_ops if return_kraus_ops else kraus_to_choi(kraus_ops)

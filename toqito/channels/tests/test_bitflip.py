@@ -60,20 +60,6 @@ def test_invalid_probability(prob, error_message):
         bitflip(prob=prob)
 
 
-@pytest.mark.parametrize(
-    "rho",
-    [
-        np.eye(3),  # 3x3 matrix
-        np.array([[1, 0, 0], [0, 1, 0]]),  # 2x3 matrix
-        np.array([[1, 0, 0, 0], [0, 1, 0, 0]]),  # 2x4 matrix
-    ],
-)
-def test_invalid_dimension(rho):
-    """Test that invalid matrix dimensions raise an error."""
-    with pytest.raises(ValueError, match="Input matrix must be 2x2 for the bitflip channel."):
-        bitflip(rho, prob=0.3)
-
-
 def test_apply_to_mixed_state():
     """Test bitflip channel on a mixed state."""
     prob = 0.4
@@ -82,12 +68,3 @@ def test_apply_to_mixed_state():
     result = apply_channel(rho, bitflip(prob=prob))
 
     np.testing.assert_almost_equal(result, expected_output)
-
-
-def test_input_mat_is_deprecated():
-    """Passing `input_mat` still works but emits a DeprecationWarning."""
-    rho = np.array([[1.0, 0.0], [0.0, 0.0]])
-    with pytest.warns(DeprecationWarning, match="apply_channel"):
-        legacy = bitflip(rho, prob=0.4)
-    modern = apply_channel(rho, bitflip(prob=0.4))
-    np.testing.assert_almost_equal(legacy, modern)
