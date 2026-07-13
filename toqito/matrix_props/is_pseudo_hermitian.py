@@ -86,11 +86,15 @@ def is_pseudo_hermitian(mat: np.ndarray, signature: np.ndarray, rtol: float = 1e
     if not is_hermitian(signature, rtol=rtol, atol=atol):
         raise ValueError("Signature not hermitian matrix.")
 
-    if np.linalg.matrix_rank(signature) != signature.shape[0]:
-        raise ValueError("Signature is not invertible.")
+    # Test invertibility by attempting the inverse the function needs anyway, rather than a
+    # separate matrix_rank (full SVD) pre-check followed by a redundant inv.
+    try:
+        signature_inv = np.linalg.inv(signature)
+    except np.linalg.LinAlgError as error:
+        raise ValueError("Signature is not invertible.") from error
 
     if not is_square(mat) or not has_same_dimension([mat, signature]):
         return False
 
-    eta_H_inv_eta = signature @ mat @ np.linalg.inv(signature)
+    eta_H_inv_eta = signature @ mat @ signature_inv
     return np.allclose(eta_H_inv_eta, mat.conj().T, rtol=rtol, atol=atol)
