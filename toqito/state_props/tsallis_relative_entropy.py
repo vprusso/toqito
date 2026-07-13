@@ -4,8 +4,8 @@ import cvxpy
 import numpy as np
 
 from toqito.cones._utils import _reject_nonconstant_cvxpy, _require_square_2d
-from toqito.cones.lieb_ando import lieb_ando
 from toqito.matrix_props import is_positive_semidefinite
+from toqito.matrix_props.lieb_ando import lieb_ando
 
 
 def tsallis_relative_entropy(
@@ -55,7 +55,7 @@ def tsallis_relative_entropy(
     Examples:
         ```python exec="1" source="above" result="text"
         import numpy as np
-        from toqito.cones import tsallis_relative_entropy
+        from toqito.state_props import tsallis_relative_entropy
         mat_x = np.diag([0.25, 0.75])
         mat_y = np.diag([0.5, 0.5])
         t = 0.5

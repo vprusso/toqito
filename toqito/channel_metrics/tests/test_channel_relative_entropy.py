@@ -9,8 +9,8 @@ from scipy.linalg import LinAlgError
 
 from toqito.channel_metrics.channel_relative_entropy import channel_relative_entropy
 from toqito.channels import depolarizing, pauli_channel
-from toqito.cones.integral_relative_entropy import _sandwich_parameters
 from toqito.perms import swap_operator
+from toqito.state_props.integral_relative_entropy import _sandwich_parameters
 
 _CHANNEL_RELATIVE_ENTROPY_MOD = importlib.import_module("toqito.channel_metrics.channel_relative_entropy")
 
@@ -38,7 +38,7 @@ def test_sandwich_parameters_raises_on_eigh_failure(monkeypatch):
         raise LinAlgError("singular pencil")
 
     monkeypatch.setattr(
-        "toqito.cones.integral_relative_entropy._generalized_eigenvalues",
+        "toqito.state_props.integral_relative_entropy._generalized_eigenvalues",
         failing_eigh,
     )
 

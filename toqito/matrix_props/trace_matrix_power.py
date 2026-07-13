@@ -46,7 +46,7 @@ def trace_matrix_power(mat_a: np.ndarray | cvxpy.Expression, t: float, mat_c: np
     Examples:
         ```python
         import numpy as np
-        from toqito.cones import trace_matrix_power
+        from toqito.matrix_props import trace_matrix_power
         mat_a = np.array([[2.0, 1.0], [1.0, 2.0]])
         t = 0.5
         mat_c = np.array([[1, 0], [0, 1]])

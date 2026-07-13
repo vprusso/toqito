@@ -10,8 +10,8 @@ import cvxpy
 import numpy as np
 import pytest
 
-from toqito.cones.geometric_mean import geometric_mean
 from toqito.cones.geometric_mean_hypo_cone import geometric_mean_hypo_cone
+from toqito.matrix_ops.geometric_mean import geometric_mean
 
 DIMS = (3, 5)
 WEIGHTS = (0.5, 0.25, 0.125, 0.0625, 0.75, 0.875, 0.9375, 2 / 3, 6 / 7)

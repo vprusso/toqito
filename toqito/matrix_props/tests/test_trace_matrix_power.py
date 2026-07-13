@@ -8,7 +8,7 @@ import numpy as np
 import pytest
 from scipy.linalg import fractional_matrix_power
 
-from toqito.cones import trace_matrix_power
+from toqito.matrix_props import trace_matrix_power
 
 DIMS = (3, 5)
 WEIGHTS_HYPO = (0.5, 0.25, 0.125, 2 / 3, 6 / 7)

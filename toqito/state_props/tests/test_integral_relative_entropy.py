@@ -8,7 +8,7 @@ import pytest
 from scipy.linalg import LinAlgError
 
 from toqito.channels import depolarizing
-from toqito.cones.integral_relative_entropy import (
+from toqito.state_props.integral_relative_entropy import (
     _generalized_eigenvalues,
     _make_delta,
     _make_gamma,
@@ -33,7 +33,7 @@ def test_sandwich_parameters_no_finite_eigenvalues(monkeypatch):
         return np.array([np.inf, np.inf])
 
     monkeypatch.setattr(
-        "toqito.cones.integral_relative_entropy._generalized_eigenvalues",
+        "toqito.state_props.integral_relative_entropy._generalized_eigenvalues",
         all_infinite,
     )
 
@@ -92,7 +92,7 @@ def test_evaluate_relative_entropy_integral_identical_inputs():
 def test_evaluate_relative_entropy_integral_degenerate_sandwich(monkeypatch):
     """Degenerate ``mu``/``lambda`` should raise ``ValueError``."""
     monkeypatch.setattr(
-        "toqito.cones.integral_relative_entropy._sandwich_parameters",
+        "toqito.state_props.integral_relative_entropy._sandwich_parameters",
         lambda mat_x, mat_y: (1.0, 1.0),
     )
     with pytest.raises(ValueError, match="0 < mu < lambda"):
@@ -212,7 +212,7 @@ def test_sandwich_parameters_raises_on_lin_alg_error(monkeypatch):
         raise LinAlgError("singular pencil")
 
     monkeypatch.setattr(
-        "toqito.cones.integral_relative_entropy._generalized_eigenvalues",
+        "toqito.state_props.integral_relative_entropy._generalized_eigenvalues",
         failing,
     )
 

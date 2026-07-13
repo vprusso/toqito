@@ -19,3 +19,4 @@ from toqito.matrix_ops.support_projection import support_projection
 from toqito.matrix_ops.validate_bipartite_dim import validate_bipartite_dim
 from toqito.matrix_ops.expr_as_np_array import expr_as_np_array
 from toqito.matrix_ops.np_array_as_expr import np_array_as_expr
+from toqito.matrix_ops.geometric_mean import geometric_mean

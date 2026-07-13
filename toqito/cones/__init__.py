@@ -1,24 +1,10 @@
-"""CVXQUAD-derived matrix cones and entropy functionals for use in CVXPY SDPs.
+"""CVXPY cone constraints for operator-monotone matrix functions, ported from CVXQUAD (Fawzi--Saunderson) [@cvxquadlink].
 
-This package collects operator-monotone matrix functions and the associated
-SDP cones (matrix geometric mean, operator relative entropy, matrix logarithm)
-ported from CVXQUAD (Fawzi--Saunderson) [@cvxquadlink]. They live here rather than in
-``matrix_ops`` because they depend on ``matrix_props`` for input validation;
-keeping ``matrix_ops`` free of that back-edge avoids a load-time import cycle
-with ``state_props`` and ``channels``.
+These builders return lists of CVXPY constraints describing the epigraph or hypograph of
+a matrix function (matrix geometric mean, operator relative entropy) for use inside a
+semidefinite program.
 """
 
-from toqito.cones.geometric_mean import geometric_mean
 from toqito.cones.geometric_mean_epi_cone import geometric_mean_epi_cone
 from toqito.cones.geometric_mean_hypo_cone import geometric_mean_hypo_cone
-from toqito.cones.integral_relative_entropy import evaluate_relative_entropy_integral
-from toqito.cones.lieb_ando import lieb_ando
-from toqito.cones.ln_quantum_entropy import ln_quantum_entropy
-from toqito.cones.operator_relative_entropy_epi_cone import (
-    operator_relative_entropy_epi_cone,
-)
-from toqito.cones.relative_entropy_quadrature import relative_entropy_quadrature
-from toqito.cones.trace_matrix_log import trace_matrix_log
-from toqito.cones.trace_matrix_power import trace_matrix_power
-from toqito.cones.tsallis_entropy import tsallis_entropy
-from toqito.cones.tsallis_relative_entropy import tsallis_relative_entropy
+from toqito.cones.operator_relative_entropy_epi_cone import operator_relative_entropy_epi_cone

@@ -11,7 +11,7 @@ import numpy as np
 import pytest
 from scipy.linalg import fractional_matrix_power
 
-from toqito.cones import lieb_ando
+from toqito.matrix_props import lieb_ando
 
 DIMS = (2, 3)
 TVEC = (0.5, 0.25, 0.75, 0.125, 1.5, 1.25)

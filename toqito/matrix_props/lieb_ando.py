@@ -9,9 +9,9 @@ import numpy as np
 from toqito.cones._utils import _reject_nonconstant_cvxpy, _require_2d, _require_square_2d
 from toqito.cones.geometric_mean_epi_cone import geometric_mean_epi_cone
 from toqito.cones.geometric_mean_hypo_cone import geometric_mean_hypo_cone
-from toqito.cones.trace_matrix_power import trace_matrix_power
 from toqito.matrix_ops import psd_matrix_power
 from toqito.matrix_props import is_positive_semidefinite
+from toqito.matrix_props.trace_matrix_power import trace_matrix_power
 
 
 def lieb_ando(
@@ -51,7 +51,7 @@ def lieb_ando(
     Examples:
         ```python
         import numpy as np
-        from toqito.cones import lieb_ando
+        from toqito.matrix_props import lieb_ando
         mat_a = np.array([[2.0, 1.0], [1.0, 2.0]])
         mat_b = np.array([[2.0, 1.0], [1.0, 2.0]])
         mat_k = np.eye(2)

@@ -7,13 +7,13 @@ import cvxpy as cvx
 import numpy as np
 
 from toqito.channel_props import is_completely_positive, is_quantum_channel
-from toqito.cones.integral_relative_entropy import (
+from toqito.matrix_ops.partial_trace import partial_trace
+from toqito.state_props.integral_relative_entropy import (
     _make_delta,
     _make_gamma,
     _make_grid,
     _sandwich_parameters,
 )
-from toqito.matrix_ops.partial_trace import partial_trace
 
 
 def channel_relative_entropy(
