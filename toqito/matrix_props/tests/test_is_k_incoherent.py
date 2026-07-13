@@ -175,13 +175,6 @@ def test_sdp_branch(mat, k, expected):
     assert is_k_incoherent(mat, k) is True
 
 
-def test_is_k_incoherent_deprecated_tol_alias_warns():
-    """The deprecated `tol` keyword still works but emits a DeprecationWarning."""
-    diag = np.diag([0.5, 0.5])
-    with pytest.warns(DeprecationWarning, match="tol"):
-        assert is_k_incoherent(diag, 1, tol=1e-15) is True
-
-
 def test_non_square():
     """Ensure non-square input is flagged."""
     # Construct a non-square matrix.
@@ -204,7 +197,7 @@ def test_hierarchical_recursion(monkeypatch):
     orig_is_k_incoherent = is_k_incoherent
 
     # Monkey-patch is_k_incoherent so that when called with k == 2 it returns True.
-    def fake_is_k_incoherent(mat, k, rtol=1e-05, atol=1e-15, *, tol=None):
+    def fake_is_k_incoherent(mat, k, rtol=1e-05, atol=1e-15):
         if k == 2:
             return True
         else:
@@ -231,7 +224,7 @@ def test_hierarchical_recursion_branch():
     orig_is_k_incoherent = is_k_incoherent.__globals__["is_k_incoherent"]
 
     # Override is_k_incoherent so that when called with k==2 it returns True.
-    def fake_is_k_incoherent(mat, k, rtol=1e-05, atol=1e-15, *, tol=None):
+    def fake_is_k_incoherent(mat, k, rtol=1e-05, atol=1e-15):
         if k == 2:
             return True
         else:

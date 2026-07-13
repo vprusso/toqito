@@ -33,13 +33,6 @@ def test_small_singular_values_respected_by_tolerance():
     np.testing.assert_equal(is_rank_one(singular_values, rtol=1e-8), True)
 
 
-def test_deprecated_tol_alias_warns():
-    """The deprecated `tol` keyword still works but emits a DeprecationWarning."""
-    singular_values = np.diag([1.0, 1e-9])
-    with pytest.warns(DeprecationWarning, match="tol"):
-        np.testing.assert_equal(is_rank_one(singular_values, tol=1e-8), True)
-
-
 def test_is_rank_one_scale_invariant():
     """Rank detection does not depend on the overall scale of the matrix."""
     # A small scalar multiple of a rank-2 matrix is still rank 2 (the old absolute tolerance reported rank <= 1).

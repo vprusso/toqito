@@ -1,6 +1,5 @@
 """Checks if the matrix is totally positive."""
 
-import warnings
 from itertools import combinations
 
 import numpy as np
@@ -11,8 +10,6 @@ def is_totally_positive(
     rtol: float = 0.0,
     atol: float = 1e-6,
     sub_sizes: list | None = None,
-    *,
-    tol: float | None = None,
 ) -> bool:
     r"""Determine whether a matrix is totally positive [@wikipediatotallypositive].
 
@@ -25,7 +22,6 @@ def is_totally_positive(
             for negativity. Defaults to ``0.0``, so by default only ``atol`` is used.
         atol: Absolute tolerance parameter (default 1e-06).
         sub_sizes: List of sizes of submatrices to consider. Default is all sizes up to `min(mat.shape)`.
-        tol: Deprecated alias retained for backward compatibility; if given it sets ``atol``.
 
     Returns:
         Return `True` if matrix is totally positive, and `False` otherwise.
@@ -99,14 +95,6 @@ def is_totally_positive(
         ```
 
     """
-    if tol is not None:
-        warnings.warn(
-            "`tol` is deprecated; use `atol` (and optionally `rtol`) instead.",
-            DeprecationWarning,
-            stacklevel=2,
-        )
-        atol = tol
-
     if mat.size == 0:
         raise ValueError("Cannot determine total positivity of an empty matrix.")
 

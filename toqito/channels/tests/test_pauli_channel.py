@@ -138,16 +138,6 @@ def test_pauli_channel_zero_probability(prob):
             np.testing.assert_almost_equal(k, np.zeros_like(k))
 
 
-def test_pauli_channel_input_mat_is_deprecated():
-    """Passing `input_mat` still works but emits a DeprecationWarning."""
-    prob = np.array([0.1, 0.2, 0.3, 0.4])
-    input_mat = np.eye(2)
-    with pytest.warns(DeprecationWarning, match="apply_channel"):
-        _, legacy = pauli_channel(prob=prob, input_mat=input_mat)
-    modern = apply_channel(input_mat, pauli_channel(prob=prob))
-    np.testing.assert_almost_equal(legacy, np.asarray(modern))
-
-
 def test_pauli_channel_return_kraus_ops():
     """`return_kraus_ops=True` returns the flat list of Kraus operators (one per probability)."""
     prob = np.array([0.25, 0.25, 0.25, 0.25])

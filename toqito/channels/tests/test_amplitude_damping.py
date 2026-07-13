@@ -75,25 +75,6 @@ def test_invalid_parameters(param, value, error_message):
         amplitude_damping(**kwargs)
 
 
-@pytest.mark.parametrize(
-    "rho",
-    [
-        # 3x3 matrix.
-        np.eye(3),
-        # 2x3 matrix.
-        np.array([[1, 0, 0], [0, 1, 0]]),
-        # 1D array.
-        np.array([1, 0]),
-        # 2x4 matrix.
-        np.array([[1, 0, 0, 0], [0, 1, 0, 0]]),
-    ],
-)
-def test_invalid_dimension(rho):
-    """Test that invalid matrix dimensions raise an error."""
-    with pytest.raises(ValueError, match="Input matrix must be 2x2 for the generalized amplitude damping channel."):
-        amplitude_damping(rho, prob=0.3, gamma=0.5)
-
-
 def test_input_and_return_type():
     """Test for input handling and return types."""
     choi = amplitude_damping(prob=0.3, gamma=0.4)
@@ -102,12 +83,3 @@ def test_input_and_return_type():
     assert len(kraus_ops) == 4
     for op in kraus_ops:
         assert op.shape == (2, 2)
-
-
-def test_input_mat_is_deprecated():
-    """Passing `input_mat` still works but emits a DeprecationWarning."""
-    rho = np.array([[1.0, 0.0], [0.0, 0.0]])
-    with pytest.warns(DeprecationWarning, match="apply_channel"):
-        legacy = amplitude_damping(rho, prob=0.3, gamma=0.4)
-    modern = apply_channel(rho, amplitude_damping(prob=0.3, gamma=0.4))
-    np.testing.assert_almost_equal(legacy, modern)

@@ -70,25 +70,6 @@ def test_invalid_gamma(gamma, error_message):
         phase_damping(gamma=gamma)
 
 
-@pytest.mark.parametrize(
-    "rho",
-    [
-        # 3x3 matrix.
-        np.eye(3),
-        # 2x3 matrix.
-        np.array([[1, 0, 0], [0, 1, 0]]),
-        # 1D array.
-        np.array([1, 0]),
-        # 2x4 matrix.
-        np.array([[1, 0, 0, 0], [0, 1, 0, 0]]),
-    ],
-)
-def test_invalid_dimension(rho):
-    """Test that invalid matrix dimensions raise an error."""
-    with pytest.raises(ValueError, match="Input matrix must be 2x2 for the phase damping channel."):
-        phase_damping(rho, gamma=0.5)
-
-
 def test_input_and_return_type():
     """Test for input handling and return types."""
     choi = phase_damping(gamma=0.4)
@@ -97,12 +78,3 @@ def test_input_and_return_type():
     assert len(kraus_ops) == 2
     for op in kraus_ops:
         assert op.shape == (2, 2)
-
-
-def test_input_mat_is_deprecated():
-    """Passing `input_mat` still works but emits a DeprecationWarning."""
-    rho = np.array([[1.0, 0.0], [0.0, 0.0]])
-    with pytest.warns(DeprecationWarning, match="apply_channel"):
-        legacy = phase_damping(rho, gamma=0.4)
-    modern = apply_channel(rho, phase_damping(gamma=0.4))
-    np.testing.assert_almost_equal(legacy, modern)

@@ -1,7 +1,6 @@
 """Generates the Choi matrix of a Pauli channel."""
 
 import itertools
-import warnings
 
 import numpy as np
 
@@ -9,9 +8,7 @@ from toqito.channel_ops.kraus_to_choi import kraus_to_choi
 from toqito.matrices.pauli import pauli
 
 
-def pauli_channel(
-    prob: int | np.ndarray, return_kraus_ops: bool = False, input_mat: np.ndarray | None = None
-) -> np.ndarray | tuple:
+def pauli_channel(prob: int | np.ndarray, return_kraus_ops: bool = False) -> np.ndarray | tuple:
     r"""Return the Choi matrix of a Pauli channel.
 
     The Pauli channel is defined by a set of Pauli operators weighted by a probability vector.
@@ -38,14 +35,10 @@ def pauli_channel(
             qubits. The probabilities correspond to Pauli operators in lexicographical order of length strictly equal to
             \(q\), when `prob` is a vector.
         return_kraus_ops: If `True`, return the list of Kraus operators instead of the Choi matrix.
-        input_mat: Deprecated. When provided, the channel is also applied to this matrix and
-            returned in a tuple alongside the Choi matrix. Prefer
-            `apply_channel(input_mat, pauli_channel(...))` instead.
 
     Returns:
         The Choi matrix of the Pauli channel, or its list of Kraus operators when
-        `return_kraus_ops` is `True`. When the deprecated ``input_mat`` argument is used, a tuple
-        including the output matrix is returned for backward compatibility.
+        `return_kraus_ops` is `True`.
 
     Raises:
         ValueError: If probabilities are negative or don't sum to 1.
@@ -94,19 +87,7 @@ def pauli_channel(
     ]
     Phi = kraus_to_choi(kraus_operators)
 
-    if input_mat is not None:
-        warnings.warn(
-            "Passing `input_mat` to `pauli_channel` is deprecated; "
-            "use `apply_channel(input_mat, pauli_channel(...))` instead.",
-            DeprecationWarning,
-            stacklevel=2,
-        )
-
-    output_mat = None
-    if input_mat is not None:
-        output_mat = sum(k @ input_mat @ k.conj().T for k in kraus_operators)
-
     if return_kraus_ops:
-        return (kraus_operators, output_mat) if input_mat is not None else kraus_operators
+        return kraus_operators
 
-    return (Phi, output_mat) if input_mat is not None else Phi
+    return Phi

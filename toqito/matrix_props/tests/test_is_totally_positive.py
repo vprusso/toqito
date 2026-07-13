@@ -51,9 +51,3 @@ def test_is_totally_positive_invalid(mat, tol, sub_sizes):
     """Test function works as expected for an invalid input."""
     with pytest.raises(ValueError, match=re.escape("Cannot determine total positivity of an empty matrix.")):
         is_totally_positive(mat, atol=tol, sub_sizes=sub_sizes)
-
-
-def test_is_totally_positive_deprecated_tol_alias_warns():
-    """The deprecated `tol` keyword still works but emits a DeprecationWarning."""
-    with pytest.warns(DeprecationWarning, match="tol"):
-        np.testing.assert_equal(is_totally_positive(np.array([[1, 2], [2, 5]]), tol=1e-6), True)

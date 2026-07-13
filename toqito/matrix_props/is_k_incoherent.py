@@ -1,6 +1,5 @@
 """Checks if the matrix is $k$-incoherent."""
 
-import warnings
 from itertools import combinations
 
 import cvxpy as cp
@@ -10,9 +9,7 @@ from toqito.matrices import comparison
 from toqito.matrix_props import is_positive_semidefinite, is_square
 
 
-def is_k_incoherent(
-    mat: np.ndarray, k: int, rtol: float = 1e-05, atol: float = 1e-15, *, tol: float | None = None
-) -> bool:
+def is_k_incoherent(mat: np.ndarray, k: int, rtol: float = 1e-05, atol: float = 1e-15) -> bool:
     r"""Determine whether a quantum state is k-incoherent [@johnston2022absolutely].
 
     For a positive integers, \(k\) and \(n\), the matrix \(X \in \text{Pos}(\mathbb{C}^n)\) is called
@@ -37,7 +34,6 @@ def is_k_incoherent(
         k: The positive integer coherence level.
         rtol: Relative tolerance for the diagonal comparison (default 1e-05).
         atol: Absolute tolerance for the diagonal comparison (default 1e-15).
-        tol: Deprecated alias retained for backward compatibility; if given it sets ``atol``.
 
     Returns:
         True if `mat` is k-incoherent, False otherwise.
@@ -62,14 +58,6 @@ def is_k_incoherent(
             [is_absolutely_k_incoherent()][toqito.matrix_props.is_absolutely_k_incoherent.is_absolutely_k_incoherent]
 
     """
-    if tol is not None:
-        warnings.warn(
-            "`tol` is deprecated; use `rtol` and `atol` instead.",
-            DeprecationWarning,
-            stacklevel=2,
-        )
-        atol = tol
-
     if k <= 0:
         raise ValueError("k must be a positive integer.")
     if not is_square(mat):

@@ -1,14 +1,11 @@
 """Generates the (generalized) amplitude damping channel."""
 
-import warnings
-
 import numpy as np
 
 from toqito.channel_ops.kraus_to_choi import kraus_to_choi
 
 
 def amplitude_damping(
-    input_mat: np.ndarray | None = None,
     gamma: float = 0,
     prob: float = 1,
     return_kraus_ops: bool = False,
@@ -39,17 +36,13 @@ def amplitude_damping(
     damping process.
 
     Args:
-        input_mat: Deprecated. Passing a matrix here applies the channel to that matrix; this
-            convenience path will be removed in a future release. Prefer
-            `apply_channel(input_mat, amplitude_damping(gamma=..., prob=...))`.
         gamma: The damping rate, a float between 0 and 1. Represents the probability of energy dissipation.
         prob: The probability of energy loss, a float between 0 and 1.
         return_kraus_ops: If `True`, return the list of Kraus operators instead of the Choi matrix.
 
     Returns:
         The Choi matrix of the channel, or its list of Kraus operators when `return_kraus_ops` is
-        `True`. When the deprecated `input_mat` argument is provided, the channel applied to that
-        input is returned instead.
+        `True`.
 
     Examples:
         Apply the channel (returned as a Choi matrix) to a state via `apply_channel`:
@@ -77,25 +70,5 @@ def amplitude_damping(
     k2 = np.sqrt(1 - prob) * np.array([[np.sqrt(1 - gamma), 0], [0, 1]])
     k3 = np.sqrt(1 - prob) * np.sqrt(gamma) * np.array([[0, 0], [1, 0]])
 
-    if input_mat is None:
-        kraus_ops = [k0, k1, k2, k3]
-        return kraus_ops if return_kraus_ops else kraus_to_choi(kraus_ops)
-
-    if input_mat.shape != (2, 2):
-        raise ValueError("Input matrix must be 2x2 for the generalized amplitude damping channel.")
-
-    warnings.warn(
-        "Passing `input_mat` to `amplitude_damping` is deprecated; "
-        "use `apply_channel(input_mat, amplitude_damping(...))` instead.",
-        DeprecationWarning,
-        stacklevel=2,
-    )
-
-    input_mat = np.asarray(input_mat, dtype=complex)
-
-    return (
-        k0 @ input_mat @ k0.conj().T
-        + k1 @ input_mat @ k1.conj().T
-        + k2 @ input_mat @ k2.conj().T
-        + k3 @ input_mat @ k3.conj().T
-    )
+    kraus_ops = [k0, k1, k2, k3]
+    return kraus_ops if return_kraus_ops else kraus_to_choi(kraus_ops)
