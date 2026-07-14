@@ -118,9 +118,7 @@ def test_ln_quantum_entropy_constant_cvx_expression():
     np.testing.assert_allclose(got, want, rtol=1e-10, atol=1e-10)
 
 
-_NOT_SUPPORTED = re.escape(
-    "Affine or variable CVXPY inputs are not yet supported; pass numeric matrices."
-)
+_NOT_SUPPORTED = re.escape("Affine or variable CVXPY inputs are not yet supported; pass numeric matrices.")
 
 
 def test_ln_quantum_entropy_rejects_nonconstant_affine():
