@@ -10,9 +10,7 @@ import numpy as np
 import pytest
 from scipy.linalg import logm
 
-from toqito.cones.operator_relative_entropy_epi_cone import (
-    operator_relative_entropy_epi_cone,
-)
+from toqito.cones.trace_matrix_log_hypo_cone import trace_matrix_log_hypo_cone
 from toqito.matrix_props import is_positive_semidefinite
 from toqito.matrix_props.trace_matrix_log import trace_matrix_log
 
@@ -41,30 +39,19 @@ def _trace_matrix_log_sdp_at_fixed_a(
     k: int,
     apx: int,
 ) -> tuple[float, str]:
-    """Test the affine branch of trace_matrix_log."""
-    n = mat_a.shape[0]
-    is_cplx = np.any(np.imag(mat_a) != 0) or np.any(np.imag(mat_c) != 0)
-    if is_cplx:
-        tau = cvxpy.Variable((n, n), hermitian=True)
-    else:
-        tau = cvxpy.Variable((n, n), symmetric=True)
-    eye_n = cvxpy.Constant(np.eye(n))
-    a_c = cvxpy.Constant(mat_a)
-    cons = operator_relative_entropy_epi_cone(
-        eye_n,
-        a_c,
-        tau,
+    """SDP for ``trace_matrix_log`` at fixed ``A = mat_a`` via the hypo cone."""
+    is_cplx = bool(np.any(np.imag(mat_a) != 0) or np.any(np.imag(mat_c) != 0))
+    t = cvxpy.Variable()
+    cons = trace_matrix_log_hypo_cone(
+        cvxpy.Constant(mat_a),
+        t,
+        mat_c,
         m=m,
         k=k,
-        e=np.eye(n),
-        apx=-apx,
+        apx=apx,
         hermitian=is_cplx,
     )
-    c_expr = cvxpy.Constant(mat_c)
-    obj = -cvxpy.trace(c_expr @ tau)
-    if is_cplx:
-        obj = cvxpy.real(obj)
-    prob = cvxpy.Problem(cvxpy.Maximize(obj), cons)
+    prob = cvxpy.Problem(cvxpy.Maximize(t), cons)
     val = prob.solve(solver=cvxpy.SCS, verbose=False)
     return val, prob.status
 
@@ -82,13 +69,13 @@ def test_trace_matrix_log(dim: int, mk: int, apx: int, hermitian: bool):
     mat_a = _rand_psd_normalized(dim, seed, hermitian=hermitian)
     mat_c = _rand_psd(dim, seed + 1, hermitian=hermitian)
 
-    assert is_positive_semidefinite(np.asarray(mat_a, dtype=np.float64))
-    assert is_positive_semidefinite(np.asarray(mat_c, dtype=np.float64))
+    assert is_positive_semidefinite(np.asarray(mat_a, dtype=np.complex128))
+    assert is_positive_semidefinite(np.asarray(mat_c, dtype=np.complex128))
 
     tr_ref = float(np.real(np.trace(mat_c @ logm(mat_a))))
 
     np.testing.assert_allclose(
-        trace_matrix_log(mat_a, mat_c, m=mk, k=mk, apx=apx),
+        trace_matrix_log(mat_a, mat_c),
         tr_ref,
         rtol=1e-8,
         atol=1e-8,
@@ -103,7 +90,8 @@ def test_trace_matrix_log(dim: int, mk: int, apx: int, hermitian: bool):
         return
 
     relerr = (cvx_val - tr_ref) / abs(tr_ref)
-    assert apx * relerr >= -5e-4, relerr
+    # SCS can slightly overshoot the analytic bound on larger dims.
+    assert apx * relerr >= -1e-3, relerr
     if mk >= 3:
         assert abs(relerr) <= 1e-2, relerr
 
@@ -129,13 +117,16 @@ def test_trace_matrix_log_constant_cvx_expression() -> None:
     mat_a = (mat_a + mat_a.T) / 2
     mat_c = np.eye(n)
     expr = cvxpy.Constant(mat_a)
-    got = trace_matrix_log(expr, mat_c, m=3, k=3, apx=0)
-    want = trace_matrix_log(mat_a, mat_c, m=3, k=3, apx=0)
+    got = trace_matrix_log(expr, mat_c)
+    want = trace_matrix_log(mat_a, mat_c)
     np.testing.assert_allclose(got, want, rtol=1e-10, atol=1e-10)
 
 
-def test_trace_matrix_log_affine_real_sdp() -> None:
-    """Non-constant affine ``mat_x`` hits the cone SDP; ``Constant(A)+W-W`` is algebraically ``A``."""
+_NOT_SUPPORTED = re.escape("Affine or variable CVXPY inputs are not yet supported; pass numeric matrices.")
+
+
+def test_trace_matrix_log_rejects_nonconstant_affine() -> None:
+    """Non-constant affine expressions are rejected; use the hypo cone for composition."""
     n = 3
     rng = np.random.default_rng(13)
     g = rng.standard_normal((n, n))
@@ -147,14 +138,12 @@ def test_trace_matrix_log_affine_real_sdp() -> None:
     w_var.value = np.zeros((n, n))
     mat_x = cvxpy.Constant(mat_a) + w_var - w_var
     assert mat_x.is_affine() and not mat_x.is_constant()
-    mat_c = np.eye(n)
-    val = trace_matrix_log(mat_x, mat_c, m=3, k=3, apx=1)
-    ref = float(np.real(np.trace(mat_c @ logm(mat_a))))
-    np.testing.assert_allclose(float(val), ref, rtol=5e-4, atol=1e-6)
+    with pytest.raises(ValueError, match=_NOT_SUPPORTED):
+        trace_matrix_log(mat_x, np.eye(n))
 
 
-def test_trace_matrix_log_affine_hermitian_sdp() -> None:
-    """Hermitian ``Constant(A)+W-W`` exercises the complex Hermitian-variable SDP path."""
+def test_trace_matrix_log_rejects_hermitian_affine() -> None:
+    """Hermitian non-constant affine expressions are rejected."""
     n = 2
     rng = np.random.default_rng(17)
     g = rng.standard_normal((n, n)) + 1j * rng.standard_normal((n, n))
@@ -166,10 +155,8 @@ def test_trace_matrix_log_affine_hermitian_sdp() -> None:
     w_var.value = np.zeros((n, n), dtype=np.complex128)
     mat_x = cvxpy.Constant(mat_a) + w_var - w_var
     assert mat_x.is_affine() and not mat_x.is_constant()
-    mat_c = np.eye(n)
-    val = trace_matrix_log(mat_x, mat_c, m=3, k=3, apx=-1)
-    ref = float(np.real(np.trace(mat_c @ logm(mat_a))))
-    np.testing.assert_allclose(float(val), ref, rtol=5e-4, atol=1e-6)
+    with pytest.raises(ValueError, match=_NOT_SUPPORTED):
+        trace_matrix_log(mat_x, np.eye(n))
 
 
 class TestTraceMatrixLogValueErrors:
@@ -247,55 +234,33 @@ class TestTraceMatrixLogValueErrors:
             trace_matrix_log(mat_x, mat_c)
 
     def test_parameter_no_value(self) -> None:
-        """Unset ``Parameter.value`` is rejected (constant or affine branch by CVXPY)."""
+        """Unset ``Parameter.value`` is rejected."""
         n = 2
         p = cvxpy.Parameter((n, n), symmetric=True)
         assert p.value is None
-        msg_constant = (
-            "Constant CVXPY expression has no numeric value; set parameter `.value` or pass mat_x as a numpy.ndarray."
-        )
-        msg_affine = "Affine mat_x has no numeric initial value; set `.value` for PSD checks."
-        pattern = "|".join((re.escape(msg_constant), re.escape(msg_affine)))
-        with pytest.raises(ValueError, match=pattern):
+        with pytest.raises(
+            ValueError,
+            match=re.escape(
+                "Constant CVXPY expression has no numeric value; set parameter `.value` "
+                "or pass mat_x as a numpy.ndarray."
+            ),
+        ):
             trace_matrix_log(p, np.eye(n))
 
-    def test_expression_not_affine(self) -> None:
-        """Reject non-affine CVXPY ``mat_x``."""
+    def test_nonconstant_quadratic(self) -> None:
+        """Reject non-constant quadratic CVXPY inputs."""
         n = 2
         x_var = cvxpy.Variable((n, n), symmetric=True)
         x_var.value = np.eye(n)
-        expr = x_var @ x_var
-        assert not expr.is_affine()
-        with pytest.raises(
-            ValueError,
-            match=re.escape("mat_x must be an affine CVXPY expression."),
-        ):
-            trace_matrix_log(expr, np.eye(n))
+        with pytest.raises(ValueError, match=_NOT_SUPPORTED):
+            trace_matrix_log(cvxpy.square(x_var), np.eye(n))
 
-    def test_affine_expression_no_value(self) -> None:
-        """Reject affine ``mat_x`` when ``value`` is unset (PSD check)."""
+    def test_nonconstant_variable(self) -> None:
+        """Reject non-constant CVXPY variables."""
         n = 2
         t = cvxpy.Variable()
         expr = t * np.eye(n)
-        assert expr.is_affine()
-        assert expr.value is None
-        with pytest.raises(
-            ValueError,
-            match=re.escape("Affine or variable CVXPY inputs are not yet supported; pass numeric matrices."),
-        ):
-            trace_matrix_log(expr, np.eye(n))
-
-    def test_affine_expression_not_psd_at_value(self) -> None:
-        """Reject affine ``mat_x`` when the initial ``value`` is not PSD."""
-        n = 2
-        t = cvxpy.Variable()
-        expr = t * np.eye(n)
-        t.value = -1.0
-        assert expr.value is not None
-        with pytest.raises(
-            ValueError,
-            match="Affine or variable CVXPY inputs are not yet supported; pass numeric matrices.",
-        ):
+        with pytest.raises(ValueError, match=_NOT_SUPPORTED):
             trace_matrix_log(expr, np.eye(n))
 
 
@@ -314,10 +279,8 @@ def test_trace_matrix_log_constant_cvxpy_still_works():
 
 
 def test_trace_matrix_log_free_variable_raises():
-    """A free CVXPY Variable with a valid PSD .value now proceeds through the SDP path."""
+    """A free CVXPY Variable with ``.value`` set is rejected (use the hypo cone)."""
     x_var = cvxpy.Variable((2, 2), symmetric=True)
     x_var.value = np.diag([0.7, 0.3])
-    mat_c = np.eye(2)
-    val = trace_matrix_log(x_var, mat_c)
-    ref = float(np.real(np.trace(mat_c @ logm(np.diag([0.7, 0.3])))))
-    np.testing.assert_allclose(float(val), ref, rtol=5e-3, atol=1e-5)
+    with pytest.raises(ValueError, match=_NOT_SUPPORTED):
+        trace_matrix_log(x_var, np.eye(2))

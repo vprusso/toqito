@@ -223,6 +223,15 @@ def test_quantum_relative_entropy_constant_x_constant_y_branch():
     np.testing.assert_allclose(got, want, rtol=1e-10, atol=1e-10)
 
 
+def test_quantum_relative_entropy_constant_x_mat_y_bad_type():
+    """Reject non-array / non-CVXPY ``mat_y`` on the constant-``X`` branch."""
+    with pytest.raises(
+        ValueError,
+        match=re.escape("mat_y must be a numpy array or a cvxpy expression"),
+    ):
+        quantum_relative_entropy(cvxpy.Constant(np.eye(2)), [[1.0, 0.0], [0.0, 1.0]])
+
+
 @pytest.mark.parametrize("space_optimized", [False, True])
 def test_quantum_relative_entropy_constant_x_affine_y_branch(space_optimized: bool):
     """Constant ``mat_x`` with affine ``mat_y`` uses ``trace_matrix_log`` on ``mat_y``."""
@@ -511,7 +520,7 @@ class TestQuantumRelativeEntropyAffineValueErrors:
         t.value = -1.0
         with pytest.raises(
             ValueError,
-            match=re.escape("Affine or variable CVXPY inputs are not yet supported; pass numeric matrices."),
+            match=re.escape("mat_x must be a positive semidefinite matrix"),
         ):
             quantum_relative_entropy(
                 t * np.eye(n),
