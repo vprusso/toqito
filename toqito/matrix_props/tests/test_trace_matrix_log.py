@@ -69,8 +69,8 @@ def test_trace_matrix_log(dim: int, mk: int, apx: int, hermitian: bool):
     mat_a = _rand_psd_normalized(dim, seed, hermitian=hermitian)
     mat_c = _rand_psd(dim, seed + 1, hermitian=hermitian)
 
-    assert is_positive_semidefinite(np.asarray(mat_a, dtype=np.float64))
-    assert is_positive_semidefinite(np.asarray(mat_c, dtype=np.float64))
+    assert is_positive_semidefinite(np.asarray(mat_a, dtype=np.complex128))
+    assert is_positive_semidefinite(np.asarray(mat_c, dtype=np.complex128))
 
     tr_ref = float(np.real(np.trace(mat_c @ logm(mat_a))))
 
@@ -122,9 +122,7 @@ def test_trace_matrix_log_constant_cvx_expression() -> None:
     np.testing.assert_allclose(got, want, rtol=1e-10, atol=1e-10)
 
 
-_NOT_SUPPORTED = re.escape(
-    "Affine or variable CVXPY inputs are not yet supported; pass numeric matrices."
-)
+_NOT_SUPPORTED = re.escape("Affine or variable CVXPY inputs are not yet supported; pass numeric matrices.")
 
 
 def test_trace_matrix_log_rejects_nonconstant_affine() -> None:
