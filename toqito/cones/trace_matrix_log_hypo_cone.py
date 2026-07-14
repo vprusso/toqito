@@ -10,7 +10,12 @@ from toqito.cones._utils import _require_square_2d, _symmetric_like_variable
 from toqito.cones.operator_relative_entropy_epi_cone import (
     operator_relative_entropy_epi_cone,
 )
-from toqito.matrix_props import is_positive_semidefinite
+
+
+def _is_psd_matrix(mat: np.ndarray, *, atol: float = 1e-8) -> bool:
+    """Local PSD check."""
+    herm = (mat + mat.conj().T) / 2
+    return bool(np.linalg.eigvalsh(herm).min() >= -atol)
 
 
 def trace_matrix_log_hypo_cone(
@@ -90,7 +95,7 @@ def trace_matrix_log_hypo_cone(
         if not isinstance(mat_c, np.ndarray):
             raise ValueError("mat_c must be a numpy array")
         _require_square_2d(mat_c, "mat_c")
-        if not is_positive_semidefinite(mat_c):
+        if not _is_psd_matrix(mat_c):
             raise ValueError("mat_c must be a positive semidefinite matrix")
     if mat_x.shape != mat_c.shape:
         raise ValueError("mat_x and mat_c must have the same shape")
