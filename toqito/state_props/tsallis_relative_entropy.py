@@ -97,8 +97,6 @@ def tsallis_relative_entropy(
             raise ValueError(
                 "Constant CVXPY expression has no numeric value; set parameter `.value` or pass a numpy.ndarray."
             )
-        return tsallis_relative_entropy(
-            np.asarray(mat_x.value), np.asarray(mat_y.value), t
-        )
+        return tsallis_relative_entropy(np.asarray(mat_x.value), np.asarray(mat_y.value), t)
 
     _reject_nonconstant_cvxpy(mat_x, mat_y)
