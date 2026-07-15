@@ -31,9 +31,7 @@ def _rand_psd_normalized(dim: int, seed: int, *, hermitian: bool) -> np.ndarray:
 @pytest.mark.parametrize("mk", [1, 3])
 @pytest.mark.parametrize("apx", [-1, 0, 1])
 @pytest.mark.parametrize("hermitian", [False, True])
-def test_quantum_relative_entropy_epi_cone_at_constant(
-    dim: int, mk: int, apx: int, hermitian: bool
-):
+def test_quantum_relative_entropy_epi_cone_at_constant(dim: int, mk: int, apx: int, hermitian: bool):
     """Minimize ``t`` at fixed Constants and compare to numeric QRE."""
     if mk == 1 and apx == 0:
         pytest.skip("CVXQUAD skips (m,k)=(1,1) with Pade apx=0.")
@@ -134,9 +132,7 @@ def test_quantum_relative_entropy_epi_cone_shape_mismatch() -> None:
     mat_x = cvxpy.Variable((2, 2), symmetric=True)
     mat_y = cvxpy.Variable((3, 3), symmetric=True)
     t = cvxpy.Variable()
-    with pytest.raises(
-        ValueError, match=re.escape("mat_x and mat_y must have the same shape")
-    ):
+    with pytest.raises(ValueError, match=re.escape("mat_x and mat_y must have the same shape")):
         quantum_relative_entropy_epi_cone(mat_x, mat_y, t)
 
 

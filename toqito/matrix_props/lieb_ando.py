@@ -77,9 +77,7 @@ def lieb_ando(
     _require_square_2d(mat_b, "mat_b")
     _require_2d(mat_k, "mat_k")
     if mat_k.shape[0] != mat_a.shape[0] or mat_k.shape[1] != mat_b.shape[1]:
-        raise ValueError(
-            "mat_k must have the same number of rows as mat_a and the same number of columns as mat_b."
-        )
+        raise ValueError("mat_k must have the same number of rows as mat_a and the same number of columns as mat_b.")
 
     if isinstance(mat_a, cvxpy.Expression) and mat_a.is_constant():
         a_val = mat_a.value

@@ -19,9 +19,7 @@ PD_SHIFT = 1e-1
 
 def _case_seed(dim: int, t: float, *, hermitian: bool) -> int:
     r = Fraction(float(t)).limit_denominator()
-    return int(
-        dim * 1_000_003 + r.numerator * 10_009 + r.denominator * 100 + int(hermitian)
-    )
+    return int(dim * 1_000_003 + r.numerator * 10_009 + r.denominator * 100 + int(hermitian))
 
 
 def _random_pd_matrix(dim: int, seed: int, *, hermitian: bool) -> np.ndarray:
@@ -34,9 +32,7 @@ def _random_pd_matrix(dim: int, seed: int, *, hermitian: bool) -> np.ndarray:
     return (mat + mat.conj().T) / 2
 
 
-def _numeric_lieb_ando_reference(
-    mat_a: np.ndarray, mat_b: np.ndarray, mat_k: np.ndarray, t: float
-) -> float:
+def _numeric_lieb_ando_reference(mat_a: np.ndarray, mat_b: np.ndarray, mat_k: np.ndarray, t: float) -> float:
     a_sym = (mat_a + mat_a.conj().T) / 2
     b_sym = (mat_b + mat_b.conj().T) / 2
     a_raised = fractional_matrix_power(a_sym, 1.0 - float(t))
@@ -57,9 +53,7 @@ def test_lieb_ando_hypo_cone_at_constant(dim: int, power: float, hermitian: bool
     assert is_positive_semidefinite(np.asarray(mat_b, dtype=np.complex128))
 
     ref = _numeric_lieb_ando_reference(mat_a, mat_b, mat_k, power)
-    np.testing.assert_allclose(
-        lieb_ando(mat_a, mat_b, mat_k, power), ref, rtol=1e-8, atol=1e-8
-    )
+    np.testing.assert_allclose(lieb_ando(mat_a, mat_b, mat_k, power), ref, rtol=1e-8, atol=1e-8)
 
     t = cvxpy.Variable()
     cons = lieb_ando_hypo_cone(
@@ -143,9 +137,7 @@ def test_lieb_ando_hypo_cone_power_invalid() -> None:
     mat_a = cvxpy.Variable((2, 2), symmetric=True)
     mat_b = cvxpy.Variable((2, 2), symmetric=True)
     t = cvxpy.Variable()
-    with pytest.raises(
-        ValueError, match=re.escape("power must be in the range [0, 1]")
-    ):
+    with pytest.raises(ValueError, match=re.escape("power must be in the range [0, 1]")):
         lieb_ando_hypo_cone(mat_a, mat_b, np.eye(2), t, 1.5)
 
 
@@ -165,8 +157,6 @@ def test_lieb_ando_hypo_cone_mat_k_shape_mismatch() -> None:
     t = cvxpy.Variable()
     with pytest.raises(
         ValueError,
-        match=re.escape(
-            "mat_k must have the same number of rows as mat_a and the same number of columns as mat_b."
-        ),
+        match=re.escape("mat_k must have the same number of rows as mat_a and the same number of columns as mat_b."),
     ):
         lieb_ando_hypo_cone(mat_a, mat_b, np.eye(3), t, 0.5)

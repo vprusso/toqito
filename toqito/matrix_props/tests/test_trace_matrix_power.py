@@ -276,8 +276,7 @@ def test_trace_matrix_power_constant_no_value():
     with pytest.raises(
         ValueError,
         match=re.escape(
-            "Constant CVXPY expression has no numeric value; set parameter `.value` "
-            "or pass mat_a as a numpy.ndarray."
+            "Constant CVXPY expression has no numeric value; set parameter `.value` or pass mat_a as a numpy.ndarray."
         ),
     ):
         trace_matrix_power(p_a, 0.5)

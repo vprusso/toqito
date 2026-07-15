@@ -19,9 +19,7 @@ PD_SHIFT = 1e-1
 
 def _case_seed(dim: int, t: float, *, hermitian: bool) -> int:
     r = Fraction(float(t)).limit_denominator()
-    return int(
-        dim * 1_000_003 + r.numerator * 10_009 + r.denominator * 100 + int(hermitian)
-    )
+    return int(dim * 1_000_003 + r.numerator * 10_009 + r.denominator * 100 + int(hermitian))
 
 
 def _random_pd_matrix(dim: int, seed: int, *, hermitian: bool) -> np.ndarray:
@@ -43,9 +41,7 @@ def _numeric_reference(mat_a: np.ndarray, power: float, mat_c: np.ndarray) -> fl
 @pytest.mark.parametrize("dim", DIMS)
 @pytest.mark.parametrize("power", WEIGHTS)
 @pytest.mark.parametrize("hermitian", [False, True])
-def test_trace_matrix_power_hypo_cone_at_constant(
-    dim: int, power: float, hermitian: bool
-):
+def test_trace_matrix_power_hypo_cone_at_constant(dim: int, power: float, hermitian: bool):
     """Maximize ``t`` at fixed ``Constant(A)`` and compare to ``tr(C A^p)``."""
     seed = _case_seed(dim, power, hermitian=hermitian)
     mat_a = _random_pd_matrix(dim, seed, hermitian=hermitian)
@@ -54,9 +50,7 @@ def test_trace_matrix_power_hypo_cone_at_constant(
     assert is_positive_semidefinite(np.asarray(mat_c, dtype=np.complex128))
 
     ref = _numeric_reference(mat_a, power, mat_c)
-    np.testing.assert_allclose(
-        trace_matrix_power(mat_a, power, mat_c), ref, rtol=1e-8, atol=1e-8
-    )
+    np.testing.assert_allclose(trace_matrix_power(mat_a, power, mat_c), ref, rtol=1e-8, atol=1e-8)
 
     t = cvxpy.Variable()
     cons = trace_matrix_power_hypo_cone(
@@ -115,9 +109,7 @@ def test_trace_matrix_power_hypo_cone_power_invalid() -> None:
     """Reject ``power`` outside ``[0, 1]``."""
     mat_a = cvxpy.Variable((2, 2), symmetric=True)
     t = cvxpy.Variable()
-    with pytest.raises(
-        ValueError, match=re.escape("power must be in the range [0, 1]")
-    ):
+    with pytest.raises(ValueError, match=re.escape("power must be in the range [0, 1]")):
         trace_matrix_power_hypo_cone(mat_a, t, 1.5)
 
 

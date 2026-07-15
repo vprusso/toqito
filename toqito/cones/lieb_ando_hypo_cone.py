@@ -83,9 +83,7 @@ def lieb_ando_hypo_cone(
         raise ValueError("mat_k must be a numpy array")
     _require_2d(mat_k, "mat_k")
     if mat_k.shape[0] != mat_a.shape[0] or mat_k.shape[1] != mat_b.shape[1]:
-        raise ValueError(
-            "mat_k must have the same number of rows as mat_a and the same number of columns as mat_b."
-        )
+        raise ValueError("mat_k must have the same number of rows as mat_a and the same number of columns as mat_b.")
     if power < 0 or power > 1:
         raise ValueError("power must be in the range [0, 1]")
 

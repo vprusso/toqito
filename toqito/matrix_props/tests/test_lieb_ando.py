@@ -415,8 +415,7 @@ def test_lieb_ando_constant_mat_a_no_value():
     with pytest.raises(
         ValueError,
         match=re.escape(
-            "Constant CVXPY expression has no numeric value; set parameter `.value` "
-            "or pass mat_a as a numpy.ndarray."
+            "Constant CVXPY expression has no numeric value; set parameter `.value` or pass mat_a as a numpy.ndarray."
         ),
     ):
         lieb_ando(p_a, I_2, I_2, 0.5)
@@ -428,8 +427,7 @@ def test_lieb_ando_constant_mat_b_no_value():
     with pytest.raises(
         ValueError,
         match=re.escape(
-            "Constant CVXPY expression has no numeric value; set parameter `.value` "
-            "or pass mat_b as a numpy.ndarray."
+            "Constant CVXPY expression has no numeric value; set parameter `.value` or pass mat_b as a numpy.ndarray."
         ),
     ):
         lieb_ando(I_2, p_b, I_2, 0.5)

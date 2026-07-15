@@ -178,8 +178,7 @@ def test_quantum_relative_entropy_constant_x_no_value():
     with pytest.raises(
         ValueError,
         match=re.escape(
-            "Constant CVXPY expression has no numeric value; set parameter `.value` "
-            "or pass mat_x as a numpy.ndarray."
+            "Constant CVXPY expression has no numeric value; set parameter `.value` or pass mat_x as a numpy.ndarray."
         ),
     ):
         quantum_relative_entropy(p_x, np.eye(n))
@@ -192,8 +191,7 @@ def test_quantum_relative_entropy_constant_y_no_value():
     with pytest.raises(
         ValueError,
         match=re.escape(
-            "Constant CVXPY expression has no numeric value; set parameter `.value` "
-            "or pass mat_y as a numpy.ndarray."
+            "Constant CVXPY expression has no numeric value; set parameter `.value` or pass mat_y as a numpy.ndarray."
         ),
     ):
         quantum_relative_entropy(np.eye(n), p_y)

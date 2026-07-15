@@ -44,7 +44,7 @@ def quantum_conditional_entropy(
     Args:
         rho: Bipartite positive semidefinite matrix (or constant CVXPY expression).
         dim: Subsystem dimensions ``[n_a, n_b]``.
-        sys: ``0`` for \(H(A|B)\), ``1`` for \(H(B|A)`` (0-indexed partial trace).
+        sys: ``0`` for \(H(A|B)\), ``1`` for \(H(B|A)\) (0-indexed partial trace).
 
     Raises:
         ValueError: If ``sys`` is not ``0`` or ``1``.
@@ -99,8 +99,7 @@ def quantum_conditional_entropy(
         rho_val = rho.value
         if rho_val is None:
             raise ValueError(
-                "Constant CVXPY expression has no numeric value; set parameter `.value` "
-                "or pass rho as a numpy.ndarray."
+                "Constant CVXPY expression has no numeric value; set parameter `.value` or pass rho as a numpy.ndarray."
             )
         return quantum_conditional_entropy(np.asarray(rho_val), dim, sys)
 

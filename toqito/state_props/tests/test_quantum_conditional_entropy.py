@@ -161,8 +161,7 @@ def test_constant_rho_no_value():
     with pytest.raises(
         ValueError,
         match=re.escape(
-            "Constant CVXPY expression has no numeric value; set parameter `.value` "
-            "or pass rho as a numpy.ndarray."
+            "Constant CVXPY expression has no numeric value; set parameter `.value` or pass rho as a numpy.ndarray."
         ),
     ):
         quantum_conditional_entropy(p_rho, _DIM, sys=0)
