@@ -10,9 +10,12 @@ import numpy as np
 import pytest
 from scipy.linalg import logm
 
+from toqito.cones._utils import _AFFINE_VARIABLE_USE_CONE
 from toqito.cones.trace_matrix_log_hypo_cone import trace_matrix_log_hypo_cone
 from toqito.matrix_props import is_positive_semidefinite
 from toqito.matrix_props.trace_matrix_log import trace_matrix_log
+
+_NOT_SUPPORTED = re.escape(_AFFINE_VARIABLE_USE_CONE)
 
 
 def _rand_psd(dim: int, seed: int, *, hermitian: bool) -> np.ndarray:
@@ -120,9 +123,6 @@ def test_trace_matrix_log_constant_cvx_expression() -> None:
     got = trace_matrix_log(expr, mat_c)
     want = trace_matrix_log(mat_a, mat_c)
     np.testing.assert_allclose(got, want, rtol=1e-10, atol=1e-10)
-
-
-_NOT_SUPPORTED = re.escape("Affine or variable CVXPY inputs are not yet supported; pass numeric matrices.")
 
 
 def test_trace_matrix_log_rejects_nonconstant_affine() -> None:

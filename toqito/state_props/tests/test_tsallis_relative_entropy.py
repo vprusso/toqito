@@ -6,11 +6,12 @@ import cvxpy
 import numpy as np
 import pytest
 
+from toqito.cones._utils import _AFFINE_VARIABLE_USE_CONE
 from toqito.matrix_props.lieb_ando import lieb_ando
 from toqito.state_props.quantum_relative_entropy import quantum_relative_entropy
 from toqito.state_props.tsallis_relative_entropy import tsallis_relative_entropy
 
-_NOT_SUPPORTED = re.escape("Affine or variable CVXPY inputs are not yet supported; pass numeric matrices.")
+_NOT_SUPPORTED = re.escape(_AFFINE_VARIABLE_USE_CONE)
 
 
 def _tsallis_relative_entropy_reference(

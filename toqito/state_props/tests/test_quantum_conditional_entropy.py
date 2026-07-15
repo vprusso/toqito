@@ -1,11 +1,13 @@
 """Tests for quantum_conditional_entropy."""
 
+import re
 import warnings
 
 import cvxpy
 import numpy as np
 import pytest
 
+from toqito.cones._utils import _AFFINE_VARIABLE_USE_CONE
 from toqito.matrix_ops.partial_trace import partial_trace
 from toqito.state_props.petz_renyi_conditional_entropy import (
     petz_renyi_conditional_entropy,
@@ -14,6 +16,8 @@ from toqito.state_props.quantum_conditional_entropy import quantum_conditional_e
 from toqito.state_props.quantum_relative_entropy import quantum_relative_entropy
 from toqito.state_props.von_neumann_entropy import von_neumann_entropy
 from toqito.states import bell
+
+_NOT_SUPPORTED = re.escape(_AFFINE_VARIABLE_USE_CONE)
 
 RHO_A = np.array([[0.8, 0.0], [0.0, 0.2]])
 RHO_B = np.array([[0.3, 0.0], [0.0, 0.7]])
@@ -143,27 +147,46 @@ def test_von_neumann_difference_in_nats_sys_one():
         np.testing.assert_allclose(result, expected, rtol=1e-7, atol=1e-7)
 
 
-def test_affine_expression_matches_numeric_evaluation():
-    """Affine CVXPY rho should evaluate to the same value as the numeric matrix."""
+def test_constant_expression_matches_numeric_evaluation():
+    """Constant CVXPY rho unwraps to the same value as the numeric matrix."""
     rho = PRODUCT_STATE
     numeric = quantum_conditional_entropy(rho, _DIM, sys=0)
-    affine_val = quantum_conditional_entropy(_affine_fixed_at(rho), _DIM, sys=0)
-    np.testing.assert_allclose(float(affine_val), numeric, rtol=1e-4, atol=1e-4)
+    const_val = quantum_conditional_entropy(cvxpy.Constant(rho), _DIM, sys=0)
+    np.testing.assert_allclose(float(const_val), numeric, rtol=1e-10, atol=1e-10)
+
+
+def test_constant_rho_no_value():
+    """Reject constant ``rho`` with no numeric ``.value``."""
+    p_rho = cvxpy.Parameter((4, 4), symmetric=True)
+    with pytest.raises(
+        ValueError,
+        match=re.escape(
+            "Constant CVXPY expression has no numeric value; set parameter `.value` "
+            "or pass rho as a numpy.ndarray."
+        ),
+    ):
+        quantum_conditional_entropy(p_rho, _DIM, sys=0)
+
+
+def test_affine_expression_is_rejected():
+    """Affine CVXPY rho is rejected by the numeric evaluator."""
+    with pytest.raises(
+        ValueError,
+        match=_NOT_SUPPORTED,
+    ):
+        quantum_conditional_entropy(_affine_fixed_at(PRODUCT_STATE), _DIM, sys=0)
 
 
 @pytest.mark.slow
-def test_sdp_maximize_over_density_matrices():
-    """Maximizing conditional entropy over 2-qubit states should solve as an SDP."""
+def test_free_variable_is_rejected():
+    """Free CVXPY Variables are rejected (compose ``quantum_relative_entropy_epi_cone`` instead)."""
     rho_var = cvxpy.Variable((4, 4), hermitian=True)
     rho_var.value = PRODUCT_STATE
-    obj = quantum_conditional_entropy(rho_var, _DIM, sys=0)
-    prob = cvxpy.Problem(
-        cvxpy.Maximize(obj),
-        [rho_var >> 0, cvxpy.trace(rho_var) == 1],
-    )
-    val = prob.solve(solver=cvxpy.SCS, verbose=False)
-    assert prob.status in {cvxpy.OPTIMAL, cvxpy.OPTIMAL_INACCURATE}, prob.status
-    assert val is not None
+    with pytest.raises(
+        ValueError,
+        match=_NOT_SUPPORTED,
+    ):
+        quantum_conditional_entropy(rho_var, _DIM, sys=0)
 
 
 def test_pure_state_does_not_leak_singular_logm_warning():

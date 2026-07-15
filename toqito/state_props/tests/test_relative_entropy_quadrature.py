@@ -6,9 +6,10 @@ import cvxpy
 import numpy as np
 import pytest
 
+from toqito.cones._utils import _AFFINE_VARIABLE_USE_CONE
 from toqito.state_props.relative_entropy_quadrature import relative_entropy_quadrature
 
-_NOT_SUPPORTED = re.escape("Affine or variable CVXPY inputs are not yet supported; pass numeric matrices.")
+_NOT_SUPPORTED = re.escape(_AFFINE_VARIABLE_USE_CONE)
 
 
 def _rand_positive(n: int, seed: int) -> np.ndarray:

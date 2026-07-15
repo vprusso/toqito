@@ -6,14 +6,17 @@ from typing import Any
 import cvxpy
 import numpy as np
 
-_AFFINE_VARIABLE_NOT_SUPPORTED = "Affine or variable CVXPY inputs are not yet supported; pass numeric matrices."
+_AFFINE_VARIABLE_USE_CONE = (
+    "This function evaluates numerically only; for affine or variable CVXPY "
+    "inputs, use the matching hypo/epi cone in toqito.cones."
+)
 
 
 def _reject_nonconstant_cvxpy(*exprs: np.ndarray | cvxpy.Expression) -> None:
     """Raise if any CVXPY expression is not constant (numeric evaluation only)."""
     for expr in exprs:
         if isinstance(expr, cvxpy.Expression) and not expr.is_constant():
-            raise ValueError(_AFFINE_VARIABLE_NOT_SUPPORTED)
+            raise ValueError(_AFFINE_VARIABLE_USE_CONE)
 
 
 def _require_2d(mat: Any, name: str) -> None:
@@ -27,6 +30,21 @@ def _require_square_2d(mat: Any, name: str) -> None:
     _require_2d(mat, name)
     if mat.shape[0] != mat.shape[1]:
         raise ValueError(f"{name} must be square.")
+
+
+def _is_psd_matrix(mat: np.ndarray, *, atol: float = 1e-8) -> bool:
+    r"""Local PSD check.
+
+    Args:
+        mat: Matrix to check.
+        atol: Absolute tolerance on the smallest Hermitian eigenvalue.
+
+    Returns:
+        ``True`` if ``mat`` is positive semidefinite within ``atol``.
+
+    """
+    herm = (mat + mat.conj().T) / 2
+    return bool(np.linalg.eigvalsh(herm).min() >= -atol)
 
 
 def _is_power_of_two(n: int) -> bool:

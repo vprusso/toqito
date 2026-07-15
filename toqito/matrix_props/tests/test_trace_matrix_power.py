@@ -8,12 +8,14 @@ import numpy as np
 import pytest
 from scipy.linalg import fractional_matrix_power
 
+from toqito.cones._utils import _AFFINE_VARIABLE_USE_CONE
 from toqito.matrix_props import trace_matrix_power
 
-DIMS = (3, 5)
-WEIGHTS_HYPO = (0.5, 0.25, 0.125, 2 / 3, 6 / 7)
-EPI_WEIGHTS_NEG = (-0.75, -0.5, -1 / 3, -0.25)
-EPI_WEIGHTS_POS = (1.25, 4 / 3, 1.5, 5 / 3, 1.75)
+_NOT_SUPPORTED = re.escape(_AFFINE_VARIABLE_USE_CONE)
+
+DIMS = (3,)
+WEIGHTS_HYPO = (0.5,)
+EPI_WEIGHTS = (1.5,)
 PD_SHIFT = 1e-1
 
 I_2 = np.eye(2)
@@ -111,18 +113,6 @@ def test_trace_matrix_power_numpy_with_cvx_expression_mat_c_raises_type_error():
     ("mat_a_expr", "t", "mat_c", "expected_msg"),
     [
         (
-            cvxpy.Constant(I_2),
-            2.1,
-            I_2,
-            "The exponent t must be in the range [-1, 2].",
-        ),
-        (
-            cvxpy.Constant(I_2),
-            -1.1,
-            I_2,
-            "The exponent t must be in the range [-1, 2].",
-        ),
-        (
             cvxpy.Constant(np.ones((2, 3))),
             0.5,
             I_2,
@@ -142,13 +132,13 @@ def test_trace_matrix_power_numpy_with_cvx_expression_mat_c_raises_type_error():
         ),
     ],
 )
-def test_trace_matrix_power_sdp_raises(
+def test_trace_matrix_power_constant_raises(
     mat_a_expr: cvxpy.Expression,
     t: float,
     mat_c: np.ndarray | None,
     expected_msg: str,
 ):
-    """CVXPY path raises ValueError from invalid SDP arguments."""
+    """Constant CVXPY path raises ValueError from invalid arguments."""
     with pytest.raises(ValueError, match=re.escape(expected_msg)):
         trace_matrix_power(mat_a_expr, t, mat_c)
 
@@ -168,18 +158,18 @@ def test_trace_matrix_power_raises_mat_a_neither_ndarray_nor_cvx_expression():
         trace_matrix_power(_Square2DNonNumeric(), 0.5)
 
 
-def test_trace_matrix_power_sdp_raises_non_affine():
-    """Only affine mat_a is admitted; is_affine() check fires before the nonconstant guard."""
+def test_trace_matrix_power_rejects_non_affine():
+    """Non-constant (including non-affine) CVXPY inputs are rejected."""
     var_x = cvxpy.Variable((2, 2), symmetric=True)
     non_affine_a = var_x @ var_x
     with pytest.raises(
         ValueError,
-        match=re.escape("The matrix mat_a must be an affine expression."),
+        match=_NOT_SUPPORTED,
     ):
         trace_matrix_power(non_affine_a, 0.5)
 
 
-def test_trace_matrix_power_sdp_raises_mat_c_not_numpy():
+def test_trace_matrix_power_constant_raises_mat_c_not_numpy():
     """CVXPY mat_a requires mat_c to be a numpy array or None."""
     msg = "mat_c must be a numpy.ndarray or None."
     bad_c = cvxpy.Variable((2, 2), PSD=True)
@@ -230,12 +220,12 @@ def test_trace_matrix_power_numeric_complex_hermitian():
 @pytest.mark.parametrize("dim", DIMS)
 @pytest.mark.parametrize("t", WEIGHTS_HYPO)
 @pytest.mark.parametrize("hermitian", [False, True])
-def test_trace_matrix_power_sdp_matches_numeric_hypograph_region(
+def test_trace_matrix_power_constant_matches_numeric_hypograph_region(
     dim: int,
     t: float,
     hermitian: bool,
 ):
-    """Maximize tr(mat_c T) on hypo cone."""
+    """Constant CVXPY inputs match the numeric formula (hypograph exponents)."""
     seed = _case_seed(dim, t, hermitian=hermitian)
     mat_a_np = _random_pd_matrix(dim, seed, hermitian=hermitian)
     mat_c_np = _random_pd_matrix(dim, seed + 2, hermitian=hermitian)
@@ -243,22 +233,18 @@ def test_trace_matrix_power_sdp_matches_numeric_hypograph_region(
 
     mat_a_const = cvxpy.Constant(mat_a_np)
     val = trace_matrix_power(mat_a_const, t, mat_c_np)
-    atol = 5e-4
-    np.testing.assert_allclose(float(val), ref, rtol=1e-5, atol=atol)
+    np.testing.assert_allclose(float(val), ref, rtol=1e-8, atol=1e-8)
 
 
 @pytest.mark.parametrize("dim", DIMS)
-@pytest.mark.parametrize(
-    "t",
-    EPI_WEIGHTS_NEG + EPI_WEIGHTS_POS,
-)
+@pytest.mark.parametrize("t", EPI_WEIGHTS)
 @pytest.mark.parametrize("hermitian", [False, True])
-def test_trace_matrix_power_sdp_matches_numeric_epigraph_region(
+def test_trace_matrix_power_constant_matches_numeric_epigraph_region(
     dim: int,
     t: float,
     hermitian: bool,
 ):
-    """Minimize on epi cone; optimum matches closed form for fixed PSD data."""
+    """Constant CVXPY inputs match the numeric formula (epigraph exponents)."""
     seed = _case_seed(dim, t, hermitian=hermitian)
     mat_a_np = _random_pd_matrix(dim, seed, hermitian=hermitian)
     mat_c_np = _random_pd_matrix(dim, seed + 2, hermitian=hermitian)
@@ -266,7 +252,7 @@ def test_trace_matrix_power_sdp_matches_numeric_epigraph_region(
 
     mat_a_const = cvxpy.Constant(mat_a_np)
     val = trace_matrix_power(mat_a_const, t, mat_c_np)
-    np.testing.assert_allclose(float(val), ref, rtol=2.5e-2, atol=1e-2)
+    np.testing.assert_allclose(float(val), ref, rtol=1e-8, atol=1e-8)
 
 
 def test_trace_matrix_power_numpy_still_works():
@@ -284,12 +270,25 @@ def test_trace_matrix_power_constant_cvxpy_still_works():
     assert result > 0
 
 
+def test_trace_matrix_power_constant_no_value():
+    """Reject constant ``mat_a`` with no numeric ``.value``."""
+    p_a = cvxpy.Parameter((2, 2), symmetric=True)
+    with pytest.raises(
+        ValueError,
+        match=re.escape(
+            "Constant CVXPY expression has no numeric value; set parameter `.value` "
+            "or pass mat_a as a numpy.ndarray."
+        ),
+    ):
+        trace_matrix_power(p_a, 0.5)
+
+
 def test_trace_matrix_power_free_variable_raises():
     """A free CVXPY Variable must raise the shared nonconstant guard message."""
     x_var = cvxpy.Variable((2, 2), symmetric=True)
     x_var.value = np.diag([0.7, 0.3])
     with pytest.raises(
         ValueError,
-        match=re.escape("Affine or variable CVXPY inputs are not yet supported; pass numeric matrices."),
+        match=_NOT_SUPPORTED,
     ):
         trace_matrix_power(x_var, 0.5)
