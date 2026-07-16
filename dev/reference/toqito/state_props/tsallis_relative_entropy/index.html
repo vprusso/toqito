@@ -61,11 +61,11 @@
     
       <link rel="stylesheet" href="../../../../assets/extra.css">
     
+      <link rel="stylesheet" href="../../../../sg_gallery-binder.css">
+    
       <link rel="stylesheet" href="../../../../sg_gallery-dataframe.css">
     
       <link rel="stylesheet" href="../../../../sg_gallery-rendered-html.css">
-    
-      <link rel="stylesheet" href="../../../../sg_gallery-binder.css">
     
       <link rel="stylesheet" href="../../../../sg_gallery.css">
     
@@ -2904,6 +2904,16 @@
       
         
       
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
     
     
     
@@ -3016,6 +3026,62 @@
   
   
     <li class="md-nav__item">
+      <a href="../../cones/lieb_ando_epi_cone/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code>lieb_ando_epi_cone
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cones/lieb_ando_hypo_cone/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code>lieb_ando_hypo_cone
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../cones/ln_quantum_entropy_hypo_cone/" class="md-nav__link">
         
   
@@ -3072,6 +3138,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../../cones/quantum_relative_entropy_epi_cone/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code>quantum_relative_entropy_epi_cone
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../cones/trace_matrix_log_hypo_cone/" class="md-nav__link">
         
   
@@ -3080,6 +3174,62 @@
     
   
     <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code>trace_matrix_log_hypo_cone
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cones/trace_matrix_power_epi_cone/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code>trace_matrix_power_epi_cone
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cones/trace_matrix_power_hypo_cone/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code>trace_matrix_power_hypo_cone
   
 
     
@@ -10301,7 +10451,7 @@ variable CVXPY inputs are not yet supported.</p>
 <a id="__codelineno-0-80" name="__codelineno-0-80"></a>        <span class="k">if</span> <span class="ow">not</span> <span class="n">is_positive_semidefinite</span><span class="p">(</span><span class="n">mat_y</span><span class="p">):</span>
 <a id="__codelineno-0-81" name="__codelineno-0-81"></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;mat_y must be a positive semidefinite matrix&quot;</span><span class="p">)</span>
 <a id="__codelineno-0-82" name="__codelineno-0-82"></a>        <span class="k">if</span> <span class="n">t</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-<a id="__codelineno-0-83" name="__codelineno-0-83"></a>            <span class="kn">from</span><span class="w"> </span><span class="nn">toqito.state_props.quantum_relative_entropy</span><span class="w"> </span><span class="kn">import</span> <span class="n">quantum_relative_entropy</span>  <span class="c1"># noqa: PLC0415</span>
+<a id="__codelineno-0-83" name="__codelineno-0-83"></a>            <span class="kn">from</span><span class="w"> </span><span class="nn">toqito.state_props.quantum_relative_entropy</span><span class="w"> </span><span class="kn">import</span> <span class="n">quantum_relative_entropy</span>  <span class="c1"># noqa: PLC0415, I001  # fmt: skip</span>
 <a id="__codelineno-0-84" name="__codelineno-0-84"></a>
 <a id="__codelineno-0-85" name="__codelineno-0-85"></a>            <span class="k">return</span> <span class="n">quantum_relative_entropy</span><span class="p">(</span><span class="n">mat_x</span><span class="p">,</span> <span class="n">mat_y</span><span class="p">)</span>
 <a id="__codelineno-0-86" name="__codelineno-0-86"></a>        <span class="n">n</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">mat_x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
