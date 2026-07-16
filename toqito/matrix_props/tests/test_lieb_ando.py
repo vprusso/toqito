@@ -11,7 +11,10 @@ import numpy as np
 import pytest
 from scipy.linalg import fractional_matrix_power
 
+from toqito.cones._utils import _AFFINE_VARIABLE_USE_CONE
 from toqito.matrix_props import lieb_ando
+
+_NOT_SUPPORTED = re.escape(_AFFINE_VARIABLE_USE_CONE)
 
 DIMS = (2, 3)
 TVEC = (0.5, 0.25, 0.75, 0.125, 1.5, 1.25)
@@ -181,56 +184,29 @@ def test_lieb_ando_raises_type_error_mat_b_not_numpy_or_cvx_expression():
             0.5,
             "mat_a and mat_b must be positive semidefinite.",
         ),
-        (
-            cvxpy.Constant(I_2),
-            cvxpy.Constant(I_2),
-            I_2,
-            2.2,
-            "t must be between -1 and 2.",
-        ),
-        (
-            cvxpy.Constant(I_2),
-            cvxpy.Constant(I_2),
-            I_2,
-            -1.2,
-            "t must be between -1 and 2.",
-        ),
     ],
 )
-def test_lieb_ando_raises_cv_expression_shapes_and_psd_and_t(
+def test_lieb_ando_raises_cv_expression_shapes_and_psd(
     mat_a_expr: cvxpy.Expression,
     mat_b_expr: cvxpy.Expression,
     mat_k: np.ndarray,
     t: float,
     expected_msg: str,
 ):
-    """Shape, PSD, and t range checks on CVXPY paths."""
+    """Shape and PSD checks on constant CVXPY paths."""
     with pytest.raises(ValueError, match=re.escape(expected_msg)):
         lieb_ando(mat_a_expr, mat_b_expr, mat_k, t)
 
 
-def test_lieb_ando_raises_non_affine_both_expressions():
-    """Both arguments must be affine when they are CVXPY expressions.
-
-    The is_affine() check fires before the nonconstant guard, so a
-    non-affine expression raises the affine error message.
-    """
+def test_lieb_ando_rejects_non_affine():
+    """Non-constant (including non-affine) CVXPY inputs are rejected."""
     var_x = cvxpy.Variable((2, 2), symmetric=True)
     non_affine = var_x @ var_x
-    with pytest.raises(
-        ValueError,
-        match="mat_a and mat_b must be affine expressions.",
-    ):
+    with pytest.raises(ValueError, match=_NOT_SUPPORTED):
         lieb_ando(non_affine, cvxpy.Constant(I_2), I_2, 0.5)
-    with pytest.raises(
-        ValueError,
-        match="mat_a and mat_b must be affine expressions.",
-    ):
+    with pytest.raises(ValueError, match=_NOT_SUPPORTED):
         lieb_ando(cvxpy.Constant(I_2), non_affine, I_2, 0.5)
-    with pytest.raises(
-        ValueError,
-        match="mat_a and mat_b must be affine expressions.",
-    ):
+    with pytest.raises(ValueError, match=_NOT_SUPPORTED):
         lieb_ando(non_affine, non_affine, I_2, 0.5)
 
 
@@ -257,10 +233,7 @@ def test_lieb_ando_raises_psd_mixed_expression_a_numeric_b():
 
 
 def test_lieb_ando_numeric_a_constant_b_matches_reference():
-    """Numeric mat_a and affine mat_b (trace_matrix_power reduction branch).
-
-    Keep t in (0, 1) so mat_kak stays numerically PSD for trace_matrix_power.
-    """
+    """Numeric mat_a and Constant mat_b unwrap to the numeric path."""
     mat_a = np.array([[4.0, 2.0], [2.0, 1.0]], dtype=float)
     mat_b_np = np.diag([0.6, 0.9])
     mat_b = cvxpy.Constant(mat_b_np)
@@ -272,10 +245,7 @@ def test_lieb_ando_numeric_a_constant_b_matches_reference():
 
 
 def test_lieb_ando_constant_a_numeric_b_matches_reference():
-    """Affine mat_a and numeric mat_b (trace_matrix_power reduction branch).
-
-    Diagonal A, B avoids stiff coupled SDPs inside trace_matrix_power.
-    """
+    """Constant mat_a and numeric mat_b unwrap to the numeric path."""
     mat_a_np = np.diag([1.5, 0.8])
     mat_a = cvxpy.Constant(mat_a_np)
     mat_b = np.diag([0.6, 1.1])
@@ -283,11 +253,11 @@ def test_lieb_ando_constant_a_numeric_b_matches_reference():
     for t in (0.25, 0.75):
         ref = _numeric_lieb_ando_reference(mat_a_np, mat_b, mat_k, t)
         val = float(np.real(lieb_ando(mat_a, mat_b, mat_k, t)))
-        np.testing.assert_allclose(val, ref, rtol=1e-3, atol=5e-3)
+        np.testing.assert_allclose(val, ref, rtol=1e-5, atol=1e-5)
 
 
-def test_lieb_ando_numeric_a_constant_b_epi_region_trace_matrix_power():
-    """Test t outside [0, 1] on mixed branch: well-conditioned data for trace_matrix_power epi."""
+def test_lieb_ando_numeric_a_constant_b_epi_region():
+    """Mixed numeric/Constant evaluation for t outside [0, 1]."""
     rng = np.random.default_rng(7)
     n = 3
     mat_a = rng.standard_normal((n, n))
@@ -299,11 +269,11 @@ def test_lieb_ando_numeric_a_constant_b_epi_region_trace_matrix_power():
     t = 1.35
     ref = _numeric_lieb_ando_reference(mat_a, mat_b_np, mat_k, t)
     val = float(np.real(lieb_ando(mat_a, mat_b, mat_k, t)))
-    np.testing.assert_allclose(val, ref, rtol=2e-2, atol=2e-2)
+    np.testing.assert_allclose(val, ref, rtol=1e-5, atol=1e-5)
 
 
-def test_lieb_ando_constant_a_numeric_b_epi_region_trace_matrix_power():
-    """Epi-region t on affine-A / numeric-B branch."""
+def test_lieb_ando_constant_a_numeric_b_epi_region():
+    """Mixed Constant/numeric evaluation for t outside [0, 1]."""
     rng = np.random.default_rng(8)
     n = 3
     mat_a_np = rng.standard_normal((n, n))
@@ -315,7 +285,7 @@ def test_lieb_ando_constant_a_numeric_b_epi_region_trace_matrix_power():
     t = -0.4
     ref = _numeric_lieb_ando_reference(mat_a_np, mat_b, mat_k, t)
     val = float(np.real(lieb_ando(mat_a, mat_b, mat_k, t)))
-    np.testing.assert_allclose(val, ref, rtol=2e-2, atol=2e-2)
+    np.testing.assert_allclose(val, ref, rtol=1e-5, atol=1e-5)
 
 
 def test_lieb_ando_numeric_matches_scipy_reference_small():
@@ -401,8 +371,8 @@ def test_lieb_ando_constant_expressions_match_numeric(
 
 
 @pytest.mark.parametrize("t", (0.25, 0.6, -0.35, 1.3))
-def test_lieb_ando_sdp_matches_numeric_complex_nontrivial_k(t: float):
-    """Full SDP branch agrees with numeric when K is genuinely complex (not real I)."""
+def test_lieb_ando_constant_matches_numeric_complex_nontrivial_k(t: float):
+    """Constant unwrap agrees with numeric when K is genuinely complex."""
     rng = np.random.default_rng(101)
     n = 2
     xa = rng.standard_normal((n, n)) + 1j * rng.standard_normal((n, n))
@@ -418,8 +388,7 @@ def test_lieb_ando_sdp_matches_numeric_complex_nontrivial_k(t: float):
 
     ref = float(np.real(lieb_ando(mat_a, mat_b, mat_k, t)))
     val = float(np.real(lieb_ando(cvxpy.Constant(mat_a), cvxpy.Constant(mat_b), mat_k, t)))
-    atol = 5e-4 if 0 <= t <= 1 else 5e-3
-    np.testing.assert_allclose(val, ref, rtol=1e-4, atol=atol)
+    np.testing.assert_allclose(val, ref, rtol=1e-10, atol=1e-10)
 
 
 def test_lieb_ando_numpy_still_works():
@@ -440,6 +409,30 @@ def test_lieb_ando_constant_cvxpy_still_works():
     assert result > 0
 
 
+def test_lieb_ando_constant_mat_a_no_value():
+    """Reject constant ``mat_a`` with no numeric ``.value``."""
+    p_a = cvxpy.Parameter((2, 2), symmetric=True)
+    with pytest.raises(
+        ValueError,
+        match=re.escape(
+            "Constant CVXPY expression has no numeric value; set parameter `.value` or pass mat_a as a numpy.ndarray."
+        ),
+    ):
+        lieb_ando(p_a, I_2, I_2, 0.5)
+
+
+def test_lieb_ando_constant_mat_b_no_value():
+    """Reject constant ``mat_b`` with no numeric ``.value``."""
+    p_b = cvxpy.Parameter((2, 2), symmetric=True)
+    with pytest.raises(
+        ValueError,
+        match=re.escape(
+            "Constant CVXPY expression has no numeric value; set parameter `.value` or pass mat_b as a numpy.ndarray."
+        ),
+    ):
+        lieb_ando(I_2, p_b, I_2, 0.5)
+
+
 def test_lieb_ando_free_variable_mat_a_raises():
     """A free CVXPY Variable in mat_a must raise the shared nonconstant guard message."""
     mat_b = np.diag([0.6, 0.4])
@@ -448,7 +441,7 @@ def test_lieb_ando_free_variable_mat_a_raises():
     x_var.value = np.diag([0.7, 0.3])
     with pytest.raises(
         ValueError,
-        match=re.escape("Affine or variable CVXPY inputs are not yet supported; pass numeric matrices."),
+        match=_NOT_SUPPORTED,
     ):
         lieb_ando(x_var, cvxpy.Constant(mat_b), mat_k, 0.5)
 
@@ -461,6 +454,6 @@ def test_lieb_ando_free_variable_mat_b_raises():
     y_var.value = np.diag([0.6, 0.4])
     with pytest.raises(
         ValueError,
-        match=re.escape("Affine or variable CVXPY inputs are not yet supported; pass numeric matrices."),
+        match=_NOT_SUPPORTED,
     ):
         lieb_ando(cvxpy.Constant(mat_a), y_var, mat_k, 0.5)

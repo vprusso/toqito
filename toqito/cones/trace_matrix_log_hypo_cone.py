@@ -6,16 +6,10 @@
 import cvxpy
 import numpy as np
 
-from toqito.cones._utils import _require_square_2d, _symmetric_like_variable
+from toqito.cones._utils import _is_psd_matrix, _require_square_2d, _symmetric_like_variable
 from toqito.cones.operator_relative_entropy_epi_cone import (
     operator_relative_entropy_epi_cone,
 )
-
-
-def _is_psd_matrix(mat: np.ndarray, *, atol: float = 1e-8) -> bool:
-    """Local PSD check."""
-    herm = (mat + mat.conj().T) / 2
-    return bool(np.linalg.eigvalsh(herm).min() >= -atol)
 
 
 def trace_matrix_log_hypo_cone(

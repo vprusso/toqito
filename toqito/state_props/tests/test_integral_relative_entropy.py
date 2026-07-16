@@ -8,6 +8,7 @@ import pytest
 from scipy.linalg import LinAlgError
 
 from toqito.channels import depolarizing
+from toqito.cones._utils import _AFFINE_VARIABLE_USE_CONE
 from toqito.state_props.integral_relative_entropy import (
     _generalized_eigenvalues,
     _make_delta,
@@ -16,6 +17,8 @@ from toqito.state_props.integral_relative_entropy import (
     _sandwich_parameters,
     evaluate_relative_entropy_integral,
 )
+
+_NOT_SUPPORTED = re.escape(_AFFINE_VARIABLE_USE_CONE)
 
 
 def test_generalized_eigenvalues_eig_fallback():
@@ -238,7 +241,7 @@ def test_evaluate_relative_entropy_integral_free_variable_mat_x_raises():
     mat_y = np.diag([0.6, 0.4])
     with pytest.raises(
         ValueError,
-        match=re.escape("Affine or variable CVXPY inputs are not yet supported; pass numeric matrices."),
+        match=_NOT_SUPPORTED,
     ):
         evaluate_relative_entropy_integral(x_var, mat_y)
 
@@ -250,6 +253,6 @@ def test_evaluate_relative_entropy_integral_free_variable_mat_y_raises():
     y_var.value = np.diag([0.6, 0.4])
     with pytest.raises(
         ValueError,
-        match=re.escape("Affine or variable CVXPY inputs are not yet supported; pass numeric matrices."),
+        match=_NOT_SUPPORTED,
     ):
         evaluate_relative_entropy_integral(mat_x, y_var)

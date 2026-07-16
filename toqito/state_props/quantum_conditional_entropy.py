@@ -6,6 +6,7 @@ r"""Quantum conditional entropy for bipartite positive semidefinite matrices."""
 import cvxpy
 import numpy as np
 
+from toqito.cones._utils import _reject_nonconstant_cvxpy
 from toqito.matrix_ops.partial_trace import partial_trace
 from toqito.state_props.quantum_relative_entropy import quantum_relative_entropy
 
@@ -34,8 +35,14 @@ def quantum_conditional_entropy(
     Note that this function uses the natural logarithm (base e), consistent with
     `toqito.state_props.quantum_relative_entropy`.
 
+    This function evaluates the formula numerically. Constant CVXPY expressions
+    with a concrete ``.value`` are routed through the numeric path. Affine or
+    variable CVXPY inputs are not supported; compose
+    ``quantum_relative_entropy_epi_cone`` with the appropriate Kronecker lift
+    in a parent SDP.
+
     Args:
-        rho: Bipartite positive semidefinite matrix (or CVXPY expression).
+        rho: Bipartite positive semidefinite matrix (or constant CVXPY expression).
         dim: Subsystem dimensions ``[n_a, n_b]``.
         sys: ``0`` for \(H(A|B)\), ``1`` for \(H(B|A)\) (0-indexed partial trace).
 
@@ -47,6 +54,8 @@ def quantum_conditional_entropy(
         ValueError: If ``dim`` does not have integer elements.
         ValueError: If ``dim`` does not have positive elements.
         ValueError: If ``dim`` does not match the shape of ``rho``.
+        ValueError: If a constant CVXPY expression has no numeric ``.value``.
+        ValueError: If affine or variable CVXPY inputs are passed.
 
     Returns:
         The conditional entropy in nats.
@@ -86,9 +95,19 @@ def quantum_conditional_entropy(
     if dim[0] * dim[1] != rho.shape[0]:
         raise ValueError("dim must match the shape of rho")
 
-    if sys == 0:
-        sigma = cvxpy.kron(np.eye(dim[0]), partial_trace(rho, 0, dim))
-    else:
-        sigma = cvxpy.kron(partial_trace(rho, 1, dim), np.eye(dim[1]))
+    if isinstance(rho, cvxpy.Expression) and rho.is_constant():
+        rho_val = rho.value
+        if rho_val is None:
+            raise ValueError(
+                "Constant CVXPY expression has no numeric value; set parameter `.value` or pass rho as a numpy.ndarray."
+            )
+        return quantum_conditional_entropy(np.asarray(rho_val), dim, sys)
 
-    return -quantum_relative_entropy(rho, sigma)
+    if isinstance(rho, np.ndarray):
+        if sys == 0:
+            sigma = np.kron(np.eye(dim[0]), partial_trace(rho, 0, dim))
+        else:
+            sigma = np.kron(partial_trace(rho, 1, dim), np.eye(dim[1]))
+        return -quantum_relative_entropy(rho, sigma)
+
+    _reject_nonconstant_cvxpy(rho)

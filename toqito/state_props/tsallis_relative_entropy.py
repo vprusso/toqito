@@ -80,7 +80,7 @@ def tsallis_relative_entropy(
         if not is_positive_semidefinite(mat_y):
             raise ValueError("mat_y must be a positive semidefinite matrix")
         if t == 0:
-            from toqito.state_props.quantum_relative_entropy import quantum_relative_entropy  # noqa: PLC0415
+            from toqito.state_props.quantum_relative_entropy import quantum_relative_entropy  # noqa: PLC0415, I001  # fmt: skip
 
             return quantum_relative_entropy(mat_x, mat_y)
         n = int(mat_x.shape[0])

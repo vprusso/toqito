@@ -6,12 +6,13 @@ r"""Computes \(f(A, B, K, t) = \operatorname{tr}(K^{\dagger} A^{1-t} K B^{t})\) 
 import cvxpy
 import numpy as np
 
-from toqito.cones._utils import _reject_nonconstant_cvxpy, _require_2d, _require_square_2d
-from toqito.cones.geometric_mean_epi_cone import geometric_mean_epi_cone
-from toqito.cones.geometric_mean_hypo_cone import geometric_mean_hypo_cone
+from toqito.cones._utils import (
+    _reject_nonconstant_cvxpy,
+    _require_2d,
+    _require_square_2d,
+)
 from toqito.matrix_ops import psd_matrix_power
 from toqito.matrix_props import is_positive_semidefinite
-from toqito.matrix_props.trace_matrix_power import trace_matrix_power
 
 
 def lieb_ando(
@@ -27,12 +28,17 @@ def lieb_ando(
     \(t \in [0, 1]\) and convex for \(t \in [-1, 0] \cup [1, 2]\)
     [@fawzi2015matrixgeometric].
 
+    This function evaluates the formula numerically. Constant CVXPY expressions
+    with a concrete ``.value`` are routed through the numeric path. Affine or
+    variable CVXPY inputs are not supported; use ``lieb_ando_hypo_cone`` (for
+    ``t`` in ``[0, 1]``) or ``lieb_ando_epi_cone`` (for ``t`` in ``[-1, 0]`` or
+    ``[1, 2]``) for composition in a parent SDP.
+
     Args:
-        mat_a: The first PSD matrix.
-        mat_b: The second PSD matrix.
-        mat_k: The matrix to multiply the result by.
-        t: The power to raise the matrices to. If ``mat_a`` and ``mat_b`` are CVXPY
-            expressions, ``t`` must lie in `[-1, 2]`.
+        mat_a: A numpy array or constant CVXPY expression for the first PSD matrix.
+        mat_b: A numpy array or constant CVXPY expression for the second PSD matrix.
+        mat_k: The fixed numpy weight matrix.
+        t: The Lieb-Ando exponent.
 
     Returns:
         The value of the function as a float.
@@ -45,8 +51,8 @@ def lieb_ando(
         ValueError: If ``mat_k`` is not 2D.
         ValueError: If ``mat_k`` has incompatible shape with ``mat_a`` and ``mat_b``.
         ValueError: If ``mat_a`` and ``mat_b`` are not positive semidefinite.
-        ValueError: If ``t`` is not in the range `[-1, 2]` and ``mat_a`` and ``mat_b`` are cvxpy expressions.
-        ValueError: If ``mat_a`` and ``mat_b`` are not affine expressions.
+        ValueError: If a constant CVXPY expression has no numeric ``.value``.
+        ValueError: If affine or variable CVXPY inputs are passed.
 
     Examples:
         ```python
@@ -73,60 +79,29 @@ def lieb_ando(
     if mat_k.shape[0] != mat_a.shape[0] or mat_k.shape[1] != mat_b.shape[1]:
         raise ValueError("mat_k must have the same number of rows as mat_a and the same number of columns as mat_b.")
 
+    if isinstance(mat_a, cvxpy.Expression) and mat_a.is_constant():
+        a_val = mat_a.value
+        if a_val is None:
+            raise ValueError(
+                "Constant CVXPY expression has no numeric value; set parameter `.value` "
+                "or pass mat_a as a numpy.ndarray."
+            )
+        return lieb_ando(np.asarray(a_val), mat_b, mat_k, t)
+
+    if isinstance(mat_b, cvxpy.Expression) and mat_b.is_constant():
+        b_val = mat_b.value
+        if b_val is None:
+            raise ValueError(
+                "Constant CVXPY expression has no numeric value; set parameter `.value` "
+                "or pass mat_b as a numpy.ndarray."
+            )
+        return lieb_ando(mat_a, np.asarray(b_val), mat_k, t)
+
     if isinstance(mat_a, np.ndarray) and isinstance(mat_b, np.ndarray):
         if not is_positive_semidefinite(mat_a) or not is_positive_semidefinite(mat_b):
             raise ValueError("mat_a and mat_b must be positive semidefinite.")
         a_raised = psd_matrix_power(mat_a, 1 - t)
         b_raised = psd_matrix_power(mat_b, t)
         return float(np.real(np.trace(mat_k.conj().T @ a_raised @ mat_k @ b_raised)))
-    elif isinstance(mat_a, np.ndarray):
-        if not is_positive_semidefinite(mat_a) or not is_positive_semidefinite(mat_b.value):
-            raise ValueError("mat_a and mat_b must be positive semidefinite.")
-        mat_kak = mat_k.conj().T @ psd_matrix_power(mat_a, 1 - t) @ mat_k
-        mat_kak = (mat_kak + mat_kak.conj().T) / 2
-        return trace_matrix_power(mat_b, t, mat_kak)
-    elif isinstance(mat_b, np.ndarray):
-        if not is_positive_semidefinite(mat_a.value) or not is_positive_semidefinite(mat_b):
-            raise ValueError("mat_a and mat_b must be positive semidefinite.")
-        mat_kkb = mat_k @ psd_matrix_power(mat_b, t) @ mat_k.conj().T
-        mat_kkb = (mat_kkb + mat_kkb.conj().T) / 2
-        return trace_matrix_power(mat_a, 1 - t, mat_kkb)
-    else:
-        if not mat_a.is_affine() or not mat_b.is_affine():
-            raise ValueError("mat_a and mat_b must be affine expressions.")
-        if not is_positive_semidefinite(mat_a.value) or not is_positive_semidefinite(mat_b.value):
-            raise ValueError("mat_a and mat_b must be positive semidefinite.")
-        _reject_nonconstant_cvxpy(mat_a, mat_b)
 
-        n = mat_a.shape[0]
-        m = mat_b.shape[0]
-        is_cplx = np.any(np.imag(mat_a.value) != 0) or np.any(np.imag(mat_b.value) != 0) or np.any(np.imag(mat_k) != 0)
-        Kvec = np.reshape(mat_k.T, (n * m, 1), order="F")
-        KvKv = Kvec @ Kvec.conj().T
-        KvKv = (KvKv + KvKv.conj().T) / 2
-        if is_cplx:
-            T = cvxpy.Variable((n * m, n * m), hermitian=True)
-        else:
-            T = cvxpy.Variable((n * m, n * m), symmetric=True)
-
-        obj = cvxpy.trace(KvKv @ T)
-        if is_cplx:
-            obj = cvxpy.real(obj)
-        mat_a_kron = cvxpy.kron(mat_a, np.eye(m))
-        mat_b_kron = cvxpy.kron(np.eye(n), cvxpy.conj(mat_b))
-        if t >= 0 and t <= 1:
-            cons = geometric_mean_hypo_cone(mat_a_kron, mat_b_kron, T, t, fullhyp=False, hermitian=is_cplx)
-            problem = cvxpy.Problem(cvxpy.Maximize(obj), cons)
-            result = problem.solve()
-            if problem.status not in (cvxpy.OPTIMAL, cvxpy.OPTIMAL_INACCURATE):
-                raise ValueError(f"The SDP did not solve successfully (status: {problem.status}).")
-            return result
-        elif (t >= -1 and t <= 0) or (t >= 1 and t <= 2):
-            cons = geometric_mean_epi_cone(mat_a_kron, mat_b_kron, T, t, hermitian=is_cplx)
-            problem = cvxpy.Problem(cvxpy.Minimize(obj), cons)
-            result = problem.solve()
-            if problem.status not in (cvxpy.OPTIMAL, cvxpy.OPTIMAL_INACCURATE):
-                raise ValueError(f"The SDP did not solve successfully (status: {problem.status}).")
-            return result
-        else:
-            raise ValueError("t must be between -1 and 2.")
+    _reject_nonconstant_cvxpy(mat_a, mat_b)

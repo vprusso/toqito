@@ -7,8 +7,6 @@ import cvxpy
 import numpy as np
 
 from toqito.cones._utils import _reject_nonconstant_cvxpy, _require_square_2d
-from toqito.cones.geometric_mean_epi_cone import geometric_mean_epi_cone
-from toqito.cones.geometric_mean_hypo_cone import geometric_mean_hypo_cone
 from toqito.matrix_ops import psd_matrix_power
 from toqito.matrix_props import is_positive_semidefinite
 
@@ -23,10 +21,18 @@ def trace_matrix_power(mat_a: np.ndarray | cvxpy.Expression, t: float, mat_c: np
     fixed ``mat_c``. When `t` is in the range `[-1, 0]` or `[1, 2]`,
     the function is convex in ``mat_a`` for fixed ``mat_c``.
 
+    This function evaluates the formula numerically. Constant CVXPY expressions
+    with a concrete ``.value`` are routed through the numeric path. Affine or
+    variable CVXPY inputs are not supported; use
+    ``trace_matrix_power_hypo_cone`` (for ``t`` in ``[0, 1]``) or
+    ``trace_matrix_power_epi_cone`` (for ``t`` in ``[-1, 0]`` or ``[1, 2]``)
+    for composition in a parent SDP.
+
     Args:
-        mat_a: The matrix to be raised to a power.
-        t: The power to raise the matrix to. If mat_a is a cvxpy expression, t must be in the range `[-1, 2]`.
-        mat_c: The matrix to multiply the result by.
+        mat_a: A numpy array or constant CVXPY expression representing a positive
+            semidefinite matrix.
+        t: The power to raise the matrix to.
+        mat_c: A numpy array representing a positive semidefinite weight matrix.
 
     Returns:
         \(\operatorname{tr}\!\bigl(C A^{t}\bigr)\) with \(A=\) ``mat_a`` and \(C=\) ``mat_c``.
@@ -39,9 +45,9 @@ def trace_matrix_power(mat_a: np.ndarray | cvxpy.Expression, t: float, mat_c: np
         ValueError: If `mat_c` is not 2D or not square (unless it is None).
         ValueError: If `mat_c` is not positive semidefinite (unless it is None).
         ValueError: If `mat_a` is not positive semidefinite.
-        ValueError: If `t` is not in the range `[-1, 2]` and mat_a is a cvxpy expression.
-        ValueError: If `mat_a` is not an affine expression (unless it is a numpy array).
         ValueError: If `mat_c` is not the same size as `mat_a` (unless it is None).
+        ValueError: If a constant CVXPY expression has no numeric ``.value``.
+        ValueError: If affine or variable CVXPY inputs are passed.
 
     Examples:
         ```python
@@ -72,43 +78,18 @@ def trace_matrix_power(mat_a: np.ndarray | cvxpy.Expression, t: float, mat_c: np
     if mat_a.shape != mat_c.shape:
         raise ValueError("The matrices must be the same size.")
 
-    # Numeric path
     if isinstance(mat_a, np.ndarray):
         if not is_positive_semidefinite(mat_a):
             raise ValueError("The matrix mat_a must be positive semidefinite.")
         return float(np.real(np.trace(mat_c @ psd_matrix_power(mat_a, t))))
 
-    # Affine path
-    if isinstance(mat_a, cvxpy.Expression):
-        if t < -1 or t > 2:
-            raise ValueError("The exponent t must be in the range [-1, 2].")
-        if not mat_a.is_affine():
-            raise ValueError("The matrix mat_a must be an affine expression.")
-        if not is_positive_semidefinite(mat_a.value):
-            raise ValueError("The matrix mat_a must be positive semidefinite.")
-        _reject_nonconstant_cvxpy(mat_a)
-        n = mat_a.shape[0]
-        is_cplx = np.any(np.imag(mat_a.value) != 0)
-        if is_cplx:
-            T = cvxpy.Variable((n, n), hermitian=True)
-        else:
-            T = cvxpy.Variable((n, n), symmetric=True)
+    if isinstance(mat_a, cvxpy.Expression) and mat_a.is_constant():
+        a_val = mat_a.value
+        if a_val is None:
+            raise ValueError(
+                "Constant CVXPY expression has no numeric value; set parameter `.value` "
+                "or pass mat_a as a numpy.ndarray."
+            )
+        return trace_matrix_power(np.asarray(a_val), t, mat_c)
 
-        c_expr = cvxpy.Constant(mat_c)
-
-        obj = cvxpy.trace(c_expr @ T)
-        if is_cplx:
-            obj = cvxpy.real(obj)
-        if t >= 0 and t <= 1:
-            cons = geometric_mean_hypo_cone(cvxpy.Constant(np.eye(n)), mat_a, T, t, fullhyp=False, hermitian=is_cplx)
-            problem = cvxpy.Problem(cvxpy.Maximize(obj), cons)
-            result = problem.solve()
-            if problem.status not in (cvxpy.OPTIMAL, cvxpy.OPTIMAL_INACCURATE):
-                raise ValueError(f"The SDP did not solve successfully (status: {problem.status}).")
-            return result
-        cons = geometric_mean_epi_cone(cvxpy.Constant(np.eye(n)), mat_a, T, t, hermitian=is_cplx)
-        problem = cvxpy.Problem(cvxpy.Minimize(obj), cons)
-        result = problem.solve()
-        if problem.status not in (cvxpy.OPTIMAL, cvxpy.OPTIMAL_INACCURATE):
-            raise ValueError(f"The SDP did not solve successfully (status: {problem.status}).")
-        return result
+    _reject_nonconstant_cvxpy(mat_a)

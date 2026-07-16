@@ -10,9 +10,12 @@ import numpy as np
 import pytest
 from scipy.linalg import logm
 
+from toqito.cones._utils import _AFFINE_VARIABLE_USE_CONE
 from toqito.cones.ln_quantum_entropy_hypo_cone import ln_quantum_entropy_hypo_cone
 from toqito.matrix_props import is_positive_semidefinite
 from toqito.state_props.ln_quantum_entropy import ln_quantum_entropy
+
+_NOT_SUPPORTED = re.escape(_AFFINE_VARIABLE_USE_CONE)
 
 
 def _rand_psd(dim: int, seed: int, *, hermitian: bool) -> np.ndarray:
@@ -116,9 +119,6 @@ def test_ln_quantum_entropy_constant_cvx_expression():
     got = ln_quantum_entropy(expr)
     want = ln_quantum_entropy(mat_a)
     np.testing.assert_allclose(got, want, rtol=1e-10, atol=1e-10)
-
-
-_NOT_SUPPORTED = re.escape("Affine or variable CVXPY inputs are not yet supported; pass numeric matrices.")
 
 
 def test_ln_quantum_entropy_rejects_nonconstant_affine():
