@@ -37,9 +37,8 @@ def quantum_conditional_entropy(
 
     This function evaluates the formula numerically. Constant CVXPY expressions
     with a concrete ``.value`` are routed through the numeric path. Affine or
-    variable CVXPY inputs are not supported; compose
-    ``quantum_relative_entropy_epi_cone`` with the appropriate Kronecker lift
-    in a parent SDP.
+    variable CVXPY inputs are not supported; use
+    ``quantum_conditional_entropy_hypo_cone`` for composition in a parent SDP.
 
     Args:
         rho: Bipartite positive semidefinite matrix (or constant CVXPY expression).

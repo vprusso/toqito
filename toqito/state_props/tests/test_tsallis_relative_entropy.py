@@ -1,4 +1,4 @@
-"""Tests for tsallis_relative_entropy."""
+"""Tests for tsallis_relative_entropy (numeric / constant only)."""
 
 import re
 
@@ -57,7 +57,7 @@ def test_tsallis_relative_entropy_t_zero_is_quantum_relative_entropy():
 
 
 def test_tsallis_relative_entropy_numpy_with_constant_cvxpy():
-    """Mixed numpy and constant CVXPY inputs promote ``mat_x`` to ``Constant``."""
+    """Mixed numpy and constant CVXPY inputs unwrap ``mat_y``."""
     mat_x = np.diag([0.25, 0.75])
     mat_y = np.diag([0.5, 0.5])
     t = 0.25
@@ -89,11 +89,13 @@ def test_tsallis_relative_entropy_numeric_grid(n: int, t: float) -> None:
     mat_y = h @ h.T + 0.1 * np.eye(n)
     mat_y = mat_y / np.trace(mat_y)
     expected = _tsallis_relative_entropy_reference(mat_x, mat_y, t)
-    np.testing.assert_allclose(tsallis_relative_entropy(mat_x, mat_y, t), expected, rtol=1e-9, atol=1e-9)
+    np.testing.assert_allclose(
+        tsallis_relative_entropy(mat_x, mat_y, t), expected, rtol=1e-9, atol=1e-9
+    )
 
 
 def test_tsallis_relative_entropy_rejects_bare_variable():
-    """Bare ``Variable`` inputs with ``.value`` set are not supported (reviewer case)."""
+    """Bare ``Variable`` inputs with ``.value`` set are not supported."""
     mat_a = np.diag([0.7, 0.3])
     mat_b = np.diag([0.6, 0.4])
     x_var = cvxpy.Variable((2, 2), symmetric=True)
@@ -120,72 +122,86 @@ def test_tsallis_relative_entropy_commuting_reference():
     eigs_x = np.diag(mat_x)
     eigs_y = np.diag(mat_y)
     expected = float(np.sum(eigs_x - eigs_x ** (1 - t) * eigs_y**t) / t)
-    np.testing.assert_allclose(tsallis_relative_entropy(mat_x, mat_y, t), expected, rtol=1e-10)
+    np.testing.assert_allclose(
+        tsallis_relative_entropy(mat_x, mat_y, t), expected, rtol=1e-10
+    )
 
 
-class TestTsallisRelativeEntropyValueErrors:
-    """``ValueError`` paths in ``tsallis_relative_entropy``."""
+def test_tsallis_relative_entropy_mat_x_wrong_type() -> None:
+    """Reject ``mat_x`` that is not a numpy array or CVXPY expression."""
+    with pytest.raises(
+        ValueError,
+        match=re.escape("mat_x must be a numpy array or a cvxpy expression"),
+    ):
+        tsallis_relative_entropy([[1.0, 0.0], [0.0, 1.0]], np.eye(2), 0.5)
 
-    def test_mat_x_wrong_type(self) -> None:
-        """Reject ``mat_x`` that is not a numpy array or CVXPY expression."""
-        with pytest.raises(
-            ValueError,
-            match=re.escape("mat_x must be a numpy array or a cvxpy expression"),
-        ):
-            tsallis_relative_entropy([[1.0, 0.0], [0.0, 1.0]], np.eye(2), 0.5)
 
-    def test_mat_y_wrong_type(self) -> None:
-        """Reject ``mat_y`` that is not a numpy array or CVXPY expression."""
-        with pytest.raises(
-            ValueError,
-            match=re.escape("mat_y must be a numpy array or a cvxpy expression"),
-        ):
-            tsallis_relative_entropy(np.eye(2), [[1.0, 0.0], [0.0, 1.0]], 0.5)
+def test_tsallis_relative_entropy_mat_y_wrong_type() -> None:
+    """Reject ``mat_y`` that is not a numpy array or CVXPY expression."""
+    with pytest.raises(
+        ValueError,
+        match=re.escape("mat_y must be a numpy array or a cvxpy expression"),
+    ):
+        tsallis_relative_entropy(np.eye(2), [[1.0, 0.0], [0.0, 1.0]], 0.5)
 
-    def test_shape_mismatch(self) -> None:
-        """Reject ``mat_x`` and ``mat_y`` with different shapes."""
-        with pytest.raises(ValueError, match=re.escape("mat_x and mat_y must have the same shape")):
-            tsallis_relative_entropy(np.eye(2), np.eye(3), 0.5)
 
-    def test_t_out_of_range(self) -> None:
-        """Reject order parameter ``t`` outside ``[0, 1]``."""
-        with pytest.raises(ValueError, match=re.escape("t must be in the range [0, 1]")):
-            tsallis_relative_entropy(np.eye(2) / 2, np.eye(2) / 2, 1.5)
+def test_tsallis_relative_entropy_shape_mismatch() -> None:
+    """Reject ``mat_x`` and ``mat_y`` with different shapes."""
+    with pytest.raises(
+        ValueError, match=re.escape("mat_x and mat_y must have the same shape")
+    ):
+        tsallis_relative_entropy(np.eye(2), np.eye(3), 0.5)
 
-    def test_not_positive_semidefinite(self) -> None:
-        """Reject non-PSD numeric ``mat_x``."""
-        with pytest.raises(ValueError, match=re.escape("mat_x must be a positive semidefinite matrix")):
-            tsallis_relative_entropy(np.diag([1.0, -0.1]), np.eye(2) / 2, 0.5)
 
-    def test_mat_y_not_positive_semidefinite(self) -> None:
-        """Reject non-PSD numeric ``mat_y``."""
-        with pytest.raises(ValueError, match=re.escape("mat_y must be a positive semidefinite matrix")):
-            tsallis_relative_entropy(np.eye(2) / 2, np.diag([1.0, -0.1]), 0.5)
+def test_tsallis_relative_entropy_t_out_of_range() -> None:
+    """Reject order parameter ``t`` outside ``[0, 1]``."""
+    with pytest.raises(ValueError, match=re.escape("t must be in the range [0, 1]")):
+        tsallis_relative_entropy(np.eye(2) / 2, np.eye(2) / 2, 1.5)
 
-    def test_constant_no_value(self) -> None:
-        """Reject constant CVXPY expressions with no ``.value``."""
-        p = cvxpy.Parameter((2, 2), symmetric=True)
-        assert p.value is None
-        with pytest.raises(
-            ValueError,
-            match=re.escape(
-                "Constant CVXPY expression has no numeric value; set parameter `.value` or pass a numpy.ndarray."
-            ),
-        ):
-            tsallis_relative_entropy(p, cvxpy.Constant(np.eye(2) / 2), 0.5)
 
-    def test_nonconstant_variable(self) -> None:
-        """Reject non-constant CVXPY inputs."""
-        x_var = cvxpy.Variable((2, 2), symmetric=True)
-        x_var.value = np.eye(2) / 2
-        y_c = cvxpy.Constant(np.eye(2) / 2)
-        with pytest.raises(ValueError, match=_NOT_SUPPORTED):
-            tsallis_relative_entropy(x_var, y_c, 0.5)
+def test_tsallis_relative_entropy_not_positive_semidefinite() -> None:
+    """Reject non-PSD numeric ``mat_x``."""
+    with pytest.raises(
+        ValueError, match=re.escape("mat_x must be a positive semidefinite matrix")
+    ):
+        tsallis_relative_entropy(np.diag([1.0, -0.1]), np.eye(2) / 2, 0.5)
 
-    def test_nonconstant_quadratic(self) -> None:
-        """Reject non-constant quadratic CVXPY inputs."""
-        x_var = cvxpy.Variable((2, 2), symmetric=True)
-        x_var.value = np.eye(2) / 2
-        y_c = cvxpy.Constant(np.eye(2) / 2)
-        with pytest.raises(ValueError, match=_NOT_SUPPORTED):
-            tsallis_relative_entropy(cvxpy.square(x_var), y_c, 0.5)
+
+def test_tsallis_relative_entropy_mat_y_not_positive_semidefinite() -> None:
+    """Reject non-PSD numeric ``mat_y``."""
+    with pytest.raises(
+        ValueError, match=re.escape("mat_y must be a positive semidefinite matrix")
+    ):
+        tsallis_relative_entropy(np.eye(2) / 2, np.diag([1.0, -0.1]), 0.5)
+
+
+def test_tsallis_relative_entropy_constant_no_value() -> None:
+    """Reject constant CVXPY expressions with no ``.value``."""
+    p = cvxpy.Parameter((2, 2), symmetric=True)
+    assert p.value is None
+    with pytest.raises(
+        ValueError,
+        match=re.escape(
+            "Constant CVXPY expression has no numeric value; set parameter `.value` "
+            "or pass mat_x as a numpy.ndarray."
+        ),
+    ):
+        tsallis_relative_entropy(p, cvxpy.Constant(np.eye(2) / 2), 0.5)
+
+
+def test_tsallis_relative_entropy_rejects_nonconstant_variable() -> None:
+    """Reject non-constant CVXPY inputs."""
+    x_var = cvxpy.Variable((2, 2), symmetric=True)
+    x_var.value = np.eye(2) / 2
+    y_c = cvxpy.Constant(np.eye(2) / 2)
+    with pytest.raises(ValueError, match=_NOT_SUPPORTED):
+        tsallis_relative_entropy(x_var, y_c, 0.5)
+
+
+def test_tsallis_relative_entropy_rejects_nonconstant_quadratic() -> None:
+    """Reject non-constant quadratic CVXPY inputs."""
+    x_var = cvxpy.Variable((2, 2), symmetric=True)
+    x_var.value = np.eye(2) / 2
+    y_c = cvxpy.Constant(np.eye(2) / 2)
+    with pytest.raises(ValueError, match=_NOT_SUPPORTED):
+        tsallis_relative_entropy(cvxpy.square(x_var), y_c, 0.5)

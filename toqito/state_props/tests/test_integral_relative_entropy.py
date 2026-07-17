@@ -36,7 +36,7 @@ def test_sandwich_parameters_no_finite_eigenvalues(monkeypatch):
         return np.array([np.inf, np.inf])
 
     monkeypatch.setattr(
-        "toqito.state_props.integral_relative_entropy._generalized_eigenvalues",
+        "toqito.cones._integral_relative_entropy_helpers._generalized_eigenvalues",
         all_infinite,
     )
 
@@ -215,7 +215,7 @@ def test_sandwich_parameters_raises_on_lin_alg_error(monkeypatch):
         raise LinAlgError("singular pencil")
 
     monkeypatch.setattr(
-        "toqito.state_props.integral_relative_entropy._generalized_eigenvalues",
+        "toqito.cones._integral_relative_entropy_helpers._generalized_eigenvalues",
         failing,
     )
 
@@ -235,7 +235,7 @@ def test_evaluate_relative_entropy_integral_numpy_still_works():
 
 
 def test_evaluate_relative_entropy_integral_free_variable_mat_x_raises():
-    """A free CVXPY Variable in mat_x must raise the shared nonconstant guard message."""
+    """A free CVXPY Variable in mat_x must raise (use integral cones instead)."""
     x_var = cvxpy.Variable((2, 2), symmetric=True)
     x_var.value = np.diag([0.7, 0.3])
     mat_y = np.diag([0.6, 0.4])

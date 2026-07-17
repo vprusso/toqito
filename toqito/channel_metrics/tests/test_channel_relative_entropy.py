@@ -38,7 +38,7 @@ def test_sandwich_parameters_raises_on_eigh_failure(monkeypatch):
         raise LinAlgError("singular pencil")
 
     monkeypatch.setattr(
-        "toqito.state_props.integral_relative_entropy._generalized_eigenvalues",
+        "toqito.cones._integral_relative_entropy_helpers._generalized_eigenvalues",
         failing_eigh,
     )
 

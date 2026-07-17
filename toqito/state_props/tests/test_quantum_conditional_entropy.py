@@ -178,7 +178,7 @@ def test_affine_expression_is_rejected():
 
 @pytest.mark.slow
 def test_free_variable_is_rejected():
-    """Free CVXPY Variables are rejected (compose ``quantum_relative_entropy_epi_cone`` instead)."""
+    """Free CVXPY Variables are rejected (use ``quantum_conditional_entropy_hypo_cone`` instead)."""
     rho_var = cvxpy.Variable((4, 4), hermitian=True)
     rho_var.value = PRODUCT_STATE
     with pytest.raises(

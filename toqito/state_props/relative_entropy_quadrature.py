@@ -11,14 +11,18 @@ from toqito.cones._utils import _reject_nonconstant_cvxpy
 
 def _constant_value(expr: cvxpy.Expression) -> np.ndarray:
     if expr.value is None:
-        raise ValueError("Constant CVXPY expression has no numeric value; set `.value` or pass a numpy.ndarray.")
+        raise ValueError(
+            "Constant CVXPY expression has no numeric value; set `.value` or pass a numpy.ndarray."
+        )
     return np.asarray(expr.value, dtype=float)
 
 
 def _broadcast_shape(
     vec_x: np.ndarray | cvxpy.Expression,
     vec_y: np.ndarray | cvxpy.Expression,
-) -> tuple[np.ndarray | cvxpy.Expression, np.ndarray | cvxpy.Expression, tuple[int, ...]]:
+) -> tuple[
+    np.ndarray | cvxpy.Expression, np.ndarray | cvxpy.Expression, tuple[int, ...]
+]:
     """Broadcast ``vec_x`` and ``vec_y`` like CVXQUAD ``rel_entr_quad.m``."""
     x_size = int(np.size(vec_x))
     y_size = int(np.size(vec_y))
@@ -42,28 +46,25 @@ def _broadcast_shape(
 def relative_entropy_quadrature(
     vec_x: np.ndarray | cvxpy.Expression,
     vec_y: np.ndarray | cvxpy.Expression,
-    m: int = 3,
-    k: int = 3,
 ) -> np.ndarray | float:
-    r"""Compute element-wise relative entropy \(x_i \log(x_i / y_i)\) using quadrature SDPs.
+    r"""Compute element-wise relative entropy \(x_i \log(x_i / y_i)\).
 
     For numeric inputs this returns the element-wise values
     [@fawzi2015matrixgeometric]. Constant CVXPY expressions with a concrete
     ``.value`` are routed through the numeric path. Affine or variable CVXPY
-    inputs are not yet supported.
+    inputs are not supported; use ``relative_entropy_quadrature_epi_cone``
+    (with its ``m`` / ``k`` quadrature parameters) for composition in a parent
+    SDP.
 
     Args:
         vec_x: Positive vector (or CVXPY expression).
         vec_y: Positive vector (or CVXPY expression), broadcastable with ``vec_x``.
-        m: Number of quadrature nodes (reserved for a future affine implementation).
-        k: Number of square-roots in the approximation (reserved for a future affine implementation).
 
     Returns:
         Element-wise values for numeric inputs.
 
     Raises:
         ValueError: If inputs are not numpy arrays or CVXPY expressions.
-        ValueError: If ``m`` or ``k`` is less than 1.
         ValueError: If shapes are incompatible.
         ValueError: If inputs are not positive at evaluation points.
         ValueError: If a constant CVXPY expression has no numeric ``.value``.
@@ -83,10 +84,6 @@ def relative_entropy_quadrature(
         raise ValueError("vec_x must be a numpy array or a cvxpy expression")
     if not isinstance(vec_y, (np.ndarray, cvxpy.Expression)):
         raise ValueError("vec_y must be a numpy array or a cvxpy expression")
-    if m < 1:
-        raise ValueError("m must be at least 1")
-    if k < 1:
-        raise ValueError("k must be at least 1")
 
     vec_x, vec_y, _sz = _broadcast_shape(vec_x, vec_y)
 
@@ -106,8 +103,6 @@ def relative_entropy_quadrature(
         return relative_entropy_quadrature(
             _constant_value(vec_x),
             _constant_value(vec_y),
-            m,
-            k,
         )
 
     _reject_nonconstant_cvxpy(vec_x, vec_y)
