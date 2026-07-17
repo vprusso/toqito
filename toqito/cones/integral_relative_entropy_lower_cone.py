@@ -76,12 +76,8 @@ def integral_relative_entropy_lower_cone(
     n = int(mat_x.shape[0])
     mu_vars = [_symmetric_like_variable(n, hermitian=hermitian) for _ in range(r - 1)]
     constraints: list[cvxpy.Constraint] = [mu_vars[k] >> 0 for k in range(r - 1)]
-    constraints.extend(
-        mu_vars[k] - alpha[k] * mat_x - beta[k] * mat_y >> 0 for k in range(r - 1)
-    )
-    bound = cvxpy.sum([cvxpy.trace(mu_vars[k]) for k in range(r - 1)]) + _integral_correction(
-        lam
-    )
+    constraints.extend(mu_vars[k] - alpha[k] * mat_x - beta[k] * mat_y >> 0 for k in range(r - 1))
+    bound = cvxpy.sum([cvxpy.trace(mu_vars[k]) for k in range(r - 1)]) + _integral_correction(lam)
     if hermitian:
         bound = cvxpy.real(bound)
     constraints.append(t >= bound)

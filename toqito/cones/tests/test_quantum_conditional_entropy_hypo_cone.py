@@ -34,15 +34,11 @@ def _rand_density(dim: int, seed: int) -> np.ndarray:
     [PRODUCT_STATE, MAX_ENTANGLED_STATE],
     ids=["product", "bell"],
 )
-def test_quantum_conditional_entropy_hypo_cone_bell_and_product(
-    sys: int, rho: np.ndarray
-):
+def test_quantum_conditional_entropy_hypo_cone_bell_and_product(sys: int, rho: np.ndarray):
     """Maximize ``t`` at fixed Bell / product Constants vs float."""
     ref = quantum_conditional_entropy(rho, _DIM, sys=sys)
     t = cvxpy.Variable()
-    cons = quantum_conditional_entropy_hypo_cone(
-        cvxpy.Constant(rho), t, _DIM, sys=sys
-    )
+    cons = quantum_conditional_entropy_hypo_cone(cvxpy.Constant(rho), t, _DIM, sys=sys)
     prob = cvxpy.Problem(cvxpy.Maximize(t), cons)
     val = prob.solve(solver=cvxpy.SCS, verbose=False)
     assert prob.status in {cvxpy.OPTIMAL, cvxpy.OPTIMAL_INACCURATE}, prob.status
@@ -54,9 +50,7 @@ def test_quantum_conditional_entropy_hypo_cone_hermitian():
     rho = MAX_ENTANGLED_STATE.astype(complex)
     ref = quantum_conditional_entropy(rho, _DIM, sys=0)
     t = cvxpy.Variable()
-    cons = quantum_conditional_entropy_hypo_cone(
-        cvxpy.Constant(rho), t, _DIM, sys=0, hermitian=True
-    )
+    cons = quantum_conditional_entropy_hypo_cone(cvxpy.Constant(rho), t, _DIM, sys=0, hermitian=True)
     prob = cvxpy.Problem(cvxpy.Maximize(t), cons)
     val = prob.solve(solver=cvxpy.SCS, verbose=False)
     assert prob.status in {cvxpy.OPTIMAL, cvxpy.OPTIMAL_INACCURATE}, prob.status
@@ -70,9 +64,7 @@ def test_quantum_conditional_entropy_hypo_cone_at_constant(sys: int, seed: int):
     rho = _rand_density(4, seed + 10 * sys)
     ref = quantum_conditional_entropy(rho, _DIM, sys=sys)
     t = cvxpy.Variable()
-    cons = quantum_conditional_entropy_hypo_cone(
-        cvxpy.Constant(rho), t, _DIM, sys=sys
-    )
+    cons = quantum_conditional_entropy_hypo_cone(cvxpy.Constant(rho), t, _DIM, sys=sys)
     prob = cvxpy.Problem(cvxpy.Maximize(t), cons)
     val = prob.solve(solver=cvxpy.SCS, verbose=False)
     assert prob.status in {cvxpy.OPTIMAL, cvxpy.OPTIMAL_INACCURATE}, prob.status
@@ -84,9 +76,7 @@ def test_quantum_conditional_entropy_hypo_cone_composition():
     n = 4
     rho_var = cvxpy.Variable((n, n), symmetric=True)
     t = cvxpy.Variable()
-    cons = quantum_conditional_entropy_hypo_cone(
-        rho_var, t, _DIM, sys=0, hermitian=False
-    )
+    cons = quantum_conditional_entropy_hypo_cone(rho_var, t, _DIM, sys=0, hermitian=False)
     cons.extend([rho_var >> 0, cvxpy.trace(rho_var) == 1])
     prob = cvxpy.Problem(cvxpy.Maximize(t), cons)
     val = prob.solve(solver=cvxpy.SCS, verbose=False)

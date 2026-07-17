@@ -100,9 +100,7 @@ def test_tsallis_entropy_t_out_of_range() -> None:
 
 def test_tsallis_entropy_not_positive_semidefinite() -> None:
     """Reject non-PSD numeric ``mat_x``."""
-    with pytest.raises(
-        ValueError, match=re.escape("mat_x must be a positive semidefinite matrix")
-    ):
+    with pytest.raises(ValueError, match=re.escape("mat_x must be a positive semidefinite matrix")):
         tsallis_entropy(np.diag([1.0, -0.1]), 0.5)
 
 
@@ -113,8 +111,7 @@ def test_tsallis_entropy_constant_no_value() -> None:
     with pytest.raises(
         ValueError,
         match=re.escape(
-            "Constant CVXPY expression has no numeric value; set parameter `.value` "
-            "or pass mat_x as a numpy.ndarray."
+            "Constant CVXPY expression has no numeric value; set parameter `.value` or pass mat_x as a numpy.ndarray."
         ),
     ):
         tsallis_entropy(p, 0.5)

@@ -22,9 +22,7 @@ def test_relative_entropy_quadrature_numeric():
     vec_x = np.array([0.3, 0.7])
     vec_y = np.array([0.5, 0.5])
     expected = vec_x * np.log(vec_x / vec_y)
-    np.testing.assert_allclose(
-        relative_entropy_quadrature(vec_x, vec_y), expected, rtol=1e-12
-    )
+    np.testing.assert_allclose(relative_entropy_quadrature(vec_x, vec_y), expected, rtol=1e-12)
 
 
 def test_relative_entropy_quadrature_rejects_nonconstant_affine():
@@ -42,9 +40,7 @@ def test_relative_entropy_quadrature_broadcast_scalar_x():
     vec_x = np.array([0.4])
     vec_y = np.array([0.2, 0.8])
     expected = vec_x * np.log(vec_x / vec_y)
-    np.testing.assert_allclose(
-        relative_entropy_quadrature(vec_x, vec_y), expected, rtol=1e-12
-    )
+    np.testing.assert_allclose(relative_entropy_quadrature(vec_x, vec_y), expected, rtol=1e-12)
 
 
 def test_relative_entropy_quadrature_broadcast_scalar_y():
@@ -52,9 +48,7 @@ def test_relative_entropy_quadrature_broadcast_scalar_y():
     vec_x = np.array([0.2, 0.8])
     vec_y = np.array([0.4])
     expected = vec_x * np.log(vec_x / vec_y)
-    np.testing.assert_allclose(
-        relative_entropy_quadrature(vec_x, vec_y), expected, rtol=1e-12
-    )
+    np.testing.assert_allclose(relative_entropy_quadrature(vec_x, vec_y), expected, rtol=1e-12)
 
 
 def test_relative_entropy_quadrature_constant_cvxpy():
@@ -157,16 +151,12 @@ def test_relative_entropy_quadrature_incompatible_shapes() -> None:
         ValueError,
         match=re.escape("The dimensions of vec_x and vec_y are not compatible."),
     ):
-        relative_entropy_quadrature(
-            np.array([0.3, 0.7]), np.array([0.5, 0.5, 0.6])
-        )
+        relative_entropy_quadrature(np.array([0.3, 0.7]), np.array([0.5, 0.5, 0.6]))
 
 
 def test_relative_entropy_quadrature_non_positive_numeric() -> None:
     """Reject non-positive numeric inputs."""
-    with pytest.raises(
-        ValueError, match=re.escape("vec_x and vec_y must be positive")
-    ):
+    with pytest.raises(ValueError, match=re.escape("vec_x and vec_y must be positive")):
         relative_entropy_quadrature(np.array([0.3, -0.1]), np.array([0.5, 0.5]))
 
 
@@ -176,9 +166,7 @@ def test_relative_entropy_quadrature_constant_no_value() -> None:
     assert p.value is None
     with pytest.raises(
         ValueError,
-        match=re.escape(
-            "Constant CVXPY expression has no numeric value; set `.value` or pass a numpy.ndarray."
-        ),
+        match=re.escape("Constant CVXPY expression has no numeric value; set `.value` or pass a numpy.ndarray."),
     ):
         relative_entropy_quadrature(p, cvxpy.Constant(np.array([0.5, 0.5])))
 

@@ -18,9 +18,7 @@ PD_SHIFT = 1e-1
 
 def _case_seed(dim: int, order: float, *, hermitian: bool) -> int:
     r = Fraction(float(order)).limit_denominator()
-    return int(
-        dim * 1_000_003 + r.numerator * 10_009 + r.denominator * 100 + int(hermitian)
-    )
+    return int(dim * 1_000_003 + r.numerator * 10_009 + r.denominator * 100 + int(hermitian))
 
 
 def _random_pd_normalized(dim: int, seed: int, *, hermitian: bool) -> np.ndarray:
@@ -37,9 +35,7 @@ def _random_pd_normalized(dim: int, seed: int, *, hermitian: bool) -> np.ndarray
 @pytest.mark.parametrize("dim", DIMS)
 @pytest.mark.parametrize("order", ORDERS)
 @pytest.mark.parametrize("hermitian", [False, True])
-def test_tsallis_entropy_hypo_cone_at_constant(
-    dim: int, order: float, hermitian: bool
-):
+def test_tsallis_entropy_hypo_cone_at_constant(dim: int, order: float, hermitian: bool):
     """Maximize ``t`` at fixed ``Constant(X)`` and compare to numeric Tsallis entropy."""
     seed = _case_seed(dim, order, hermitian=hermitian)
     mat_x = _random_pd_normalized(dim, seed, hermitian=hermitian)
@@ -116,11 +112,7 @@ def test_tsallis_entropy_hypo_cone_order_invalid() -> None:
     """Reject ``order`` outside ``[0, 1]``."""
     mat_x = cvxpy.Variable((2, 2), symmetric=True)
     t = cvxpy.Variable()
-    with pytest.raises(
-        ValueError, match=re.escape("order must be in the range [0, 1]")
-    ):
+    with pytest.raises(ValueError, match=re.escape("order must be in the range [0, 1]")):
         tsallis_entropy_hypo_cone(mat_x, t, 1.5)
-    with pytest.raises(
-        ValueError, match=re.escape("order must be in the range [0, 1]")
-    ):
+    with pytest.raises(ValueError, match=re.escape("order must be in the range [0, 1]")):
         tsallis_entropy_hypo_cone(mat_x, t, -0.1)

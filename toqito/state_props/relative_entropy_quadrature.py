@@ -11,18 +11,14 @@ from toqito.cones._utils import _reject_nonconstant_cvxpy
 
 def _constant_value(expr: cvxpy.Expression) -> np.ndarray:
     if expr.value is None:
-        raise ValueError(
-            "Constant CVXPY expression has no numeric value; set `.value` or pass a numpy.ndarray."
-        )
+        raise ValueError("Constant CVXPY expression has no numeric value; set `.value` or pass a numpy.ndarray.")
     return np.asarray(expr.value, dtype=float)
 
 
 def _broadcast_shape(
     vec_x: np.ndarray | cvxpy.Expression,
     vec_y: np.ndarray | cvxpy.Expression,
-) -> tuple[
-    np.ndarray | cvxpy.Expression, np.ndarray | cvxpy.Expression, tuple[int, ...]
-]:
+) -> tuple[np.ndarray | cvxpy.Expression, np.ndarray | cvxpy.Expression, tuple[int, ...]]:
     """Broadcast ``vec_x`` and ``vec_y`` like CVXQUAD ``rel_entr_quad.m``."""
     x_size = int(np.size(vec_x))
     y_size = int(np.size(vec_y))

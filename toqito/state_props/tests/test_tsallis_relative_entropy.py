@@ -89,9 +89,7 @@ def test_tsallis_relative_entropy_numeric_grid(n: int, t: float) -> None:
     mat_y = h @ h.T + 0.1 * np.eye(n)
     mat_y = mat_y / np.trace(mat_y)
     expected = _tsallis_relative_entropy_reference(mat_x, mat_y, t)
-    np.testing.assert_allclose(
-        tsallis_relative_entropy(mat_x, mat_y, t), expected, rtol=1e-9, atol=1e-9
-    )
+    np.testing.assert_allclose(tsallis_relative_entropy(mat_x, mat_y, t), expected, rtol=1e-9, atol=1e-9)
 
 
 def test_tsallis_relative_entropy_rejects_bare_variable():
@@ -122,9 +120,7 @@ def test_tsallis_relative_entropy_commuting_reference():
     eigs_x = np.diag(mat_x)
     eigs_y = np.diag(mat_y)
     expected = float(np.sum(eigs_x - eigs_x ** (1 - t) * eigs_y**t) / t)
-    np.testing.assert_allclose(
-        tsallis_relative_entropy(mat_x, mat_y, t), expected, rtol=1e-10
-    )
+    np.testing.assert_allclose(tsallis_relative_entropy(mat_x, mat_y, t), expected, rtol=1e-10)
 
 
 def test_tsallis_relative_entropy_mat_x_wrong_type() -> None:
@@ -147,9 +143,7 @@ def test_tsallis_relative_entropy_mat_y_wrong_type() -> None:
 
 def test_tsallis_relative_entropy_shape_mismatch() -> None:
     """Reject ``mat_x`` and ``mat_y`` with different shapes."""
-    with pytest.raises(
-        ValueError, match=re.escape("mat_x and mat_y must have the same shape")
-    ):
+    with pytest.raises(ValueError, match=re.escape("mat_x and mat_y must have the same shape")):
         tsallis_relative_entropy(np.eye(2), np.eye(3), 0.5)
 
 
@@ -161,17 +155,13 @@ def test_tsallis_relative_entropy_t_out_of_range() -> None:
 
 def test_tsallis_relative_entropy_not_positive_semidefinite() -> None:
     """Reject non-PSD numeric ``mat_x``."""
-    with pytest.raises(
-        ValueError, match=re.escape("mat_x must be a positive semidefinite matrix")
-    ):
+    with pytest.raises(ValueError, match=re.escape("mat_x must be a positive semidefinite matrix")):
         tsallis_relative_entropy(np.diag([1.0, -0.1]), np.eye(2) / 2, 0.5)
 
 
 def test_tsallis_relative_entropy_mat_y_not_positive_semidefinite() -> None:
     """Reject non-PSD numeric ``mat_y``."""
-    with pytest.raises(
-        ValueError, match=re.escape("mat_y must be a positive semidefinite matrix")
-    ):
+    with pytest.raises(ValueError, match=re.escape("mat_y must be a positive semidefinite matrix")):
         tsallis_relative_entropy(np.eye(2) / 2, np.diag([1.0, -0.1]), 0.5)
 
 
@@ -182,8 +172,7 @@ def test_tsallis_relative_entropy_constant_no_value() -> None:
     with pytest.raises(
         ValueError,
         match=re.escape(
-            "Constant CVXPY expression has no numeric value; set parameter `.value` "
-            "or pass mat_x as a numpy.ndarray."
+            "Constant CVXPY expression has no numeric value; set parameter `.value` or pass mat_x as a numpy.ndarray."
         ),
     ):
         tsallis_relative_entropy(p, cvxpy.Constant(np.eye(2) / 2), 0.5)

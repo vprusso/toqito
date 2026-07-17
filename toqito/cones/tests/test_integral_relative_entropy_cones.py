@@ -29,18 +29,14 @@ def test_integral_relative_entropy_cones_match_float_bounds():
     ref_lo, ref_hi = evaluate_relative_entropy_integral(mat_x, mat_y, mean=False)
 
     t_lo = cvxpy.Variable()
-    cons_lo = integral_relative_entropy_lower_cone(
-        cvxpy.Constant(mat_x), cvxpy.Constant(mat_y), t_lo
-    )
+    cons_lo = integral_relative_entropy_lower_cone(cvxpy.Constant(mat_x), cvxpy.Constant(mat_y), t_lo)
     prob_lo = cvxpy.Problem(cvxpy.Minimize(t_lo), cons_lo)
     val_lo = prob_lo.solve(solver=cvxpy.SCS, verbose=False, eps=1e-8)
     assert prob_lo.status in {cvxpy.OPTIMAL, cvxpy.OPTIMAL_INACCURATE}, prob_lo.status
     assert val_lo == pytest.approx(ref_lo, abs=1e-4)
 
     t_hi = cvxpy.Variable()
-    cons_hi = integral_relative_entropy_upper_cone(
-        cvxpy.Constant(mat_x), cvxpy.Constant(mat_y), t_hi
-    )
+    cons_hi = integral_relative_entropy_upper_cone(cvxpy.Constant(mat_x), cvxpy.Constant(mat_y), t_hi)
     prob_hi = cvxpy.Problem(cvxpy.Minimize(t_hi), cons_hi)
     val_hi = prob_hi.solve(solver=cvxpy.SCS, verbose=False, eps=1e-8)
     assert prob_hi.status in {cvxpy.OPTIMAL, cvxpy.OPTIMAL_INACCURATE}, prob_hi.status
@@ -63,12 +59,8 @@ def test_integral_relative_entropy_cones_explicit_mu_lam():
     mu, lam = _sandwich_parameters(mat_x, mat_y)
 
     t_auto = cvxpy.Variable()
-    cons_auto = integral_relative_entropy_lower_cone(
-        cvxpy.Constant(mat_x), cvxpy.Constant(mat_y), t_auto
-    )
-    val_auto = cvxpy.Problem(cvxpy.Minimize(t_auto), cons_auto).solve(
-        solver=cvxpy.SCS, verbose=False, eps=1e-8
-    )
+    cons_auto = integral_relative_entropy_lower_cone(cvxpy.Constant(mat_x), cvxpy.Constant(mat_y), t_auto)
+    val_auto = cvxpy.Problem(cvxpy.Minimize(t_auto), cons_auto).solve(solver=cvxpy.SCS, verbose=False, eps=1e-8)
 
     t_exp = cvxpy.Variable()
     cons_exp = integral_relative_entropy_lower_cone(
@@ -78,9 +70,7 @@ def test_integral_relative_entropy_cones_explicit_mu_lam():
         mu=mu,
         lam=lam,
     )
-    val_exp = cvxpy.Problem(cvxpy.Minimize(t_exp), cons_exp).solve(
-        solver=cvxpy.SCS, verbose=False, eps=1e-8
-    )
+    val_exp = cvxpy.Problem(cvxpy.Minimize(t_exp), cons_exp).solve(solver=cvxpy.SCS, verbose=False, eps=1e-8)
     assert val_exp == pytest.approx(val_auto, abs=1e-5)
 
 
@@ -139,9 +129,7 @@ def test_integral_relative_entropy_cones_shape_mismatch() -> None:
         integral_relative_entropy_lower_cone,
         integral_relative_entropy_upper_cone,
     ):
-        with pytest.raises(
-            ValueError, match=re.escape("mat_x and mat_y must have the same shape")
-        ):
+        with pytest.raises(ValueError, match=re.escape("mat_x and mat_y must have the same shape")):
             cone(
                 cvxpy.Variable((2, 2), symmetric=True),
                 cvxpy.Variable((3, 3), symmetric=True),

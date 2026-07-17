@@ -51,9 +51,7 @@ def test_relative_entropy_quadrature_epi_cone_known_pair():
     vec_y = np.array([0.5, 0.5])
     ref = relative_entropy_quadrature(vec_x, vec_y)
     z = cvxpy.Variable(2)
-    cons = relative_entropy_quadrature_epi_cone(
-        cvxpy.Constant(vec_x), cvxpy.Constant(vec_y), z
-    )
+    cons = relative_entropy_quadrature_epi_cone(cvxpy.Constant(vec_x), cvxpy.Constant(vec_y), z)
     prob = cvxpy.Problem(cvxpy.Minimize(cvxpy.sum(z)), cons)
     val = prob.solve(solver=cvxpy.SCS, verbose=False)
     assert prob.status in {cvxpy.OPTIMAL, cvxpy.OPTIMAL_INACCURATE}, prob.status
@@ -168,24 +166,18 @@ def test_relative_entropy_quadrature_epi_cone_m_invalid() -> None:
     """Reject ``m`` below 1."""
     z = cvxpy.Variable(2)
     with pytest.raises(ValueError, match=re.escape("m must be at least 1")):
-        relative_entropy_quadrature_epi_cone(
-            cvxpy.Variable(2), cvxpy.Variable(2), z, m=0
-        )
+        relative_entropy_quadrature_epi_cone(cvxpy.Variable(2), cvxpy.Variable(2), z, m=0)
 
 
 def test_relative_entropy_quadrature_epi_cone_k_invalid() -> None:
     """Reject ``k`` below 1."""
     z = cvxpy.Variable(2)
     with pytest.raises(ValueError, match=re.escape("k must be at least 1")):
-        relative_entropy_quadrature_epi_cone(
-            cvxpy.Variable(2), cvxpy.Variable(2), z, k=0
-        )
+        relative_entropy_quadrature_epi_cone(cvxpy.Variable(2), cvxpy.Variable(2), z, k=0)
 
 
 def test_relative_entropy_quadrature_epi_cone_apx_invalid() -> None:
     """Reject invalid ``apx``."""
     z = cvxpy.Variable(2)
     with pytest.raises(ValueError, match=re.escape("apx must be -1, 0, or 1")):
-        relative_entropy_quadrature_epi_cone(
-            cvxpy.Variable(2), cvxpy.Variable(2), z, apx=2
-        )
+        relative_entropy_quadrature_epi_cone(cvxpy.Variable(2), cvxpy.Variable(2), z, apx=2)
