@@ -3,6 +3,8 @@
 # Adapted from CVXQUAD (https://github.com/hfawzi/cvxquad), BSD-2-Clause.
 # Original implementation by Fawzi, Saunderson, et al.
 
+import numbers
+
 import cvxpy
 import numpy as np
 
@@ -10,7 +12,6 @@ from toqito.cones._utils import _require_square_2d
 from toqito.cones.quantum_relative_entropy_epi_cone import (
     quantum_relative_entropy_epi_cone,
 )
-from toqito.matrix_ops.partial_trace import partial_trace
 
 
 def quantum_conditional_entropy_hypo_cone(
@@ -98,18 +99,19 @@ def quantum_conditional_entropy_hypo_cone(
         raise ValueError("dim must be a list or numpy array")
     if len(dim) != 2:
         raise ValueError("dim must have length 2")
-    if not isinstance(dim[0], int) or not isinstance(dim[1], int):
+    if not isinstance(dim[0], numbers.Integral) or not isinstance(dim[1], numbers.Integral):
         raise ValueError("dim must have integer elements")
     if dim[0] <= 0 or dim[1] <= 0:
         raise ValueError("dim must have positive elements")
-    if dim[0] * dim[1] != int(rho.shape[0]):
+    if int(dim[0]) * int(dim[1]) != int(rho.shape[0]):
         raise ValueError("dim must match the shape of rho")
 
     dim_list = [int(dim[0]), int(dim[1])]
+    dims = (dim_list[0], dim_list[1])
     if sys == 0:
-        sigma = cvxpy.kron(np.eye(dim_list[0]), partial_trace(rho, 0, dim_list))
+        sigma = cvxpy.kron(np.eye(dim_list[0]), cvxpy.partial_trace(rho, dims, axis=0))
     else:
-        sigma = cvxpy.kron(partial_trace(rho, 1, dim_list), np.eye(dim_list[1]))
+        sigma = cvxpy.kron(cvxpy.partial_trace(rho, dims, axis=1), np.eye(dim_list[1]))
 
     tau = cvxpy.Variable()
     constraints = quantum_relative_entropy_epi_cone(

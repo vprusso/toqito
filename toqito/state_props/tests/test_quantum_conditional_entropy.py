@@ -98,6 +98,13 @@ def test_product_state_sys_zero_matches_entropy_of_a():
     np.testing.assert_allclose(result, expected, rtol=1e-8, atol=1e-8)
 
 
+def test_quantum_conditional_entropy_numpy_integer_dim():
+    """``dim`` as a numpy integer array is accepted."""
+    expected = von_neumann_entropy(RHO_A) * np.log(2)
+    result = quantum_conditional_entropy(PRODUCT_STATE, np.array([2, 2], dtype=np.int64), sys=0)
+    np.testing.assert_allclose(result, expected, rtol=1e-8, atol=1e-8)
+
+
 def test_product_state_sys_one_matches_entropy_of_b():
     """For a product state, H(B|A) should equal S(rho_B) in nats."""
     expected = von_neumann_entropy(RHO_B) * np.log(2)

@@ -46,11 +46,27 @@ def test_quantum_conditional_entropy_hypo_cone_bell_and_product(sys: int, rho: n
 
 
 def test_quantum_conditional_entropy_hypo_cone_hermitian():
-    """``hermitian=True`` takes the real part of the QRE epigraph bound."""
-    rho = MAX_ENTANGLED_STATE.astype(complex)
+    """``hermitian=True`` builds successfully (covers the ``cvxpy.real`` branch).
+
+    Do not solve with ``hermitian=True``: CVXPY's complex2real reduction
+    constructs ``Constant([[0.0]])`` internally and emits a nested-list warning.
+    """
+    rho = np.asarray(PRODUCT_STATE, dtype=float)
+    t = cvxpy.Variable()
+    cons = quantum_conditional_entropy_hypo_cone(
+        cvxpy.Constant(rho), t, _DIM, sys=0, hermitian=True
+    )
+    assert len(cons) >= 1
+
+
+def test_quantum_conditional_entropy_hypo_cone_numpy_integer_dim():
+    """``dim`` as a numpy integer array is accepted."""
+    rho = PRODUCT_STATE
     ref = quantum_conditional_entropy(rho, _DIM, sys=0)
     t = cvxpy.Variable()
-    cons = quantum_conditional_entropy_hypo_cone(cvxpy.Constant(rho), t, _DIM, sys=0, hermitian=True)
+    cons = quantum_conditional_entropy_hypo_cone(
+        cvxpy.Constant(rho), t, np.array([2, 2], dtype=np.int64), sys=0
+    )
     prob = cvxpy.Problem(cvxpy.Maximize(t), cons)
     val = prob.solve(solver=cvxpy.SCS, verbose=False)
     assert prob.status in {cvxpy.OPTIMAL, cvxpy.OPTIMAL_INACCURATE}, prob.status
