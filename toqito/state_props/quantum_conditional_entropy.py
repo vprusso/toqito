@@ -3,6 +3,8 @@ r"""Quantum conditional entropy for bipartite positive semidefinite matrices."""
 # Adapted from CVXQUAD (https://github.com/hfawzi/cvxquad), BSD-2-Clause.
 # Original implementation by Fawzi, Saunderson, et al.
 
+import numbers
+
 import cvxpy
 import numpy as np
 
@@ -37,9 +39,8 @@ def quantum_conditional_entropy(
 
     This function evaluates the formula numerically. Constant CVXPY expressions
     with a concrete ``.value`` are routed through the numeric path. Affine or
-    variable CVXPY inputs are not supported; compose
-    ``quantum_relative_entropy_epi_cone`` with the appropriate Kronecker lift
-    in a parent SDP.
+    variable CVXPY inputs are not supported; use
+    ``quantum_conditional_entropy_hypo_cone`` for composition in a parent SDP.
 
     Args:
         rho: Bipartite positive semidefinite matrix (or constant CVXPY expression).
@@ -88,11 +89,11 @@ def quantum_conditional_entropy(
         raise ValueError("dim must be a list or numpy array")
     if len(dim) != 2:
         raise ValueError("dim must have length 2")
-    if not isinstance(dim[0], int) or not isinstance(dim[1], int):
+    if not isinstance(dim[0], numbers.Integral) or not isinstance(dim[1], numbers.Integral):
         raise ValueError("dim must have integer elements")
     if dim[0] <= 0 or dim[1] <= 0:
         raise ValueError("dim must have positive elements")
-    if dim[0] * dim[1] != rho.shape[0]:
+    if int(dim[0]) * int(dim[1]) != rho.shape[0]:
         raise ValueError("dim must match the shape of rho")
 
     if isinstance(rho, cvxpy.Expression) and rho.is_constant():

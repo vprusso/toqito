@@ -5,147 +5,32 @@ from typing import Any
 
 import cvxpy
 import numpy as np
-from scipy.linalg import LinAlgError, eig, eigh
 
+from toqito.cones._integral_relative_entropy_helpers import (
+    _generalized_eigenvalues,
+    _make_delta,
+    _make_gamma,
+    _make_grid,
+    _sandwich_parameters,
+)
 from toqito.cones._utils import _reject_nonconstant_cvxpy
+from toqito.cones.integral_relative_entropy_lower_cone import (
+    integral_relative_entropy_lower_cone,
+)
+from toqito.cones.integral_relative_entropy_upper_cone import (
+    integral_relative_entropy_upper_cone,
+)
 from toqito.matrix_props import is_positive_semidefinite
 
-
-def _generalized_eigenvalues(a: np.ndarray, b: np.ndarray) -> np.ndarray:
-    """Return real generalized eigenvalues for the pencil ``(a, b)``."""
-    try:
-        return np.real(eigh(a, b, check_finite=False)[0])
-    except LinAlgError:
-        return np.real(eig(a, b, left=False, right=False)[0])
-
-
-def _sandwich_parameters(rho: np.ndarray, sigma: np.ndarray) -> tuple[float, float]:
-    r"""Return sandwich bounds \(\mu\) and \(\lambda\) for PSD matrices \(X\) and \(Y\)."""
-    try:
-        w_xy = _generalized_eigenvalues(rho, sigma)
-        w_yx = _generalized_eigenvalues(sigma, rho)
-    except LinAlgError as exc:
-        raise ValueError("Failed to compute sandwich parameters from generalized eigenvalues.") from exc
-    finite_xy = w_xy[np.isfinite(w_xy)]
-    finite_yx = w_yx[np.isfinite(w_yx)]
-    if finite_xy.size == 0 or finite_yx.size == 0:
-        raise ValueError("Failed to compute sandwich parameters from generalized eigenvalues.")
-    lam = float(np.max(finite_xy))
-    mu = float(np.min(finite_yx))
-    return mu, lam
-
-
-def _make_grid(mu: float, lam: float, epsilon: float) -> np.ndarray:
-    r"""Make a grid of points for the integral representation of the relative entropy.
-
-    The first point of the grid is set to \(\mu\). For the k-th point \(t_k\), where
-    \(k \gt 1\), \(t_k = t_{k-1} + \sqrt{8 \epsilon t_{k-1}}\).
-
-    This formula yields \(O(\sqrt{\lambda/\epsilon})\) points in the grid.
-
-    Args:
-        mu: The starting point of the grid.
-        lam: The ending point of the grid.
-        epsilon: The grid refinement parameter.
-
-    Returns:
-        The grid of points.
-
-    """
-    grid = [mu]
-    curr = mu + np.sqrt(epsilon * mu * 8)
-    while curr < lam:
-        grid.append(curr)
-        curr = curr + np.sqrt(epsilon * 8 * curr)
-    return np.array(grid + [lam])
-
-
-def _make_delta(t: np.ndarray) -> np.ndarray:
-    r"""Make the delta coefficients for the integral representation of the relative entropy.
-
-    Suppose the integral grid has \(r\) points from \(t_1\) to \(t_r\). Then the
-    coefficient \(\delta_k\) is defined by
-
-    \[
-    \delta_k =
-    \begin{cases}
-    \left[\left(1 + \frac{t_1}{t_2 - t_1}\right)\log\left(\frac{t_2}{t_1}\right) - 1\right] t_1
-    & k = 1, \\
-    \left[1 - \frac{t_{r-1}}{t_r - t_{r-1}}\log\left(\frac{t_r}{t_{r-1}}\right)\right] t_r
-    & k = r, \\
-    \left[\left(1 + \frac{t_k}{t_{k+1} - t_k}\right)\log\left(\frac{t_{k+1}}{t_k}\right)
-    - \frac{t_{k-1}}{t_k - t_{k-1}}\log\left(\frac{t_k}{t_{k-1}}\right)\right] t_k
-    & \text{otherwise}.
-    \end{cases}
-    \]
-
-    where the indexing in the formula is one-based.
-
-    Args:
-        t: The grid of points.
-
-    Returns:
-        The delta coefficients.
-
-    """
-    delta = np.zeros(len(t))
-    delta[0] = t[0] * ((1 + t[0] / (t[1] - t[0])) * np.log(t[1] / t[0]) - 1)
-    delta[-1] = t[-1] * (1 - (np.log(t[-1] / t[-2]) * t[-2] / (t[-1] - t[-2])))
-    for i in range(1, len(t) - 1):
-        delta[i] = t[i] * (
-            (1 + t[i] / (t[i + 1] - t[i])) * np.log(t[i + 1] / t[i])
-            - t[i - 1] * np.log(t[i] / t[i - 1]) / (t[i] - t[i - 1])
-        )
-    return delta
-
-
-def _make_gamma(t: np.ndarray) -> np.ndarray:
-    r"""Make the gamma coefficients for the integral representation of the relative entropy.
-
-    Suppose the integral grid has \(r\) points from \(t_1\) to \(t_r\). Then the
-    coefficient \(\gamma_k\) is defined by
-
-    \[
-    \gamma_k =
-    \begin{cases}
-    -\left[\left(1 + \frac{t_1}{t_2 - t_1}\right)\log\left(\frac{t_2}{t_1}\right) - 1\right]
-    & k = 1, \\
-    -\left[1 - \frac{t_{r-1}}{t_r - t_{r-1}}\log\left(\frac{t_r}{t_{r-1}}\right)\right]
-    & k = r, \\
-    -\left[\left(1 + \frac{t_k}{t_{k+1} - t_k}\right)\log\left(\frac{t_{k+1}}{t_k}\right)
-    - \frac{t_{k-1}}{t_k - t_{k-1}}\log\left(\frac{t_k}{t_{k-1}}\right)\right]
-    & \text{otherwise}.
-    \end{cases}
-    \]
-
-    where the indexing in the formula is one-based.
-
-    Args:
-        t: The grid of points.
-
-    Returns:
-        The gamma coefficients.
-
-    """
-    gamma = np.zeros(len(t))
-    gamma[0] = -1 * ((1 + t[0] / (t[1] - t[0])) * np.log(t[1] / t[0]) - 1)
-    gamma[-1] = -1 * (1 - t[-2] * np.log(t[-1] / t[-2]) / (t[-1] - t[-2]))
-    for i in range(1, len(t) - 1):
-        gamma[i] = -1 * (
-            (1 + t[i] / (t[i + 1] - t[i])) * np.log(t[i + 1] / t[i])
-            - np.log(t[i] / t[i - 1]) * t[i - 1] / (t[i] - t[i - 1])
-        )
-    return gamma
-
-
-def _matrix_variable(n: int, *, complex_hermitian: bool) -> cvxpy.Variable:
-    if complex_hermitian:
-        return cvxpy.Variable((n, n), hermitian=True)
-    return cvxpy.Variable((n, n), symmetric=True)
-
-
-def _integral_correction(lam: float) -> float:
-    return float(np.log(lam) + 1 - lam)
+# Re-export helpers used by channel_metrics and tests.
+__all__ = [
+    "evaluate_relative_entropy_integral",
+    "_generalized_eigenvalues",
+    "_make_delta",
+    "_make_gamma",
+    "_make_grid",
+    "_sandwich_parameters",
+]
 
 
 def evaluate_relative_entropy_integral(
@@ -168,6 +53,10 @@ def evaluate_relative_entropy_integral(
 
     and returns the midpoint of the resulting lower and upper semidefinite bounds.
     All auxiliary SDPs use \(n \times n\) matrices (dimension of ``mat_x``).
+    Affine or variable CVXPY inputs are not supported; use
+    ``integral_relative_entropy_lower_cone`` /
+    ``integral_relative_entropy_upper_cone`` for composition (with explicit
+    ``mu`` / ``lam`` when values are not fixed).
 
     Args:
         mat_x: The first positive semidefinite matrix \(X\).
@@ -207,58 +96,50 @@ def evaluate_relative_entropy_integral(
             return 0.0
         return 0.0, 0.0
 
-    mat_x = mat_x_eval
-    mat_y = mat_y_eval
-
-    n = int(mat_x.shape[0])
-    is_cplx = np.iscomplexobj(mat_x) or np.iscomplexobj(mat_y)
+    is_cplx = np.iscomplexobj(mat_x_eval) or np.iscomplexobj(mat_y_eval)
     default_kwargs = {"eps": 1e-8, "verbose": False}
     default_kwargs.update(solve_kwargs)
 
-    mu, lam = _sandwich_parameters(mat_x, mat_y)
-    if mu <= 0 or lam <= mu:
-        raise ValueError(
-            "The integral representation requires 0 < mu < lambda. "
-            "This typically means the matrices are too close for the bound "
-            "(support of X may not be contained in support of Y)."
-        )
+    mu, lam = _sandwich_parameters(mat_x_eval, mat_y_eval)
 
-    t = _make_grid(mu, lam, epsilon_dec)
-    r = len(t)
-    alpha = [np.log(t[k] / t[k + 1]) for k in range(r - 1)]
-    beta = [t[k + 1] - t[k] for k in range(r - 1)]
-    gamma = _make_gamma(t)
-    delta = _make_delta(t)
+    x_c = cvxpy.Constant(mat_x_eval)
+    y_c = cvxpy.Constant(mat_y_eval)
 
-    mu_vars = [_matrix_variable(n, complex_hermitian=is_cplx) for _ in range(r - 1)]
-    lower_cons = [mu_vars[k] >> 0 for k in range(r - 1)] + [
-        mu_vars[k] - alpha[k] * mat_x - beta[k] * mat_y >> 0 for k in range(r - 1)
-    ]
-    lower_prob = cvxpy.Problem(
-        cvxpy.Minimize(cvxpy.sum([cvxpy.trace(mu_vars[k]) for k in range(r - 1)])),
-        lower_cons,
+    t_lower = cvxpy.Variable()
+    lower_cons = integral_relative_entropy_lower_cone(
+        x_c,
+        y_c,
+        t_lower,
+        epsilon_dec=epsilon_dec,
+        mu=mu,
+        lam=lam,
+        hermitian=is_cplx,
     )
+    lower_prob = cvxpy.Problem(cvxpy.Minimize(t_lower), lower_cons)
     lower_prob.solve(solver=solver, **default_kwargs)
     if lower_prob.status not in (cvxpy.OPTIMAL, cvxpy.OPTIMAL_INACCURATE):
         raise RuntimeError(f"Lower-bound SDP failed: {lower_prob.status}")
     if lower_prob.status == cvxpy.OPTIMAL_INACCURATE:
         warnings.warn("Lower-bound SDP returned OPTIMAL_INACCURATE; result may be off.")
-    lower = float(np.real(lower_prob.value)) + _integral_correction(lam)
+    lower = float(np.real(lower_prob.value))
 
-    nu_vars = [_matrix_variable(n, complex_hermitian=is_cplx) for _ in range(r)]
-    upper_cons = [nu_vars[k] >> 0 for k in range(r)] + [
-        nu_vars[k] - gamma[k] * mat_x - delta[k] * mat_y >> 0 for k in range(r)
-    ]
-    upper_prob = cvxpy.Problem(
-        cvxpy.Minimize(cvxpy.sum([cvxpy.trace(nu_vars[k]) for k in range(r)])),
-        upper_cons,
+    t_upper = cvxpy.Variable()
+    upper_cons = integral_relative_entropy_upper_cone(
+        x_c,
+        y_c,
+        t_upper,
+        epsilon_dec=epsilon_dec,
+        mu=mu,
+        lam=lam,
+        hermitian=is_cplx,
     )
+    upper_prob = cvxpy.Problem(cvxpy.Minimize(t_upper), upper_cons)
     upper_prob.solve(solver=solver, **default_kwargs)
     if upper_prob.status not in (cvxpy.OPTIMAL, cvxpy.OPTIMAL_INACCURATE):
         raise RuntimeError(f"Upper-bound SDP failed: {upper_prob.status}")
     if upper_prob.status == cvxpy.OPTIMAL_INACCURATE:
         warnings.warn("Upper-bound SDP returned OPTIMAL_INACCURATE; result may be off.")
-    upper = float(np.real(upper_prob.value)) + _integral_correction(lam)
+    upper = float(np.real(upper_prob.value))
 
     if mean:
         return (lower + upper) / 2

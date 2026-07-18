@@ -33,10 +33,13 @@ def tsallis_entropy(
 
     This function evaluates the formula numerically. Constant CVXPY expressions
     with a concrete ``.value`` are routed through the numeric path. Affine or
-    variable CVXPY inputs are not yet supported.
+    variable CVXPY inputs are not supported; use ``tsallis_entropy_hypo_cone``
+    for composition in a parent SDP. For ``t == 0``, that cone delegates to
+    ``ln_quantum_entropy_hypo_cone``.
 
     Args:
-        mat_x: A positive semidefinite matrix, or a constant CVXPY expression.
+        mat_x: A numpy array or constant CVXPY expression for a positive
+            semidefinite matrix.
         t: Order parameter in the range ``[0, 1]``.
 
     Raises:

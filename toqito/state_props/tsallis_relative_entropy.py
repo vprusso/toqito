@@ -33,7 +33,9 @@ def tsallis_relative_entropy(
 
     This function evaluates the formula numerically. Constant CVXPY expressions
     with a concrete ``.value`` are routed through the numeric path. Affine or
-    variable CVXPY inputs are not yet supported.
+    variable CVXPY inputs are not supported; use
+    ``tsallis_relative_entropy_epi_cone`` for composition in a parent SDP.
+    For ``t == 0``, that cone delegates to ``quantum_relative_entropy_epi_cone``.
 
     Args:
         mat_x: The first positive semidefinite matrix \(A\), or a constant CVXPY expression.
@@ -74,6 +76,24 @@ def tsallis_relative_entropy(
     if t < 0 or t > 1:
         raise ValueError("t must be in the range [0, 1]")
 
+    if isinstance(mat_x, cvxpy.Expression) and mat_x.is_constant():
+        x_val = mat_x.value
+        if x_val is None:
+            raise ValueError(
+                "Constant CVXPY expression has no numeric value; set parameter `.value` "
+                "or pass mat_x as a numpy.ndarray."
+            )
+        return tsallis_relative_entropy(np.asarray(x_val), mat_y, t)
+
+    if isinstance(mat_y, cvxpy.Expression) and mat_y.is_constant():
+        y_val = mat_y.value
+        if y_val is None:
+            raise ValueError(
+                "Constant CVXPY expression has no numeric value; set parameter `.value` "
+                "or pass mat_y as a numpy.ndarray."
+            )
+        return tsallis_relative_entropy(mat_x, np.asarray(y_val), t)
+
     if isinstance(mat_x, np.ndarray) and isinstance(mat_y, np.ndarray):
         if not is_positive_semidefinite(mat_x):
             raise ValueError("mat_x must be a positive semidefinite matrix")
@@ -86,17 +106,5 @@ def tsallis_relative_entropy(
         n = int(mat_x.shape[0])
         trace_cross = lieb_ando(mat_x, mat_y, np.eye(n), t)
         return float(np.real((np.trace(mat_x) - trace_cross) / t))
-
-    if isinstance(mat_x, np.ndarray):
-        mat_x = cvxpy.Constant(mat_x)
-    if isinstance(mat_y, np.ndarray):
-        mat_y = cvxpy.Constant(mat_y)
-
-    if mat_x.is_constant() and mat_y.is_constant():
-        if mat_x.value is None or mat_y.value is None:
-            raise ValueError(
-                "Constant CVXPY expression has no numeric value; set parameter `.value` or pass a numpy.ndarray."
-            )
-        return tsallis_relative_entropy(np.asarray(mat_x.value), np.asarray(mat_y.value), t)
 
     _reject_nonconstant_cvxpy(mat_x, mat_y)

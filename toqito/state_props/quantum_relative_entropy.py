@@ -46,8 +46,10 @@ def quantum_relative_entropy(
     with a concrete ``.value`` are routed through the numeric path. Affine or
     variable CVXPY inputs are not supported; use
     ``quantum_relative_entropy_epi_cone`` for composition in a parent SDP.
-    For the space-optimized integral SDP representation, call
-    ``evaluate_relative_entropy_integral`` directly
+    For the space-optimized integral SDP representation, use
+    ``integral_relative_entropy_lower_cone`` /
+    ``integral_relative_entropy_upper_cone``, or call
+    ``evaluate_relative_entropy_integral`` for numeric bounds
     [@kossmann2024optimisingrelativeentropy].
 
     Args:
