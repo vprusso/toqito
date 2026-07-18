@@ -69,7 +69,7 @@ def fidelity_of_separability(
     These other constraints are due to the PPT condition [@peres1996separability].
 
     Args:
-        psi: the density matrix for the tripartite state of interest psi_{BAR}
+        psi: the density matrix for the tripartite state of interest \(\psi_{BAR}\)
         psi_dims: the dimensions of System A, B, & R in the input state density matrix. It is assumed that the first
             quantity in this list is the dimension of System B.
         k: value for k-extendibility.

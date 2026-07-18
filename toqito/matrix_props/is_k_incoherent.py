@@ -39,7 +39,7 @@ def is_k_incoherent(mat: np.ndarray, k: int, rtol: float = 1e-05, atol: float = 
         True if `mat` is k-incoherent, False otherwise.
 
     Raises:
-        ValueError: If k ≤ 0 or if `mat` is not square.
+        ValueError: If \(k \leq 0\) or if `mat` is not square.
 
     Examples:
         If \(n = 3\) and \(k = 2\), then the following matrix is \(2\)-incoherent:

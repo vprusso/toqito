@@ -30,7 +30,7 @@ def operator_relative_entropy_epi_cone(
     \]
 
     in the PSD order, where ``log`` is the matrix logarithm.
-    Auxiliary variables ``Z`` and quadrature slices `T_i` are introduced internally.
+    Auxiliary variables ``Z`` and quadrature slices \(T_i\) are introduced internally.
 
     Args:
         X: A cvxpy expression representing a matrix.

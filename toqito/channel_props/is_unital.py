@@ -31,7 +31,7 @@ def is_unital(
         phi: The channel provided as either a Choi matrix or a list of Kraus operators.
         rtol: The relative tolerance parameter (default 1e-05).
         atol: The absolute tolerance parameter (default 1e-08).
-        dim: A scalar, vector or matrix containing the input and output dimensions of PHI.
+        dim: A scalar, vector or matrix containing the input and output dimensions of `phi`.
 
     Returns:
         `True` if the channel is unital, and `False` otherwise.

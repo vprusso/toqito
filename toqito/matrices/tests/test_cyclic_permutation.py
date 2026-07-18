@@ -1,15 +1,15 @@
-"""Test cyclic_permutation_matrix."""
+"""Test cyclic_permutation."""
 
 import numpy as np
 import pytest
 
-from toqito.matrices import cyclic_permutation_matrix
+from toqito.matrices import cyclic_permutation
 
 
 @pytest.mark.parametrize("n", [10])
-def test_cyclic_permutation_matrix_fixed(n):
+def test_cyclic_permutation_fixed(n):
     """Test cyclic permutation matrix."""
-    res = cyclic_permutation_matrix(n)
+    res = cyclic_permutation(n)
     assert np.allclose(np.linalg.matrix_power(res, n), np.eye(n))
 
 
@@ -21,16 +21,16 @@ def test_cyclic_permutation_matrix_fixed(n):
         (4, 3),
     ],
 )
-def test_cyclic_permutation_matrix_successive(n, k):
+def test_cyclic_permutation_successive(n, k):
     """Test a successive cyclic permutation matrix."""
-    res = cyclic_permutation_matrix(n, k)
+    res = cyclic_permutation(n, k)
     assert np.allclose(np.linalg.matrix_power(res, n), np.eye(n))
 
 
 @pytest.mark.parametrize("n", [2, 4, 6, 8, 10])
-def test_cyclic_permutation_matrix_checks(n):
+def test_cyclic_permutation_checks(n):
     """Test to confirm a proper cyclic permutation."""
-    res = cyclic_permutation_matrix(n)
+    res = cyclic_permutation(n)
 
     # Shape check
     np.testing.assert_equal(res.shape, (n, n))
@@ -44,17 +44,17 @@ def test_cyclic_permutation_matrix_checks(n):
 
 
 @pytest.mark.parametrize("n", [1.0])
-def test_cyclic_permutation_matrix_n_invalid(n):
+def test_cyclic_permutation_n_invalid(n):
     """Test function raises TypeError for invalid input 'n'."""
     with pytest.raises(TypeError, match="'n' must be an integer."):
-        cyclic_permutation_matrix(n=n)
+        cyclic_permutation(n=n)
 
 
 @pytest.mark.parametrize("n", [-2])
-def test_cyclic_permutation_matrix_positive_int(n):
+def test_cyclic_permutation_positive_int(n):
     """Test function raises ValueError for invalid input."""
     with pytest.raises(ValueError, match="'n' must be a positive integer."):
-        cyclic_permutation_matrix(n=n)
+        cyclic_permutation(n=n)
 
 
 @pytest.mark.parametrize(
@@ -63,7 +63,7 @@ def test_cyclic_permutation_matrix_positive_int(n):
         (4, 2.0),
     ],
 )
-def test_cyclic_permutation_matrix_k_invalid(n, k):
+def test_cyclic_permutation_k_invalid(n, k):
     """Test function raises TypeError for invalid input 'k'."""
     with pytest.raises(TypeError, match="'k' must be an integer."):
-        cyclic_permutation_matrix(n=n, k=k)
+        cyclic_permutation(n=n, k=k)

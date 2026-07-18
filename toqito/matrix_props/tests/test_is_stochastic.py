@@ -3,11 +3,11 @@
 import numpy as np
 import pytest
 
-from toqito.matrices import cyclic_permutation_matrix, pauli
+from toqito.matrices import cyclic_permutation, pauli
 from toqito.matrix_props import is_stochastic
 
 
-@pytest.mark.parametrize("matrix", [np.eye(3), cyclic_permutation_matrix(4), pauli("X")])
+@pytest.mark.parametrize("matrix", [np.eye(3), cyclic_permutation(4), pauli("X")])
 @pytest.mark.parametrize("mat_type", ["left", "right", "doubly"])
 def test_valid_stochastic_matrices(matrix, mat_type):
     """Valid stochastic matrices should return True for all valid types."""

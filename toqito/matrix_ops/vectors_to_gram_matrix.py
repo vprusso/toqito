@@ -9,14 +9,15 @@ def vectors_to_gram_matrix(vectors: list[np.ndarray]) -> np.ndarray:
     The Gram matrix is a matrix of inner products. This function automatically detects whether the inputs
     are vectors (pure states) or density matrices (mixed states) and computes the appropriate Gram matrix.
 
-    For vectors |ψᵢ⟩: G[i, j] = ⟨ψᵢ|ψⱼ⟩
-    For density matrices ρᵢ: G[i, j] = Tr(ρᵢ ρⱼ)
+    For vectors \(|\psi_i\rangle\): \(G[i, j] = \langle \psi_i | \psi_j \rangle\).
+    For density matrices \(\rho_i\): \(G[i, j] = \mathrm{Tr}(\rho_i \rho_j)\).
 
     Args:
         vectors: A list of vectors (1D/column arrays for pure states) or density matrices (2D arrays for mixed states).
 
     Returns:
-        The Gram matrix with entries G[i,j] = ⟨vᵢ|vⱼ⟩ for vectors or Tr(ρᵢρⱼ) for density matrices.
+        The Gram matrix with entries \(G[i,j] = \langle v_i | v_j \rangle\) for vectors,
+        or \(\mathrm{Tr}(\rho_i \rho_j)\) for density matrices.
 
     Raises:
         ValueError: If the vectors are not all of the same shape.

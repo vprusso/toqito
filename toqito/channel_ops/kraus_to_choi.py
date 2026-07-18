@@ -15,7 +15,7 @@ def kraus_to_choi(kraus_ops: list[np.ndarray] | list[list[np.ndarray]], sys: int
     The Choi matrix of the list of Kraus operators, `kraus_ops`. The default convention is
     that the Choi matrix is the result of applying the map to the second subsystem of the
     standard maximally entangled (unnormalized) state. The Kraus operators are expected to be
-    input as a list of numpy arrays (i.e. [[`A_1`, `B_1`],...,[`A_n`, `B_n`]]).
+    input as a list of numpy arrays (i.e. [[\(A_1\), \(B_1\)],...,[\(A_n\), \(B_n\)]]).
     In case the map is CP (completely positive), it suffices to input a flat list of operators omitting
     their conjugate transpose (i.e. [\(K_1\),..., \(K_n\)]).
 

@@ -1,4 +1,4 @@
-"""Channel dimensions computes and returns the input, output and environment dimensions of a channel."""
+"""Computes the input, output, and environment dimensions of a channel."""
 
 import numpy as np
 
@@ -11,31 +11,32 @@ def channel_dim(
     dim: int | list[int] | np.ndarray | None = None,
     compute_env_dim: bool = True,
 ) -> tuple[np.ndarray | int, np.ndarray | int, int | None]:
-    """Compute the input, output, and environment dimensions of a channel.
+    r"""Compute the input, output, and environment dimensions of a channel.
 
-    This function returns the dimensions of the input, output, and environment spaces of
-    input channel, in that order. Input and output dimensions are both 1-by-2 vectors
-    containing the row and column dimensions of their spaces. The environment dimension
-    is always a scalar, and it is equal to the number of Kraus operators of PHI (if PHI is
-    provided as a Choi matrix then environment dimension is the *minimal* number of Kraus
-    operators of any representation of PHI).
+    This function returns the dimensions of the input, output, and environment spaces of the
+    input channel, in that order. Input and output dimensions are both \(1 \times 2\) vectors
+    containing the row and column dimensions of their spaces. The environment dimension is
+    always a scalar, and it is equal to the number of Kraus operators of `phi` (if `phi` is
+    provided as a Choi matrix then the environment dimension is the minimal number of Kraus
+    operators of any representation of `phi`).
 
-    Input DIM should provided if and only if PHI is a Choi matrix with unequal input and
-    output dimensions (since it is impossible to determine the input and output dimensions
-    from the Choi matrix alone). If ALLOW_RECT is false and PHI acts on non-square matrix
-    spaces, an error will be produced. If PHI maps M_{r,c} to M_{x,y} then DIM should be the
-    2-by-2 matrix [[r,x], [c,y]]. If PHI maps M_m to M_n, then DIM can simply be the vector
-    [m,n]. If ALLOW_RECT is false then returned input and output dimensions will be scalars
-    instead of vectors. If COMPUTE_ENV_DIM is false and the PHI is a Choi matrix we avoid
-    computing the rank of the Choi matrix.
+    The `dim` argument should be provided if and only if `phi` is a Choi matrix with unequal
+    input and output dimensions (since it is impossible to determine the input and output
+    dimensions from the Choi matrix alone). If `allow_rect` is false and `phi` acts on
+    non-square matrix spaces, an error will be produced. If `phi` maps \(M_{r,c}\) to
+    \(M_{x,y}\) then `dim` should be the \(2 \times 2\) matrix `[[r,x], [c,y]]`. If `phi` maps
+    \(M_m\) to \(M_n\), then `dim` can simply be the vector `[m,n]`. If `allow_rect` is false
+    then the returned input and output dimensions will be scalars instead of vectors. If
+    `compute_env_dim` is false and `phi` is a Choi matrix we avoid computing the rank of the
+    Choi matrix.
 
-    This functions was adapted from QETLAB [@qetlablink].
+    This function was adapted from QETLAB [@qetlablink].
 
     Args:
         phi: A superoperator. It should be provided either as a Choi matrix, or as a (1d or 2d) list of numpy arrays
             whose entries are its Kraus operators.
-        allow_rect: A flag indicating that the input and output spaces of PHI can be non-square (default True).
-        dim: A scalar, vector or matrix containing the input and output dimensions of PHI.
+        allow_rect: A flag indicating that the input and output spaces of `phi` can be non-square (default True).
+        dim: A scalar, vector or matrix containing the input and output dimensions of `phi`.
         compute_env_dim: A flag indicating whether we compute the environment dimension.
 
     Returns:

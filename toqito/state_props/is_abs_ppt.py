@@ -29,7 +29,7 @@ def is_abs_ppt(
     - If `mat` is a `cvxpy` Variable, `mat` must be a 1D vector representing the eigenvalues of
         a matrix. The function then returns the list of `cvxpy` Constraints required for optimizing over the
         space of absolutely PPT matrices. This includes the positive semidefinite constraint on each constraint matrix
-        as well as `mat[0] ≥ mat[1] ≥ ... ≥ mat[-1] ≥ 0`.
+        as well as \(\text{mat}[0] \geq \text{mat}[1] \geq \cdots \geq \text{mat}[-1] \geq 0\).
 
     This function is adapted from QETLAB [@qetlablink].
 

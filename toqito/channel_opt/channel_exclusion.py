@@ -1,4 +1,4 @@
-"""Channel exclusion SDP implementations.
+r"""Channel exclusion SDP implementations.
 
 This module implements channel-level exclusion tasks: the minimum-error channel
 exclusion (primal + dual) and the unambiguous exclusion primal. The implementations
@@ -6,23 +6,31 @@ follow the lifted-interactive-measurement (tester) formulation from Watrous,
 The Theory of Quantum Information, Section 3.5.
 
 Notation and mapping to toqito variables
-- `J(Φ)` : Choi matrix of channel Φ. In toqito `kraus_to_choi` and channel
-    constructors use the `input ⊗ output` ordering for Choi matrices. Therefore
-    inner products of the form `Tr[μ Φ(ρ)]` map to
-    `⟨J(Φ), ρ^T ⊗ μ⟩` under this ordering.
-- `ρ` : input state. In the lifted formulation we use `X = ρ^T` as the input-side
-    marginal variable so that the marginal constraint reads
-    `Σ_i W_i = X ⊗ I_Y` where the first tensor factor corresponds to the input.
-- `W_i` : lifted positive operator representing the joint `M_i ⊗ ρ^T` strategy.
+
+- \(J(\Phi)\) : Choi matrix of channel \(\Phi\). In toqito, `kraus_to_choi` and
+    the channel constructors use the \(\text{input} \otimes \text{output}\)
+    ordering for Choi matrices. Therefore inner products of the form
+    \(\mathrm{Tr}[\mu \Phi(\rho)]\) map to
+    \(\langle J(\Phi), \rho^{T} \otimes \mu \rangle\) under this ordering.
+- \(\rho\) : input state. In the lifted formulation we use \(X = \rho^{T}\) as
+    the input-side marginal variable, so that the marginal constraint reads
+    \(\sum_i W_i = X \otimes \mathbb{1}_Y\), where the first tensor factor
+    corresponds to the input.
+- \(W_i\) : lifted positive operator representing the joint
+    \(M_i \otimes \rho^{T}\) strategy.
 
 Careful points (followed in tests and code)
+
 - Choi normalization: Choi matrices returned by toqito channel constructors are
-    *unnormalized* (trace = d for trace-preserving maps on d-dimensional inputs).
-    When comparing a channel-level optimization against `state_exclusion` on Choi
-    states, normalize the Choi matrices by `1/d` to form valid density matrices.
+    unnormalized (trace \(= d\) for trace-preserving maps on \(d\)-dimensional
+    inputs). When comparing a channel-level optimization against `state_exclusion`
+    on Choi states, normalize the Choi matrices by \(1/d\) to form valid density
+    matrices.
 - Unambiguous exclusion: the implementation includes an inconclusive operator
-    `W_inc ⪰ 0` with `Σ_i W_i + W_inc = X ⊗ I_Y`, and the objective minimizes
-    `Σ_j p_j ⟨J(Φ_j), W_inc⟩` subject to `⟨J(Φ_i), W_i⟩ = 0` for conclusive outcomes.
+    \(W_{\mathrm{inc}} \succeq 0\) with
+    \(\sum_i W_i + W_{\mathrm{inc}} = X \otimes \mathbb{1}_Y\), and the objective
+    minimizes \(\sum_j p_j \langle J(\Phi_j), W_{\mathrm{inc}} \rangle\) subject
+    to \(\langle J(\Phi_i), W_i \rangle = 0\) for conclusive outcomes.
 
 """
 
