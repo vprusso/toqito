@@ -2914,6 +2914,18 @@
       
         
       
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
     
     
     
@@ -3006,6 +3018,62 @@
     
   
     <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code>geometric_mean_hypo_cone
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cones/integral_relative_entropy_lower_cone/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code>integral_relative_entropy_lower_cone
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cones/integral_relative_entropy_upper_cone/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code>integral_relative_entropy_upper_cone
   
 
     
@@ -3138,6 +3206,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../../cones/quantum_conditional_entropy_hypo_cone/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code>quantum_conditional_entropy_hypo_cone
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../cones/quantum_relative_entropy_epi_cone/" class="md-nav__link">
         
   
@@ -3146,6 +3242,34 @@
     
   
     <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code>quantum_relative_entropy_epi_cone
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cones/relative_entropy_quadrature_epi_cone/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code>relative_entropy_quadrature_epi_cone
   
 
     
@@ -3230,6 +3354,62 @@
     
   
     <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code>trace_matrix_power_hypo_cone
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cones/tsallis_entropy_hypo_cone/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code>tsallis_entropy_hypo_cone
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cones/tsallis_relative_entropy_epi_cone/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code>tsallis_relative_entropy_epi_cone
   
 
     
@@ -10167,8 +10347,10 @@ that <span class="arithmatex">\(X\)</span> and <span class="arithmatex">\(Y\)</s
 with a concrete <code>.value</code> are routed through the numeric path. Affine or
 variable CVXPY inputs are not supported; use
 <code>quantum_relative_entropy_epi_cone</code> for composition in a parent SDP.
-For the space-optimized integral SDP representation, call
-<code>evaluate_relative_entropy_integral</code> directly
+For the space-optimized integral SDP representation, use
+<code>integral_relative_entropy_lower_cone</code> /
+<code>integral_relative_entropy_upper_cone</code>, or call
+<code>evaluate_relative_entropy_integral</code> for numeric bounds
 <sup><a id="cite-toqito-state_props-quantum_relative_entropy-quantum_relative_entropy-1" href="#ref-toqito-state_props-quantum_relative_entropy-quantum_relative_entropy-1">1</a></sup>.</p>
 
 
@@ -10391,7 +10573,9 @@ contained in <span class="arithmatex">\(\mathrm{im}(Y)\)</span>.</p>
 <span class="normal"><a href="#__codelineno-0-135">135</a></span>
 <span class="normal"><a href="#__codelineno-0-136">136</a></span>
 <span class="normal"><a href="#__codelineno-0-137">137</a></span>
-<span class="normal"><a href="#__codelineno-0-138">138</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-33" name="__codelineno-0-33"></a><span class="k">def</span><span class="w"> </span><span class="nf">quantum_relative_entropy</span><span class="p">(</span>
+<span class="normal"><a href="#__codelineno-0-138">138</a></span>
+<span class="normal"><a href="#__codelineno-0-139">139</a></span>
+<span class="normal"><a href="#__codelineno-0-140">140</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-33" name="__codelineno-0-33"></a><span class="k">def</span><span class="w"> </span><span class="nf">quantum_relative_entropy</span><span class="p">(</span>
 <a id="__codelineno-0-34" name="__codelineno-0-34"></a>    <span class="n">mat_x</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="n">cvxpy</span><span class="o">.</span><span class="n">Expression</span><span class="p">,</span>
 <a id="__codelineno-0-35" name="__codelineno-0-35"></a>    <span class="n">mat_y</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="n">cvxpy</span><span class="o">.</span><span class="n">Expression</span><span class="p">,</span>
 <a id="__codelineno-0-36" name="__codelineno-0-36"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
@@ -10407,96 +10591,98 @@ contained in <span class="arithmatex">\(\mathrm{im}(Y)\)</span>.</p>
 <a id="__codelineno-0-46" name="__codelineno-0-46"></a><span class="sd">    with a concrete ``.value`` are routed through the numeric path. Affine or</span>
 <a id="__codelineno-0-47" name="__codelineno-0-47"></a><span class="sd">    variable CVXPY inputs are not supported; use</span>
 <a id="__codelineno-0-48" name="__codelineno-0-48"></a><span class="sd">    ``quantum_relative_entropy_epi_cone`` for composition in a parent SDP.</span>
-<a id="__codelineno-0-49" name="__codelineno-0-49"></a><span class="sd">    For the space-optimized integral SDP representation, call</span>
-<a id="__codelineno-0-50" name="__codelineno-0-50"></a><span class="sd">    ``evaluate_relative_entropy_integral`` directly</span>
-<a id="__codelineno-0-51" name="__codelineno-0-51"></a><span class="sd">    [@kossmann2024optimisingrelativeentropy].</span>
-<a id="__codelineno-0-52" name="__codelineno-0-52"></a>
-<a id="__codelineno-0-53" name="__codelineno-0-53"></a><span class="sd">    Args:</span>
-<a id="__codelineno-0-54" name="__codelineno-0-54"></a><span class="sd">        mat_x: A numpy array or constant CVXPY expression for the first PSD matrix.</span>
-<a id="__codelineno-0-55" name="__codelineno-0-55"></a><span class="sd">        mat_y: A numpy array or constant CVXPY expression for the second PSD matrix.</span>
-<a id="__codelineno-0-56" name="__codelineno-0-56"></a>
-<a id="__codelineno-0-57" name="__codelineno-0-57"></a><span class="sd">    Raises:</span>
-<a id="__codelineno-0-58" name="__codelineno-0-58"></a><span class="sd">        ValueError: If ``mat_x`` or ``mat_y`` is not a numpy array or cvxpy expression.</span>
-<a id="__codelineno-0-59" name="__codelineno-0-59"></a><span class="sd">        ValueError: If the input matrices are not square or 2D.</span>
-<a id="__codelineno-0-60" name="__codelineno-0-60"></a><span class="sd">        ValueError: If the input matrices are not positive semidefinite.</span>
-<a id="__codelineno-0-61" name="__codelineno-0-61"></a><span class="sd">        ValueError: If the input matrices are not Hermitian.</span>
-<a id="__codelineno-0-62" name="__codelineno-0-62"></a><span class="sd">        ValueError: If ``mat_x`` and ``mat_y`` do not have the same shape.</span>
-<a id="__codelineno-0-63" name="__codelineno-0-63"></a><span class="sd">        ValueError: If a constant CVXPY expression has no numeric ``.value``.</span>
-<a id="__codelineno-0-64" name="__codelineno-0-64"></a><span class="sd">        ValueError: If affine or variable CVXPY inputs are passed.</span>
-<a id="__codelineno-0-65" name="__codelineno-0-65"></a><span class="sd">        ValueError: If \(D(X\|Y)\) is infinite because \(\mathrm{im}(X)\) is not</span>
-<a id="__codelineno-0-66" name="__codelineno-0-66"></a><span class="sd">            contained in \(\mathrm{im}(Y)\).</span>
-<a id="__codelineno-0-67" name="__codelineno-0-67"></a>
-<a id="__codelineno-0-68" name="__codelineno-0-68"></a><span class="sd">    Returns:</span>
-<a id="__codelineno-0-69" name="__codelineno-0-69"></a><span class="sd">        The quantum relative entropy \(D(X||Y)\) as a float.</span>
-<a id="__codelineno-0-70" name="__codelineno-0-70"></a>
-<a id="__codelineno-0-71" name="__codelineno-0-71"></a><span class="sd">    Examples:</span>
-<a id="__codelineno-0-72" name="__codelineno-0-72"></a><span class="sd">        Compute \(D(|0\rangle\langle 0| \parallel I / 2)\), which is</span>
-<a id="__codelineno-0-73" name="__codelineno-0-73"></a><span class="sd">        \(\ln(2)\) in nats.</span>
-<a id="__codelineno-0-74" name="__codelineno-0-74"></a>
-<a id="__codelineno-0-75" name="__codelineno-0-75"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;</span>
-<a id="__codelineno-0-76" name="__codelineno-0-76"></a><span class="sd">        import numpy as np</span>
-<a id="__codelineno-0-77" name="__codelineno-0-77"></a>
-<a id="__codelineno-0-78" name="__codelineno-0-78"></a><span class="sd">        from toqito.state_props import quantum_relative_entropy</span>
+<a id="__codelineno-0-49" name="__codelineno-0-49"></a><span class="sd">    For the space-optimized integral SDP representation, use</span>
+<a id="__codelineno-0-50" name="__codelineno-0-50"></a><span class="sd">    ``integral_relative_entropy_lower_cone`` /</span>
+<a id="__codelineno-0-51" name="__codelineno-0-51"></a><span class="sd">    ``integral_relative_entropy_upper_cone``, or call</span>
+<a id="__codelineno-0-52" name="__codelineno-0-52"></a><span class="sd">    ``evaluate_relative_entropy_integral`` for numeric bounds</span>
+<a id="__codelineno-0-53" name="__codelineno-0-53"></a><span class="sd">    [@kossmann2024optimisingrelativeentropy].</span>
+<a id="__codelineno-0-54" name="__codelineno-0-54"></a>
+<a id="__codelineno-0-55" name="__codelineno-0-55"></a><span class="sd">    Args:</span>
+<a id="__codelineno-0-56" name="__codelineno-0-56"></a><span class="sd">        mat_x: A numpy array or constant CVXPY expression for the first PSD matrix.</span>
+<a id="__codelineno-0-57" name="__codelineno-0-57"></a><span class="sd">        mat_y: A numpy array or constant CVXPY expression for the second PSD matrix.</span>
+<a id="__codelineno-0-58" name="__codelineno-0-58"></a>
+<a id="__codelineno-0-59" name="__codelineno-0-59"></a><span class="sd">    Raises:</span>
+<a id="__codelineno-0-60" name="__codelineno-0-60"></a><span class="sd">        ValueError: If ``mat_x`` or ``mat_y`` is not a numpy array or cvxpy expression.</span>
+<a id="__codelineno-0-61" name="__codelineno-0-61"></a><span class="sd">        ValueError: If the input matrices are not square or 2D.</span>
+<a id="__codelineno-0-62" name="__codelineno-0-62"></a><span class="sd">        ValueError: If the input matrices are not positive semidefinite.</span>
+<a id="__codelineno-0-63" name="__codelineno-0-63"></a><span class="sd">        ValueError: If the input matrices are not Hermitian.</span>
+<a id="__codelineno-0-64" name="__codelineno-0-64"></a><span class="sd">        ValueError: If ``mat_x`` and ``mat_y`` do not have the same shape.</span>
+<a id="__codelineno-0-65" name="__codelineno-0-65"></a><span class="sd">        ValueError: If a constant CVXPY expression has no numeric ``.value``.</span>
+<a id="__codelineno-0-66" name="__codelineno-0-66"></a><span class="sd">        ValueError: If affine or variable CVXPY inputs are passed.</span>
+<a id="__codelineno-0-67" name="__codelineno-0-67"></a><span class="sd">        ValueError: If \(D(X\|Y)\) is infinite because \(\mathrm{im}(X)\) is not</span>
+<a id="__codelineno-0-68" name="__codelineno-0-68"></a><span class="sd">            contained in \(\mathrm{im}(Y)\).</span>
+<a id="__codelineno-0-69" name="__codelineno-0-69"></a>
+<a id="__codelineno-0-70" name="__codelineno-0-70"></a><span class="sd">    Returns:</span>
+<a id="__codelineno-0-71" name="__codelineno-0-71"></a><span class="sd">        The quantum relative entropy \(D(X||Y)\) as a float.</span>
+<a id="__codelineno-0-72" name="__codelineno-0-72"></a>
+<a id="__codelineno-0-73" name="__codelineno-0-73"></a><span class="sd">    Examples:</span>
+<a id="__codelineno-0-74" name="__codelineno-0-74"></a><span class="sd">        Compute \(D(|0\rangle\langle 0| \parallel I / 2)\), which is</span>
+<a id="__codelineno-0-75" name="__codelineno-0-75"></a><span class="sd">        \(\ln(2)\) in nats.</span>
+<a id="__codelineno-0-76" name="__codelineno-0-76"></a>
+<a id="__codelineno-0-77" name="__codelineno-0-77"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;</span>
+<a id="__codelineno-0-78" name="__codelineno-0-78"></a><span class="sd">        import numpy as np</span>
 <a id="__codelineno-0-79" name="__codelineno-0-79"></a>
-<a id="__codelineno-0-80" name="__codelineno-0-80"></a><span class="sd">        rho = np.array([[1.0, 0.0], [0.0, 0.0]])</span>
-<a id="__codelineno-0-81" name="__codelineno-0-81"></a><span class="sd">        sigma = np.identity(2) / 2</span>
-<a id="__codelineno-0-82" name="__codelineno-0-82"></a><span class="sd">        print(f&quot;{quantum_relative_entropy(rho, sigma):.6f}&quot;)</span>
-<a id="__codelineno-0-83" name="__codelineno-0-83"></a><span class="sd">        ```</span>
-<a id="__codelineno-0-84" name="__codelineno-0-84"></a>
-<a id="__codelineno-0-85" name="__codelineno-0-85"></a><span class="sd">    &quot;&quot;&quot;</span>
-<a id="__codelineno-0-86" name="__codelineno-0-86"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">mat_x</span><span class="p">,</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">cvxpy</span><span class="o">.</span><span class="n">Expression</span><span class="p">)):</span>
-<a id="__codelineno-0-87" name="__codelineno-0-87"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;mat_x must be a numpy array or a cvxpy expression&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-88" name="__codelineno-0-88"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">mat_y</span><span class="p">,</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">cvxpy</span><span class="o">.</span><span class="n">Expression</span><span class="p">)):</span>
-<a id="__codelineno-0-89" name="__codelineno-0-89"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;mat_y must be a numpy array or a cvxpy expression&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-90" name="__codelineno-0-90"></a>    <span class="n">_require_square_2d</span><span class="p">(</span><span class="n">mat_x</span><span class="p">,</span> <span class="s2">&quot;mat_x&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-91" name="__codelineno-0-91"></a>    <span class="n">_require_square_2d</span><span class="p">(</span><span class="n">mat_y</span><span class="p">,</span> <span class="s2">&quot;mat_y&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-92" name="__codelineno-0-92"></a>    <span class="k">if</span> <span class="n">mat_x</span><span class="o">.</span><span class="n">shape</span> <span class="o">!=</span> <span class="n">mat_y</span><span class="o">.</span><span class="n">shape</span><span class="p">:</span>
-<a id="__codelineno-0-93" name="__codelineno-0-93"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;mat_x and mat_y must have the same shape&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-94" name="__codelineno-0-94"></a>
-<a id="__codelineno-0-95" name="__codelineno-0-95"></a>    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">mat_x</span><span class="p">,</span> <span class="n">cvxpy</span><span class="o">.</span><span class="n">Expression</span><span class="p">)</span> <span class="ow">and</span> <span class="n">mat_x</span><span class="o">.</span><span class="n">is_constant</span><span class="p">():</span>
-<a id="__codelineno-0-96" name="__codelineno-0-96"></a>        <span class="n">x_val</span> <span class="o">=</span> <span class="n">mat_x</span><span class="o">.</span><span class="n">value</span>
-<a id="__codelineno-0-97" name="__codelineno-0-97"></a>        <span class="k">if</span> <span class="n">x_val</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-<a id="__codelineno-0-98" name="__codelineno-0-98"></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-<a id="__codelineno-0-99" name="__codelineno-0-99"></a>                <span class="s2">&quot;Constant CVXPY expression has no numeric value; set parameter `.value` &quot;</span>
-<a id="__codelineno-0-100" name="__codelineno-0-100"></a>                <span class="s2">&quot;or pass mat_x as a numpy.ndarray.&quot;</span>
-<a id="__codelineno-0-101" name="__codelineno-0-101"></a>            <span class="p">)</span>
-<a id="__codelineno-0-102" name="__codelineno-0-102"></a>        <span class="k">return</span> <span class="n">quantum_relative_entropy</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">x_val</span><span class="p">),</span> <span class="n">mat_y</span><span class="p">)</span>
-<a id="__codelineno-0-103" name="__codelineno-0-103"></a>
-<a id="__codelineno-0-104" name="__codelineno-0-104"></a>    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">mat_y</span><span class="p">,</span> <span class="n">cvxpy</span><span class="o">.</span><span class="n">Expression</span><span class="p">)</span> <span class="ow">and</span> <span class="n">mat_y</span><span class="o">.</span><span class="n">is_constant</span><span class="p">():</span>
-<a id="__codelineno-0-105" name="__codelineno-0-105"></a>        <span class="n">y_val</span> <span class="o">=</span> <span class="n">mat_y</span><span class="o">.</span><span class="n">value</span>
-<a id="__codelineno-0-106" name="__codelineno-0-106"></a>        <span class="k">if</span> <span class="n">y_val</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-<a id="__codelineno-0-107" name="__codelineno-0-107"></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-<a id="__codelineno-0-108" name="__codelineno-0-108"></a>                <span class="s2">&quot;Constant CVXPY expression has no numeric value; set parameter `.value` &quot;</span>
-<a id="__codelineno-0-109" name="__codelineno-0-109"></a>                <span class="s2">&quot;or pass mat_y as a numpy.ndarray.&quot;</span>
-<a id="__codelineno-0-110" name="__codelineno-0-110"></a>            <span class="p">)</span>
-<a id="__codelineno-0-111" name="__codelineno-0-111"></a>        <span class="k">return</span> <span class="n">quantum_relative_entropy</span><span class="p">(</span><span class="n">mat_x</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">y_val</span><span class="p">))</span>
-<a id="__codelineno-0-112" name="__codelineno-0-112"></a>
-<a id="__codelineno-0-113" name="__codelineno-0-113"></a>    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">mat_x</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">mat_y</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
-<a id="__codelineno-0-114" name="__codelineno-0-114"></a>        <span class="n">tol</span> <span class="o">=</span> <span class="mf">1e-9</span>
-<a id="__codelineno-0-115" name="__codelineno-0-115"></a>        <span class="k">if</span> <span class="ow">not</span> <span class="n">is_hermitian</span><span class="p">(</span><span class="n">mat_x</span><span class="p">):</span>
-<a id="__codelineno-0-116" name="__codelineno-0-116"></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;mat_x must be a Hermitian matrix&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-117" name="__codelineno-0-117"></a>        <span class="k">if</span> <span class="ow">not</span> <span class="n">is_hermitian</span><span class="p">(</span><span class="n">mat_y</span><span class="p">):</span>
-<a id="__codelineno-0-118" name="__codelineno-0-118"></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;mat_y must be a Hermitian matrix&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-119" name="__codelineno-0-119"></a>        <span class="k">if</span> <span class="ow">not</span> <span class="n">is_positive_semidefinite</span><span class="p">(</span><span class="n">mat_x</span><span class="p">):</span>
-<a id="__codelineno-0-120" name="__codelineno-0-120"></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;mat_x must be a positive semidefinite matrix&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-121" name="__codelineno-0-121"></a>        <span class="k">if</span> <span class="ow">not</span> <span class="n">is_positive_semidefinite</span><span class="p">(</span><span class="n">mat_y</span><span class="p">):</span>
-<a id="__codelineno-0-122" name="__codelineno-0-122"></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;mat_y must be a positive semidefinite matrix&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-123" name="__codelineno-0-123"></a>
-<a id="__codelineno-0-124" name="__codelineno-0-124"></a>        <span class="n">mat_x</span> <span class="o">=</span> <span class="p">(</span><span class="n">mat_x</span> <span class="o">+</span> <span class="n">mat_x</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
-<a id="__codelineno-0-125" name="__codelineno-0-125"></a>        <span class="n">mat_y</span> <span class="o">=</span> <span class="p">(</span><span class="n">mat_y</span> <span class="o">+</span> <span class="n">mat_y</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
-<a id="__codelineno-0-126" name="__codelineno-0-126"></a>        <span class="k">with</span> <span class="n">_silence_singular_logm_warning</span><span class="p">():</span>
-<a id="__codelineno-0-127" name="__codelineno-0-127"></a>            <span class="n">eig_x</span><span class="p">,</span> <span class="n">vec_x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigh</span><span class="p">(</span><span class="n">mat_x</span><span class="p">)</span>
-<a id="__codelineno-0-128" name="__codelineno-0-128"></a>            <span class="n">eig_y</span><span class="p">,</span> <span class="n">vec_y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigh</span><span class="p">(</span><span class="n">mat_y</span><span class="p">)</span>
-<a id="__codelineno-0-129" name="__codelineno-0-129"></a>            <span class="n">overlaps</span> <span class="o">=</span> <span class="n">vec_x</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">vec_y</span>
-<a id="__codelineno-0-130" name="__codelineno-0-130"></a>            <span class="n">u</span> <span class="o">=</span> <span class="n">eig_x</span> <span class="o">@</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">overlaps</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
-<a id="__codelineno-0-131" name="__codelineno-0-131"></a>
-<a id="__codelineno-0-132" name="__codelineno-0-132"></a>            <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">u</span><span class="p">[</span><span class="n">eig_y</span> <span class="o">&lt;=</span> <span class="n">tol</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">tol</span><span class="p">):</span>
-<a id="__codelineno-0-133" name="__codelineno-0-133"></a>                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;D(X||Y) is infinity because im(X) is not contained in im(Y)&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-134" name="__codelineno-0-134"></a>            <span class="n">r1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">eig_x</span><span class="p">[</span><span class="n">eig_x</span> <span class="o">&gt;</span> <span class="n">tol</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">eig_x</span><span class="p">[</span><span class="n">eig_x</span> <span class="o">&gt;</span> <span class="n">tol</span><span class="p">]))</span>
-<a id="__codelineno-0-135" name="__codelineno-0-135"></a>            <span class="n">r2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">u</span><span class="p">[</span><span class="n">eig_y</span> <span class="o">&gt;</span> <span class="n">tol</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">eig_y</span><span class="p">[</span><span class="n">eig_y</span> <span class="o">&gt;</span> <span class="n">tol</span><span class="p">]))</span>
-<a id="__codelineno-0-136" name="__codelineno-0-136"></a>            <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">r1</span> <span class="o">-</span> <span class="n">r2</span><span class="p">)</span>
-<a id="__codelineno-0-137" name="__codelineno-0-137"></a>
-<a id="__codelineno-0-138" name="__codelineno-0-138"></a>    <span class="n">_reject_nonconstant_cvxpy</span><span class="p">(</span><span class="n">mat_x</span><span class="p">,</span> <span class="n">mat_y</span><span class="p">)</span>
+<a id="__codelineno-0-80" name="__codelineno-0-80"></a><span class="sd">        from toqito.state_props import quantum_relative_entropy</span>
+<a id="__codelineno-0-81" name="__codelineno-0-81"></a>
+<a id="__codelineno-0-82" name="__codelineno-0-82"></a><span class="sd">        rho = np.array([[1.0, 0.0], [0.0, 0.0]])</span>
+<a id="__codelineno-0-83" name="__codelineno-0-83"></a><span class="sd">        sigma = np.identity(2) / 2</span>
+<a id="__codelineno-0-84" name="__codelineno-0-84"></a><span class="sd">        print(f&quot;{quantum_relative_entropy(rho, sigma):.6f}&quot;)</span>
+<a id="__codelineno-0-85" name="__codelineno-0-85"></a><span class="sd">        ```</span>
+<a id="__codelineno-0-86" name="__codelineno-0-86"></a>
+<a id="__codelineno-0-87" name="__codelineno-0-87"></a><span class="sd">    &quot;&quot;&quot;</span>
+<a id="__codelineno-0-88" name="__codelineno-0-88"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">mat_x</span><span class="p">,</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">cvxpy</span><span class="o">.</span><span class="n">Expression</span><span class="p">)):</span>
+<a id="__codelineno-0-89" name="__codelineno-0-89"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;mat_x must be a numpy array or a cvxpy expression&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-90" name="__codelineno-0-90"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">mat_y</span><span class="p">,</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">cvxpy</span><span class="o">.</span><span class="n">Expression</span><span class="p">)):</span>
+<a id="__codelineno-0-91" name="__codelineno-0-91"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;mat_y must be a numpy array or a cvxpy expression&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-92" name="__codelineno-0-92"></a>    <span class="n">_require_square_2d</span><span class="p">(</span><span class="n">mat_x</span><span class="p">,</span> <span class="s2">&quot;mat_x&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-93" name="__codelineno-0-93"></a>    <span class="n">_require_square_2d</span><span class="p">(</span><span class="n">mat_y</span><span class="p">,</span> <span class="s2">&quot;mat_y&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-94" name="__codelineno-0-94"></a>    <span class="k">if</span> <span class="n">mat_x</span><span class="o">.</span><span class="n">shape</span> <span class="o">!=</span> <span class="n">mat_y</span><span class="o">.</span><span class="n">shape</span><span class="p">:</span>
+<a id="__codelineno-0-95" name="__codelineno-0-95"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;mat_x and mat_y must have the same shape&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-96" name="__codelineno-0-96"></a>
+<a id="__codelineno-0-97" name="__codelineno-0-97"></a>    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">mat_x</span><span class="p">,</span> <span class="n">cvxpy</span><span class="o">.</span><span class="n">Expression</span><span class="p">)</span> <span class="ow">and</span> <span class="n">mat_x</span><span class="o">.</span><span class="n">is_constant</span><span class="p">():</span>
+<a id="__codelineno-0-98" name="__codelineno-0-98"></a>        <span class="n">x_val</span> <span class="o">=</span> <span class="n">mat_x</span><span class="o">.</span><span class="n">value</span>
+<a id="__codelineno-0-99" name="__codelineno-0-99"></a>        <span class="k">if</span> <span class="n">x_val</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-0-100" name="__codelineno-0-100"></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+<a id="__codelineno-0-101" name="__codelineno-0-101"></a>                <span class="s2">&quot;Constant CVXPY expression has no numeric value; set parameter `.value` &quot;</span>
+<a id="__codelineno-0-102" name="__codelineno-0-102"></a>                <span class="s2">&quot;or pass mat_x as a numpy.ndarray.&quot;</span>
+<a id="__codelineno-0-103" name="__codelineno-0-103"></a>            <span class="p">)</span>
+<a id="__codelineno-0-104" name="__codelineno-0-104"></a>        <span class="k">return</span> <span class="n">quantum_relative_entropy</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">x_val</span><span class="p">),</span> <span class="n">mat_y</span><span class="p">)</span>
+<a id="__codelineno-0-105" name="__codelineno-0-105"></a>
+<a id="__codelineno-0-106" name="__codelineno-0-106"></a>    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">mat_y</span><span class="p">,</span> <span class="n">cvxpy</span><span class="o">.</span><span class="n">Expression</span><span class="p">)</span> <span class="ow">and</span> <span class="n">mat_y</span><span class="o">.</span><span class="n">is_constant</span><span class="p">():</span>
+<a id="__codelineno-0-107" name="__codelineno-0-107"></a>        <span class="n">y_val</span> <span class="o">=</span> <span class="n">mat_y</span><span class="o">.</span><span class="n">value</span>
+<a id="__codelineno-0-108" name="__codelineno-0-108"></a>        <span class="k">if</span> <span class="n">y_val</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-0-109" name="__codelineno-0-109"></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+<a id="__codelineno-0-110" name="__codelineno-0-110"></a>                <span class="s2">&quot;Constant CVXPY expression has no numeric value; set parameter `.value` &quot;</span>
+<a id="__codelineno-0-111" name="__codelineno-0-111"></a>                <span class="s2">&quot;or pass mat_y as a numpy.ndarray.&quot;</span>
+<a id="__codelineno-0-112" name="__codelineno-0-112"></a>            <span class="p">)</span>
+<a id="__codelineno-0-113" name="__codelineno-0-113"></a>        <span class="k">return</span> <span class="n">quantum_relative_entropy</span><span class="p">(</span><span class="n">mat_x</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">y_val</span><span class="p">))</span>
+<a id="__codelineno-0-114" name="__codelineno-0-114"></a>
+<a id="__codelineno-0-115" name="__codelineno-0-115"></a>    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">mat_x</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">mat_y</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+<a id="__codelineno-0-116" name="__codelineno-0-116"></a>        <span class="n">tol</span> <span class="o">=</span> <span class="mf">1e-9</span>
+<a id="__codelineno-0-117" name="__codelineno-0-117"></a>        <span class="k">if</span> <span class="ow">not</span> <span class="n">is_hermitian</span><span class="p">(</span><span class="n">mat_x</span><span class="p">):</span>
+<a id="__codelineno-0-118" name="__codelineno-0-118"></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;mat_x must be a Hermitian matrix&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-119" name="__codelineno-0-119"></a>        <span class="k">if</span> <span class="ow">not</span> <span class="n">is_hermitian</span><span class="p">(</span><span class="n">mat_y</span><span class="p">):</span>
+<a id="__codelineno-0-120" name="__codelineno-0-120"></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;mat_y must be a Hermitian matrix&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-121" name="__codelineno-0-121"></a>        <span class="k">if</span> <span class="ow">not</span> <span class="n">is_positive_semidefinite</span><span class="p">(</span><span class="n">mat_x</span><span class="p">):</span>
+<a id="__codelineno-0-122" name="__codelineno-0-122"></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;mat_x must be a positive semidefinite matrix&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-123" name="__codelineno-0-123"></a>        <span class="k">if</span> <span class="ow">not</span> <span class="n">is_positive_semidefinite</span><span class="p">(</span><span class="n">mat_y</span><span class="p">):</span>
+<a id="__codelineno-0-124" name="__codelineno-0-124"></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;mat_y must be a positive semidefinite matrix&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-125" name="__codelineno-0-125"></a>
+<a id="__codelineno-0-126" name="__codelineno-0-126"></a>        <span class="n">mat_x</span> <span class="o">=</span> <span class="p">(</span><span class="n">mat_x</span> <span class="o">+</span> <span class="n">mat_x</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+<a id="__codelineno-0-127" name="__codelineno-0-127"></a>        <span class="n">mat_y</span> <span class="o">=</span> <span class="p">(</span><span class="n">mat_y</span> <span class="o">+</span> <span class="n">mat_y</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+<a id="__codelineno-0-128" name="__codelineno-0-128"></a>        <span class="k">with</span> <span class="n">_silence_singular_logm_warning</span><span class="p">():</span>
+<a id="__codelineno-0-129" name="__codelineno-0-129"></a>            <span class="n">eig_x</span><span class="p">,</span> <span class="n">vec_x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigh</span><span class="p">(</span><span class="n">mat_x</span><span class="p">)</span>
+<a id="__codelineno-0-130" name="__codelineno-0-130"></a>            <span class="n">eig_y</span><span class="p">,</span> <span class="n">vec_y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigh</span><span class="p">(</span><span class="n">mat_y</span><span class="p">)</span>
+<a id="__codelineno-0-131" name="__codelineno-0-131"></a>            <span class="n">overlaps</span> <span class="o">=</span> <span class="n">vec_x</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">vec_y</span>
+<a id="__codelineno-0-132" name="__codelineno-0-132"></a>            <span class="n">u</span> <span class="o">=</span> <span class="n">eig_x</span> <span class="o">@</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">overlaps</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+<a id="__codelineno-0-133" name="__codelineno-0-133"></a>
+<a id="__codelineno-0-134" name="__codelineno-0-134"></a>            <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">u</span><span class="p">[</span><span class="n">eig_y</span> <span class="o">&lt;=</span> <span class="n">tol</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">tol</span><span class="p">):</span>
+<a id="__codelineno-0-135" name="__codelineno-0-135"></a>                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;D(X||Y) is infinity because im(X) is not contained in im(Y)&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-136" name="__codelineno-0-136"></a>            <span class="n">r1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">eig_x</span><span class="p">[</span><span class="n">eig_x</span> <span class="o">&gt;</span> <span class="n">tol</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">eig_x</span><span class="p">[</span><span class="n">eig_x</span> <span class="o">&gt;</span> <span class="n">tol</span><span class="p">]))</span>
+<a id="__codelineno-0-137" name="__codelineno-0-137"></a>            <span class="n">r2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">u</span><span class="p">[</span><span class="n">eig_y</span> <span class="o">&gt;</span> <span class="n">tol</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">eig_y</span><span class="p">[</span><span class="n">eig_y</span> <span class="o">&gt;</span> <span class="n">tol</span><span class="p">]))</span>
+<a id="__codelineno-0-138" name="__codelineno-0-138"></a>            <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">r1</span> <span class="o">-</span> <span class="n">r2</span><span class="p">)</span>
+<a id="__codelineno-0-139" name="__codelineno-0-139"></a>
+<a id="__codelineno-0-140" name="__codelineno-0-140"></a>    <span class="n">_reject_nonconstant_cvxpy</span><span class="p">(</span><span class="n">mat_x</span><span class="p">,</span> <span class="n">mat_y</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
