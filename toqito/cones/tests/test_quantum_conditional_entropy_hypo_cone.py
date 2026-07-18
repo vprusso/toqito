@@ -53,9 +53,7 @@ def test_quantum_conditional_entropy_hypo_cone_hermitian():
     """
     rho = np.asarray(PRODUCT_STATE, dtype=float)
     t = cvxpy.Variable()
-    cons = quantum_conditional_entropy_hypo_cone(
-        cvxpy.Constant(rho), t, _DIM, sys=0, hermitian=True
-    )
+    cons = quantum_conditional_entropy_hypo_cone(cvxpy.Constant(rho), t, _DIM, sys=0, hermitian=True)
     assert len(cons) >= 1
 
 
@@ -64,9 +62,7 @@ def test_quantum_conditional_entropy_hypo_cone_numpy_integer_dim():
     rho = PRODUCT_STATE
     ref = quantum_conditional_entropy(rho, _DIM, sys=0)
     t = cvxpy.Variable()
-    cons = quantum_conditional_entropy_hypo_cone(
-        cvxpy.Constant(rho), t, np.array([2, 2], dtype=np.int64), sys=0
-    )
+    cons = quantum_conditional_entropy_hypo_cone(cvxpy.Constant(rho), t, np.array([2, 2], dtype=np.int64), sys=0)
     prob = cvxpy.Problem(cvxpy.Maximize(t), cons)
     val = prob.solve(solver=cvxpy.SCS, verbose=False)
     assert prob.status in {cvxpy.OPTIMAL, cvxpy.OPTIMAL_INACCURATE}, prob.status
