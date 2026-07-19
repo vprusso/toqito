@@ -30,7 +30,8 @@ def abs_ppt_constraints(
         will return the assembled constraint matrices as a list of `cvxpy` Expressions.
         These can be used with `cvxpy` to optimize over the space of absolutely PPT matrices.
 
-        The user must impose the condition `eigs[0] ≥ eigs[1] ≥ ... ≥ eigs[-1] ≥ 0` and the
+        The user must impose the ordering
+        \(\text{eigs}[0] \geq \text{eigs}[1] \geq \cdots \geq \text{eigs}[-1] \geq 0\), along with the
         positive semidefinite constraint on each returned matrix separately.
 
         It is recommended to set `use_check=True` for this use case to minimize the number of

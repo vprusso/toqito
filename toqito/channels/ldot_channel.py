@@ -97,7 +97,7 @@ def _ldot_channel_standard_basis(mat: np.ndarray) -> np.ndarray:
 
 
 def _ldot_channel_brute_force(mat: np.ndarray) -> np.ndarray:
-    r"""Brute-force O(2ⁿ) implementation by averaging over all diagonal ±1 matrices.
+    r"""Brute-force \(O(2^n)\) implementation by averaging over all diagonal \(\pm 1\) matrices.
 
     This implementation is provided for verification purposes and to match the mathematical
     definition exactly. For practical use, the efficient implementation should be preferred.

@@ -3,7 +3,7 @@
 import numpy as np
 
 
-def cyclic_permutation_matrix(n: int, k: int = 1) -> np.ndarray:
+def cyclic_permutation(n: int, k: int = 1) -> np.ndarray:
     r"""Create the cyclic permutation matrix for a given dimension `n` [@wikipediacyclic].
 
     This function creates a cyclic permutation matrix of 0's and 1's which is a special type of square matrix
@@ -22,17 +22,17 @@ def cyclic_permutation_matrix(n: int, k: int = 1) -> np.ndarray:
         Generate fixed point.
 
         ```python exec="1" source="above" result="text"
-        from toqito.matrices import cyclic_permutation_matrix
+        from toqito.matrices import cyclic_permutation
 
-        print(cyclic_permutation_matrix(n=4))
+        print(cyclic_permutation(n=4))
         ```
 
         Generate successive application.
 
         ```python exec="1" source="above" result="text"
-        from toqito.matrices import cyclic_permutation_matrix
+        from toqito.matrices import cyclic_permutation
 
-        print(cyclic_permutation_matrix(n=4, k=3))
+        print(cyclic_permutation(n=4, k=3))
         ```
 
 
