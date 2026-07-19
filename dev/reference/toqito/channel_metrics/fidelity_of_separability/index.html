@@ -3642,14 +3642,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../matrices/cyclic_permutation_matrix/" class="md-nav__link">
+      <a href="../../matrices/cyclic_permutation/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code>cyclic_permutation_matrix
+    <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code>cyclic_permutation
   
 
     
@@ -10389,7 +10389,7 @@ T_{A^{\prime}_{1\cdots j}}(\Gamma^{\mathcal{E}^{k}_{RA^{\prime k}}}) \geq 0 \qua
               (<code><span title="numpy.ndarray">ndarray</span></code>)
           –
           <div class="doc-md-description">
-            <p>the density matrix for the tripartite state of interest psi_{BAR}</p>
+            <p>the density matrix for the tripartite state of interest <span class="arithmatex">\(\psi_{BAR}\)</span></p>
           </div>
         </li>
         <li class="doc-section-item field-body">
@@ -10500,7 +10500,7 @@ value possible i.e. very close to 1.</p>
 <a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="n">rho</span> <span class="o">=</span> <span class="n">state</span> <span class="o">@</span> <span class="n">state</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span>
 <a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="nb">print</span><span class="p">(</span><span class="n">fidelity_of_separability</span><span class="p">(</span><span class="n">rho</span><span class="p">,</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">]))</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>0.9999999998278968
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>0.9999999998278963
 </code></pre></div>
         <p><strong>References</strong></p>
 <p><span id="ref-toqito-channel_metrics-fidelity_of_separability-fidelity_of_separability-1"><sup><a href="#cite-toqito-channel_metrics-fidelity_of_separability-fidelity_of_separability-1">1</a></sup> Philip, Aby and Rethinasamy, Soorya and Russo, Vincent and Wilde, Mark. <em>Schr\"odinger as a Quantum Programmer: Estimating Entanglement via Steering</em>. (2023).</span><br>
@@ -10725,7 +10725,7 @@ value possible i.e. very close to 1.</p>
 <a id="__codelineno-0-69" name="__codelineno-0-69"></a><span class="sd">    These other constraints are due to the PPT condition [@peres1996separability].</span>
 <a id="__codelineno-0-70" name="__codelineno-0-70"></a>
 <a id="__codelineno-0-71" name="__codelineno-0-71"></a><span class="sd">    Args:</span>
-<a id="__codelineno-0-72" name="__codelineno-0-72"></a><span class="sd">        psi: the density matrix for the tripartite state of interest psi_{BAR}</span>
+<a id="__codelineno-0-72" name="__codelineno-0-72"></a><span class="sd">        psi: the density matrix for the tripartite state of interest \(\psi_{BAR}\)</span>
 <a id="__codelineno-0-73" name="__codelineno-0-73"></a><span class="sd">        psi_dims: the dimensions of System A, B, &amp; R in the input state density matrix. It is assumed that the first</span>
 <a id="__codelineno-0-74" name="__codelineno-0-74"></a><span class="sd">            quantity in this list is the dimension of System B.</span>
 <a id="__codelineno-0-75" name="__codelineno-0-75"></a><span class="sd">        k: value for k-extendibility.</span>

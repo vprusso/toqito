@@ -3642,14 +3642,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../matrices/cyclic_permutation_matrix/" class="md-nav__link">
+      <a href="../../matrices/cyclic_permutation/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code>cyclic_permutation_matrix
+    <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code>cyclic_permutation
   
 
     
@@ -10301,7 +10301,7 @@
 
     <div class="doc doc-contents first">
 
-        <p>Channel dimensions computes and returns the input, output and environment dimensions of a channel.</p>
+        <p>Computes the input, output, and environment dimensions of a channel.</p>
 
 
 
@@ -10342,21 +10342,22 @@
     <div class="doc doc-contents ">
 
         <p>Compute the input, output, and environment dimensions of a channel.</p>
-<p>This function returns the dimensions of the input, output, and environment spaces of
-input channel, in that order. Input and output dimensions are both 1-by-2 vectors
-containing the row and column dimensions of their spaces. The environment dimension
-is always a scalar, and it is equal to the number of Kraus operators of PHI (if PHI is
-provided as a Choi matrix then environment dimension is the <em>minimal</em> number of Kraus
-operators of any representation of PHI).</p>
-<p>Input DIM should provided if and only if PHI is a Choi matrix with unequal input and
-output dimensions (since it is impossible to determine the input and output dimensions
-from the Choi matrix alone). If ALLOW_RECT is false and PHI acts on non-square matrix
-spaces, an error will be produced. If PHI maps M_{r,c} to M_{x,y} then DIM should be the
-2-by-2 matrix [[r,x], [c,y]]. If PHI maps M_m to M_n, then DIM can simply be the vector
-[m,n]. If ALLOW_RECT is false then returned input and output dimensions will be scalars
-instead of vectors. If COMPUTE_ENV_DIM is false and the PHI is a Choi matrix we avoid
-computing the rank of the Choi matrix.</p>
-<p>This functions was adapted from QETLAB <sup><a id="cite-toqito-channel_props-channel_dim-channel_dim-1" href="#ref-toqito-channel_props-channel_dim-channel_dim-1">1</a></sup>.</p>
+<p>This function returns the dimensions of the input, output, and environment spaces of the
+input channel, in that order. Input and output dimensions are both <span class="arithmatex">\(1 \times 2\)</span> vectors
+containing the row and column dimensions of their spaces. The environment dimension is
+always a scalar, and it is equal to the number of Kraus operators of <code>phi</code> (if <code>phi</code> is
+provided as a Choi matrix then the environment dimension is the minimal number of Kraus
+operators of any representation of <code>phi</code>).</p>
+<p>The <code>dim</code> argument should be provided if and only if <code>phi</code> is a Choi matrix with unequal
+input and output dimensions (since it is impossible to determine the input and output
+dimensions from the Choi matrix alone). If <code>allow_rect</code> is false and <code>phi</code> acts on
+non-square matrix spaces, an error will be produced. If <code>phi</code> maps <span class="arithmatex">\(M_{r,c}\)</span> to
+<span class="arithmatex">\(M_{x,y}\)</span> then <code>dim</code> should be the <span class="arithmatex">\(2 \times 2\)</span> matrix <code>[[r,x], [c,y]]</code>. If <code>phi</code> maps
+<span class="arithmatex">\(M_m\)</span> to <span class="arithmatex">\(M_n\)</span>, then <code>dim</code> can simply be the vector <code>[m,n]</code>. If <code>allow_rect</code> is false
+then the returned input and output dimensions will be scalars instead of vectors. If
+<code>compute_env_dim</code> is false and <code>phi</code> is a Choi matrix we avoid computing the rank of the
+Choi matrix.</p>
+<p>This function was adapted from QETLAB <sup><a id="cite-toqito-channel_props-channel_dim-channel_dim-1" href="#ref-toqito-channel_props-channel_dim-channel_dim-1">1</a></sup>.</p>
 
 
 <p><span class="doc-section-title">Parameters:</span></p>
@@ -10377,7 +10378,7 @@ whose entries are its Kraus operators.</p>
 )
           –
           <div class="doc-md-description">
-            <p>A flag indicating that the input and output spaces of PHI can be non-square (default True).</p>
+            <p>A flag indicating that the input and output spaces of <code>phi</code> can be non-square (default True).</p>
           </div>
         </li>
         <li class="doc-section-item field-body">
@@ -10387,7 +10388,7 @@ whose entries are its Kraus operators.</p>
 )
           –
           <div class="doc-md-description">
-            <p>A scalar, vector or matrix containing the input and output dimensions of PHI.</p>
+            <p>A scalar, vector or matrix containing the input and output dimensions of <code>phi</code>.</p>
           </div>
         </li>
         <li class="doc-section-item field-body">
@@ -10563,132 +10564,134 @@ channel:</p>
 <span class="normal"><a href="#__codelineno-0-130">130</a></span>
 <span class="normal"><a href="#__codelineno-0-131">131</a></span>
 <span class="normal"><a href="#__codelineno-0-132">132</a></span>
-<span class="normal"><a href="#__codelineno-0-133">133</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-8" name="__codelineno-0-8"></a><span class="k">def</span><span class="w"> </span><span class="nf">channel_dim</span><span class="p">(</span>
+<span class="normal"><a href="#__codelineno-0-133">133</a></span>
+<span class="normal"><a href="#__codelineno-0-134">134</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-8" name="__codelineno-0-8"></a><span class="k">def</span><span class="w"> </span><span class="nf">channel_dim</span><span class="p">(</span>
 <a id="__codelineno-0-9" name="__codelineno-0-9"></a>    <span class="n">phi</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]],</span>
 <a id="__codelineno-0-10" name="__codelineno-0-10"></a>    <span class="n">allow_rect</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
 <a id="__codelineno-0-11" name="__codelineno-0-11"></a>    <span class="n">dim</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <a id="__codelineno-0-12" name="__codelineno-0-12"></a>    <span class="n">compute_env_dim</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
 <a id="__codelineno-0-13" name="__codelineno-0-13"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="nb">int</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span><span class="p">]:</span>
-<a id="__codelineno-0-14" name="__codelineno-0-14"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute the input, output, and environment dimensions of a channel.</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14"></a><span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Compute the input, output, and environment dimensions of a channel.</span>
 <a id="__codelineno-0-15" name="__codelineno-0-15"></a>
-<a id="__codelineno-0-16" name="__codelineno-0-16"></a><span class="sd">    This function returns the dimensions of the input, output, and environment spaces of</span>
-<a id="__codelineno-0-17" name="__codelineno-0-17"></a><span class="sd">    input channel, in that order. Input and output dimensions are both 1-by-2 vectors</span>
-<a id="__codelineno-0-18" name="__codelineno-0-18"></a><span class="sd">    containing the row and column dimensions of their spaces. The environment dimension</span>
-<a id="__codelineno-0-19" name="__codelineno-0-19"></a><span class="sd">    is always a scalar, and it is equal to the number of Kraus operators of PHI (if PHI is</span>
-<a id="__codelineno-0-20" name="__codelineno-0-20"></a><span class="sd">    provided as a Choi matrix then environment dimension is the *minimal* number of Kraus</span>
-<a id="__codelineno-0-21" name="__codelineno-0-21"></a><span class="sd">    operators of any representation of PHI).</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16"></a><span class="sd">    This function returns the dimensions of the input, output, and environment spaces of the</span>
+<a id="__codelineno-0-17" name="__codelineno-0-17"></a><span class="sd">    input channel, in that order. Input and output dimensions are both \(1 \times 2\) vectors</span>
+<a id="__codelineno-0-18" name="__codelineno-0-18"></a><span class="sd">    containing the row and column dimensions of their spaces. The environment dimension is</span>
+<a id="__codelineno-0-19" name="__codelineno-0-19"></a><span class="sd">    always a scalar, and it is equal to the number of Kraus operators of `phi` (if `phi` is</span>
+<a id="__codelineno-0-20" name="__codelineno-0-20"></a><span class="sd">    provided as a Choi matrix then the environment dimension is the minimal number of Kraus</span>
+<a id="__codelineno-0-21" name="__codelineno-0-21"></a><span class="sd">    operators of any representation of `phi`).</span>
 <a id="__codelineno-0-22" name="__codelineno-0-22"></a>
-<a id="__codelineno-0-23" name="__codelineno-0-23"></a><span class="sd">    Input DIM should provided if and only if PHI is a Choi matrix with unequal input and</span>
-<a id="__codelineno-0-24" name="__codelineno-0-24"></a><span class="sd">    output dimensions (since it is impossible to determine the input and output dimensions</span>
-<a id="__codelineno-0-25" name="__codelineno-0-25"></a><span class="sd">    from the Choi matrix alone). If ALLOW_RECT is false and PHI acts on non-square matrix</span>
-<a id="__codelineno-0-26" name="__codelineno-0-26"></a><span class="sd">    spaces, an error will be produced. If PHI maps M_{r,c} to M_{x,y} then DIM should be the</span>
-<a id="__codelineno-0-27" name="__codelineno-0-27"></a><span class="sd">    2-by-2 matrix [[r,x], [c,y]]. If PHI maps M_m to M_n, then DIM can simply be the vector</span>
-<a id="__codelineno-0-28" name="__codelineno-0-28"></a><span class="sd">    [m,n]. If ALLOW_RECT is false then returned input and output dimensions will be scalars</span>
-<a id="__codelineno-0-29" name="__codelineno-0-29"></a><span class="sd">    instead of vectors. If COMPUTE_ENV_DIM is false and the PHI is a Choi matrix we avoid</span>
-<a id="__codelineno-0-30" name="__codelineno-0-30"></a><span class="sd">    computing the rank of the Choi matrix.</span>
-<a id="__codelineno-0-31" name="__codelineno-0-31"></a>
-<a id="__codelineno-0-32" name="__codelineno-0-32"></a><span class="sd">    This functions was adapted from QETLAB [@qetlablink].</span>
-<a id="__codelineno-0-33" name="__codelineno-0-33"></a>
-<a id="__codelineno-0-34" name="__codelineno-0-34"></a><span class="sd">    Args:</span>
-<a id="__codelineno-0-35" name="__codelineno-0-35"></a><span class="sd">        phi: A superoperator. It should be provided either as a Choi matrix, or as a (1d or 2d) list of numpy arrays</span>
-<a id="__codelineno-0-36" name="__codelineno-0-36"></a><span class="sd">            whose entries are its Kraus operators.</span>
-<a id="__codelineno-0-37" name="__codelineno-0-37"></a><span class="sd">        allow_rect: A flag indicating that the input and output spaces of PHI can be non-square (default True).</span>
-<a id="__codelineno-0-38" name="__codelineno-0-38"></a><span class="sd">        dim: A scalar, vector or matrix containing the input and output dimensions of PHI.</span>
-<a id="__codelineno-0-39" name="__codelineno-0-39"></a><span class="sd">        compute_env_dim: A flag indicating whether we compute the environment dimension.</span>
-<a id="__codelineno-0-40" name="__codelineno-0-40"></a>
-<a id="__codelineno-0-41" name="__codelineno-0-41"></a><span class="sd">    Returns:</span>
-<a id="__codelineno-0-42" name="__codelineno-0-42"></a><span class="sd">        The input, output, and environment dimensions of a channel.</span>
-<a id="__codelineno-0-43" name="__codelineno-0-43"></a>
-<a id="__codelineno-0-44" name="__codelineno-0-44"></a><span class="sd">    Examples:</span>
-<a id="__codelineno-0-45" name="__codelineno-0-45"></a><span class="sd">        The dimensions of a channel can be computed from a list of Kraus operators.</span>
-<a id="__codelineno-0-46" name="__codelineno-0-46"></a><span class="sd">        For example, the following Kraus operators describe a qubit bit-flip</span>
-<a id="__codelineno-0-47" name="__codelineno-0-47"></a><span class="sd">        channel:</span>
-<a id="__codelineno-0-48" name="__codelineno-0-48"></a>
-<a id="__codelineno-0-49" name="__codelineno-0-49"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;</span>
-<a id="__codelineno-0-50" name="__codelineno-0-50"></a><span class="sd">        import numpy as np</span>
-<a id="__codelineno-0-51" name="__codelineno-0-51"></a><span class="sd">        from toqito.channel_props.channel_dim import channel_dim</span>
-<a id="__codelineno-0-52" name="__codelineno-0-52"></a>
-<a id="__codelineno-0-53" name="__codelineno-0-53"></a><span class="sd">        kraus_ops = [</span>
-<a id="__codelineno-0-54" name="__codelineno-0-54"></a><span class="sd">            np.sqrt(0.5) * np.eye(2),</span>
-<a id="__codelineno-0-55" name="__codelineno-0-55"></a><span class="sd">            np.sqrt(0.5) * np.array([[0, 1], [1, 0]]),</span>
-<a id="__codelineno-0-56" name="__codelineno-0-56"></a><span class="sd">        ]</span>
-<a id="__codelineno-0-57" name="__codelineno-0-57"></a><span class="sd">        dim_in, dim_out, dim_env = channel_dim(kraus_ops)</span>
-<a id="__codelineno-0-58" name="__codelineno-0-58"></a>
-<a id="__codelineno-0-59" name="__codelineno-0-59"></a><span class="sd">        print(dim_in, dim_out, dim_env)</span>
-<a id="__codelineno-0-60" name="__codelineno-0-60"></a><span class="sd">        ```</span>
-<a id="__codelineno-0-61" name="__codelineno-0-61"></a>
-<a id="__codelineno-0-62" name="__codelineno-0-62"></a><span class="sd">    &quot;&quot;&quot;</span>
-<a id="__codelineno-0-63" name="__codelineno-0-63"></a>    <span class="n">dim_in</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
-<a id="__codelineno-0-64" name="__codelineno-0-64"></a>    <span class="n">dim_out</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
-<a id="__codelineno-0-65" name="__codelineno-0-65"></a>
-<a id="__codelineno-0-66" name="__codelineno-0-66"></a>    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">phi</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
-<a id="__codelineno-0-67" name="__codelineno-0-67"></a>        <span class="n">left_ops</span><span class="p">,</span> <span class="n">right_ops</span><span class="p">,</span> <span class="n">is_cpt</span> <span class="o">=</span> <span class="n">normalize_kraus</span><span class="p">(</span><span class="n">phi</span><span class="p">)</span>
-<a id="__codelineno-0-68" name="__codelineno-0-68"></a>
-<a id="__codelineno-0-69" name="__codelineno-0-69"></a>        <span class="n">dim_e</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">left_ops</span><span class="p">)</span>
-<a id="__codelineno-0-70" name="__codelineno-0-70"></a>        <span class="n">dim_out</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">dim_in</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">left_ops</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span>
-<a id="__codelineno-0-71" name="__codelineno-0-71"></a>        <span class="k">if</span> <span class="n">is_cpt</span><span class="p">:</span>
-<a id="__codelineno-0-72" name="__codelineno-0-72"></a>            <span class="c1"># input and output are squares.</span>
-<a id="__codelineno-0-73" name="__codelineno-0-73"></a>            <span class="n">dim_in</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">dim_in</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<a id="__codelineno-0-74" name="__codelineno-0-74"></a>            <span class="n">dim_out</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">dim_out</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<a id="__codelineno-0-75" name="__codelineno-0-75"></a>        <span class="k">else</span><span class="p">:</span>
-<a id="__codelineno-0-76" name="__codelineno-0-76"></a>            <span class="n">dim_out</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">dim_in</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">right_ops</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span>
-<a id="__codelineno-0-77" name="__codelineno-0-77"></a>
-<a id="__codelineno-0-78" name="__codelineno-0-78"></a>        <span class="k">if</span> <span class="n">dim</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-<a id="__codelineno-0-79" name="__codelineno-0-79"></a>            <span class="n">dim</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">dim_in</span><span class="p">,</span> <span class="n">dim_out</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
-<a id="__codelineno-0-80" name="__codelineno-0-80"></a>        <span class="n">dim</span> <span class="o">=</span> <span class="n">_expand_dim</span><span class="p">(</span><span class="n">dim</span><span class="p">)</span>
-<a id="__codelineno-0-81" name="__codelineno-0-81"></a>
-<a id="__codelineno-0-82" name="__codelineno-0-82"></a>        <span class="c1"># Now do some error checking.</span>
-<a id="__codelineno-0-83" name="__codelineno-0-83"></a>        <span class="k">if</span> <span class="p">(</span><span class="n">dim_in</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="n">dim_in</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="ow">or</span> <span class="n">dim_out</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="n">dim_out</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">allow_rect</span><span class="p">:</span>
-<a id="__codelineno-0-84" name="__codelineno-0-84"></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The input and output spaces of PHI must be square.&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-85" name="__codelineno-0-85"></a>
-<a id="__codelineno-0-86" name="__codelineno-0-86"></a>        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">dim</span> <span class="o">!=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">dim_in</span><span class="p">,</span> <span class="n">dim_out</span><span class="p">])</span><span class="o">.</span><span class="n">T</span><span class="p">):</span>
-<a id="__codelineno-0-87" name="__codelineno-0-87"></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The dimensions of PHI do not match those provided in the DIM argument.&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-88" name="__codelineno-0-88"></a>
-<a id="__codelineno-0-89" name="__codelineno-0-89"></a>        <span class="k">if</span> <span class="p">(</span><span class="n">is_cpt</span> <span class="ow">and</span> <span class="nb">any</span><span class="p">(</span><span class="n">k_mat</span><span class="o">.</span><span class="n">shape</span> <span class="o">!=</span> <span class="p">(</span><span class="n">dim</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">dim</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span> <span class="k">for</span> <span class="n">k_mat</span> <span class="ow">in</span> <span class="n">left_ops</span><span class="p">))</span> <span class="ow">or</span> <span class="p">(</span>
-<a id="__codelineno-0-90" name="__codelineno-0-90"></a>            <span class="ow">not</span> <span class="n">is_cpt</span>
-<a id="__codelineno-0-91" name="__codelineno-0-91"></a>            <span class="ow">and</span> <span class="nb">any</span><span class="p">(</span>
-<a id="__codelineno-0-92" name="__codelineno-0-92"></a>                <span class="n">left</span><span class="o">.</span><span class="n">shape</span> <span class="o">!=</span> <span class="p">(</span><span class="n">dim</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">dim</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span> <span class="ow">or</span> <span class="n">right</span><span class="o">.</span><span class="n">shape</span> <span class="o">!=</span> <span class="p">(</span><span class="n">dim</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">dim</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
-<a id="__codelineno-0-93" name="__codelineno-0-93"></a>                <span class="k">for</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">left_ops</span><span class="p">,</span> <span class="n">right_ops</span><span class="p">)</span>
-<a id="__codelineno-0-94" name="__codelineno-0-94"></a>            <span class="p">)</span>
-<a id="__codelineno-0-95" name="__codelineno-0-95"></a>        <span class="p">):</span>
-<a id="__codelineno-0-96" name="__codelineno-0-96"></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The Kraus operators of PHI do not all have the same size.&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-97" name="__codelineno-0-97"></a>
-<a id="__codelineno-0-98" name="__codelineno-0-98"></a>    <span class="c1"># If Phi is a Choi matrix, the dimensions are a bit more of a pain: we have</span>
-<a id="__codelineno-0-99" name="__codelineno-0-99"></a>    <span class="c1"># to guess a bit if the input and output dimensions are different.</span>
-<a id="__codelineno-0-100" name="__codelineno-0-100"></a>    <span class="k">else</span><span class="p">:</span>
-<a id="__codelineno-0-101" name="__codelineno-0-101"></a>        <span class="c1"># Try to guess input and output dims.</span>
-<a id="__codelineno-0-102" name="__codelineno-0-102"></a>        <span class="n">rows</span><span class="p">,</span> <span class="n">cols</span> <span class="o">=</span> <span class="n">phi</span><span class="o">.</span><span class="n">shape</span>
-<a id="__codelineno-0-103" name="__codelineno-0-103"></a>        <span class="n">dim_in</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">rows</span><span class="p">))),</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">cols</span><span class="p">)))])</span>
-<a id="__codelineno-0-104" name="__codelineno-0-104"></a>        <span class="n">dim_out</span> <span class="o">=</span> <span class="n">dim_in</span>
-<a id="__codelineno-0-105" name="__codelineno-0-105"></a>
-<a id="__codelineno-0-106" name="__codelineno-0-106"></a>        <span class="k">if</span> <span class="n">dim</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-<a id="__codelineno-0-107" name="__codelineno-0-107"></a>            <span class="n">dim</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">dim_in</span><span class="p">,</span> <span class="n">dim_out</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
-<a id="__codelineno-0-108" name="__codelineno-0-108"></a>        <span class="n">dim</span> <span class="o">=</span> <span class="n">_expand_dim</span><span class="p">(</span><span class="n">dim</span><span class="p">)</span>
-<a id="__codelineno-0-109" name="__codelineno-0-109"></a>
-<a id="__codelineno-0-110" name="__codelineno-0-110"></a>        <span class="k">if</span> <span class="n">dim</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">dim</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="n">rows</span> <span class="ow">or</span> <span class="n">dim</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">dim</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="n">cols</span><span class="p">:</span>
-<a id="__codelineno-0-111" name="__codelineno-0-111"></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-<a id="__codelineno-0-112" name="__codelineno-0-112"></a>                <span class="s2">&quot;If the input and output dimensions are unequal and PHI is provided &quot;</span>
-<a id="__codelineno-0-113" name="__codelineno-0-113"></a>                <span class="s2">&quot;as a Choi matrix, the optional argument DIM must be specified &quot;</span>
-<a id="__codelineno-0-114" name="__codelineno-0-114"></a>                <span class="s2">&quot;(and its dimensions must agree with PHI).&quot;</span>
-<a id="__codelineno-0-115" name="__codelineno-0-115"></a>            <span class="p">)</span>
-<a id="__codelineno-0-116" name="__codelineno-0-116"></a>
-<a id="__codelineno-0-117" name="__codelineno-0-117"></a>        <span class="k">if</span> <span class="p">(</span><span class="n">dim</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="n">dim</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="ow">or</span> <span class="n">dim</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="n">dim</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">allow_rect</span><span class="p">:</span>
-<a id="__codelineno-0-118" name="__codelineno-0-118"></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The input and output spaces of PHI must be square.&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-119" name="__codelineno-0-119"></a>
-<a id="__codelineno-0-120" name="__codelineno-0-120"></a>        <span class="c1"># environment dimension is the rank of the Choi matrix</span>
-<a id="__codelineno-0-121" name="__codelineno-0-121"></a>        <span class="n">dim_e</span> <span class="o">=</span> <span class="kc">None</span>
-<a id="__codelineno-0-122" name="__codelineno-0-122"></a>        <span class="k">if</span> <span class="n">compute_env_dim</span><span class="p">:</span>
-<a id="__codelineno-0-123" name="__codelineno-0-123"></a>            <span class="n">dim_e</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">matrix_rank</span><span class="p">(</span><span class="n">phi</span><span class="p">)</span>
-<a id="__codelineno-0-124" name="__codelineno-0-124"></a>
-<a id="__codelineno-0-125" name="__codelineno-0-125"></a>    <span class="c1"># Finally, put `dim` back into `dim_in` and `dim_out`.</span>
-<a id="__codelineno-0-126" name="__codelineno-0-126"></a>    <span class="k">if</span> <span class="n">allow_rect</span><span class="p">:</span>
-<a id="__codelineno-0-127" name="__codelineno-0-127"></a>        <span class="n">dim_in</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">dim</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">dim</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]])</span>
-<a id="__codelineno-0-128" name="__codelineno-0-128"></a>        <span class="n">dim_out</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">dim</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">dim</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
-<a id="__codelineno-0-129" name="__codelineno-0-129"></a>    <span class="k">else</span><span class="p">:</span>
-<a id="__codelineno-0-130" name="__codelineno-0-130"></a>        <span class="n">dim_in</span> <span class="o">=</span> <span class="n">dim</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
-<a id="__codelineno-0-131" name="__codelineno-0-131"></a>        <span class="n">dim_out</span> <span class="o">=</span> <span class="n">dim</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
-<a id="__codelineno-0-132" name="__codelineno-0-132"></a>
-<a id="__codelineno-0-133" name="__codelineno-0-133"></a>    <span class="k">return</span> <span class="p">(</span><span class="n">dim_in</span><span class="p">,</span> <span class="n">dim_out</span><span class="p">,</span> <span class="n">dim_e</span><span class="p">)</span>
+<a id="__codelineno-0-23" name="__codelineno-0-23"></a><span class="sd">    The `dim` argument should be provided if and only if `phi` is a Choi matrix with unequal</span>
+<a id="__codelineno-0-24" name="__codelineno-0-24"></a><span class="sd">    input and output dimensions (since it is impossible to determine the input and output</span>
+<a id="__codelineno-0-25" name="__codelineno-0-25"></a><span class="sd">    dimensions from the Choi matrix alone). If `allow_rect` is false and `phi` acts on</span>
+<a id="__codelineno-0-26" name="__codelineno-0-26"></a><span class="sd">    non-square matrix spaces, an error will be produced. If `phi` maps \(M_{r,c}\) to</span>
+<a id="__codelineno-0-27" name="__codelineno-0-27"></a><span class="sd">    \(M_{x,y}\) then `dim` should be the \(2 \times 2\) matrix `[[r,x], [c,y]]`. If `phi` maps</span>
+<a id="__codelineno-0-28" name="__codelineno-0-28"></a><span class="sd">    \(M_m\) to \(M_n\), then `dim` can simply be the vector `[m,n]`. If `allow_rect` is false</span>
+<a id="__codelineno-0-29" name="__codelineno-0-29"></a><span class="sd">    then the returned input and output dimensions will be scalars instead of vectors. If</span>
+<a id="__codelineno-0-30" name="__codelineno-0-30"></a><span class="sd">    `compute_env_dim` is false and `phi` is a Choi matrix we avoid computing the rank of the</span>
+<a id="__codelineno-0-31" name="__codelineno-0-31"></a><span class="sd">    Choi matrix.</span>
+<a id="__codelineno-0-32" name="__codelineno-0-32"></a>
+<a id="__codelineno-0-33" name="__codelineno-0-33"></a><span class="sd">    This function was adapted from QETLAB [@qetlablink].</span>
+<a id="__codelineno-0-34" name="__codelineno-0-34"></a>
+<a id="__codelineno-0-35" name="__codelineno-0-35"></a><span class="sd">    Args:</span>
+<a id="__codelineno-0-36" name="__codelineno-0-36"></a><span class="sd">        phi: A superoperator. It should be provided either as a Choi matrix, or as a (1d or 2d) list of numpy arrays</span>
+<a id="__codelineno-0-37" name="__codelineno-0-37"></a><span class="sd">            whose entries are its Kraus operators.</span>
+<a id="__codelineno-0-38" name="__codelineno-0-38"></a><span class="sd">        allow_rect: A flag indicating that the input and output spaces of `phi` can be non-square (default True).</span>
+<a id="__codelineno-0-39" name="__codelineno-0-39"></a><span class="sd">        dim: A scalar, vector or matrix containing the input and output dimensions of `phi`.</span>
+<a id="__codelineno-0-40" name="__codelineno-0-40"></a><span class="sd">        compute_env_dim: A flag indicating whether we compute the environment dimension.</span>
+<a id="__codelineno-0-41" name="__codelineno-0-41"></a>
+<a id="__codelineno-0-42" name="__codelineno-0-42"></a><span class="sd">    Returns:</span>
+<a id="__codelineno-0-43" name="__codelineno-0-43"></a><span class="sd">        The input, output, and environment dimensions of a channel.</span>
+<a id="__codelineno-0-44" name="__codelineno-0-44"></a>
+<a id="__codelineno-0-45" name="__codelineno-0-45"></a><span class="sd">    Examples:</span>
+<a id="__codelineno-0-46" name="__codelineno-0-46"></a><span class="sd">        The dimensions of a channel can be computed from a list of Kraus operators.</span>
+<a id="__codelineno-0-47" name="__codelineno-0-47"></a><span class="sd">        For example, the following Kraus operators describe a qubit bit-flip</span>
+<a id="__codelineno-0-48" name="__codelineno-0-48"></a><span class="sd">        channel:</span>
+<a id="__codelineno-0-49" name="__codelineno-0-49"></a>
+<a id="__codelineno-0-50" name="__codelineno-0-50"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;</span>
+<a id="__codelineno-0-51" name="__codelineno-0-51"></a><span class="sd">        import numpy as np</span>
+<a id="__codelineno-0-52" name="__codelineno-0-52"></a><span class="sd">        from toqito.channel_props.channel_dim import channel_dim</span>
+<a id="__codelineno-0-53" name="__codelineno-0-53"></a>
+<a id="__codelineno-0-54" name="__codelineno-0-54"></a><span class="sd">        kraus_ops = [</span>
+<a id="__codelineno-0-55" name="__codelineno-0-55"></a><span class="sd">            np.sqrt(0.5) * np.eye(2),</span>
+<a id="__codelineno-0-56" name="__codelineno-0-56"></a><span class="sd">            np.sqrt(0.5) * np.array([[0, 1], [1, 0]]),</span>
+<a id="__codelineno-0-57" name="__codelineno-0-57"></a><span class="sd">        ]</span>
+<a id="__codelineno-0-58" name="__codelineno-0-58"></a><span class="sd">        dim_in, dim_out, dim_env = channel_dim(kraus_ops)</span>
+<a id="__codelineno-0-59" name="__codelineno-0-59"></a>
+<a id="__codelineno-0-60" name="__codelineno-0-60"></a><span class="sd">        print(dim_in, dim_out, dim_env)</span>
+<a id="__codelineno-0-61" name="__codelineno-0-61"></a><span class="sd">        ```</span>
+<a id="__codelineno-0-62" name="__codelineno-0-62"></a>
+<a id="__codelineno-0-63" name="__codelineno-0-63"></a><span class="sd">    &quot;&quot;&quot;</span>
+<a id="__codelineno-0-64" name="__codelineno-0-64"></a>    <span class="n">dim_in</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+<a id="__codelineno-0-65" name="__codelineno-0-65"></a>    <span class="n">dim_out</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+<a id="__codelineno-0-66" name="__codelineno-0-66"></a>
+<a id="__codelineno-0-67" name="__codelineno-0-67"></a>    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">phi</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+<a id="__codelineno-0-68" name="__codelineno-0-68"></a>        <span class="n">left_ops</span><span class="p">,</span> <span class="n">right_ops</span><span class="p">,</span> <span class="n">is_cpt</span> <span class="o">=</span> <span class="n">normalize_kraus</span><span class="p">(</span><span class="n">phi</span><span class="p">)</span>
+<a id="__codelineno-0-69" name="__codelineno-0-69"></a>
+<a id="__codelineno-0-70" name="__codelineno-0-70"></a>        <span class="n">dim_e</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">left_ops</span><span class="p">)</span>
+<a id="__codelineno-0-71" name="__codelineno-0-71"></a>        <span class="n">dim_out</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">dim_in</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">left_ops</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span>
+<a id="__codelineno-0-72" name="__codelineno-0-72"></a>        <span class="k">if</span> <span class="n">is_cpt</span><span class="p">:</span>
+<a id="__codelineno-0-73" name="__codelineno-0-73"></a>            <span class="c1"># input and output are squares.</span>
+<a id="__codelineno-0-74" name="__codelineno-0-74"></a>            <span class="n">dim_in</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">dim_in</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<a id="__codelineno-0-75" name="__codelineno-0-75"></a>            <span class="n">dim_out</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">dim_out</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<a id="__codelineno-0-76" name="__codelineno-0-76"></a>        <span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-0-77" name="__codelineno-0-77"></a>            <span class="n">dim_out</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">dim_in</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">right_ops</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span>
+<a id="__codelineno-0-78" name="__codelineno-0-78"></a>
+<a id="__codelineno-0-79" name="__codelineno-0-79"></a>        <span class="k">if</span> <span class="n">dim</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-0-80" name="__codelineno-0-80"></a>            <span class="n">dim</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">dim_in</span><span class="p">,</span> <span class="n">dim_out</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
+<a id="__codelineno-0-81" name="__codelineno-0-81"></a>        <span class="n">dim</span> <span class="o">=</span> <span class="n">_expand_dim</span><span class="p">(</span><span class="n">dim</span><span class="p">)</span>
+<a id="__codelineno-0-82" name="__codelineno-0-82"></a>
+<a id="__codelineno-0-83" name="__codelineno-0-83"></a>        <span class="c1"># Now do some error checking.</span>
+<a id="__codelineno-0-84" name="__codelineno-0-84"></a>        <span class="k">if</span> <span class="p">(</span><span class="n">dim_in</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="n">dim_in</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="ow">or</span> <span class="n">dim_out</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="n">dim_out</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">allow_rect</span><span class="p">:</span>
+<a id="__codelineno-0-85" name="__codelineno-0-85"></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The input and output spaces of PHI must be square.&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-86" name="__codelineno-0-86"></a>
+<a id="__codelineno-0-87" name="__codelineno-0-87"></a>        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">dim</span> <span class="o">!=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">dim_in</span><span class="p">,</span> <span class="n">dim_out</span><span class="p">])</span><span class="o">.</span><span class="n">T</span><span class="p">):</span>
+<a id="__codelineno-0-88" name="__codelineno-0-88"></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The dimensions of PHI do not match those provided in the DIM argument.&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-89" name="__codelineno-0-89"></a>
+<a id="__codelineno-0-90" name="__codelineno-0-90"></a>        <span class="k">if</span> <span class="p">(</span><span class="n">is_cpt</span> <span class="ow">and</span> <span class="nb">any</span><span class="p">(</span><span class="n">k_mat</span><span class="o">.</span><span class="n">shape</span> <span class="o">!=</span> <span class="p">(</span><span class="n">dim</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">dim</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span> <span class="k">for</span> <span class="n">k_mat</span> <span class="ow">in</span> <span class="n">left_ops</span><span class="p">))</span> <span class="ow">or</span> <span class="p">(</span>
+<a id="__codelineno-0-91" name="__codelineno-0-91"></a>            <span class="ow">not</span> <span class="n">is_cpt</span>
+<a id="__codelineno-0-92" name="__codelineno-0-92"></a>            <span class="ow">and</span> <span class="nb">any</span><span class="p">(</span>
+<a id="__codelineno-0-93" name="__codelineno-0-93"></a>                <span class="n">left</span><span class="o">.</span><span class="n">shape</span> <span class="o">!=</span> <span class="p">(</span><span class="n">dim</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">dim</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span> <span class="ow">or</span> <span class="n">right</span><span class="o">.</span><span class="n">shape</span> <span class="o">!=</span> <span class="p">(</span><span class="n">dim</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">dim</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<a id="__codelineno-0-94" name="__codelineno-0-94"></a>                <span class="k">for</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">left_ops</span><span class="p">,</span> <span class="n">right_ops</span><span class="p">)</span>
+<a id="__codelineno-0-95" name="__codelineno-0-95"></a>            <span class="p">)</span>
+<a id="__codelineno-0-96" name="__codelineno-0-96"></a>        <span class="p">):</span>
+<a id="__codelineno-0-97" name="__codelineno-0-97"></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The Kraus operators of PHI do not all have the same size.&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-98" name="__codelineno-0-98"></a>
+<a id="__codelineno-0-99" name="__codelineno-0-99"></a>    <span class="c1"># If Phi is a Choi matrix, the dimensions are a bit more of a pain: we have</span>
+<a id="__codelineno-0-100" name="__codelineno-0-100"></a>    <span class="c1"># to guess a bit if the input and output dimensions are different.</span>
+<a id="__codelineno-0-101" name="__codelineno-0-101"></a>    <span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-0-102" name="__codelineno-0-102"></a>        <span class="c1"># Try to guess input and output dims.</span>
+<a id="__codelineno-0-103" name="__codelineno-0-103"></a>        <span class="n">rows</span><span class="p">,</span> <span class="n">cols</span> <span class="o">=</span> <span class="n">phi</span><span class="o">.</span><span class="n">shape</span>
+<a id="__codelineno-0-104" name="__codelineno-0-104"></a>        <span class="n">dim_in</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">rows</span><span class="p">))),</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">cols</span><span class="p">)))])</span>
+<a id="__codelineno-0-105" name="__codelineno-0-105"></a>        <span class="n">dim_out</span> <span class="o">=</span> <span class="n">dim_in</span>
+<a id="__codelineno-0-106" name="__codelineno-0-106"></a>
+<a id="__codelineno-0-107" name="__codelineno-0-107"></a>        <span class="k">if</span> <span class="n">dim</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-0-108" name="__codelineno-0-108"></a>            <span class="n">dim</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">dim_in</span><span class="p">,</span> <span class="n">dim_out</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
+<a id="__codelineno-0-109" name="__codelineno-0-109"></a>        <span class="n">dim</span> <span class="o">=</span> <span class="n">_expand_dim</span><span class="p">(</span><span class="n">dim</span><span class="p">)</span>
+<a id="__codelineno-0-110" name="__codelineno-0-110"></a>
+<a id="__codelineno-0-111" name="__codelineno-0-111"></a>        <span class="k">if</span> <span class="n">dim</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">dim</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="n">rows</span> <span class="ow">or</span> <span class="n">dim</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">dim</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="n">cols</span><span class="p">:</span>
+<a id="__codelineno-0-112" name="__codelineno-0-112"></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+<a id="__codelineno-0-113" name="__codelineno-0-113"></a>                <span class="s2">&quot;If the input and output dimensions are unequal and PHI is provided &quot;</span>
+<a id="__codelineno-0-114" name="__codelineno-0-114"></a>                <span class="s2">&quot;as a Choi matrix, the optional argument DIM must be specified &quot;</span>
+<a id="__codelineno-0-115" name="__codelineno-0-115"></a>                <span class="s2">&quot;(and its dimensions must agree with PHI).&quot;</span>
+<a id="__codelineno-0-116" name="__codelineno-0-116"></a>            <span class="p">)</span>
+<a id="__codelineno-0-117" name="__codelineno-0-117"></a>
+<a id="__codelineno-0-118" name="__codelineno-0-118"></a>        <span class="k">if</span> <span class="p">(</span><span class="n">dim</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="n">dim</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="ow">or</span> <span class="n">dim</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="n">dim</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">allow_rect</span><span class="p">:</span>
+<a id="__codelineno-0-119" name="__codelineno-0-119"></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The input and output spaces of PHI must be square.&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-120" name="__codelineno-0-120"></a>
+<a id="__codelineno-0-121" name="__codelineno-0-121"></a>        <span class="c1"># environment dimension is the rank of the Choi matrix</span>
+<a id="__codelineno-0-122" name="__codelineno-0-122"></a>        <span class="n">dim_e</span> <span class="o">=</span> <span class="kc">None</span>
+<a id="__codelineno-0-123" name="__codelineno-0-123"></a>        <span class="k">if</span> <span class="n">compute_env_dim</span><span class="p">:</span>
+<a id="__codelineno-0-124" name="__codelineno-0-124"></a>            <span class="n">dim_e</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">matrix_rank</span><span class="p">(</span><span class="n">phi</span><span class="p">)</span>
+<a id="__codelineno-0-125" name="__codelineno-0-125"></a>
+<a id="__codelineno-0-126" name="__codelineno-0-126"></a>    <span class="c1"># Finally, put `dim` back into `dim_in` and `dim_out`.</span>
+<a id="__codelineno-0-127" name="__codelineno-0-127"></a>    <span class="k">if</span> <span class="n">allow_rect</span><span class="p">:</span>
+<a id="__codelineno-0-128" name="__codelineno-0-128"></a>        <span class="n">dim_in</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">dim</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">dim</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]])</span>
+<a id="__codelineno-0-129" name="__codelineno-0-129"></a>        <span class="n">dim_out</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">dim</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">dim</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
+<a id="__codelineno-0-130" name="__codelineno-0-130"></a>    <span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-0-131" name="__codelineno-0-131"></a>        <span class="n">dim_in</span> <span class="o">=</span> <span class="n">dim</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<a id="__codelineno-0-132" name="__codelineno-0-132"></a>        <span class="n">dim_out</span> <span class="o">=</span> <span class="n">dim</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<a id="__codelineno-0-133" name="__codelineno-0-133"></a>
+<a id="__codelineno-0-134" name="__codelineno-0-134"></a>    <span class="k">return</span> <span class="p">(</span><span class="n">dim_in</span><span class="p">,</span> <span class="n">dim_out</span><span class="p">,</span> <span class="n">dim_e</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>

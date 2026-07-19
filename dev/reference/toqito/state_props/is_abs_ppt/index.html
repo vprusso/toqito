@@ -3582,14 +3582,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../matrices/cyclic_permutation_matrix/" class="md-nav__link">
+      <a href="../../matrices/cyclic_permutation/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code>cyclic_permutation_matrix
+    <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code>cyclic_permutation
   
 
     
@@ -10357,7 +10357,7 @@ PPT is a spectral condition (i.e. it is a condition on the eigenvalues of the ma
 <li>If <code>mat</code> is a <code>cvxpy</code> Variable, <code>mat</code> must be a 1D vector representing the eigenvalues of
     a matrix. The function then returns the list of <code>cvxpy</code> Constraints required for optimizing over the
     space of absolutely PPT matrices. This includes the positive semidefinite constraint on each constraint matrix
-    as well as <code>mat[0] ≥ mat[1] ≥ ... ≥ mat[-1] ≥ 0</code>.</li>
+    as well as <span class="arithmatex">\(\text{mat}[0] \geq \text{mat}[1] \geq \cdots \geq \text{mat}[-1] \geq 0\)</span>.</li>
 </ul>
 <p>This function is adapted from QETLAB <sup><a id="cite-toqito-state_props-is_abs_ppt-is_abs_ppt-3" href="#ref-toqito-state_props-is_abs_ppt-is_abs_ppt-3">3</a></sup>.</p>
 <div class="admonition note">
@@ -10648,7 +10648,7 @@ PPT (see Theorem 2 of <sup><a id="cite-toqito-state_props-is_abs_ppt-is_abs_ppt-
 <a id="__codelineno-0-29" name="__codelineno-0-29"></a><span class="sd">    - If `mat` is a `cvxpy` Variable, `mat` must be a 1D vector representing the eigenvalues of</span>
 <a id="__codelineno-0-30" name="__codelineno-0-30"></a><span class="sd">        a matrix. The function then returns the list of `cvxpy` Constraints required for optimizing over the</span>
 <a id="__codelineno-0-31" name="__codelineno-0-31"></a><span class="sd">        space of absolutely PPT matrices. This includes the positive semidefinite constraint on each constraint matrix</span>
-<a id="__codelineno-0-32" name="__codelineno-0-32"></a><span class="sd">        as well as `mat[0] ≥ mat[1] ≥ ... ≥ mat[-1] ≥ 0`.</span>
+<a id="__codelineno-0-32" name="__codelineno-0-32"></a><span class="sd">        as well as \(\text{mat}[0] \geq \text{mat}[1] \geq \cdots \geq \text{mat}[-1] \geq 0\).</span>
 <a id="__codelineno-0-33" name="__codelineno-0-33"></a>
 <a id="__codelineno-0-34" name="__codelineno-0-34"></a><span class="sd">    This function is adapted from QETLAB [@qetlablink].</span>
 <a id="__codelineno-0-35" name="__codelineno-0-35"></a>
