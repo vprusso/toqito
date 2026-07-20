@@ -25,3 +25,9 @@ def test_is_positive_transpose_not_completely_positive():
     transpose_choi = swap_operator(2)
     np.testing.assert_equal(is_positive(transpose_choi), True)
     np.testing.assert_equal(is_completely_positive(transpose_choi), False)
+
+
+def test_is_positive_non_hermitian_choi_false():
+    """A non-Hermitian Choi matrix cannot come from a positive (Hermiticity-preserving) map."""
+    non_hermitian = np.array([[1, 2, 3, 4], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]], dtype=complex)
+    np.testing.assert_equal(is_positive(non_hermitian), False)
