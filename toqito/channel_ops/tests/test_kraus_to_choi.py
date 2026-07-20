@@ -156,3 +156,13 @@ def test_kraus_to_choi_accepts_stacked_ndarray():
     kraus_list = [np.array([[1, 0], [0, 0]], dtype=complex), np.array([[0, 0], [0, 1]], dtype=complex)]
     stacked = np.stack(kraus_list)
     np.testing.assert_allclose(kraus_to_choi(stacked), kraus_to_choi(kraus_list))
+
+
+def test_kraus_to_choi_general_sys_branch():
+    """The general (non-fast-path) `sys` branch yields a valid Choi matrix for a CP map."""
+    pauli_x = np.array([[0, 1], [1, 0]], dtype=complex)
+    choi = kraus_to_choi([pauli_x], sys=1)
+    assert choi.shape == (4, 4)
+    herm = (choi + choi.conj().T) / 2
+    np.testing.assert_allclose(choi, herm)
+    assert np.linalg.eigvalsh(herm).min() > -1e-10

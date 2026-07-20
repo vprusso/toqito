@@ -164,3 +164,13 @@ def test_partial_channel_error(test_input, map_arg, sys_arg, dim_arg):
 
     with pytest.raises(ValueError):
         partial_channel(test_input, map_arg)
+
+
+def test_partial_channel_non_cp_map_explicit_dim():
+    """A non-CP map given as [left, right] operator pairs, applied with an explicit 2D `dim`."""
+    rho = np.arange(16, dtype=complex).reshape(4, 4)
+    a = np.array([[1, 2], [3, 4]], dtype=complex)
+    b = np.array([[0, 1], [1, 1]], dtype=complex)
+    res = partial_channel(rho, [[a, b]], sys=2, dim=np.array([[2, 2], [2, 2]]))
+    expected = np.kron(np.eye(2), a) @ rho @ np.kron(np.eye(2), b).conj().T
+    np.testing.assert_allclose(res, expected)
