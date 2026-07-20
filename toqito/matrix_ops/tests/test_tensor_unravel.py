@@ -33,3 +33,9 @@ def test_tensor_unravel(tensor_input, expected_output, expected_exception):
     else:
         result = tensor_unravel(tensor)
         assert np.array_equal(result, expected_output)
+
+
+def test_tensor_unravel_unique_is_smaller_value():
+    """The unique element can be the smaller of the two values (covers the counts[0] branch)."""
+    tensor = np.array([[1, 1], [1, -1]])
+    np.testing.assert_array_equal(tensor_unravel(tensor), np.array([1, 1, -1]))

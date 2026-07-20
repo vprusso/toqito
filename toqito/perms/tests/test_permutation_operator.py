@@ -89,3 +89,10 @@ def test_permutation_operator_dim_2_2_perm_1_0():
     expected_res = np.array([[1, 0, 0, 0], [0, 0, 1, 0], [0, 1, 0, 0], [0, 0, 0, 1]])
     bool_mat = np.isclose(res, expected_res)
     np.testing.assert_equal(np.all(bool_mat), True)
+
+
+def test_permutation_operator_dim_as_array():
+    """`dim` provided as a numpy array is accepted (covers the ndarray branch)."""
+    res = permutation_operator(np.array([2, 2]), [1, 0])
+    expected_res = np.array([[1, 0, 0, 0], [0, 0, 1, 0], [0, 1, 0, 0], [0, 0, 0, 1]])
+    np.testing.assert_allclose(res, expected_res)

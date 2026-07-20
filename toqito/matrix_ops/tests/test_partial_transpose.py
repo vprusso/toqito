@@ -2,6 +2,7 @@
 
 import cvxpy
 import numpy as np
+import pytest
 from cvxpy.atoms.affine.vstack import Vstack
 
 from toqito.matrix_ops import partial_transpose
@@ -738,3 +739,16 @@ def test_partial_transpose_three_subsystems():
 
     expected = np.kron(np.eye(2, 2), mat.T)
     np.testing.assert_equal(np.allclose(res, expected), True)
+
+
+def test_partial_transpose_scalar_float_dim():
+    """A scalar float `dim` is accepted (covers the float-to-array branch)."""
+    rho = np.arange(16).reshape(4, 4)
+    np.testing.assert_allclose(partial_transpose(rho, dim=2.0), partial_transpose(rho, dim=[2, 2]))
+
+
+def test_partial_transpose_scalar_dim_not_divisor():
+    """A scalar `dim` that does not evenly divide the matrix raises a ValueError."""
+    rho = np.arange(16).reshape(4, 4)
+    with pytest.raises(ValueError, match="InvalidDim"):
+        partial_transpose(rho, dim=3.0)
