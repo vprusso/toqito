@@ -194,3 +194,10 @@ def test_tsallis_relative_entropy_rejects_nonconstant_quadratic() -> None:
     y_c = cvxpy.Constant(np.eye(2) / 2)
     with pytest.raises(ValueError, match=_NOT_SUPPORTED):
         tsallis_relative_entropy(cvxpy.square(x_var), y_c, 0.5)
+
+
+def test_tsallis_relative_entropy_constant_y_no_value():
+    """A constant CVXPY `mat_y` with no numeric value raises a clear ValueError."""
+    mat_y = cvxpy.Parameter((2, 2))
+    with pytest.raises(ValueError, match=re.escape("Constant CVXPY expression has no numeric value")):
+        tsallis_relative_entropy(np.eye(2) / 2, mat_y, 0.5)

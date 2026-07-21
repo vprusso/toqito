@@ -62,3 +62,9 @@ def test_schmidt_rank_singlet_state():
     """Computing the Schmidt rank of the entangled singlet state should yield a value greater than 1."""
     rho = 1 / np.sqrt(2) * (np.kron(e_0, e_1) - np.kron(e_1, e_0))
     np.testing.assert_equal(schmidt_rank(rho) > 1, True)
+
+
+def test_schmidt_rank_one_dimensional_vector():
+    """A 1D (non-column) vector input is handled (covers the vector branch)."""
+    bell_1d = np.array([1, 0, 0, 1]) / np.sqrt(2)
+    assert schmidt_rank(bell_1d) == 2

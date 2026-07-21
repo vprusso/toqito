@@ -38,3 +38,11 @@ def test_is_product(rho, dim, expected_result):
     """Test function works as expected for a valid input."""
     ipv, _ = is_product(rho=rho, dim=dim)
     np.testing.assert_equal(ipv, expected_result)
+
+
+def test_is_product_multipartite_entangled_subfactor():
+    """A tripartite state that is product across (12|3) but entangled in (1|2) is not a product state."""
+    bell_12 = np.array([1, 0, 0, 1]) / np.sqrt(2)
+    state = np.kron(bell_12, np.array([1, 0]))
+    ipv, _ = is_product(state, [2, 2, 2])
+    assert not np.all(ipv)
