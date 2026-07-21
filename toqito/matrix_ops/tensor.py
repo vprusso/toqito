@@ -130,10 +130,9 @@ def tensor(*args: np.ndarray | int | list[np.ndarray]) -> np.ndarray:
             return args[0][0]
         if len(args[0]) == 2:
             return np.kron(args[0][0], args[0][1])
-        if len(args[0]) >= 3:
-            result = args[0][0]
-            for i in range(1, len(args[0])):
-                result = np.kron(result, args[0][i])
+        result = args[0][0]
+        for i in range(1, len(args[0])):
+            result = np.kron(result, args[0][i])
         return result
 
     # Tensor product one matrix `n` times with itself.
