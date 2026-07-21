@@ -137,7 +137,8 @@ def swap(
             raise ValueError("InvalidDim: The value of dim must evenly divide the number of rows and columns of rho.")
         dim = np.array([[dim, rho_dims[0] // dim], [dim, rho_dims[1] // dim]], dtype=int)
         num_sys = 2
-    elif isinstance(dim, (list, np.ndarray)):
+    else:
+        # `dim` is a list or ndarray here; other types are rejected by the check above.
         if not all(isinstance(d, (int, float, np.integer, np.floating)) for d in np.ravel(dim)):
             raise TypeError("dim entries must be int or float values.")
         dim = np.array(dim, dtype=int)
