@@ -113,3 +113,9 @@ def test_k_equals_n_minus_one_large_eigenvalue():
     """When k = n - 1 and the largest eigenvalue exceeds the bound, return False immediately."""
     mat = np.diag([0.9, 0.05, 0.05, 0.0])
     assert is_absolutely_k_incoherent(mat, 3) is False
+
+
+def test_is_absolutely_k_incoherent_k_outside_two_and_n_minus_one():
+    """A peaked spectrum with k outside {2, n-1} falls through to the final `return False`."""
+    rho = np.diag([0.9, 0.05, 0.03, 0.01, 0.01])
+    assert is_absolutely_k_incoherent(rho, 3) is False
