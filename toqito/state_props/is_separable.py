@@ -1224,7 +1224,7 @@ def _qubit_qudit_ppt_criteria(
     dim_for_hildebrand_map = [2, d_n_val]
 
     if d_a != 2 and d_b == 2:
-        state_t_2xn = swap(state, sys=[0, 1], dim=dims)
+        state_t_2xn = swap(state, sys=[1, 2], dim=dims)
         dim_for_hildebrand_map = [d_b, d_a]
     elif d_a != 2:
         return None

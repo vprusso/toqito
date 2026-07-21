@@ -1626,3 +1626,93 @@ def test_is_separable_non_square_split_with_inferred_dim():
     result, reason = is_separable(rho)
     assert isinstance(result, bool)
     assert isinstance(reason, str)
+
+
+# --- Coverage tests for the normalization guard and the 2xN PPT criteria ---
+
+
+def _real_product_mixture(seed, n_terms, d_a, d_b):
+    """Build a real separable state as a convex mixture of real product states on d_a x d_b."""
+    rng = np.random.default_rng(seed)
+    rho = np.zeros((d_a * d_b, d_a * d_b))
+    for _ in range(n_terms):
+        a = rng.standard_normal(d_a)
+        a /= np.linalg.norm(a)
+        b = rng.standard_normal(d_b)
+        b /= np.linalg.norm(b)
+        rho += rng.random() * np.kron(np.outer(a, a), np.outer(b, b))
+    return rho / np.trace(rho)
+
+
+def _homothetic_2x4_state(seed):
+    """Build a 2x4 PPT state with equal diagonal blocks and a small off-diagonal block."""
+    rng = np.random.default_rng(seed)
+    a_block = rng.standard_normal((4, 4)) + 1j * rng.standard_normal((4, 4))
+    a_block = a_block @ a_block.conj().T
+    eps = rng.uniform(0.001, 0.08)
+    b_block = (rng.standard_normal((4, 4)) + 1j * rng.standard_normal((4, 4))) * eps
+    rho = np.block([[a_block, b_block], [b_block.conj().T, a_block]])
+    rho = (rho + rho.conj().T) / 2
+    return rho / np.trace(rho)
+
+
+def _lemma1_2x4_state(seed):
+    """Build a 2x4 near-block-diagonal state with a small off-diagonal block."""
+    rng = np.random.default_rng(seed)
+    a_block = rng.standard_normal((4, 4)) + 1j * rng.standard_normal((4, 4))
+    a_block = a_block @ a_block.conj().T
+    c_block = rng.standard_normal((4, 4)) + 1j * rng.standard_normal((4, 4))
+    c_block = c_block @ c_block.conj().T
+    eps = rng.uniform(0.001, 0.05)
+    b_block = (rng.standard_normal((4, 4)) + 1j * rng.standard_normal((4, 4))) * eps
+    rho = np.block([[a_block, b_block], [b_block.conj().T, c_block]])
+    rho = (rho + rho.conj().T) / 2
+    return rho / np.trace(rho)
+
+
+def test_is_separable_insignificant_trace_raises():
+    """A PSD state whose trace is below the tolerance raises (normalization guard)."""
+    with pytest.raises(ValueError, match="numerically insignificant trace"):
+        is_separable(np.diag([1e-15, 0.0]), tol=1e-16)
+
+
+def test_is_separable_vidal_tarrach():
+    """A low-isotropic 3x3 state is certified separable by the Vidal-Tarrach criterion."""
+    sep, reason = is_separable(isotropic(3, 0.25), dim=[3, 3], level=1)
+    assert sep is True
+    assert "Vidal-Tarrach" in reason
+
+
+def test_is_separable_2xn_hildebrand_rank_b():
+    """A 2x4 product mixture is certified via the Hildebrand rank(B - B^dagger) <= 1 condition."""
+    sep, reason = is_separable(_real_product_mixture(0, 12, 2, 4), dim=[2, 4], level=1)
+    assert sep is True
+    assert "rank(B - B^dagger)" in reason
+
+
+def test_is_separable_2xn_johnston_spectral():
+    """A 2x4 product mixture is certified via the Johnston 2013 spectral condition."""
+    sep, reason = is_separable(_real_product_mixture(9, 37, 2, 4), dim=[2, 4], level=1)
+    assert sep is True
+    assert "Johnston spectral" in reason
+
+
+def test_is_separable_2xn_hildebrand_homothetic():
+    """A 2x4 state with equal diagonal blocks is certified via the homothetic-image condition."""
+    sep, reason = is_separable(_homothetic_2x4_state(7000), dim=[2, 4], level=1)
+    assert sep is True
+    assert "homothetic" in reason
+
+
+def test_is_separable_2xn_johnston_lemma1():
+    """A 2x4 near-block-diagonal state is certified via Johnston Lemma 1."""
+    sep, reason = is_separable(_lemma1_2x4_state(5000), dim=[2, 4], level=1)
+    assert sep is True
+    assert "Johnston Lemma 1" in reason
+
+
+def test_is_separable_n_by_2_ordering_swapped():
+    """A separable [4, 2]-ordered state is swapped to [2, 4] and certified (previously crashed)."""
+    sep, reason = is_separable(_real_product_mixture(3, 12, 4, 2), dim=[4, 2], level=1)
+    assert sep is True
+    assert "Hildebrand" in reason
