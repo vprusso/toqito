@@ -79,3 +79,10 @@ def test_known_nonneg_rank_exceeds_standard_rank():
 def test_check_nn_rank_anls_returns_false_when_k_too_small():
     """Directly exercise the non-convergent branch: no rank-1 nonneg factorization of I_3."""
     assert not _check_nn_rank_anls(np.eye(3), k=1, tol=1e-6)
+
+
+def test_nonnegative_rank_exceeds_matrix_rank():
+    """A matrix whose nonnegative rank exceeds its rank forces the search past the first candidate."""
+    mat = np.array([[1, 1, 0, 0], [0, 1, 1, 0], [0, 0, 1, 1], [1, 0, 0, 1]], dtype=float)
+    assert np.linalg.matrix_rank(mat) == 3
+    assert nonnegative_rank(mat) == 4
