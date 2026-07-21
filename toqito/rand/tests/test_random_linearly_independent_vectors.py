@@ -72,3 +72,18 @@ def test_square_case():
     mat = random_linearly_independent_vectors(5, 5, seed=0)
     assert mat.shape == (5, 5)
     assert np.linalg.matrix_rank(mat) == 5
+
+
+def test_random_linearly_independent_vectors_redraws_on_rank_deficiency(monkeypatch):
+    """A rank-deficient draw triggers a redraw (covers the loop-back branch)."""
+    real_rank = np.linalg.matrix_rank
+    calls = {"n": 0}
+
+    def fake_rank(mat):
+        calls["n"] += 1
+        return 0 if calls["n"] == 1 else real_rank(mat)
+
+    monkeypatch.setattr(np.linalg, "matrix_rank", fake_rank)
+    res = random_linearly_independent_vectors(2, 3, seed=0)
+    assert res.shape == (3, 2)
+    assert calls["n"] >= 2

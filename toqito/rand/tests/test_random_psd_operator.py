@@ -185,3 +185,12 @@ def test_random_psd_operator_wishart_rank_deficient_warning():
     """Test that num_degrees < dim raises a UserWarning about rank deficiency."""
     with pytest.warns(UserWarning, match="rank-deficient"):
         random_psd_operator(4, distribution="wishart", num_degrees=2)
+
+
+def test_random_psd_operator_wishart_valid_scale():
+    """A valid PSD `scale` under the Wishart distribution is accepted (covers the valid-scale branch)."""
+    dim = 3
+    op = random_psd_operator(dim, distribution="wishart", scale=2 * np.eye(dim), num_degrees=5, seed=1)
+    assert op.shape == (dim, dim)
+    assert_allclose(op, op.conj().T)
+    assert is_positive_semidefinite(op)
