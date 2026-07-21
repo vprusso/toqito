@@ -1632,7 +1632,7 @@ def test_is_separable_non_square_split_with_inferred_dim():
 
 
 def _real_product_mixture(seed, n_terms, d_a, d_b):
-    """A real separable state: a convex mixture of real product states on d_a x d_b."""
+    """Build a real separable state as a convex mixture of real product states on d_a x d_b."""
     rng = np.random.default_rng(seed)
     rho = np.zeros((d_a * d_b, d_a * d_b))
     for _ in range(n_terms):
@@ -1645,7 +1645,7 @@ def _real_product_mixture(seed, n_terms, d_a, d_b):
 
 
 def _homothetic_2x4_state(seed):
-    """A 2x4 PPT state with equal diagonal blocks and a small off-diagonal block."""
+    """Build a 2x4 PPT state with equal diagonal blocks and a small off-diagonal block."""
     rng = np.random.default_rng(seed)
     a_block = rng.standard_normal((4, 4)) + 1j * rng.standard_normal((4, 4))
     a_block = a_block @ a_block.conj().T
@@ -1657,7 +1657,7 @@ def _homothetic_2x4_state(seed):
 
 
 def _lemma1_2x4_state(seed):
-    """A 2x4 near-block-diagonal state with a small off-diagonal block."""
+    """Build a 2x4 near-block-diagonal state with a small off-diagonal block."""
     rng = np.random.default_rng(seed)
     a_block = rng.standard_normal((4, 4)) + 1j * rng.standard_normal((4, 4))
     a_block = a_block @ a_block.conj().T
