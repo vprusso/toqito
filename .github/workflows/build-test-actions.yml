@@ -80,7 +80,9 @@ jobs:
         uses: codecov/codecov-action@v7
         with:
           use_oidc: true
-          fail_ci_if_error: true
+          # Coverage upload is informational; a transient codecov CLI/CDN or
+          # signature-verification failure should not red an otherwise-green build.
+          fail_ci_if_error: false
           files: ./coverage.xml
           verbose: true
       - name: Build artifacts
