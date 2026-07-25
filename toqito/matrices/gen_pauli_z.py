@@ -1,6 +1,6 @@
 """Produces a generalized Pauli-Z operator matrix."""
 
-from cmath import exp, pi
+from math import pi
 
 import numpy as np
 
@@ -51,5 +51,5 @@ def gen_pauli_z(dim: int) -> np.ndarray:
 
     """
     c_var = 2j * pi / dim
-    omega = (exp(k * c_var) for k in range(dim))
-    return np.diag(list(omega))
+    omega = np.exp(np.arange(dim) * c_var)
+    return np.diag(omega)
