@@ -70,7 +70,7 @@ def test_cb_trace_norm_rectangular(test_input, expected):
 def test_cb_trace_norm_rectangular_requires_dim():
     """A Choi matrix with unequal input/output dimensions requires the `dim` argument."""
     choi = kraus_to_choi([[isometry_1, isometry_1]])
-    with pytest.raises(ValueError, match="the optional argument DIM must be specified"):
+    with pytest.raises(ValueError, match="the optional argument dim must be specified"):
         completely_bounded_trace_norm(choi)
 
 
