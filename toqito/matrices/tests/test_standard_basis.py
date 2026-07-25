@@ -1,23 +1,24 @@
 """Test standard_basis."""
 
 import numpy as np
+import pytest
 
 from toqito.matrices import standard_basis
 
 
-def test_standard_basis_2_d():
-    """Return the standard basis in 2 dimensions."""
-    basis = standard_basis(2)
-    expected_basis = [np.array([1, 0]).reshape(-1, 1), np.array([0, 1]).reshape(-1, 1)]
+@pytest.mark.parametrize("dim", [1, 2, 5])
+def test_standard_basis(dim):
+    """Return the standard basis in the requested dimension."""
+    basis = standard_basis(dim)
+    expected_basis = [vector.reshape(-1, 1) for vector in np.eye(dim)]
 
-    assert np.allclose(basis[0], expected_basis[0])
-    assert np.allclose(basis[1], expected_basis[1])
+    assert all(np.array_equal(actual, expected) for actual, expected in zip(basis, expected_basis))
 
 
-def test_standard_basis_2_d_flatten():
-    """Return the standard basis in 2 dimensions flattened."""
-    basis = standard_basis(2, flatten=True)
-    expected_basis = [np.array([1, 0]), np.array([0, 1])]
+@pytest.mark.parametrize("dim", [1, 2, 5])
+def test_standard_basis_flatten(dim):
+    """Return the flattened standard basis in the requested dimension."""
+    basis = standard_basis(dim, flatten=True)
+    expected_basis = list(np.eye(dim))
 
-    assert np.allclose(basis[0], expected_basis[0])
-    assert np.allclose(basis[1], expected_basis[1])
+    assert all(np.array_equal(actual, expected) for actual, expected in zip(basis, expected_basis))

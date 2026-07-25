@@ -35,9 +35,7 @@ def standard_basis(dim: int, flatten: bool = False) -> list[np.ndarray]:
         ```
 
     """
-    first_basis_vector = np.zeros(dim) if flatten else np.zeros((dim, 1))
-    first_basis_vector[0] = 1.0
-
-    # The standard_basis is obtained by cyclic permutations of the first basis
-    # vector
-    return [np.array([first_basis_vector[i - j] for i in range(dim)]) for j in range(dim)]
+    basis = np.eye(dim)
+    if not flatten:
+        basis = basis[..., np.newaxis]
+    return list(basis)
