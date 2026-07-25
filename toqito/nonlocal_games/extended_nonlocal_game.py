@@ -559,11 +559,11 @@ class ExtendedNonlocalGame:
         y: int,
         referee_dim: int,
     ) -> cvxpy.Expression:
-        r"""Return the commuting-measurement answer probability :math:`p(a, b \mid x, y)`.
+        r"""Return the commuting-measurement answer probability \(p(a, b \mid x, y)\).
 
         At NPA level 1 and above, the block
-        :math:`K_{xy}(a,b) = \mathrm{Tr}_{AB}(I_R \otimes A_a^x B_b^y \, \sigma)`
-        in the assemblage satisfies :math:`p(a,b \mid x,y) = \mathrm{Tr}\, K_{xy}(a,b)`.
+        \(K_{xy}(a,b) = \mathrm{Tr}_{AB}(I_R \otimes A_a^x B_b^y \, \sigma)\)
+        in the assemblage satisfies \(p(a,b \mid x,y) = \mathrm{Tr}\, K_{xy}(a,b)\).
         """
         block = assemblage[x, y][
             a * referee_dim : (a + 1) * referee_dim,
@@ -647,10 +647,11 @@ class ExtendedNonlocalGame:
         ``(num_alice_out, num_bob_out, num_alice_in, num_bob_in)``, ``op`` is one of
         ``"=="``, ``"<="``, or ``">="``, and ``rhs`` is a float. The constraint is
 
-        .. math::
+        \[
             \sum_{a,b,x,y} c_{abxy}\, p(a,b \mid x,y) \;\operatorname{op}\; d,
+        \]
 
-        with :math:`p(a,b \mid x,y) = \mathrm{Tr}\, K_{xy}(a,b)` at the NPA level used
+        with \(p(a,b \mid x,y) = \mathrm{Tr}\, K_{xy}(a,b)\) at the NPA level used
         (level 1 and above expose these marginals on the assemblage blocks).
 
         Args:

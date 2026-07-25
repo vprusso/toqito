@@ -19,7 +19,7 @@ def ln_quantum_entropy(mat_x: np.ndarray | cvxpy.Expression) -> float:
     This function evaluates the formula numerically. Constant CVXPY expressions
     with a concrete ``.value`` are routed through the numeric path. Affine or
     variable CVXPY inputs are not supported; use
-    :func:`~toqito.cones.ln_quantum_entropy_hypo_cone` for composition in a
+    [ln_quantum_entropy_hypo_cone][toqito.cones.ln_quantum_entropy_hypo_cone] for composition in a
     parent SDP (with quadrature parameters ``m``, ``k``, ``apx``).
 
     Args:

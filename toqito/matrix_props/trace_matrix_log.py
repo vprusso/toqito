@@ -25,7 +25,7 @@ def trace_matrix_log(
     This function evaluates the formula numerically. Constant CVXPY expressions
     with a concrete ``.value`` are routed through the numeric path. Affine or
     variable CVXPY inputs are not supported; use
-    :func:`~toqito.cones.trace_matrix_log_hypo_cone` for composition in a
+    [trace_matrix_log_hypo_cone][toqito.cones.trace_matrix_log_hypo_cone] for composition in a
     parent SDP (with quadrature parameters ``m``, ``k``, ``apx``).
 
     Args:
