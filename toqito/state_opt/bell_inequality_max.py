@@ -787,8 +787,9 @@ def _cg_to_fp(cg_mat: np.ndarray, desc: list[int], behavior: bool = False) -> np
     r"""Convert a Bell functional or behavior from Collins-Gisin (CG) to Full Probability (FP) notation.
 
     The Collins-Gisin (CG) notation for a Bell functional or behavior is represented by a matrix
-    (see [cg_to_fc][toqito.state_opt.bell_inequality_max]). The Full Probability (FP) notation represents the full probability
-    distribution \(V(a, b, x, y) = P(a, b | x, y)\), the probability of Alice getting outcome
+    (see [cg_to_fc][toqito.state_opt.bell_inequality_max]).
+    The Full Probability (FP) notation represents the full probability distribution
+    \(V(a, b, x, y) = P(a, b | x, y)\), the probability of Alice getting outcome
     \(a\) (0 to oa-1) and Bob getting outcome \(b\) (0 to ob-1) given inputs \(x\)
     (0 to ia-1) and \(y\) (0 to ib-1). This is stored as a 4D numpy array with indices
     `V[a, b, x, y]`.

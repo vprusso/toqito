@@ -63,7 +63,7 @@ def constrained_bb84_monogamy_answer_constraints() -> list[AnswerEventConstraint
 
 
 def constrained_bb84_monogamy_answer_constraints_dense() -> list[AnswerEventConstraint]:
-    """Dense-array form of [constrained_bb84_monogamy_answer_constraints][toqito.nonlocal_games.tests._constrained_games_fixtures]."""
+    """Dense-array form of constrained_bb84_monogamy_answer_constraints."""
     c_x0 = np.zeros((2, 2, 2, 2), dtype=float)
     c_x0[0, 1, 0, 0] = 1.0
     c_x0[1, 0, 0, 0] = 1.0
