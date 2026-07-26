@@ -15,6 +15,12 @@ ghz_2_3 = 1 / np.sqrt(2) * (tensor(e_0, e_0, e_0) + tensor(e_1, e_1, e_1))
     [
         # Produces the 3-qubit GHZ state: `1/sqrt(2) * (|000> + |111>)`.
         (2, 3, None, ghz_2_3),
+        # Boundary: local dimension 1 collapses to the single state |00>.
+        (1, 2, None, np.array([[1.0]])),
+        # Boundary: a single party gives the plus state on one qudit.
+        (2, 1, None, 1 / np.sqrt(2) * np.array([[1.0], [1.0]])),
+        # A column-shaped coefficient vector behaves the same as a flat one.
+        (2, 3, np.array([[1.0], [1.0]]) / np.sqrt(2), ghz_2_3),
     ],
 )
 def test_ghz(dim, num_qubits, coeff, expected_res):
@@ -127,3 +133,15 @@ def test_ghz_non_normalized_coeff_4_7():
 
     result = ghz(dim, num_qubits, non_normalized_coeff)
     np.testing.assert_allclose(result, expected_state)
+
+
+def test_ghz_exact_values_and_dtype():
+    """The state is filled exactly (no rounding) and the coefficient dtype is preserved."""
+    # Coefficients [3, 4] normalize to exactly [0.6, 0.8] in float64.
+    res = ghz(2, 2, [3, 4])
+    assert np.array_equal(res, np.array([[0.6], [0.0], [0.0], [0.8]]))
+
+    # A unit-norm integer coefficient vector is not renormalized, so its dtype survives.
+    res = ghz(2, 3, [1, 0])
+    assert res.dtype == np.array([1, 0]).dtype
+    assert np.array_equal(res, np.array([[1], [0], [0], [0], [0], [0], [0], [0]]))

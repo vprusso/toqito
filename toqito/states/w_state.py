@@ -62,7 +62,8 @@ def w_state(num_qubits: int, coeff: list[int] | None = None) -> np.ndarray:
     if coeff is None:
         coeff_arr = np.ones(num_qubits)
     else:
-        coeff_arr = np.array(coeff)
+        # Flatten so column-vector input keeps working with the vectorized fill below.
+        coeff_arr = np.array(coeff).ravel()
     if len(coeff_arr) != num_qubits:
         raise ValueError("InvalidCoeff: The variable `coeff` must be a vector of length equal to `num_qubits`.")
 
@@ -75,9 +76,7 @@ def w_state(num_qubits: int, coeff: list[int] | None = None) -> np.ndarray:
     # preserved.
     ret_w_state = np.zeros((2**num_qubits, 1), dtype=coeff_arr.dtype)
     # Fill the vector so that the state has the single excitation distributed according to coeff.
-    # Note: The ordering assumes that the binary representation corresponds to qubits in little-endian order.
-    for i in range(num_qubits):
-        # The position for an excitation on qubit i is at index 2**i.
-        # We assign the coefficient to the position corresponding to an excitation in that qubit.
-        ret_w_state[2**i] = coeff_arr[num_qubits - i - 1]
+    # Index 2**j carries the coefficient of qubit (num_qubits - 1 - j) in the docstring's labeling,
+    # hence the reversal.
+    ret_w_state[2 ** np.arange(num_qubits), 0] = coeff_arr[::-1]
     return ret_w_state
