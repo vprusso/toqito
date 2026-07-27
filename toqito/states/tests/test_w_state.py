@@ -48,6 +48,28 @@ def test_w_state_complex_coefficients():
     np.testing.assert_allclose(res[1, 0], coeffs[3])
 
 
+def test_w_state_column_coefficients():
+    """A column-shaped coefficient vector behaves the same as a flat one."""
+    flat = w_state(3, np.ones(3) / np.sqrt(3))
+    column = w_state(3, np.ones((3, 1)) / np.sqrt(3))
+    assert np.array_equal(column, flat)
+
+
+def test_w_state_exact_values_and_dtype():
+    """The state is filled exactly (no rounding) and the coefficient dtype is preserved."""
+    # Coefficients [0, 3, 4] normalize to exactly [0.0, 0.6, 0.8] in float64.
+    res = w_state(3, [0, 3, 4])
+    expected = np.zeros((8, 1))
+    expected[1, 0] = 0.8  # excitation on qubit 2 (index 2**0) carries coeff[2].
+    expected[2, 0] = 0.6  # excitation on qubit 1 (index 2**1) carries coeff[1].
+    assert np.array_equal(res, expected)
+
+    # A unit-norm integer coefficient vector is not renormalized, so its dtype survives.
+    res = w_state(2, [1, 0])
+    assert res.dtype == np.array([1, 0]).dtype
+    assert np.array_equal(res, np.array([[0], [0], [1], [0]]))
+
+
 @pytest.mark.parametrize(
     "idx, coeff",
     [

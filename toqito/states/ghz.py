@@ -66,7 +66,8 @@ def ghz(dim: int, num_qubits: int, coeff: list[int] | None = None) -> np.ndarray
     if coeff is None:
         coeff = np.ones(dim)
     else:
-        coeff = np.array(coeff)
+        # Flatten so column-vector input keeps working with the vectorized fill below.
+        coeff = np.array(coeff).ravel()
     if len(coeff) != dim:
         raise ValueError("InvalidCoeff: The variable `coeff` must be a vector of length equal to `dim`.")
 
@@ -79,10 +80,9 @@ def ghz(dim: int, num_qubits: int, coeff: list[int] | None = None) -> np.ndarray
 
     # Initialize the GHZ state vector, matching the coefficient dtype so complex coefficients are preserved.
     ghz_state = np.zeros((dim**num_qubits, 1), dtype=coeff.dtype)
-    # Fill the state vector with the corresponding coefficients.
-    for i in range(dim):
-        # Calculate the index for the tensor product state |i, i, ..., i>.
-        index = sum(i * (dim**k) for k in range(num_qubits))
-        ghz_state[index] = coeff[i]
+    # Fill the state vector with the corresponding coefficients. The tensor product state
+    # |i, i, ..., i> lives at index i * (1 + dim + dim^2 + ... + dim^(num_qubits - 1)).
+    step = sum(dim**k for k in range(num_qubits))
+    ghz_state[np.arange(dim) * step, 0] = coeff
 
     return ghz_state
