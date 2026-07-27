@@ -75,6 +75,21 @@ def evaluate_relative_entropy_integral(
             degenerate.
         RuntimeError: If a bound SDP fails to solve.
 
+    Examples:
+        Estimate the relative entropy between two diagonal density matrices.
+
+        ```python exec="1" source="above" result="text"
+        import numpy as np
+
+        from toqito.state_props import evaluate_relative_entropy_integral
+
+        mat_x = np.diag([0.75, 0.25])
+        mat_y = np.diag([0.5, 0.5])
+
+        estimate = evaluate_relative_entropy_integral(mat_x, mat_y)
+        print(f"{estimate:.4f}")
+        ```
+
     """
     if isinstance(mat_x, cvxpy.Expression) and mat_x.value is not None:
         mat_x_eval = np.asarray(mat_x.value)
