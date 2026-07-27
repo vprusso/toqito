@@ -47,7 +47,7 @@ def learnability(
         states: Sequence of state vectors or density matrices acting on the same space.
         k: Subset size for the POVM outcomes; must satisfy `1 <= k <= len(states)`.
         solver: Optional CVXPY solver name. Defaults to `"SCS"`.
-        solver_kwargs: Extra keyword arguments forwarded to :meth:`cvxpy.Problem.solve`.
+        solver_kwargs: Extra keyword arguments forwarded to `cvxpy.Problem.solve`.
         verify_reduced: If `True` and the states are pure, also solve the reduced SDP.
         verify_tolerance: Absolute tolerance used when comparing the two optimal values.
         tol: Numerical tolerance used when validating positivity and rank-one states.
