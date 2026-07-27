@@ -642,20 +642,20 @@ def is_separable(
 
 
 def _choi_1975_choi_matrix() -> np.ndarray:
-    r"""Return the Choi matrix of Choi's 1975 indecomposable positive map on :math:`M_3`.
+    r"""Return the Choi matrix of Choi's 1975 indecomposable positive map on \(M_3\).
 
-    The map :math:`\Phi: M_3 \to M_3` is defined by
+    The map \(\Phi: M_3 \to M_3\) is defined by
 
-    .. math::
-
+    \[
         \Phi(A)_{00} = A_{00} + A_{22}, \quad
         \Phi(A)_{11} = A_{00} + A_{11}, \quad
         \Phi(A)_{22} = A_{11} + A_{22}, \quad
         \Phi(A)_{ij} = -A_{ij} \text{ for } i \neq j.
+    \]
 
     It is a standard example from [@choi1975] of a positive but not
     completely positive map — its Choi matrix has a negative eigenvalue — and
-    is used in :func:`is_separable` as an entanglement witness.
+    is used in [is_separable][toqito.state_props.is_separable] as an entanglement witness.
     """
     # Diagonal blocks carry Phi(E_ii) along the block diagonal.
     diag_action = [
@@ -679,36 +679,36 @@ def _terhal_2000_tile_witness() -> np.ndarray:
     r"""Terhal 2000 indecomposable positive-map witness built on the 3x3 tile UPB.
 
     Implements Theorem 3 of [@terhal2000family]: given the five tile UPB
-    product vectors :math:`\{|\alpha_i\rangle \otimes |\beta_i\rangle\}_{i=0}^4`
-    spanning a 5-dimensional subspace of :math:`\mathbb{C}^3 \otimes
-    \mathbb{C}^3`, the Hermitian operator
+    product vectors \(\{|\alpha_i\rangle \otimes |\beta_i\rangle\}_{i=0}^4\)
+    spanning a 5-dimensional subspace of \(\mathbb{C}^3 \otimes
+    \mathbb{C}^3\), the Hermitian operator
 
-    .. math::
-
+    \[
         H = \sum_{i=0}^{4} |\alpha_i\rangle\langle\alpha_i| \otimes
             |\beta_i\rangle\langle\beta_i|
             - d \varepsilon |\Psi\rangle\langle\Psi|
+    \]
 
-    is an indecomposable entanglement witness, where :math:`d = 3`,
+    is an indecomposable entanglement witness, where \(d = 3\),
 
-    .. math::
-
+    \[
         \varepsilon = \min_{|\phi_A\rangle, |\phi_B\rangle}
             \sum_{i=0}^{4} |\langle\phi_A|\alpha_i\rangle|^2
                            |\langle\phi_B|\beta_i\rangle|^2,
+    \]
 
-    and :math:`|\Psi\rangle` is a maximally entangled state with
-    :math:`\langle\Psi|\rho_{\text{tile}}|\Psi\rangle > 0` (the ``standard''
-    max-ent state :math:`(|00\rangle+|11\rangle+|22\rangle)/\sqrt{3}` fails
-    this condition for the tile UPB because :math:`|\Psi\rangle` happens to
-    lie in the UPB span; we use :math:`(|10\rangle+|21\rangle+|02\rangle)/\sqrt{3}`
+    and \(|\Psi\rangle\) is a maximally entangled state with
+    \(\langle\Psi|\rho_{\text{tile}}|\Psi\rangle > 0\) (the ``standard''
+    max-ent state \((|00\rangle+|11\rangle+|22\rangle)/\sqrt{3}\) fails
+    this condition for the tile UPB because \(|\Psi\rangle\) happens to
+    lie in the UPB span; we use \((|10\rangle+|21\rangle+|02\rangle)/\sqrt{3}\)
     instead, which satisfies it).
 
-    A state :math:`\rho` is detected as entangled iff
-    :math:`\mathrm{tr}(H\rho) < 0`. Positivity on product states follows from
-    :math:`|\langle\Psi|\phi_A\otimes\phi_B\rangle|^2 \le 1/d` for maximally
-    entangled :math:`|\Psi\rangle` (Lemma 1 of the paper) combined with the
-    definition of :math:`\varepsilon`.
+    A state \(\rho\) is detected as entangled iff
+    \(\mathrm{tr}(H\rho) < 0\). Positivity on product states follows from
+    \(|\langle\Psi|\phi_A\otimes\phi_B\rangle|^2 \le 1/d\) for maximally
+    entangled \(|\Psi\rangle\) (Lemma 1 of the paper) combined with the
+    definition of \(\varepsilon\).
     """
     # Factor each tile(i) vector into its A and B factors via SVD.
     alpha_vecs = []
@@ -778,11 +778,11 @@ def _range_projector_product_overlap_3x3_rank4(
 ) -> float | None:
     r"""Estimate the best product overlap with the range projector of a 3x3 rank-4 state.
 
-    For the projector :math:`P` onto :math:`\operatorname{range}(\rho)`, compute
+    For the projector \(P\) onto \(\operatorname{range}(\rho)\), compute
 
-    .. math::
-
+    \[
         \max_{\|a\|=\|b\|=1} \langle a \otimes b | P | a \otimes b \rangle
+    \]
 
     by alternating maximization with deterministic random restarts.
 
@@ -853,19 +853,19 @@ def _filter_normal_form(
 
     Implements the iterative algorithm of Verstraete, Dehaene, and De Moor
     (PRA 64, 010101 (2001)) used in Gittsovich et al. [@gittsovich2008unifying]
-    Section IV.D: alternate applying :math:`T_A = (d_A \rho_A)^{-1/2}` on
-    subsystem A and :math:`T_B = (d_B \rho_B)^{-1/2}` on subsystem B until both
+    Section IV.D: alternate applying \(T_A = (d_A \rho_A)^{-1/2}\) on
+    subsystem A and \(T_B = (d_B \rho_B)^{-1/2}\) on subsystem B until both
     marginals become proportional to the identity. In normal form
-    :math:`\tilde\rho_A = I/d_A` and :math:`\tilde\rho_B = I/d_B`, so the
+    \(\tilde\rho_A = I/d_A\) and \(\tilde\rho_B = I/d_B\), so the
     reduced states carry no separability information and the correlations
     live entirely in the off-diagonal block of the covariance matrix.
 
     Each filter step preserves the trace exactly:
 
-    .. math::
-
+    \[
         \mathrm{tr}\big[(T_A \otimes I) \rho (T_A^\dagger \otimes I)\big]
         = \mathrm{tr}\big[(d_A \rho_A)^{-1} \rho_A\big] = 1/d_A \cdot d_A = 1,
+    \]
 
     so no renormalization is needed.
 
@@ -918,16 +918,16 @@ def _filter_normal_form(
 
 
 def _filter_cmc_xi_sum(rho_normal: np.ndarray, dims: list[int]) -> float:
-    r"""Compute :math:`\sum_i \xi_i` for a state already in filter normal form.
+    r"""Compute \(\sum_i \xi_i\) for a state already in filter normal form.
 
-    The :math:`\xi_i` are the coefficients in the operator-basis expansion
+    The \(\xi_i\) are the coefficients in the operator-basis expansion
 
-    .. math::
-
+    \[
         \tilde\rho = \frac{1}{d_A d_B} \left(I + \sum_k \xi_k G^A_k \otimes G^B_k\right),
+    \]
 
-    equal to :math:`d_A d_B` times the operator Schmidt coefficients of
-    :math:`\tilde\rho - I/(d_A d_B)` (which in turn are the singular values
+    equal to \(d_A d_B\) times the operator Schmidt coefficients of
+    \(\tilde\rho - I/(d_A d_B)\) (which in turn are the singular values
     of the realignment of that trace-zero operator). See Gittsovich et al.
     2008, Eq. (66).
     """
@@ -939,16 +939,16 @@ def _filter_cmc_xi_sum(rho_normal: np.ndarray, dims: list[int]) -> float:
 
 
 def _filter_cmc_bound(dA: int, dB: int) -> float:
-    r"""Return the Filter CMC separability bound for a :math:`d_A \times d_B` system.
+    r"""Return the Filter CMC separability bound for a \(d_A \times d_B\) system.
 
     From Gittsovich et al. 2008, Proposition IV.15, Eq. (72):
 
-    .. math::
-
+    \[
         \sum_k \xi_k \le \sqrt{d_A d_B (d_A - 1)(d_B - 1)}.
+    \]
 
-    This generalizes Proposition IV.13 (:math:`d^2 - d` for the symmetric
-    :math:`d_A = d_B = d` case) and, in practice, is tighter than Eq. (71)
+    This generalizes Proposition IV.13 (\(d^2 - d\) for the symmetric
+    \(d_A = d_B = d\) case) and, in practice, is tighter than Eq. (71)
     across the dimensions of interest here.
     """
     return float(np.sqrt(dA * dB * (dA - 1) * (dB - 1)))
@@ -968,9 +968,9 @@ def _iterative_product_state_subtraction(
     Loosely modelled on QETLAB's ``sk_iterate`` (with ``s = 1``) and the
     Gühne method [@guhne2009entanglement]. At each outer iteration, run
     alternating rank-1 maximization (with a handful of random restarts) to
-    find a product state :math:`|\psi\rangle|\phi\rangle` with high overlap
+    find a product state \(|\psi\rangle|\phi\rangle\) with high overlap
     on the residual state, then subtract as much of
-    :math:`|\psi\rangle\langle\psi| \otimes |\phi\rangle\langle\phi|` as
+    \(|\psi\rangle\langle\psi| \otimes |\phi\rangle\langle\phi|\) as
     positivity allows (via a geometric backoff search). Returns ``True`` if
     the residual eventually enters the Gurvits-Barnum separable ball or
     shrinks to numerical zero. Returns ``False`` if the loop stalls

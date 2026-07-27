@@ -96,7 +96,7 @@ def channel_distinguishability(
     Returns:
         A tuple ``(value, operators)``. ``value`` is the optimal probability of discriminating the
         channels. ``operators`` holds the optimal strategy operators for the SDP branches (the
-        measurement operators :math:`P_i` for ``primal_dual="primal"`` and the dual operator for
+        measurement operators \(P_i\) for ``primal_dual="primal"`` and the dual operator for
         ``primal_dual="dual"``) and is an empty list for the closed-form two-channel Bayesian
         branch and for degenerate priors.
 

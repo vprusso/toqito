@@ -49,11 +49,12 @@ def constrained_bb84_monogamy_answer_constraints() -> list[AnswerEventConstraint
     :meth:`~toqito.nonlocal_games.extended_nonlocal_game.ExtendedNonlocalGame.commuting_measurement_value_upper_bound`,
     this is
 
-    .. math::
+    \[
         \sum_{a \neq b} p(a, b \mid x, x) = 0 \quad \forall x,
+    \]
 
-    returned as one equality constraint per question :math:`x` (for the standard
-    BB84 game, :math:`x \in \{0, 1\}`).
+    returned as one equality constraint per question \(x\) (for the standard
+    BB84 game, \(x \in \{0, 1\}\)).
     """
     return [
         ({(0, 1, 0, 0): 1.0, (1, 0, 0, 0): 1.0}, "==", 0.0),
@@ -62,7 +63,7 @@ def constrained_bb84_monogamy_answer_constraints() -> list[AnswerEventConstraint
 
 
 def constrained_bb84_monogamy_answer_constraints_dense() -> list[AnswerEventConstraint]:
-    """Dense-array form of :func:`constrained_bb84_monogamy_answer_constraints`."""
+    """Dense-array form of constrained_bb84_monogamy_answer_constraints."""
     c_x0 = np.zeros((2, 2, 2, 2), dtype=float)
     c_x0[0, 1, 0, 0] = 1.0
     c_x0[1, 0, 0, 0] = 1.0
@@ -73,10 +74,10 @@ def constrained_bb84_monogamy_answer_constraints_dense() -> list[AnswerEventCons
 
 
 def forbid_bb84_diagonal_answers_at(x: int, y: int) -> list[AnswerEventConstraint]:
-    r"""Forbid both diagonal answer pairs :math:`p(0,0\mid x,y)=p(1,1\mid x,y)=0`.
+    r"""Forbid both diagonal answer pairs \(p(0,0\mid x,y)=p(1,1\mid x,y)=0\).
 
-    At NPA level 1 for the BB84 game, forbidding only :math:`p(0,0\mid 0,0)=0` does not
-    lower the commuting upper bound (the optimum can use :math:`p(1,1\mid 0,0)` instead).
+    At NPA level 1 for the BB84 game, forbidding only \(p(0,0\mid 0,0)=0\) does not
+    lower the commuting upper bound (the optimum can use \(p(1,1\mid 0,0)\) instead).
     Zeroing both diagonal events at a question pair is binding.
     """
     return [({(0, 0, x, y): 1.0, (1, 1, x, y): 1.0}, "==", 0.0)]

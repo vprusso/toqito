@@ -1234,8 +1234,8 @@ def test_choi_1975_map_detects_npt_isotropic_3x3_via_partial_channel():
     """Applying Choi's map to an NPT 3x3 isotropic state gives a non-PSD image.
 
     This is the entanglement-witness signature used in section 12 of
-    :func:`is_separable`. We exercise the same `partial_channel` path directly
-    rather than routing through :func:`is_separable`, because the PPT criterion
+    [is_separable][toqito.state_props.is_separable]. We exercise the same `partial_channel` path directly
+    rather than routing through [is_separable][toqito.state_props.is_separable], because the PPT criterion
     would catch this state earlier.
     """
     me_vec = max_entangled(3, False, False)

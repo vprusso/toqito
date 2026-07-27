@@ -220,16 +220,18 @@ def test_ppt_distinguishability_four_bell_states():
 
     The resource state is defined by
 
-    .. math::
+    \[
         |\tau_{\epsilon} \rangle = \sqrt{\frac{1+\epsilon}{2}} +
         |0\rangle | 0\rangle +
         \sqrt{\frac{1-\epsilon}{2}} |1 \rangle |1 \rangle
+    \]
 
     The closed form probability with which Alice and Bob can distinguish via
     PPT measurements is given as follows
 
-    .. math::
+    \[
         \frac{1}{2} \left(1 + \sqrt{1 - \epsilon^2} \right).
+    \]
 
     This formula happens to be equal to LOCC and SEP as well for this case.
     Refer to Theorem 5 in  :footcite:`Bandyopadhyay_2015_Limitations` for more details.

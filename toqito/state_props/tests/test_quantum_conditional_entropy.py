@@ -51,7 +51,7 @@ def _rand_density(dim: int, seed: int) -> np.ndarray:
 
 
 def _reference_conditional_entropy(rho: np.ndarray, dim: list[int], sys: int) -> float:
-    r"""Build :math:`-D(\rho \| I \otimes \rho_{\text{marginal}})` directly."""
+    r"""Build \(-D(\rho \| I \otimes \rho_{\text{marginal}})\) directly."""
     if sys == 0:
         sigma = np.kron(np.eye(dim[0]), partial_trace(rho, 0, dim))
     else:
