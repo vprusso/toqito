@@ -46,7 +46,7 @@ def constrained_bb84_monogamy_answer_constraints() -> list[AnswerEventConstraint
     Implements Eq. (60) in arXiv:2405.13717, Section 4.1 ("Constrained BB84
     monogamy-of-entanglement game"): Alice and Bob never answer differently when
     they receive the same question. In the answer-event form used by
-    :meth:`~toqito.nonlocal_games.extended_nonlocal_game.ExtendedNonlocalGame.commuting_measurement_value_upper_bound`,
+    `ExtendedNonlocalGame.commuting_measurement_value_upper_bound`,
     this is
 
     \[
