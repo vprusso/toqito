@@ -131,4 +131,4 @@ def horodecki(a_param: float, dim: list[int] | None = None) -> np.ndarray:
             ]
         )
         return horo_state
-    raise ValueError("InvalidDim: DIM must be one of [3, 3], or [2, 4].")
+    raise ValueError("InvalidDim: `dim` must be one of [3, 3], or [2, 4].")

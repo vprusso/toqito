@@ -177,7 +177,7 @@ def permute_systems(
     if sorted(perm) != list(range(num_sys)):
         raise ValueError("InvalidPerm: `perm` must be a permutation vector.")
     if input_mat_dims[0] != prod_dim_r or (not row_only and input_mat_dims[1] != prod_dim_c):
-        raise ValueError("InvalidDim: The dimensions specified in DIM do not agree with the size of X.")
+        raise ValueError("InvalidDim: The dimensions specified in `dim` do not agree with the size of `input_mat`.")
     if is_vec:
         # If `input_mat` is a 1-by-X row vector, ensure we "flatten it" appropriately:
         if input_mat.shape[0] == 1:
