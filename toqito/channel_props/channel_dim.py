@@ -82,10 +82,10 @@ def channel_dim(
 
         # Now do some error checking.
         if (dim_in[0] != dim_in[1] or dim_out[0] != dim_out[1]) and not allow_rect:
-            raise ValueError("The input and output spaces of PHI must be square.")
+            raise ValueError("The input and output spaces of phi must be square.")
 
         if np.any(dim != np.vstack([dim_in, dim_out]).T):
-            raise ValueError("The dimensions of PHI do not match those provided in the DIM argument.")
+            raise ValueError("The dimensions of phi do not match those provided in the dim argument.")
 
         if (is_cpt and any(k_mat.shape != (dim[0, 1], dim[0, 0]) for k_mat in left_ops)) or (
             not is_cpt
@@ -94,7 +94,7 @@ def channel_dim(
                 for left, right in zip(left_ops, right_ops)
             )
         ):
-            raise ValueError("The Kraus operators of PHI do not all have the same size.")
+            raise ValueError("The Kraus operators of phi do not all have the same size.")
 
     # If Phi is a Choi matrix, the dimensions are a bit more of a pain: we have
     # to guess a bit if the input and output dimensions are different.
@@ -110,13 +110,13 @@ def channel_dim(
 
         if dim[0, 0] * dim[0, 1] != rows or dim[1, 0] * dim[1, 1] != cols:
             raise ValueError(
-                "If the input and output dimensions are unequal and PHI is provided "
-                "as a Choi matrix, the optional argument DIM must be specified "
-                "(and its dimensions must agree with PHI)."
+                "If the input and output dimensions are unequal and phi is provided "
+                "as a Choi matrix, the optional argument dim must be specified "
+                "(and its dimensions must agree with phi)."
             )
 
         if (dim[0, 0] != dim[1, 0] or dim[0, 1] != dim[1, 1]) and not allow_rect:
-            raise ValueError("The input and output spaces of PHI must be square.")
+            raise ValueError("The input and output spaces of phi must be square.")
 
         # environment dimension is the rank of the Choi matrix
         dim_e = None
