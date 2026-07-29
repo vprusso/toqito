@@ -79,37 +79,38 @@ def entangled_subspace(
     # Vandermonde matrix: V[i, k] = (i+1)^k
     V = np.fliplr(np.vander(np.arange(1, m + 1)))
 
-    E = np.zeros((prod_dim, dim))
+    k_grid, j_grid = np.meshgrid(
+        np.arange(m - r),
+        np.arange(r + 1 - d_b, d_a - r),
+        indexing="ij",
+    )
+    k_values = k_grid.ravel()
+    j_values = j_grid.ravel()
 
-    ct = 0
-    for k in range(m - r):
-        for j in range(r + 1 - d_b, d_a - r):
-            # Length of the j-th diagonal of a (d_b x d_a) matrix.
-            if j >= 0:
-                diag_len = min(d_b, d_a - j)
-            else:
-                diag_len = min(d_b + j, d_a)
+    diag_lens = np.where(
+        j_values >= 0,
+        np.minimum(d_b, d_a - j_values),
+        np.minimum(d_b + j_values, d_a),
+    )
+    valid = k_values < diag_lens - r
+    k_values = k_values[valid][:dim]
+    j_values = j_values[valid][:dim]
+    diag_lens = diag_lens[valid][:dim]
 
-            if k < diag_len - r:
-                D = V[:diag_len, k]
+    diag_positions = np.arange(m)
+    position_grid = np.broadcast_to(diag_positions, (len(k_values), m))
+    entry_mask = position_grid < diag_lens[:, np.newaxis]
+    row_offsets = np.where(j_values >= 0, j_values, -j_values * d_a)
+    row_indices = position_grid * (d_a + 1) + row_offsets[:, np.newaxis]
+    column_indices = np.broadcast_to(
+        np.arange(len(k_values))[:, np.newaxis],
+        row_indices.shape,
+    )
+    values = V[position_grid, k_values[:, np.newaxis]]
 
-                # Place D on the j-th diagonal of a (d_b x d_a) matrix.
-                T = np.zeros((d_b, d_a))
-                if j >= 0:
-                    for i in range(diag_len):
-                        T[i, i + j] = D[i]
-                else:
-                    for i in range(diag_len):
-                        T[i - j, i] = D[i]
-
-                E[:, ct] = T.reshape(prod_dim)
-
-                ct += 1
-                if ct >= dim:
-                    # Orthonormalize via QR.
-                    Q, _ = qr(E, mode="economic")
-                    return Q
+    E = np.zeros((prod_dim, len(k_values)))
+    E[row_indices[entry_mask], column_indices[entry_mask]] = values[entry_mask]
 
     # Orthonormalize via QR.
-    Q, _ = qr(E[:, :ct], mode="economic")
+    Q, _ = qr(E, mode="economic")
     return Q
