@@ -13,15 +13,15 @@ def dicke(num_qubit: int, num_excited: int, return_dm: bool = False) -> np.ndarr
     distributed across the given number of qubits (i.e., `num_qubit`). It is symmetric and represents
     an equal superposition of all possible states with the specified number of excited qubits.
 
-    Example
-    Consider generating a Dicke state with 3 qubits and 1 excitation:
+    Examples:
+        Consider generating a Dicke state with 3 qubits and 1 excitation:
 
         ```python exec="1" source="above" result="text"
         from toqito.states import dicke
         print(dicke(3, 1))
         ```
 
-    If we request the density matrix for this state, the return value is:
+        If we request the density matrix for this state, the return value is:
 
         ```python exec="1" source="above" result="text"
         from toqito.states import dicke
