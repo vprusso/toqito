@@ -40,6 +40,9 @@ def bitflip(
         The Choi matrix of the channel, or its list of Kraus operators when `return_kraus_ops` is
         `True`.
 
+    Raises:
+        ValueError: If `prob` is outside the interval \([0, 1]\).
+
     Examples:
         Obtain the Kraus operators for the bitflip channel with probability 0.3:
 
