@@ -66,7 +66,7 @@ def integral_relative_entropy_upper_cone(
         if mu is not None or lam is not None:
             raise ValueError("mu and lam must both be provided or both omitted")
         x_val, y_val = _numeric_pair_for_sandwich(mat_x, mat_y)
-        mu, lam = _sandwich_parameters(x_val, y_val)
+        mu, lam = _sandwich_parameters(x_val, y_val, epsilon_dec)
     _require_valid_sandwich(mu, lam)
 
     grid = _make_grid(mu, lam, epsilon_dec)

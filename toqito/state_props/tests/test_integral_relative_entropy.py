@@ -21,6 +21,14 @@ from toqito.state_props.integral_relative_entropy import (
 _NOT_SUPPORTED = re.escape(_AFFINE_VARIABLE_USE_CONE)
 
 
+def _commuting_relative_entropy(diag_x: list[float], diag_y: list[float]) -> float:
+    r"""Return the closed-form (D(X|Y)) in nats for commuting diagonal states."""
+    dx = np.array(diag_x, dtype=float)
+    dy = np.array(diag_y, dtype=float)
+    support = dx > 0
+    return float(np.sum(dx[support] * np.log(dx[support] / dy[support])))
+
+
 def test_generalized_eigenvalues_eig_fallback():
     """``eigh`` may fail when the right factor is singular; ``eig`` is used instead."""
     choi_1 = np.asarray(depolarizing(2, 1))
@@ -42,7 +50,9 @@ def test_sandwich_parameters_no_finite_eigenvalues(monkeypatch):
 
     with pytest.raises(
         ValueError,
-        match=re.escape("Failed to compute sandwich parameters from generalized eigenvalues."),
+        match=re.escape(
+            "Failed to compute sandwich parameters from generalized eigenvalues."
+        ),
     ):
         _sandwich_parameters(np.eye(2), np.eye(2) / 2)
 
@@ -74,14 +84,18 @@ def test_evaluate_relative_entropy_integral_shape_mismatch():
 def test_evaluate_relative_entropy_integral_mat_x_not_psd():
     """Non-PSD ``mat_x`` should raise ``ValueError``."""
     mat_x = np.array([[1.0, 2.0], [2.0, 1.0]])
-    with pytest.raises(ValueError, match="mat_x must be a positive semidefinite matrix"):
+    with pytest.raises(
+        ValueError, match="mat_x must be a positive semidefinite matrix"
+    ):
         evaluate_relative_entropy_integral(mat_x, np.eye(2))
 
 
 def test_evaluate_relative_entropy_integral_mat_y_not_psd():
     """Non-PSD ``mat_y`` should raise ``ValueError``."""
     mat_y = np.array([[1.0, 2.0], [2.0, 1.0]])
-    with pytest.raises(ValueError, match="mat_y must be a positive semidefinite matrix"):
+    with pytest.raises(
+        ValueError, match="mat_y must be a positive semidefinite matrix"
+    ):
         evaluate_relative_entropy_integral(np.eye(2), mat_y)
 
 
@@ -96,7 +110,7 @@ def test_evaluate_relative_entropy_integral_degenerate_sandwich(monkeypatch):
     """Degenerate ``mu``/``lambda`` should raise ``ValueError``."""
     monkeypatch.setattr(
         "toqito.state_props.integral_relative_entropy._sandwich_parameters",
-        lambda mat_x, mat_y: (1.0, 1.0),
+        lambda mat_x, mat_y, epsilon_dec=1e-2: (1.0, 1.0),
     )
     with pytest.raises(ValueError, match="0 < mu < lambda"):
         evaluate_relative_entropy_integral(np.eye(2) / 2, np.eye(2) / 4)
@@ -121,6 +135,60 @@ def test_evaluate_relative_entropy_integral_complex_hermitian():
     assert result >= 0.0
 
 
+@pytest.mark.parametrize(
+    ("diag_x", "diag_y"),
+    [
+        ([0.75, 0.25], [0.5, 0.5]),
+        ([0.7, 0.3], [0.4, 0.6]),
+        ([0.9, 0.1], [0.5, 0.5]),
+    ],
+)
+def test_evaluate_relative_entropy_integral_matches_closed_form(diag_x, diag_y):
+    """For a qubit pair both sandwich endpoints are grid points, so the bounds are exact.
+
+    This pins the endpoints themselves: an inexact ``mu`` shrinks the integration
+    range and silently biases the estimate downwards.
+    """
+    expected = _commuting_relative_entropy(diag_x, diag_y)
+    result = evaluate_relative_entropy_integral(np.diag(diag_x), np.diag(diag_y))
+    assert result == pytest.approx(expected, abs=1e-6)
+
+
+@pytest.mark.parametrize("epsilon_dec", [1e-1, 1e-2, 1e-3])
+def test_evaluate_relative_entropy_integral_obeys_discretization_bound(epsilon_dec):
+    """Corollary 1 of [@kossmann2024optimisingrelativeentropy] caps the error at ``epsilon_dec``.
+
+    The third eigenvalue puts a kink strictly inside the grid, so unlike the qubit
+    case the estimate is not exact and has to converge as the grid is refined.
+    """
+    diag_x, diag_y = [0.5, 0.3, 0.2], [1 / 3, 1 / 3, 1 / 3]
+    expected = _commuting_relative_entropy(diag_x, diag_y)
+    result = evaluate_relative_entropy_integral(
+        np.diag(diag_x),
+        np.diag(diag_y),
+        epsilon_dec=epsilon_dec,
+    )
+    assert abs(result - expected) <= epsilon_dec
+
+
+def test_evaluate_relative_entropy_integral_singular_mat_x_converges():
+    """A singular ``mat_x`` truncates the integral at ``epsilon_dec``, costing at most that much."""
+    diag_x, diag_y = [0.6, 0.4, 0.0], [1 / 3, 1 / 3, 1 / 3]
+    expected = _commuting_relative_entropy(diag_x, diag_y)
+
+    errors = []
+    for epsilon_dec in (1e-1, 1e-2, 1e-3):
+        result = evaluate_relative_entropy_integral(
+            np.diag(diag_x),
+            np.diag(diag_y),
+            epsilon_dec=epsilon_dec,
+        )
+        errors.append(abs(result - expected))
+        assert errors[-1] <= epsilon_dec
+
+    assert errors[0] > errors[1] > errors[2]
+
+
 def test_evaluate_relative_entropy_integral_lower_sdp_failure(monkeypatch):
     """A failed lower-bound solve should raise ``RuntimeError``."""
 
@@ -130,7 +198,9 @@ def test_evaluate_relative_entropy_integral_lower_sdp_failure(monkeypatch):
         def __init__(self, objective, constraints):
             self.value = 1.0
             FakeProblem.created += 1
-            self.status = cvxpy.INFEASIBLE if FakeProblem.created == 1 else cvxpy.OPTIMAL
+            self.status = (
+                cvxpy.INFEASIBLE if FakeProblem.created == 1 else cvxpy.OPTIMAL
+            )
 
         def solve(self, **kwargs):
             pass
@@ -175,7 +245,9 @@ def test_evaluate_relative_entropy_integral_warns_on_inaccurate_lower(monkeypatc
         def __init__(self, objective, constraints):
             self.value = 0.1
             FakeProblem.created += 1
-            self.status = cvxpy.OPTIMAL_INACCURATE if FakeProblem.created == 1 else cvxpy.OPTIMAL
+            self.status = (
+                cvxpy.OPTIMAL_INACCURATE if FakeProblem.created == 1 else cvxpy.OPTIMAL
+            )
 
         def solve(self, **kwargs):
             pass
@@ -196,7 +268,9 @@ def test_evaluate_relative_entropy_integral_warns_on_inaccurate_upper(monkeypatc
         def __init__(self, objective, constraints):
             self.value = 0.1
             FakeProblem.created += 1
-            self.status = cvxpy.OPTIMAL if FakeProblem.created == 1 else cvxpy.OPTIMAL_INACCURATE
+            self.status = (
+                cvxpy.OPTIMAL if FakeProblem.created == 1 else cvxpy.OPTIMAL_INACCURATE
+            )
 
         def solve(self, **kwargs):
             pass
@@ -221,7 +295,9 @@ def test_sandwich_parameters_raises_on_lin_alg_error(monkeypatch):
 
     with pytest.raises(
         ValueError,
-        match=re.escape("Failed to compute sandwich parameters from generalized eigenvalues."),
+        match=re.escape(
+            "Failed to compute sandwich parameters from generalized eigenvalues."
+        ),
     ):
         _sandwich_parameters(np.eye(2), np.eye(2) / 2)
 

@@ -191,7 +191,7 @@ def test_raises_degenerate_integral_bounds(monkeypatch):
     monkeypatch.setattr(
         _CHANNEL_RELATIVE_ENTROPY_MOD,
         "_sandwich_parameters",
-        lambda rho, sigma: (0.0, 1.0),
+        lambda rho, sigma, epsilon_dec=1e-2: (0.0, 1.0),
     )
     with pytest.raises(ValueError, match="0 < mu < lambda"):
         channel_relative_entropy(channel_1, channel_2, in_dim=2, epsilon_dec=0.2)
@@ -199,7 +199,7 @@ def test_raises_degenerate_integral_bounds(monkeypatch):
     monkeypatch.setattr(
         _CHANNEL_RELATIVE_ENTROPY_MOD,
         "_sandwich_parameters",
-        lambda rho, sigma: (2.0, 1.0),
+        lambda rho, sigma, epsilon_dec=1e-2: (2.0, 1.0),
     )
     with pytest.raises(ValueError, match="0 < mu < lambda"):
         channel_relative_entropy(channel_1, channel_2, in_dim=2, epsilon_dec=0.2)
@@ -230,7 +230,7 @@ def test_raises_when_lower_sdp_fails(monkeypatch):
     monkeypatch.setattr(
         _CHANNEL_RELATIVE_ENTROPY_MOD,
         "_sandwich_parameters",
-        lambda rho, sigma: (0.1, 2.0),
+        lambda rho, sigma, epsilon_dec=1e-2: (0.1, 2.0),
     )
 
     class FakeProblem:
@@ -256,7 +256,7 @@ def test_raises_when_upper_sdp_fails(monkeypatch):
     monkeypatch.setattr(
         _CHANNEL_RELATIVE_ENTROPY_MOD,
         "_sandwich_parameters",
-        lambda rho, sigma: (0.1, 2.0),
+        lambda rho, sigma, epsilon_dec=1e-2: (0.1, 2.0),
     )
 
     class FakeProblem:
@@ -282,7 +282,7 @@ def test_warns_on_optimal_inaccurate_lower(monkeypatch):
     monkeypatch.setattr(
         _CHANNEL_RELATIVE_ENTROPY_MOD,
         "_sandwich_parameters",
-        lambda rho, sigma: (0.1, 2.0),
+        lambda rho, sigma, epsilon_dec=1e-2: (0.1, 2.0),
     )
 
     class FakeProblem:
@@ -308,7 +308,7 @@ def test_warns_on_optimal_inaccurate_upper(monkeypatch):
     monkeypatch.setattr(
         _CHANNEL_RELATIVE_ENTROPY_MOD,
         "_sandwich_parameters",
-        lambda rho, sigma: (0.1, 2.0),
+        lambda rho, sigma, epsilon_dec=1e-2: (0.1, 2.0),
     )
 
     class FakeProblem:

@@ -100,7 +100,7 @@ def evaluate_relative_entropy_integral(
     default_kwargs = {"eps": 1e-8, "verbose": False}
     default_kwargs.update(solve_kwargs)
 
-    mu, lam = _sandwich_parameters(mat_x_eval, mat_y_eval)
+    mu, lam = _sandwich_parameters(mat_x_eval, mat_y_eval, epsilon_dec)
 
     x_c = cvxpy.Constant(mat_x_eval)
     y_c = cvxpy.Constant(mat_y_eval)

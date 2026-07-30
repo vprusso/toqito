@@ -126,7 +126,7 @@ def channel_relative_entropy(
     choi_2 = channel_2
     solve_kwargs = {"eps": 1e-8, "verbose": False, **kwargs}
 
-    mu, lam = _sandwich_parameters(choi_1, choi_2)
+    mu, lam = _sandwich_parameters(choi_1, choi_2, epsilon_dec)
     if mu <= 0 or lam <= mu:
         raise ValueError(
             "The integral representation requires 0 < mu < lambda. "
