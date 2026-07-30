@@ -13,19 +13,29 @@ def _generalized_eigenvalues(a: np.ndarray, b: np.ndarray) -> np.ndarray:
         return np.real(eig(a, b, left=False, right=False)[0])
 
 
-def _sandwich_parameters(rho: np.ndarray, sigma: np.ndarray) -> tuple[float, float]:
-    r"""Return sandwich bounds \(\mu\) and \(\lambda\) for PSD matrices \(X\) and \(Y\)."""
+def _sandwich_parameters(
+    rho: np.ndarray,
+    sigma: np.ndarray,
+    epsilon_dec: float = 1e-2,
+) -> tuple[float, float]:
+    r"""Return sandwich bounds \(\mu\) and \(\lambda\) for PSD matrices \(X\) and \(Y\).
+
+    A singular \(X\) gives the exact endpoint \(\mu = 0\), which Corollary 1 of
+    [@kossmann2024optimisingrelativeentropy] excludes. The remark following that
+    corollary instead applies the method on \([\varepsilon, \lambda]\), leaving an
+    error of at most \(\varepsilon\) on the omitted \([0, \varepsilon]\).
+    """
     try:
         w_xy = _generalized_eigenvalues(rho, sigma)
-        w_yx = _generalized_eigenvalues(sigma, rho)
     except LinAlgError as exc:
         raise ValueError("Failed to compute sandwich parameters from generalized eigenvalues.") from exc
     finite_xy = w_xy[np.isfinite(w_xy)]
-    finite_yx = w_yx[np.isfinite(w_yx)]
-    if finite_xy.size == 0 or finite_yx.size == 0:
+    if finite_xy.size == 0:
         raise ValueError("Failed to compute sandwich parameters from generalized eigenvalues.")
     lam = float(np.max(finite_xy))
-    mu = float(np.min(finite_yx))
+    mu = float(np.min(finite_xy))
+    if mu <= 0:
+        mu = float(epsilon_dec)
     return mu, lam
 
 
