@@ -42,17 +42,20 @@ def measure(
 
     and, if \(p_i > tol\), the post‐measurement state is updated via
 
-    \[
-        u = \frac{1}{\sqrt{3}} e_0 + \sqrt{\frac{2}{3}} e_1
-    \]
+    Examples:
+        Consider the state
 
-    where we define \(u u^* = \rho \in \text{D}(\mathcal{X})\).
+        \[
+            u = \frac{1}{\sqrt{3}} e_0 + \sqrt{\frac{2}{3}} e_1
+        \]
 
-    Define measurement operators
+        where we define \(u u^* = \rho \in \text{D}(\mathcal{X})\).
 
-    \[
-        P_0 = e_0 e_0^* \quad \text{and} \quad P_1 = e_1 e_1^*.
-    \]
+        Define measurement operators
+
+        \[
+            P_0 = e_0 e_0^* \quad \text{and} \quad P_1 = e_1 e_1^*.
+        \]
 
         ```python exec="1" source="above" result="text"
         import numpy as np
@@ -66,21 +69,21 @@ def measure(
 
         proj_0 = e_0 @ e_0.conj().T
         proj_1 = e_1 @ e_1.conj().T
-        print(measure(proj_0, rho))
+        print(measure(rho, proj_0))
         ```
 
-    Then the probability of obtaining outcome \(0\) is given by
+        Then the probability of obtaining outcome \(0\) is given by
 
-    \[
-        \langle P_0, \rho \rangle = \frac{1}{3}.
-    \]
+        \[
+            \langle P_0, \rho \rangle = \frac{1}{3}.
+        \]
 
 
-    Similarly, the probability of obtaining outcome \(1\) is given by
+        Similarly, the probability of obtaining outcome \(1\) is given by
 
-    \[
-        \langle P_1, \rho \rangle = \frac{2}{3}.
-    \]
+        \[
+            \langle P_1, \rho \rangle = \frac{2}{3}.
+        \]
 
         ```python exec="1" source="above" result="text"
         import numpy as np
