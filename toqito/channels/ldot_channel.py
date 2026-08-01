@@ -39,6 +39,9 @@ def ldot_channel(mat: np.ndarray, efficient: bool = True) -> np.ndarray:
     Returns:
         The LDOI projection of the input matrix.
 
+    Raises:
+        ValueError: If `mat` is not square or its dimension is not a perfect square.
+
     Examples:
         Apply LDOT channel to project an arbitrary matrix onto LDOI subspace:
 

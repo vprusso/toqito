@@ -44,6 +44,9 @@ def amplitude_damping(
         The Choi matrix of the channel, or its list of Kraus operators when `return_kraus_ops` is
         `True`.
 
+    Raises:
+        ValueError: If `prob` or `gamma` is outside the interval \([0, 1]\).
+
     Examples:
         Apply the channel (returned as a Choi matrix) to a state via `apply_channel`:
 
