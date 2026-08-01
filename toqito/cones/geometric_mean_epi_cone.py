@@ -43,6 +43,24 @@ def geometric_mean_epi_cone(
     Returns:
         A list of CVX constraints.
 
+    Examples:
+        Minimize a scalar upper bound for the geometric mean with weight (t = 2).
+
+        ```python exec="1" source="above" result="text"
+        import cvxpy
+        import numpy as np
+
+        from toqito.cones import geometric_mean_epi_cone
+
+        mat_a = cvxpy.Constant(np.array([[4.0]]))
+        mat_b = cvxpy.Constant(np.array([[1.0]]))
+        mat_t = cvxpy.Variable((1, 1), symmetric=True)
+        constraints = geometric_mean_epi_cone(mat_a, mat_b, mat_t, t=2)
+        problem = cvxpy.Problem(cvxpy.Minimize(mat_t[0, 0]), constraints)
+        problem.solve(solver="SCS")
+        print(f"{mat_t.value.item():.2f}")
+        ```
+
     """
     if t < -1 or (t > 0 and t < 1) or t > 2:
         raise ValueError("The weight must be in the range [-1, 0] or [1, 2].")
