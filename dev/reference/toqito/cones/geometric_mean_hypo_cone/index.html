@@ -10448,6 +10448,25 @@ G_t(A, B) \geq T
           </div>
         </li>
     </ul>
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>Maximize a scalar lower bound for the geometric mean with weight (t = 1/2).</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">cvxpy</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.cones</span><span class="w"> </span><span class="kn">import</span> <span class="n">geometric_mean_hypo_cone</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="n">mat_a</span> <span class="o">=</span> <span class="n">cvxpy</span><span class="o">.</span><span class="n">Constant</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">4.0</span><span class="p">]]))</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="n">mat_b</span> <span class="o">=</span> <span class="n">cvxpy</span><span class="o">.</span><span class="n">Constant</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">1.0</span><span class="p">]]))</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="n">mat_t</span> <span class="o">=</span> <span class="n">cvxpy</span><span class="o">.</span><span class="n">Variable</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">symmetric</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="n">constraints</span> <span class="o">=</span> <span class="n">geometric_mean_hypo_cone</span><span class="p">(</span><span class="n">mat_a</span><span class="p">,</span> <span class="n">mat_b</span><span class="p">,</span> <span class="n">mat_t</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="n">problem</span> <span class="o">=</span> <span class="n">cvxpy</span><span class="o">.</span><span class="n">Problem</span><span class="p">(</span><span class="n">cvxpy</span><span class="o">.</span><span class="n">Maximize</span><span class="p">(</span><span class="n">mat_t</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]),</span> <span class="n">constraints</span><span class="p">)</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="n">problem</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">solver</span><span class="o">=</span><span class="s2">&quot;SCS&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">mat_t</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>2.00
+</code></pre></div>
         <p><strong>References</strong></p>
 <p><span id="ref-toqito-cones-geometric_mean_hypo_cone-geometric_mean_hypo_cone-1"><sup><a href="#cite-toqito-cones-geometric_mean_hypo_cone-geometric_mean_hypo_cone-1">1</a></sup> Fawzi, Hamza and Saunderson, James. <em>Lieb's concavity theorem, matrix geometric means and semidefinite optimization</em>. (2015). <a href="https://arxiv.org/pdf/1512.03401.pdf">link</a>.</span></p>
 
@@ -10503,7 +10522,25 @@ G_t(A, B) \geq T
 <span class="normal"><a href="#__codelineno-0-63">63</a></span>
 <span class="normal"><a href="#__codelineno-0-64">64</a></span>
 <span class="normal"><a href="#__codelineno-0-65">65</a></span>
-<span class="normal"><a href="#__codelineno-0-66">66</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-17" name="__codelineno-0-17"></a><span class="k">def</span><span class="w"> </span><span class="nf">geometric_mean_hypo_cone</span><span class="p">(</span>
+<span class="normal"><a href="#__codelineno-0-66">66</a></span>
+<span class="normal"><a href="#__codelineno-0-67">67</a></span>
+<span class="normal"><a href="#__codelineno-0-68">68</a></span>
+<span class="normal"><a href="#__codelineno-0-69">69</a></span>
+<span class="normal"><a href="#__codelineno-0-70">70</a></span>
+<span class="normal"><a href="#__codelineno-0-71">71</a></span>
+<span class="normal"><a href="#__codelineno-0-72">72</a></span>
+<span class="normal"><a href="#__codelineno-0-73">73</a></span>
+<span class="normal"><a href="#__codelineno-0-74">74</a></span>
+<span class="normal"><a href="#__codelineno-0-75">75</a></span>
+<span class="normal"><a href="#__codelineno-0-76">76</a></span>
+<span class="normal"><a href="#__codelineno-0-77">77</a></span>
+<span class="normal"><a href="#__codelineno-0-78">78</a></span>
+<span class="normal"><a href="#__codelineno-0-79">79</a></span>
+<span class="normal"><a href="#__codelineno-0-80">80</a></span>
+<span class="normal"><a href="#__codelineno-0-81">81</a></span>
+<span class="normal"><a href="#__codelineno-0-82">82</a></span>
+<span class="normal"><a href="#__codelineno-0-83">83</a></span>
+<span class="normal"><a href="#__codelineno-0-84">84</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-17" name="__codelineno-0-17"></a><span class="k">def</span><span class="w"> </span><span class="nf">geometric_mean_hypo_cone</span><span class="p">(</span>
 <a id="__codelineno-0-18" name="__codelineno-0-18"></a>    <span class="n">A</span><span class="p">:</span> <span class="n">cvxpy</span><span class="o">.</span><span class="n">Expression</span><span class="p">,</span>
 <a id="__codelineno-0-19" name="__codelineno-0-19"></a>    <span class="n">B</span><span class="p">:</span> <span class="n">cvxpy</span><span class="o">.</span><span class="n">Expression</span><span class="p">,</span>
 <a id="__codelineno-0-20" name="__codelineno-0-20"></a>    <span class="n">T</span><span class="p">:</span> <span class="n">cvxpy</span><span class="o">.</span><span class="n">Expression</span><span class="p">,</span>
@@ -10539,20 +10576,38 @@ G_t(A, B) \geq T
 <a id="__codelineno-0-50" name="__codelineno-0-50"></a><span class="sd">    Returns:</span>
 <a id="__codelineno-0-51" name="__codelineno-0-51"></a><span class="sd">        A list of CVX constraints.</span>
 <a id="__codelineno-0-52" name="__codelineno-0-52"></a>
-<a id="__codelineno-0-53" name="__codelineno-0-53"></a><span class="sd">    &quot;&quot;&quot;</span>
-<a id="__codelineno-0-54" name="__codelineno-0-54"></a>    <span class="k">if</span> <span class="n">t</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">t</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
-<a id="__codelineno-0-55" name="__codelineno-0-55"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The weight must be in the range [0, 1].&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-56" name="__codelineno-0-56"></a>
-<a id="__codelineno-0-57" name="__codelineno-0-57"></a>    <span class="k">if</span> <span class="n">A</span><span class="o">.</span><span class="n">shape</span> <span class="o">!=</span> <span class="n">B</span><span class="o">.</span><span class="n">shape</span> <span class="ow">or</span> <span class="n">B</span><span class="o">.</span><span class="n">shape</span> <span class="o">!=</span> <span class="n">T</span><span class="o">.</span><span class="n">shape</span><span class="p">:</span>
-<a id="__codelineno-0-58" name="__codelineno-0-58"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The matrices must be the same size.&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-59" name="__codelineno-0-59"></a>    <span class="n">_require_square_2d</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="s2">&quot;The matrices&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-60" name="__codelineno-0-60"></a>
-<a id="__codelineno-0-61" name="__codelineno-0-61"></a>    <span class="k">if</span> <span class="n">fullhyp</span><span class="p">:</span>
-<a id="__codelineno-0-62" name="__codelineno-0-62"></a>        <span class="n">dim</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<a id="__codelineno-0-63" name="__codelineno-0-63"></a>        <span class="n">W</span> <span class="o">=</span> <span class="n">_symmetric_like_variable</span><span class="p">(</span><span class="n">dim</span><span class="p">,</span> <span class="n">hermitian</span><span class="o">=</span><span class="n">hermitian</span><span class="p">)</span>
-<a id="__codelineno-0-64" name="__codelineno-0-64"></a>        <span class="n">hypo_w</span> <span class="o">=</span> <span class="n">_geometric_mean_cone_recursion</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">W</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">t</span><span class="p">),</span> <span class="n">hermitian</span><span class="o">=</span><span class="n">hermitian</span><span class="p">)</span>
-<a id="__codelineno-0-65" name="__codelineno-0-65"></a>        <span class="k">return</span> <span class="p">[</span><span class="o">*</span><span class="n">hypo_w</span><span class="p">,</span> <span class="n">W</span> <span class="o">&gt;&gt;</span> <span class="n">T</span><span class="p">]</span>
-<a id="__codelineno-0-66" name="__codelineno-0-66"></a>    <span class="k">return</span> <span class="n">_geometric_mean_cone_recursion</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">t</span><span class="p">),</span> <span class="n">hermitian</span><span class="o">=</span><span class="n">hermitian</span><span class="p">)</span>
+<a id="__codelineno-0-53" name="__codelineno-0-53"></a><span class="sd">    Examples:</span>
+<a id="__codelineno-0-54" name="__codelineno-0-54"></a><span class="sd">        Maximize a scalar lower bound for the geometric mean with weight (t = 1/2).</span>
+<a id="__codelineno-0-55" name="__codelineno-0-55"></a>
+<a id="__codelineno-0-56" name="__codelineno-0-56"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;</span>
+<a id="__codelineno-0-57" name="__codelineno-0-57"></a><span class="sd">        import cvxpy</span>
+<a id="__codelineno-0-58" name="__codelineno-0-58"></a><span class="sd">        import numpy as np</span>
+<a id="__codelineno-0-59" name="__codelineno-0-59"></a>
+<a id="__codelineno-0-60" name="__codelineno-0-60"></a><span class="sd">        from toqito.cones import geometric_mean_hypo_cone</span>
+<a id="__codelineno-0-61" name="__codelineno-0-61"></a>
+<a id="__codelineno-0-62" name="__codelineno-0-62"></a><span class="sd">        mat_a = cvxpy.Constant(np.array([[4.0]]))</span>
+<a id="__codelineno-0-63" name="__codelineno-0-63"></a><span class="sd">        mat_b = cvxpy.Constant(np.array([[1.0]]))</span>
+<a id="__codelineno-0-64" name="__codelineno-0-64"></a><span class="sd">        mat_t = cvxpy.Variable((1, 1), symmetric=True)</span>
+<a id="__codelineno-0-65" name="__codelineno-0-65"></a><span class="sd">        constraints = geometric_mean_hypo_cone(mat_a, mat_b, mat_t, t=0.5)</span>
+<a id="__codelineno-0-66" name="__codelineno-0-66"></a><span class="sd">        problem = cvxpy.Problem(cvxpy.Maximize(mat_t[0, 0]), constraints)</span>
+<a id="__codelineno-0-67" name="__codelineno-0-67"></a><span class="sd">        problem.solve(solver=&quot;SCS&quot;)</span>
+<a id="__codelineno-0-68" name="__codelineno-0-68"></a><span class="sd">        print(f&quot;{mat_t.value.item():.2f}&quot;)</span>
+<a id="__codelineno-0-69" name="__codelineno-0-69"></a><span class="sd">        ```</span>
+<a id="__codelineno-0-70" name="__codelineno-0-70"></a>
+<a id="__codelineno-0-71" name="__codelineno-0-71"></a><span class="sd">    &quot;&quot;&quot;</span>
+<a id="__codelineno-0-72" name="__codelineno-0-72"></a>    <span class="k">if</span> <span class="n">t</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">t</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+<a id="__codelineno-0-73" name="__codelineno-0-73"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The weight must be in the range [0, 1].&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-74" name="__codelineno-0-74"></a>
+<a id="__codelineno-0-75" name="__codelineno-0-75"></a>    <span class="k">if</span> <span class="n">A</span><span class="o">.</span><span class="n">shape</span> <span class="o">!=</span> <span class="n">B</span><span class="o">.</span><span class="n">shape</span> <span class="ow">or</span> <span class="n">B</span><span class="o">.</span><span class="n">shape</span> <span class="o">!=</span> <span class="n">T</span><span class="o">.</span><span class="n">shape</span><span class="p">:</span>
+<a id="__codelineno-0-76" name="__codelineno-0-76"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The matrices must be the same size.&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-77" name="__codelineno-0-77"></a>    <span class="n">_require_square_2d</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="s2">&quot;The matrices&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-78" name="__codelineno-0-78"></a>
+<a id="__codelineno-0-79" name="__codelineno-0-79"></a>    <span class="k">if</span> <span class="n">fullhyp</span><span class="p">:</span>
+<a id="__codelineno-0-80" name="__codelineno-0-80"></a>        <span class="n">dim</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<a id="__codelineno-0-81" name="__codelineno-0-81"></a>        <span class="n">W</span> <span class="o">=</span> <span class="n">_symmetric_like_variable</span><span class="p">(</span><span class="n">dim</span><span class="p">,</span> <span class="n">hermitian</span><span class="o">=</span><span class="n">hermitian</span><span class="p">)</span>
+<a id="__codelineno-0-82" name="__codelineno-0-82"></a>        <span class="n">hypo_w</span> <span class="o">=</span> <span class="n">_geometric_mean_cone_recursion</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">W</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">t</span><span class="p">),</span> <span class="n">hermitian</span><span class="o">=</span><span class="n">hermitian</span><span class="p">)</span>
+<a id="__codelineno-0-83" name="__codelineno-0-83"></a>        <span class="k">return</span> <span class="p">[</span><span class="o">*</span><span class="n">hypo_w</span><span class="p">,</span> <span class="n">W</span> <span class="o">&gt;&gt;</span> <span class="n">T</span><span class="p">]</span>
+<a id="__codelineno-0-84" name="__codelineno-0-84"></a>    <span class="k">return</span> <span class="n">_geometric_mean_cone_recursion</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">t</span><span class="p">),</span> <span class="n">hermitian</span><span class="o">=</span><span class="n">hermitian</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
