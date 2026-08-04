@@ -22,6 +22,9 @@ def w_state(num_qubits: int, coeff: list[int] | None = None) -> np.ndarray:
         num_qubits: An integer representing the number of qubits.
         coeff: default is `[1, 1, ..., 1]/sqrt(num_qubits)`: a 1-by-`num_qubits` vector of coefficients.
 
+    Returns:
+        A dense `numpy.ndarray` containing the W-state column vector.
+
     Raises:
         ValueError: The number of qubits must be at least 2.
 
