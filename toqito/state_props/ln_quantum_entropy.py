@@ -35,6 +35,18 @@ def ln_quantum_entropy(mat_x: np.ndarray | cvxpy.Expression) -> float:
     Returns:
         The quantum entropy of the matrix as a float.
 
+    Examples:
+        The maximally mixed qubit state has entropy log(2) in nats.
+
+        ```python exec="1" source="above" result="text"
+        import numpy as np
+
+        from toqito.state_props import ln_quantum_entropy
+
+        print(f"{ln_quantum_entropy(np.eye(2) / 2):.4f}")
+        ```
+
+
     """
     if not isinstance(mat_x, (np.ndarray, cvxpy.Expression)):
         raise ValueError("mat_x must be a numpy array or a cvxpy expression")

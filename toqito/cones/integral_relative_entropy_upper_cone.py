@@ -56,6 +56,27 @@ def integral_relative_entropy_upper_cone(
     Returns:
         A list of CVXPY constraints.
 
+    Examples:
+        The constraints form an epigraph, so minimizing the scalar bounds the relative entropy
+        from above. For these commuting states the exact value is 0.1308 nats.
+
+        ```python exec="1" source="above" result="text"
+        import cvxpy
+        import numpy as np
+
+        from toqito.cones import integral_relative_entropy_upper_cone
+
+        mat_x = cvxpy.Constant(np.diag([0.75, 0.25]))
+        mat_y = cvxpy.Constant(np.diag([0.5, 0.5]))
+        bound = cvxpy.Variable()
+        constraints = integral_relative_entropy_upper_cone(mat_x, mat_y, bound)
+        problem = cvxpy.Problem(cvxpy.Minimize(bound), constraints)
+        problem.solve(solver="SCS")
+
+        print(f"{float(np.asarray(bound.value).item()):.4f}")
+        ```
+
+
     """
     _require_square_2d(mat_x, "mat_x")
     _require_square_2d(mat_y, "mat_y")
