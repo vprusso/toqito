@@ -69,6 +69,10 @@ def gell_mann(ind: int, is_sparse: bool = False) -> np.ndarray | csr_array:
         ind: An integer between 0 and 8 (inclusive).
         is_sparse: Boolean to determine whether array is sparse. Default value is `False`.
 
+    Returns:
+        The Gell-Mann matrix as a dense `numpy.ndarray`, or as a sparse
+        `scipy.sparse.csr_array` when `is_sparse` is `True`.
+
     Raises:
         ValueError: Indices must be integers between 0 and 8.
 
