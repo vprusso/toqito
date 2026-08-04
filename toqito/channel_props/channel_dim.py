@@ -42,6 +42,12 @@ def channel_dim(
     Returns:
         The input, output, and environment dimensions of a channel.
 
+    Raises:
+        ValueError: If rectangular spaces are disallowed but the channel is
+            rectangular, the supplied dimensions do not match the channel,
+            Kraus operators have inconsistent sizes, or ``dim`` is not a
+            scalar, length-two vector, or \(2 \times 2\) matrix.
+
     Examples:
         The dimensions of a channel can be computed from a list of Kraus operators.
         For example, the following Kraus operators describe a qubit bit-flip

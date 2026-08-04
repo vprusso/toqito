@@ -28,6 +28,9 @@ def kraus_to_choi(kraus_ops: list[np.ndarray] | list[list[np.ndarray]], sys: int
     Returns:
         The corresponding Choi matrix of the provided Kraus operators.
 
+    Raises:
+        ValueError: If ``sys`` is negative or ``kraus_ops`` is empty.
+
     Examples:
         The transpose map:
 
