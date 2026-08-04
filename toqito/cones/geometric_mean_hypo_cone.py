@@ -50,6 +50,24 @@ def geometric_mean_hypo_cone(
     Returns:
         A list of CVX constraints.
 
+    Examples:
+        Maximize a scalar lower bound for the geometric mean with weight (t = 1/2).
+
+        ```python exec="1" source="above" result="text"
+        import cvxpy
+        import numpy as np
+
+        from toqito.cones import geometric_mean_hypo_cone
+
+        mat_a = cvxpy.Constant(np.array([[4.0]]))
+        mat_b = cvxpy.Constant(np.array([[1.0]]))
+        mat_t = cvxpy.Variable((1, 1), symmetric=True)
+        constraints = geometric_mean_hypo_cone(mat_a, mat_b, mat_t, t=0.5)
+        problem = cvxpy.Problem(cvxpy.Maximize(mat_t[0, 0]), constraints)
+        problem.solve(solver="SCS")
+        print(f"{mat_t.value.item():.2f}")
+        ```
+
     """
     if t < 0 or t > 1:
         raise ValueError("The weight must be in the range [0, 1].")
