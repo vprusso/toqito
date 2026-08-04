@@ -326,9 +326,9 @@ def __lower_bound_sk_norm_randomized(
             )
         else:
             opt_vec = start_vec
-            opt_schmidt = np.zeros((max(dim) * k, max(dim) * k))
-            opt_schmidt[: k * dim_a, 0] = np.ravel(vt_mat @ np.diag(singular_vals), order="F")
-            opt_schmidt[: k * dim_b, 1] = np.ravel(u_mat, order="F")
+            opt_schmidt = np.zeros((max(dim) * k, 2), dtype=complex)
+            opt_schmidt[: s_rank * dim_a, 0] = np.ravel(vt_mat @ np.diag(singular_vals.ravel()), order="F")
+            opt_schmidt[: s_rank * dim_b, 1] = np.ravel(u_mat, order="F")
 
     if opt_vec is None:
         opt_schmidt = np.random.randn(max(dim) * k, 2) + 1j * np.random.randn(max(dim) * k, 2)
