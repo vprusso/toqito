@@ -27,9 +27,9 @@ def test_is_ppt(mat, sys, dim, tol, expected_result):
     np.testing.assert_equal(is_ppt(mat=mat, sys=sys, dim=dim, tol=tol), expected_result)
 
 
-def test_is_ppt_non_hermitian_matrix():
-    """Non-Hermitian matrices with invalid dimensions should raise an error."""
-    mat = np.array([[1, 2], [0, 1]])  # Not Hermitian, not valid bipartite dims
+def test_is_ppt_dimension_not_a_perfect_square():
+    """A matrix whose dimension is not a perfect square cannot be split into two subsystems."""
+    mat = np.array([[1, 2], [0, 1]])  # 2 is not a perfect square, so dim becomes [[1, 1], [1, 1]]
 
-    with pytest.raises(Exception):
+    with pytest.raises(ValueError, match="cannot reshape"):
         is_ppt(mat)
