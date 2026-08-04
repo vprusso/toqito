@@ -40,6 +40,24 @@ def test_custom_sigma():
     assert np.isclose(gram[0, 1], 0.5)
 
 
+def test_vectorized_result_matches_reference_for_rectangular_isometries():
+    """The vectorized contraction agrees with the entry-by-entry definition."""
+    rng = np.random.default_rng(0)
+    isometries = [np.linalg.qr(rng.normal(size=(5, 3)) + 1j * rng.normal(size=(5, 3)))[0] for _ in range(4)]
+    sigma_factor = rng.normal(size=(3, 3)) + 1j * rng.normal(size=(3, 3))
+    sigma = sigma_factor @ sigma_factor.conj().T
+    sigma /= np.trace(sigma)
+    expected = np.array(
+        [[np.trace(right.conj().T @ left @ sigma) for right in isometries] for left in isometries],
+        dtype=complex,
+    )
+
+    result = channel_gram_matrix(isometries, sigma)
+
+    assert result.dtype == np.dtype(complex)
+    assert np.allclose(result, expected)
+
+
 def test_non_isometry_raises():
     """A non-isometry operator is rejected."""
     with pytest.raises(ValueError, match="must be an isometry"):
