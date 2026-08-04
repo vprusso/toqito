@@ -79,9 +79,5 @@ def channel_gram_matrix(
     elif sigma.shape != (dim_in, dim_in):
         raise ValueError("sigma must be a (dim_in, dim_in) density operator.")
 
-    n = len(isometries)
-    gram = np.zeros((n, n), dtype=complex)
-    for i in range(n):
-        for j in range(n):
-            gram[i, j] = np.trace(isometries[j].conj().T @ isometries[i] @ sigma)
-    return gram
+    mats = np.stack(isometries)
+    return np.einsum("jab,iac,cb->ij", mats.conj(), mats, sigma, dtype=complex, optimize=True)
