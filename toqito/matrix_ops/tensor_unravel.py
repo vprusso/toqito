@@ -35,6 +35,10 @@ def tensor_unravel(constraint_tensor: np.ndarray) -> np.ndarray:
         A 1D `numpy` array of length \(n+1\) where the first \(n\) elements are the coordinates (indices), and the last
         element is the unique constant (rhs).
 
+    Raises:
+        ValueError: If `constraint_tensor` does not have exactly two distinct values, has no value occurring
+            exactly once, or that value occurs more than once.
+
     Examples:
         ```python exec="1" source="above" result="text"
         import numpy as np

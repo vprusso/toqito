@@ -89,6 +89,10 @@ def symmetric_extension_hierarchy(
         distinguishability value for `objective="distinguish"`, or the exclusion error for
         `objective="exclude"`.
 
+    Raises:
+        ValueError: If `objective` is not 'distinguish' or 'exclude', no states are provided, the
+            probabilities do not sum to 1, or a scalar `dim` does not evenly divide the length of the state.
+
     Examples:
         It is known from [@cosentino2015quantum] that distinguishing three Bell states along with a resource
         state \(|\tau_{\epsilon}\rangle\) via separable measurements has the following closed form

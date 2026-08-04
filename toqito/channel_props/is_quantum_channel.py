@@ -31,6 +31,9 @@ def is_quantum_channel(
     Returns:
         `True` if the channel is a quantum channel, and `False` otherwise.
 
+    Raises:
+        TypeError: If `phi` is not a numpy array, a list of Kraus operators, or a list of Kraus operator pairs.
+
     Examples:
         We can specify the input as a list of Kraus operators. Consider the map \(\Phi\) defined as
 

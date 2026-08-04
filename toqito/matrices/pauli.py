@@ -55,6 +55,9 @@ def pauli(ind: int | str | list[int] | list[str], is_sparse: bool = False) -> np
         tensor product of the indicated Pauli matrices when `ind` is a list. Returned as a
         `scipy.sparse.csr_array` if `is_sparse` is True and as a `np.ndarray` otherwise.
 
+    Raises:
+        ValueError: If `ind` is not one of the recognized Pauli indices.
+
     Examples:
         Example for identity Pauli matrix.
 

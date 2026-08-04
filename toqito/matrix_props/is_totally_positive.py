@@ -26,6 +26,9 @@ def is_totally_positive(
     Returns:
         Return `True` if matrix is totally positive, and `False` otherwise.
 
+    Raises:
+        ValueError: If `mat` is empty.
+
     Examples:
         Consider the matrix
 

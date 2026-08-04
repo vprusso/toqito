@@ -28,6 +28,9 @@ def is_povm(mat_list: list[np.ndarray], rtol: float = 1e-05, atol: float = 1e-08
     Returns:
         Return `True` if set of matrices constitutes a set of measurements, and `False` otherwise.
 
+    Raises:
+        ValueError: If `mat_list` is empty, or its elements are not square matrices of the same dimension.
+
     Examples:
         Consider the following matrices:
 

@@ -17,6 +17,9 @@ def null_space(mat: np.ndarray, tol: float = 1e-08) -> np.ndarray:
     Returns:
         A matrix whose columns form an orthonormal basis for the null space.
 
+    Raises:
+        ValueError: If `mat` is not a two-dimensional array.
+
     Examples:
         Consider the matrix
 

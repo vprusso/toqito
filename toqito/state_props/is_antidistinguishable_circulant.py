@@ -39,6 +39,9 @@ def is_antidistinguishable_circulant(
     Returns:
         `True` if the vectors are antidistinguishable; `False` otherwise.
 
+    Raises:
+        ValueError: If the Gram matrix of `states` is not circulant.
+
     Examples:
         The trine states are a well-known example of antidistinguishable states. They are defined as:
 

@@ -34,6 +34,9 @@ def symmetric_projection(dim: int, p_val: int = 2, partial: bool = False) -> np.
     Returns:
         Projection onto the symmetric subspace.
 
+    Raises:
+        ValueError: If `dim` is less than 1, or `p_val` is less than 1.
+
     Examples:
         The \(2\)-dimensional symmetric projection with \(p=1\) is given as \(2\)-by-\(2\) identity matrix
 

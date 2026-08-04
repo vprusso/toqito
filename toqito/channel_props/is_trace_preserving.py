@@ -53,6 +53,9 @@ def is_trace_preserving(
     Returns:
         True if the channel is trace-preserving, and False otherwise.
 
+    Raises:
+        ValueError: If `dim` is not given and equal subsystem dimensions cannot be inferred from the shape of `phi`.
+
     Examples:
         The map \(\Phi\) defined as
 
