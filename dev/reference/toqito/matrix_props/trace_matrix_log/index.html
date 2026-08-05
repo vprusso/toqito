@@ -10452,6 +10452,19 @@ semidefinite matrix.</p>
           </div>
         </li>
     </ul>
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>For a diagonal matrix the trace of the matrix logarithm is the sum of the logarithms of
+the eigenvalues, so this returns log(1) + log(2) = log(2).</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.matrix_props</span><span class="w"> </span><span class="kn">import</span> <span class="n">trace_matrix_log</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">trace_matrix_log</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="mf">2.0</span><span class="p">]))</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>0.6931
+</code></pre></div>
         <p><strong>References</strong></p>
 <p><span id="ref-toqito-matrix_props-trace_matrix_log-trace_matrix_log-1"><sup><a href="#cite-toqito-matrix_props-trace_matrix_log-trace_matrix_log-1">1</a></sup> Fawzi, Hamza and Saunderson, James and Parrilo, Pablo. <em>Semidefinite approximations of the matrix logarithm</em>. <strong>Foundations of Computational Mathematics</strong>. vol. 19(2). (2019). <a href="https://doi.org/10.1007/s10208-018-9385-0">doi:10.1007/s10208-018-9385-0</a>.</span></p>
 
@@ -10523,7 +10536,20 @@ semidefinite matrix.</p>
 <span class="normal"><a href="#__codelineno-0-76">76</a></span>
 <span class="normal"><a href="#__codelineno-0-77">77</a></span>
 <span class="normal"><a href="#__codelineno-0-78">78</a></span>
-<span class="normal"><a href="#__codelineno-0-79">79</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-14" name="__codelineno-0-14"></a><span class="k">def</span><span class="w"> </span><span class="nf">trace_matrix_log</span><span class="p">(</span>
+<span class="normal"><a href="#__codelineno-0-79">79</a></span>
+<span class="normal"><a href="#__codelineno-0-80">80</a></span>
+<span class="normal"><a href="#__codelineno-0-81">81</a></span>
+<span class="normal"><a href="#__codelineno-0-82">82</a></span>
+<span class="normal"><a href="#__codelineno-0-83">83</a></span>
+<span class="normal"><a href="#__codelineno-0-84">84</a></span>
+<span class="normal"><a href="#__codelineno-0-85">85</a></span>
+<span class="normal"><a href="#__codelineno-0-86">86</a></span>
+<span class="normal"><a href="#__codelineno-0-87">87</a></span>
+<span class="normal"><a href="#__codelineno-0-88">88</a></span>
+<span class="normal"><a href="#__codelineno-0-89">89</a></span>
+<span class="normal"><a href="#__codelineno-0-90">90</a></span>
+<span class="normal"><a href="#__codelineno-0-91">91</a></span>
+<span class="normal"><a href="#__codelineno-0-92">92</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-14" name="__codelineno-0-14"></a><span class="k">def</span><span class="w"> </span><span class="nf">trace_matrix_log</span><span class="p">(</span>
 <a id="__codelineno-0-15" name="__codelineno-0-15"></a>    <span class="n">mat_x</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="n">cvxpy</span><span class="o">.</span><span class="n">Expression</span><span class="p">,</span>
 <a id="__codelineno-0-16" name="__codelineno-0-16"></a>    <span class="n">mat_c</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <a id="__codelineno-0-17" name="__codelineno-0-17"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
@@ -10559,36 +10585,49 @@ semidefinite matrix.</p>
 <a id="__codelineno-0-47" name="__codelineno-0-47"></a><span class="sd">    Returns:</span>
 <a id="__codelineno-0-48" name="__codelineno-0-48"></a><span class="sd">        A float representing the value of the trace of the matrix logarithm.</span>
 <a id="__codelineno-0-49" name="__codelineno-0-49"></a>
-<a id="__codelineno-0-50" name="__codelineno-0-50"></a><span class="sd">    &quot;&quot;&quot;</span>
-<a id="__codelineno-0-51" name="__codelineno-0-51"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">mat_x</span><span class="p">,</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">cvxpy</span><span class="o">.</span><span class="n">Expression</span><span class="p">)):</span>
-<a id="__codelineno-0-52" name="__codelineno-0-52"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;mat_x must be a numpy array or a cvxpy expression&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-53" name="__codelineno-0-53"></a>    <span class="n">_require_square_2d</span><span class="p">(</span><span class="n">mat_x</span><span class="p">,</span> <span class="s2">&quot;mat_x&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-54" name="__codelineno-0-54"></a>    <span class="k">if</span> <span class="n">mat_c</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-<a id="__codelineno-0-55" name="__codelineno-0-55"></a>        <span class="n">mat_c</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">mat_x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<a id="__codelineno-0-56" name="__codelineno-0-56"></a>    <span class="k">else</span><span class="p">:</span>
-<a id="__codelineno-0-57" name="__codelineno-0-57"></a>        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">mat_c</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
-<a id="__codelineno-0-58" name="__codelineno-0-58"></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;mat_c must be a numpy array&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-59" name="__codelineno-0-59"></a>        <span class="n">_require_square_2d</span><span class="p">(</span><span class="n">mat_c</span><span class="p">,</span> <span class="s2">&quot;mat_c&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-60" name="__codelineno-0-60"></a>        <span class="k">if</span> <span class="ow">not</span> <span class="n">is_positive_semidefinite</span><span class="p">(</span><span class="n">mat_c</span><span class="p">):</span>
-<a id="__codelineno-0-61" name="__codelineno-0-61"></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;mat_c must be a positive semidefinite matrix&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-62" name="__codelineno-0-62"></a>    <span class="k">if</span> <span class="n">mat_x</span><span class="o">.</span><span class="n">shape</span> <span class="o">!=</span> <span class="n">mat_c</span><span class="o">.</span><span class="n">shape</span><span class="p">:</span>
-<a id="__codelineno-0-63" name="__codelineno-0-63"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;mat_x and mat_c must have the same shape&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-64" name="__codelineno-0-64"></a>
-<a id="__codelineno-0-65" name="__codelineno-0-65"></a>    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">mat_x</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
-<a id="__codelineno-0-66" name="__codelineno-0-66"></a>        <span class="k">if</span> <span class="ow">not</span> <span class="n">is_positive_semidefinite</span><span class="p">(</span><span class="n">mat_x</span><span class="p">):</span>
-<a id="__codelineno-0-67" name="__codelineno-0-67"></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;mat_x must be a positive semidefinite matrix&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-68" name="__codelineno-0-68"></a>        <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="n">mat_c</span> <span class="o">@</span> <span class="n">logm</span><span class="p">(</span><span class="n">mat_x</span><span class="p">))))</span>
-<a id="__codelineno-0-69" name="__codelineno-0-69"></a>
-<a id="__codelineno-0-70" name="__codelineno-0-70"></a>    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">mat_x</span><span class="p">,</span> <span class="n">cvxpy</span><span class="o">.</span><span class="n">Expression</span><span class="p">)</span> <span class="ow">and</span> <span class="n">mat_x</span><span class="o">.</span><span class="n">is_constant</span><span class="p">():</span>
-<a id="__codelineno-0-71" name="__codelineno-0-71"></a>        <span class="n">x_val</span> <span class="o">=</span> <span class="n">mat_x</span><span class="o">.</span><span class="n">value</span>
-<a id="__codelineno-0-72" name="__codelineno-0-72"></a>        <span class="k">if</span> <span class="n">x_val</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-<a id="__codelineno-0-73" name="__codelineno-0-73"></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-<a id="__codelineno-0-74" name="__codelineno-0-74"></a>                <span class="s2">&quot;Constant CVXPY expression has no numeric value; set parameter `.value` &quot;</span>
-<a id="__codelineno-0-75" name="__codelineno-0-75"></a>                <span class="s2">&quot;or pass mat_x as a numpy.ndarray.&quot;</span>
-<a id="__codelineno-0-76" name="__codelineno-0-76"></a>            <span class="p">)</span>
-<a id="__codelineno-0-77" name="__codelineno-0-77"></a>        <span class="k">return</span> <span class="n">trace_matrix_log</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">x_val</span><span class="p">),</span> <span class="n">mat_c</span><span class="p">)</span>
-<a id="__codelineno-0-78" name="__codelineno-0-78"></a>
-<a id="__codelineno-0-79" name="__codelineno-0-79"></a>    <span class="n">_reject_nonconstant_cvxpy</span><span class="p">(</span><span class="n">mat_x</span><span class="p">)</span>
+<a id="__codelineno-0-50" name="__codelineno-0-50"></a><span class="sd">    Examples:</span>
+<a id="__codelineno-0-51" name="__codelineno-0-51"></a><span class="sd">        For a diagonal matrix the trace of the matrix logarithm is the sum of the logarithms of</span>
+<a id="__codelineno-0-52" name="__codelineno-0-52"></a><span class="sd">        the eigenvalues, so this returns log(1) + log(2) = log(2).</span>
+<a id="__codelineno-0-53" name="__codelineno-0-53"></a>
+<a id="__codelineno-0-54" name="__codelineno-0-54"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;</span>
+<a id="__codelineno-0-55" name="__codelineno-0-55"></a><span class="sd">        import numpy as np</span>
+<a id="__codelineno-0-56" name="__codelineno-0-56"></a>
+<a id="__codelineno-0-57" name="__codelineno-0-57"></a><span class="sd">        from toqito.matrix_props import trace_matrix_log</span>
+<a id="__codelineno-0-58" name="__codelineno-0-58"></a>
+<a id="__codelineno-0-59" name="__codelineno-0-59"></a><span class="sd">        print(f&quot;{trace_matrix_log(np.diag([1.0, 2.0])):.4f}&quot;)</span>
+<a id="__codelineno-0-60" name="__codelineno-0-60"></a><span class="sd">        ```</span>
+<a id="__codelineno-0-61" name="__codelineno-0-61"></a>
+<a id="__codelineno-0-62" name="__codelineno-0-62"></a>
+<a id="__codelineno-0-63" name="__codelineno-0-63"></a><span class="sd">    &quot;&quot;&quot;</span>
+<a id="__codelineno-0-64" name="__codelineno-0-64"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">mat_x</span><span class="p">,</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">cvxpy</span><span class="o">.</span><span class="n">Expression</span><span class="p">)):</span>
+<a id="__codelineno-0-65" name="__codelineno-0-65"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;mat_x must be a numpy array or a cvxpy expression&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-66" name="__codelineno-0-66"></a>    <span class="n">_require_square_2d</span><span class="p">(</span><span class="n">mat_x</span><span class="p">,</span> <span class="s2">&quot;mat_x&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-67" name="__codelineno-0-67"></a>    <span class="k">if</span> <span class="n">mat_c</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-0-68" name="__codelineno-0-68"></a>        <span class="n">mat_c</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">mat_x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<a id="__codelineno-0-69" name="__codelineno-0-69"></a>    <span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-0-70" name="__codelineno-0-70"></a>        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">mat_c</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+<a id="__codelineno-0-71" name="__codelineno-0-71"></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;mat_c must be a numpy array&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-72" name="__codelineno-0-72"></a>        <span class="n">_require_square_2d</span><span class="p">(</span><span class="n">mat_c</span><span class="p">,</span> <span class="s2">&quot;mat_c&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-73" name="__codelineno-0-73"></a>        <span class="k">if</span> <span class="ow">not</span> <span class="n">is_positive_semidefinite</span><span class="p">(</span><span class="n">mat_c</span><span class="p">):</span>
+<a id="__codelineno-0-74" name="__codelineno-0-74"></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;mat_c must be a positive semidefinite matrix&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-75" name="__codelineno-0-75"></a>    <span class="k">if</span> <span class="n">mat_x</span><span class="o">.</span><span class="n">shape</span> <span class="o">!=</span> <span class="n">mat_c</span><span class="o">.</span><span class="n">shape</span><span class="p">:</span>
+<a id="__codelineno-0-76" name="__codelineno-0-76"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;mat_x and mat_c must have the same shape&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-77" name="__codelineno-0-77"></a>
+<a id="__codelineno-0-78" name="__codelineno-0-78"></a>    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">mat_x</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+<a id="__codelineno-0-79" name="__codelineno-0-79"></a>        <span class="k">if</span> <span class="ow">not</span> <span class="n">is_positive_semidefinite</span><span class="p">(</span><span class="n">mat_x</span><span class="p">):</span>
+<a id="__codelineno-0-80" name="__codelineno-0-80"></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;mat_x must be a positive semidefinite matrix&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-81" name="__codelineno-0-81"></a>        <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="n">mat_c</span> <span class="o">@</span> <span class="n">logm</span><span class="p">(</span><span class="n">mat_x</span><span class="p">))))</span>
+<a id="__codelineno-0-82" name="__codelineno-0-82"></a>
+<a id="__codelineno-0-83" name="__codelineno-0-83"></a>    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">mat_x</span><span class="p">,</span> <span class="n">cvxpy</span><span class="o">.</span><span class="n">Expression</span><span class="p">)</span> <span class="ow">and</span> <span class="n">mat_x</span><span class="o">.</span><span class="n">is_constant</span><span class="p">():</span>
+<a id="__codelineno-0-84" name="__codelineno-0-84"></a>        <span class="n">x_val</span> <span class="o">=</span> <span class="n">mat_x</span><span class="o">.</span><span class="n">value</span>
+<a id="__codelineno-0-85" name="__codelineno-0-85"></a>        <span class="k">if</span> <span class="n">x_val</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-0-86" name="__codelineno-0-86"></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+<a id="__codelineno-0-87" name="__codelineno-0-87"></a>                <span class="s2">&quot;Constant CVXPY expression has no numeric value; set parameter `.value` &quot;</span>
+<a id="__codelineno-0-88" name="__codelineno-0-88"></a>                <span class="s2">&quot;or pass mat_x as a numpy.ndarray.&quot;</span>
+<a id="__codelineno-0-89" name="__codelineno-0-89"></a>            <span class="p">)</span>
+<a id="__codelineno-0-90" name="__codelineno-0-90"></a>        <span class="k">return</span> <span class="n">trace_matrix_log</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">x_val</span><span class="p">),</span> <span class="n">mat_c</span><span class="p">)</span>
+<a id="__codelineno-0-91" name="__codelineno-0-91"></a>
+<a id="__codelineno-0-92" name="__codelineno-0-92"></a>    <span class="n">_reject_nonconstant_cvxpy</span><span class="p">(</span><span class="n">mat_x</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
