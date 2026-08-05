@@ -47,6 +47,19 @@ def trace_matrix_log(
     Returns:
         A float representing the value of the trace of the matrix logarithm.
 
+    Examples:
+        For a diagonal matrix the trace of the matrix logarithm is the sum of the logarithms of
+        the eigenvalues, so this returns log(1) + log(2) = log(2).
+
+        ```python exec="1" source="above" result="text"
+        import numpy as np
+
+        from toqito.matrix_props import trace_matrix_log
+
+        print(f"{trace_matrix_log(np.diag([1.0, 2.0])):.4f}")
+        ```
+
+
     """
     if not isinstance(mat_x, (np.ndarray, cvxpy.Expression)):
         raise ValueError("mat_x must be a numpy array or a cvxpy expression")

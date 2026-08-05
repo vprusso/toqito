@@ -57,6 +57,27 @@ def operator_relative_entropy_epi_cone(
     Returns:
         A list of CVX constraints.
 
+    Examples:
+        Minimizing the trace of the epigraph variable recovers the relative entropy of the two
+        states, 0.1308 nats for this commuting pair.
+
+        ```python exec="1" source="above" result="text"
+        import cvxpy
+        import numpy as np
+
+        from toqito.cones import operator_relative_entropy_epi_cone
+
+        mat_x = cvxpy.Constant(np.diag([0.75, 0.25]))
+        mat_y = cvxpy.Constant(np.diag([0.5, 0.5]))
+        tau = cvxpy.Variable((2, 2), symmetric=True)
+        constraints = operator_relative_entropy_epi_cone(mat_x, mat_y, tau)
+        problem = cvxpy.Problem(cvxpy.Minimize(cvxpy.trace(tau)), constraints)
+        problem.solve(solver="SCS")
+
+        print(f"{float(np.trace(tau.value)):.4f}")
+        ```
+
+
     """
     _require_square_2d(X, "X")
     _require_square_2d(Y, "Y")
