@@ -32,6 +32,9 @@ def is_equiangular_tight_frame(mat: np.ndarray, tol: float = 1e-8) -> bool:
     Returns:
         `True` if the columns of `mat` form an equiangular tight frame; `False` otherwise.
 
+    Raises:
+        ValueError: If `mat` is not a 2D matrix.
+
     Examples:
         The columns of a Hadamard matrix (rescaled) form an ETF.
 

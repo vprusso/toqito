@@ -164,6 +164,12 @@ def state_exclusion(
         The optimal probability with which Bob can guess the state he was not given from `states` along with the optimal
         set of measurements.
 
+    Raises:
+        ValueError: If `measurement` is not 'positive', 'ppt', or 'locc', `primal_dual` is not 'primal' or
+            'dual', `strategy` is not 'min_error' or 'unambiguous', the vectors do not all have the same
+            dimension, the number of probabilities does not equal the number of states, any probability is
+            negative, or `measurement` is 'locc' without `strategy='min_error'` and a length-two `dimensions`.
+
     Examples:
         Consider the following two Bell states
 

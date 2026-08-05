@@ -19,6 +19,9 @@ def positive_semidefinite_rank(mat: np.ndarray, max_rank: int = 10) -> int | Non
     Returns:
         The positive semidefinite rank if found within `max_rank`, or `None` otherwise.
 
+    Raises:
+        ValueError: If `mat` is not nonnegative, or is not square.
+
     Examples:
         As an example (Equation 21 from [@heinosaari2024can]), the PSD rank of the following matrix
 

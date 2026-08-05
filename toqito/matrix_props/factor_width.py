@@ -41,6 +41,10 @@ def factor_width(
         ``factors`` (list of PSD matrices whose sum equals ``mat`` when feasible), and
         ``subspaces`` (orthonormal bases spanning the subspaces used in the decomposition).
 
+    Raises:
+        ValueError: If `mat` is not square, `k` does not satisfy 1 <= k <= d, or `mat` is not positive
+            semidefinite.
+
     Examples:
         The matrix \(\operatorname{diag}(1, 1, 0)\) has factor width at most \(1\).
         ```python exec="1" source="above" result="text"

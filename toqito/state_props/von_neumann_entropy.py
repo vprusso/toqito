@@ -35,6 +35,9 @@ def von_neumann_entropy(rho: np.ndarray) -> float:
     Returns:
         The von Neumann entropy of `rho`.
 
+    Raises:
+        ValueError: If `rho` is not a density operator.
+
     Examples:
         Consider the following Bell state:
 

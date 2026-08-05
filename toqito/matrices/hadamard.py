@@ -32,6 +32,9 @@ def hadamard(n_param: int = 1) -> np.ndarray:
     Returns:
         The `2^{n_param}`-dimensional Hadamard matrix.
 
+    Raises:
+        ValueError: If `n_param` is less than 1.
+
     Examples:
         The standard 1-qubit Hadamard matrix can be generated in `toqito` as
 

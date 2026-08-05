@@ -37,6 +37,9 @@ def renyi_entropy(rho: np.ndarray, alpha: float) -> float:
     Returns:
         The Rényi entropy of order `alpha` of `rho`.
 
+    Raises:
+        ValueError: If `rho` is not a density operator, or `alpha` is negative.
+
     Examples:
         Consider the following Bell state:
 

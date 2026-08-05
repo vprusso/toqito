@@ -103,6 +103,11 @@ def state_distinguishability(
         The optimal probability with which Bob can guess the state he was not given from `states` along with the optimal
         set of measurements.
 
+    Raises:
+        ValueError: If `measurement` is not 'positive' or 'ppt', `primal_dual` is not 'primal' or 'dual',
+            `strategy` is not 'min_error' or 'unambiguous', the vectors do not all have the same dimension,
+            the number of probabilities does not equal the number of states, or any probability is negative.
+
     Examples:
         Minimal-error state distinguishability for the Bell states (which are perfectly distinguishable).
 

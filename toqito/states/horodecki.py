@@ -70,6 +70,9 @@ def horodecki(a_param: float, dim: list[int] | None = None) -> np.ndarray:
     Returns:
         The Horodecki density matrix for the requested dimensions.
 
+    Raises:
+        ValueError: If `a_param` is outside the interval [0, 1], or `dim` is not [3, 3] or [2, 4].
+
     Examples:
         The following code generates a Horodecki state in \(\mathbb{C}^3 \otimes \mathbb{C}^3\)
 

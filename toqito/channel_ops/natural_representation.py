@@ -17,6 +17,9 @@ def natural_representation(kraus_ops: list[np.ndarray]) -> np.ndarray:
     Returns:
         The natural-representation matrix of the quantum channel.
 
+    Raises:
+        ValueError: If `kraus_ops` is empty, or the Kraus operators do not all have the same dimensions.
+
     Examples:
         ```python exec="1" source="above" result="text"
         import numpy as np
