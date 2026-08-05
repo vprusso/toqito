@@ -213,3 +213,20 @@ def test_sk_norm_randomized_start_vec_complex_below_k():
     product = np.kron(np.array([1j, 0.0, 0.0]), np.array([1.0, 0.0, 0.0]))
     result = __lower_bound_sk_norm_randomized(np.eye(9), k=2, dim=dim, tol=1e-4, start_vec=product)
     assert np.isfinite(result)
+
+
+def test_sk_operator_norm_k_greater_than_one_sdp_branch():
+    """A positive operator with k > 1 exercises the non-PPT SDP upper bound.
+
+    For k = 1 the SDP constrains the partial transpose; for k > 1 it instead uses
+    the k-times partial-trace constraint, which no other test reaches.
+    """
+    rng = np.random.default_rng(1)
+    mat = rng.normal(size=(9, 9))
+    mat = mat @ mat.T
+    mat = mat / np.trace(mat)
+
+    lower_bound, upper_bound = sk_operator_norm(mat, k=2, dim=[3, 3])
+
+    assert lower_bound <= upper_bound + 1e-6
+    assert lower_bound > 0

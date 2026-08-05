@@ -2,7 +2,9 @@
 
 import re
 import unittest
+from unittest import mock
 
+import cvxpy
 import numpy as np
 import pytest
 
@@ -190,3 +192,19 @@ def test_xor_game_invalid_input(prob_mat, pred_mat, expected_msg):
     """Constructor raises for a shape mismatch or an invalid probability matrix."""
     with pytest.raises(ValueError, match=re.escape(expected_msg)):
         XORGame(prob_mat, pred_mat)
+
+
+class TestXORGameSolverFailure(unittest.TestCase):
+    """The SDP-failure path is reported rather than silently returning None."""
+
+    def test_quantum_value_raises_when_sdp_does_not_solve(self):
+        """A solve that leaves the problem without a value raises ValueError."""
+        prob_mat = np.array([[1 / 4, 1 / 4], [1 / 4, 1 / 4]])
+        pred_mat = np.array([[0, 0], [0, 1]])
+        chsh = XORGame(prob_mat, pred_mat)
+
+        # Patch solve to a no-op so `problem.value` stays None, which is what the
+        # guard in `quantum_value` is there to catch.
+        with mock.patch.object(cvxpy.Problem, "solve", lambda self, *args, **kwargs: None):
+            with self.assertRaisesRegex(ValueError, "did not solve successfully"):
+                chsh.quantum_value()

@@ -272,3 +272,13 @@ def test_invalid_objective_raises():
     states = [bell(0) @ bell(0).conj().T, bell(1) @ bell(1).conj().T]
     with pytest.raises(ValueError, match="objective"):
         symmetric_extension_hierarchy(states=states, level=1, objective="antidistinguish")
+
+
+def test_symmetric_extension_hierarchy_dim_as_sequence():
+    """A sequence `dim` is accepted alongside the scalar form and gives the same value."""
+    states = [bell(0) @ bell(0).conj().T, bell(1) @ bell(1).conj().T]
+
+    scalar_dim = symmetric_extension_hierarchy(states=states, probs=[0.5, 0.5], level=1, dim=2)
+    sequence_dim = symmetric_extension_hierarchy(states=states, probs=[0.5, 0.5], level=1, dim=[2, 2])
+
+    assert np.isclose(scalar_dim, sequence_dim)

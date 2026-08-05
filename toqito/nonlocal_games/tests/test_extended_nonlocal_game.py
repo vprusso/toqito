@@ -1012,3 +1012,48 @@ class TestExtendedNonlocalGameVerbosePrints:
 
         # It should return current_best_lower_bound, which was 0.75 from problem_bob_ok.value
         assert np.isclose(res, 0.75)
+
+
+class TestAnswerEventLinearConstraint(unittest.TestCase):
+    """Unit tests for the answer-event constraint builder.
+
+    These call the builder directly rather than going through
+    ``commuting_measurement_value_upper_bound`` so that the operator and
+    index-validation branches are exercised without paying for an SDP solve.
+    """
+
+    @staticmethod
+    def _assemblage(referee_dim=2, num_a_out=2, num_b_out=2, num_a_in=2, num_b_in=2):
+        """Build an assemblage of the shape the builder expects."""
+        return {
+            (x, y): cvxpy.Variable((num_a_out * referee_dim, num_b_out * referee_dim), hermitian=True)
+            for x in range(num_a_in)
+            for y in range(num_b_in)
+        }
+
+    def test_sparse_index_out_of_range(self):
+        """A sparse key outside the game dimensions is rejected."""
+        assemblage = self._assemblage()
+        # num_b_out is 2, so b = 5 is out of range.
+        constraint = ({(0, 5, 0, 0): 1.0}, "==", 0.0)
+
+        with self.assertRaises(ValueError):
+            ExtendedNonlocalGame._answer_event_linear_constraint(assemblage, constraint, 2, 2, 2, 2, 2)
+
+    def test_less_than_or_equal_operator(self):
+        """The '<=' operator produces an inequality constraint."""
+        assemblage = self._assemblage()
+        constraint = ({(0, 1, 0, 0): 1.0}, "<=", 0.5)
+
+        built = ExtendedNonlocalGame._answer_event_linear_constraint(assemblage, constraint, 2, 2, 2, 2, 2)
+
+        self.assertIsInstance(built, cvxpy.constraints.constraint.Constraint)
+
+    def test_greater_than_or_equal_operator(self):
+        """The '>=' operator produces an inequality constraint."""
+        assemblage = self._assemblage()
+        constraint = ({(0, 1, 0, 0): 1.0}, ">=", 0.25)
+
+        built = ExtendedNonlocalGame._answer_event_linear_constraint(assemblage, constraint, 2, 2, 2, 2, 2)
+
+        self.assertIsInstance(built, cvxpy.constraints.constraint.Constraint)
