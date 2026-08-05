@@ -191,6 +191,30 @@ def test_sk_norm_randomized_start_vec_low_schmidt_rank_used_as_init():
     assert np.isfinite(result)
 
 
+def test_sk_norm_randomized_start_vec_schmidt_rank_below_k_zero_padded():
+    """Private helper: `start_vec` with Schmidt rank < k is zero-padded into the k-sized workspace."""
+    dim = [2, 2]
+    product = np.kron(np.array([1.0, 0.0]), np.array([1.0, 0.0]))
+    result = __lower_bound_sk_norm_randomized(np.eye(4), k=2, dim=dim, tol=1e-4, start_vec=product)
+    np.testing.assert_allclose(result, 1.0)
+
+
+def test_sk_norm_randomized_start_vec_full_schmidt_rank_gt_one():
+    """Private helper: `start_vec` with Schmidt rank == k > 1 is used directly as the iteration seed."""
+    dim = [2, 2]
+    max_ent = max_entangled(2, is_normalized=True).reshape(-1)
+    result = __lower_bound_sk_norm_randomized(np.eye(4), k=2, dim=dim, tol=1e-4, start_vec=max_ent)
+    np.testing.assert_allclose(result, 1.0)
+
+
+def test_sk_norm_randomized_start_vec_complex_below_k():
+    """Private helper: complex `start_vec` with Schmidt rank < k is handled without a casting error."""
+    dim = [3, 3]
+    product = np.kron(np.array([1j, 0.0, 0.0]), np.array([1.0, 0.0, 0.0]))
+    result = __lower_bound_sk_norm_randomized(np.eye(9), k=2, dim=dim, tol=1e-4, start_vec=product)
+    assert np.isfinite(result)
+
+
 def test_sk_operator_norm_k_greater_than_one_sdp_branch():
     """A positive operator with k > 1 exercises the non-PPT SDP upper bound.
 

@@ -113,11 +113,9 @@ def depolarizing(dim: int, param_p: float = 0, return_kraus_ops: bool = False) -
             kraus_ops.append(np.sqrt(param_p) * np.eye(dim))
         coeff = np.sqrt((1 - param_p) / dim)
         if coeff > 0:
-            for i in range(dim):
-                for j in range(dim):
-                    op = np.zeros((dim, dim))
-                    op[i, j] = coeff
-                    kraus_ops.append(op)
+            # The single-entry operators |i><j| for all i, j are the d^2 rows of the
+            # (d^2)-identity reshaped into d-by-d matrices, in row-major (i then j) order.
+            kraus_ops.extend(coeff * np.eye(dim * dim).reshape(dim * dim, dim, dim))
         return kraus_ops
 
     result = np.zeros((dim**2, dim**2), dtype=np.float64)
