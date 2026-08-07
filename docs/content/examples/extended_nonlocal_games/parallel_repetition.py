@@ -93,6 +93,8 @@ omega_ue = bb84.unentangled_value()
 omega_ns = bb84.nonsignaling_value()
 exact = np.cos(np.pi / 8) ** 2
 
+np.testing.assert_allclose([omega_ue, omega_ns], exact, rtol=1e-3)
+
 print(f"Unentangled value:    {omega_ue:.5f}")
 print(f"Non-signaling value:  {omega_ns:.5f}")
 print(f"Exact (cos²(π/8)):    {exact:.5f}")
@@ -114,6 +116,8 @@ bb84_2_reps = ExtendedNonlocalGame(bb84_prob_mat, bb84_pred_mat, reps=2)
 
 omega_ue_2 = bb84_2_reps.unentangled_value()
 expected_ue_2 = exact**2
+
+np.testing.assert_allclose(omega_ue_2, expected_ue_2, rtol=1e-3)
 
 print(f"ω(G²) unentangled:   {omega_ue_2:.5f}")
 print(f"ω(G)² expected:      {expected_ue_2:.5f}")
@@ -138,6 +142,9 @@ print(f"Strong parallel rep holds: {np.isclose(omega_ue_2, expected_ue_2, atol=1
 # %%
 omega_ns_2 = bb84_2_reps.nonsignaling_value()
 expected_ns_2 = exact**2
+known_ns_2_value = 0.73826
+
+np.testing.assert_allclose(omega_ns_2, known_ns_2_value, rtol=1e-3)
 
 print(f"ω_ns(G²):            {omega_ns_2:.5f}")
 print(f"ω_ns(G)²:            {expected_ns_2:.5f}")
