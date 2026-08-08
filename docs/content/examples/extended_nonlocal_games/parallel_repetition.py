@@ -163,9 +163,9 @@ print(f"ω_ns(G²) > ω_ns(G)²: {omega_ns_2 > expected_ns_2 + 1e-3}")
 #    diverge under parallel repetition, revealing a fundamental
 #    structural difference.
 #
-# 3. **Quantum vs. non-signaling**: The quantum value under parallel
-#    repetition remains an open question for many extended nonlocal
-#    games, including BB84.
+# 3. **Quantum vs. non-signaling**: The standard quantum value obeys
+#    strong parallel repetition for this BB84 game, while the
+#    non-signaling value does not.
 #
 # For further details, see [@johnston2016extended] and
 # [@russo2017extended].
