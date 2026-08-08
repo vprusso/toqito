@@ -166,3 +166,75 @@ def test_unambiguous_dual_matches_primal_for_complex_states():
     primal, _ = state_distinguishability(states, strategy="unambiguous", primal_dual="primal")
     dual, _ = state_distinguishability(states, strategy="unambiguous", primal_dual="dual")
     np.testing.assert_allclose(primal, dual, atol=1e-5)
+
+
+# |00> and |01> differ only on the second qubit, so measuring it distinguishes them
+# perfectly. The optimal POVM is a pair of product projectors, which is its own partial
+# transpose, so the PPT constraint is not binding and the value is exactly 1.
+_PPT_STATES = [np.kron(e_0, e_0), np.kron(e_0, e_1)]
+
+# cvxopt does not meet its convergence tolerance on these PPT problems, and picos leaves
+# `max_iterations` unset by default, which the cvxopt backend turns into `maxiters = 1e6`.
+# Left to run that long the solver's scaling degrades until it fails inside LAPACK with
+# `ArithmeticError: 7`, so the iteration count has to be capped for the solve to return.
+# Whether the breakdown is reached at all depends on the cvxopt/LAPACK build, which is why
+# this is required on Linux but not on macOS.
+_PPT_MAX_ITERATIONS = 500
+
+
+@pytest.mark.parametrize("primal_dual", primal_duals)
+def test_state_distinguishability_ppt_forwards_solver_kwargs(primal_dual):
+    """`kwargs` must reach picos on the PPT path, as they already do on the non-PPT paths.
+
+    Regression test: `_ppt_primal`/`_ppt_dual` previously accepted no `**kwargs` and called
+    `problem.solve(solver=solver)`, silently discarding the solver options the docstring
+    promises to forward. picos rejects an unknown option, so the rejection itself is proof
+    the option arrived; if the options are dropped again the solve simply succeeds and this
+    test fails.
+    """
+    with pytest.raises(LookupError, match="Unknown option"):
+        state_distinguishability(
+            vectors=_PPT_STATES,
+            probs=[1 / 2, 1 / 2],
+            measurement="ppt",
+            subsystems=[0],
+            dimensions=[2, 2],
+            primal_dual=primal_dual,
+            definitely_not_a_real_solver_option=123,
+        )
+
+
+def test_state_distinguishability_ppt_unambiguous():
+    """The unambiguous branch of the PPT primal returns the exact value and an inconclusive POVM element.
+
+    `max_iterations` only reaches the solver because of the forwarding this change adds, so
+    the solve breaking down again would mean the forwarding had regressed.
+    """
+    val, measurements = state_distinguishability(
+        vectors=_PPT_STATES,
+        probs=[1 / 2, 1 / 2],
+        measurement="ppt",
+        subsystems=[0],
+        dimensions=[2, 2],
+        primal_dual="primal",
+        strategy="unambiguous",
+        max_iterations=_PPT_MAX_ITERATIONS,
+    )
+    assert abs(val - 1) <= 1e-6
+    # Unambiguous discrimination adds an inconclusive outcome, so there is one POVM
+    # element per state plus one.
+    assert len(measurements) == len(_PPT_STATES) + 1
+
+
+def test_state_distinguishability_ppt_dual_rejects_unambiguous():
+    """The PPT dual only implements the min-error problem and must say so."""
+    with pytest.raises(ValueError, match="Only min_error strategy is supported for PPT dual."):
+        state_distinguishability(
+            vectors=_PPT_STATES,
+            probs=[1 / 2, 1 / 2],
+            measurement="ppt",
+            subsystems=[0],
+            dimensions=[2, 2],
+            primal_dual="dual",
+            strategy="unambiguous",
+        )

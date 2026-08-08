@@ -207,9 +207,16 @@ def state_distinguishability(
                 probs=probs,
                 solver=solver,
                 strategy=strategy,
+                **kwargs,
             )
         return _ppt_dual(
-            vectors=vectors, subsystems=subsystems, dimensions=dimensions, probs=probs, solver=solver, strategy=strategy
+            vectors=vectors,
+            subsystems=subsystems,
+            dimensions=dimensions,
+            probs=probs,
+            solver=solver,
+            strategy=strategy,
+            **kwargs,
         )
 
     if strategy == "min_error":
@@ -472,6 +479,7 @@ def _ppt_primal(
     probs: list[float],
     solver: str = "cvxopt",
     strategy: str = "min_error",
+    **kwargs,
 ):
     """Primal problem for the SDP with PPT constraints."""
     n = len(vectors)
@@ -505,7 +513,7 @@ def _ppt_primal(
                     problem.add_constraint(probs[j] * dms[j] | measurements[i] == 0)
 
     problem.set_objective("max", np.real(picos.sum([probs[i] * (dms[i] | measurements[i]) for i in range(n)])))
-    solution = problem.solve(solver=solver)
+    solution = problem.solve(solver=solver, **kwargs)
 
     return solution.value, measurements
 
@@ -517,6 +525,7 @@ def _ppt_dual(
     probs: list[float],
     solver: str = "cvxopt",
     strategy: str = "min_error",
+    **kwargs,
 ):
     """Semidefinite program with PPT constraints (dual problem)."""
     d = vectors[0].shape[0]
@@ -542,7 +551,7 @@ def _ppt_dual(
     problem.add_list_of_constraints([q_var >> 0 for q_var in q_vars])
 
     problem.set_objective("min", picos.trace(y_var))
-    solution = problem.solve(solver=solver)
+    solution = problem.solve(solver=solver, **kwargs)
 
     measurements = [problem.get_constraint(k).dual for k in range(len(vectors))]
     return solution.value, measurements
