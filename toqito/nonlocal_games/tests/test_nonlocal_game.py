@@ -119,6 +119,25 @@ class TestNonlocalGame(unittest.TestCase):
         res = chsh.quantum_value_lower_bound(tol=1e-1, seed=42)
         self.assertLessEqual(res, np.cos(np.pi / 8) ** 2 + 1e-2)
 
+    def test_chsh_lower_bound_runs_to_step_cap(self):
+        """With a tolerance the convergence check can never meet, the see-saw runs every step.
+
+        Counterpart to ``test_chsh_lower_bound_converges_early``. That test covers the
+        ``break`` in the see-saw loop; this one covers the loop instead running to the
+        internal ``max_seesaw_steps`` cap and falling through, which is the path a game
+        that fails to converge would take. The step cap is not a parameter, so the only
+        way to reach it from the public API is a tolerance the step-to-step change never
+        drops below.
+        """
+        prob_mat, pred_mat = self.chsh_nonlocal_game()
+        chsh = NonlocalGame(prob_mat, pred_mat)
+        res = chsh.quantum_value_lower_bound(iters=1, tol=1e-20, seed=1)
+
+        # Exhausting the cap must still return the best value seen, not a partial or
+        # degenerate one, so the usual bounds on a see-saw lower bound still hold.
+        self.assertGreater(res, 0.0)
+        self.assertLessEqual(res, np.cos(np.pi / 8) ** 2 + 1e-2)
+
     def test_chsh_lower_bound_seed_reproducible(self):
         """A fixed seed makes the see-saw lower bound reproducible and a valid bound."""
         prob_mat, pred_mat = self.chsh_nonlocal_game()
