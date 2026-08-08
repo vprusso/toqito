@@ -71,11 +71,13 @@ e_0, e_1 = np.array([[1], [0]]), np.array([[0], [1]])
 e_p = (e_0 + e_1) / np.sqrt(2)
 e_m = (e_0 - e_1) / np.sqrt(2)
 
-bb84_pred_mat = np.zeros([2, 2, 2, 2, dim_referee, dim_referee], dtype=complex)
-bb84_pred_mat[0, 0, 0, 0] = e_0 @ e_0.conj().T
-bb84_pred_mat[1, 1, 0, 0] = e_1 @ e_1.conj().T
-bb84_pred_mat[0, 0, 1, 1] = e_p @ e_p.conj().T
-bb84_pred_mat[1, 1, 1, 1] = e_m @ e_m.conj().T
+# `ExtendedNonlocalGame` expects the referee's row and column to be the
+# leading axes: `pred_mat[:, :, a, b, x, y]` holds V(a,b|x,y).
+bb84_pred_mat = np.zeros([dim_referee, dim_referee, 2, 2, 2, 2])
+bb84_pred_mat[:, :, 0, 0, 0, 0] = e_0 @ e_0.conj().T
+bb84_pred_mat[:, :, 1, 1, 0, 0] = e_1 @ e_1.conj().T
+bb84_pred_mat[:, :, 0, 0, 1, 1] = e_p @ e_p.conj().T
+bb84_pred_mat[:, :, 1, 1, 1, 1] = e_m @ e_m.conj().T
 
 bb84_prob_mat = np.array([[0.5, 0], [0, 0.5]])
 
