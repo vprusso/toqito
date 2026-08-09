@@ -7,6 +7,7 @@ import numpy as np
 import pytest
 
 from toqito.channel_ops.partial_channel import partial_channel
+from toqito.channels import partial_trace
 from toqito.matrix_props import is_density, is_positive_semidefinite
 from toqito.matrix_props.trace_norm import trace_norm
 from toqito.rand import random_density_matrix
@@ -19,7 +20,10 @@ from toqito.state_props.is_separable import (
     _filter_cmc_xi_sum,
     _filter_normal_form,
     _iterative_product_state_subtraction,
+    _positive_map_witness_criteria,
+    _qubit_qudit_ppt_criteria,
     _range_projector_product_overlap_3x3_rank4,
+    _reduction_ppt_criterion,
 )
 from toqito.states import basis, bell, horodecki, isotropic, max_entangled, tile
 
@@ -1716,3 +1720,112 @@ def test_is_separable_n_by_2_ordering_swapped():
     sep, reason = is_separable(_real_product_mixture(3, 12, 4, 2), dim=[4, 2], level=1)
     assert sep is True
     assert "Hildebrand" in reason
+
+
+# --- Individual criterion branches -------------------------------------------
+#
+# The criteria below sit late in the dispatch chain in `is_separable`, so an
+# end-to-end call is normally decided by an earlier, cheaper test and never
+# reaches them. These exercise each helper directly on a state chosen to land on
+# that specific branch, so a wrong verdict from one criterion cannot hide behind
+# a correct verdict from another.
+
+
+def _maximally_entangled_density(d: int) -> np.ndarray:
+    """Density matrix of the maximally entangled state on a d x d system."""
+    vec = sum(np.kron(basis(d, i), basis(d, i)) for i in range(d)) / np.sqrt(d)
+    return vec @ vec.conj().T
+
+
+def test_reduction_criterion_flags_the_maximally_entangled_state():
+    """The reduction criterion (Horodecki 1999) must reject a maximally entangled state.
+
+    rho_A (x) I - rho is not PSD for it, which is the criterion's violation
+    condition.
+    """
+    rho = _maximally_entangled_density(3)
+    rho_a = partial_trace(rho, sys=[1], dim=[3, 3])
+    rho_b = partial_trace(rho, sys=[0], dim=[3, 3])
+
+    verdict = _reduction_ppt_criterion(rho, rho_a, rho_b, 3, 3, 1e-8)
+
+    assert verdict is not None
+    is_sep, reason = verdict
+    assert is_sep is False
+    assert "reduction criterion" in reason
+
+
+def test_reduction_criterion_is_silent_on_the_maximally_mixed_state():
+    """A control: the criterion must abstain, not certify, when it is not violated."""
+    rho = np.eye(9) / 9.0
+    rho_a = partial_trace(rho, sys=[1], dim=[3, 3])
+    rho_b = partial_trace(rho, sys=[0], dim=[3, 3])
+
+    assert _reduction_ppt_criterion(rho, rho_a, rho_b, 3, 3, 1e-8) is None
+
+
+@pytest.mark.parametrize(
+    ("dims", "d_a", "d_b", "min_dim", "max_dim", "prod_dim"),
+    [
+        # Neither local dimension is 2, so the 2xN block algebra does not apply.
+        ([3, 3], 3, 3, 3, 3, 9),
+        ([3, 4], 3, 4, 3, 4, 12),
+        # A zero product dimension must abstain rather than divide the state up.
+        ([2, 3], 2, 3, 2, 3, 0),
+    ],
+)
+def test_qubit_qudit_criteria_abstain_when_not_a_2xn_system(dims, d_a, d_b, min_dim, max_dim, prod_dim):
+    """The 2xN criteria only apply when a local dimension is 2.
+
+    Otherwise the helper must return None rather than running the 2xN block
+    algebra on blocks that do not have the shape it assumes.
+    """
+    rho = np.eye(d_a * d_b) / (d_a * d_b)
+    eigs = np.sort(np.linalg.eigvalsh(rho))[::-1]
+
+    assert _qubit_qudit_ppt_criteria(rho, dims, d_a, d_b, min_dim, max_dim, prod_dim, 1e-8, eigs) is None
+
+
+def test_range_projector_overlap_abstains_below_rank_four():
+    """The rank-4 3x3 range criterion must abstain on a lower-rank state.
+
+    Its Plucker/range argument is only defined at rank 4, so a rank-1 input has
+    to return None rather than a numeric overlap.
+    """
+    prod = np.kron(basis(3, 0), basis(3, 0))
+    rho_rank1 = prod @ prod.conj().T
+
+    assert _range_projector_product_overlap_3x3_rank4(rho_rank1, 1e-8) is None
+
+
+def test_choi_positive_map_witness_flags_a_3x3_entangled_state():
+    """The Choi 1975 positive map detects the 3x3 maximally entangled state."""
+    verdict = _positive_map_witness_criteria(_maximally_entangled_density(3), [3, 3], 3, 3, 1e-8)
+
+    assert verdict is not None
+    is_sep, reason = verdict
+    assert is_sep is False
+    assert "Choi 1975" in reason
+
+
+def test_breuer_hall_positive_map_witness_flags_a_4x4_entangled_state():
+    """The Breuer-Hall map needs an even local dimension, so 4x4 is its smallest case."""
+    verdict = _positive_map_witness_criteria(_maximally_entangled_density(4), [4, 4], 4, 4, 1e-8)
+
+    assert verdict is not None
+    is_sep, reason = verdict
+    assert is_sep is False
+    assert "Breuer-Hall" in reason
+
+
+@pytest.mark.parametrize(("dims", "d_a", "d_b"), [([3, 3], 3, 3), ([4, 4], 4, 4), ([3, 4], 3, 4)])
+def test_positive_map_witnesses_abstain_on_the_maximally_mixed_state(dims, d_a, d_b):
+    """A control across all three witness shapes.
+
+    The maximally mixed state is separable, so every witness must abstain. This
+    pins that the tests above are detecting entanglement rather than simply
+    firing on whatever they are handed.
+    """
+    rho = np.eye(d_a * d_b) / (d_a * d_b)
+
+    assert _positive_map_witness_criteria(rho, dims, d_a, d_b, 1e-8) is None
