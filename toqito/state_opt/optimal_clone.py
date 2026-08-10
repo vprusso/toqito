@@ -145,6 +145,30 @@ def primal_problem(q_a: np.ndarray, pperm: np.ndarray, num_reps: int) -> float:
     Returns:
         The optimal value of performing a counterfeit attack.
 
+    Examples:
+        `optimal_clone` builds `q_a` and calls this for you; calling it directly means
+        constructing \(Q = \sum_k p_k |\psi_k \otimes \psi_k \otimes \overline{\psi_k}
+        \rangle \langle \cdot |\) yourself. For the four BB84 states the optimal
+        counterfeiting probability is \(3/4\).
+
+        ```python exec="1" source="above" result="text"
+        import numpy as np
+        from toqito.matrix_ops import tensor
+        from toqito.states import basis
+        from toqito.state_opt.optimal_clone import primal_problem
+
+        e_0, e_1 = basis(2, 0), basis(2, 1)
+        e_p, e_m = (e_0 + e_1) / np.sqrt(2), (e_0 - e_1) / np.sqrt(2)
+        states, probs = [e_0, e_1, e_p, e_m], [1 / 4] * 4
+
+        q_a = np.zeros((len(states[0]) ** 3,) * 2, dtype=complex)
+        for prob, state in zip(probs, states):
+            ket = tensor(state, state, state.conj())
+            q_a += prob * ket @ ket.conj().T
+
+        print(round(primal_problem(q_a, np.array([1]), 1), 4))
+        ```
+
     """
     num_spaces = 3
 
@@ -174,6 +198,29 @@ def dual_problem(q_a: np.ndarray, pperm: np.ndarray, num_reps: int) -> float:
 
     Returns:
         The optimal value of performing a counterfeit attack.
+
+    Examples:
+        The dual is what `optimal_clone` solves by default, since its variable is
+        \(2^n \times 2^n\) rather than \(8^n \times 8^n\). It agrees with the primal at
+        \(3/4\) for the four BB84 states, as strong duality requires.
+
+        ```python exec="1" source="above" result="text"
+        import numpy as np
+        from toqito.matrix_ops import tensor
+        from toqito.states import basis
+        from toqito.state_opt.optimal_clone import dual_problem
+
+        e_0, e_1 = basis(2, 0), basis(2, 1)
+        e_p, e_m = (e_0 + e_1) / np.sqrt(2), (e_0 - e_1) / np.sqrt(2)
+        states, probs = [e_0, e_1, e_p, e_m], [1 / 4] * 4
+
+        q_a = np.zeros((len(states[0]) ** 3,) * 2, dtype=complex)
+        for prob, state in zip(probs, states):
+            ket = tensor(state, state, state.conj())
+            q_a += prob * ket @ ket.conj().T
+
+        print(round(dual_problem(q_a, np.array([1]), 1), 4))
+        ```
 
     """
     y_var = cvxpy.Variable((2**num_reps, 2**num_reps), hermitian=True)
