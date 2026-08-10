@@ -44,6 +44,32 @@ def has_symmetric_inner_extension(
     Raises:
         ValueError: If the dimensions are incompatible or ``level < 2``.
 
+    Examples:
+        The two-qubit maximally mixed state \(\mathbb{I}_4 / 4\) is separable, and the
+        inner extension detects it at the default level.
+
+        ```python exec="1" source="above" result="text"
+        import numpy as np
+        from toqito.state_props import has_symmetric_inner_extension
+
+        print(has_symmetric_inner_extension(np.identity(4) / 4))
+        ```
+
+        A Bell state is entangled, so it lies outside the cone.
+
+        ```python exec="1" source="above" result="text"
+        import numpy as np
+        from toqito.states import bell
+        from toqito.state_props import has_symmetric_inner_extension
+
+        rho = bell(0) @ bell(0).conj().T
+
+        print(has_symmetric_inner_extension(rho))
+        ```
+
+        Note the asymmetry: `True` proves separability, while `False` proves nothing --
+        the state may be separable but outside this inner approximation.
+
     """
     if level < 2:
         raise ValueError("`level` must be an integer >= 2 for symmetric inner extensions.")
