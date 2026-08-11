@@ -61,13 +61,13 @@
     
       <link rel="stylesheet" href="../../../../assets/extra.css">
     
-      <link rel="stylesheet" href="../../../../sg_gallery-binder.css">
-    
-      <link rel="stylesheet" href="../../../../sg_gallery.css">
-    
       <link rel="stylesheet" href="../../../../sg_gallery-dataframe.css">
     
+      <link rel="stylesheet" href="../../../../sg_gallery-binder.css">
+    
       <link rel="stylesheet" href="../../../../sg_gallery-rendered-html.css">
+    
+      <link rel="stylesheet" href="../../../../sg_gallery.css">
     
     <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -10803,6 +10803,31 @@ for reference.</p>
     </ul>
 
 
+<p><span class="doc-section-title">Examples:</span></p>
+    <p><code>optimal_clone</code> builds <code>q_a</code> and calls this for you; calling it directly means
+constructing <span class="arithmatex">\(Q = \sum_k p_k |\psi_k \otimes \psi_k \otimes \overline{\psi_k}
+\rangle \langle \cdot |\)</span> yourself. For the four BB84 states the optimal
+counterfeiting probability is <span class="arithmatex">\(3/4\)</span>.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.matrix_ops</span><span class="w"> </span><span class="kn">import</span> <span class="n">tensor</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.states</span><span class="w"> </span><span class="kn">import</span> <span class="n">basis</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.state_opt.optimal_clone</span><span class="w"> </span><span class="kn">import</span> <span class="n">primal_problem</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="n">e_0</span><span class="p">,</span> <span class="n">e_1</span> <span class="o">=</span> <span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="n">e_p</span><span class="p">,</span> <span class="n">e_m</span> <span class="o">=</span> <span class="p">(</span><span class="n">e_0</span> <span class="o">+</span> <span class="n">e_1</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="n">e_0</span> <span class="o">-</span> <span class="n">e_1</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="n">states</span><span class="p">,</span> <span class="n">probs</span> <span class="o">=</span> <span class="p">[</span><span class="n">e_0</span><span class="p">,</span> <span class="n">e_1</span><span class="p">,</span> <span class="n">e_p</span><span class="p">,</span> <span class="n">e_m</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span> <span class="o">/</span> <span class="mi">4</span><span class="p">]</span> <span class="o">*</span> <span class="mi">4</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="n">q_a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">states</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">**</span> <span class="mi">3</span><span class="p">,)</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">complex</span><span class="p">)</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="k">for</span> <span class="n">prob</span><span class="p">,</span> <span class="n">state</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">probs</span><span class="p">,</span> <span class="n">states</span><span class="p">):</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>    <span class="n">ket</span> <span class="o">=</span> <span class="n">tensor</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">state</span><span class="o">.</span><span class="n">conj</span><span class="p">())</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>    <span class="n">q_a</span> <span class="o">+=</span> <span class="n">prob</span> <span class="o">*</span> <span class="n">ket</span> <span class="o">@</span> <span class="n">ket</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="nb">print</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">primal_problem</span><span class="p">(</span><span class="n">q_a</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">]),</span> <span class="mi">1</span><span class="p">),</span> <span class="mi">4</span><span class="p">))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>0.75
+</code></pre></div>
+
+
             <details class="mkdocstrings-source">
               <summary>Source code in <code>toqito/state_opt/optimal_clone.py</code></summary>
               <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-138">138</a></span>
@@ -10836,7 +10861,31 @@ for reference.</p>
 <span class="normal"><a href="#__codelineno-0-166">166</a></span>
 <span class="normal"><a href="#__codelineno-0-167">167</a></span>
 <span class="normal"><a href="#__codelineno-0-168">168</a></span>
-<span class="normal"><a href="#__codelineno-0-169">169</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-138" name="__codelineno-0-138"></a><span class="k">def</span><span class="w"> </span><span class="nf">primal_problem</span><span class="p">(</span><span class="n">q_a</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">pperm</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">num_reps</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="normal"><a href="#__codelineno-0-169">169</a></span>
+<span class="normal"><a href="#__codelineno-0-170">170</a></span>
+<span class="normal"><a href="#__codelineno-0-171">171</a></span>
+<span class="normal"><a href="#__codelineno-0-172">172</a></span>
+<span class="normal"><a href="#__codelineno-0-173">173</a></span>
+<span class="normal"><a href="#__codelineno-0-174">174</a></span>
+<span class="normal"><a href="#__codelineno-0-175">175</a></span>
+<span class="normal"><a href="#__codelineno-0-176">176</a></span>
+<span class="normal"><a href="#__codelineno-0-177">177</a></span>
+<span class="normal"><a href="#__codelineno-0-178">178</a></span>
+<span class="normal"><a href="#__codelineno-0-179">179</a></span>
+<span class="normal"><a href="#__codelineno-0-180">180</a></span>
+<span class="normal"><a href="#__codelineno-0-181">181</a></span>
+<span class="normal"><a href="#__codelineno-0-182">182</a></span>
+<span class="normal"><a href="#__codelineno-0-183">183</a></span>
+<span class="normal"><a href="#__codelineno-0-184">184</a></span>
+<span class="normal"><a href="#__codelineno-0-185">185</a></span>
+<span class="normal"><a href="#__codelineno-0-186">186</a></span>
+<span class="normal"><a href="#__codelineno-0-187">187</a></span>
+<span class="normal"><a href="#__codelineno-0-188">188</a></span>
+<span class="normal"><a href="#__codelineno-0-189">189</a></span>
+<span class="normal"><a href="#__codelineno-0-190">190</a></span>
+<span class="normal"><a href="#__codelineno-0-191">191</a></span>
+<span class="normal"><a href="#__codelineno-0-192">192</a></span>
+<span class="normal"><a href="#__codelineno-0-193">193</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-138" name="__codelineno-0-138"></a><span class="k">def</span><span class="w"> </span><span class="nf">primal_problem</span><span class="p">(</span><span class="n">q_a</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">pperm</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">num_reps</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <a id="__codelineno-0-139" name="__codelineno-0-139"></a><span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Primal problem for counterfeit attack.</span>
 <a id="__codelineno-0-140" name="__codelineno-0-140"></a>
 <a id="__codelineno-0-141" name="__codelineno-0-141"></a><span class="sd">    As the primal problem takes longer to solve than the dual problem (as</span>
@@ -10846,28 +10895,52 @@ for reference.</p>
 <a id="__codelineno-0-145" name="__codelineno-0-145"></a><span class="sd">    Returns:</span>
 <a id="__codelineno-0-146" name="__codelineno-0-146"></a><span class="sd">        The optimal value of performing a counterfeit attack.</span>
 <a id="__codelineno-0-147" name="__codelineno-0-147"></a>
-<a id="__codelineno-0-148" name="__codelineno-0-148"></a><span class="sd">    &quot;&quot;&quot;</span>
-<a id="__codelineno-0-149" name="__codelineno-0-149"></a>    <span class="n">num_spaces</span> <span class="o">=</span> <span class="mi">3</span>
-<a id="__codelineno-0-150" name="__codelineno-0-150"></a>
-<a id="__codelineno-0-151" name="__codelineno-0-151"></a>    <span class="n">sys</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">num_spaces</span> <span class="o">*</span> <span class="n">num_reps</span><span class="p">))</span>
-<a id="__codelineno-0-152" name="__codelineno-0-152"></a>    <span class="n">sys</span> <span class="o">=</span> <span class="p">[</span><span class="n">elem</span> <span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="n">sys</span> <span class="k">if</span> <span class="n">elem</span> <span class="o">%</span> <span class="n">num_spaces</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">]</span>
-<a id="__codelineno-0-153" name="__codelineno-0-153"></a>    <span class="n">sys</span> <span class="o">=</span> <span class="p">[</span><span class="n">elem</span> <span class="o">-</span> <span class="mi">1</span> <span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="n">sys</span><span class="p">]</span>
-<a id="__codelineno-0-154" name="__codelineno-0-154"></a>
-<a id="__codelineno-0-155" name="__codelineno-0-155"></a>    <span class="c1"># The dimension of each subsystem is assumed to be of dimension 2.</span>
-<a id="__codelineno-0-156" name="__codelineno-0-156"></a>    <span class="n">dim</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">num_spaces</span> <span class="o">*</span> <span class="n">num_reps</span><span class="p">)</span>
-<a id="__codelineno-0-157" name="__codelineno-0-157"></a>
-<a id="__codelineno-0-158" name="__codelineno-0-158"></a>    <span class="n">x_var</span> <span class="o">=</span> <span class="n">cvxpy</span><span class="o">.</span><span class="n">Variable</span><span class="p">((</span><span class="mi">8</span><span class="o">**</span><span class="n">num_reps</span><span class="p">,</span> <span class="mi">8</span><span class="o">**</span><span class="n">num_reps</span><span class="p">),</span> <span class="n">hermitian</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<a id="__codelineno-0-159" name="__codelineno-0-159"></a>    <span class="k">if</span> <span class="n">num_reps</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-<a id="__codelineno-0-160" name="__codelineno-0-160"></a>        <span class="n">objective</span> <span class="o">=</span> <span class="n">cvxpy</span><span class="o">.</span><span class="n">Maximize</span><span class="p">(</span><span class="n">cvxpy</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="n">cvxpy</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">q_a</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">x_var</span><span class="p">)))</span>
-<a id="__codelineno-0-161" name="__codelineno-0-161"></a>    <span class="k">else</span><span class="p">:</span>
-<a id="__codelineno-0-162" name="__codelineno-0-162"></a>        <span class="n">objective</span> <span class="o">=</span> <span class="n">cvxpy</span><span class="o">.</span><span class="n">Maximize</span><span class="p">(</span><span class="n">cvxpy</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="n">cvxpy</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">pperm</span> <span class="o">@</span> <span class="n">q_a</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">pperm</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">x_var</span><span class="p">)))</span>
-<a id="__codelineno-0-163" name="__codelineno-0-163"></a>    <span class="n">constraints</span> <span class="o">=</span> <span class="p">[</span>
-<a id="__codelineno-0-164" name="__codelineno-0-164"></a>        <span class="n">partial_trace</span><span class="p">(</span><span class="n">x_var</span><span class="p">,</span> <span class="n">sys</span><span class="p">,</span> <span class="n">dim</span><span class="p">)</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="mi">2</span><span class="o">**</span><span class="n">num_reps</span><span class="p">),</span>
-<a id="__codelineno-0-165" name="__codelineno-0-165"></a>        <span class="n">x_var</span> <span class="o">&gt;&gt;</span> <span class="mi">0</span><span class="p">,</span>
-<a id="__codelineno-0-166" name="__codelineno-0-166"></a>    <span class="p">]</span>
-<a id="__codelineno-0-167" name="__codelineno-0-167"></a>    <span class="n">problem</span> <span class="o">=</span> <span class="n">cvxpy</span><span class="o">.</span><span class="n">Problem</span><span class="p">(</span><span class="n">objective</span><span class="p">,</span> <span class="n">constraints</span><span class="p">)</span>
+<a id="__codelineno-0-148" name="__codelineno-0-148"></a><span class="sd">    Examples:</span>
+<a id="__codelineno-0-149" name="__codelineno-0-149"></a><span class="sd">        `optimal_clone` builds `q_a` and calls this for you; calling it directly means</span>
+<a id="__codelineno-0-150" name="__codelineno-0-150"></a><span class="sd">        constructing \(Q = \sum_k p_k |\psi_k \otimes \psi_k \otimes \overline{\psi_k}</span>
+<a id="__codelineno-0-151" name="__codelineno-0-151"></a><span class="sd">        \rangle \langle \cdot |\) yourself. For the four BB84 states the optimal</span>
+<a id="__codelineno-0-152" name="__codelineno-0-152"></a><span class="sd">        counterfeiting probability is \(3/4\).</span>
+<a id="__codelineno-0-153" name="__codelineno-0-153"></a>
+<a id="__codelineno-0-154" name="__codelineno-0-154"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;</span>
+<a id="__codelineno-0-155" name="__codelineno-0-155"></a><span class="sd">        import numpy as np</span>
+<a id="__codelineno-0-156" name="__codelineno-0-156"></a><span class="sd">        from toqito.matrix_ops import tensor</span>
+<a id="__codelineno-0-157" name="__codelineno-0-157"></a><span class="sd">        from toqito.states import basis</span>
+<a id="__codelineno-0-158" name="__codelineno-0-158"></a><span class="sd">        from toqito.state_opt.optimal_clone import primal_problem</span>
+<a id="__codelineno-0-159" name="__codelineno-0-159"></a>
+<a id="__codelineno-0-160" name="__codelineno-0-160"></a><span class="sd">        e_0, e_1 = basis(2, 0), basis(2, 1)</span>
+<a id="__codelineno-0-161" name="__codelineno-0-161"></a><span class="sd">        e_p, e_m = (e_0 + e_1) / np.sqrt(2), (e_0 - e_1) / np.sqrt(2)</span>
+<a id="__codelineno-0-162" name="__codelineno-0-162"></a><span class="sd">        states, probs = [e_0, e_1, e_p, e_m], [1 / 4] * 4</span>
+<a id="__codelineno-0-163" name="__codelineno-0-163"></a>
+<a id="__codelineno-0-164" name="__codelineno-0-164"></a><span class="sd">        q_a = np.zeros((len(states[0]) ** 3,) * 2, dtype=complex)</span>
+<a id="__codelineno-0-165" name="__codelineno-0-165"></a><span class="sd">        for prob, state in zip(probs, states):</span>
+<a id="__codelineno-0-166" name="__codelineno-0-166"></a><span class="sd">            ket = tensor(state, state, state.conj())</span>
+<a id="__codelineno-0-167" name="__codelineno-0-167"></a><span class="sd">            q_a += prob * ket @ ket.conj().T</span>
 <a id="__codelineno-0-168" name="__codelineno-0-168"></a>
-<a id="__codelineno-0-169" name="__codelineno-0-169"></a>    <span class="k">return</span> <span class="n">problem</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<a id="__codelineno-0-169" name="__codelineno-0-169"></a><span class="sd">        print(round(primal_problem(q_a, np.array([1]), 1), 4))</span>
+<a id="__codelineno-0-170" name="__codelineno-0-170"></a><span class="sd">        ```</span>
+<a id="__codelineno-0-171" name="__codelineno-0-171"></a>
+<a id="__codelineno-0-172" name="__codelineno-0-172"></a><span class="sd">    &quot;&quot;&quot;</span>
+<a id="__codelineno-0-173" name="__codelineno-0-173"></a>    <span class="n">num_spaces</span> <span class="o">=</span> <span class="mi">3</span>
+<a id="__codelineno-0-174" name="__codelineno-0-174"></a>
+<a id="__codelineno-0-175" name="__codelineno-0-175"></a>    <span class="n">sys</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">num_spaces</span> <span class="o">*</span> <span class="n">num_reps</span><span class="p">))</span>
+<a id="__codelineno-0-176" name="__codelineno-0-176"></a>    <span class="n">sys</span> <span class="o">=</span> <span class="p">[</span><span class="n">elem</span> <span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="n">sys</span> <span class="k">if</span> <span class="n">elem</span> <span class="o">%</span> <span class="n">num_spaces</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">]</span>
+<a id="__codelineno-0-177" name="__codelineno-0-177"></a>    <span class="n">sys</span> <span class="o">=</span> <span class="p">[</span><span class="n">elem</span> <span class="o">-</span> <span class="mi">1</span> <span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="n">sys</span><span class="p">]</span>
+<a id="__codelineno-0-178" name="__codelineno-0-178"></a>
+<a id="__codelineno-0-179" name="__codelineno-0-179"></a>    <span class="c1"># The dimension of each subsystem is assumed to be of dimension 2.</span>
+<a id="__codelineno-0-180" name="__codelineno-0-180"></a>    <span class="n">dim</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">num_spaces</span> <span class="o">*</span> <span class="n">num_reps</span><span class="p">)</span>
+<a id="__codelineno-0-181" name="__codelineno-0-181"></a>
+<a id="__codelineno-0-182" name="__codelineno-0-182"></a>    <span class="n">x_var</span> <span class="o">=</span> <span class="n">cvxpy</span><span class="o">.</span><span class="n">Variable</span><span class="p">((</span><span class="mi">8</span><span class="o">**</span><span class="n">num_reps</span><span class="p">,</span> <span class="mi">8</span><span class="o">**</span><span class="n">num_reps</span><span class="p">),</span> <span class="n">hermitian</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<a id="__codelineno-0-183" name="__codelineno-0-183"></a>    <span class="k">if</span> <span class="n">num_reps</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+<a id="__codelineno-0-184" name="__codelineno-0-184"></a>        <span class="n">objective</span> <span class="o">=</span> <span class="n">cvxpy</span><span class="o">.</span><span class="n">Maximize</span><span class="p">(</span><span class="n">cvxpy</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="n">cvxpy</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">q_a</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">x_var</span><span class="p">)))</span>
+<a id="__codelineno-0-185" name="__codelineno-0-185"></a>    <span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-0-186" name="__codelineno-0-186"></a>        <span class="n">objective</span> <span class="o">=</span> <span class="n">cvxpy</span><span class="o">.</span><span class="n">Maximize</span><span class="p">(</span><span class="n">cvxpy</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="n">cvxpy</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">pperm</span> <span class="o">@</span> <span class="n">q_a</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">pperm</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">x_var</span><span class="p">)))</span>
+<a id="__codelineno-0-187" name="__codelineno-0-187"></a>    <span class="n">constraints</span> <span class="o">=</span> <span class="p">[</span>
+<a id="__codelineno-0-188" name="__codelineno-0-188"></a>        <span class="n">partial_trace</span><span class="p">(</span><span class="n">x_var</span><span class="p">,</span> <span class="n">sys</span><span class="p">,</span> <span class="n">dim</span><span class="p">)</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="mi">2</span><span class="o">**</span><span class="n">num_reps</span><span class="p">),</span>
+<a id="__codelineno-0-189" name="__codelineno-0-189"></a>        <span class="n">x_var</span> <span class="o">&gt;&gt;</span> <span class="mi">0</span><span class="p">,</span>
+<a id="__codelineno-0-190" name="__codelineno-0-190"></a>    <span class="p">]</span>
+<a id="__codelineno-0-191" name="__codelineno-0-191"></a>    <span class="n">problem</span> <span class="o">=</span> <span class="n">cvxpy</span><span class="o">.</span><span class="n">Problem</span><span class="p">(</span><span class="n">objective</span><span class="p">,</span> <span class="n">constraints</span><span class="p">)</span>
+<a id="__codelineno-0-192" name="__codelineno-0-192"></a>
+<a id="__codelineno-0-193" name="__codelineno-0-193"></a>    <span class="k">return</span> <span class="n">problem</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
@@ -10904,45 +10977,115 @@ for reference.</p>
     </ul>
 
 
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>The dual is what <code>optimal_clone</code> solves by default, since its variable is
+<span class="arithmatex">\(2^n \times 2^n\)</span> rather than <span class="arithmatex">\(8^n \times 8^n\)</span>. It agrees with the primal at
+<span class="arithmatex">\(3/4\)</span> for the four BB84 states, as strong duality requires.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.matrix_ops</span><span class="w"> </span><span class="kn">import</span> <span class="n">tensor</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.states</span><span class="w"> </span><span class="kn">import</span> <span class="n">basis</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.state_opt.optimal_clone</span><span class="w"> </span><span class="kn">import</span> <span class="n">dual_problem</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="n">e_0</span><span class="p">,</span> <span class="n">e_1</span> <span class="o">=</span> <span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="n">e_p</span><span class="p">,</span> <span class="n">e_m</span> <span class="o">=</span> <span class="p">(</span><span class="n">e_0</span> <span class="o">+</span> <span class="n">e_1</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="n">e_0</span> <span class="o">-</span> <span class="n">e_1</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="n">states</span><span class="p">,</span> <span class="n">probs</span> <span class="o">=</span> <span class="p">[</span><span class="n">e_0</span><span class="p">,</span> <span class="n">e_1</span><span class="p">,</span> <span class="n">e_p</span><span class="p">,</span> <span class="n">e_m</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span> <span class="o">/</span> <span class="mi">4</span><span class="p">]</span> <span class="o">*</span> <span class="mi">4</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="n">q_a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">states</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">**</span> <span class="mi">3</span><span class="p">,)</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">complex</span><span class="p">)</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="k">for</span> <span class="n">prob</span><span class="p">,</span> <span class="n">state</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">probs</span><span class="p">,</span> <span class="n">states</span><span class="p">):</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>    <span class="n">ket</span> <span class="o">=</span> <span class="n">tensor</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">state</span><span class="o">.</span><span class="n">conj</span><span class="p">())</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>    <span class="n">q_a</span> <span class="o">+=</span> <span class="n">prob</span> <span class="o">*</span> <span class="n">ket</span> <span class="o">@</span> <span class="n">ket</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="nb">print</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">dual_problem</span><span class="p">(</span><span class="n">q_a</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">]),</span> <span class="mi">1</span><span class="p">),</span> <span class="mi">4</span><span class="p">))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>0.75
+</code></pre></div>
+
+
             <details class="mkdocstrings-source">
               <summary>Source code in <code>toqito/state_opt/optimal_clone.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-172">172</a></span>
-<span class="normal"><a href="#__codelineno-0-173">173</a></span>
-<span class="normal"><a href="#__codelineno-0-174">174</a></span>
-<span class="normal"><a href="#__codelineno-0-175">175</a></span>
-<span class="normal"><a href="#__codelineno-0-176">176</a></span>
-<span class="normal"><a href="#__codelineno-0-177">177</a></span>
-<span class="normal"><a href="#__codelineno-0-178">178</a></span>
-<span class="normal"><a href="#__codelineno-0-179">179</a></span>
-<span class="normal"><a href="#__codelineno-0-180">180</a></span>
-<span class="normal"><a href="#__codelineno-0-181">181</a></span>
-<span class="normal"><a href="#__codelineno-0-182">182</a></span>
-<span class="normal"><a href="#__codelineno-0-183">183</a></span>
-<span class="normal"><a href="#__codelineno-0-184">184</a></span>
-<span class="normal"><a href="#__codelineno-0-185">185</a></span>
-<span class="normal"><a href="#__codelineno-0-186">186</a></span>
-<span class="normal"><a href="#__codelineno-0-187">187</a></span>
-<span class="normal"><a href="#__codelineno-0-188">188</a></span>
-<span class="normal"><a href="#__codelineno-0-189">189</a></span>
-<span class="normal"><a href="#__codelineno-0-190">190</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-172" name="__codelineno-0-172"></a><span class="k">def</span><span class="w"> </span><span class="nf">dual_problem</span><span class="p">(</span><span class="n">q_a</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">pperm</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">num_reps</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-<a id="__codelineno-0-173" name="__codelineno-0-173"></a><span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Dual problem for counterfeit attack.</span>
-<a id="__codelineno-0-174" name="__codelineno-0-174"></a>
-<a id="__codelineno-0-175" name="__codelineno-0-175"></a><span class="sd">    Returns:</span>
-<a id="__codelineno-0-176" name="__codelineno-0-176"></a><span class="sd">        The optimal value of performing a counterfeit attack.</span>
-<a id="__codelineno-0-177" name="__codelineno-0-177"></a>
-<a id="__codelineno-0-178" name="__codelineno-0-178"></a><span class="sd">    &quot;&quot;&quot;</span>
-<a id="__codelineno-0-179" name="__codelineno-0-179"></a>    <span class="n">y_var</span> <span class="o">=</span> <span class="n">cvxpy</span><span class="o">.</span><span class="n">Variable</span><span class="p">((</span><span class="mi">2</span><span class="o">**</span><span class="n">num_reps</span><span class="p">,</span> <span class="mi">2</span><span class="o">**</span><span class="n">num_reps</span><span class="p">),</span> <span class="n">hermitian</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<a id="__codelineno-0-180" name="__codelineno-0-180"></a>    <span class="n">objective</span> <span class="o">=</span> <span class="n">cvxpy</span><span class="o">.</span><span class="n">Minimize</span><span class="p">(</span><span class="n">cvxpy</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="n">cvxpy</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">y_var</span><span class="p">)))</span>
-<a id="__codelineno-0-181" name="__codelineno-0-181"></a>
-<a id="__codelineno-0-182" name="__codelineno-0-182"></a>    <span class="n">kron_var</span> <span class="o">=</span> <span class="n">cvxpy</span><span class="o">.</span><span class="n">kron</span><span class="p">(</span><span class="n">cvxpy</span><span class="o">.</span><span class="n">kron</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">2</span><span class="o">**</span><span class="n">num_reps</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">2</span><span class="o">**</span><span class="n">num_reps</span><span class="p">)),</span> <span class="n">y_var</span><span class="p">)</span>
-<a id="__codelineno-0-183" name="__codelineno-0-183"></a>
-<a id="__codelineno-0-184" name="__codelineno-0-184"></a>    <span class="k">if</span> <span class="n">num_reps</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-<a id="__codelineno-0-185" name="__codelineno-0-185"></a>        <span class="n">constraints</span> <span class="o">=</span> <span class="p">[</span><span class="n">cvxpy</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">kron_var</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="n">q_a</span><span class="p">]</span>
-<a id="__codelineno-0-186" name="__codelineno-0-186"></a>    <span class="k">else</span><span class="p">:</span>
-<a id="__codelineno-0-187" name="__codelineno-0-187"></a>        <span class="n">constraints</span> <span class="o">=</span> <span class="p">[</span><span class="n">cvxpy</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">kron_var</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="n">pperm</span> <span class="o">@</span> <span class="n">q_a</span> <span class="o">@</span> <span class="n">pperm</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span><span class="p">]</span>
-<a id="__codelineno-0-188" name="__codelineno-0-188"></a>    <span class="n">problem</span> <span class="o">=</span> <span class="n">cvxpy</span><span class="o">.</span><span class="n">Problem</span><span class="p">(</span><span class="n">objective</span><span class="p">,</span> <span class="n">constraints</span><span class="p">)</span>
-<a id="__codelineno-0-189" name="__codelineno-0-189"></a>
-<a id="__codelineno-0-190" name="__codelineno-0-190"></a>    <span class="k">return</span> <span class="n">problem</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-196">196</a></span>
+<span class="normal"><a href="#__codelineno-0-197">197</a></span>
+<span class="normal"><a href="#__codelineno-0-198">198</a></span>
+<span class="normal"><a href="#__codelineno-0-199">199</a></span>
+<span class="normal"><a href="#__codelineno-0-200">200</a></span>
+<span class="normal"><a href="#__codelineno-0-201">201</a></span>
+<span class="normal"><a href="#__codelineno-0-202">202</a></span>
+<span class="normal"><a href="#__codelineno-0-203">203</a></span>
+<span class="normal"><a href="#__codelineno-0-204">204</a></span>
+<span class="normal"><a href="#__codelineno-0-205">205</a></span>
+<span class="normal"><a href="#__codelineno-0-206">206</a></span>
+<span class="normal"><a href="#__codelineno-0-207">207</a></span>
+<span class="normal"><a href="#__codelineno-0-208">208</a></span>
+<span class="normal"><a href="#__codelineno-0-209">209</a></span>
+<span class="normal"><a href="#__codelineno-0-210">210</a></span>
+<span class="normal"><a href="#__codelineno-0-211">211</a></span>
+<span class="normal"><a href="#__codelineno-0-212">212</a></span>
+<span class="normal"><a href="#__codelineno-0-213">213</a></span>
+<span class="normal"><a href="#__codelineno-0-214">214</a></span>
+<span class="normal"><a href="#__codelineno-0-215">215</a></span>
+<span class="normal"><a href="#__codelineno-0-216">216</a></span>
+<span class="normal"><a href="#__codelineno-0-217">217</a></span>
+<span class="normal"><a href="#__codelineno-0-218">218</a></span>
+<span class="normal"><a href="#__codelineno-0-219">219</a></span>
+<span class="normal"><a href="#__codelineno-0-220">220</a></span>
+<span class="normal"><a href="#__codelineno-0-221">221</a></span>
+<span class="normal"><a href="#__codelineno-0-222">222</a></span>
+<span class="normal"><a href="#__codelineno-0-223">223</a></span>
+<span class="normal"><a href="#__codelineno-0-224">224</a></span>
+<span class="normal"><a href="#__codelineno-0-225">225</a></span>
+<span class="normal"><a href="#__codelineno-0-226">226</a></span>
+<span class="normal"><a href="#__codelineno-0-227">227</a></span>
+<span class="normal"><a href="#__codelineno-0-228">228</a></span>
+<span class="normal"><a href="#__codelineno-0-229">229</a></span>
+<span class="normal"><a href="#__codelineno-0-230">230</a></span>
+<span class="normal"><a href="#__codelineno-0-231">231</a></span>
+<span class="normal"><a href="#__codelineno-0-232">232</a></span>
+<span class="normal"><a href="#__codelineno-0-233">233</a></span>
+<span class="normal"><a href="#__codelineno-0-234">234</a></span>
+<span class="normal"><a href="#__codelineno-0-235">235</a></span>
+<span class="normal"><a href="#__codelineno-0-236">236</a></span>
+<span class="normal"><a href="#__codelineno-0-237">237</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-196" name="__codelineno-0-196"></a><span class="k">def</span><span class="w"> </span><span class="nf">dual_problem</span><span class="p">(</span><span class="n">q_a</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">pperm</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">num_reps</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<a id="__codelineno-0-197" name="__codelineno-0-197"></a><span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Dual problem for counterfeit attack.</span>
+<a id="__codelineno-0-198" name="__codelineno-0-198"></a>
+<a id="__codelineno-0-199" name="__codelineno-0-199"></a><span class="sd">    Returns:</span>
+<a id="__codelineno-0-200" name="__codelineno-0-200"></a><span class="sd">        The optimal value of performing a counterfeit attack.</span>
+<a id="__codelineno-0-201" name="__codelineno-0-201"></a>
+<a id="__codelineno-0-202" name="__codelineno-0-202"></a><span class="sd">    Examples:</span>
+<a id="__codelineno-0-203" name="__codelineno-0-203"></a><span class="sd">        The dual is what `optimal_clone` solves by default, since its variable is</span>
+<a id="__codelineno-0-204" name="__codelineno-0-204"></a><span class="sd">        \(2^n \times 2^n\) rather than \(8^n \times 8^n\). It agrees with the primal at</span>
+<a id="__codelineno-0-205" name="__codelineno-0-205"></a><span class="sd">        \(3/4\) for the four BB84 states, as strong duality requires.</span>
+<a id="__codelineno-0-206" name="__codelineno-0-206"></a>
+<a id="__codelineno-0-207" name="__codelineno-0-207"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;</span>
+<a id="__codelineno-0-208" name="__codelineno-0-208"></a><span class="sd">        import numpy as np</span>
+<a id="__codelineno-0-209" name="__codelineno-0-209"></a><span class="sd">        from toqito.matrix_ops import tensor</span>
+<a id="__codelineno-0-210" name="__codelineno-0-210"></a><span class="sd">        from toqito.states import basis</span>
+<a id="__codelineno-0-211" name="__codelineno-0-211"></a><span class="sd">        from toqito.state_opt.optimal_clone import dual_problem</span>
+<a id="__codelineno-0-212" name="__codelineno-0-212"></a>
+<a id="__codelineno-0-213" name="__codelineno-0-213"></a><span class="sd">        e_0, e_1 = basis(2, 0), basis(2, 1)</span>
+<a id="__codelineno-0-214" name="__codelineno-0-214"></a><span class="sd">        e_p, e_m = (e_0 + e_1) / np.sqrt(2), (e_0 - e_1) / np.sqrt(2)</span>
+<a id="__codelineno-0-215" name="__codelineno-0-215"></a><span class="sd">        states, probs = [e_0, e_1, e_p, e_m], [1 / 4] * 4</span>
+<a id="__codelineno-0-216" name="__codelineno-0-216"></a>
+<a id="__codelineno-0-217" name="__codelineno-0-217"></a><span class="sd">        q_a = np.zeros((len(states[0]) ** 3,) * 2, dtype=complex)</span>
+<a id="__codelineno-0-218" name="__codelineno-0-218"></a><span class="sd">        for prob, state in zip(probs, states):</span>
+<a id="__codelineno-0-219" name="__codelineno-0-219"></a><span class="sd">            ket = tensor(state, state, state.conj())</span>
+<a id="__codelineno-0-220" name="__codelineno-0-220"></a><span class="sd">            q_a += prob * ket @ ket.conj().T</span>
+<a id="__codelineno-0-221" name="__codelineno-0-221"></a>
+<a id="__codelineno-0-222" name="__codelineno-0-222"></a><span class="sd">        print(round(dual_problem(q_a, np.array([1]), 1), 4))</span>
+<a id="__codelineno-0-223" name="__codelineno-0-223"></a><span class="sd">        ```</span>
+<a id="__codelineno-0-224" name="__codelineno-0-224"></a>
+<a id="__codelineno-0-225" name="__codelineno-0-225"></a><span class="sd">    &quot;&quot;&quot;</span>
+<a id="__codelineno-0-226" name="__codelineno-0-226"></a>    <span class="n">y_var</span> <span class="o">=</span> <span class="n">cvxpy</span><span class="o">.</span><span class="n">Variable</span><span class="p">((</span><span class="mi">2</span><span class="o">**</span><span class="n">num_reps</span><span class="p">,</span> <span class="mi">2</span><span class="o">**</span><span class="n">num_reps</span><span class="p">),</span> <span class="n">hermitian</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<a id="__codelineno-0-227" name="__codelineno-0-227"></a>    <span class="n">objective</span> <span class="o">=</span> <span class="n">cvxpy</span><span class="o">.</span><span class="n">Minimize</span><span class="p">(</span><span class="n">cvxpy</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="n">cvxpy</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">y_var</span><span class="p">)))</span>
+<a id="__codelineno-0-228" name="__codelineno-0-228"></a>
+<a id="__codelineno-0-229" name="__codelineno-0-229"></a>    <span class="n">kron_var</span> <span class="o">=</span> <span class="n">cvxpy</span><span class="o">.</span><span class="n">kron</span><span class="p">(</span><span class="n">cvxpy</span><span class="o">.</span><span class="n">kron</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">2</span><span class="o">**</span><span class="n">num_reps</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">2</span><span class="o">**</span><span class="n">num_reps</span><span class="p">)),</span> <span class="n">y_var</span><span class="p">)</span>
+<a id="__codelineno-0-230" name="__codelineno-0-230"></a>
+<a id="__codelineno-0-231" name="__codelineno-0-231"></a>    <span class="k">if</span> <span class="n">num_reps</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+<a id="__codelineno-0-232" name="__codelineno-0-232"></a>        <span class="n">constraints</span> <span class="o">=</span> <span class="p">[</span><span class="n">cvxpy</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">kron_var</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="n">q_a</span><span class="p">]</span>
+<a id="__codelineno-0-233" name="__codelineno-0-233"></a>    <span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-0-234" name="__codelineno-0-234"></a>        <span class="n">constraints</span> <span class="o">=</span> <span class="p">[</span><span class="n">cvxpy</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">kron_var</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="n">pperm</span> <span class="o">@</span> <span class="n">q_a</span> <span class="o">@</span> <span class="n">pperm</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span><span class="p">]</span>
+<a id="__codelineno-0-235" name="__codelineno-0-235"></a>    <span class="n">problem</span> <span class="o">=</span> <span class="n">cvxpy</span><span class="o">.</span><span class="n">Problem</span><span class="p">(</span><span class="n">objective</span><span class="p">,</span> <span class="n">constraints</span><span class="p">)</span>
+<a id="__codelineno-0-236" name="__codelineno-0-236"></a>
+<a id="__codelineno-0-237" name="__codelineno-0-237"></a>    <span class="k">return</span> <span class="n">problem</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
