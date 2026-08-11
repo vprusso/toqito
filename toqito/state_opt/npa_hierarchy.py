@@ -33,6 +33,39 @@ def npa_constraints(
             I_R \otimes A_a^x B_b^y \big) \sigma \Big) |j \rangle
     \]
 
+    Examples:
+        The constraints returned here are meant to be handed straight to a cvxpy problem.
+        Maximising the CHSH winning probability over the level-1 relaxation recovers the
+        Tsirelson bound \(\cos^2(\pi/8) \approx 0.8536\), which is strictly above the
+        classical value of \(0.75\).
+
+        The CHSH game asks Alice and Bob a binary question each and accepts their binary
+        answers when \(a \oplus b = x \land y\):
+
+        ```python exec="1" source="above" result="text"
+        from collections import defaultdict
+
+        import cvxpy
+
+        from toqito.state_opt.npa_hierarchy import npa_constraints
+
+        assemblage = defaultdict(cvxpy.Variable)
+        for x in range(2):
+            for y in range(2):
+                assemblage[x, y] = cvxpy.Variable((2, 2), name=f"K({x},{y})")
+
+        p_win = cvxpy.Constant(0)
+        for x in range(2):
+            for y in range(2):
+                for a in range(2):
+                    for b in range(2):
+                        if a ^ b == x * y:
+                            p_win += 0.25 * assemblage[x, y][a, b]
+
+        problem = cvxpy.Problem(cvxpy.Maximize(p_win), npa_constraints(assemblage, k=1))
+        print(f"{problem.solve():.4f}")
+        ```
+
     Args:
         assemblage: The commuting measurement assemblage operator.
         k: The level of the NPA hierarchy to use (default=1).
