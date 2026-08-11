@@ -16,6 +16,7 @@ from toqito.state_props.is_ppt import is_ppt
 from toqito.state_props.is_separable import (
     _TERHAL_2000_TILE_WITNESS_3X3,
     _choi_1975_choi_matrix,
+    _dps_hierarchy_criterion,
     _filter_cmc_bound,
     _filter_cmc_xi_sum,
     _filter_normal_form,
@@ -24,6 +25,7 @@ from toqito.state_props.is_separable import (
     _qubit_qudit_ppt_criteria,
     _range_projector_product_overlap_3x3_rank4,
     _reduction_ppt_criterion,
+    _sorted_real_eigs_desc,
 )
 from toqito.states import basis, bell, horodecki, isotropic, max_entangled, tile
 
@@ -1829,3 +1831,82 @@ def test_positive_map_witnesses_abstain_on_the_maximally_mixed_state(dims, d_a, 
     rho = np.eye(d_a * d_b) / (d_a * d_b)
 
     assert _positive_map_witness_criteria(rho, dims, d_a, d_b, 1e-8) is None
+
+
+# --- Error-handling branches of the DPS and eigenvalue helpers (#1915) ---
+#
+# Both helpers degrade rather than propagate: the DPS hierarchy abstains when no solver is
+# available, and the eigenvalue helper falls back from ``eigvalsh`` to the general
+# ``eigvals``. Neither path was reached by any test, so a regression that turned an abstain
+# into a crash -- or, worse, into a confident verdict -- would not have shown up.
+
+
+def _separable_3x3():
+    """Return a state the DPS stage would actually be asked about."""
+    return np.eye(9) / 9
+
+
+def test_dps_hierarchy_abstains_when_no_solver_is_installed():
+    """ImportError means "cannot answer", which must not be reported as a verdict."""
+    with mock.patch(
+        "toqito.state_props.is_separable.has_symmetric_extension",
+        side_effect=ImportError("No module named 'cvxpy'"),
+    ):
+        assert _dps_hierarchy_criterion(_separable_3x3(), [3, 3], 2, 1e-8) is None
+
+
+def test_dps_hierarchy_abstains_when_the_solver_fails():
+    """A solver that errors out is also an abstain, not an entanglement claim."""
+    with mock.patch(
+        "toqito.state_props.is_separable.has_symmetric_extension",
+        side_effect=RuntimeError("solver failed to converge"),
+    ):
+        assert _dps_hierarchy_criterion(_separable_3x3(), [3, 3], 2, 1e-8) is None
+
+
+def test_dps_hierarchy_abstains_when_the_inner_cone_check_fails():
+    """The second call inside the try is covered by the same handler."""
+    with (
+        mock.patch("toqito.state_props.is_separable.has_symmetric_extension", return_value=True),
+        mock.patch(
+            "toqito.state_props.is_separable.has_symmetric_inner_extension",
+            side_effect=RuntimeError("solver failed to converge"),
+        ),
+    ):
+        assert _dps_hierarchy_criterion(_separable_3x3(), [3, 3], 2, 1e-8) is None
+
+
+def test_dps_hierarchy_declines_below_level_two():
+    """Level 1 is the PPT test, which earlier stages already did."""
+    assert _dps_hierarchy_criterion(_separable_3x3(), [3, 3], 1, 1e-8) is None
+
+
+def test_sorted_real_eigs_desc_returns_descending_eigenvalues():
+    """The happy path, so the fallbacks below are known to be fallbacks."""
+    state = np.diag([0.5, 0.3, 0.2])
+
+    result = _sorted_real_eigs_desc(state)
+
+    assert result is not None
+    np.testing.assert_allclose(result, [0.5, 0.3, 0.2])
+    assert np.all(np.diff(result) <= 0), "eigenvalues must come back descending"
+
+
+def test_sorted_real_eigs_desc_falls_back_to_eigvals():
+    """``eigvalsh`` can fail on a matrix LAPACK considers non-convergent."""
+    state = np.diag([0.5, 0.3, 0.2])
+
+    with mock.patch("numpy.linalg.eigvalsh", side_effect=np.linalg.LinAlgError("no convergence")):
+        result = _sorted_real_eigs_desc(state)
+
+    assert result is not None
+    np.testing.assert_allclose(result, [0.5, 0.3, 0.2])
+
+
+def test_sorted_real_eigs_desc_returns_none_when_both_solvers_fail():
+    """The caller checks for None and skips the Vidal-Tarrach stage; it must get None."""
+    with (
+        mock.patch("numpy.linalg.eigvalsh", side_effect=np.linalg.LinAlgError("no convergence")),
+        mock.patch("numpy.linalg.eigvals", side_effect=np.linalg.LinAlgError("no convergence")),
+    ):
+        assert _sorted_real_eigs_desc(np.diag([0.5, 0.3, 0.2])) is None
