@@ -173,6 +173,34 @@ def state_distinguishability(
         print(np.around(res, decimals=2))
         ```
 
+        PPT-constrained minimum-error state distinguishability.
+
+        ```python
+        import numpy as np
+        from toqito.state_opt import state_distinguishability
+        from toqito.states import bell
+
+        states = [bell(0), bell(1), bell(2)]
+
+        res, _ = state_distinguishability(
+            states,
+            measurement="ppt",
+            subsystems=[0],
+            dimensions=[2, 2],
+            primal_dual="primal",
+            cvxopt_kktsolver="ldl",
+        )
+
+        print(np.around(res, decimals=2))
+        ```
+
+        !!! Note
+            If you encounter a `ZeroDivisionError` or an `ArithmeticError` when using cvxopt as a solver (which is the
+            default), you might want to set the `abs_ipm_opt_tol` option to a lower value (the default being `1e-8`) or
+            to set the `cvxopt_kktsolver` option to `ldl`.
+
+            See https://gitlab.com/picos-api/picos/-/issues/341
+
     """
     if measurement not in {"positive", "ppt"}:
         raise ValueError("Argument `measurement` must be either 'positive' or 'ppt'.")
