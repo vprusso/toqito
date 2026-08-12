@@ -548,7 +548,7 @@ def is_separable(
 
     # --- 7. Operational Criteria for Low-Rank PPT States (Horodecki et al. 2000) ---
     verdict, rho_A_marginal, rho_B_marginal = _horodecki_low_rank_ppt_criteria(
-        current_state, dims_list, state_rank, max_dim_val, tol
+        current_state, dims_list, state_rank, max_dim_val
     )
     if verdict is not None:
         return verdict
@@ -1104,7 +1104,6 @@ def _horodecki_low_rank_ppt_criteria(
     dims: list[int],
     state_rank: int,
     max_dim_val: int,
-    tol: float,
 ) -> tuple[tuple[bool, str] | None, np.ndarray | None, np.ndarray | None]:
     """Run the Horodecki low-rank PPT criteria and return cached marginals."""
     if state_rank <= max_dim_val:
@@ -1112,20 +1111,6 @@ def _horodecki_low_rank_ppt_criteria(
 
     rho_a_marginal = partial_trace(state, sys=[1], dim=dims)
     rho_b_marginal = partial_trace(state, sys=[0], dim=dims)
-    rank_marg_a = np.linalg.matrix_rank(rho_a_marginal, tol=tol)
-    rank_marg_b = np.linalg.matrix_rank(rho_b_marginal, tol=tol)
-    if state_rank <= rank_marg_a:
-        return (
-            (True, f"rank(rho)={state_rank} <= rank(rho_A)={rank_marg_a} (Horodecki et al. 2000)"),
-            rho_a_marginal,
-            rho_b_marginal,
-        )
-    if state_rank <= rank_marg_b:
-        return (
-            (True, f"rank(rho)={state_rank} <= rank(rho_B)={rank_marg_b} (Horodecki et al. 2000)"),
-            rho_a_marginal,
-            rho_b_marginal,
-        )
     return None, rho_a_marginal, rho_b_marginal
 
 
@@ -1226,8 +1211,6 @@ def _qubit_qudit_ppt_criteria(
     if d_a != 2 and d_b == 2:
         state_t_2xn = swap(state, sys=[1, 2], dim=dims)
         dim_for_hildebrand_map = [d_b, d_a]
-    elif d_a != 2:
-        return None
 
     if state_t_2xn is state:
         current_lam_2xn = sorted_eigs_desc

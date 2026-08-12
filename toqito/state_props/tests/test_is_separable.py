@@ -371,12 +371,6 @@ def test_skip_horodecki_if_not_applicable_proceeds_entangled_tiles(tiles_state_3
 # --- Specialized Tests (Edge Cases, Mocking, XFAIL for Incomplete Features) ---
 
 
-@pytest.mark.skip(reason="Requires specific state for Horodecki rank <= marginal rank test.")
-def test_horodecki_rank_le_marginal_rank():
-    """Placeholder for PPT state where rank <= marginal rank implies separability."""
-    pass
-
-
 def test_entangled_by_reduction_criterion_non_psd_choi_T():
     """is_separable expects PSD input; Choi of Transpose map is non-PSD for d>1."""
     d = 3
