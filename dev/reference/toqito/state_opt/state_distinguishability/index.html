@@ -61,13 +61,13 @@
     
       <link rel="stylesheet" href="../../../../assets/extra.css">
     
-      <link rel="stylesheet" href="../../../../sg_gallery-dataframe.css">
-    
       <link rel="stylesheet" href="../../../../sg_gallery-binder.css">
     
-      <link rel="stylesheet" href="../../../../sg_gallery-rendered-html.css">
-    
       <link rel="stylesheet" href="../../../../sg_gallery.css">
+    
+      <link rel="stylesheet" href="../../../../sg_gallery-dataframe.css">
+    
+      <link rel="stylesheet" href="../../../../sg_gallery-rendered-html.css">
     
     <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -10598,6 +10598,31 @@ measurement operators which may be of interest to us.</p>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>0.49
 </code></pre></div>
+<p>PPT-constrained minimum-error state distinguishability.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.state_opt</span><span class="w"> </span><span class="kn">import</span> <span class="n">state_distinguishability</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.states</span><span class="w"> </span><span class="kn">import</span> <span class="n">bell</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="n">states</span> <span class="o">=</span> <span class="p">[</span><span class="n">bell</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">bell</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">bell</span><span class="p">(</span><span class="mi">2</span><span class="p">)]</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="n">res</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">state_distinguishability</span><span class="p">(</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    <span class="n">states</span><span class="p">,</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>    <span class="n">measurement</span><span class="o">=</span><span class="s2">&quot;ppt&quot;</span><span class="p">,</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>    <span class="n">subsystems</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>    <span class="n">dimensions</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>    <span class="n">primal_dual</span><span class="o">=</span><span class="s2">&quot;primal&quot;</span><span class="p">,</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>    <span class="n">cvxopt_kktsolver</span><span class="o">=</span><span class="s2">&quot;ldl&quot;</span><span class="p">,</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="p">)</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">around</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="n">decimals</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you encounter a <code>ZeroDivisionError</code> or an <code>ArithmeticError</code> when using cvxopt as a solver (which is the
+default), you might want to set the <code>abs_ipm_opt_tol</code> option to a lower value (the default being <code>1e-8</code>) or
+to set the <code>cvxopt_kktsolver</code> option to <code>ldl</code>.</p>
+<p>See https://gitlab.com/picos-api/picos/-/issues/341</p>
+</div>
         <p><strong>References</strong></p>
 <p><span id="ref-toqito-state_opt-state_distinguishability-state_distinguishability-1"><sup><a href="#cite-toqito-state_opt-state_distinguishability-state_distinguishability-1">1</a></sup> Eldar, Y.C.. <em>A semidefinite programming approach to optimal unambiguous discrimination of quantum states</em>. <strong>IEEE Transactions on Information Theory</strong>. vol. 49(2). (2003). <a href="https://doi.org/10.1109/tit.2002.807291">doi:10.1109/tit.2002.807291</a>.</span></p>
 
@@ -10822,7 +10847,35 @@ measurement operators which may be of interest to us.</p>
 <span class="normal"><a href="#__codelineno-0-227">227</a></span>
 <span class="normal"><a href="#__codelineno-0-228">228</a></span>
 <span class="normal"><a href="#__codelineno-0-229">229</a></span>
-<span class="normal"><a href="#__codelineno-0-230">230</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-12" name="__codelineno-0-12"></a><span class="k">def</span><span class="w"> </span><span class="nf">state_distinguishability</span><span class="p">(</span>
+<span class="normal"><a href="#__codelineno-0-230">230</a></span>
+<span class="normal"><a href="#__codelineno-0-231">231</a></span>
+<span class="normal"><a href="#__codelineno-0-232">232</a></span>
+<span class="normal"><a href="#__codelineno-0-233">233</a></span>
+<span class="normal"><a href="#__codelineno-0-234">234</a></span>
+<span class="normal"><a href="#__codelineno-0-235">235</a></span>
+<span class="normal"><a href="#__codelineno-0-236">236</a></span>
+<span class="normal"><a href="#__codelineno-0-237">237</a></span>
+<span class="normal"><a href="#__codelineno-0-238">238</a></span>
+<span class="normal"><a href="#__codelineno-0-239">239</a></span>
+<span class="normal"><a href="#__codelineno-0-240">240</a></span>
+<span class="normal"><a href="#__codelineno-0-241">241</a></span>
+<span class="normal"><a href="#__codelineno-0-242">242</a></span>
+<span class="normal"><a href="#__codelineno-0-243">243</a></span>
+<span class="normal"><a href="#__codelineno-0-244">244</a></span>
+<span class="normal"><a href="#__codelineno-0-245">245</a></span>
+<span class="normal"><a href="#__codelineno-0-246">246</a></span>
+<span class="normal"><a href="#__codelineno-0-247">247</a></span>
+<span class="normal"><a href="#__codelineno-0-248">248</a></span>
+<span class="normal"><a href="#__codelineno-0-249">249</a></span>
+<span class="normal"><a href="#__codelineno-0-250">250</a></span>
+<span class="normal"><a href="#__codelineno-0-251">251</a></span>
+<span class="normal"><a href="#__codelineno-0-252">252</a></span>
+<span class="normal"><a href="#__codelineno-0-253">253</a></span>
+<span class="normal"><a href="#__codelineno-0-254">254</a></span>
+<span class="normal"><a href="#__codelineno-0-255">255</a></span>
+<span class="normal"><a href="#__codelineno-0-256">256</a></span>
+<span class="normal"><a href="#__codelineno-0-257">257</a></span>
+<span class="normal"><a href="#__codelineno-0-258">258</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-12" name="__codelineno-0-12"></a><span class="k">def</span><span class="w"> </span><span class="nf">state_distinguishability</span><span class="p">(</span>
 <a id="__codelineno-0-13" name="__codelineno-0-13"></a>    <span class="n">vectors</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span>
 <a id="__codelineno-0-14" name="__codelineno-0-14"></a>    <span class="n">probs</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <a id="__codelineno-0-15" name="__codelineno-0-15"></a>    <span class="n">strategy</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;min_error&quot;</span><span class="p">,</span>
@@ -10986,61 +11039,89 @@ measurement operators which may be of interest to us.</p>
 <a id="__codelineno-0-173" name="__codelineno-0-173"></a><span class="sd">        print(np.around(res, decimals=2))</span>
 <a id="__codelineno-0-174" name="__codelineno-0-174"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-175" name="__codelineno-0-175"></a>
-<a id="__codelineno-0-176" name="__codelineno-0-176"></a><span class="sd">    &quot;&quot;&quot;</span>
-<a id="__codelineno-0-177" name="__codelineno-0-177"></a>    <span class="k">if</span> <span class="n">measurement</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;positive&quot;</span><span class="p">,</span> <span class="s2">&quot;ppt&quot;</span><span class="p">}:</span>
-<a id="__codelineno-0-178" name="__codelineno-0-178"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Argument `measurement` must be either &#39;positive&#39; or &#39;ppt&#39;.&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-179" name="__codelineno-0-179"></a>
-<a id="__codelineno-0-180" name="__codelineno-0-180"></a>    <span class="k">if</span> <span class="n">primal_dual</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;primal&quot;</span><span class="p">,</span> <span class="s2">&quot;dual&quot;</span><span class="p">}:</span>
-<a id="__codelineno-0-181" name="__codelineno-0-181"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The primal_dual option must be either &#39;primal&#39; or &#39;dual&#39;.&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-176" name="__codelineno-0-176"></a><span class="sd">        PPT-constrained minimum-error state distinguishability.</span>
+<a id="__codelineno-0-177" name="__codelineno-0-177"></a>
+<a id="__codelineno-0-178" name="__codelineno-0-178"></a><span class="sd">        ```python</span>
+<a id="__codelineno-0-179" name="__codelineno-0-179"></a><span class="sd">        import numpy as np</span>
+<a id="__codelineno-0-180" name="__codelineno-0-180"></a><span class="sd">        from toqito.state_opt import state_distinguishability</span>
+<a id="__codelineno-0-181" name="__codelineno-0-181"></a><span class="sd">        from toqito.states import bell</span>
 <a id="__codelineno-0-182" name="__codelineno-0-182"></a>
-<a id="__codelineno-0-183" name="__codelineno-0-183"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">has_same_dimension</span><span class="p">(</span><span class="n">vectors</span><span class="p">):</span>
-<a id="__codelineno-0-184" name="__codelineno-0-184"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Vectors for state distinguishability must all have the same dimension.&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-185" name="__codelineno-0-185"></a>
-<a id="__codelineno-0-186" name="__codelineno-0-186"></a>    <span class="c1"># Assumes a uniform probabilities distribution among the states if one is not explicitly provided.</span>
-<a id="__codelineno-0-187" name="__codelineno-0-187"></a>    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">vectors</span><span class="p">)</span>
-<a id="__codelineno-0-188" name="__codelineno-0-188"></a>    <span class="n">probs</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span> <span class="o">/</span> <span class="n">n</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span> <span class="k">if</span> <span class="n">probs</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">probs</span>
-<a id="__codelineno-0-189" name="__codelineno-0-189"></a>    <span class="n">dim</span> <span class="o">=</span> <span class="n">calculate_vector_matrix_dimension</span><span class="p">(</span><span class="n">vectors</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<a id="__codelineno-0-190" name="__codelineno-0-190"></a>
-<a id="__codelineno-0-191" name="__codelineno-0-191"></a>    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">probs</span><span class="p">)</span> <span class="o">!=</span> <span class="n">n</span><span class="p">:</span>
-<a id="__codelineno-0-192" name="__codelineno-0-192"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The number of probabilities (</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">probs</span><span class="p">)</span><span class="si">}</span><span class="s2">) must equal the number of states (</span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s2">).&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-193" name="__codelineno-0-193"></a>    <span class="c1"># `probs` are weights, not necessarily a normalized distribution (e.g. antidistinguishability passes [1]*n), so we</span>
-<a id="__codelineno-0-194" name="__codelineno-0-194"></a>    <span class="c1"># do not require them to sum to 1.</span>
-<a id="__codelineno-0-195" name="__codelineno-0-195"></a>    <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">p</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">probs</span><span class="p">):</span>
-<a id="__codelineno-0-196" name="__codelineno-0-196"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Probability vector must be nonnegative.&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-197" name="__codelineno-0-197"></a>    <span class="k">if</span> <span class="n">strategy</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;min_error&quot;</span><span class="p">,</span> <span class="s2">&quot;unambiguous&quot;</span><span class="p">):</span>
-<a id="__codelineno-0-198" name="__codelineno-0-198"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;strategy must be either &#39;min_error&#39; or &#39;unambiguous&#39;.&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-199" name="__codelineno-0-199"></a>
-<a id="__codelineno-0-200" name="__codelineno-0-200"></a>    <span class="k">if</span> <span class="n">measurement</span> <span class="o">==</span> <span class="s2">&quot;ppt&quot;</span><span class="p">:</span>
-<a id="__codelineno-0-201" name="__codelineno-0-201"></a>        <span class="n">_validate_ppt_params</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="n">dim</span><span class="p">,</span> <span class="n">subsystems</span><span class="o">=</span><span class="n">subsystems</span><span class="p">,</span> <span class="n">dimensions</span><span class="o">=</span><span class="n">dimensions</span><span class="p">)</span>
-<a id="__codelineno-0-202" name="__codelineno-0-202"></a>        <span class="k">if</span> <span class="n">primal_dual</span> <span class="o">==</span> <span class="s2">&quot;primal&quot;</span><span class="p">:</span>
-<a id="__codelineno-0-203" name="__codelineno-0-203"></a>            <span class="k">return</span> <span class="n">_ppt_primal</span><span class="p">(</span>
-<a id="__codelineno-0-204" name="__codelineno-0-204"></a>                <span class="n">vectors</span><span class="o">=</span><span class="n">vectors</span><span class="p">,</span>
-<a id="__codelineno-0-205" name="__codelineno-0-205"></a>                <span class="n">subsystems</span><span class="o">=</span><span class="n">subsystems</span><span class="p">,</span>
-<a id="__codelineno-0-206" name="__codelineno-0-206"></a>                <span class="n">dimensions</span><span class="o">=</span><span class="n">dimensions</span><span class="p">,</span>
-<a id="__codelineno-0-207" name="__codelineno-0-207"></a>                <span class="n">probs</span><span class="o">=</span><span class="n">probs</span><span class="p">,</span>
-<a id="__codelineno-0-208" name="__codelineno-0-208"></a>                <span class="n">solver</span><span class="o">=</span><span class="n">solver</span><span class="p">,</span>
-<a id="__codelineno-0-209" name="__codelineno-0-209"></a>                <span class="n">strategy</span><span class="o">=</span><span class="n">strategy</span><span class="p">,</span>
-<a id="__codelineno-0-210" name="__codelineno-0-210"></a>                <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
-<a id="__codelineno-0-211" name="__codelineno-0-211"></a>            <span class="p">)</span>
-<a id="__codelineno-0-212" name="__codelineno-0-212"></a>        <span class="k">return</span> <span class="n">_ppt_dual</span><span class="p">(</span>
-<a id="__codelineno-0-213" name="__codelineno-0-213"></a>            <span class="n">vectors</span><span class="o">=</span><span class="n">vectors</span><span class="p">,</span>
-<a id="__codelineno-0-214" name="__codelineno-0-214"></a>            <span class="n">subsystems</span><span class="o">=</span><span class="n">subsystems</span><span class="p">,</span>
-<a id="__codelineno-0-215" name="__codelineno-0-215"></a>            <span class="n">dimensions</span><span class="o">=</span><span class="n">dimensions</span><span class="p">,</span>
-<a id="__codelineno-0-216" name="__codelineno-0-216"></a>            <span class="n">probs</span><span class="o">=</span><span class="n">probs</span><span class="p">,</span>
-<a id="__codelineno-0-217" name="__codelineno-0-217"></a>            <span class="n">solver</span><span class="o">=</span><span class="n">solver</span><span class="p">,</span>
-<a id="__codelineno-0-218" name="__codelineno-0-218"></a>            <span class="n">strategy</span><span class="o">=</span><span class="n">strategy</span><span class="p">,</span>
-<a id="__codelineno-0-219" name="__codelineno-0-219"></a>            <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
-<a id="__codelineno-0-220" name="__codelineno-0-220"></a>        <span class="p">)</span>
-<a id="__codelineno-0-221" name="__codelineno-0-221"></a>
-<a id="__codelineno-0-222" name="__codelineno-0-222"></a>    <span class="k">if</span> <span class="n">strategy</span> <span class="o">==</span> <span class="s2">&quot;min_error&quot;</span><span class="p">:</span>
-<a id="__codelineno-0-223" name="__codelineno-0-223"></a>        <span class="k">if</span> <span class="n">primal_dual</span> <span class="o">==</span> <span class="s2">&quot;primal&quot;</span><span class="p">:</span>
-<a id="__codelineno-0-224" name="__codelineno-0-224"></a>            <span class="k">return</span> <span class="n">_min_error_primal</span><span class="p">(</span><span class="n">vectors</span><span class="o">=</span><span class="n">vectors</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="n">dim</span><span class="p">,</span> <span class="n">probs</span><span class="o">=</span><span class="n">probs</span><span class="p">,</span> <span class="n">solver</span><span class="o">=</span><span class="n">solver</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-<a id="__codelineno-0-225" name="__codelineno-0-225"></a>        <span class="k">return</span> <span class="n">_min_error_dual</span><span class="p">(</span><span class="n">vectors</span><span class="o">=</span><span class="n">vectors</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="n">dim</span><span class="p">,</span> <span class="n">probs</span><span class="o">=</span><span class="n">probs</span><span class="p">,</span> <span class="n">solver</span><span class="o">=</span><span class="n">solver</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-<a id="__codelineno-0-226" name="__codelineno-0-226"></a>
-<a id="__codelineno-0-227" name="__codelineno-0-227"></a>    <span class="k">if</span> <span class="n">primal_dual</span> <span class="o">==</span> <span class="s2">&quot;primal&quot;</span><span class="p">:</span>
-<a id="__codelineno-0-228" name="__codelineno-0-228"></a>        <span class="k">return</span> <span class="n">_unambiguous_primal</span><span class="p">(</span><span class="n">vectors</span><span class="o">=</span><span class="n">vectors</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="n">dim</span><span class="p">,</span> <span class="n">probs</span><span class="o">=</span><span class="n">probs</span><span class="p">,</span> <span class="n">solver</span><span class="o">=</span><span class="n">solver</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-<a id="__codelineno-0-229" name="__codelineno-0-229"></a>
-<a id="__codelineno-0-230" name="__codelineno-0-230"></a>    <span class="k">return</span> <span class="n">_unambiguous_dual</span><span class="p">(</span><span class="n">vectors</span><span class="o">=</span><span class="n">vectors</span><span class="p">,</span> <span class="n">probs</span><span class="o">=</span><span class="n">probs</span><span class="p">,</span> <span class="n">solver</span><span class="o">=</span><span class="n">solver</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<a id="__codelineno-0-183" name="__codelineno-0-183"></a><span class="sd">        states = [bell(0), bell(1), bell(2)]</span>
+<a id="__codelineno-0-184" name="__codelineno-0-184"></a>
+<a id="__codelineno-0-185" name="__codelineno-0-185"></a><span class="sd">        res, _ = state_distinguishability(</span>
+<a id="__codelineno-0-186" name="__codelineno-0-186"></a><span class="sd">            states,</span>
+<a id="__codelineno-0-187" name="__codelineno-0-187"></a><span class="sd">            measurement=&quot;ppt&quot;,</span>
+<a id="__codelineno-0-188" name="__codelineno-0-188"></a><span class="sd">            subsystems=[0],</span>
+<a id="__codelineno-0-189" name="__codelineno-0-189"></a><span class="sd">            dimensions=[2, 2],</span>
+<a id="__codelineno-0-190" name="__codelineno-0-190"></a><span class="sd">            primal_dual=&quot;primal&quot;,</span>
+<a id="__codelineno-0-191" name="__codelineno-0-191"></a><span class="sd">            cvxopt_kktsolver=&quot;ldl&quot;,</span>
+<a id="__codelineno-0-192" name="__codelineno-0-192"></a><span class="sd">        )</span>
+<a id="__codelineno-0-193" name="__codelineno-0-193"></a>
+<a id="__codelineno-0-194" name="__codelineno-0-194"></a><span class="sd">        print(np.around(res, decimals=2))</span>
+<a id="__codelineno-0-195" name="__codelineno-0-195"></a><span class="sd">        ```</span>
+<a id="__codelineno-0-196" name="__codelineno-0-196"></a>
+<a id="__codelineno-0-197" name="__codelineno-0-197"></a><span class="sd">        !!! Note</span>
+<a id="__codelineno-0-198" name="__codelineno-0-198"></a><span class="sd">            If you encounter a `ZeroDivisionError` or an `ArithmeticError` when using cvxopt as a solver (which is the</span>
+<a id="__codelineno-0-199" name="__codelineno-0-199"></a><span class="sd">            default), you might want to set the `abs_ipm_opt_tol` option to a lower value (the default being `1e-8`) or</span>
+<a id="__codelineno-0-200" name="__codelineno-0-200"></a><span class="sd">            to set the `cvxopt_kktsolver` option to `ldl`.</span>
+<a id="__codelineno-0-201" name="__codelineno-0-201"></a>
+<a id="__codelineno-0-202" name="__codelineno-0-202"></a><span class="sd">            See https://gitlab.com/picos-api/picos/-/issues/341</span>
+<a id="__codelineno-0-203" name="__codelineno-0-203"></a>
+<a id="__codelineno-0-204" name="__codelineno-0-204"></a><span class="sd">    &quot;&quot;&quot;</span>
+<a id="__codelineno-0-205" name="__codelineno-0-205"></a>    <span class="k">if</span> <span class="n">measurement</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;positive&quot;</span><span class="p">,</span> <span class="s2">&quot;ppt&quot;</span><span class="p">}:</span>
+<a id="__codelineno-0-206" name="__codelineno-0-206"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Argument `measurement` must be either &#39;positive&#39; or &#39;ppt&#39;.&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-207" name="__codelineno-0-207"></a>
+<a id="__codelineno-0-208" name="__codelineno-0-208"></a>    <span class="k">if</span> <span class="n">primal_dual</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;primal&quot;</span><span class="p">,</span> <span class="s2">&quot;dual&quot;</span><span class="p">}:</span>
+<a id="__codelineno-0-209" name="__codelineno-0-209"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The primal_dual option must be either &#39;primal&#39; or &#39;dual&#39;.&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-210" name="__codelineno-0-210"></a>
+<a id="__codelineno-0-211" name="__codelineno-0-211"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">has_same_dimension</span><span class="p">(</span><span class="n">vectors</span><span class="p">):</span>
+<a id="__codelineno-0-212" name="__codelineno-0-212"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Vectors for state distinguishability must all have the same dimension.&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-213" name="__codelineno-0-213"></a>
+<a id="__codelineno-0-214" name="__codelineno-0-214"></a>    <span class="c1"># Assumes a uniform probabilities distribution among the states if one is not explicitly provided.</span>
+<a id="__codelineno-0-215" name="__codelineno-0-215"></a>    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">vectors</span><span class="p">)</span>
+<a id="__codelineno-0-216" name="__codelineno-0-216"></a>    <span class="n">probs</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span> <span class="o">/</span> <span class="n">n</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span> <span class="k">if</span> <span class="n">probs</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">probs</span>
+<a id="__codelineno-0-217" name="__codelineno-0-217"></a>    <span class="n">dim</span> <span class="o">=</span> <span class="n">calculate_vector_matrix_dimension</span><span class="p">(</span><span class="n">vectors</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<a id="__codelineno-0-218" name="__codelineno-0-218"></a>
+<a id="__codelineno-0-219" name="__codelineno-0-219"></a>    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">probs</span><span class="p">)</span> <span class="o">!=</span> <span class="n">n</span><span class="p">:</span>
+<a id="__codelineno-0-220" name="__codelineno-0-220"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The number of probabilities (</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">probs</span><span class="p">)</span><span class="si">}</span><span class="s2">) must equal the number of states (</span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s2">).&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-221" name="__codelineno-0-221"></a>    <span class="c1"># `probs` are weights, not necessarily a normalized distribution (e.g. antidistinguishability passes [1]*n), so we</span>
+<a id="__codelineno-0-222" name="__codelineno-0-222"></a>    <span class="c1"># do not require them to sum to 1.</span>
+<a id="__codelineno-0-223" name="__codelineno-0-223"></a>    <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">p</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">probs</span><span class="p">):</span>
+<a id="__codelineno-0-224" name="__codelineno-0-224"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Probability vector must be nonnegative.&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-225" name="__codelineno-0-225"></a>    <span class="k">if</span> <span class="n">strategy</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;min_error&quot;</span><span class="p">,</span> <span class="s2">&quot;unambiguous&quot;</span><span class="p">):</span>
+<a id="__codelineno-0-226" name="__codelineno-0-226"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;strategy must be either &#39;min_error&#39; or &#39;unambiguous&#39;.&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-227" name="__codelineno-0-227"></a>
+<a id="__codelineno-0-228" name="__codelineno-0-228"></a>    <span class="k">if</span> <span class="n">measurement</span> <span class="o">==</span> <span class="s2">&quot;ppt&quot;</span><span class="p">:</span>
+<a id="__codelineno-0-229" name="__codelineno-0-229"></a>        <span class="n">_validate_ppt_params</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="n">dim</span><span class="p">,</span> <span class="n">subsystems</span><span class="o">=</span><span class="n">subsystems</span><span class="p">,</span> <span class="n">dimensions</span><span class="o">=</span><span class="n">dimensions</span><span class="p">)</span>
+<a id="__codelineno-0-230" name="__codelineno-0-230"></a>        <span class="k">if</span> <span class="n">primal_dual</span> <span class="o">==</span> <span class="s2">&quot;primal&quot;</span><span class="p">:</span>
+<a id="__codelineno-0-231" name="__codelineno-0-231"></a>            <span class="k">return</span> <span class="n">_ppt_primal</span><span class="p">(</span>
+<a id="__codelineno-0-232" name="__codelineno-0-232"></a>                <span class="n">vectors</span><span class="o">=</span><span class="n">vectors</span><span class="p">,</span>
+<a id="__codelineno-0-233" name="__codelineno-0-233"></a>                <span class="n">subsystems</span><span class="o">=</span><span class="n">subsystems</span><span class="p">,</span>
+<a id="__codelineno-0-234" name="__codelineno-0-234"></a>                <span class="n">dimensions</span><span class="o">=</span><span class="n">dimensions</span><span class="p">,</span>
+<a id="__codelineno-0-235" name="__codelineno-0-235"></a>                <span class="n">probs</span><span class="o">=</span><span class="n">probs</span><span class="p">,</span>
+<a id="__codelineno-0-236" name="__codelineno-0-236"></a>                <span class="n">solver</span><span class="o">=</span><span class="n">solver</span><span class="p">,</span>
+<a id="__codelineno-0-237" name="__codelineno-0-237"></a>                <span class="n">strategy</span><span class="o">=</span><span class="n">strategy</span><span class="p">,</span>
+<a id="__codelineno-0-238" name="__codelineno-0-238"></a>                <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<a id="__codelineno-0-239" name="__codelineno-0-239"></a>            <span class="p">)</span>
+<a id="__codelineno-0-240" name="__codelineno-0-240"></a>        <span class="k">return</span> <span class="n">_ppt_dual</span><span class="p">(</span>
+<a id="__codelineno-0-241" name="__codelineno-0-241"></a>            <span class="n">vectors</span><span class="o">=</span><span class="n">vectors</span><span class="p">,</span>
+<a id="__codelineno-0-242" name="__codelineno-0-242"></a>            <span class="n">subsystems</span><span class="o">=</span><span class="n">subsystems</span><span class="p">,</span>
+<a id="__codelineno-0-243" name="__codelineno-0-243"></a>            <span class="n">dimensions</span><span class="o">=</span><span class="n">dimensions</span><span class="p">,</span>
+<a id="__codelineno-0-244" name="__codelineno-0-244"></a>            <span class="n">probs</span><span class="o">=</span><span class="n">probs</span><span class="p">,</span>
+<a id="__codelineno-0-245" name="__codelineno-0-245"></a>            <span class="n">solver</span><span class="o">=</span><span class="n">solver</span><span class="p">,</span>
+<a id="__codelineno-0-246" name="__codelineno-0-246"></a>            <span class="n">strategy</span><span class="o">=</span><span class="n">strategy</span><span class="p">,</span>
+<a id="__codelineno-0-247" name="__codelineno-0-247"></a>            <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<a id="__codelineno-0-248" name="__codelineno-0-248"></a>        <span class="p">)</span>
+<a id="__codelineno-0-249" name="__codelineno-0-249"></a>
+<a id="__codelineno-0-250" name="__codelineno-0-250"></a>    <span class="k">if</span> <span class="n">strategy</span> <span class="o">==</span> <span class="s2">&quot;min_error&quot;</span><span class="p">:</span>
+<a id="__codelineno-0-251" name="__codelineno-0-251"></a>        <span class="k">if</span> <span class="n">primal_dual</span> <span class="o">==</span> <span class="s2">&quot;primal&quot;</span><span class="p">:</span>
+<a id="__codelineno-0-252" name="__codelineno-0-252"></a>            <span class="k">return</span> <span class="n">_min_error_primal</span><span class="p">(</span><span class="n">vectors</span><span class="o">=</span><span class="n">vectors</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="n">dim</span><span class="p">,</span> <span class="n">probs</span><span class="o">=</span><span class="n">probs</span><span class="p">,</span> <span class="n">solver</span><span class="o">=</span><span class="n">solver</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<a id="__codelineno-0-253" name="__codelineno-0-253"></a>        <span class="k">return</span> <span class="n">_min_error_dual</span><span class="p">(</span><span class="n">vectors</span><span class="o">=</span><span class="n">vectors</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="n">dim</span><span class="p">,</span> <span class="n">probs</span><span class="o">=</span><span class="n">probs</span><span class="p">,</span> <span class="n">solver</span><span class="o">=</span><span class="n">solver</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<a id="__codelineno-0-254" name="__codelineno-0-254"></a>
+<a id="__codelineno-0-255" name="__codelineno-0-255"></a>    <span class="k">if</span> <span class="n">primal_dual</span> <span class="o">==</span> <span class="s2">&quot;primal&quot;</span><span class="p">:</span>
+<a id="__codelineno-0-256" name="__codelineno-0-256"></a>        <span class="k">return</span> <span class="n">_unambiguous_primal</span><span class="p">(</span><span class="n">vectors</span><span class="o">=</span><span class="n">vectors</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="n">dim</span><span class="p">,</span> <span class="n">probs</span><span class="o">=</span><span class="n">probs</span><span class="p">,</span> <span class="n">solver</span><span class="o">=</span><span class="n">solver</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<a id="__codelineno-0-257" name="__codelineno-0-257"></a>
+<a id="__codelineno-0-258" name="__codelineno-0-258"></a>    <span class="k">return</span> <span class="n">_unambiguous_dual</span><span class="p">(</span><span class="n">vectors</span><span class="o">=</span><span class="n">vectors</span><span class="p">,</span> <span class="n">probs</span><span class="o">=</span><span class="n">probs</span><span class="p">,</span> <span class="n">solver</span><span class="o">=</span><span class="n">solver</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
