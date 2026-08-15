@@ -197,14 +197,20 @@ def permute_systems(
         permuted_mat = functools.reduce(operator.iconcat, permuted_mat, [])
         return np.array(permuted_mat)
 
-    vec_arg = np.array(list(range(0, input_mat_dims[0])))
-
     # If the dimensions are specified, ensure they are given to the
     # recursive calls as flattened lists.
     if len(dim_arr[0][:]) == 1:
         dim_arr = functools.reduce(operator.iconcat, dim_arr, [])
 
-    row_perm = permute_systems(vec_arg, perm, dim_arr[0][:], False, inv_perm)
+    # Permuting the subsystems of an index vector is exactly a reshape into the
+    # subsystem dimensions, a transpose by `perm`, and a flatten, so build the
+    # index permutation directly instead of recursing. The recursive call
+    # rebuilt and revalidated the dimension arrays on every invocation and
+    # flattened its result through `functools.reduce(operator.iconcat, ...)`,
+    # which concatenates lists one element at a time in Python.
+    row_order = np.argsort(perm) if inv_perm else perm
+    row_dims = np.asarray(dim_arr[0][:], dtype=int).ravel()
+    row_perm = np.arange(int(np.prod(row_dims))).reshape(row_dims).transpose(row_order).ravel()
 
     # This condition is only necessary if the `input_mat` variable is sparse.
     if sparse.issparse(input_mat):
@@ -215,8 +221,8 @@ def permute_systems(
         permuted_mat = input_mat[row_perm, :]
 
     if not row_only:
-        vec_arg = np.array(list(range(0, input_mat_dims[1])))
-        col_perm = permute_systems(vec_arg, perm, dim_arr[1][:], False, inv_perm)
+        col_dims = np.asarray(dim_arr[1][:], dtype=int).ravel()
+        col_perm = np.arange(int(np.prod(col_dims))).reshape(col_dims).transpose(row_order).ravel()
         permuted_mat = permuted_mat[:, col_perm]
 
     return permuted_mat
