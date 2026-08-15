@@ -60,6 +60,23 @@ def is_positive_semidefinite(mat: np.ndarray, rtol: float = 1e-05, atol: float =
     """
     if not is_hermitian(mat, rtol, atol):
         return False
+    if mat.shape[0] == 0:
+        return True
+
+    # Fast path. A Cholesky factorization succeeds exactly when the matrix is
+    # positive definite, and costs roughly a third to a fifth of an
+    # eigendecomposition. Density matrices are frequently rank deficient (a pure
+    # state has rank one), so factor `mat + atol * I` rather than `mat`: success
+    # then means every eigenvalue exceeds `-atol`, which implies the tolerance
+    # test below, since `rtol * scale` is non-negative. A failure proves nothing,
+    # because Cholesky can also fail on a positive semidefinite matrix that is
+    # merely ill conditioned, so fall through to the exact test in that case.
+    try:
+        np.linalg.cholesky(mat + atol * np.eye(mat.shape[0], dtype=mat.dtype))
+        return True
+    except np.linalg.LinAlgError:
+        pass
+
     evals = np.linalg.eigvalsh(mat)
     if evals.size == 0:
         return True
