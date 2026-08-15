@@ -61,13 +61,13 @@
     
       <link rel="stylesheet" href="../../../../assets/extra.css">
     
-      <link rel="stylesheet" href="../../../../sg_gallery-binder.css">
-    
-      <link rel="stylesheet" href="../../../../sg_gallery.css">
-    
       <link rel="stylesheet" href="../../../../sg_gallery-dataframe.css">
     
+      <link rel="stylesheet" href="../../../../sg_gallery-binder.css">
+    
       <link rel="stylesheet" href="../../../../sg_gallery-rendered-html.css">
+    
+      <link rel="stylesheet" href="../../../../sg_gallery.css">
     
     <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -10730,7 +10730,13 @@ yield the following matrix</p>
 <span class="normal"><a href="#__codelineno-0-219">219</a></span>
 <span class="normal"><a href="#__codelineno-0-220">220</a></span>
 <span class="normal"><a href="#__codelineno-0-221">221</a></span>
-<span class="normal"><a href="#__codelineno-0-222">222</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-12" name="__codelineno-0-12"></a><span class="k">def</span><span class="w"> </span><span class="nf">permute_systems</span><span class="p">(</span>
+<span class="normal"><a href="#__codelineno-0-222">222</a></span>
+<span class="normal"><a href="#__codelineno-0-223">223</a></span>
+<span class="normal"><a href="#__codelineno-0-224">224</a></span>
+<span class="normal"><a href="#__codelineno-0-225">225</a></span>
+<span class="normal"><a href="#__codelineno-0-226">226</a></span>
+<span class="normal"><a href="#__codelineno-0-227">227</a></span>
+<span class="normal"><a href="#__codelineno-0-228">228</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-12" name="__codelineno-0-12"></a><span class="k">def</span><span class="w"> </span><span class="nf">permute_systems</span><span class="p">(</span>
 <a id="__codelineno-0-13" name="__codelineno-0-13"></a>    <span class="n">input_mat</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
 <a id="__codelineno-0-14" name="__codelineno-0-14"></a>    <span class="n">perm</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
 <a id="__codelineno-0-15" name="__codelineno-0-15"></a>    <span class="n">dim</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -10918,29 +10924,35 @@ yield the following matrix</p>
 <a id="__codelineno-0-197" name="__codelineno-0-197"></a>        <span class="n">permuted_mat</span> <span class="o">=</span> <span class="n">functools</span><span class="o">.</span><span class="n">reduce</span><span class="p">(</span><span class="n">operator</span><span class="o">.</span><span class="n">iconcat</span><span class="p">,</span> <span class="n">permuted_mat</span><span class="p">,</span> <span class="p">[])</span>
 <a id="__codelineno-0-198" name="__codelineno-0-198"></a>        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">permuted_mat</span><span class="p">)</span>
 <a id="__codelineno-0-199" name="__codelineno-0-199"></a>
-<a id="__codelineno-0-200" name="__codelineno-0-200"></a>    <span class="n">vec_arg</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">input_mat_dims</span><span class="p">[</span><span class="mi">0</span><span class="p">])))</span>
-<a id="__codelineno-0-201" name="__codelineno-0-201"></a>
-<a id="__codelineno-0-202" name="__codelineno-0-202"></a>    <span class="c1"># If the dimensions are specified, ensure they are given to the</span>
-<a id="__codelineno-0-203" name="__codelineno-0-203"></a>    <span class="c1"># recursive calls as flattened lists.</span>
-<a id="__codelineno-0-204" name="__codelineno-0-204"></a>    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">dim_arr</span><span class="p">[</span><span class="mi">0</span><span class="p">][:])</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-<a id="__codelineno-0-205" name="__codelineno-0-205"></a>        <span class="n">dim_arr</span> <span class="o">=</span> <span class="n">functools</span><span class="o">.</span><span class="n">reduce</span><span class="p">(</span><span class="n">operator</span><span class="o">.</span><span class="n">iconcat</span><span class="p">,</span> <span class="n">dim_arr</span><span class="p">,</span> <span class="p">[])</span>
-<a id="__codelineno-0-206" name="__codelineno-0-206"></a>
-<a id="__codelineno-0-207" name="__codelineno-0-207"></a>    <span class="n">row_perm</span> <span class="o">=</span> <span class="n">permute_systems</span><span class="p">(</span><span class="n">vec_arg</span><span class="p">,</span> <span class="n">perm</span><span class="p">,</span> <span class="n">dim_arr</span><span class="p">[</span><span class="mi">0</span><span class="p">][:],</span> <span class="kc">False</span><span class="p">,</span> <span class="n">inv_perm</span><span class="p">)</span>
-<a id="__codelineno-0-208" name="__codelineno-0-208"></a>
-<a id="__codelineno-0-209" name="__codelineno-0-209"></a>    <span class="c1"># This condition is only necessary if the `input_mat` variable is sparse.</span>
-<a id="__codelineno-0-210" name="__codelineno-0-210"></a>    <span class="k">if</span> <span class="n">sparse</span><span class="o">.</span><span class="n">issparse</span><span class="p">(</span><span class="n">input_mat</span><span class="p">):</span>
-<a id="__codelineno-0-211" name="__codelineno-0-211"></a>        <span class="n">input_mat</span> <span class="o">=</span> <span class="n">input_mat</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span>
-<a id="__codelineno-0-212" name="__codelineno-0-212"></a>        <span class="n">permuted_mat</span> <span class="o">=</span> <span class="n">input_mat</span><span class="p">[</span><span class="n">row_perm</span><span class="p">,</span> <span class="p">:]</span>
-<a id="__codelineno-0-213" name="__codelineno-0-213"></a>        <span class="n">permuted_mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">permuted_mat</span><span class="p">)</span>
-<a id="__codelineno-0-214" name="__codelineno-0-214"></a>    <span class="k">else</span><span class="p">:</span>
-<a id="__codelineno-0-215" name="__codelineno-0-215"></a>        <span class="n">permuted_mat</span> <span class="o">=</span> <span class="n">input_mat</span><span class="p">[</span><span class="n">row_perm</span><span class="p">,</span> <span class="p">:]</span>
-<a id="__codelineno-0-216" name="__codelineno-0-216"></a>
-<a id="__codelineno-0-217" name="__codelineno-0-217"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">row_only</span><span class="p">:</span>
-<a id="__codelineno-0-218" name="__codelineno-0-218"></a>        <span class="n">vec_arg</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">input_mat_dims</span><span class="p">[</span><span class="mi">1</span><span class="p">])))</span>
-<a id="__codelineno-0-219" name="__codelineno-0-219"></a>        <span class="n">col_perm</span> <span class="o">=</span> <span class="n">permute_systems</span><span class="p">(</span><span class="n">vec_arg</span><span class="p">,</span> <span class="n">perm</span><span class="p">,</span> <span class="n">dim_arr</span><span class="p">[</span><span class="mi">1</span><span class="p">][:],</span> <span class="kc">False</span><span class="p">,</span> <span class="n">inv_perm</span><span class="p">)</span>
-<a id="__codelineno-0-220" name="__codelineno-0-220"></a>        <span class="n">permuted_mat</span> <span class="o">=</span> <span class="n">permuted_mat</span><span class="p">[:,</span> <span class="n">col_perm</span><span class="p">]</span>
-<a id="__codelineno-0-221" name="__codelineno-0-221"></a>
-<a id="__codelineno-0-222" name="__codelineno-0-222"></a>    <span class="k">return</span> <span class="n">permuted_mat</span>
+<a id="__codelineno-0-200" name="__codelineno-0-200"></a>    <span class="c1"># If the dimensions are specified, ensure they are given to the</span>
+<a id="__codelineno-0-201" name="__codelineno-0-201"></a>    <span class="c1"># recursive calls as flattened lists.</span>
+<a id="__codelineno-0-202" name="__codelineno-0-202"></a>    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">dim_arr</span><span class="p">[</span><span class="mi">0</span><span class="p">][:])</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+<a id="__codelineno-0-203" name="__codelineno-0-203"></a>        <span class="n">dim_arr</span> <span class="o">=</span> <span class="n">functools</span><span class="o">.</span><span class="n">reduce</span><span class="p">(</span><span class="n">operator</span><span class="o">.</span><span class="n">iconcat</span><span class="p">,</span> <span class="n">dim_arr</span><span class="p">,</span> <span class="p">[])</span>
+<a id="__codelineno-0-204" name="__codelineno-0-204"></a>
+<a id="__codelineno-0-205" name="__codelineno-0-205"></a>    <span class="c1"># Permuting the subsystems of an index vector is exactly a reshape into the</span>
+<a id="__codelineno-0-206" name="__codelineno-0-206"></a>    <span class="c1"># subsystem dimensions, a transpose by `perm`, and a flatten, so build the</span>
+<a id="__codelineno-0-207" name="__codelineno-0-207"></a>    <span class="c1"># index permutation directly instead of recursing. The recursive call</span>
+<a id="__codelineno-0-208" name="__codelineno-0-208"></a>    <span class="c1"># rebuilt and revalidated the dimension arrays on every invocation and</span>
+<a id="__codelineno-0-209" name="__codelineno-0-209"></a>    <span class="c1"># flattened its result through `functools.reduce(operator.iconcat, ...)`,</span>
+<a id="__codelineno-0-210" name="__codelineno-0-210"></a>    <span class="c1"># which concatenates lists one element at a time in Python.</span>
+<a id="__codelineno-0-211" name="__codelineno-0-211"></a>    <span class="n">row_order</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">perm</span><span class="p">)</span> <span class="k">if</span> <span class="n">inv_perm</span> <span class="k">else</span> <span class="n">perm</span>
+<a id="__codelineno-0-212" name="__codelineno-0-212"></a>    <span class="n">row_dims</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">dim_arr</span><span class="p">[</span><span class="mi">0</span><span class="p">][:],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+<a id="__codelineno-0-213" name="__codelineno-0-213"></a>    <span class="n">row_perm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">row_dims</span><span class="p">)))</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">row_dims</span><span class="p">)</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">row_order</span><span class="p">)</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+<a id="__codelineno-0-214" name="__codelineno-0-214"></a>
+<a id="__codelineno-0-215" name="__codelineno-0-215"></a>    <span class="c1"># This condition is only necessary if the `input_mat` variable is sparse.</span>
+<a id="__codelineno-0-216" name="__codelineno-0-216"></a>    <span class="k">if</span> <span class="n">sparse</span><span class="o">.</span><span class="n">issparse</span><span class="p">(</span><span class="n">input_mat</span><span class="p">):</span>
+<a id="__codelineno-0-217" name="__codelineno-0-217"></a>        <span class="n">input_mat</span> <span class="o">=</span> <span class="n">input_mat</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span>
+<a id="__codelineno-0-218" name="__codelineno-0-218"></a>        <span class="n">permuted_mat</span> <span class="o">=</span> <span class="n">input_mat</span><span class="p">[</span><span class="n">row_perm</span><span class="p">,</span> <span class="p">:]</span>
+<a id="__codelineno-0-219" name="__codelineno-0-219"></a>        <span class="n">permuted_mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">permuted_mat</span><span class="p">)</span>
+<a id="__codelineno-0-220" name="__codelineno-0-220"></a>    <span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-0-221" name="__codelineno-0-221"></a>        <span class="n">permuted_mat</span> <span class="o">=</span> <span class="n">input_mat</span><span class="p">[</span><span class="n">row_perm</span><span class="p">,</span> <span class="p">:]</span>
+<a id="__codelineno-0-222" name="__codelineno-0-222"></a>
+<a id="__codelineno-0-223" name="__codelineno-0-223"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">row_only</span><span class="p">:</span>
+<a id="__codelineno-0-224" name="__codelineno-0-224"></a>        <span class="n">col_dims</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">dim_arr</span><span class="p">[</span><span class="mi">1</span><span class="p">][:],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+<a id="__codelineno-0-225" name="__codelineno-0-225"></a>        <span class="n">col_perm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">col_dims</span><span class="p">)))</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">col_dims</span><span class="p">)</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">row_order</span><span class="p">)</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+<a id="__codelineno-0-226" name="__codelineno-0-226"></a>        <span class="n">permuted_mat</span> <span class="o">=</span> <span class="n">permuted_mat</span><span class="p">[:,</span> <span class="n">col_perm</span><span class="p">]</span>
+<a id="__codelineno-0-227" name="__codelineno-0-227"></a>
+<a id="__codelineno-0-228" name="__codelineno-0-228"></a>    <span class="k">return</span> <span class="n">permuted_mat</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
