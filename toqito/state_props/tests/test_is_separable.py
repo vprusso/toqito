@@ -58,6 +58,25 @@ def _eigvalsh_fail_outside_psd(error_msg="mocked eigvalsh fail"):
     return _patched
 
 
+def _eigvalsh_fail_outside_psd_and_iter_sub(error_msg="mocked eigvalsh fail"):
+    """Fail ``eigvalsh`` everywhere except PSD checks and iterative subtraction.
+
+    Variant of ``_eigvalsh_fail_outside_psd`` that additionally passes through
+    ``_iterative_product_state_subtraction``'s direct ``eigvalsh`` calls (its
+    backoff loop requires genuine eigenvalues to run).
+    """
+
+    def _patched(*args, **kwargs):
+        if inspect.currentframe().f_back.f_code.co_name in {
+            "is_positive_semidefinite",
+            "_iterative_product_state_subtraction",
+        }:
+            return _REAL_EIGVALSH(*args, **kwargs)
+        raise np.linalg.LinAlgError(error_msg)
+
+    return _patched
+
+
 # --- Parameterized Tests for Invalid Inputs ---
 """
 These tests verify that is_separable raises appropriate exceptions for invalid inputs,
@@ -412,6 +431,15 @@ def test_eig_calc_fails_rank1_pert_check_skipped():
     with mock.patch("numpy.linalg.eigvalsh", _eigvalsh_fail_outside_psd("mocked eig error")):
         with mock.patch("numpy.linalg.eigvals", side_effect=np.linalg.LinAlgError("mocked eig error")):
             assert is_separable(np.eye(8) / 8.0, dim=[2, 4])[0]
+
+
+def test_eig_calc_fails_vidal_tarrach_skipped_proceeds():
+    """Vidal-Tarrach check skipped and the flow continues when both eigen solvers fail."""
+    with mock.patch("numpy.linalg.eigvalsh", _eigvalsh_fail_outside_psd_and_iter_sub("mocked eig error")):
+        with mock.patch("numpy.linalg.eigvals", side_effect=np.linalg.LinAlgError("mocked eig error")):
+            sep, reason = is_separable(isotropic(3, 0.25), dim=[3, 3], level=1)
+    assert sep is False
+    assert "inconclusive" in reason
 
 
 def test_2xN_swapped_eig_calc_fails_fallback():
@@ -1346,6 +1374,25 @@ def test_iter_sub_respects_iteration_budget_on_entangled_state():
     )
 
 
+def test_iter_sub_returns_false_when_no_nontrivial_overlap_found():
+    """Stuck detection fires when the best product overlap is below the scaled tolerance."""
+    rho = isotropic(2, 0.5)
+    assert _iterative_product_state_subtraction(rho, [2, 2], tol=0.5, rng=_rng()) is False
+
+
+def test_iter_sub_backoff_loop_exhausted_on_bell_state():
+    """The backoff loop runs to exhaustion (no break) on a Bell state at tiny tolerance."""
+    rho = bell(0) @ bell(0).conj().T
+    assert _iterative_product_state_subtraction(rho, [2, 2], tol=1e-13, rng=_rng()) is False
+
+
+def test_iter_sub_budget_exhausted_after_successful_subtraction():
+    """The outer iteration budget returns False even after a successful subtraction."""
+    psi = np.kron([1.0, 0.0], [1.0, 0.0])
+    rho = np.outer(psi, psi.conj())
+    assert _iterative_product_state_subtraction(rho, [2, 2], tol=1e-8, max_outer_iter=1, rng=_rng()) is False
+
+
 def test_iter_sub_helper_is_deterministic_when_seeded():
     """Reproducibility: two calls with the same seeded rng produce the same verdict."""
     rho = bell(0) @ bell(0).conj().T
@@ -1459,6 +1506,23 @@ def test_filter_normal_form_returns_none_on_rank_deficient_state():
     rho = np.outer(psi, psi.conj())  # rank 1, marginals rank 1
     nf = _filter_normal_form(rho, [2, 2], tol=1e-10)
     assert nf is None
+
+
+def test_filter_normal_form_returns_none_when_second_marginal_rank_deficient():
+    """Filtering bails when the B marginal becomes rank deficient after the A pass."""
+    rho = np.kron(np.diag([0.7, 0.3]), np.array([[1.0, 0.0], [0.0, 0.0]]))
+    assert _filter_normal_form(rho, [2, 2], tol=1e-10) is None
+
+
+def test_filter_normal_form_returns_normal_form_on_budget_exhaustion():
+    """Budget exhaustion still returns the normal form when marginals are near their targets."""
+    rho = np.kron(np.diag([0.7, 0.3]), np.diag([0.4, 0.6]))
+    nf = _filter_normal_form(rho, [2, 2], tol=1e-10, max_iter=1)
+    assert nf is not None
+    rho_a = np.trace(nf.reshape(2, 2, 2, 2), axis1=1, axis2=3)
+    rho_b = np.trace(nf.reshape(2, 2, 2, 2), axis1=0, axis2=2)
+    np.testing.assert_allclose(rho_a, np.eye(2) / 2, atol=1e-10)
+    np.testing.assert_allclose(rho_b, np.eye(2) / 2, atol=1e-10)
 
 
 def test_filter_cmc_xi_sum_on_bell_matches_paper():
@@ -1780,6 +1844,42 @@ def test_qubit_qudit_criteria_abstain_when_not_a_2xn_system(dims, d_a, d_b, min_
     eigs = np.sort(np.linalg.eigvalsh(rho))[::-1]
 
     assert _qubit_qudit_ppt_criteria(rho, dims, d_a, d_b, min_dim, max_dim, prod_dim, 1e-8, eigs) is None
+
+
+def test_qubit_qudit_swapped_eigvalsh_failure_falls_back_to_eigvals():
+    """The swapped 2xN branch falls back to eigvals when eigvalsh fails."""
+    rho_3x2 = np.eye(6) / 6
+    with mock.patch("numpy.linalg.eigvalsh", side_effect=np.linalg.LinAlgError("mocked eigvalsh fail")):
+        verdict = _qubit_qudit_ppt_criteria(
+            rho_3x2,
+            dims=[3, 2],
+            d_a=3,
+            d_b=2,
+            min_dim_val=2,
+            max_dim_val=3,
+            prod_dim_val=6,
+            tol=1e-8,
+            sorted_eigs_desc=np.array([1 / 6] * 6),
+        )
+    assert verdict == (True, "Johnston spectral condition for 2xN PPT states (2013)")
+
+
+def test_qubit_qudit_lemma1_block_eigvals_failure_returns_none():
+    """Johnston Lemma 1 abstains when the block eigendecomposition fails."""
+    rho = bell(2) @ bell(2).conj().T
+    with mock.patch("numpy.linalg.eigvals", side_effect=np.linalg.LinAlgError("mocked eigvals fail")):
+        verdict = _qubit_qudit_ppt_criteria(
+            rho,
+            dims=[2, 2],
+            d_a=2,
+            d_b=2,
+            min_dim_val=2,
+            max_dim_val=2,
+            prod_dim_val=4,
+            tol=1e-8,
+            sorted_eigs_desc=np.array([1.0, 0.0, 0.0, 0.0]),
+        )
+    assert verdict is None
 
 
 def test_range_projector_overlap_abstains_below_rank_four():
