@@ -4,6 +4,7 @@ import numpy as np
 import pytest
 
 from toqito.matrix_ops import tensor
+from toqito.matrix_ops.tensor import _kron
 from toqito.states import basis
 
 e_0, e_1 = basis(2, 0), basis(2, 1)
@@ -82,3 +83,49 @@ def test_tensor_empty_list():
     r"""An empty input list raises ValueError rather than silently returning None."""
     with pytest.raises(ValueError, match="at least one matrix"):
         tensor([])
+
+
+@pytest.mark.parametrize(
+    "mat_a",
+    [
+        np.array(3.0),
+        np.array([1.0, 2.0, 3.0]),
+        np.array([[1.0, 2.0], [3.0, 4.0]]),
+        np.arange(8, dtype=np.complex128).reshape(2, 2, 2),
+    ],
+)
+@pytest.mark.parametrize(
+    "mat_b",
+    [
+        np.array(2.0 + 1j),
+        np.array([4.0, 5.0]),
+        np.array([[5.0, 6.0, 7.0], [8.0, 9.0, 1.0]]),
+        np.arange(12, dtype=np.float64).reshape(1, 3, 4),
+    ],
+)
+def test_kron_matches_numpy_on_mixed_dimensions(mat_a, mat_b):
+    r"""`_kron` reimplements NumPy's rule for padding the lower-dimensional operand.
+
+    Every other case delegates to `numpy.kron`, so this is the one behaviour that could
+    drift if NumPy ever changed how `kron` broadcasts. Compare bitwise, not approximately.
+    """
+    expected, actual = np.kron(mat_a, mat_b), _kron(mat_a, mat_b)
+
+    assert actual.shape == expected.shape
+    assert actual.dtype == expected.dtype
+    assert actual.tobytes() == expected.tobytes()
+
+
+@pytest.mark.filterwarnings("ignore:the matrix subclass:PendingDeprecationWarning")
+@pytest.mark.parametrize(
+    "mat_a",
+    [
+        np.matrix([[1.0, 2.0], [3.0, 4.0]]),
+        np.ma.masked_array([[1.0, 2.0], [3.0, 4.0]], mask=[[0, 1], [0, 0]]),
+    ],
+)
+def test_kron_preserves_ndarray_subclasses(mat_a):
+    r"""Subclasses route to `numpy.kron` so that its `subok` wrapping is preserved."""
+    plain = np.array([[1.0, 0.0], [0.0, 1.0]])
+
+    assert type(_kron(mat_a, plain)) is type(np.kron(mat_a, plain))
