@@ -3,6 +3,43 @@
 import numpy as np
 
 
+def _kron(mat_a: np.ndarray, mat_b: np.ndarray) -> np.ndarray:
+    """Compute the Kronecker product of two arrays.
+
+    This agrees with `numpy.kron` bitwise, but skips the per-call `expand_dims` and axis
+    normalization that dominate the runtime for the small operands `|toqito⟩` tensors together.
+    Inserting size-one axes with `reshape` is always a view, so non-contiguous operands are not
+    copied.
+
+    The `type(...) is not np.ndarray` test is deliberately stricter than `isinstance`. Subclasses
+    such as `np.matrix` and masked arrays, along with scipy sparse operands, are handed to
+    `numpy.kron` so that its `subok` wrapping and the sparse return types are preserved.
+    """
+    if type(mat_a) is not np.ndarray or type(mat_b) is not np.ndarray:
+        return np.kron(mat_a, mat_b)
+
+    if mat_a.ndim == 2 and mat_b.ndim == 2:
+        rows_a, cols_a = mat_a.shape
+        rows_b, cols_b = mat_b.shape
+        return (mat_a.reshape(rows_a, 1, cols_a, 1) * mat_b.reshape(1, rows_b, 1, cols_b)).reshape(
+            rows_a * rows_b, cols_a * cols_b
+        )
+
+    # `numpy.kron` pads the operand of lower dimension with leading singleton axes, so match that
+    # rule before interleaving the axes of the two operands.
+    ndim = max(mat_a.ndim, mat_b.ndim)
+    shape_a = (1,) * (ndim - mat_a.ndim) + mat_a.shape
+    shape_b = (1,) * (ndim - mat_b.ndim) + mat_b.shape
+    view_a: list[int] = []
+    view_b: list[int] = []
+    shape_out: list[int] = []
+    for dim_a, dim_b in zip(shape_a, shape_b, strict=True):
+        view_a += [dim_a, 1]
+        view_b += [1, dim_b]
+        shape_out.append(dim_a * dim_b)
+    return (mat_a.reshape(view_a) * mat_b.reshape(view_b)).reshape(shape_out)
+
+
 def tensor(*args: np.ndarray | int | list[np.ndarray]) -> np.ndarray:
     r"""Compute the Kronecker tensor product [@wikipediatensor].
 
@@ -115,9 +152,9 @@ def tensor(*args: np.ndarray | int | list[np.ndarray]) -> np.ndarray:
         if q == 1:
             return matrix
         tmp = fast_exp(matrix, q >> 1)
-        tmp = np.kron(tmp, tmp)
+        tmp = _kron(tmp, tmp)
         if q & 1:  # If q is odd
-            tmp = np.kron(matrix, tmp)
+            tmp = _kron(matrix, tmp)
         return tmp
 
     result = None
@@ -129,10 +166,10 @@ def tensor(*args: np.ndarray | int | list[np.ndarray]) -> np.ndarray:
         if len(args[0]) == 1:
             return args[0][0]
         if len(args[0]) == 2:
-            return np.kron(args[0][0], args[0][1])
+            return _kron(args[0][0], args[0][1])
         result = args[0][0]
         for i in range(1, len(args[0])):
-            result = np.kron(result, args[0][i])
+            result = _kron(result, args[0][i])
         return result
 
     # Tensor product one matrix `n` times with itself.
@@ -146,11 +183,11 @@ def tensor(*args: np.ndarray | int | list[np.ndarray]) -> np.ndarray:
 
     # Tensor product between two or more matrices.
     if len(args) == 2:
-        return np.kron(args[0], args[1])
+        return _kron(args[0], args[1])
     if len(args) >= 3:
         result = args[0]
         for i in range(1, len(args)):
-            result = np.kron(result, args[i])
+            result = _kron(result, args[i])
         return result
 
     raise ValueError("The `tensor` function must take either a matrix or vector.")
