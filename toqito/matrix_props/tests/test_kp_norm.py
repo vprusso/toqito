@@ -10,6 +10,12 @@ from toqito.matrix_props import kp_norm
 from toqito.rand import random_unitary
 from toqito.states import bell
 
+# A single fixed unitary, drawn once. Two separate `random_unitary(5)` calls would compare
+# `kp_norm` of one matrix against the Frobenius norm of a different one, which passes only
+# because that norm is the same for every 5x5 unitary. Seeding also keeps the generated test
+# ID stable, which parallel collection requires.
+_UNITARY_5 = random_unitary(5, seed=42)
+
 
 @pytest.mark.parametrize(
     "vector, k, p, norm_to_compare",
@@ -18,7 +24,7 @@ from toqito.states import bell
         (bell(0), 1, np.inf, 1),
         # When p=2 and k is greater than or equal to one of the input matrix dimensions, the value calculated is
         # the frobenius norm.
-        (random_unitary(5), 5, 2, np.linalg.norm(random_unitary(5), "fro")),
+        (_UNITARY_5, 5, 2, np.linalg.norm(_UNITARY_5, "fro")),
     ],
 )
 def test_kp_norm(vector, k, p, norm_to_compare):
