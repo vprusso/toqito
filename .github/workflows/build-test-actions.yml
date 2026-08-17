@@ -47,6 +47,11 @@ jobs:
     runs-on: ${{ matrix.os }}
     env:
       PYTHON: ${{ matrix.python-version }}
+      # One BLAS thread per worker. Without this each xdist worker spawns a full
+      # thread pool and the workers fight each other for cores.
+      OMP_NUM_THREADS: 1
+      OPENBLAS_NUM_THREADS: 1
+      MKL_NUM_THREADS: 1
     steps:
       - uses: actions/checkout@v7
       - name: Set up Python ${{ matrix.python-version }}
@@ -71,10 +76,10 @@ jobs:
           uv sync --group dev --no-group docs --no-group lint
       - name: Run tests
         if: matrix.python-version != '3.12' || matrix.os != 'ubuntu-latest'
-        run: uv run pytest -v -m "not slow"
+        run: uv run pytest -v -m "not slow" -n auto --dist worksteal
       - name: Run tests with coverage (including slow tests)
         if: matrix.python-version == '3.12' && matrix.os == 'ubuntu-latest'
-        run: uv run pytest -v --runslow --cov-config=.coveragerc --cov-report=xml --cov-report term-missing:skip-covered --cov=toqito
+        run: uv run pytest -v --runslow -n auto --dist worksteal --cov-config=.coveragerc --cov-report=xml --cov-report term-missing:skip-covered --cov=toqito
       - name: Upload coverage information
         if: matrix.python-version == '3.12' && matrix.os == 'ubuntu-latest'
         uses: codecov/codecov-action@v7
