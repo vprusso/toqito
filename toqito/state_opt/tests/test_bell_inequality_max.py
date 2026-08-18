@@ -69,7 +69,7 @@ def test_chsh_fc_classical(chsh_fc, desc_chsh):
     assert bim.bell_inequality_max(chsh_fc, desc_chsh, "fc", "classical") == pytest.approx(2.0, abs=ATOL)
 
 
-@pytest.mark.skipif(cvxpy.SCS not in cvxpy.installed_solvers(), reason="SCS solver not installed.")
+@pytest.mark.skipif(cvxpy.CLARABEL not in cvxpy.installed_solvers(), reason="SCS solver not installed.")
 def test_chsh_fc_quantum(chsh_fc, desc_chsh):
     """Test quantum maximum (Tsirelson bound) for CHSH inequality in FC notation."""
     expected = 2 * np.sqrt(2)
@@ -78,7 +78,7 @@ def test_chsh_fc_quantum(chsh_fc, desc_chsh):
     )
 
 
-@pytest.mark.skipif(cvxpy.SCS not in cvxpy.installed_solvers(), reason="SCS solver not installed.")
+@pytest.mark.skipif(cvxpy.CLARABEL not in cvxpy.installed_solvers(), reason="SCS solver not installed.")
 def test_chsh_fc_nosignal(chsh_fc, desc_chsh):
     """Test no-signalling maximum for CHSH inequality in FC notation."""
     assert bim.bell_inequality_max(chsh_fc, desc_chsh, "fc", "nosignal", tol=1e-9) == pytest.approx(4.0, abs=5e-5)
@@ -89,7 +89,7 @@ def test_chsh_cg_classical(chsh_cg, desc_chsh):
     assert bim.bell_inequality_max(chsh_cg, desc_chsh, "cg", "classical") == pytest.approx(0.0, abs=ATOL)
 
 
-@pytest.mark.skipif(cvxpy.SCS not in cvxpy.installed_solvers(), reason="SCS solver not installed.")
+@pytest.mark.skipif(cvxpy.CLARABEL not in cvxpy.installed_solvers(), reason="SCS solver not installed.")
 def test_chsh_cg_quantum(chsh_cg, desc_chsh):
     """Test quantum maximum for CHSH inequality in CG notation."""
     expected = 1 / np.sqrt(2) - 0.5
@@ -98,7 +98,7 @@ def test_chsh_cg_quantum(chsh_cg, desc_chsh):
     )
 
 
-@pytest.mark.skipif(cvxpy.SCS not in cvxpy.installed_solvers(), reason="SCS solver not installed.")
+@pytest.mark.skipif(cvxpy.CLARABEL not in cvxpy.installed_solvers(), reason="SCS solver not installed.")
 def test_chsh_cg_nosignal(chsh_cg, desc_chsh):
     """Test no-signalling maximum for CHSH inequality in CG notation."""
     assert bim.bell_inequality_max(chsh_cg, desc_chsh, "cg", "nosignal", tol=1e-9) == pytest.approx(0.5, abs=ATOL)
@@ -109,7 +109,7 @@ def test_chsh_game_fp_classical(chsh_game_fp, desc_chsh):
     assert bim.bell_inequality_max(chsh_game_fp, desc_chsh, "fp", "classical") == pytest.approx(0.75, abs=ATOL)
 
 
-@pytest.mark.skipif(cvxpy.SCS not in cvxpy.installed_solvers(), reason="SCS solver not installed.")
+@pytest.mark.skipif(cvxpy.CLARABEL not in cvxpy.installed_solvers(), reason="SCS solver not installed.")
 def test_chsh_game_fp_quantum(chsh_game_fp, desc_chsh):
     """Test quantum maximum for CHSH game winning probability in FP notation."""
     expected = (1 + 1 / np.sqrt(2)) / 2
@@ -118,7 +118,7 @@ def test_chsh_game_fp_quantum(chsh_game_fp, desc_chsh):
     )
 
 
-@pytest.mark.skipif(cvxpy.SCS not in cvxpy.installed_solvers(), reason="SCS solver not installed.")
+@pytest.mark.skipif(cvxpy.CLARABEL not in cvxpy.installed_solvers(), reason="SCS solver not installed.")
 def test_chsh_game_fp_nosignal(chsh_game_fp, desc_chsh):
     """Test no-signalling maximum for CHSH game winning probability in FP notation."""
     assert bim.bell_inequality_max(chsh_game_fp, desc_chsh, "fp", "nosignal", tol=1e-9) == pytest.approx(1.0, abs=ATOL)
@@ -129,7 +129,7 @@ def test_i3322_cg_classical(i3322_cg, desc_i3322):
     assert bim.bell_inequality_max(i3322_cg, desc_i3322, "cg", "classical") == pytest.approx(1.0, abs=ATOL)
 
 
-@pytest.mark.skipif(cvxpy.SCS not in cvxpy.installed_solvers(), reason="SCS solver not installed.")
+@pytest.mark.skipif(cvxpy.CLARABEL not in cvxpy.installed_solvers(), reason="SCS solver not installed.")
 @pytest.mark.parametrize(
     "k_level, expected_val_toqito",
     [
@@ -146,7 +146,7 @@ def test_i3322_cg_quantum(i3322_cg, desc_i3322, k_level, expected_val_toqito):
     )
 
 
-@pytest.mark.skipif(cvxpy.SCS not in cvxpy.installed_solvers(), reason="SCS solver not installed.")
+@pytest.mark.skipif(cvxpy.CLARABEL not in cvxpy.installed_solvers(), reason="SCS solver not installed.")
 def test_i3322_cg_nosignal(i3322_cg, desc_i3322):
     """Test no-signalling maximum for I3322 inequality in CG notation."""
     assert bim.bell_inequality_max(i3322_cg, desc_i3322, "cg", "nosignal", tol=1e-9) == pytest.approx(2.0, abs=ATOL)
@@ -194,7 +194,7 @@ def test_invalid_mtype(chsh_fc, desc_chsh):
         bim.bell_inequality_max(chsh_fc, desc_chsh, "fc", "invalid_type")
 
 
-@pytest.mark.skipif(cvxpy.SCS not in cvxpy.installed_solvers(), reason="SCS solver not installed.")
+@pytest.mark.skipif(cvxpy.CLARABEL not in cvxpy.installed_solvers(), reason="SCS solver not installed.")
 def test_quantum_infeasible_setup_via_call():
     """Test solver detects infeasibility when manually added constraints make it so."""
     desc = [2, 2, 1, 1]
@@ -211,7 +211,7 @@ def test_quantum_infeasible_setup_via_call():
         pytest.fail("NPA constraint generation failed unexpectedly.")
 
     problem = cvxpy.Problem(objective, constraints)
-    problem.solve(solver=cvxpy.SCS, eps=1e-8)
+    problem.solve(solver=cvxpy.CLARABEL)
 
     assert problem.status in [cvxpy.INFEASIBLE, cvxpy.INFEASIBLE_INACCURATE]
 
@@ -270,7 +270,7 @@ def test_classical_binary_mb0_cg():
     assert bim.bell_inequality_max(coeffs_cg, desc_mb0, "cg", "classical") == pytest.approx(1.0, abs=ATOL)
 
 
-@pytest.mark.skipif(cvxpy.SCS not in cvxpy.installed_solvers(), reason="SCS solver not installed.")
+@pytest.mark.skipif(cvxpy.CLARABEL not in cvxpy.installed_solvers(), reason="SCS solver not installed.")
 def test_nosignal_oa1():
     """Test no-signalling calculation when Alice has only one output (oa=1)."""
     desc = [1, 2, 2, 2]
@@ -278,7 +278,7 @@ def test_nosignal_oa1():
     assert bim.bell_inequality_max(coeffs_cg, desc, "cg", "nosignal", tol=1e-9) == pytest.approx(2.0, abs=ATOL)
 
 
-@pytest.mark.skipif(cvxpy.SCS not in cvxpy.installed_solvers(), reason="SCS solver not installed.")
+@pytest.mark.skipif(cvxpy.CLARABEL not in cvxpy.installed_solvers(), reason="SCS solver not installed.")
 def test_nosignal_ob1():
     """Test no-signalling calculation when Bob has only one output (ob=1)."""
     desc = [2, 1, 2, 2]
@@ -286,7 +286,7 @@ def test_nosignal_ob1():
     assert bim.bell_inequality_max(coeffs_cg, desc, "cg", "nosignal", tol=1e-9) == pytest.approx(2.0, abs=ATOL)
 
 
-@pytest.mark.skipif(cvxpy.SCS not in cvxpy.installed_solvers(), reason="SCS solver not installed.")
+@pytest.mark.skipif(cvxpy.CLARABEL not in cvxpy.installed_solvers(), reason="SCS solver not installed.")
 def test_nosignal_fc_nonbinary_error():
     """Test ValueError for no-signalling calculation with FC notation and non-binary outputs."""
     desc = [3, 2, 2, 2]
@@ -295,7 +295,7 @@ def test_nosignal_fc_nonbinary_error():
         bim.bell_inequality_max(dummy_fc, desc, "fc", "nosignal")
 
 
-@pytest.mark.skipif(cvxpy.SCS not in cvxpy.installed_solvers(), reason="SCS solver not installed.")
+@pytest.mark.skipif(cvxpy.CLARABEL not in cvxpy.installed_solvers(), reason="SCS solver not installed.")
 def test_quantum_fc_nonbinary_error():
     """Test ValueError for quantum calculation with FC notation and non-binary outputs."""
     desc = [3, 2, 2, 2]
@@ -304,7 +304,7 @@ def test_quantum_fc_nonbinary_error():
         bim.bell_inequality_max(dummy_fc, desc, "fc", "quantum")
 
 
-@pytest.mark.skipif(cvxpy.SCS not in cvxpy.installed_solvers(), reason="SCS solver not installed.")
+@pytest.mark.skipif(cvxpy.CLARABEL not in cvxpy.installed_solvers(), reason="SCS solver not installed.")
 def test_quantum_invalid_k_error(chsh_cg, desc_chsh):
     """Test ValueError is raised for invalid NPA level 'k' inputs."""
     with pytest.raises(ValueError, match="Invalid NPA level k=-1"):
@@ -375,7 +375,7 @@ def test_classical_nonbinary_fp_dense():
     assert result >= 0
 
 
-@pytest.mark.skipif(cvxpy.SCS not in cvxpy.installed_solvers(), reason="SCS solver not installed.")
+@pytest.mark.skipif(cvxpy.CLARABEL not in cvxpy.installed_solvers(), reason="SCS solver not installed.")
 def test_nosignal_cg_shape_error(desc_chsh):
     """Test ValueError for no-signalling calculation if CG coefficients have wrong shape."""
     invalid_coeffs_cg = np.zeros((3, 4))  # Correct shape is (3, 3)
@@ -383,7 +383,7 @@ def test_nosignal_cg_shape_error(desc_chsh):
         bim.bell_inequality_max(invalid_coeffs_cg, desc_chsh, "cg", "nosignal")
 
 
-@pytest.mark.skipif(cvxpy.SCS not in cvxpy.installed_solvers(), reason="SCS solver not installed.")
+@pytest.mark.skipif(cvxpy.CLARABEL not in cvxpy.installed_solvers(), reason="SCS solver not installed.")
 def test_quantum_cg_shape_error(desc_chsh):
     """Test ValueError for quantum calculation if CG coefficients have wrong shape."""
     invalid_coeffs_cg = np.zeros((3, 4))  # Correct shape is (3, 3)
@@ -420,7 +420,7 @@ def test_classical_nonbinary_swap_triggered():
 # --- MOCKED TESTS---
 
 
-@pytest.mark.skipif(cvxpy.SCS not in cvxpy.installed_solvers(), reason="SCS solver not installed.")
+@pytest.mark.skipif(cvxpy.CLARABEL not in cvxpy.installed_solvers(), reason="SCS solver not installed.")
 def test_nosignal_infeasible_status(capfd):
     """Test handling of infeasible solver status for no-signalling (mocked)."""
     mock_problem = MagicMock(spec=cvxpy.Problem)
@@ -438,7 +438,7 @@ def test_nosignal_infeasible_status(capfd):
             assert "Warning: Solver status for 'nosignal': infeasible" in captured.out
 
 
-@pytest.mark.skipif(cvxpy.SCS not in cvxpy.installed_solvers(), reason="SCS solver not installed.")
+@pytest.mark.skipif(cvxpy.CLARABEL not in cvxpy.installed_solvers(), reason="SCS solver not installed.")
 def test_nosignal_unbounded_status(capfd):
     """Test handling of unbounded solver status for no-signalling (mocked)."""
     mock_problem = MagicMock(spec=cvxpy.Problem)
@@ -454,7 +454,7 @@ def test_nosignal_unbounded_status(capfd):
         assert "Warning: Solver status for 'nosignal': unbounded" in captured.out
 
 
-@pytest.mark.skipif(cvxpy.SCS not in cvxpy.installed_solvers(), reason="SCS solver not installed.")
+@pytest.mark.skipif(cvxpy.CLARABEL not in cvxpy.installed_solvers(), reason="SCS solver not installed.")
 def test_quantum_infeasible_status(capfd):
     """Test handling of infeasible solver status for quantum (mocked)."""
     mock_problem = MagicMock(spec=cvxpy.Problem)
@@ -472,7 +472,7 @@ def test_quantum_infeasible_status(capfd):
             assert "Warning: Solver status for 'quantum' k=1: infeasible_inaccurate" in captured.out
 
 
-@pytest.mark.skipif(cvxpy.SCS not in cvxpy.installed_solvers(), reason="SCS solver not installed.")
+@pytest.mark.skipif(cvxpy.CLARABEL not in cvxpy.installed_solvers(), reason="SCS solver not installed.")
 def test_quantum_unbounded_status(capfd):
     """Test handling of unbounded solver status for quantum (mocked)."""
     mock_problem = MagicMock(spec=cvxpy.Problem)
@@ -490,7 +490,7 @@ def test_quantum_unbounded_status(capfd):
             assert "Warning: Solver status for 'quantum' k=1: unbounded_inaccurate" in captured.out
 
 
-@pytest.mark.skipif(cvxpy.SCS not in cvxpy.installed_solvers(), reason="SCS solver not installed.")
+@pytest.mark.skipif(cvxpy.CLARABEL not in cvxpy.installed_solvers(), reason="SCS solver not installed.")
 def test_quantum_npa_error(chsh_cg, desc_chsh):
     """Test ValueError is raised if bell_npa_constraints fails."""
     # PATCH THE MODULE ALIAS
@@ -499,7 +499,7 @@ def test_quantum_npa_error(chsh_cg, desc_chsh):
             bim.bell_inequality_max(chsh_cg, desc_chsh, "cg", "quantum", k=1)
 
 
-@pytest.mark.skipif(cvxpy.SCS not in cvxpy.installed_solvers(), reason="SCS solver not installed.")
+@pytest.mark.skipif(cvxpy.CLARABEL not in cvxpy.installed_solvers(), reason="SCS solver not installed.")
 def test_quantum_result_is_nan(chsh_cg, desc_chsh):
     """Test return value is -inf if solver returns NaN for quantum."""
     mock_problem = MagicMock(spec=cvxpy.Problem)
@@ -512,7 +512,7 @@ def test_quantum_result_is_nan(chsh_cg, desc_chsh):
             assert bim.bell_inequality_max(chsh_cg, desc_chsh, "cg", "quantum") == -np.inf
 
 
-@pytest.mark.skipif(cvxpy.SCS not in cvxpy.installed_solvers(), reason="SCS solver not installed.")
+@pytest.mark.skipif(cvxpy.CLARABEL not in cvxpy.installed_solvers(), reason="SCS solver not installed.")
 def test_nosignal_result_is_nan(chsh_cg, desc_chsh):
     """Test return value is -inf if solver returns None/NaN for no-signalling."""
     mock_problem = MagicMock(spec=cvxpy.Problem)
@@ -523,7 +523,7 @@ def test_nosignal_result_is_nan(chsh_cg, desc_chsh):
         assert bim.bell_inequality_max(chsh_cg, desc_chsh, "cg", "nosignal") == -np.inf
 
 
-@pytest.mark.skipif(cvxpy.SCS not in cvxpy.installed_solvers(), reason="SCS solver not installed.")
+@pytest.mark.skipif(cvxpy.CLARABEL not in cvxpy.installed_solvers(), reason="SCS solver not installed.")
 def test_nosignal_fp_conversion_internal_error(desc_chsh):
     """Test catching internal ValueError from fp_to_cg in nosignal path."""
     dummy_fp_coeffs = np.zeros((2, 2, 2, 2))
@@ -533,7 +533,7 @@ def test_nosignal_fp_conversion_internal_error(desc_chsh):
             bim.bell_inequality_max(dummy_fp_coeffs, desc_chsh, "fp", "nosignal")
 
 
-@pytest.mark.skipif(cvxpy.SCS not in cvxpy.installed_solvers(), reason="SCS solver not installed.")
+@pytest.mark.skipif(cvxpy.CLARABEL not in cvxpy.installed_solvers(), reason="SCS solver not installed.")
 def test_quantum_fc_conversion_internal_error(chsh_fc, desc_chsh):
     """Test catching internal ValueError from fc_to_cg in quantum path."""
     # PATCH THE MODULE ALIAS

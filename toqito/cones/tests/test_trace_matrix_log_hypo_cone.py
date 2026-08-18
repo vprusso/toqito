@@ -59,7 +59,7 @@ def test_trace_matrix_log_hypo_cone_at_constant(dim: int, mk: int, apx: int, her
         hermitian=hermitian,
     )
     prob = cvxpy.Problem(cvxpy.Maximize(t), cons)
-    cvx_val = prob.solve(solver=cvxpy.SCS, verbose=False)
+    cvx_val = prob.solve(solver=cvxpy.CLARABEL, verbose=False)
 
     assert prob.status in {cvxpy.OPTIMAL, cvxpy.OPTIMAL_INACCURATE}, prob.status
     assert cvx_val is not None
@@ -82,7 +82,7 @@ def test_trace_matrix_log_hypo_cone_default_mat_c_is_identity():
     t = cvxpy.Variable()
     cons = trace_matrix_log_hypo_cone(cvxpy.Constant(mat_x), t, m=3, k=3, apx=0)
     prob = cvxpy.Problem(cvxpy.Maximize(t), cons)
-    val = prob.solve(solver=cvxpy.SCS, verbose=False)
+    val = prob.solve(solver=cvxpy.CLARABEL, verbose=False)
     ref = float(np.real(np.trace(logm(mat_x))))
     assert prob.status in {cvxpy.OPTIMAL, cvxpy.OPTIMAL_INACCURATE}, prob.status
     assert val == pytest.approx(ref, rel=0, abs=1e-2)
@@ -98,7 +98,7 @@ def test_trace_matrix_log_hypo_cone_composition():
     # Bounded feasible set so Maximize(tr(log X)) is well-posed.
     cons.extend([x_var >> eps * np.eye(n), x_var << np.eye(n)])
     prob = cvxpy.Problem(cvxpy.Maximize(t), cons)
-    val = prob.solve(solver=cvxpy.SCS, verbose=False)
+    val = prob.solve(solver=cvxpy.CLARABEL, verbose=False)
 
     assert prob.status in {cvxpy.OPTIMAL, cvxpy.OPTIMAL_INACCURATE}, prob.status
     # Optimum of tr(log X) on eps I ⪯ X ⪯ I is at X = I.

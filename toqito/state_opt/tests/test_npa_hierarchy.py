@@ -494,7 +494,7 @@ def test_cglmp_inequality_npa_integration(k_npa):
 
     objective = cvxpy.Maximize(i_b_objective)
     problem = cvxpy.Problem(objective, npa_constraints_list)
-    val = problem.solve(solver=cvxpy.SCS, verbose=False)
+    val = problem.solve(solver=cvxpy.CLARABEL, verbose=False)
 
     expected_cglmp_val = 2.9149
     assert val == pytest.approx(expected_cglmp_val, abs=1e-3)

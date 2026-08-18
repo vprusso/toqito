@@ -61,7 +61,7 @@ def test_trace_matrix_power_hypo_cone_at_constant(dim: int, power: float, hermit
         hermitian=hermitian,
     )
     prob = cvxpy.Problem(cvxpy.Maximize(t), cons)
-    cvx_val = prob.solve(solver=cvxpy.SCS, verbose=False)
+    cvx_val = prob.solve(solver=cvxpy.CLARABEL, verbose=False)
 
     assert prob.status in {cvxpy.OPTIMAL, cvxpy.OPTIMAL_INACCURATE}, prob.status
     assert cvx_val is not None
@@ -75,7 +75,7 @@ def test_trace_matrix_power_hypo_cone_default_mat_c_is_identity():
     t = cvxpy.Variable()
     cons = trace_matrix_power_hypo_cone(cvxpy.Constant(mat_a), t, 0.5)
     prob = cvxpy.Problem(cvxpy.Maximize(t), cons)
-    val = prob.solve(solver=cvxpy.SCS, verbose=False)
+    val = prob.solve(solver=cvxpy.CLARABEL, verbose=False)
     assert prob.status in {cvxpy.OPTIMAL, cvxpy.OPTIMAL_INACCURATE}, prob.status
     assert val == pytest.approx(float(n), abs=1e-2)
 
@@ -89,7 +89,7 @@ def test_trace_matrix_power_hypo_cone_composition():
     cons = trace_matrix_power_hypo_cone(a_var, t, 0.5, hermitian=False)
     cons.extend([a_var >> eps * np.eye(n), a_var << np.eye(n)])
     prob = cvxpy.Problem(cvxpy.Maximize(t), cons)
-    val = prob.solve(solver=cvxpy.SCS, verbose=False)
+    val = prob.solve(solver=cvxpy.CLARABEL, verbose=False)
 
     assert prob.status in {cvxpy.OPTIMAL, cvxpy.OPTIMAL_INACCURATE}, prob.status
     assert val == pytest.approx(float(n), abs=5e-2)

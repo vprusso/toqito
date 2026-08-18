@@ -56,7 +56,7 @@ def test_ln_quantum_entropy_hypo_cone_at_constant(dim: int, mk: int, apx: int, h
         hermitian=hermitian,
     )
     prob = cvxpy.Problem(cvxpy.Maximize(t), cons)
-    cvx_val = prob.solve(solver=cvxpy.SCS, verbose=False)
+    cvx_val = prob.solve(solver=cvxpy.CLARABEL, verbose=False)
 
     assert prob.status in {cvxpy.OPTIMAL, cvxpy.OPTIMAL_INACCURATE}, prob.status
     assert cvx_val is not None
@@ -79,7 +79,7 @@ def test_ln_quantum_entropy_hypo_cone_composition():
     cons = ln_quantum_entropy_hypo_cone(x_var, t, m=3, k=3, apx=0, hermitian=False)
     cons.extend([x_var >> 0, cvxpy.trace(x_var) == 1])
     prob = cvxpy.Problem(cvxpy.Maximize(t), cons)
-    val = prob.solve(solver=cvxpy.SCS, verbose=False)
+    val = prob.solve(solver=cvxpy.CLARABEL, verbose=False)
 
     assert prob.status in {cvxpy.OPTIMAL, cvxpy.OPTIMAL_INACCURATE}, prob.status
     # Maximally mixed state maximizes von Neumann entropy among density matrices.
@@ -95,7 +95,7 @@ def test_ln_quantum_entropy_hypo_cone_maximally_mixed_constant():
     t = cvxpy.Variable()
     cons = ln_quantum_entropy_hypo_cone(cvxpy.Constant(mat_x), t, m=3, k=3, apx=0)
     prob = cvxpy.Problem(cvxpy.Maximize(t), cons)
-    val = prob.solve(solver=cvxpy.SCS, verbose=False)
+    val = prob.solve(solver=cvxpy.CLARABEL, verbose=False)
     assert prob.status in {cvxpy.OPTIMAL, cvxpy.OPTIMAL_INACCURATE}, prob.status
     assert val == pytest.approx(float(np.log(n)), rel=0, abs=1e-2)
 

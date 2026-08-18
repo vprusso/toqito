@@ -55,7 +55,7 @@ def _trace_matrix_log_sdp_at_fixed_a(
         hermitian=is_cplx,
     )
     prob = cvxpy.Problem(cvxpy.Maximize(t), cons)
-    val = prob.solve(solver=cvxpy.SCS, verbose=False)
+    val = prob.solve(solver=cvxpy.CLARABEL, verbose=False)
     return val, prob.status
 
 

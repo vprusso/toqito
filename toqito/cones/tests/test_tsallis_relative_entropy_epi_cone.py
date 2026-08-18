@@ -56,7 +56,7 @@ def test_tsallis_relative_entropy_epi_cone_at_constant(dim: int, order: float, h
         hermitian=hermitian,
     )
     prob = cvxpy.Problem(cvxpy.Minimize(t), cons)
-    cvx_val = prob.solve(solver=cvxpy.SCS, verbose=False)
+    cvx_val = prob.solve(solver=cvxpy.CLARABEL, verbose=False)
 
     assert prob.status in {cvxpy.OPTIMAL, cvxpy.OPTIMAL_INACCURATE}, prob.status
     assert cvx_val is not None
@@ -74,7 +74,7 @@ def test_tsallis_relative_entropy_epi_cone_equal_states():
         0.5,
     )
     prob = cvxpy.Problem(cvxpy.Minimize(t), cons)
-    val = prob.solve(solver=cvxpy.SCS, verbose=False)
+    val = prob.solve(solver=cvxpy.CLARABEL, verbose=False)
     assert prob.status in {cvxpy.OPTIMAL, cvxpy.OPTIMAL_INACCURATE}, prob.status
     assert val == pytest.approx(0.0, abs=2e-2)
 
@@ -92,7 +92,7 @@ def test_tsallis_relative_entropy_epi_cone_order_zero():
         0.0,
     )
     prob = cvxpy.Problem(cvxpy.Minimize(t), cons)
-    val = prob.solve(solver=cvxpy.SCS, verbose=False)
+    val = prob.solve(solver=cvxpy.CLARABEL, verbose=False)
     assert prob.status in {cvxpy.OPTIMAL, cvxpy.OPTIMAL_INACCURATE}, prob.status
     assert val == pytest.approx(ref, abs=2e-2)
 
@@ -113,7 +113,7 @@ def test_tsallis_relative_entropy_epi_cone_composition():
     )
     cons.extend([x_var >> 0, cvxpy.trace(x_var) == 1])
     prob = cvxpy.Problem(cvxpy.Minimize(t), cons)
-    val = prob.solve(solver=cvxpy.SCS, verbose=False)
+    val = prob.solve(solver=cvxpy.CLARABEL, verbose=False)
 
     assert prob.status in {cvxpy.OPTIMAL, cvxpy.OPTIMAL_INACCURATE}, prob.status
     assert val == pytest.approx(0.0, abs=5e-2)

@@ -51,7 +51,7 @@ def test_tsallis_entropy_hypo_cone_at_constant(dim: int, order: float, hermitian
         hermitian=hermitian,
     )
     prob = cvxpy.Problem(cvxpy.Maximize(t), cons)
-    cvx_val = prob.solve(solver=cvxpy.SCS, verbose=False)
+    cvx_val = prob.solve(solver=cvxpy.CLARABEL, verbose=False)
 
     assert prob.status in {cvxpy.OPTIMAL, cvxpy.OPTIMAL_INACCURATE}, prob.status
     assert cvx_val is not None
@@ -65,7 +65,7 @@ def test_tsallis_entropy_hypo_cone_maximally_mixed():
     t = cvxpy.Variable()
     cons = tsallis_entropy_hypo_cone(cvxpy.Constant(mat_x), t, 0.5)
     prob = cvxpy.Problem(cvxpy.Maximize(t), cons)
-    val = prob.solve(solver=cvxpy.SCS, verbose=False)
+    val = prob.solve(solver=cvxpy.CLARABEL, verbose=False)
     assert prob.status in {cvxpy.OPTIMAL, cvxpy.OPTIMAL_INACCURATE}, prob.status
     assert val == pytest.approx(ref, abs=2e-2)
 
@@ -79,7 +79,7 @@ def test_tsallis_entropy_hypo_cone_composition():
     cons = tsallis_entropy_hypo_cone(x_var, t, order, hermitian=False)
     cons.extend([x_var >> 0, cvxpy.trace(x_var) == 1])
     prob = cvxpy.Problem(cvxpy.Maximize(t), cons)
-    val = prob.solve(solver=cvxpy.SCS, verbose=False)
+    val = prob.solve(solver=cvxpy.CLARABEL, verbose=False)
 
     assert prob.status in {cvxpy.OPTIMAL, cvxpy.OPTIMAL_INACCURATE}, prob.status
     ref = tsallis_entropy(np.eye(n) / n, order)
@@ -103,7 +103,7 @@ def test_tsallis_entropy_hypo_cone_order_zero():
     t = cvxpy.Variable()
     cons = tsallis_entropy_hypo_cone(cvxpy.Constant(mat_x), t, 0.0)
     prob = cvxpy.Problem(cvxpy.Maximize(t), cons)
-    val = prob.solve(solver=cvxpy.SCS, verbose=False)
+    val = prob.solve(solver=cvxpy.CLARABEL, verbose=False)
     assert prob.status in {cvxpy.OPTIMAL, cvxpy.OPTIMAL_INACCURATE}, prob.status
     assert val == pytest.approx(ref, abs=2e-2)
 

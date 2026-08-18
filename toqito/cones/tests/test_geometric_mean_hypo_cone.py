@@ -63,7 +63,7 @@ def test_geometric_mean_hypo_cone_trace_maximum(dim: int, w: float, hermitian: b
     if hermitian:
         obj = cvxpy.real(obj)
     problem = cvxpy.Problem(cvxpy.Maximize(obj), constraints)
-    problem.solve(solver=cvxpy.SCS, verbose=False)
+    problem.solve(solver=cvxpy.CLARABEL, verbose=False)
 
     assert problem.status in {cvxpy.OPTIMAL, cvxpy.OPTIMAL_INACCURATE}, problem.status
     assert t_var.value is not None
@@ -87,7 +87,7 @@ def test_geometric_mean_hypo_cone_fullhyp_feasibility_matlab_example():
         hermitian=False,
     )
     problem = cvxpy.Problem(cvxpy.Minimize(0), constraints)
-    problem.solve(solver=cvxpy.SCS, verbose=False)
+    problem.solve(solver=cvxpy.CLARABEL, verbose=False)
     assert problem.status in {cvxpy.OPTIMAL, cvxpy.OPTIMAL_INACCURATE}, problem.status
     assert problem.value is not None
     np.testing.assert_allclose(float(problem.value), 0.0, atol=1e-6)
@@ -114,7 +114,7 @@ def test_geometric_mean_hypo_cone_weight_endpoints_restricted(
         hermitian=False,
     )
     problem = cvxpy.Problem(cvxpy.Minimize(0), constraints)
-    problem.solve(solver=cvxpy.SCS, verbose=False)
+    problem.solve(solver=cvxpy.CLARABEL, verbose=False)
     assert problem.status in {cvxpy.OPTIMAL, cvxpy.OPTIMAL_INACCURATE}, problem.status
 
 
