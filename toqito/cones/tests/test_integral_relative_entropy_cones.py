@@ -31,14 +31,14 @@ def test_integral_relative_entropy_cones_match_float_bounds():
     t_lo = cvxpy.Variable()
     cons_lo = integral_relative_entropy_lower_cone(cvxpy.Constant(mat_x), cvxpy.Constant(mat_y), t_lo)
     prob_lo = cvxpy.Problem(cvxpy.Minimize(t_lo), cons_lo)
-    val_lo = prob_lo.solve(solver=cvxpy.SCS, verbose=False, eps=1e-8)
+    val_lo = prob_lo.solve(solver=cvxpy.CLARABEL, verbose=False)
     assert prob_lo.status in {cvxpy.OPTIMAL, cvxpy.OPTIMAL_INACCURATE}, prob_lo.status
     assert val_lo == pytest.approx(ref_lo, abs=1e-4)
 
     t_hi = cvxpy.Variable()
     cons_hi = integral_relative_entropy_upper_cone(cvxpy.Constant(mat_x), cvxpy.Constant(mat_y), t_hi)
     prob_hi = cvxpy.Problem(cvxpy.Minimize(t_hi), cons_hi)
-    val_hi = prob_hi.solve(solver=cvxpy.SCS, verbose=False, eps=1e-8)
+    val_hi = prob_hi.solve(solver=cvxpy.CLARABEL, verbose=False)
     assert prob_hi.status in {cvxpy.OPTIMAL, cvxpy.OPTIMAL_INACCURATE}, prob_hi.status
     assert val_hi == pytest.approx(ref_hi, abs=1e-4)
     assert val_hi >= val_lo - 1e-6
@@ -60,7 +60,7 @@ def test_integral_relative_entropy_cones_explicit_mu_lam():
 
     t_auto = cvxpy.Variable()
     cons_auto = integral_relative_entropy_lower_cone(cvxpy.Constant(mat_x), cvxpy.Constant(mat_y), t_auto)
-    val_auto = cvxpy.Problem(cvxpy.Minimize(t_auto), cons_auto).solve(solver=cvxpy.SCS, verbose=False, eps=1e-8)
+    val_auto = cvxpy.Problem(cvxpy.Minimize(t_auto), cons_auto).solve(solver=cvxpy.CLARABEL, verbose=False)
 
     t_exp = cvxpy.Variable()
     cons_exp = integral_relative_entropy_lower_cone(
@@ -70,7 +70,7 @@ def test_integral_relative_entropy_cones_explicit_mu_lam():
         mu=mu,
         lam=lam,
     )
-    val_exp = cvxpy.Problem(cvxpy.Minimize(t_exp), cons_exp).solve(solver=cvxpy.SCS, verbose=False, eps=1e-8)
+    val_exp = cvxpy.Problem(cvxpy.Minimize(t_exp), cons_exp).solve(solver=cvxpy.CLARABEL, verbose=False)
     assert val_exp == pytest.approx(val_auto, abs=1e-5)
 
 
@@ -96,7 +96,7 @@ def test_integral_relative_entropy_lower_cone_composition_with_explicit_sandwich
         ]
     )
     prob = cvxpy.Problem(cvxpy.Minimize(t), cons)
-    val = prob.solve(solver=cvxpy.SCS, verbose=False)
+    val = prob.solve(solver=cvxpy.CLARABEL, verbose=False)
     assert prob.status in {cvxpy.OPTIMAL, cvxpy.OPTIMAL_INACCURATE}, prob.status
     assert val is not None
     assert np.isfinite(val)
@@ -114,7 +114,7 @@ def test_integral_relative_entropy_cones_complex_hermitian():
         hermitian=True,
     )
     prob = cvxpy.Problem(cvxpy.Minimize(t), cons)
-    val = prob.solve(solver=cvxpy.SCS, verbose=False, eps=1e-8)
+    val = prob.solve(solver=cvxpy.CLARABEL, verbose=False)
     assert prob.status in {cvxpy.OPTIMAL, cvxpy.OPTIMAL_INACCURATE}, prob.status
     assert val == pytest.approx(
         evaluate_relative_entropy_integral(mat_x, mat_y, mean=False)[1],

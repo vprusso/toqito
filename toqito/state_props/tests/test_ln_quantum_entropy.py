@@ -58,7 +58,7 @@ def _ln_quantum_entropy_sdp_at_fixed_x(
         hermitian=is_cplx,
     )
     prob = cvxpy.Problem(cvxpy.Maximize(t), cons)
-    val = prob.solve(solver=cvxpy.SCS, verbose=False)
+    val = prob.solve(solver=cvxpy.CLARABEL, verbose=False)
     return val, prob.status
 
 

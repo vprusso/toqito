@@ -71,7 +71,7 @@ def test_operator_relative_entropy_epi_cone_trace_minimum(dim: int, mk: int, apx
     if hermitian:
         obj = cvxpy.real(obj)
     prob = cvxpy.Problem(cvxpy.Minimize(obj), cons)
-    prob.solve(solver=cvxpy.SCS, verbose=False)
+    prob.solve(solver=cvxpy.CLARABEL, verbose=False)
 
     assert prob.status in {cvxpy.OPTIMAL, cvxpy.OPTIMAL_INACCURATE}, prob.status
     assert TAU.value is not None
@@ -109,7 +109,7 @@ def test_operator_relative_entropy_epi_cone_projected_subspace():
         hermitian=False,
     )
     prob = cvxpy.Problem(cvxpy.Minimize(cvxpy.trace(TAU)), cons)
-    prob.solve(solver=cvxpy.SCS, verbose=False)
+    prob.solve(solver=cvxpy.CLARABEL, verbose=False)
 
     assert prob.status in {cvxpy.OPTIMAL, cvxpy.OPTIMAL_INACCURATE}, prob.status
     assert TAU.value is not None

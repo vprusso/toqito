@@ -40,7 +40,7 @@ def test_quantum_conditional_entropy_hypo_cone_bell_and_product(sys: int, rho: n
     t = cvxpy.Variable()
     cons = quantum_conditional_entropy_hypo_cone(cvxpy.Constant(rho), t, _DIM, sys=sys)
     prob = cvxpy.Problem(cvxpy.Maximize(t), cons)
-    val = prob.solve(solver=cvxpy.SCS, verbose=False)
+    val = prob.solve(solver=cvxpy.CLARABEL, verbose=False)
     assert prob.status in {cvxpy.OPTIMAL, cvxpy.OPTIMAL_INACCURATE}, prob.status
     assert val == pytest.approx(ref, abs=2e-2)
 
@@ -64,7 +64,7 @@ def test_quantum_conditional_entropy_hypo_cone_numpy_integer_dim():
     t = cvxpy.Variable()
     cons = quantum_conditional_entropy_hypo_cone(cvxpy.Constant(rho), t, np.array([2, 2], dtype=np.int64), sys=0)
     prob = cvxpy.Problem(cvxpy.Maximize(t), cons)
-    val = prob.solve(solver=cvxpy.SCS, verbose=False)
+    val = prob.solve(solver=cvxpy.CLARABEL, verbose=False)
     assert prob.status in {cvxpy.OPTIMAL, cvxpy.OPTIMAL_INACCURATE}, prob.status
     assert val == pytest.approx(ref, abs=2e-2)
 
@@ -78,7 +78,7 @@ def test_quantum_conditional_entropy_hypo_cone_at_constant(sys: int, seed: int):
     t = cvxpy.Variable()
     cons = quantum_conditional_entropy_hypo_cone(cvxpy.Constant(rho), t, _DIM, sys=sys)
     prob = cvxpy.Problem(cvxpy.Maximize(t), cons)
-    val = prob.solve(solver=cvxpy.SCS, verbose=False)
+    val = prob.solve(solver=cvxpy.CLARABEL, verbose=False)
     assert prob.status in {cvxpy.OPTIMAL, cvxpy.OPTIMAL_INACCURATE}, prob.status
     assert val == pytest.approx(ref, abs=3e-2)
 
@@ -91,7 +91,7 @@ def test_quantum_conditional_entropy_hypo_cone_composition():
     cons = quantum_conditional_entropy_hypo_cone(rho_var, t, _DIM, sys=0, hermitian=False)
     cons.extend([rho_var >> 0, cvxpy.trace(rho_var) == 1])
     prob = cvxpy.Problem(cvxpy.Maximize(t), cons)
-    val = prob.solve(solver=cvxpy.SCS, verbose=False)
+    val = prob.solve(solver=cvxpy.CLARABEL, verbose=False)
 
     assert prob.status in {cvxpy.OPTIMAL, cvxpy.OPTIMAL_INACCURATE}, prob.status
     assert val == pytest.approx(float(np.log(2)), abs=5e-2)

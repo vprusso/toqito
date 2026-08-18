@@ -65,7 +65,7 @@ def test_lieb_ando_epi_cone_at_constant(dim: int, power: float, hermitian: bool)
         hermitian=hermitian,
     )
     prob = cvxpy.Problem(cvxpy.Minimize(t), cons)
-    cvx_val = prob.solve(solver=cvxpy.SCS, verbose=False)
+    cvx_val = prob.solve(solver=cvxpy.CLARABEL, verbose=False)
 
     assert prob.status in {cvxpy.OPTIMAL, cvxpy.OPTIMAL_INACCURATE}, prob.status
     assert cvx_val is not None
@@ -89,7 +89,7 @@ def test_lieb_ando_epi_cone_identity_k():
         power,
     )
     prob = cvxpy.Problem(cvxpy.Minimize(t), cons)
-    val = prob.solve(solver=cvxpy.SCS, verbose=False)
+    val = prob.solve(solver=cvxpy.CLARABEL, verbose=False)
     assert prob.status in {cvxpy.OPTIMAL, cvxpy.OPTIMAL_INACCURATE}, prob.status
     assert val == pytest.approx(ref, abs=5e-2)
 
@@ -105,7 +105,7 @@ def test_lieb_ando_epi_cone_composition():
     cons = lieb_ando_epi_cone(a_var, cvxpy.Constant(mat_b), mat_k, t, 1.5)
     cons.extend([a_var >> eps * np.eye(n), a_var << np.eye(n)])
     prob = cvxpy.Problem(cvxpy.Minimize(t), cons)
-    val = prob.solve(solver=cvxpy.SCS, verbose=False)
+    val = prob.solve(solver=cvxpy.CLARABEL, verbose=False)
 
     assert prob.status in {cvxpy.OPTIMAL, cvxpy.OPTIMAL_INACCURATE}, prob.status
     # For K=I, B=I, p=3/2: tr(A^{-1/2}), minimized on [eps I, I] at A=I.

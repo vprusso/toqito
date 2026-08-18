@@ -65,7 +65,7 @@ def test_geometric_mean_epi_cone_trace_minimum(dim: int, w: float, hermitian: bo
     if hermitian:
         obj = cvxpy.real(obj)
     problem = cvxpy.Problem(cvxpy.Minimize(obj), constraints)
-    problem.solve(solver=cvxpy.SCS, eps=1e-8, max_iters=400_000, verbose=False)
+    problem.solve(solver=cvxpy.CLARABEL, verbose=False)
 
     assert problem.status in {cvxpy.OPTIMAL, cvxpy.OPTIMAL_INACCURATE}, problem.status
     assert t_var.value is not None

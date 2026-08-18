@@ -36,7 +36,7 @@ def test_relative_entropy_quadrature_epi_cone_at_constant(n: int, mk: int, apx: 
         apx=apx,
     )
     prob = cvxpy.Problem(cvxpy.Minimize(cvxpy.sum(z)), cons)
-    val = prob.solve(solver=cvxpy.SCS, verbose=False)
+    val = prob.solve(solver=cvxpy.CLARABEL, verbose=False)
 
     assert prob.status in {cvxpy.OPTIMAL, cvxpy.OPTIMAL_INACCURATE}, prob.status
     assert val is not None
@@ -53,7 +53,7 @@ def test_relative_entropy_quadrature_epi_cone_known_pair():
     z = cvxpy.Variable(2)
     cons = relative_entropy_quadrature_epi_cone(cvxpy.Constant(vec_x), cvxpy.Constant(vec_y), z)
     prob = cvxpy.Problem(cvxpy.Minimize(cvxpy.sum(z)), cons)
-    val = prob.solve(solver=cvxpy.SCS, verbose=False)
+    val = prob.solve(solver=cvxpy.CLARABEL, verbose=False)
     assert prob.status in {cvxpy.OPTIMAL, cvxpy.OPTIMAL_INACCURATE}, prob.status
     assert val == pytest.approx(float(np.sum(ref)), abs=2e-2)
 
@@ -69,7 +69,7 @@ def test_relative_entropy_quadrature_epi_cone_broadcast_scalar_x():
         z,
     )
     prob = cvxpy.Problem(cvxpy.Minimize(cvxpy.sum(z)), cons)
-    val = prob.solve(solver=cvxpy.SCS, verbose=False)
+    val = prob.solve(solver=cvxpy.CLARABEL, verbose=False)
     assert prob.status in {cvxpy.OPTIMAL, cvxpy.OPTIMAL_INACCURATE}, prob.status
     assert val == pytest.approx(float(np.sum(ref)), abs=2e-2)
     assert z.value is not None
@@ -87,7 +87,7 @@ def test_relative_entropy_quadrature_epi_cone_broadcast_scalar_y():
         z,
     )
     prob = cvxpy.Problem(cvxpy.Minimize(cvxpy.sum(z)), cons)
-    val = prob.solve(solver=cvxpy.SCS, verbose=False)
+    val = prob.solve(solver=cvxpy.CLARABEL, verbose=False)
     assert prob.status in {cvxpy.OPTIMAL, cvxpy.OPTIMAL_INACCURATE}, prob.status
     assert val == pytest.approx(float(np.sum(ref)), abs=2e-2)
 
@@ -102,7 +102,7 @@ def test_relative_entropy_quadrature_epi_cone_both_scalars():
         z,
     )
     prob = cvxpy.Problem(cvxpy.Minimize(z), cons)
-    val = prob.solve(solver=cvxpy.SCS, verbose=False)
+    val = prob.solve(solver=cvxpy.CLARABEL, verbose=False)
     assert prob.status in {cvxpy.OPTIMAL, cvxpy.OPTIMAL_INACCURATE}, prob.status
     assert val == pytest.approx(ref, abs=2e-2)
 
@@ -127,7 +127,7 @@ def test_relative_entropy_quadrature_epi_cone_composition():
     cons = relative_entropy_quadrature_epi_cone(x_var, cvxpy.Constant(vec_y), z)
     cons.append(cvxpy.sum(x_var) == 1)
     prob = cvxpy.Problem(cvxpy.Minimize(cvxpy.sum(z)), cons)
-    val = prob.solve(solver=cvxpy.SCS, verbose=False)
+    val = prob.solve(solver=cvxpy.CLARABEL, verbose=False)
 
     assert prob.status in {cvxpy.OPTIMAL, cvxpy.OPTIMAL_INACCURATE}, prob.status
     assert val == pytest.approx(0.0, abs=5e-2)
