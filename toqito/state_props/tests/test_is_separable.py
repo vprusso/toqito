@@ -530,10 +530,31 @@ def test_2xN_johnston_spectrum_lam_too_short_skips_proceeds(mock_eig):
     assert is_separable(rho_2x4, dim=[2, 4])[0]
 
 
-@pytest.mark.skip(reason="Needs specific state that evades criteria but is known entangled for `final return False`.")
 def test_final_return_false_for_unclassified_entangled():
-    """Placeholder for final False return on unclassified entangled state."""
-    pass
+    """A PPT state passing every implemented criterion reaches the final False.
+
+    The 3x3 Tile UPB complement (a rank-4 PPT entangled state) mixed with the
+    maximally mixed state at ratio 0.85 is positive semidefinite and PPT, but
+    evades each implemented sufficient condition: the realignment/CCNR norm
+    stays below one, the positive-map witnesses (Choi, Terhal, Ha-Kye,
+    Breuer-Hall) do not fire, and iterative product-state subtraction stalls.
+    The level-2 DPS hierarchy finds a 2-symmetric extension yet fails the
+    inner cone, so the finite hierarchy is inconclusive and the function
+    falls through to the final ``(False, ...)`` verdict.
+    """
+    tiles_proj = np.zeros((9, 9), dtype=complex)
+    for idx in range(5):
+        vec = tile(idx)
+        tiles_proj += np.outer(vec, vec.conj())
+    rho_tiles = (np.eye(9) - tiles_proj) / 4
+    rho = 0.85 * rho_tiles + 0.15 * np.eye(9) / 9
+
+    verdict, reason = is_separable(rho, dim=[3, 3], level=2)
+    assert verdict is False
+    assert reason == (
+        "inconclusive: PPT but no implemented sufficient condition "
+        "proved separability"
+    )
 
 
 def test_2xN_johnston_lemma1_eig_A_fails():
@@ -688,37 +709,55 @@ def test_2xN_hildebrand_homothetic_true_v3():
     pass
 
 
-@pytest.mark.xfail(reason="Breuer-Hall mock test for 2x4 Horodecki state not fully supported.")
-@mock.patch("toqito.state_props.is_separable.partial_channel")
-def test_breuer_hall_on_dB_only_mocked_first_xfail(mock_pc):
-    """XFAIL for entangled 2x4 Horodecki state with mocked Breuer-Hall."""
-    try:
-        rho_ent_2x4 = horodecki(a_param=0.5, dim=[2, 4])
-    except (NameError, ValueError) as e:  # Catch specific errors for construction
-        pytest.skip(f"Could not construct Horodecki state: {e}")
-    mock_info = {"first_bh_sys0_called_and_passed": False}
+def test_2x4_horodecki_ppt_entangled_caught_by_dps():
+    """2x4 Horodecki state is PPT-entangled and caught by the DPS hierarchy.
 
-    def side_effect_func(state_arg, choi_map_arg, **kwargs_pc):
-        sys_pc = kwargs_pc.get("sys")
-        # More specific check for the map and state if needed
-        if sys_pc == 0 and choi_map_arg.shape == (4, 4) and state_arg.shape == (8, 8):  # Check for 1st BH map app
-            mock_info["first_bh_sys0_called_and_passed"] = True
-            return np.eye(state_arg.shape[0])  # Return identity to make it "pass" this specific map check
-        return partial_channel(state_arg, choi_map_arg, **kwargs_pc)  # Call original for others
+    The 2x4 Horodecki state passes the PPT, rank, CCNR/realignment and
+    positive-map witness checks (including both Breuer-Hall subsystem
+    directions) and is first detected by the DPS hierarchy at level 2.
+    """
+    rho_ent_2x4 = horodecki(a_param=0.5, dim=[2, 4])
+    assert is_ppt(rho_ent_2x4, dim=[2, 4])
+    assert is_separable(rho_ent_2x4, dim=[2, 4], tol=1e-8) == (
+        False,
+        "no 2-symmetric extension (DPS hierarchy)",
+    )
 
-    mock_pc.side_effect = side_effect_func
 
-    assert not is_separable(rho_ent_2x4, dim=[2, 4])[0]  # Expected to be entangled
-    assert mock_info["first_bh_sys0_called_and_passed"]  # Check if our mock was hit
+def test_breuer_hall_witness_fires_on_breuer_state():
+    """The Breuer-Hall positive-map witness fires on the Breuer state.
+
+    rho = (P_phi + P_psi)/2 with |psi> = (I x U)|phi>, U the 4x4
+    anti-symmetric unitary, is detected by the Breuer-Hall map on
+    subsystem 2 (dim=4): (I x phi_BH)(rho) fails to be PSD.
+
+    Note: this state is NPT, so in the full is_separable flow it is
+    caught earlier by the PPT criterion; this test exercises the
+    Breuer-Hall branch of _positive_map_witness_criteria directly.
+    """
+    u_antisym_4 = np.fliplr(np.diag([1, 1, -1, -1]))
+    phi_breuer = (
+        np.kron(basis(2, 0), basis(4, 0)) + np.kron(basis(2, 1), basis(4, 1))
+    ) / np.sqrt(2)
+    psi_breuer = np.kron(np.eye(2), u_antisym_4) @ phi_breuer
+    rho_breuer = (np.outer(phi_breuer, phi_breuer.conj()) + np.outer(psi_breuer, psi_breuer.conj())) / 2
+
+    assert not is_ppt(rho_breuer, dim=[2, 4])
+    verdict, reason = _positive_map_witness_criteria(rho_breuer, [2, 4], 2, 4, 1e-8)
+    assert verdict is False
+    assert reason == "Breuer-Hall positive-map witness (on subsystem 2, dim=4)"
 
 
 def test_breuer_hall_on_dA_detects_entangled_2x2werner():
-    """Entangled 2x2 Werner state detected by Breuer-Hall (if sys=0 is checked first)."""
-    # rho_w_ent_2x2 = werner(2, 0.8)  # alpha > 0.5 is entangled
-    # if not is_ppt(rho_w_ent_2x2, dim=[2, 2], tol=1e-7):
-    # Werner states are PPT iff alpha >= 0. For alpha=0.8, it's PPT.
-    # If this fails, Werner state construction or is_ppt is an issue.
-    pytest.skip("Werner state (alpha=0.8) unexpectedly not PPT.")
+    """2x2 Werner states never reach the Breuer-Hall witness.
+
+    In 2x2 systems PPT implies separability, so no PPT-entangled Werner
+    state exists: toqito's werner(2, alpha) is NPT for alpha > 0 (caught
+    by the PPT criterion early in the flow) and PPT but separable for
+    alpha < 0. The Breuer-Hall branch is unreachable for 2x2 Werner
+    states; this test documents that fact.
+    """
+    pytest.skip("2x2 Werner states cannot reach Breuer-Hall: NPT states are caught by the PPT criterion first, PPT states are separable.")
     # assert not is_separable(rho_w_ent_2x2, dim=[2, 2], tol=1e-8)[0]
 
 
@@ -990,85 +1029,72 @@ def tiles_state_3x3_ppt_entangled():
     return rho / 4.0
 
 
-@pytest.mark.skip(
-    reason=(
-        "Stale test expectations after section 6 (Plucker) was given an explicit "
-        "return False branch; the mock chain here was written for an older flow "
-        "where Plucker fell through to the final 'inconclusive' fallback. The "
-        "fixture this test consumed used to be broken (see #1507); the fixture "
-        "is now correct but the mock scaffolding below needs a rewrite before "
-        "the test can be re-enabled."
-    )
-)
-def test_path_ha_kye_fallthrough_to_final_false_L534_to_L580(tiles_state_3x3_ppt_entangled):
-    """Test a 3x3 PPT entangled state (Tiles).
+def test_ha_kye_positive_map_witness_fires_on_local_unitary_orbit_of_tiles():
+    """The Ha-Kye witness family (3x3) fires on a local-unitary orbit of Tiles.
 
-    - (Mocked to) pass Plucker (by returning True, implying det(F) is small).
-    - Passes Ha-Kye maps (as they are not expected to catch Tiles).
-    - (Natural behavior) fails symmetric extension for level=2.
-    - Results in final 'return False'.
-    Covers path like old 607->636 (new L534 -> L580).
+    The 3x3 Tile UPB complement is PPT-entangled but evades every member of
+    the Ha-Kye family in the computational basis. A fixed random local
+    unitary ``U x V`` rotates the state into a basis where the Ha-Kye map
+    with ``t=10`` detects it: ``(phi_10 ⊗ I)(rho)`` fails to be PSD while
+    Choi 1975 (on both subsystems) and the Terhal 2000 tile witness still
+    pass, so ``_positive_map_witness_criteria`` returns the Ha-Kye verdict.
     """
-    rho = tiles_state_3x3_ppt_entangled
-    dims = [3, 3]
-    test_tol = 1e-8
+    # Fixed local unitaries (17-digit precision). The orbit keeps the PPT
+    # property and the entanglement class invariant while rotating the
+    # computational basis in which the Ha-Kye maps are defined.
+    u_mat = np.array(
+        [
+            [
+                -0.3981031762212084 - 0.02109153483215219j,
+                -0.7880996397669436 - 0.16600186780956958j,
+                0.15211485156983193 - 0.41142729352322477j,
+            ],
+            [
+                0.6575192968892425 + 0.5037877720495617j,
+                -0.2937595285164708 - 0.4196419355605324j,
+                -0.22645738325558679 - 0.01375840998945807j,
+            ],
+            [
+                0.09490217738377131 + 0.3820063349218752j,
+                -0.13998214400745929 + 0.26335018960846335j,
+                0.7979643915379282 + 0.34549854361073784j,
+            ],
+        ]
+    )
+    v_mat = np.array(
+        [
+            [
+                -0.2201570909498507 - 0.3608170968064207j,
+                -0.13940292275804805 + 0.2100968932930619j,
+                -0.01629264789564266 + 0.8703462231413144j,
+            ],
+            [
+                -0.17653027163652563 + 0.8255571400884517j,
+                -0.3363119582223585 - 0.23870313432187246j,
+                -0.16817661254044244 + 0.29820157454461793j,
+            ],
+            [
+                -0.3031864119532028 + 0.12927625152571012j,
+                -0.2445557105462114 + 0.8405555932928599j,
+                -0.22894477180424253 - 0.26946009145183863j,
+            ],
+        ]
+    )
 
-    assert is_ppt(rho, dim=dims, tol=test_tol)
-    assert np.linalg.matrix_rank(rho, tol=test_tol) == 4
+    tiles_proj = np.zeros((9, 9), dtype=complex)
+    for idx in range(5):
+        vec = tile(idx)
+        tiles_proj += np.outer(vec, vec.conj())
+    rho_tiles = (np.eye(9) - tiles_proj) / 4
+    rho = np.kron(u_mat, v_mat) @ rho_tiles @ np.kron(u_mat, v_mat).conj().T
+    rho = (rho + rho.conj().T) / 2
 
-    original_linalg_det = np.linalg.det
-    mock_plucker_det_call_info = {"called": False}
+    assert is_ppt(rho, dim=[3, 3])
+    verdict, reason = _positive_map_witness_criteria(rho, [3, 3], 3, 3, 1e-8)
+    assert verdict is False
+    assert reason == "Ha-Kye positive-map witness (3x3, t=10)"
 
-    def mock_det_for_plucker(matrix_arg):
-        if matrix_arg.shape == (6, 6):  # Plucker F_det_matrix is 6x6
-            mock_plucker_det_call_info["called"] = True
-            return test_tol**3
-        return original_linalg_det(matrix_arg)
 
-    original_matrix_rank = np.linalg.matrix_rank
-    # We need Horodecki operational criteria to NOT indicate separability.
-    # state_rank=4. max_dim_val=3.  4 <= 3 is FALSE. (Good)
-    # PT of Tiles is also rank 4. Sum_rank = 4+4=8.
-    # Threshold for 3x3 = 2*9 - 3-3 + 2 = 14.
-    # 8 <= 14 is TRUE. This would make L382 (new) return True.
-    # So, we need to mock rank_pt_A to be higher, e.g., 11, so 4+11=15 > 14.
-    mock_ranks_horodecki_fail = [4, 11]  # state_rank, rank_pt_A
-    mock_rank_call_info = {"values": mock_ranks_horodecki_fail[:]}
-
-    # Corrected signature for matrix_rank side_effect
-    def matrix_rank_side_effect(matrix_arg, tol=None):
-        # Only mock for the full 9x9 state and its partial transpose
-        if matrix_arg.shape == (9, 9) and mock_rank_call_info["values"]:
-            val = mock_rank_call_info["values"].pop(0)
-            return val
-        return original_matrix_rank(matrix_arg, tol=tol)
-
-    with mock.patch("toqito.state_props.is_separable.in_separable_ball", return_value=False):
-        with mock.patch("numpy.linalg.det", side_effect=mock_det_for_plucker):  # Patches det used by Plucker
-            with mock.patch("numpy.linalg.matrix_rank", side_effect=matrix_rank_side_effect):
-                with mock.patch("toqito.state_props.is_separable.trace_norm", return_value=0.5):  # Pass realignments
-                    # Mock Rank-1 Pert to be inconclusive (L419 condition False)
-                    # Descending eigs:
-                    eigs_for_mock_rank1_pert_fail_desc = np.array([0.5, 0.4, 0.3, 0.2, 0.1, 0.05, 0.04, 0.03, 0.01])
-                    eigs_for_mock_rank1_pert_fail_desc /= np.sum(eigs_for_mock_rank1_pert_fail_desc)
-                    # lam[1]-lam[8] will be large enough.
-                    mock_eigs_ascending_for_pert_fail = np.sort(eigs_for_mock_rank1_pert_fail_desc)
-
-                    # Patch np.linalg.eigvalsh as used by is_separable.py
-                    with mock.patch(
-                        "toqito.state_props.is_separable.np.linalg.eigvalsh",
-                        return_value=mock_eigs_ascending_for_pert_fail,
-                    ):
-                        # We expect Ha-Kye maps to pass (not detect entanglement for Tiles).
-                        # We expect Breuer-Hall to be skipped (dA=3, dB=3).
-                        # We expect Symmetric Extension (level=2) for Tiles to result in
-                        # has_symmetric_extension returning False (as Tiles is not 2-extendible).
-                        # This means L572 (new) `return True` is not hit.
-                        # The loop L570-L574 finishes.
-                        # L576 `elif level == 1` is false.
-                        # Final L580 `return False` is hit.
-                        assert not is_separable(rho, dim=dims, tol=test_tol, level=2)[0]
-                        assert mock_plucker_det_call_info["called"]  # Plucker det mock need be to called
 
 
 # --- Tests for the (separable, reason) return tuple ---
