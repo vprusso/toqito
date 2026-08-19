@@ -530,10 +530,31 @@ def test_2xN_johnston_spectrum_lam_too_short_skips_proceeds(mock_eig):
     assert is_separable(rho_2x4, dim=[2, 4])[0]
 
 
-@pytest.mark.skip(reason="Needs specific state that evades criteria but is known entangled for `final return False`.")
 def test_final_return_false_for_unclassified_entangled():
-    """Placeholder for final False return on unclassified entangled state."""
-    pass
+    """A PPT state passing every implemented criterion reaches the final False.
+
+    The 3x3 Tile UPB complement (a rank-4 PPT entangled state) mixed with the
+    maximally mixed state at ratio 0.85 is positive semidefinite and PPT, but
+    evades each implemented sufficient condition: the realignment/CCNR norm
+    stays below one, the positive-map witnesses (Choi, Terhal, Ha-Kye,
+    Breuer-Hall) do not fire, and iterative product-state subtraction stalls.
+    The level-2 DPS hierarchy finds a 2-symmetric extension yet fails the
+    inner cone, so the finite hierarchy is inconclusive and the function
+    falls through to the final ``(False, ...)`` verdict.
+    """
+    tiles_proj = np.zeros((9, 9), dtype=complex)
+    for idx in range(5):
+        vec = tile(idx)
+        tiles_proj += np.outer(vec, vec.conj())
+    rho_tiles = (np.eye(9) - tiles_proj) / 4
+    rho = 0.85 * rho_tiles + 0.15 * np.eye(9) / 9
+
+    verdict, reason = is_separable(rho, dim=[3, 3], level=2)
+    assert verdict is False
+    assert reason == (
+        "inconclusive: PPT but no implemented sufficient condition "
+        "proved separability"
+    )
 
 
 def test_2xN_johnston_lemma1_eig_A_fails():
