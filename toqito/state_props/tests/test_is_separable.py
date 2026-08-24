@@ -551,10 +551,7 @@ def test_final_return_false_for_unclassified_entangled():
 
     verdict, reason = is_separable(rho, dim=[3, 3], level=2)
     assert verdict is False
-    assert reason == (
-        "inconclusive: PPT but no implemented sufficient condition "
-        "proved separability"
-    )
+    assert reason == ("inconclusive: PPT but no implemented sufficient condition proved separability")
 
 
 def test_2xN_johnston_lemma1_eig_A_fails():
@@ -736,9 +733,7 @@ def test_breuer_hall_witness_fires_on_breuer_state():
     Breuer-Hall branch of _positive_map_witness_criteria directly.
     """
     u_antisym_4 = np.fliplr(np.diag([1, 1, -1, -1]))
-    phi_breuer = (
-        np.kron(basis(2, 0), basis(4, 0)) + np.kron(basis(2, 1), basis(4, 1))
-    ) / np.sqrt(2)
+    phi_breuer = (np.kron(basis(2, 0), basis(4, 0)) + np.kron(basis(2, 1), basis(4, 1))) / np.sqrt(2)
     psi_breuer = np.kron(np.eye(2), u_antisym_4) @ phi_breuer
     rho_breuer = (np.outer(phi_breuer, phi_breuer.conj()) + np.outer(psi_breuer, psi_breuer.conj())) / 2
 
@@ -757,7 +752,9 @@ def test_breuer_hall_on_dA_detects_entangled_2x2werner():
     alpha < 0. The Breuer-Hall branch is unreachable for 2x2 Werner
     states; this test documents that fact.
     """
-    pytest.skip("2x2 Werner states cannot reach Breuer-Hall: NPT states are caught by the PPT criterion first, PPT states are separable.")
+    pytest.skip(
+        "2x2 Werner states cannot reach Breuer-Hall: NPT states are caught by the PPT criterion first, PPT states are separable."
+    )
     # assert not is_separable(rho_w_ent_2x2, dim=[2, 2], tol=1e-8)[0]
 
 
@@ -1093,8 +1090,6 @@ def test_ha_kye_positive_map_witness_fires_on_local_unitary_orbit_of_tiles():
     verdict, reason = _positive_map_witness_criteria(rho, [3, 3], 3, 3, 1e-8)
     assert verdict is False
     assert reason == "Ha-Kye positive-map witness (3x3, t=10)"
-
-
 
 
 # --- Tests for the (separable, reason) return tuple ---
