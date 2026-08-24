@@ -551,10 +551,7 @@ def test_final_return_false_for_unclassified_entangled():
 
     verdict, reason = is_separable(rho, dim=[3, 3], level=2)
     assert verdict is False
-    assert reason == (
-        "inconclusive: PPT but no implemented sufficient condition "
-        "proved separability"
-    )
+    assert reason == ("inconclusive: PPT but no implemented sufficient condition proved separability")
 
 
 def test_2xN_johnston_lemma1_eig_A_fails():
@@ -1075,8 +1072,6 @@ def test_ha_kye_positive_map_witness_fires_on_local_unitary_orbit_of_tiles():
     verdict, reason = _positive_map_witness_criteria(rho, [3, 3], 3, 3, 1e-8)
     assert verdict is False
     assert reason == "Ha-Kye positive-map witness (3x3, t=10)"
-
-
 
 
 # --- Tests for the (separable, reason) return tuple ---
