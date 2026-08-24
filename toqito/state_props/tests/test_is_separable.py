@@ -551,10 +551,7 @@ def test_final_return_false_for_unclassified_entangled():
 
     verdict, reason = is_separable(rho, dim=[3, 3], level=2)
     assert verdict is False
-    assert reason == (
-        "inconclusive: PPT but no implemented sufficient condition "
-        "proved separability"
-    )
+    assert reason == ("inconclusive: PPT but no implemented sufficient condition proved separability")
 
 
 def test_2xN_johnston_lemma1_eig_A_fails():
