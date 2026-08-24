@@ -706,37 +706,56 @@ def test_2xN_hildebrand_homothetic_true_v3():
     pass
 
 
-@pytest.mark.xfail(reason="Breuer-Hall mock test for 2x4 Horodecki state not fully supported.")
-@mock.patch("toqito.state_props.is_separable.partial_channel")
-def test_breuer_hall_on_dB_only_mocked_first_xfail(mock_pc):
-    """XFAIL for entangled 2x4 Horodecki state with mocked Breuer-Hall."""
-    try:
-        rho_ent_2x4 = horodecki(a_param=0.5, dim=[2, 4])
-    except (NameError, ValueError) as e:  # Catch specific errors for construction
-        pytest.skip(f"Could not construct Horodecki state: {e}")
-    mock_info = {"first_bh_sys0_called_and_passed": False}
+def test_2x4_horodecki_ppt_entangled_caught_by_dps():
+    """2x4 Horodecki state is PPT-entangled and caught by the DPS hierarchy.
 
-    def side_effect_func(state_arg, choi_map_arg, **kwargs_pc):
-        sys_pc = kwargs_pc.get("sys")
-        # More specific check for the map and state if needed
-        if sys_pc == 0 and choi_map_arg.shape == (4, 4) and state_arg.shape == (8, 8):  # Check for 1st BH map app
-            mock_info["first_bh_sys0_called_and_passed"] = True
-            return np.eye(state_arg.shape[0])  # Return identity to make it "pass" this specific map check
-        return partial_channel(state_arg, choi_map_arg, **kwargs_pc)  # Call original for others
+    The 2x4 Horodecki state passes the PPT, rank, CCNR/realignment and
+    positive-map witness checks (including both Breuer-Hall subsystem
+    directions) and is first detected by the DPS hierarchy at level 2.
+    """
+    rho_ent_2x4 = horodecki(a_param=0.5, dim=[2, 4])
+    assert is_ppt(rho_ent_2x4, dim=[2, 4])
+    assert is_separable(rho_ent_2x4, dim=[2, 4], tol=1e-8) == (
+        False,
+        "no 2-symmetric extension (DPS hierarchy)",
+    )
 
-    mock_pc.side_effect = side_effect_func
 
-    assert not is_separable(rho_ent_2x4, dim=[2, 4])[0]  # Expected to be entangled
-    assert mock_info["first_bh_sys0_called_and_passed"]  # Check if our mock was hit
+def test_breuer_hall_witness_fires_on_breuer_state():
+    """The Breuer-Hall positive-map witness fires on the Breuer state.
+
+    rho = (P_phi + P_psi)/2 with |psi> = (I x U)|phi>, U the 4x4
+    anti-symmetric unitary, is detected by the Breuer-Hall map on
+    subsystem 2 (dim=4): (I x phi_BH)(rho) fails to be PSD.
+
+    Note: this state is NPT, so in the full is_separable flow it is
+    caught earlier by the PPT criterion; this test exercises the
+    Breuer-Hall branch of _positive_map_witness_criteria directly.
+    """
+    u_antisym_4 = np.fliplr(np.diag([1, 1, -1, -1]))
+    phi_breuer = (np.kron(basis(2, 0), basis(4, 0)) + np.kron(basis(2, 1), basis(4, 1))) / np.sqrt(2)
+    psi_breuer = np.kron(np.eye(2), u_antisym_4) @ phi_breuer
+    rho_breuer = (np.outer(phi_breuer, phi_breuer.conj()) + np.outer(psi_breuer, psi_breuer.conj())) / 2
+
+    assert not is_ppt(rho_breuer, dim=[2, 4])
+    verdict, reason = _positive_map_witness_criteria(rho_breuer, [2, 4], 2, 4, 1e-8)
+    assert verdict is False
+    assert reason == "Breuer-Hall positive-map witness (on subsystem 2, dim=4)"
 
 
 def test_breuer_hall_on_dA_detects_entangled_2x2werner():
-    """Entangled 2x2 Werner state detected by Breuer-Hall (if sys=0 is checked first)."""
-    # rho_w_ent_2x2 = werner(2, 0.8)  # alpha > 0.5 is entangled
-    # if not is_ppt(rho_w_ent_2x2, dim=[2, 2], tol=1e-7):
-    # Werner states are PPT iff alpha >= 0. For alpha=0.8, it's PPT.
-    # If this fails, Werner state construction or is_ppt is an issue.
-    pytest.skip("Werner state (alpha=0.8) unexpectedly not PPT.")
+    """2x2 Werner states never reach the Breuer-Hall witness.
+
+    In 2x2 systems PPT implies separability, so no PPT-entangled Werner
+    state exists: toqito's werner(2, alpha) is NPT for alpha > 0 (caught
+    by the PPT criterion early in the flow) and PPT but separable for
+    alpha < 0. The Breuer-Hall branch is unreachable for 2x2 Werner
+    states; this test documents that fact.
+    """
+    pytest.skip(
+        "2x2 Werner states cannot reach Breuer-Hall: NPT states are caught by the "
+        "PPT criterion first, PPT states are separable."
+    )
     # assert not is_separable(rho_w_ent_2x2, dim=[2, 2], tol=1e-8)[0]
 
 
