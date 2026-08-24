@@ -753,7 +753,8 @@ def test_breuer_hall_on_dA_detects_entangled_2x2werner():
     states; this test documents that fact.
     """
     pytest.skip(
-        "2x2 Werner states cannot reach Breuer-Hall: NPT states are caught by the PPT criterion first, PPT states are separable."
+        "2x2 Werner states cannot reach Breuer-Hall: NPT states are caught by the "
+        "PPT criterion first, PPT states are separable."
     )
     # assert not is_separable(rho_w_ent_2x2, dim=[2, 2], tol=1e-8)[0]
 
