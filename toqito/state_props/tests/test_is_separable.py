@@ -1237,10 +1237,10 @@ def test_operator_schmidt_rank_two_classical_correlation_3x3_is_separable():
 # --- Tests for the Horodecki rank-marginal check (#1251b) ---
 
 def test_horodecki_rank_le_marginal_rank():
-    """PPT state where rank <= marginal rank implies separability"""
+    """PPT state where rank <= marginal rank implies separability."""
     tol = 1e-8
     a = [basis(3, i) for i in range(3)] + [sum(basis(3, i) for i in range(3)) / np.sqrt(3)]
-    b = [basis(4, i) for i in range(4)]  
+    b = [basis(4, i) for i in range(4)]
 
     dims= [3,4]
     rho3x4 = np.array(sum(np.outer(np.kron(a[k], b[k]), np.kron(a[k], b[k]).conj()) for k in range(4)) / 4)
@@ -1260,7 +1260,7 @@ def test_horodecki_rank_le_marginal_rank():
 
 
 def test_state_with_low_rank_embedded_in_higher_rank_space_is_not_detected(tiles_state_3x3_ppt_entangled):
-    """Embedding A PPT entangled state in a higher dimensional space does not make it detectable by the horodecki low rank ppt criteria"""
+    """A state embedded in a higher-dimension space isn't caught by the rank-marginal check."""
     embedded_in_4x4 = np.pad(tiles_state_3x3_ppt_entangled, ((0,7), (0,7)))
     perm = np.array([0, 1, 2, 15, 3, 4, 5, 14, 6, 7, 8, 13, 9, 10, 11, 12])
     embedded_in_4x4 = embedded_in_4x4[np.ix_(perm, perm)]
