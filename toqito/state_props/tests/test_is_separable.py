@@ -20,6 +20,7 @@ from toqito.state_props.is_separable import (
     _filter_cmc_bound,
     _filter_cmc_xi_sum,
     _filter_normal_form,
+    _horodecki_low_rank_ppt_criteria,
     _iterative_product_state_subtraction,
     _positive_map_witness_criteria,
     _qubit_qudit_ppt_criteria,
@@ -1234,6 +1235,42 @@ def test_operator_schmidt_rank_two_classical_correlation_3x3_is_separable():
 
 
 # --- Tests for the Horodecki rank-marginal check (#1251b) ---
+
+def test_horodecki_rank_le_marginal_rank():
+    """PPT state where rank <= marginal rank implies separability"""
+    tol = 1e-8
+    a = [basis(3, i) for i in range(3)] + [sum(basis(3, i) for i in range(3)) / np.sqrt(3)]
+    b = [basis(4, i) for i in range(4)]  
+
+    dims= [3,4]
+    rho3x4 = np.array(sum(np.outer(np.kron(a[k], b[k]), np.kron(a[k], b[k]).conj()) for k in range(4)) / 4)
+    state_rank = np.linalg.matrix_rank(rho3x4, tol=tol)
+    sep_reason, _, _ = _horodecki_low_rank_ppt_criteria(rho3x4, dims, state_rank, tol)
+    assert sep_reason is not None
+    sep, reason = sep_reason
+    assert sep is True and f"rank(rho)={state_rank} <= rank(rho_B)" in reason
+
+    dims= [4,3]
+    rho4x3 = np.array(sum(np.outer(np.kron(b[k], a[k]), np.kron(b[k], a[k]).conj()) for k in range(4)) / 4)
+    state_rank = np.linalg.matrix_rank(rho4x3, tol=tol)
+    sep_reason, _, _ = _horodecki_low_rank_ppt_criteria(rho4x3, dims, state_rank, tol)
+    assert sep_reason is not None
+    sep, reason = sep_reason
+    assert sep is True and f"rank(rho)={state_rank} <= rank(rho_A)" in reason
+
+
+def test_state_with_low_rank_embedded_in_higher_rank_space_is_not_detected(tiles_state_3x3_ppt_entangled):
+    """Embedding A PPT entangled state in a higher dimensional space does not make it detectable by the horodecki low rank ppt criteria"""
+    embedded_in_4x4 = np.pad(tiles_state_3x3_ppt_entangled, ((0,7), (0,7)))
+    perm = np.array([0, 1, 2, 15, 3, 4, 5, 14, 6, 7, 8, 13, 9, 10, 11, 12])
+    embedded_in_4x4 = embedded_in_4x4[np.ix_(perm, perm)]
+    tol = 1e-8
+
+    dA, dB = 4, 4
+    state_rank = np.linalg.matrix_rank(embedded_in_4x4, tol=tol)
+
+    sep_reason, _, _ = _horodecki_low_rank_ppt_criteria(embedded_in_4x4, [dA,dB], state_rank, tol)
+    assert sep_reason is None
 
 
 # --- Tests for Choi's 1975 positive-map witness (#1249) ---
