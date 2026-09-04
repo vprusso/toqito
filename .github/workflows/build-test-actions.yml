@@ -22,7 +22,7 @@ jobs:
       # Pin ruff to the version in pyproject so CI formatting matches local/pre-commit.
       - uses: astral-sh/ruff-action@v3
         with:
-          version: "0.15.0"
+          version: "0.16.0"
       # Check only (no --fix / no in-place format): style and format violations must fail CI
       # rather than being silently auto-fixed in the runner and discarded.
       - run: ruff check
