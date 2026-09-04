@@ -73,7 +73,7 @@ def lieb_ando_hypo_cone(
             0.5,
         )
         prob = cvxpy.Problem(cvxpy.Maximize(t), cons)
-        print(f"{prob.solve(solver=cvxpy.SCS, verbose=False):.4f}")
+        print(f"{prob.solve(solver=cvxpy.CLARABEL, verbose=False):.4f}")
         ```
 
     """

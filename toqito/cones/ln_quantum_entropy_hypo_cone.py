@@ -73,7 +73,7 @@ def ln_quantum_entropy_hypo_cone(
         t = cvxpy.Variable()
         cons = ln_quantum_entropy_hypo_cone(x_c, t, m=3, k=3, apx=0)
         prob = cvxpy.Problem(cvxpy.Maximize(t), cons)
-        print(f"{prob.solve(solver=cvxpy.SCS, verbose=False):.4f}")
+        print(f"{prob.solve(solver=cvxpy.CLARABEL, verbose=False):.4f}")
         ```
 
     """

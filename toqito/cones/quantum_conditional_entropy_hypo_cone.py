@@ -88,7 +88,7 @@ def quantum_conditional_entropy_hypo_cone(
             cvxpy.Constant(bell), t, [2, 2], sys=0
         )
         prob = cvxpy.Problem(cvxpy.Maximize(t), cons)
-        print(f"{prob.solve(solver=cvxpy.SCS, verbose=False):.4f}")
+        print(f"{prob.solve(solver=cvxpy.CLARABEL, verbose=False):.4f}")
         ```
 
     """

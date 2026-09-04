@@ -79,6 +79,27 @@ When adding a function, put it in the subpackage that matches what it operates
 on, add a test beside it under that subpackage's `tests/` directory, and export
 it from the subpackage `__init__.py`.
 
+## SDP solver choice
+
+Several routines reduce to a semidefinite or conic program. The solver is
+chosen per problem class, not uniformly, because no single solver is best
+everywhere:
+
+- Exponential-cone and matrix-logarithm problems (the `cones` routines and the
+  quantum-entropy measures) use CLARABEL, an interior-point solver that is
+  accurate and fast on these cones. The `cones` tests and docstring examples use
+  it.
+- Positive-semidefinite discrimination problems (for example `channel_fidelity`
+  and the cvxpy state-discrimination routines) use SCS, a first-order method
+  that is substantially faster than CLARABEL on this problem class.
+- The `state_opt` and `channel_opt` discrimination and exclusion routines, and
+  the `fidelity_of_separability` measures, are built on PICOS and solve with
+  cvxopt.
+
+When adding an SDP-backed routine, pick the solver that suits its cone
+structure rather than copying whichever one a nearby file happens to use, and
+say why in a comment if the choice is not obvious.
+
 ## Making Changes
 
 1.  Add some really awesome code to your local fork. It's usually a

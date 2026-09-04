@@ -69,7 +69,7 @@ def tsallis_entropy_hypo_cone(
         t = cvxpy.Variable()
         cons = tsallis_entropy_hypo_cone(cvxpy.Constant(mat_x), t, 0.5)
         prob = cvxpy.Problem(cvxpy.Maximize(t), cons)
-        print(f"{prob.solve(solver=cvxpy.SCS, verbose=False):.4f}")
+        print(f"{prob.solve(solver=cvxpy.CLARABEL, verbose=False):.4f}")
         ```
 
     """

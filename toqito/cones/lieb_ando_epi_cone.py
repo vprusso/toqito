@@ -73,7 +73,7 @@ def lieb_ando_epi_cone(
             1.5,
         )
         prob = cvxpy.Problem(cvxpy.Minimize(t), cons)
-        print(f"{prob.solve(solver=cvxpy.SCS, verbose=False):.4f}")
+        print(f"{prob.solve(solver=cvxpy.CLARABEL, verbose=False):.4f}")
         ```
 
     """
