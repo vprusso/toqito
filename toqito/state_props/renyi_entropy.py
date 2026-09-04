@@ -3,7 +3,6 @@
 import numpy as np
 
 from toqito.matrix_props import is_density
-from toqito.state_props import von_neumann_entropy
 
 
 def renyi_entropy(rho: np.ndarray, alpha: float) -> float:
@@ -98,12 +97,18 @@ def renyi_entropy(rho: np.ndarray, alpha: float) -> float:
         raise ValueError("Rényi entropy is only defined for positive orders.")
     if alpha == 0:
         return np.log2(np.linalg.matrix_rank(rho))
-    if alpha == 1:
-        return von_neumann_entropy(rho)
 
+    # The remaining orders all read off the spectrum, so factor once here. A
+    # density operator is Hermitian, so use eigvalsh (real eigenvalues, no
+    # spurious imaginary parts).
     eigs = np.linalg.eigvalsh(rho)
     eigs = eigs[eigs > 0]
 
+    if alpha == 1:
+        # Rényi entropy of order 1 is the von Neumann entropy. Compute it from
+        # the spectrum already in hand rather than calling `von_neumann_entropy`,
+        # which would re-validate and re-factor `rho`.
+        return float(-np.sum(eigs * np.log2(eigs)))
     if alpha == float("inf"):
         return -np.log2(eigs.max())
 
