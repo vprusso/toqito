@@ -190,7 +190,10 @@ def primal_problem(q_a: np.ndarray, pperm: np.ndarray, num_reps: int) -> float:
     ]
     problem = cvxpy.Problem(objective, constraints)
 
-    return problem.solve(verbose=False)
+    optimal_value = problem.solve(verbose=False)
+    if problem.status not in (cvxpy.OPTIMAL, cvxpy.OPTIMAL_INACCURATE):
+        raise ValueError(f"optimal_clone SDP did not solve to optimality (status: {problem.status}).")
+    return optimal_value
 
 
 def dual_problem(q_a: np.ndarray, pperm: np.ndarray, num_reps: int) -> float:
@@ -234,4 +237,7 @@ def dual_problem(q_a: np.ndarray, pperm: np.ndarray, num_reps: int) -> float:
         constraints = [cvxpy.real(kron_var) >> pperm @ q_a @ pperm.conj().T]
     problem = cvxpy.Problem(objective, constraints)
 
-    return problem.solve(verbose=False)
+    optimal_value = problem.solve(verbose=False)
+    if problem.status not in (cvxpy.OPTIMAL, cvxpy.OPTIMAL_INACCURATE):
+        raise ValueError(f"optimal_clone SDP did not solve to optimality (status: {problem.status}).")
+    return optimal_value
