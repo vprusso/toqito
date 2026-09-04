@@ -62,4 +62,4 @@ def is_ensemble(states: list[np.ndarray]) -> bool:
             return False
     # Constraint: The sum of the traces of all states within the ensemble must
     # be equal to 1.
-    return np.allclose(trace_sum, 1)
+    return bool(np.allclose(trace_sum, 1))

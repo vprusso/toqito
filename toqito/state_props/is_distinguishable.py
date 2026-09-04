@@ -8,7 +8,7 @@ from toqito.state_opt.state_distinguishability import state_distinguishability
 # imported https://github.com/vprusso/toqito/issues/473
 
 
-def is_distinguishable(states: list[np.ndarray], probs: list[float] | None = None) -> bool | np.bool_:
+def is_distinguishable(states: list[np.ndarray], probs: list[float] | None = None) -> bool:
     r"""Check whether a collection of vectors are (perfectly) distinguishable or not.
 
     The ability to determine whether a set of quantum states are distinguishable can be obtained via the state
@@ -46,4 +46,4 @@ def is_distinguishable(states: list[np.ndarray], probs: list[float] | None = Non
     """
     # The dual problem is less computationally intensive to compute in comparison to primal.
     opt_val, _ = state_distinguishability(vectors=states, probs=probs, primal_dual="dual")
-    return np.isclose(opt_val, 1)
+    return bool(np.isclose(opt_val, 1))

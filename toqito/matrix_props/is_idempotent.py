@@ -63,4 +63,4 @@ def is_idempotent(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-8) -> b
     """
     if not is_square(mat):
         return False
-    return np.allclose(mat, mat @ mat, rtol=rtol, atol=atol)
+    return bool(np.allclose(mat, mat @ mat, rtol=rtol, atol=atol))
