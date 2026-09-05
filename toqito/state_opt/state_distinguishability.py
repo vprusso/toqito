@@ -287,10 +287,15 @@ def _min_error_primal(
     vectors: list[np.ndarray],
     dim: int,
     probs: list[float] | None = None,
+    sense: str = "max",
     solver: str = "cvxopt",
     **kwargs,
 ) -> tuple[float, list[picos.HermitianVariable]]:
-    """Find the primal problem for minimum-error quantum state distinguishability SDP."""
+    """Find the primal problem for the minimum-error quantum state discrimination SDP.
+
+    The ``sense`` argument selects the objective sense: ``"max"`` for minimum-error
+    state distinguishability and ``"min"`` for minimum-error state exclusion.
+    """
     n = len(vectors)
 
     problem = picos.Problem()
@@ -301,7 +306,7 @@ def _min_error_primal(
 
     dms = [to_density_matrix(vector) for vector in vectors]
 
-    problem.set_objective("max", np.real(picos.sum([(probs[i] * dms[i] | measurements[i]) for i in range(n)])))
+    problem.set_objective(sense, np.real(picos.sum([(probs[i] * dms[i] | measurements[i]) for i in range(n)])))
     solution = problem.solve(solver=solver, **kwargs)
     return solution.value, measurements
 
@@ -310,19 +315,32 @@ def _min_error_dual(
     vectors: list[np.ndarray],
     dim: int,
     probs: list[float] | None = None,
+    sense: str = "max",
     solver: str = "cvxopt",
     **kwargs,
 ) -> tuple[float, list[picos.HermitianVariable]]:
-    """Find the dual problem for minimum-error quantum state distinguishability SDP."""
+    """Find the dual problem for the minimum-error quantum state discrimination SDP.
+
+    The ``sense`` argument selects the objective sense: ``"max"`` for minimum-error
+    state distinguishability and ``"min"`` for minimum-error state exclusion. The
+    constraint direction and objective sense flip together so the dual remains the
+    dual of the requested primal sense.
+    """
     n = len(vectors)
     problem = picos.Problem()
 
     # Set up variables and constraints for SDP:
     y_var = picos.HermitianVariable("Y", (dim, dim))
-    problem.add_list_of_constraints([y_var >> probs[i] * to_density_matrix(vector) for i, vector in enumerate(vectors)])
-
-    # Objective function:
-    problem.set_objective("min", picos.trace(y_var))
+    if sense == "max":
+        problem.add_list_of_constraints(
+            [y_var >> probs[i] * to_density_matrix(vector) for i, vector in enumerate(vectors)]
+        )
+        problem.set_objective("min", picos.trace(y_var))
+    else:
+        problem.add_list_of_constraints(
+            [y_var << probs[i] * to_density_matrix(vector) for i, vector in enumerate(vectors)]
+        )
+        problem.set_objective("max", picos.trace(y_var))
     solution = problem.solve(solver=solver, primals=None, **kwargs)
 
     measurements = [problem.get_constraint(k).dual for k in range(n)]

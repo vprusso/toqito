@@ -6,6 +6,7 @@
 import cvxpy
 import numpy as np
 
+from toqito._quadrature import _gauss_legendre_01
 from toqito.cones._utils import _require_square_2d, _symmetric_like_variable
 from toqito.cones.geometric_mean_hypo_cone import geometric_mean_hypo_cone
 
@@ -148,22 +149,11 @@ def operator_relative_entropy_epi_cone(
 
 
 def _gauss_legendre(m: int) -> tuple[np.ndarray, np.ndarray]:
-    """Compute Gauss-Legendre quadrature nodes and weights on [0,1].
+    """Compute Gauss-Legendre quadrature nodes and weights on [0, 1].
 
-    Based on the implementation in [@trefethen2008gauss].
+    Delegates to the shared :func:`toqito._quadrature._gauss_legendre_01` helper.
     """
-    if m < 1:
-        raise ValueError("m must be at least 1.")
-    if m == 1:
-        return np.array([0.5]), np.array([1.0])
-    k = np.arange(1, m, dtype=np.float64)
-    beta = 0.5 / np.sqrt(1 - (2 * k) ** (-2))
-    T = np.diag(beta, 1) + np.diag(beta, -1)
-    nodes_m11, V = np.linalg.eigh(T)
-    weights_m11 = 2 * V[0, :] ** 2
-    nodes = (nodes_m11 + 1) / 2
-    weights = weights_m11 / 2
-    return nodes, weights
+    return _gauss_legendre_01(m)
 
 
 def _gauss_radau(m: int, endpoint: int) -> tuple[np.ndarray, np.ndarray]:
