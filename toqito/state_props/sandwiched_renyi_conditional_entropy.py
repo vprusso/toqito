@@ -188,7 +188,6 @@ def _sandwiched_renyi_conditional_entropy_uparrow(
     """Compute the uparrow sandwiched conditional Rényi entropy via optimization."""
     identity_a = np.eye(dim_a)
     sandwich_exp = (1 - alpha) / (2 * alpha)
-    penalty = 1e12
     n_real = dim_b * dim_b
 
     def params_to_sigma_b(params: np.ndarray) -> np.ndarray:
@@ -205,26 +204,16 @@ def _sandwiched_renyi_conditional_entropy_uparrow(
         sigma_b = params_to_sigma_b(params)
         sigma = np.kron(identity_a, sigma_b)
 
-        if alpha < 1 and support_overlap(rho, sigma) <= 0:  # pragma: no cover - defensive
-            return penalty
-        if alpha > 1 and not is_support_subset(rho, sigma):  # pragma: no cover - defensive
-            return penalty
-
         sigma_power = psd_matrix_power(sigma, sandwich_exp)
         sandwiched = sigma_power @ rho @ sigma_power
         trace_term = float(np.real(np.trace(psd_matrix_power(sandwiched, alpha))))
-        if trace_term <= 0:  # pragma: no cover - defensive
-            return penalty
         return np.log2(trace_term) / (alpha - 1)
 
     eigvals, eigvecs = np.linalg.eigh((rho_b + rho_b.conj().T) / 2)
     eigvals = np.maximum(eigvals, 0.0)
     max_eig = float(np.max(eigvals)) if eigvals.size else 0.0
-    if max_eig <= 0:  # pragma: no cover - defensive
-        eigvals = np.ones_like(eigvals) / dim_b
-    else:
-        eigvals = eigvals + 1e-3 * max_eig
-        eigvals = eigvals / np.sum(eigvals)
+    eigvals = eigvals + 1e-3 * max_eig
+    eigvals = eigvals / np.sum(eigvals)
     a_init = eigvecs @ np.diag(np.sqrt(eigvals)) @ eigvecs.conj().T
     x0 = np.concatenate([a_init.real.flatten(), a_init.imag.flatten()])
 
@@ -236,9 +225,4 @@ def _sandwiched_renyi_conditional_entropy_uparrow(
     )
 
     result_fun = float(result.fun)
-    if not np.isfinite(result_fun) or result_fun >= penalty / 2:  # pragma: no cover - defensive
-        raise RuntimeError(
-            f"Uparrow sandwiched conditional Rényi entropy optimizer failed to converge: {result.message}"
-        )
-
     return -result_fun
