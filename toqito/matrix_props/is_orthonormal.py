@@ -47,4 +47,4 @@ def is_orthonormal(vectors: list[np.ndarray]) -> bool:
     # Flatten each vector to 1-D so column vectors (n, 1) and row vectors (1, n) are handled the
     # same as plain 1-D arrays; the Gram matrix of an orthonormal set is the identity.
     mat = np.array([np.asarray(vec).reshape(-1) for vec in vectors])
-    return np.allclose(mat @ mat.conj().T, np.eye(len(vectors)))
+    return bool(np.allclose(mat @ mat.conj().T, np.eye(len(vectors))))

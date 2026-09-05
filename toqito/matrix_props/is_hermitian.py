@@ -68,4 +68,4 @@ def is_hermitian(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08) -> b
     """
     if not is_square(mat):
         return False
-    return np.allclose(mat, mat.conj().T, rtol=rtol, atol=atol)
+    return bool(np.allclose(mat, mat.conj().T, rtol=rtol, atol=atol))

@@ -97,4 +97,4 @@ def is_pseudo_hermitian(mat: np.ndarray, signature: np.ndarray, rtol: float = 1e
         return False
 
     eta_H_inv_eta = signature @ mat @ signature_inv
-    return np.allclose(eta_H_inv_eta, mat.conj().T, rtol=rtol, atol=atol)
+    return bool(np.allclose(eta_H_inv_eta, mat.conj().T, rtol=rtol, atol=atol))

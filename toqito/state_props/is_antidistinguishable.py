@@ -8,7 +8,7 @@ from toqito.state_opt.state_exclusion import state_exclusion
 # imported https://github.com/vprusso/toqito/issues/473
 
 
-def is_antidistinguishable(states: list[np.ndarray]) -> bool | np.bool_:
+def is_antidistinguishable(states: list[np.ndarray]) -> bool:
     r"""Check whether a collection of vectors are antidistinguishable or not.
 
     For more information, see [@heinosaari2018antidistinguishability].
@@ -65,4 +65,4 @@ def is_antidistinguishable(states: list[np.ndarray]) -> bool | np.bool_:
 
     # The dual problem is less computationally intensive to compute in comparison to primal.
     opt_val, _ = state_exclusion(vectors=states, probs=probs, primal_dual="dual")
-    return np.isclose(opt_val, 0)
+    return bool(np.isclose(opt_val, 0))

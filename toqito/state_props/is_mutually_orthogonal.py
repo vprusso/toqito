@@ -72,4 +72,4 @@ def is_mutually_orthogonal(vec_list: list[np.ndarray | list[float | Any]]) -> bo
     np.fill_diagonal(inner_product_matrix, 0)
 
     # Check if all off-diagonal elements are close to zero
-    return np.allclose(inner_product_matrix, 0)
+    return bool(np.allclose(inner_product_matrix, 0))

@@ -15,7 +15,7 @@ def is_antidistinguishable_circulant(
     states: list[np.ndarray[tuple[int, Literal[1]], np.dtype[np.inexact[Any]]]]
     | np.ndarray[tuple[int, int], np.dtype[np.inexact[Any]]],
     skip_circulant_check: bool = False,
-) -> bool | np.bool_:
+) -> bool:
     r"""Check whether a circulant set of vectors is antidistinguishable or not.
 
     For more information, see [@johnston2025tight].
@@ -92,4 +92,4 @@ def is_antidistinguishable_circulant(
     lhs = first_sqrt_eigval
     rhs = np.sum(other_sqrt_eigvals)
 
-    return lhs <= rhs or np.isclose(lhs, rhs)
+    return bool(lhs <= rhs or np.isclose(lhs, rhs))

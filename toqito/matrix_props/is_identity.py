@@ -77,4 +77,4 @@ def is_identity(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-8) -> boo
     if not is_square(mat):
         return False
     id_mat = np.eye(len(mat))
-    return np.allclose(mat, id_mat, rtol=rtol, atol=atol)
+    return bool(np.allclose(mat, id_mat, rtol=rtol, atol=atol))

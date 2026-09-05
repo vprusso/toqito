@@ -78,4 +78,4 @@ def is_ldoi(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08) -> bool:
 
     # A matrix is LDOI if Φ_O(mat) = mat
     ldot_result = ldot_channel(mat)
-    return np.allclose(ldot_result, mat, rtol=rtol, atol=atol)
+    return bool(np.allclose(ldot_result, mat, rtol=rtol, atol=atol))
