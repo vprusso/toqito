@@ -39,9 +39,30 @@ def test_von_neumann_entropy_complex_hermitian():
     [
         # Test von Neumann entropy on non-density matrix.
         (np.array([[1, 2], [3, 4]])),
+        # Hermitian with unit trace but a negative eigenvalue, so not positive semidefinite.
+        (np.array([[0.5, 3.0], [3.0, 0.5]])),
+        # Hermitian with unit trace, rank deficient (a zero eigenvalue), and not positive semidefinite.
+        (np.diag([1.0, 0.5, -0.5])),
     ],
 )
 def test_von_neumann_invalid_input(rho):
     """Test function works as expected for an invalid input."""
     with np.testing.assert_raises(ValueError):
         von_neumann_entropy(rho)
+
+
+def test_von_neumann_entropy_computes_spectrum_once(monkeypatch):
+    """The entropy is computed from a single spectral decomposition of rho."""
+    original_eigvalsh = np.linalg.eigvalsh
+    calls = 0
+
+    def count_eigvalsh(matrix):
+        nonlocal calls
+        calls += 1
+        return original_eigvalsh(matrix)
+
+    monkeypatch.setattr(np.linalg, "eigvalsh", count_eigvalsh)
+
+    von_neumann_entropy(max_mixed(2, is_sparse=False))
+
+    assert calls == 1

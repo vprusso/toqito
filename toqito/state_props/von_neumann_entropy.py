@@ -2,7 +2,7 @@
 
 import numpy as np
 
-from toqito.matrix_props import is_density
+from toqito.matrix_props import is_hermitian
 
 
 def von_neumann_entropy(rho: np.ndarray) -> float:
@@ -89,10 +89,17 @@ def von_neumann_entropy(rho: np.ndarray) -> float:
         ```
 
     """
-    if not is_density(rho):
+    # A density operator is Hermitian with unit trace. Check both cheaply first; the positive-semidefinite
+    # check below reads the spectrum, so `rho` is only ever factorized once.
+    if not is_hermitian(rho) or not np.isclose(np.trace(rho), 1):
         raise ValueError("Von Neumann entropy is only defined for density operators.")
     # A density operator is Hermitian, so use eigvalsh, which returns real eigenvalues and avoids the spurious
-    # imaginary parts that np.linalg.eig can introduce.
+    # imaginary parts that np.linalg.eig can introduce. This single factorization both validates positive
+    # semidefiniteness (with the same tolerances as `is_positive_semidefinite`) and supplies the spectrum for
+    # the entropy computation.
     eigs = np.linalg.eigvalsh(rho)
+    scale = max(1.0, np.max(np.abs(eigs)))
+    if np.min(eigs) < -(1e-08 + 1e-05 * scale):
+        raise ValueError("Von Neumann entropy is only defined for density operators.")
     eigs = eigs[eigs > 0]
     return float(-np.sum(eigs * np.log2(eigs)))
