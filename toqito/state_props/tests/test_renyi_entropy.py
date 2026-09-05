@@ -44,3 +44,21 @@ def test_renyi_invalid_input(rho, alpha):
     """Test function works as expected for an invalid input."""
     with np.testing.assert_raises(ValueError):
         renyi_entropy(rho, alpha)
+
+
+@pytest.mark.parametrize("alpha", [0.0, 1.0, 2.0, float("inf")])
+def test_renyi_entropy_computes_spectrum_once(monkeypatch, alpha):
+    """Test each entropy order reuses one spectral decomposition."""
+    original_eigvalsh = np.linalg.eigvalsh
+    calls = 0
+
+    def count_eigvalsh(matrix):
+        nonlocal calls
+        calls += 1
+        return original_eigvalsh(matrix)
+
+    monkeypatch.setattr(np.linalg, "eigvalsh", count_eigvalsh)
+
+    renyi_entropy(RHO_TEST, alpha)
+
+    assert calls == 1

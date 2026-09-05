@@ -2,8 +2,7 @@
 
 import numpy as np
 
-from toqito.matrix_props import is_density
-from toqito.state_props import von_neumann_entropy
+from toqito.matrix_props import is_hermitian
 
 
 def renyi_entropy(rho: np.ndarray, alpha: float) -> float:
@@ -92,17 +91,24 @@ def renyi_entropy(rho: np.ndarray, alpha: float) -> float:
         ```
 
     """
-    if not is_density(rho):
+    if not is_hermitian(rho) or not np.isclose(np.trace(rho), 1):
         raise ValueError("Rényi entropy is only defined for density operators.")
     if alpha < 0:
         raise ValueError("Rényi entropy is only defined for positive orders.")
+
+    # Compute the spectrum once: it validates positive semidefiniteness and is
+    # also needed to calculate the entropy for every order.
+    eigs = np.linalg.eigvalsh(rho)
+    scale = max(1.0, np.max(np.abs(eigs)))
+    if np.min(eigs) < -(1e-08 + 1e-05 * scale):
+        raise ValueError("Rényi entropy is only defined for density operators.")
+
     if alpha == 0:
         return np.log2(np.linalg.matrix_rank(rho))
-    if alpha == 1:
-        return von_neumann_entropy(rho)
 
-    eigs = np.linalg.eigvalsh(rho)
     eigs = eigs[eigs > 0]
+    if alpha == 1:
+        return float(-np.sum(eigs * np.log2(eigs)))
 
     if alpha == float("inf"):
         return -np.log2(eigs.max())
