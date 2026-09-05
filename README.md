@@ -63,7 +63,7 @@ import numpy as np
 from toqito.nonlocal_games.xor_game import XORGame
 
 # The probability matrix.
-prob_mat = np.array([[1/4, 1/4], [1/4, 1/4]])
+prob_mat = np.array([[1 / 4, 1 / 4], [1 / 4, 1 / 4]])
 
 # The predicate matrix.
 pred_mat = np.array([[0, 0], [0, 1]])
