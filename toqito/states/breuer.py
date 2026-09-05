@@ -14,7 +14,7 @@ def breuer(dim: int, lam: float) -> np.ndarray:
 
     Gives a Breuer state for two qudits of local dimension `dim`, with the `lam` parameter describing the
     weight of the singlet component as described in [@breuer2006optimal]. For even local dimensions
-    \(d \geq 4\) and \(\lambda > 0\), this construction gives bound entangled states.
+    \(d \geq 4\) and \(0 < \lambda \leq \frac{1}{d+2} \), this construction gives bound entangled states.
 
     This function was adapted from the QETLAB package [@qetlablink].
 
@@ -30,9 +30,9 @@ def breuer(dim: int, lam: float) -> np.ndarray:
         ValueError: `lam` must be between 0 and 1.
 
     Examples:
-        We can generate a Breuer bound entangled state of local dimension \(4\) with weight \(0.1\). For even
-        local dimension at least \(4\) and any positive weight, the state satisfies the PPT criterion, but it
-        is entangled.
+        We can generate a Breuer bound entangled state of local dimension \(4\) with weight \(0.1\). For
+        even local dimension at least \(4\) and \(0 < \lambda \leq \frac{1}{d+2}\), the state satisfies the
+        PPT criterion, but it is entangled.
 
         ```python exec="1" source="above" result="text"
         from toqito.states import breuer

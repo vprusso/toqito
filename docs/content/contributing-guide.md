@@ -271,7 +271,8 @@ serve locally:
 
 ``` bash
 uv sync --group docs
-uv run mkdocs serve -f docs/mkdocs.yml
+cd docs
+uv run mkdocs serve -f mkdocs.yml
 ```
 
 This starts a live-reloading server at `http://127.0.0.1:8000`.
@@ -279,7 +280,8 @@ This starts a live-reloading server at `http://127.0.0.1:8000`.
 To produce a static build instead:
 
 ``` bash
-uv run mkdocs build -f docs/mkdocs.yml
+cd docs
+uv run mkdocs build -f mkdocs.yml
 ```
 
 For more information, visit the
