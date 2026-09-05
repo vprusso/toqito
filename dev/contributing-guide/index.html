@@ -10811,11 +10811,13 @@ get an idea of how to format the <code>bib</code> keys.</p>
 build the documentation. Sync the docs dependency group first, then
 serve locally:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>uv<span class="w"> </span>sync<span class="w"> </span>--group<span class="w"> </span>docs
-<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>uv<span class="w"> </span>run<span class="w"> </span>mkdocs<span class="w"> </span>serve<span class="w"> </span>-f<span class="w"> </span>docs/mkdocs.yml
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="nb">cd</span><span class="w"> </span>docs
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>uv<span class="w"> </span>run<span class="w"> </span>mkdocs<span class="w"> </span>serve<span class="w"> </span>-f<span class="w"> </span>mkdocs.yml
 </code></pre></div>
 <p>This starts a live-reloading server at <code>http://127.0.0.1:8000</code>.</p>
 <p>To produce a static build instead:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>uv<span class="w"> </span>run<span class="w"> </span>mkdocs<span class="w"> </span>build<span class="w"> </span>-f<span class="w"> </span>docs/mkdocs.yml
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="nb">cd</span><span class="w"> </span>docs
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>uv<span class="w"> </span>run<span class="w"> </span>mkdocs<span class="w"> </span>build<span class="w"> </span>-f<span class="w"> </span>mkdocs.yml
 </code></pre></div>
 <p>For more information, visit the
 <a href="https://www.mkdocs.org/getting-started/">MkDocs documentation</a> and the

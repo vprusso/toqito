@@ -10451,8 +10451,8 @@ order of checks as seen in tools like QETLAB's <code>IsSeparable</code> function
     <sup><a id="cite-toqito-state_props-is_separable-is_separable-10" href="#ref-toqito-state_props-is_separable-is_separable-10">10</a></sup>:</p>
 <p>For PPT states (especially when <span class="arithmatex">\(d_A d_B &gt; 6\)</span>):</p>
 <ul>
-<li>If <span class="arithmatex">\(\text{rank}(\rho) \le \max(d_A, d_B)\)</span>, the state is separable
-  (Theorem 1 of the paper).</li>
+<li>If <span class="arithmatex">\(\text{rank}(\rho) \le \max(\text{rank}(\rho_A), \text{rank}(\rho_B))\)</span>,
+  the state is separable (Horodecki et al. 2000).</li>
 <li>If <span class="arithmatex">\(\text{rank}(\rho) \le \text{rank}(\rho_A)\)</span> or
   <span class="arithmatex">\(\text{rank}(\rho) \le \text{rank}(\rho_B)\)</span>, the state is separable.
   This is the "rank-marginal" corollary of Theorem 1 obtained by
@@ -11571,8 +11571,8 @@ is entangled but PPT.</p>
 <a id="__codelineno-0-90" name="__codelineno-0-90"></a>
 <a id="__codelineno-0-91" name="__codelineno-0-91"></a><span class="sd">        For PPT states (especially when \(d_A d_B &gt; 6\)):</span>
 <a id="__codelineno-0-92" name="__codelineno-0-92"></a>
-<a id="__codelineno-0-93" name="__codelineno-0-93"></a><span class="sd">        - If \(\text{rank}(\rho) \le \max(d_A, d_B)\), the state is separable</span>
-<a id="__codelineno-0-94" name="__codelineno-0-94"></a><span class="sd">          (Theorem 1 of the paper).</span>
+<a id="__codelineno-0-93" name="__codelineno-0-93"></a><span class="sd">        - If \(\text{rank}(\rho) \le \max(\text{rank}(\rho_A), \text{rank}(\rho_B))\),</span>
+<a id="__codelineno-0-94" name="__codelineno-0-94"></a><span class="sd">          the state is separable (Horodecki et al. 2000).</span>
 <a id="__codelineno-0-95" name="__codelineno-0-95"></a><span class="sd">        - If \(\text{rank}(\rho) \le \text{rank}(\rho_A)\) or</span>
 <a id="__codelineno-0-96" name="__codelineno-0-96"></a><span class="sd">          \(\text{rank}(\rho) \le \text{rank}(\rho_B)\), the state is separable.</span>
 <a id="__codelineno-0-97" name="__codelineno-0-97"></a><span class="sd">          This is the &quot;rank-marginal&quot; corollary of Theorem 1 obtained by</span>
@@ -12029,7 +12029,7 @@ is entangled but PPT.</p>
 <a id="__codelineno-0-548" name="__codelineno-0-548"></a>
 <a id="__codelineno-0-549" name="__codelineno-0-549"></a>    <span class="c1"># --- 7. Operational Criteria for Low-Rank PPT States (Horodecki et al. 2000) ---</span>
 <a id="__codelineno-0-550" name="__codelineno-0-550"></a>    <span class="n">verdict</span><span class="p">,</span> <span class="n">rho_A_marginal</span><span class="p">,</span> <span class="n">rho_B_marginal</span> <span class="o">=</span> <span class="n">_horodecki_low_rank_ppt_criteria</span><span class="p">(</span>
-<a id="__codelineno-0-551" name="__codelineno-0-551"></a>        <span class="n">current_state</span><span class="p">,</span> <span class="n">dims_list</span><span class="p">,</span> <span class="n">state_rank</span><span class="p">,</span> <span class="n">max_dim_val</span>
+<a id="__codelineno-0-551" name="__codelineno-0-551"></a>        <span class="n">current_state</span><span class="p">,</span> <span class="n">dims_list</span><span class="p">,</span> <span class="n">state_rank</span><span class="p">,</span> <span class="n">tol</span>
 <a id="__codelineno-0-552" name="__codelineno-0-552"></a>    <span class="p">)</span>
 <a id="__codelineno-0-553" name="__codelineno-0-553"></a>    <span class="k">if</span> <span class="n">verdict</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
 <a id="__codelineno-0-554" name="__codelineno-0-554"></a>        <span class="k">return</span> <span class="n">verdict</span>
