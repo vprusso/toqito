@@ -23,7 +23,7 @@
       
       
       <link rel="icon" href="../../../../figures/favicon.ico">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -31,7 +31,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../../../../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -61,13 +61,13 @@
     
       <link rel="stylesheet" href="../../../../assets/extra.css">
     
-      <link rel="stylesheet" href="../../../../sg_gallery-dataframe.css">
-    
       <link rel="stylesheet" href="../../../../sg_gallery-binder.css">
     
-      <link rel="stylesheet" href="../../../../sg_gallery-rendered-html.css">
+      <link rel="stylesheet" href="../../../../sg_gallery-dataframe.css">
     
       <link rel="stylesheet" href="../../../../sg_gallery.css">
+    
+      <link rel="stylesheet" href="../../../../sg_gallery-rendered-html.css">
     
     <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -10885,7 +10885,10 @@ counterfeiting probability is <span class="arithmatex">\(3/4\)</span>.</p>
 <span class="normal"><a href="#__codelineno-0-190">190</a></span>
 <span class="normal"><a href="#__codelineno-0-191">191</a></span>
 <span class="normal"><a href="#__codelineno-0-192">192</a></span>
-<span class="normal"><a href="#__codelineno-0-193">193</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-138" name="__codelineno-0-138"></a><span class="k">def</span><span class="w"> </span><span class="nf">primal_problem</span><span class="p">(</span><span class="n">q_a</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">pperm</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">num_reps</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="normal"><a href="#__codelineno-0-193">193</a></span>
+<span class="normal"><a href="#__codelineno-0-194">194</a></span>
+<span class="normal"><a href="#__codelineno-0-195">195</a></span>
+<span class="normal"><a href="#__codelineno-0-196">196</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-138" name="__codelineno-0-138"></a><span class="k">def</span><span class="w"> </span><span class="nf">primal_problem</span><span class="p">(</span><span class="n">q_a</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">pperm</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">num_reps</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <a id="__codelineno-0-139" name="__codelineno-0-139"></a><span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Primal problem for counterfeit attack.</span>
 <a id="__codelineno-0-140" name="__codelineno-0-140"></a>
 <a id="__codelineno-0-141" name="__codelineno-0-141"></a><span class="sd">    As the primal problem takes longer to solve than the dual problem (as</span>
@@ -10940,7 +10943,10 @@ counterfeiting probability is <span class="arithmatex">\(3/4\)</span>.</p>
 <a id="__codelineno-0-190" name="__codelineno-0-190"></a>    <span class="p">]</span>
 <a id="__codelineno-0-191" name="__codelineno-0-191"></a>    <span class="n">problem</span> <span class="o">=</span> <span class="n">cvxpy</span><span class="o">.</span><span class="n">Problem</span><span class="p">(</span><span class="n">objective</span><span class="p">,</span> <span class="n">constraints</span><span class="p">)</span>
 <a id="__codelineno-0-192" name="__codelineno-0-192"></a>
-<a id="__codelineno-0-193" name="__codelineno-0-193"></a>    <span class="k">return</span> <span class="n">problem</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<a id="__codelineno-0-193" name="__codelineno-0-193"></a>    <span class="n">optimal_value</span> <span class="o">=</span> <span class="n">problem</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<a id="__codelineno-0-194" name="__codelineno-0-194"></a>    <span class="k">if</span> <span class="n">problem</span><span class="o">.</span><span class="n">status</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="n">cvxpy</span><span class="o">.</span><span class="n">OPTIMAL</span><span class="p">,</span> <span class="n">cvxpy</span><span class="o">.</span><span class="n">OPTIMAL_INACCURATE</span><span class="p">):</span>
+<a id="__codelineno-0-195" name="__codelineno-0-195"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;optimal_clone SDP did not solve to optimality (status: </span><span class="si">{</span><span class="n">problem</span><span class="o">.</span><span class="n">status</span><span class="si">}</span><span class="s2">).&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-196" name="__codelineno-0-196"></a>    <span class="k">return</span> <span class="n">optimal_value</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
@@ -11003,10 +11009,7 @@ counterfeiting probability is <span class="arithmatex">\(3/4\)</span>.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>toqito/state_opt/optimal_clone.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-196">196</a></span>
-<span class="normal"><a href="#__codelineno-0-197">197</a></span>
-<span class="normal"><a href="#__codelineno-0-198">198</a></span>
-<span class="normal"><a href="#__codelineno-0-199">199</a></span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-199">199</a></span>
 <span class="normal"><a href="#__codelineno-0-200">200</a></span>
 <span class="normal"><a href="#__codelineno-0-201">201</a></span>
 <span class="normal"><a href="#__codelineno-0-202">202</a></span>
@@ -11044,48 +11047,57 @@ counterfeiting probability is <span class="arithmatex">\(3/4\)</span>.</p>
 <span class="normal"><a href="#__codelineno-0-234">234</a></span>
 <span class="normal"><a href="#__codelineno-0-235">235</a></span>
 <span class="normal"><a href="#__codelineno-0-236">236</a></span>
-<span class="normal"><a href="#__codelineno-0-237">237</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-196" name="__codelineno-0-196"></a><span class="k">def</span><span class="w"> </span><span class="nf">dual_problem</span><span class="p">(</span><span class="n">q_a</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">pperm</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">num_reps</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-<a id="__codelineno-0-197" name="__codelineno-0-197"></a><span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Dual problem for counterfeit attack.</span>
-<a id="__codelineno-0-198" name="__codelineno-0-198"></a>
-<a id="__codelineno-0-199" name="__codelineno-0-199"></a><span class="sd">    Returns:</span>
-<a id="__codelineno-0-200" name="__codelineno-0-200"></a><span class="sd">        The optimal value of performing a counterfeit attack.</span>
+<span class="normal"><a href="#__codelineno-0-237">237</a></span>
+<span class="normal"><a href="#__codelineno-0-238">238</a></span>
+<span class="normal"><a href="#__codelineno-0-239">239</a></span>
+<span class="normal"><a href="#__codelineno-0-240">240</a></span>
+<span class="normal"><a href="#__codelineno-0-241">241</a></span>
+<span class="normal"><a href="#__codelineno-0-242">242</a></span>
+<span class="normal"><a href="#__codelineno-0-243">243</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-199" name="__codelineno-0-199"></a><span class="k">def</span><span class="w"> </span><span class="nf">dual_problem</span><span class="p">(</span><span class="n">q_a</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">pperm</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">num_reps</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<a id="__codelineno-0-200" name="__codelineno-0-200"></a><span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Dual problem for counterfeit attack.</span>
 <a id="__codelineno-0-201" name="__codelineno-0-201"></a>
-<a id="__codelineno-0-202" name="__codelineno-0-202"></a><span class="sd">    Examples:</span>
-<a id="__codelineno-0-203" name="__codelineno-0-203"></a><span class="sd">        The dual is what `optimal_clone` solves by default, since its variable is</span>
-<a id="__codelineno-0-204" name="__codelineno-0-204"></a><span class="sd">        \(2^n \times 2^n\) rather than \(8^n \times 8^n\). It agrees with the primal at</span>
-<a id="__codelineno-0-205" name="__codelineno-0-205"></a><span class="sd">        \(3/4\) for the four BB84 states, as strong duality requires.</span>
-<a id="__codelineno-0-206" name="__codelineno-0-206"></a>
-<a id="__codelineno-0-207" name="__codelineno-0-207"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;</span>
-<a id="__codelineno-0-208" name="__codelineno-0-208"></a><span class="sd">        import numpy as np</span>
-<a id="__codelineno-0-209" name="__codelineno-0-209"></a><span class="sd">        from toqito.matrix_ops import tensor</span>
-<a id="__codelineno-0-210" name="__codelineno-0-210"></a><span class="sd">        from toqito.states import basis</span>
-<a id="__codelineno-0-211" name="__codelineno-0-211"></a><span class="sd">        from toqito.state_opt.optimal_clone import dual_problem</span>
-<a id="__codelineno-0-212" name="__codelineno-0-212"></a>
-<a id="__codelineno-0-213" name="__codelineno-0-213"></a><span class="sd">        e_0, e_1 = basis(2, 0), basis(2, 1)</span>
-<a id="__codelineno-0-214" name="__codelineno-0-214"></a><span class="sd">        e_p, e_m = (e_0 + e_1) / np.sqrt(2), (e_0 - e_1) / np.sqrt(2)</span>
-<a id="__codelineno-0-215" name="__codelineno-0-215"></a><span class="sd">        states, probs = [e_0, e_1, e_p, e_m], [1 / 4] * 4</span>
-<a id="__codelineno-0-216" name="__codelineno-0-216"></a>
-<a id="__codelineno-0-217" name="__codelineno-0-217"></a><span class="sd">        q_a = np.zeros((len(states[0]) ** 3,) * 2, dtype=complex)</span>
-<a id="__codelineno-0-218" name="__codelineno-0-218"></a><span class="sd">        for prob, state in zip(probs, states):</span>
-<a id="__codelineno-0-219" name="__codelineno-0-219"></a><span class="sd">            ket = tensor(state, state, state.conj())</span>
-<a id="__codelineno-0-220" name="__codelineno-0-220"></a><span class="sd">            q_a += prob * ket @ ket.conj().T</span>
-<a id="__codelineno-0-221" name="__codelineno-0-221"></a>
-<a id="__codelineno-0-222" name="__codelineno-0-222"></a><span class="sd">        print(round(dual_problem(q_a, np.array([1]), 1), 4))</span>
-<a id="__codelineno-0-223" name="__codelineno-0-223"></a><span class="sd">        ```</span>
+<a id="__codelineno-0-202" name="__codelineno-0-202"></a><span class="sd">    Returns:</span>
+<a id="__codelineno-0-203" name="__codelineno-0-203"></a><span class="sd">        The optimal value of performing a counterfeit attack.</span>
+<a id="__codelineno-0-204" name="__codelineno-0-204"></a>
+<a id="__codelineno-0-205" name="__codelineno-0-205"></a><span class="sd">    Examples:</span>
+<a id="__codelineno-0-206" name="__codelineno-0-206"></a><span class="sd">        The dual is what `optimal_clone` solves by default, since its variable is</span>
+<a id="__codelineno-0-207" name="__codelineno-0-207"></a><span class="sd">        \(2^n \times 2^n\) rather than \(8^n \times 8^n\). It agrees with the primal at</span>
+<a id="__codelineno-0-208" name="__codelineno-0-208"></a><span class="sd">        \(3/4\) for the four BB84 states, as strong duality requires.</span>
+<a id="__codelineno-0-209" name="__codelineno-0-209"></a>
+<a id="__codelineno-0-210" name="__codelineno-0-210"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;</span>
+<a id="__codelineno-0-211" name="__codelineno-0-211"></a><span class="sd">        import numpy as np</span>
+<a id="__codelineno-0-212" name="__codelineno-0-212"></a><span class="sd">        from toqito.matrix_ops import tensor</span>
+<a id="__codelineno-0-213" name="__codelineno-0-213"></a><span class="sd">        from toqito.states import basis</span>
+<a id="__codelineno-0-214" name="__codelineno-0-214"></a><span class="sd">        from toqito.state_opt.optimal_clone import dual_problem</span>
+<a id="__codelineno-0-215" name="__codelineno-0-215"></a>
+<a id="__codelineno-0-216" name="__codelineno-0-216"></a><span class="sd">        e_0, e_1 = basis(2, 0), basis(2, 1)</span>
+<a id="__codelineno-0-217" name="__codelineno-0-217"></a><span class="sd">        e_p, e_m = (e_0 + e_1) / np.sqrt(2), (e_0 - e_1) / np.sqrt(2)</span>
+<a id="__codelineno-0-218" name="__codelineno-0-218"></a><span class="sd">        states, probs = [e_0, e_1, e_p, e_m], [1 / 4] * 4</span>
+<a id="__codelineno-0-219" name="__codelineno-0-219"></a>
+<a id="__codelineno-0-220" name="__codelineno-0-220"></a><span class="sd">        q_a = np.zeros((len(states[0]) ** 3,) * 2, dtype=complex)</span>
+<a id="__codelineno-0-221" name="__codelineno-0-221"></a><span class="sd">        for prob, state in zip(probs, states):</span>
+<a id="__codelineno-0-222" name="__codelineno-0-222"></a><span class="sd">            ket = tensor(state, state, state.conj())</span>
+<a id="__codelineno-0-223" name="__codelineno-0-223"></a><span class="sd">            q_a += prob * ket @ ket.conj().T</span>
 <a id="__codelineno-0-224" name="__codelineno-0-224"></a>
-<a id="__codelineno-0-225" name="__codelineno-0-225"></a><span class="sd">    &quot;&quot;&quot;</span>
-<a id="__codelineno-0-226" name="__codelineno-0-226"></a>    <span class="n">y_var</span> <span class="o">=</span> <span class="n">cvxpy</span><span class="o">.</span><span class="n">Variable</span><span class="p">((</span><span class="mi">2</span><span class="o">**</span><span class="n">num_reps</span><span class="p">,</span> <span class="mi">2</span><span class="o">**</span><span class="n">num_reps</span><span class="p">),</span> <span class="n">hermitian</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<a id="__codelineno-0-227" name="__codelineno-0-227"></a>    <span class="n">objective</span> <span class="o">=</span> <span class="n">cvxpy</span><span class="o">.</span><span class="n">Minimize</span><span class="p">(</span><span class="n">cvxpy</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="n">cvxpy</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">y_var</span><span class="p">)))</span>
-<a id="__codelineno-0-228" name="__codelineno-0-228"></a>
-<a id="__codelineno-0-229" name="__codelineno-0-229"></a>    <span class="n">kron_var</span> <span class="o">=</span> <span class="n">cvxpy</span><span class="o">.</span><span class="n">kron</span><span class="p">(</span><span class="n">cvxpy</span><span class="o">.</span><span class="n">kron</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">2</span><span class="o">**</span><span class="n">num_reps</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">2</span><span class="o">**</span><span class="n">num_reps</span><span class="p">)),</span> <span class="n">y_var</span><span class="p">)</span>
-<a id="__codelineno-0-230" name="__codelineno-0-230"></a>
-<a id="__codelineno-0-231" name="__codelineno-0-231"></a>    <span class="k">if</span> <span class="n">num_reps</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-<a id="__codelineno-0-232" name="__codelineno-0-232"></a>        <span class="n">constraints</span> <span class="o">=</span> <span class="p">[</span><span class="n">cvxpy</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">kron_var</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="n">q_a</span><span class="p">]</span>
-<a id="__codelineno-0-233" name="__codelineno-0-233"></a>    <span class="k">else</span><span class="p">:</span>
-<a id="__codelineno-0-234" name="__codelineno-0-234"></a>        <span class="n">constraints</span> <span class="o">=</span> <span class="p">[</span><span class="n">cvxpy</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">kron_var</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="n">pperm</span> <span class="o">@</span> <span class="n">q_a</span> <span class="o">@</span> <span class="n">pperm</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span><span class="p">]</span>
-<a id="__codelineno-0-235" name="__codelineno-0-235"></a>    <span class="n">problem</span> <span class="o">=</span> <span class="n">cvxpy</span><span class="o">.</span><span class="n">Problem</span><span class="p">(</span><span class="n">objective</span><span class="p">,</span> <span class="n">constraints</span><span class="p">)</span>
-<a id="__codelineno-0-236" name="__codelineno-0-236"></a>
-<a id="__codelineno-0-237" name="__codelineno-0-237"></a>    <span class="k">return</span> <span class="n">problem</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<a id="__codelineno-0-225" name="__codelineno-0-225"></a><span class="sd">        print(round(dual_problem(q_a, np.array([1]), 1), 4))</span>
+<a id="__codelineno-0-226" name="__codelineno-0-226"></a><span class="sd">        ```</span>
+<a id="__codelineno-0-227" name="__codelineno-0-227"></a>
+<a id="__codelineno-0-228" name="__codelineno-0-228"></a><span class="sd">    &quot;&quot;&quot;</span>
+<a id="__codelineno-0-229" name="__codelineno-0-229"></a>    <span class="n">y_var</span> <span class="o">=</span> <span class="n">cvxpy</span><span class="o">.</span><span class="n">Variable</span><span class="p">((</span><span class="mi">2</span><span class="o">**</span><span class="n">num_reps</span><span class="p">,</span> <span class="mi">2</span><span class="o">**</span><span class="n">num_reps</span><span class="p">),</span> <span class="n">hermitian</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<a id="__codelineno-0-230" name="__codelineno-0-230"></a>    <span class="n">objective</span> <span class="o">=</span> <span class="n">cvxpy</span><span class="o">.</span><span class="n">Minimize</span><span class="p">(</span><span class="n">cvxpy</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="n">cvxpy</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">y_var</span><span class="p">)))</span>
+<a id="__codelineno-0-231" name="__codelineno-0-231"></a>
+<a id="__codelineno-0-232" name="__codelineno-0-232"></a>    <span class="n">kron_var</span> <span class="o">=</span> <span class="n">cvxpy</span><span class="o">.</span><span class="n">kron</span><span class="p">(</span><span class="n">cvxpy</span><span class="o">.</span><span class="n">kron</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">2</span><span class="o">**</span><span class="n">num_reps</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">2</span><span class="o">**</span><span class="n">num_reps</span><span class="p">)),</span> <span class="n">y_var</span><span class="p">)</span>
+<a id="__codelineno-0-233" name="__codelineno-0-233"></a>
+<a id="__codelineno-0-234" name="__codelineno-0-234"></a>    <span class="k">if</span> <span class="n">num_reps</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+<a id="__codelineno-0-235" name="__codelineno-0-235"></a>        <span class="n">constraints</span> <span class="o">=</span> <span class="p">[</span><span class="n">cvxpy</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">kron_var</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="n">q_a</span><span class="p">]</span>
+<a id="__codelineno-0-236" name="__codelineno-0-236"></a>    <span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-0-237" name="__codelineno-0-237"></a>        <span class="n">constraints</span> <span class="o">=</span> <span class="p">[</span><span class="n">cvxpy</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">kron_var</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="n">pperm</span> <span class="o">@</span> <span class="n">q_a</span> <span class="o">@</span> <span class="n">pperm</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span><span class="p">]</span>
+<a id="__codelineno-0-238" name="__codelineno-0-238"></a>    <span class="n">problem</span> <span class="o">=</span> <span class="n">cvxpy</span><span class="o">.</span><span class="n">Problem</span><span class="p">(</span><span class="n">objective</span><span class="p">,</span> <span class="n">constraints</span><span class="p">)</span>
+<a id="__codelineno-0-239" name="__codelineno-0-239"></a>
+<a id="__codelineno-0-240" name="__codelineno-0-240"></a>    <span class="n">optimal_value</span> <span class="o">=</span> <span class="n">problem</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<a id="__codelineno-0-241" name="__codelineno-0-241"></a>    <span class="k">if</span> <span class="n">problem</span><span class="o">.</span><span class="n">status</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="n">cvxpy</span><span class="o">.</span><span class="n">OPTIMAL</span><span class="p">,</span> <span class="n">cvxpy</span><span class="o">.</span><span class="n">OPTIMAL_INACCURATE</span><span class="p">):</span>
+<a id="__codelineno-0-242" name="__codelineno-0-242"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;optimal_clone SDP did not solve to optimality (status: </span><span class="si">{</span><span class="n">problem</span><span class="o">.</span><span class="n">status</span><span class="si">}</span><span class="s2">).&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-243" name="__codelineno-0-243"></a>    <span class="k">return</span> <span class="n">optimal_value</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
@@ -11176,7 +11188,7 @@ counterfeiting probability is <span class="arithmatex">\(3/4\)</span>.</p>
       <script id="__config" type="application/json">{"annotate": null, "base": "../../../..", "features": ["navigation.indexes", "navigation.top", "content.code.copy", "content.code.annotate", "search.highlight"], "search": "../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../../../assets/javascripts/bundle.d7400e89.min.js"></script>
       
         <script src="../../../../assets/_markdown_exec_pyodide.js"></script>
       

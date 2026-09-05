@@ -23,7 +23,7 @@
       
       
       <link rel="icon" href="../../../../figures/favicon.ico">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -31,7 +31,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../../../../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -61,13 +61,13 @@
     
       <link rel="stylesheet" href="../../../../assets/extra.css">
     
-      <link rel="stylesheet" href="../../../../sg_gallery-dataframe.css">
-    
       <link rel="stylesheet" href="../../../../sg_gallery-binder.css">
     
-      <link rel="stylesheet" href="../../../../sg_gallery-rendered-html.css">
+      <link rel="stylesheet" href="../../../../sg_gallery-dataframe.css">
     
       <link rel="stylesheet" href="../../../../sg_gallery.css">
+    
+      <link rel="stylesheet" href="../../../../sg_gallery-rendered-html.css">
     
     <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -10340,7 +10340,7 @@ The constraints for this function are positive partial transpose (PPT) &amp; k-e
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    <span class="n">input_state_rho_dims</span><span class="p">:</span> <span class="n"><span title="list">list</span></span><span class="p">[</span><span class="n"><span title="int">int</span></span><span class="p">],</span>
 <a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    <span class="n">k</span><span class="p">:</span> <span class="n"><span title="int">int</span></span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
 <a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="n">verbosity_option</span><span class="p">:</span> <span class="n"><span title="int">int</span></span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    <span class="n">solver_option</span><span class="p">:</span> <span class="n"><span title="str">str</span></span> <span class="o">=</span> <span class="s2">&quot;cvxopt&quot;</span><span class="p">,</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    <span class="n">solver</span><span class="p">:</span> <span class="n"><span title="str">str</span></span> <span class="o">=</span> <span class="s2">&quot;cvxopt&quot;</span><span class="p">,</span>
 <a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><span title="float">float</span></span>
 </code></pre></div>
 
@@ -10434,13 +10434,13 @@ https://picos-api.gitlab.io/picos/api/picos.modeling.options.html#option-verbosi
           </div>
         </li>
         <li class="doc-section-item field-body">
-            <b><code>solver_option</code></b>
+            <b><code>solver</code></b>
               (<code><span title="str">str</span></code>, default:
                   <code>&#39;cvxopt&#39;</code>
 )
           –
           <div class="doc-md-description">
-            <p>Optimization option for <code>picos</code> solver. Default option is <code>solver_option="cvxopt"</code>. For more
+            <p>Optimization option for <code>picos</code> solver. Default option is <code>solver="cvxopt"</code>. For more
 info, visit https://picos-api.gitlab.io/picos/api/picos.modeling.options.html#option-solver.</p>
           </div>
         </li>
@@ -10690,7 +10690,7 @@ info, visit https://picos-api.gitlab.io/picos/api/picos.modeling.options.html#op
 <a id="__codelineno-0-17" name="__codelineno-0-17"></a>    <span class="n">input_state_rho_dims</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
 <a id="__codelineno-0-18" name="__codelineno-0-18"></a>    <span class="n">k</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
 <a id="__codelineno-0-19" name="__codelineno-0-19"></a>    <span class="n">verbosity_option</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
-<a id="__codelineno-0-20" name="__codelineno-0-20"></a>    <span class="n">solver_option</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;cvxopt&quot;</span><span class="p">,</span>
+<a id="__codelineno-0-20" name="__codelineno-0-20"></a>    <span class="n">solver</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;cvxopt&quot;</span><span class="p">,</span>
 <a id="__codelineno-0-21" name="__codelineno-0-21"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <a id="__codelineno-0-22" name="__codelineno-0-22"></a><span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Define the first benchmark introduced in Appendix H of [@philip2023schrodinger].</span>
 <a id="__codelineno-0-23" name="__codelineno-0-23"></a>
@@ -10757,7 +10757,7 @@ info, visit https://picos-api.gitlab.io/picos/api/picos.modeling.options.html#op
 <a id="__codelineno-0-84" name="__codelineno-0-84"></a><span class="sd">        k: value for k-extendibility.</span>
 <a id="__codelineno-0-85" name="__codelineno-0-85"></a><span class="sd">        verbosity_option: Parameter option for `picos`. Default value is `verbosity = 0`. For more info, visit</span>
 <a id="__codelineno-0-86" name="__codelineno-0-86"></a><span class="sd">            https://picos-api.gitlab.io/picos/api/picos.modeling.options.html#option-verbosity.</span>
-<a id="__codelineno-0-87" name="__codelineno-0-87"></a><span class="sd">        solver_option: Optimization option for `picos` solver. Default option is `solver_option=&quot;cvxopt&quot;`. For more</span>
+<a id="__codelineno-0-87" name="__codelineno-0-87"></a><span class="sd">        solver: Optimization option for `picos` solver. Default option is `solver=&quot;cvxopt&quot;`. For more</span>
 <a id="__codelineno-0-88" name="__codelineno-0-88"></a><span class="sd">            info, visit https://picos-api.gitlab.io/picos/api/picos.modeling.options.html#option-solver.</span>
 <a id="__codelineno-0-89" name="__codelineno-0-89"></a>
 <a id="__codelineno-0-90" name="__codelineno-0-90"></a><span class="sd">    Returns:</span>
@@ -10848,7 +10848,7 @@ info, visit https://picos-api.gitlab.io/picos/api/picos.modeling.options.html#op
 <a id="__codelineno-0-175" name="__codelineno-0-175"></a>        <span class="n">sys</span> <span class="o">=</span> <span class="n">sys</span> <span class="o">+</span> <span class="p">[</span><span class="n">i</span><span class="p">]</span>
 <a id="__codelineno-0-176" name="__codelineno-0-176"></a>        <span class="n">problem</span><span class="o">.</span><span class="n">add_constraint</span><span class="p">(</span><span class="n">picos</span><span class="o">.</span><span class="n">partial_transpose</span><span class="p">(</span><span class="n">sigma_ab_k</span><span class="p">,</span> <span class="n">sys</span><span class="p">,</span> <span class="n">dim_direct_sum_ab_k</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="mi">0</span><span class="p">)</span>
 <a id="__codelineno-0-177" name="__codelineno-0-177"></a>
-<a id="__codelineno-0-178" name="__codelineno-0-178"></a>    <span class="n">solution</span> <span class="o">=</span> <span class="n">problem</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">solver</span><span class="o">=</span><span class="n">solver_option</span><span class="p">)</span>
+<a id="__codelineno-0-178" name="__codelineno-0-178"></a>    <span class="n">solution</span> <span class="o">=</span> <span class="n">problem</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">solver</span><span class="o">=</span><span class="n">solver</span><span class="p">)</span>
 <a id="__codelineno-0-179" name="__codelineno-0-179"></a>    <span class="k">return</span> <span class="n">solution</span><span class="o">.</span><span class="n">value</span><span class="o">**</span><span class="mi">2</span>
 </code></pre></div></td></tr></table></div>
             </details>
@@ -10940,7 +10940,7 @@ info, visit https://picos-api.gitlab.io/picos/api/picos.modeling.options.html#op
       <script id="__config" type="application/json">{"annotate": null, "base": "../../../..", "features": ["navigation.indexes", "navigation.top", "content.code.copy", "content.code.annotate", "search.highlight"], "search": "../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../../../assets/javascripts/bundle.d7400e89.min.js"></script>
       
         <script src="../../../../assets/_markdown_exec_pyodide.js"></script>
       

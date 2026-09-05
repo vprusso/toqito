@@ -23,7 +23,7 @@
       
       
       <link rel="icon" href="../../../../figures/favicon.ico">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -31,7 +31,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../../../../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -61,13 +61,13 @@
     
       <link rel="stylesheet" href="../../../../assets/extra.css">
     
-      <link rel="stylesheet" href="../../../../sg_gallery-dataframe.css">
-    
       <link rel="stylesheet" href="../../../../sg_gallery-binder.css">
     
-      <link rel="stylesheet" href="../../../../sg_gallery-rendered-html.css">
+      <link rel="stylesheet" href="../../../../sg_gallery-dataframe.css">
     
       <link rel="stylesheet" href="../../../../sg_gallery.css">
+    
+      <link rel="stylesheet" href="../../../../sg_gallery-rendered-html.css">
     
     <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -10449,7 +10449,8 @@ equal to one for all orders <span class="arithmatex">\(\alpha\)</span>. We can s
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>toqito/state_props/renyi_entropy.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-9">  9</a></span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-8">  8</a></span>
+<span class="normal"><a href="#__codelineno-0-9">  9</a></span>
 <span class="normal"><a href="#__codelineno-0-10"> 10</a></span>
 <span class="normal"><a href="#__codelineno-0-11"> 11</a></span>
 <span class="normal"><a href="#__codelineno-0-12"> 12</a></span>
@@ -10550,108 +10551,121 @@ equal to one for all orders <span class="arithmatex">\(\alpha\)</span>. We can s
 <span class="normal"><a href="#__codelineno-0-107">107</a></span>
 <span class="normal"><a href="#__codelineno-0-108">108</a></span>
 <span class="normal"><a href="#__codelineno-0-109">109</a></span>
-<span class="normal"><a href="#__codelineno-0-110">110</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-9" name="__codelineno-0-9"></a><span class="k">def</span><span class="w"> </span><span class="nf">renyi_entropy</span><span class="p">(</span><span class="n">rho</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">alpha</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-<a id="__codelineno-0-10" name="__codelineno-0-10"></a><span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Compute the Rényi entropy of a density matrix [@mullerlennert2013quantum].</span>
-<a id="__codelineno-0-11" name="__codelineno-0-11"></a>
-<a id="__codelineno-0-12" name="__codelineno-0-12"></a><span class="sd">    Let \(P \in \text{Pos}(\mathcal{X})\) be a positive semidefinite operator, for a complex</span>
-<a id="__codelineno-0-13" name="__codelineno-0-13"></a><span class="sd">    Euclidean space \(\mathcal{X}\). Then one defines the *Rényi entropy of order*</span>
-<a id="__codelineno-0-14" name="__codelineno-0-14"></a><span class="sd">    \(\alpha\geqslant0\) as</span>
-<a id="__codelineno-0-15" name="__codelineno-0-15"></a>
-<a id="__codelineno-0-16" name="__codelineno-0-16"></a><span class="sd">    \[</span>
-<a id="__codelineno-0-17" name="__codelineno-0-17"></a><span class="sd">        H_{\alpha}(P) = H_{\alpha}(\lambda(P)),</span>
-<a id="__codelineno-0-18" name="__codelineno-0-18"></a><span class="sd">    \]</span>
-<a id="__codelineno-0-19" name="__codelineno-0-19"></a>
-<a id="__codelineno-0-20" name="__codelineno-0-20"></a><span class="sd">    where \(\lambda(P)\) is the vector of eigenvalues of \(P\) and where the function</span>
-<a id="__codelineno-0-21" name="__codelineno-0-21"></a><span class="sd">    \(H(\cdot)\) is the classical Rényi entropy of order \(\alpha\) defined as</span>
-<a id="__codelineno-0-22" name="__codelineno-0-22"></a>
-<a id="__codelineno-0-23" name="__codelineno-0-23"></a><span class="sd">    \[</span>
-<a id="__codelineno-0-24" name="__codelineno-0-24"></a><span class="sd">        H_{\alpha}(u) = \frac{1}{1-\alpha}\log\left(\sum_{a \in \Sigma} u(a)^{\alpha}\right),</span>
-<a id="__codelineno-0-25" name="__codelineno-0-25"></a><span class="sd">    \]</span>
-<a id="__codelineno-0-26" name="__codelineno-0-26"></a>
-<a id="__codelineno-0-27" name="__codelineno-0-27"></a><span class="sd">    where the \(\log\) function is assumed to be the base-2 logarithm, and where</span>
-<a id="__codelineno-0-28" name="__codelineno-0-28"></a><span class="sd">    \(\Sigma\) is an alphabet where \(u \in [0, \infty)^{\Sigma}\) is a vector of</span>
-<a id="__codelineno-0-29" name="__codelineno-0-29"></a><span class="sd">    nonnegative real numbers indexed by \(\Sigma\). It recovers the von Neumann entropy for</span>
-<a id="__codelineno-0-30" name="__codelineno-0-30"></a><span class="sd">    \(\alpha=1\) and the min-entropy for \(\alpha=+\infty\).</span>
-<a id="__codelineno-0-31" name="__codelineno-0-31"></a>
-<a id="__codelineno-0-32" name="__codelineno-0-32"></a><span class="sd">    Args:</span>
-<a id="__codelineno-0-33" name="__codelineno-0-33"></a><span class="sd">        rho: Density operator.</span>
-<a id="__codelineno-0-34" name="__codelineno-0-34"></a><span class="sd">        alpha: Order for the Rényi entropy. Note that numerical instability may happen for small positive values because</span>
-<a id="__codelineno-0-35" name="__codelineno-0-35"></a><span class="sd">            of the computation of the spectral decomposition.</span>
-<a id="__codelineno-0-36" name="__codelineno-0-36"></a>
-<a id="__codelineno-0-37" name="__codelineno-0-37"></a><span class="sd">    Returns:</span>
-<a id="__codelineno-0-38" name="__codelineno-0-38"></a><span class="sd">        The Rényi entropy of order `alpha` of `rho`.</span>
-<a id="__codelineno-0-39" name="__codelineno-0-39"></a>
-<a id="__codelineno-0-40" name="__codelineno-0-40"></a><span class="sd">    Raises:</span>
-<a id="__codelineno-0-41" name="__codelineno-0-41"></a><span class="sd">        ValueError: If `rho` is not a density operator, or `alpha` is negative.</span>
-<a id="__codelineno-0-42" name="__codelineno-0-42"></a>
-<a id="__codelineno-0-43" name="__codelineno-0-43"></a><span class="sd">    Examples:</span>
-<a id="__codelineno-0-44" name="__codelineno-0-44"></a><span class="sd">        Consider the following Bell state:</span>
-<a id="__codelineno-0-45" name="__codelineno-0-45"></a>
-<a id="__codelineno-0-46" name="__codelineno-0-46"></a><span class="sd">        \[</span>
-<a id="__codelineno-0-47" name="__codelineno-0-47"></a><span class="sd">            u = \frac{1}{\sqrt{2}} \left(|00 \rangle + |11 \rangle \right) \in \mathcal{X}.</span>
-<a id="__codelineno-0-48" name="__codelineno-0-48"></a><span class="sd">        \]</span>
-<a id="__codelineno-0-49" name="__codelineno-0-49"></a>
-<a id="__codelineno-0-50" name="__codelineno-0-50"></a><span class="sd">        The corresponding density matrix of \(u\) may be calculated by:</span>
-<a id="__codelineno-0-51" name="__codelineno-0-51"></a>
-<a id="__codelineno-0-52" name="__codelineno-0-52"></a><span class="sd">        \[</span>
-<a id="__codelineno-0-53" name="__codelineno-0-53"></a><span class="sd">            \rho = u u^* = \frac{1}{2} \begin{pmatrix}</span>
-<a id="__codelineno-0-54" name="__codelineno-0-54"></a><span class="sd">                             1 &amp; 0 &amp; 0 &amp; 1 \\</span>
+<span class="normal"><a href="#__codelineno-0-110">110</a></span>
+<span class="normal"><a href="#__codelineno-0-111">111</a></span>
+<span class="normal"><a href="#__codelineno-0-112">112</a></span>
+<span class="normal"><a href="#__codelineno-0-113">113</a></span>
+<span class="normal"><a href="#__codelineno-0-114">114</a></span>
+<span class="normal"><a href="#__codelineno-0-115">115</a></span>
+<span class="normal"><a href="#__codelineno-0-116">116</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-8" name="__codelineno-0-8"></a><span class="k">def</span><span class="w"> </span><span class="nf">renyi_entropy</span><span class="p">(</span><span class="n">rho</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">alpha</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9"></a><span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Compute the Rényi entropy of a density matrix [@mullerlennert2013quantum].</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10"></a>
+<a id="__codelineno-0-11" name="__codelineno-0-11"></a><span class="sd">    Let \(P \in \text{Pos}(\mathcal{X})\) be a positive semidefinite operator, for a complex</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12"></a><span class="sd">    Euclidean space \(\mathcal{X}\). Then one defines the *Rényi entropy of order*</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13"></a><span class="sd">    \(\alpha\geqslant0\) as</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14"></a>
+<a id="__codelineno-0-15" name="__codelineno-0-15"></a><span class="sd">    \[</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16"></a><span class="sd">        H_{\alpha}(P) = H_{\alpha}(\lambda(P)),</span>
+<a id="__codelineno-0-17" name="__codelineno-0-17"></a><span class="sd">    \]</span>
+<a id="__codelineno-0-18" name="__codelineno-0-18"></a>
+<a id="__codelineno-0-19" name="__codelineno-0-19"></a><span class="sd">    where \(\lambda(P)\) is the vector of eigenvalues of \(P\) and where the function</span>
+<a id="__codelineno-0-20" name="__codelineno-0-20"></a><span class="sd">    \(H(\cdot)\) is the classical Rényi entropy of order \(\alpha\) defined as</span>
+<a id="__codelineno-0-21" name="__codelineno-0-21"></a>
+<a id="__codelineno-0-22" name="__codelineno-0-22"></a><span class="sd">    \[</span>
+<a id="__codelineno-0-23" name="__codelineno-0-23"></a><span class="sd">        H_{\alpha}(u) = \frac{1}{1-\alpha}\log\left(\sum_{a \in \Sigma} u(a)^{\alpha}\right),</span>
+<a id="__codelineno-0-24" name="__codelineno-0-24"></a><span class="sd">    \]</span>
+<a id="__codelineno-0-25" name="__codelineno-0-25"></a>
+<a id="__codelineno-0-26" name="__codelineno-0-26"></a><span class="sd">    where the \(\log\) function is assumed to be the base-2 logarithm, and where</span>
+<a id="__codelineno-0-27" name="__codelineno-0-27"></a><span class="sd">    \(\Sigma\) is an alphabet where \(u \in [0, \infty)^{\Sigma}\) is a vector of</span>
+<a id="__codelineno-0-28" name="__codelineno-0-28"></a><span class="sd">    nonnegative real numbers indexed by \(\Sigma\). It recovers the von Neumann entropy for</span>
+<a id="__codelineno-0-29" name="__codelineno-0-29"></a><span class="sd">    \(\alpha=1\) and the min-entropy for \(\alpha=+\infty\).</span>
+<a id="__codelineno-0-30" name="__codelineno-0-30"></a>
+<a id="__codelineno-0-31" name="__codelineno-0-31"></a><span class="sd">    Args:</span>
+<a id="__codelineno-0-32" name="__codelineno-0-32"></a><span class="sd">        rho: Density operator.</span>
+<a id="__codelineno-0-33" name="__codelineno-0-33"></a><span class="sd">        alpha: Order for the Rényi entropy. Note that numerical instability may happen for small positive values because</span>
+<a id="__codelineno-0-34" name="__codelineno-0-34"></a><span class="sd">            of the computation of the spectral decomposition.</span>
+<a id="__codelineno-0-35" name="__codelineno-0-35"></a>
+<a id="__codelineno-0-36" name="__codelineno-0-36"></a><span class="sd">    Returns:</span>
+<a id="__codelineno-0-37" name="__codelineno-0-37"></a><span class="sd">        The Rényi entropy of order `alpha` of `rho`.</span>
+<a id="__codelineno-0-38" name="__codelineno-0-38"></a>
+<a id="__codelineno-0-39" name="__codelineno-0-39"></a><span class="sd">    Raises:</span>
+<a id="__codelineno-0-40" name="__codelineno-0-40"></a><span class="sd">        ValueError: If `rho` is not a density operator, or `alpha` is negative.</span>
+<a id="__codelineno-0-41" name="__codelineno-0-41"></a>
+<a id="__codelineno-0-42" name="__codelineno-0-42"></a><span class="sd">    Examples:</span>
+<a id="__codelineno-0-43" name="__codelineno-0-43"></a><span class="sd">        Consider the following Bell state:</span>
+<a id="__codelineno-0-44" name="__codelineno-0-44"></a>
+<a id="__codelineno-0-45" name="__codelineno-0-45"></a><span class="sd">        \[</span>
+<a id="__codelineno-0-46" name="__codelineno-0-46"></a><span class="sd">            u = \frac{1}{\sqrt{2}} \left(|00 \rangle + |11 \rangle \right) \in \mathcal{X}.</span>
+<a id="__codelineno-0-47" name="__codelineno-0-47"></a><span class="sd">        \]</span>
+<a id="__codelineno-0-48" name="__codelineno-0-48"></a>
+<a id="__codelineno-0-49" name="__codelineno-0-49"></a><span class="sd">        The corresponding density matrix of \(u\) may be calculated by:</span>
+<a id="__codelineno-0-50" name="__codelineno-0-50"></a>
+<a id="__codelineno-0-51" name="__codelineno-0-51"></a><span class="sd">        \[</span>
+<a id="__codelineno-0-52" name="__codelineno-0-52"></a><span class="sd">            \rho = u u^* = \frac{1}{2} \begin{pmatrix}</span>
+<a id="__codelineno-0-53" name="__codelineno-0-53"></a><span class="sd">                             1 &amp; 0 &amp; 0 &amp; 1 \\</span>
+<a id="__codelineno-0-54" name="__codelineno-0-54"></a><span class="sd">                             0 &amp; 0 &amp; 0 &amp; 0 \\</span>
 <a id="__codelineno-0-55" name="__codelineno-0-55"></a><span class="sd">                             0 &amp; 0 &amp; 0 &amp; 0 \\</span>
-<a id="__codelineno-0-56" name="__codelineno-0-56"></a><span class="sd">                             0 &amp; 0 &amp; 0 &amp; 0 \\</span>
-<a id="__codelineno-0-57" name="__codelineno-0-57"></a><span class="sd">                             1 &amp; 0 &amp; 0 &amp; 1</span>
-<a id="__codelineno-0-58" name="__codelineno-0-58"></a><span class="sd">                           \end{pmatrix} \in \text{D}(\mathcal{X}).</span>
-<a id="__codelineno-0-59" name="__codelineno-0-59"></a><span class="sd">        \]</span>
-<a id="__codelineno-0-60" name="__codelineno-0-60"></a>
-<a id="__codelineno-0-61" name="__codelineno-0-61"></a><span class="sd">        Calculating the Rényi entropy of order \(2\) of \(\rho\) in `|toqito⟩` can be</span>
-<a id="__codelineno-0-62" name="__codelineno-0-62"></a><span class="sd">        done as follows.</span>
-<a id="__codelineno-0-63" name="__codelineno-0-63"></a>
-<a id="__codelineno-0-64" name="__codelineno-0-64"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;</span>
-<a id="__codelineno-0-65" name="__codelineno-0-65"></a><span class="sd">        from toqito.state_props import renyi_entropy</span>
-<a id="__codelineno-0-66" name="__codelineno-0-66"></a><span class="sd">        import numpy as np</span>
-<a id="__codelineno-0-67" name="__codelineno-0-67"></a><span class="sd">        test_input_mat = np.array(</span>
-<a id="__codelineno-0-68" name="__codelineno-0-68"></a><span class="sd">            [[1 / 2, 0, 0, 1 / 2], [0, 0, 0, 0],</span>
-<a id="__codelineno-0-69" name="__codelineno-0-69"></a><span class="sd">            [0, 0, 0, 0], [1 / 2, 0, 0, 1 / 2]]</span>
-<a id="__codelineno-0-70" name="__codelineno-0-70"></a><span class="sd">        )</span>
-<a id="__codelineno-0-71" name="__codelineno-0-71"></a><span class="sd">        print(renyi_entropy(test_input_mat, 2))</span>
-<a id="__codelineno-0-72" name="__codelineno-0-72"></a><span class="sd">        ```</span>
-<a id="__codelineno-0-73" name="__codelineno-0-73"></a>
-<a id="__codelineno-0-74" name="__codelineno-0-74"></a><span class="sd">        Consider the density operator corresponding to the maximally mixed state of dimension two</span>
-<a id="__codelineno-0-75" name="__codelineno-0-75"></a>
-<a id="__codelineno-0-76" name="__codelineno-0-76"></a><span class="sd">        \[</span>
-<a id="__codelineno-0-77" name="__codelineno-0-77"></a><span class="sd">            \rho = \frac{1}{2}</span>
-<a id="__codelineno-0-78" name="__codelineno-0-78"></a><span class="sd">            \begin{pmatrix}</span>
-<a id="__codelineno-0-79" name="__codelineno-0-79"></a><span class="sd">                1 &amp; 0 \\</span>
-<a id="__codelineno-0-80" name="__codelineno-0-80"></a><span class="sd">                0 &amp; 1</span>
-<a id="__codelineno-0-81" name="__codelineno-0-81"></a><span class="sd">            \end{pmatrix}.</span>
-<a id="__codelineno-0-82" name="__codelineno-0-82"></a><span class="sd">        \]</span>
-<a id="__codelineno-0-83" name="__codelineno-0-83"></a>
-<a id="__codelineno-0-84" name="__codelineno-0-84"></a><span class="sd">        As this state is maximally mixed, the Rényi entropy of \(\rho\) is</span>
-<a id="__codelineno-0-85" name="__codelineno-0-85"></a><span class="sd">        equal to one for all orders \(\alpha\). We can see this in `|toqito⟩` as follows.</span>
-<a id="__codelineno-0-86" name="__codelineno-0-86"></a>
-<a id="__codelineno-0-87" name="__codelineno-0-87"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;</span>
-<a id="__codelineno-0-88" name="__codelineno-0-88"></a><span class="sd">        from toqito.state_props import renyi_entropy</span>
-<a id="__codelineno-0-89" name="__codelineno-0-89"></a><span class="sd">        import numpy as np</span>
-<a id="__codelineno-0-90" name="__codelineno-0-90"></a><span class="sd">        rho = 1/2 * np.identity(2)</span>
-<a id="__codelineno-0-91" name="__codelineno-0-91"></a><span class="sd">        print(renyi_entropy(rho, 3/2))</span>
-<a id="__codelineno-0-92" name="__codelineno-0-92"></a><span class="sd">        ```</span>
-<a id="__codelineno-0-93" name="__codelineno-0-93"></a>
-<a id="__codelineno-0-94" name="__codelineno-0-94"></a><span class="sd">    &quot;&quot;&quot;</span>
-<a id="__codelineno-0-95" name="__codelineno-0-95"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">is_density</span><span class="p">(</span><span class="n">rho</span><span class="p">):</span>
-<a id="__codelineno-0-96" name="__codelineno-0-96"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Rényi entropy is only defined for density operators.&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-97" name="__codelineno-0-97"></a>    <span class="k">if</span> <span class="n">alpha</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
-<a id="__codelineno-0-98" name="__codelineno-0-98"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Rényi entropy is only defined for positive orders.&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-99" name="__codelineno-0-99"></a>    <span class="k">if</span> <span class="n">alpha</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-<a id="__codelineno-0-100" name="__codelineno-0-100"></a>        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">matrix_rank</span><span class="p">(</span><span class="n">rho</span><span class="p">))</span>
-<a id="__codelineno-0-101" name="__codelineno-0-101"></a>    <span class="k">if</span> <span class="n">alpha</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-<a id="__codelineno-0-102" name="__codelineno-0-102"></a>        <span class="k">return</span> <span class="n">von_neumann_entropy</span><span class="p">(</span><span class="n">rho</span><span class="p">)</span>
-<a id="__codelineno-0-103" name="__codelineno-0-103"></a>
-<a id="__codelineno-0-104" name="__codelineno-0-104"></a>    <span class="n">eigs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigvalsh</span><span class="p">(</span><span class="n">rho</span><span class="p">)</span>
-<a id="__codelineno-0-105" name="__codelineno-0-105"></a>    <span class="n">eigs</span> <span class="o">=</span> <span class="n">eigs</span><span class="p">[</span><span class="n">eigs</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span>
-<a id="__codelineno-0-106" name="__codelineno-0-106"></a>
-<a id="__codelineno-0-107" name="__codelineno-0-107"></a>    <span class="k">if</span> <span class="n">alpha</span> <span class="o">==</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;inf&quot;</span><span class="p">):</span>
-<a id="__codelineno-0-108" name="__codelineno-0-108"></a>        <span class="k">return</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="n">eigs</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
-<a id="__codelineno-0-109" name="__codelineno-0-109"></a>
-<a id="__codelineno-0-110" name="__codelineno-0-110"></a>    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="nb">pow</span><span class="p">(</span><span class="n">eigs</span><span class="p">,</span> <span class="n">alpha</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">alpha</span><span class="p">)</span>
+<a id="__codelineno-0-56" name="__codelineno-0-56"></a><span class="sd">                             1 &amp; 0 &amp; 0 &amp; 1</span>
+<a id="__codelineno-0-57" name="__codelineno-0-57"></a><span class="sd">                           \end{pmatrix} \in \text{D}(\mathcal{X}).</span>
+<a id="__codelineno-0-58" name="__codelineno-0-58"></a><span class="sd">        \]</span>
+<a id="__codelineno-0-59" name="__codelineno-0-59"></a>
+<a id="__codelineno-0-60" name="__codelineno-0-60"></a><span class="sd">        Calculating the Rényi entropy of order \(2\) of \(\rho\) in `|toqito⟩` can be</span>
+<a id="__codelineno-0-61" name="__codelineno-0-61"></a><span class="sd">        done as follows.</span>
+<a id="__codelineno-0-62" name="__codelineno-0-62"></a>
+<a id="__codelineno-0-63" name="__codelineno-0-63"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;</span>
+<a id="__codelineno-0-64" name="__codelineno-0-64"></a><span class="sd">        from toqito.state_props import renyi_entropy</span>
+<a id="__codelineno-0-65" name="__codelineno-0-65"></a><span class="sd">        import numpy as np</span>
+<a id="__codelineno-0-66" name="__codelineno-0-66"></a><span class="sd">        test_input_mat = np.array(</span>
+<a id="__codelineno-0-67" name="__codelineno-0-67"></a><span class="sd">            [[1 / 2, 0, 0, 1 / 2], [0, 0, 0, 0],</span>
+<a id="__codelineno-0-68" name="__codelineno-0-68"></a><span class="sd">            [0, 0, 0, 0], [1 / 2, 0, 0, 1 / 2]]</span>
+<a id="__codelineno-0-69" name="__codelineno-0-69"></a><span class="sd">        )</span>
+<a id="__codelineno-0-70" name="__codelineno-0-70"></a><span class="sd">        print(renyi_entropy(test_input_mat, 2))</span>
+<a id="__codelineno-0-71" name="__codelineno-0-71"></a><span class="sd">        ```</span>
+<a id="__codelineno-0-72" name="__codelineno-0-72"></a>
+<a id="__codelineno-0-73" name="__codelineno-0-73"></a><span class="sd">        Consider the density operator corresponding to the maximally mixed state of dimension two</span>
+<a id="__codelineno-0-74" name="__codelineno-0-74"></a>
+<a id="__codelineno-0-75" name="__codelineno-0-75"></a><span class="sd">        \[</span>
+<a id="__codelineno-0-76" name="__codelineno-0-76"></a><span class="sd">            \rho = \frac{1}{2}</span>
+<a id="__codelineno-0-77" name="__codelineno-0-77"></a><span class="sd">            \begin{pmatrix}</span>
+<a id="__codelineno-0-78" name="__codelineno-0-78"></a><span class="sd">                1 &amp; 0 \\</span>
+<a id="__codelineno-0-79" name="__codelineno-0-79"></a><span class="sd">                0 &amp; 1</span>
+<a id="__codelineno-0-80" name="__codelineno-0-80"></a><span class="sd">            \end{pmatrix}.</span>
+<a id="__codelineno-0-81" name="__codelineno-0-81"></a><span class="sd">        \]</span>
+<a id="__codelineno-0-82" name="__codelineno-0-82"></a>
+<a id="__codelineno-0-83" name="__codelineno-0-83"></a><span class="sd">        As this state is maximally mixed, the Rényi entropy of \(\rho\) is</span>
+<a id="__codelineno-0-84" name="__codelineno-0-84"></a><span class="sd">        equal to one for all orders \(\alpha\). We can see this in `|toqito⟩` as follows.</span>
+<a id="__codelineno-0-85" name="__codelineno-0-85"></a>
+<a id="__codelineno-0-86" name="__codelineno-0-86"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;</span>
+<a id="__codelineno-0-87" name="__codelineno-0-87"></a><span class="sd">        from toqito.state_props import renyi_entropy</span>
+<a id="__codelineno-0-88" name="__codelineno-0-88"></a><span class="sd">        import numpy as np</span>
+<a id="__codelineno-0-89" name="__codelineno-0-89"></a><span class="sd">        rho = 1/2 * np.identity(2)</span>
+<a id="__codelineno-0-90" name="__codelineno-0-90"></a><span class="sd">        print(renyi_entropy(rho, 3/2))</span>
+<a id="__codelineno-0-91" name="__codelineno-0-91"></a><span class="sd">        ```</span>
+<a id="__codelineno-0-92" name="__codelineno-0-92"></a>
+<a id="__codelineno-0-93" name="__codelineno-0-93"></a><span class="sd">    &quot;&quot;&quot;</span>
+<a id="__codelineno-0-94" name="__codelineno-0-94"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">is_hermitian</span><span class="p">(</span><span class="n">rho</span><span class="p">)</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="n">rho</span><span class="p">),</span> <span class="mi">1</span><span class="p">):</span>
+<a id="__codelineno-0-95" name="__codelineno-0-95"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Rényi entropy is only defined for density operators.&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-96" name="__codelineno-0-96"></a>    <span class="k">if</span> <span class="n">alpha</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+<a id="__codelineno-0-97" name="__codelineno-0-97"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Rényi entropy is only defined for positive orders.&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-98" name="__codelineno-0-98"></a>
+<a id="__codelineno-0-99" name="__codelineno-0-99"></a>    <span class="c1"># Compute the spectrum once: it validates positive semidefiniteness and is</span>
+<a id="__codelineno-0-100" name="__codelineno-0-100"></a>    <span class="c1"># also needed to calculate the entropy for every order.</span>
+<a id="__codelineno-0-101" name="__codelineno-0-101"></a>    <span class="n">eigs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigvalsh</span><span class="p">(</span><span class="n">rho</span><span class="p">)</span>
+<a id="__codelineno-0-102" name="__codelineno-0-102"></a>    <span class="n">scale</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">eigs</span><span class="p">)))</span>
+<a id="__codelineno-0-103" name="__codelineno-0-103"></a>    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">eigs</span><span class="p">)</span> <span class="o">&lt;</span> <span class="o">-</span><span class="p">(</span><span class="mf">1e-08</span> <span class="o">+</span> <span class="mf">1e-05</span> <span class="o">*</span> <span class="n">scale</span><span class="p">):</span>
+<a id="__codelineno-0-104" name="__codelineno-0-104"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Rényi entropy is only defined for density operators.&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-105" name="__codelineno-0-105"></a>
+<a id="__codelineno-0-106" name="__codelineno-0-106"></a>    <span class="k">if</span> <span class="n">alpha</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+<a id="__codelineno-0-107" name="__codelineno-0-107"></a>        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">matrix_rank</span><span class="p">(</span><span class="n">rho</span><span class="p">))</span>
+<a id="__codelineno-0-108" name="__codelineno-0-108"></a>
+<a id="__codelineno-0-109" name="__codelineno-0-109"></a>    <span class="n">eigs</span> <span class="o">=</span> <span class="n">eigs</span><span class="p">[</span><span class="n">eigs</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span>
+<a id="__codelineno-0-110" name="__codelineno-0-110"></a>    <span class="k">if</span> <span class="n">alpha</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+<a id="__codelineno-0-111" name="__codelineno-0-111"></a>        <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">eigs</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="n">eigs</span><span class="p">)))</span>
+<a id="__codelineno-0-112" name="__codelineno-0-112"></a>
+<a id="__codelineno-0-113" name="__codelineno-0-113"></a>    <span class="k">if</span> <span class="n">alpha</span> <span class="o">==</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;inf&quot;</span><span class="p">):</span>
+<a id="__codelineno-0-114" name="__codelineno-0-114"></a>        <span class="k">return</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="n">eigs</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
+<a id="__codelineno-0-115" name="__codelineno-0-115"></a>
+<a id="__codelineno-0-116" name="__codelineno-0-116"></a>    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="nb">pow</span><span class="p">(</span><span class="n">eigs</span><span class="p">,</span> <span class="n">alpha</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">alpha</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
@@ -10742,7 +10756,7 @@ equal to one for all orders <span class="arithmatex">\(\alpha\)</span>. We can s
       <script id="__config" type="application/json">{"annotate": null, "base": "../../../..", "features": ["navigation.indexes", "navigation.top", "content.code.copy", "content.code.annotate", "search.highlight"], "search": "../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../../../assets/javascripts/bundle.d7400e89.min.js"></script>
       
         <script src="../../../../assets/_markdown_exec_pyodide.js"></script>
       
