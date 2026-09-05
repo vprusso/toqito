@@ -67,7 +67,7 @@ def trace_matrix_power_hypo_cone(
         t = cvxpy.Variable()
         cons = trace_matrix_power_hypo_cone(a_c, t, 0.5)
         prob = cvxpy.Problem(cvxpy.Maximize(t), cons)
-        print(f"{prob.solve(solver=cvxpy.SCS, verbose=False):.4f}")
+        print(f"{prob.solve(solver=cvxpy.CLARABEL, verbose=False):.4f}")
         ```
 
     """

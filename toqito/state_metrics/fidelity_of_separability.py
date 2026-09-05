@@ -17,7 +17,7 @@ def fidelity_of_separability(
     input_state_rho_dims: list[int],
     k: int = 1,
     verbosity_option: int = 0,
-    solver_option: str = "cvxopt",
+    solver: str = "cvxopt",
 ) -> float:
     r"""Define the first benchmark introduced in Appendix H of [@philip2023schrodinger].
 
@@ -84,7 +84,7 @@ def fidelity_of_separability(
         k: value for k-extendibility.
         verbosity_option: Parameter option for `picos`. Default value is `verbosity = 0`. For more info, visit
             https://picos-api.gitlab.io/picos/api/picos.modeling.options.html#option-verbosity.
-        solver_option: Optimization option for `picos` solver. Default option is `solver_option="cvxopt"`. For more
+        solver: Optimization option for `picos` solver. Default option is `solver="cvxopt"`. For more
             info, visit https://picos-api.gitlab.io/picos/api/picos.modeling.options.html#option-solver.
 
     Returns:
@@ -175,5 +175,5 @@ def fidelity_of_separability(
         sys = sys + [i]
         problem.add_constraint(picos.partial_transpose(sigma_ab_k, sys, dim_direct_sum_ab_k) >> 0)
 
-    solution = problem.solve(solver=solver_option)
+    solution = problem.solve(solver=solver)
     return solution.value**2

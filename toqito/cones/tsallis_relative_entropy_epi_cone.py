@@ -81,7 +81,7 @@ def tsallis_relative_entropy_epi_cone(
             0.5,
         )
         prob = cvxpy.Problem(cvxpy.Minimize(t), cons)
-        print(f"{prob.solve(solver=cvxpy.SCS, verbose=False):.4f}")
+        print(f"{prob.solve(solver=cvxpy.CLARABEL, verbose=False):.4f}")
         ```
 
     """

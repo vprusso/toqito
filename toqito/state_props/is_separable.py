@@ -178,7 +178,7 @@ def is_separable(
           UPB product vectors in \(\mathbb{C}^3 \otimes \mathbb{C}^3\), of
           the form
           \(H = \sum_i |\alpha_i\rangle\langle\alpha_i|\otimes|\beta_i\rangle\langle\beta_i|
-          - d\varepsilon|\Psi\rangle\langle\Psi|\)
+          - d\varepsilon|\psi\rangle\langle\psi|\)
           where \(\varepsilon\) is the minimum of
           \(\sum_i |\langle\phi_A|\alpha_i\rangle|^2 |\langle\phi_B|\beta_i\rangle|^2\)
           over unit product states. Evaluated as \(\mathrm{tr}(H\rho) < 0\),
@@ -686,7 +686,7 @@ def _terhal_2000_tile_witness() -> np.ndarray:
     \[
         H = \sum_{i=0}^{4} |\alpha_i\rangle\langle\alpha_i| \otimes
             |\beta_i\rangle\langle\beta_i|
-            - d \varepsilon |\Psi\rangle\langle\Psi|
+            - d \varepsilon |\psi\rangle\langle\psi|
     \]
 
     is an indecomposable entanglement witness, where \(d = 3\),
@@ -697,17 +697,17 @@ def _terhal_2000_tile_witness() -> np.ndarray:
                            |\langle\phi_B|\beta_i\rangle|^2,
     \]
 
-    and \(|\Psi\rangle\) is a maximally entangled state with
-    \(\langle\Psi|\rho_{\text{tile}}|\Psi\rangle > 0\) (the ``standard''
+    and \(|\psi\rangle\) is a maximally entangled state with
+    \(\langle\psi|\rho_{\text{tile}}|\psi\rangle > 0\) (the ``standard''
     max-ent state \((|00\rangle+|11\rangle+|22\rangle)/\sqrt{3}\) fails
-    this condition for the tile UPB because \(|\Psi\rangle\) happens to
+    this condition for the tile UPB because \(|\psi\rangle\) happens to
     lie in the UPB span; we use \((|10\rangle+|21\rangle+|02\rangle)/\sqrt{3}\)
     instead, which satisfies it).
 
     A state \(\rho\) is detected as entangled iff
     \(\mathrm{tr}(H\rho) < 0\). Positivity on product states follows from
-    \(|\langle\Psi|\phi_A\otimes\phi_B\rangle|^2 \le 1/d\) for maximally
-    entangled \(|\Psi\rangle\) (Lemma 1 of the paper) combined with the
+    \(|\langle\psi|\phi_A\otimes\phi_B\rangle|^2 \le 1/d\) for maximally
+    entangled \(|\psi\rangle\) (Lemma 1 of the paper) combined with the
     definition of \(\varepsilon\).
     """
     # Factor each tile(i) vector into its A and B factors via SVD.

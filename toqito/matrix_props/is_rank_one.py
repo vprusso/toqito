@@ -20,7 +20,7 @@ def is_rank_one(mat: np.ndarray, rtol: float = 1e-08, atol: float = 1e-08) -> bo
         `True` if the matrix has rank at most one, `False` otherwise.
 
     Examples:
-        Consider the Bell state density matrix \(\rho = \ket{\Phi^+}\bra{\Phi^+}\). This matrix
+        Consider the Bell state density matrix \(\rho = \ket{\phi^+}\bra{\phi^+}\). This matrix
         has rank one.
 
         ```python exec="1" source="above" result="text"

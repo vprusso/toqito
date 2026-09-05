@@ -103,7 +103,7 @@ def relative_entropy_quadrature_epi_cone(
             z,
         )
         prob = cvxpy.Problem(cvxpy.Minimize(cvxpy.sum(z)), cons)
-        print(f"{prob.solve(solver=cvxpy.SCS, verbose=False):.4f}")
+        print(f"{prob.solve(solver=cvxpy.CLARABEL, verbose=False):.4f}")
         ```
 
     """
