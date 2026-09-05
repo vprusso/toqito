@@ -90,8 +90,8 @@ def is_separable(
 
         For PPT states (especially when \(d_A d_B > 6\)):
 
-        - If \(\text{rank}(\rho) \le \max(d_A, d_B)\), the state is separable
-          (Theorem 1 of the paper).
+        - If \(\text{rank}(\rho) \le \max(\text{rank}(\rho_A), \text{rank}(\rho_B))\),
+          the state is separable (Horodecki et al. 2000).
         - If \(\text{rank}(\rho) \le \text{rank}(\rho_A)\) or
           \(\text{rank}(\rho) \le \text{rank}(\rho_B)\), the state is separable.
           This is the "rank-marginal" corollary of Theorem 1 obtained by
