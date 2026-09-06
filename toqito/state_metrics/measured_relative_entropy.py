@@ -4,6 +4,7 @@ import cvxpy as cvx
 import numpy as np
 import scipy.linalg
 
+from toqito._quadrature import _gauss_legendre_01
 from toqito.matrix_props import is_density, is_positive_semidefinite
 
 
@@ -110,7 +111,7 @@ def measured_relative_entropy(rho: np.ndarray, sigma: np.ndarray, eps: float = 1
     w, theta = cvx.Variable((n, n), complex=True), cvx.Variable((n, n), hermitian=True)
     ts = [cvx.Variable((n, n), hermitian=True) for _ in range(m)]
     zs = [cvx.Variable((n, n), hermitian=True) for _ in range(k + 1)]
-    nodes, weights = _gauss_legendre_on_01(m)
+    nodes, weights = _gauss_legendre_01(m)
 
     Id = cvx.Constant(np.eye(n))
     zblocks = [cvx.bmat(((zs[i], zs[i + 1]), (zs[i + 1], Id))) for i in range(k)]
@@ -134,15 +135,6 @@ def measured_relative_entropy(rho: np.ndarray, sigma: np.ndarray, eps: float = 1
     problem = cvx.Problem(obj, constraints=cons)
     problem.solve(verbose=False)
     return obj.value
-
-
-def _gauss_legendre_on_01(m: int) -> tuple[np.ndarray, np.ndarray]:
-    """m-point Gauss legendre quadrature weights on the interval [0,1]."""
-    x = np.polynomial.legendre.leggauss(m)[0]
-    w = np.polynomial.legendre.leggauss(m)[1]
-    node = 0.5 * (x + 1)
-    weight = 0.5 * w
-    return node, weight
 
 
 def _compute_a(rho: np.ndarray, sigma: np.ndarray) -> float:

@@ -9,6 +9,7 @@ import picos
 from toqito.matrix_ops import calculate_vector_matrix_dimension, partial_trace, to_density_matrix
 from toqito.matrix_props import has_same_dimension
 from toqito.rand import random_povm
+from toqito.state_opt.state_distinguishability import _min_error_dual, _min_error_primal
 
 
 def state_exclusion(
@@ -338,8 +339,8 @@ def state_exclusion(
 
     if strategy == "min_error":
         if primal_dual == "primal":
-            return _min_error_primal(vectors=vectors, dim=dim, probs=probs, solver=solver, **kwargs)
-        return _min_error_dual(vectors=vectors, dim=dim, probs=probs, solver=solver, **kwargs)
+            return _min_error_primal(vectors=vectors, dim=dim, probs=probs, sense="min", solver=solver, **kwargs)
+        return _min_error_dual(vectors=vectors, dim=dim, probs=probs, sense="min", solver=solver, **kwargs)
 
     if primal_dual == "primal":
         return _unambiguous_primal(vectors=vectors, dim=dim, probs=probs, solver=solver, **kwargs)
@@ -379,52 +380,6 @@ def _ppt_dual_cone_constraint(
     return problem.add_constraint(
         expr - picos.partial_transpose(q_var, subsystems=subsystems, dimensions=dimensions) >> 0
     )
-
-
-def _min_error_primal(
-    vectors: list[np.ndarray],
-    dim: int,
-    probs: list[float] | None = None,
-    solver: str = "cvxopt",
-    **kwargs,
-) -> tuple[float, list[picos.HermitianVariable]]:
-    """Find the primal problem for minimum-error quantum state exclusion SDP."""
-    n = len(vectors)
-    problem = picos.Problem()
-    measurements = [picos.HermitianVariable(f"M[{i}]", (dim, dim)) for i in range(n)]
-
-    problem.add_list_of_constraints([meas >> 0 for meas in measurements])
-    problem.add_constraint(picos.sum(measurements) == picos.I(dim))
-
-    dms = [to_density_matrix(vector) for vector in vectors]
-
-    problem.set_objective("min", np.real(picos.sum([(probs[i] * dms[i] | measurements[i]) for i in range(n)])))
-    solution = problem.solve(solver=solver, **kwargs)
-    return solution.value, measurements
-
-
-def _min_error_dual(
-    vectors: list[np.ndarray],
-    dim: int,
-    probs: list[float] | None = None,
-    solver: str = "cvxopt",
-    **kwargs,
-) -> tuple[float, list[picos.HermitianVariable]]:
-    """Find the dual problem for minimum-error quantum state exclusion SDP."""
-    n = len(vectors)
-    problem = picos.Problem()
-
-    # Set up variables and constraints for SDP:
-    y_var = picos.HermitianVariable("Y", (dim, dim))
-    problem.add_list_of_constraints([y_var << probs[i] * to_density_matrix(vector) for i, vector in enumerate(vectors)])
-
-    # Objective function:
-    problem.set_objective("max", picos.trace(y_var))
-    solution = problem.solve(solver=solver, **kwargs)
-
-    measurements = [problem.get_constraint(k).dual for k in range(n)]
-
-    return solution.value, measurements
 
 
 def _ppt_min_error_primal(

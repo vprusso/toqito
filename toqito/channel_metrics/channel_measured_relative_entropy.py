@@ -5,6 +5,7 @@ import warnings
 import cvxpy as cvx
 import numpy as np
 
+from toqito._quadrature import _gauss_legendre_01
 from toqito.channel_props import is_completely_positive, is_quantum_channel
 
 
@@ -111,7 +112,7 @@ def channel_measured_relative_entropy(
     theta = cvx.Variable((n, n), hermitian=True)
     ts = [cvx.Variable((n, n), hermitian=True) for _ in range(m)]
     zs = [cvx.Variable((n, n), hermitian=True) for _ in range(k + 1)]
-    nodes, weights = _gauss_legendre_on_01(m)
+    nodes, weights = _gauss_legendre_01(m)
 
     Id = cvx.Constant(np.eye(out_dim))
     zblocks = [cvx.bmat(([zs[i], zs[i + 1]], [zs[i + 1], cvx.kron(rho, Id)])) for i in range(k)]
@@ -143,11 +144,3 @@ def channel_measured_relative_entropy(
         warnings.filterwarnings("ignore", message="Solution may be inaccurate")
         problem.solve(solver=cvx.SCS, eps=1e-8, verbose=False)
     return obj.value
-
-
-def _gauss_legendre_on_01(m: int) -> tuple[np.ndarray, np.ndarray]:
-    """m-point Gauss legendre quadrature weights on the interval [0,1]."""
-    x, w = np.polynomial.legendre.leggauss(m)
-    node = 0.5 * (x + 1)
-    weight = 0.5 * w
-    return node, weight

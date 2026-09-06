@@ -40,6 +40,7 @@ import numpy as np
 import picos as pc
 
 from toqito.channel_ops import kraus_to_choi
+from toqito.channel_opt.channel_distinguishability import _min_error_dual, _min_error_primal
 from toqito.channel_props.channel_dim import channel_dim
 
 
@@ -206,65 +207,9 @@ def channel_exclusion(
         return _unambiguous_primal(choi_channels, probs_arr.tolist(), dim_in, dim_out, solver=solver, **kwargs)
 
     if primal_dual == "primal":
-        return _min_error_primal(choi_channels, probs_arr.tolist(), dim_in, dim_out, solver=solver, **kwargs)
+        return _min_error_primal(choi_channels, probs_arr, dim_in, dim_out, sense="min", solver=solver, **kwargs)
 
-    return _min_error_dual(choi_channels, probs_arr.tolist(), dim_in, dim_out, solver=solver, **kwargs)
-
-
-def _min_error_primal(
-    channels: list[np.ndarray],
-    probs: list[float],
-    dim_in: int,
-    dim_out: int,
-    solver: str = "cvxopt",
-    **kwargs,
-) -> tuple[float, list[np.ndarray]]:
-    """Solve the primal SDP for minimum-error channel exclusion."""
-    n_channels = len(channels)
-    problem = pc.Problem()
-
-    strategy_ops = [
-        pc.HermitianVariable(f"W[{idx}]", (dim_in * dim_out, dim_in * dim_out)) for idx in range(n_channels)
-    ]
-    x_var = pc.HermitianVariable("X", (dim_in, dim_in))
-
-    problem.add_list_of_constraints(strategy_ops[idx] >> 0 for idx in range(n_channels))
-    problem.add_constraint(x_var >> 0)
-    problem.add_constraint(pc.trace(x_var) == 1)
-
-    # Choi operators are ordered as input x output, so the lifted marginal is X x I_out.
-    problem.add_constraint(pc.sum(strategy_ops) == x_var @ np.eye(dim_out))
-
-    objective = pc.sum([probs[idx] * (channels[idx] | strategy_ops[idx]).real for idx in range(n_channels)])
-    problem.set_objective("min", objective)
-
-    solution = problem.solve(solver=solver, **kwargs)
-    return solution.value, [np.array(var.value) for var in strategy_ops]
-
-
-def _min_error_dual(
-    channels: list[np.ndarray],
-    probs: list[float],
-    dim_in: int,
-    dim_out: int,
-    solver: str = "cvxopt",
-    **kwargs,
-) -> tuple[float, list[np.ndarray]]:
-    """Solve the dual SDP for minimum-error channel exclusion."""
-    n_channels = len(channels)
-    problem = pc.Problem()
-
-    y_var = pc.HermitianVariable("Y", (dim_in * dim_out, dim_in * dim_out))
-    lambda_var = pc.RealVariable("lambda")
-
-    dual_constraints = [problem.add_constraint(y_var << probs[idx] * channels[idx]) for idx in range(n_channels)]
-    problem.add_constraint(pc.partial_trace(y_var, 1, (dim_in, dim_out)) >> lambda_var * np.eye(dim_in))
-
-    problem.set_objective("max", lambda_var)
-    solution = problem.solve(solver=solver, **kwargs)
-
-    strategy_ops = [np.array(constraint.dual) for constraint in dual_constraints]
-    return solution.value, strategy_ops
+    return _min_error_dual(choi_channels, probs_arr, dim_in, dim_out, sense="min", solver=solver, **kwargs)
 
 
 def _unambiguous_primal(

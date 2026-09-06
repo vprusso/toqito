@@ -195,8 +195,8 @@ def channel_distinguishability(
         return 1.0, []
 
     if primal_dual == "primal":
-        return _bayesian_primal(choi_matrices, probs_arr, dim_in, dim_out, solver=solver, **kwargs)
-    return _bayesian_dual(choi_matrices, probs_arr, dim_in, dim_out, solver=solver, **kwargs)
+        return _min_error_primal(choi_matrices, probs_arr, dim_in, dim_out, solver=solver, **kwargs)
+    return _min_error_dual(choi_matrices, probs_arr, dim_in, dim_out, solver=solver, **kwargs)
 
 
 def _two_channel_distinguishability(
@@ -261,15 +261,19 @@ def _validate_probs(probs: list[float] | None, num_channels: int) -> np.ndarray:
     return probs_arr / probs_sum
 
 
-def _bayesian_primal(
+def _min_error_primal(
     choi_matrices: list[np.ndarray],
     probs: np.ndarray,
     dimA: int,
     dimB: int,
+    sense: str = "max",
     solver: str = "cvxopt",
     **kwargs,
 ) -> tuple[float, list[np.ndarray]]:
-    """Find the primal problem for Bayesian discrimination of n quantum channels.
+    """Find the primal problem for the minimum-error quantum channel discrimination SDP.
+
+    The ``sense`` argument selects the objective sense: ``"max"`` for minimum-error
+    channel distinguishability and ``"min"`` for minimum-error channel exclusion.
 
     See Section 3.5 of [@watrous2018theory]. The Choi matrices live on input (x) output
     (subsystem 0 is the input space of dimension dimA, subsystem 1 the output space of
@@ -288,7 +292,7 @@ def _bayesian_primal(
     problem.add_constraint(pc.trace(rho) == 1)
 
     problem.set_objective(
-        "max", pc.sum([probs[i] * pc.trace(P_var[i] * choi_matrices[i]).real for i in range(num_channels)])
+        sense, pc.sum([probs[i] * pc.trace(P_var[i] * choi_matrices[i]).real for i in range(num_channels)])
     )
 
     problem.solve(solver=solver, **kwargs)
@@ -296,15 +300,21 @@ def _bayesian_primal(
     return problem.value, [np.array(var.value) for var in P_var]
 
 
-def _bayesian_dual(
+def _min_error_dual(
     choi_matrices: list[np.ndarray],
     probs: np.ndarray,
     dimA: int,
     dimB: int,
+    sense: str = "max",
     solver: str = "cvxopt",
     **kwargs,
 ) -> tuple[float, list[np.ndarray]]:
-    """Find the dual problem for Bayesian discrimination of n quantum channels.
+    """Find the dual problem for the minimum-error quantum channel discrimination SDP.
+
+    The ``sense`` argument selects the objective sense: ``"max"`` for minimum-error
+    channel distinguishability and ``"min"`` for minimum-error channel exclusion. The
+    constraint directions and objective sense flip together so the dual remains the
+    dual of the requested primal sense.
 
     See Section 3.5 of [@watrous2018theory]. Minimize lambda subject to Y >= p_i J(Phi_i) for all i
     and Tr_out(Y) <= lambda * I_in, i.e. minimize the largest eigenvalue of Tr_out(Y).
@@ -319,14 +329,18 @@ def _bayesian_dual(
     # Trace out the output space (subsystem index 1 in toqito's input (x) output Choi convention).
     Y0 = pc.partial_trace(Y_var, subsystems=1, dimensions=[dimA, dimB])
 
-    problem.add_list_of_constraints(Y_var >> probs[i] * choi_matrices[i] for i in range(num_channels))
-    problem.add_constraint(Y0 << a_var * np.eye(dimA))
+    if sense == "max":
+        problem.add_list_of_constraints(Y_var >> probs[i] * choi_matrices[i] for i in range(num_channels))
+        problem.add_constraint(Y0 << a_var * np.eye(dimA))
+        problem.set_objective("min", a_var)
+        problem.solve(solver=solver, **kwargs)
+        return problem.value, [np.array(Y_var.value)]
 
-    problem.set_objective("min", a_var)
-
+    dual_constraints = [problem.add_constraint(Y_var << probs[i] * choi_matrices[i]) for i in range(num_channels)]
+    problem.add_constraint(Y0 >> a_var * np.eye(dimA))
+    problem.set_objective("max", a_var)
     problem.solve(solver=solver, **kwargs)
-
-    return problem.value, [np.array(Y_var.value)]
+    return problem.value, [np.array(constraint.dual) for constraint in dual_constraints]
 
 
 def _minimax_dual(
