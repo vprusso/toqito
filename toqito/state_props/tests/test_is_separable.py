@@ -27,6 +27,7 @@ from toqito.state_props.is_separable import (
     _range_projector_product_overlap_3x3_rank4,
     _reduction_ppt_criterion,
     _sorted_real_eigs_desc,
+    _vidal_tarrach_ppt_criterion,
 )
 from toqito.states import basis, bell, horodecki, isotropic, max_entangled, tile
 
@@ -1505,6 +1506,28 @@ def test_is_separable_returns_iter_sub_reason_when_helper_succeeds():
     assert mocked.called
 
 
+def test_is_separable_surfaces_reduction_criterion_reason_when_helper_fires():
+    """is_separable surfaces the reduction-criterion reason when the helper fires (#1915).
+
+    `_reduction_ppt_criterion` cannot actually fire on a state that reaches
+    section 8: the docstring at that call site notes that PPT already implies
+    the reduction criterion is satisfied, so every state that gets this far
+    passes it for real. `_RHO_ENT_SYMM_3x3_REACHES_12B` reaches section 8
+    without an earlier section returning first (see the 12b test above), so
+    mocking the helper here isolates the propagation line itself -- the
+    `return verdict` right after the call in `is_separable` -- from whether
+    the criterion can be genuinely violated at this point in the dispatch.
+    """
+    with mock.patch(
+        "toqito.state_props.is_separable._reduction_ppt_criterion",
+        return_value=(False, "mocked reduction criterion violation"),
+    ) as mocked:
+        sep, reason = is_separable(_RHO_ENT_SYMM_3x3_REACHES_12B, dim=[3, 3], level=1)
+    assert sep is False
+    assert reason == "mocked reduction criterion violation"
+    assert mocked.called
+
+
 def test_is_separable_strength_zero_skips_iter_sub():
     """Section 12b must not run at strength=0: the helper should never be called."""
     with mock.patch(
@@ -1924,6 +1947,20 @@ def test_qubit_qudit_swapped_eigvalsh_failure_falls_back_to_eigvals():
     assert verdict == (True, "Johnston spectral condition for 2xN PPT states (2013)")
 
 
+def test_vidal_tarrach_abstains_on_a_length_or_dimension_mismatch():
+    """The Vidal-Tarrach guard must abstain, not index, on a bad spectrum (#1915).
+
+    `is_separable` always calls this helper with a spectrum whose length
+    equals `prod_dim_val`, so the guard's False side is never taken through
+    the public entry point. Calling the helper directly with a mismatched
+    length, and separately with `prod_dim_val <= 1`, exercises both ways the
+    guard can fail without touching `is_separable` itself.
+    """
+    machine_eps = np.finfo(float).eps
+    assert _vidal_tarrach_ppt_criterion(np.array([0.6, 0.4]), 4, 1e-8, machine_eps) is None
+    assert _vidal_tarrach_ppt_criterion(np.array([1.0]), 1, 1e-8, machine_eps) is None
+
+
 def test_qubit_qudit_lemma1_block_eigvals_failure_returns_none():
     """Johnston Lemma 1 abstains when the block eigendecomposition fails."""
     rho = bell(2) @ bell(2).conj().T
@@ -1942,6 +1979,32 @@ def test_qubit_qudit_lemma1_block_eigvals_failure_returns_none():
     assert verdict is None
 
 
+def test_qubit_qudit_2xn_criteria_abstain_on_zero_size_blocks():
+    """The 2xN block algebra must abstain rather than index into empty blocks (#1915).
+
+    Through `is_separable`, `state` and `max_dim_val` always agree, so the A/B/C
+    blocks sliced out of it are never empty once the `min_dim_val == 2` guard is
+    passed. Calling the helper directly with a zero-sized state (but a nonzero
+    `prod_dim_val`, so the earlier guard does not short-circuit first) forces
+    `a_block`, `b_block`, and `c_block` all to be empty, which also means the
+    Johnston spectral condition's length check above it can't be satisfied
+    either -- both guards fail together, and the helper must still abstain
+    cleanly instead of raising.
+    """
+    verdict = _qubit_qudit_ppt_criteria(
+        state=np.zeros((0, 0)),
+        dims=[2, 2],
+        d_a=2,
+        d_b=2,
+        min_dim_val=2,
+        max_dim_val=2,
+        prod_dim_val=4,
+        tol=1e-8,
+        sorted_eigs_desc=np.array([]),
+    )
+    assert verdict is None
+
+
 def test_range_projector_overlap_abstains_below_rank_four():
     """The rank-4 3x3 range criterion must abstain on a lower-rank state.
 
@@ -1952,6 +2015,26 @@ def test_range_projector_overlap_abstains_below_rank_four():
     rho_rank1 = prod @ prod.conj().T
 
     assert _range_projector_product_overlap_3x3_rank4(rho_rank1, 1e-8) is None
+
+
+def test_range_projector_overlap_returns_best_effort_without_full_convergence():
+    """The alternating maximization must return its best overlap, not crash, on early truncation (#1915).
+
+    With the default 64 restarts and 100 inner iterations the loop always
+    converges before the budget is exhausted, so the "ran out of iterations"
+    fall-through is never taken. Forcing `max_iter=1` truncates every restart
+    before its break condition can fire, exercising that fall-through directly
+    while still returning a valid overlap in [0, 1].
+    """
+    rng = np.random.default_rng(1234)
+    vecs = rng.standard_normal((9, 4)) + 1j * rng.standard_normal((9, 4))
+    projector = vecs @ np.linalg.pinv(vecs.conj().T @ vecs) @ vecs.conj().T
+    rho_rank4 = projector / np.trace(projector).real
+
+    overlap = _range_projector_product_overlap_3x3_rank4(rho_rank4, 1e-8, n_restarts=1, max_iter=1)
+
+    assert overlap is not None
+    assert 0.0 <= overlap <= 1.0 + 1e-8
 
 
 def test_choi_positive_map_witness_flags_a_3x3_entangled_state():
