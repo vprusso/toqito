@@ -55,14 +55,33 @@ def lieb_ando(
         ValueError: If affine or variable CVXPY inputs are passed.
 
     Examples:
-        ```python
+        For \(K = I\), the two endpoints of the exponent range are traces: \(t = 0\)
+        leaves \(\operatorname{tr}(A)\) and \(t = 1\) leaves \(\operatorname{tr}(B)\).
+        Here \(\operatorname{tr}(A) = 4\) and \(\operatorname{tr}(B) = 5\).
+
+        ```python exec="1" source="above" result="text"
         import numpy as np
         from toqito.matrix_props import lieb_ando
+
         mat_a = np.array([[2.0, 1.0], [1.0, 2.0]])
-        mat_b = np.array([[2.0, 1.0], [1.0, 2.0]])
+        mat_b = np.diag([4.0, 1.0])
         mat_k = np.eye(2)
-        t = 0.5
-        print(lieb_ando(mat_a, mat_b, mat_k, t))
+
+        for t in (0.0, 1.0):
+            print(lieb_ando(mat_a, mat_b, mat_k, t))
+        ```
+
+        An interior exponent interpolates between them.
+
+        ```python exec="1" source="above" result="text"
+        import numpy as np
+        from toqito.matrix_props import lieb_ando
+
+        mat_a = np.array([[2.0, 1.0], [1.0, 2.0]])
+        mat_b = np.diag([4.0, 1.0])
+        mat_k = np.eye(2)
+
+        print(lieb_ando(mat_a, mat_b, mat_k, 0.5))
         ```
 
     """
