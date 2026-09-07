@@ -9,7 +9,11 @@ import picos
 from toqito.matrix_ops import calculate_vector_matrix_dimension, partial_trace, to_density_matrix
 from toqito.matrix_props import has_same_dimension
 from toqito.rand import random_povm
-from toqito.state_opt.state_distinguishability import _min_error_dual, _min_error_primal
+from toqito.state_opt.state_distinguishability import (
+    _min_error_dual,
+    _min_error_primal,
+    _min_error_two_state_closed_form,
+)
 
 
 def state_exclusion(
@@ -41,7 +45,7 @@ def state_exclusion(
     as well as a list of corresponding probabilities
 
     \[
-        p = \{ p_0, \ldots, p_n \}.
+        p = \{ p_1, \ldots, p_n \}.
     \]
 
     Alice chooses \(i\) with probability \(p_i\) and creates the state \(\rho_i\).
@@ -59,7 +63,7 @@ def state_exclusion(
             \begin{aligned}
                 \text{minimize:} \quad & \sum_{i=1}^n p_i \langle M_i, \rho_i \rangle \\
                 \text{subject to:} \quad & \sum_{i=1}^n M_i = \mathbb{I}_{\mathcal{X}}, \\
-                                            & M_0, \ldots, M_n \in \text{Pos}(\mathcal{X}).
+                                            & M_1, \ldots, M_n \in \text{Pos}(\mathcal{X}).
             \end{aligned}
         \end{equation}
     \]
@@ -104,7 +108,7 @@ def state_exclusion(
     possible that his answer is inconclusive. This function then yields the probability of an inconclusive outcome.
 
     In that case, this function implements the following semidefinite program that provides the
-    optimal probability with which Bob can conduct unambiguous quantum state distinguishability.
+    optimal probability with which Bob can conduct unambiguous quantum state exclusion.
 
     \[
         \begin{align*}
@@ -260,7 +264,7 @@ def state_exclusion(
         raise ValueError("Argument `measurement` must be 'positive', 'ppt', or 'locc'.")
 
     if not has_same_dimension(vectors):
-        raise ValueError("Vectors for state distinguishability must all have the same dimension.")
+        raise ValueError("Vectors for state exclusion must all have the same dimension.")
 
     # Assumes a uniform probabilities distribution among the states if one is not explicitly provided.
     n = len(vectors)
@@ -338,6 +342,10 @@ def state_exclusion(
         )
 
     if strategy == "min_error":
+        if n == 2:
+            # Two-state minimum-error exclusion has the closed-form anti-Helstrom solution, so skip the SDP.
+            dms = [to_density_matrix(vector) for vector in vectors]
+            return _min_error_two_state_closed_form(dms, probs, dim, sense="min")
         if primal_dual == "primal":
             return _min_error_primal(vectors=vectors, dim=dim, probs=probs, sense="min", solver=solver, **kwargs)
         return _min_error_dual(vectors=vectors, dim=dim, probs=probs, sense="min", solver=solver, **kwargs)
@@ -448,7 +456,7 @@ def _unambiguous_primal(
     solver: str = "cvxopt",
     **kwargs,
 ) -> tuple[float, list[picos.HermitianVariable]]:
-    """Solve the primal problem for unambiguous quantum state distinguishability SDP.
+    """Solve the primal problem for unambiguous quantum state exclusion SDP.
 
     Implemented according to Equation (33) of [@bandyopadhyay2014conclusive].
 
@@ -515,7 +523,7 @@ def _unambiguous_dual(
     solver: str = "cvxopt",
     **kwargs,
 ) -> tuple[float, tuple[picos.HermitianVariable, picos.RealVariable]]:
-    """Solve the dual problem for unambiguous quantum state distinguishability SDP.
+    """Solve the dual problem for unambiguous quantum state exclusion SDP.
 
     Implemented according to Equation (35) of [@bandyopadhyay2014conclusive].
 

@@ -314,19 +314,22 @@ def _is_pure_state(vector: np.ndarray) -> bool:
 
 
 def _min_error_two_state_closed_form(
-    dms: list[np.ndarray], probs: list[float], dim: int
+    dms: list[np.ndarray], probs: list[float], dim: int, sense: str = "max"
 ) -> tuple[float, list[np.ndarray]]:
-    """Return the closed-form Holevo-Helstrom solution for two-state minimum-error discrimination.
+    """Return the closed-form two-state minimum-error discrimination or exclusion solution.
 
-    The optimal measurement is projective: it measures the sign of the Helstrom operator
-    ``delta = probs[0] * dms[0] - probs[1] * dms[1]``. The measurement onto its positive eigenspace
-    guesses the first state, its complement the second, and the optimal success probability is
-    ``(probs[0] tr(dms[0]) + probs[1] tr(dms[1]) + ||delta||_1) / 2``.
+    The optimal measurement is projective on the sign of the Helstrom operator
+    ``delta = probs[0] * dms[0] - probs[1] * dms[1]``. For ``sense == "max"`` (minimum-error
+    distinguishability) the first outcome is the projector onto the positive eigenspace of ``delta``
+    and the optimal success probability is ``(probs[0] tr(dms[0]) + probs[1] tr(dms[1]) + ||delta||_1) / 2``.
+    For ``sense == "min"`` (minimum-error exclusion) it is the projector onto the negative eigenspace
+    and the optimal error probability is the same expression with ``||delta||_1`` subtracted.
 
     Args:
         dms: The two states as density matrices.
         probs: The two prior weights.
         dim: The dimension of the states.
+        sense: ``"max"`` for distinguishability (default) or ``"min"`` for exclusion.
 
     Returns:
         The optimal value and the two-outcome POVM ``[M_0, M_1]`` as arrays.
@@ -335,17 +338,19 @@ def _min_error_two_state_closed_form(
     delta = probs[0] * dms[0] - probs[1] * dms[1]
     eigenvalues, eigenvectors = np.linalg.eigh(delta)
 
-    positive = eigenvalues > 0
-    if positive.any():
-        basis_positive = eigenvectors[:, positive]
-        m_0 = basis_positive @ basis_positive.conj().T
+    # Distinguishability assigns the first state to delta's positive part; exclusion to its negative part.
+    selected = eigenvalues > 0 if sense == "max" else eigenvalues < 0
+    if selected.any():
+        basis_selected = eigenvectors[:, selected]
+        m_0 = basis_selected @ basis_selected.conj().T
     else:
         m_0 = np.zeros((dim, dim), dtype=np.complex128)
     m_1 = np.eye(dim, dtype=np.complex128) - m_0
     measurements = [0.5 * (m + m.conj().T) for m in (m_0, m_1)]
 
     trace_weight = probs[0] * np.real(np.trace(dms[0])) + probs[1] * np.real(np.trace(dms[1]))
-    value = float(0.5 * (trace_weight + np.sum(np.abs(eigenvalues))))
+    trace_norm = np.sum(np.abs(eigenvalues))
+    value = float(0.5 * (trace_weight + (trace_norm if sense == "max" else -trace_norm)))
     return value, measurements
 
 
