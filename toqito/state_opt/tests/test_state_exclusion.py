@@ -123,7 +123,7 @@ def test_state_exclusion_unambiguous(vectors, probs, solver, primal_dual, expect
 )
 def test_state_exclusion_invalid_vectors(vectors, probs, solver, primal_dual, strategy):
     """Test function works as expected for an invalid input."""
-    with pytest.raises(ValueError, match="Vectors for state distinguishability must all have the same dimension."):
+    with pytest.raises(ValueError, match="Vectors for state exclusion must all have the same dimension."):
         state_exclusion(vectors=vectors, probs=probs, solver=solver, primal_dual=primal_dual, strategy=strategy)
 
 
@@ -259,3 +259,38 @@ def test_state_exclusion_identical_states_not_perfectly_excludable():
     states = [np.array([[1.0], [0.0]]), np.array([[1.0], [0.0]])]
     value, _ = state_exclusion(states, primal_dual="primal")
     assert value > 1e-6
+
+
+def test_two_state_exclusion_closed_form_matches_sdp():
+    """The n=2 min-error exclusion fast path matches the anti-Helstrom formula, pure and mixed."""
+    e_0, e_1 = standard_basis(2)
+    cases = [
+        ([e_0, (e_0 + e_1) / np.sqrt(2)], [0.5, 0.5]),
+        ([e_0, (e_0 + e_1) / np.sqrt(2)], [0.7, 0.3]),
+        ([to_density_matrix(e_0), to_density_matrix((e_0 + e_1) / np.sqrt(2))], [0.4, 0.6]),
+    ]
+    for vectors, probs in cases:
+        dms = [to_density_matrix(v) for v in vectors]
+        delta = probs[0] * dms[0] - probs[1] * dms[1]
+        anti_helstrom = 0.5 * (probs[0] + probs[1] - np.sum(np.abs(np.linalg.eigvalsh(delta))))
+        val, measurements = state_exclusion(vectors, probs=probs, strategy="min_error")
+        assert abs(val - anti_helstrom) <= 1e-8
+        assert np.allclose(sum(measurements), np.eye(2), atol=1e-9)
+        for m in measurements:
+            assert np.min(np.linalg.eigvalsh(m)) >= -1e-9
+
+
+def test_two_state_exclusion_closed_form_independent_of_primal_dual():
+    """The closed form is returned for both primal and dual requests, with the same value."""
+    e_0, e_1 = standard_basis(2)
+    vectors = [e_0, (e_0 + e_1) / np.sqrt(2)]
+    val_primal, _ = state_exclusion(vectors, primal_dual="primal")
+    val_dual, _ = state_exclusion(vectors, primal_dual="dual")
+    assert abs(val_primal - val_dual) <= 1e-9
+
+
+def test_two_state_exclusion_orthogonal_is_perfect():
+    """Orthogonal states can be excluded with zero error."""
+    e_0, e_1 = standard_basis(2)
+    val, _ = state_exclusion([e_0, e_1], probs=[0.5, 0.5], strategy="min_error")
+    assert abs(val) <= 1e-9
