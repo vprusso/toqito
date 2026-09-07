@@ -8128,17 +8128,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#toqito.state_opt.state_distinguishability.state_distinguishability_certificate" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        <code class="doc-symbol doc-symbol-toc doc-symbol-function"></code>&nbsp;state_distinguishability_certificate
-      
-    </span>
-  </a>
-  
-</li>
-      
     </ul>
   
 </nav>
@@ -10283,17 +10272,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#toqito.state_opt.state_distinguishability.state_distinguishability_certificate" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        <code class="doc-symbol doc-symbol-toc doc-symbol-function"></code>&nbsp;state_distinguishability_certificate
-      
-    </span>
-  </a>
-  
-</li>
-      
     </ul>
   
 </nav>
@@ -10440,8 +10418,8 @@ conditions</p>
     Y - p_i \rho_i \geq 0 \quad \text{and} \quad (Y - p_i \rho_i) M_i = 0
     \qquad (i = 1, \ldots, n).
 \]</div>
-<p>The optimal value equals <span class="arithmatex">\(\operatorname{Tr}(Y)\)</span>. To recover <span class="arithmatex">\(Y\)</span> and check these conditions,
-see :func:<code>state_distinguishability_certificate</code>; rounding <span class="arithmatex">\(Y\)</span> to an exact matrix is the usual
+<p>The optimal value equals <span class="arithmatex">\(\operatorname{Tr}(Y)\)</span>. Given the measurement this function returns,
+<span class="arithmatex">\(Y\)</span> is recovered as <span class="arithmatex">\(\sum_i p_i \rho_i M_i\)</span>; rounding it to an exact matrix is the usual
 route to proving a conjectured closed-form optimum.</p>
 
 
@@ -10605,10 +10583,10 @@ measurement operators which may be of interest to us.</p>
 <a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>
 <a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">around</span><span class="p">(</span><span class="n">measurements</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">decimals</span><span class="o">=</span><span class="mi">5</span><span class="p">))</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>[[ 0.5+0.j -0. -0.j  0. +0.j  0.5-0.j]
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a> [-0. +0.j  0. +0.j  0. -0.j -0. +0.j]
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a> [ 0. -0.j  0. +0.j  0. +0.j  0. -0.j]
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a> [ 0.5+0.j -0. -0.j  0. +0.j  0.5+0.j]]
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>[[0.5+0.j 0. +0.j 0. +0.j 0.5-0.j]
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a> [0. -0.j 0. +0.j 0. +0.j 0. -0.j]
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a> [0. -0.j 0. -0.j 0. +0.j 0. -0.j]
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a> [0.5+0.j 0. +0.j 0. +0.j 0.5+0.j]]
 </code></pre></div>
 <p>Unambiguous state distinguishability for unbiased pure states.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
@@ -11043,8 +11021,8 @@ to set the <code>cvxopt_kktsolver</code> option to <code>ldl</code>.</p>
 <a id="__codelineno-0-106" name="__codelineno-0-106"></a><span class="sd">        \qquad (i = 1, \ldots, n).</span>
 <a id="__codelineno-0-107" name="__codelineno-0-107"></a><span class="sd">    \]</span>
 <a id="__codelineno-0-108" name="__codelineno-0-108"></a>
-<a id="__codelineno-0-109" name="__codelineno-0-109"></a><span class="sd">    The optimal value equals \(\operatorname{Tr}(Y)\). To recover \(Y\) and check these conditions,</span>
-<a id="__codelineno-0-110" name="__codelineno-0-110"></a><span class="sd">    see :func:`state_distinguishability_certificate`; rounding \(Y\) to an exact matrix is the usual</span>
+<a id="__codelineno-0-109" name="__codelineno-0-109"></a><span class="sd">    The optimal value equals \(\operatorname{Tr}(Y)\). Given the measurement this function returns,</span>
+<a id="__codelineno-0-110" name="__codelineno-0-110"></a><span class="sd">    \(Y\) is recovered as \(\sum_i p_i \rho_i M_i\); rounding it to an exact matrix is the usual</span>
 <a id="__codelineno-0-111" name="__codelineno-0-111"></a><span class="sd">    route to proving a conjectured closed-form optimum.</span>
 <a id="__codelineno-0-112" name="__codelineno-0-112"></a>
 <a id="__codelineno-0-113" name="__codelineno-0-113"></a><span class="sd">    Args:</span>
@@ -11223,250 +11201,6 @@ to set the <code>cvxopt_kktsolver</code> option to <code>ldl</code>.</p>
 <a id="__codelineno-0-286" name="__codelineno-0-286"></a>        <span class="k">return</span> <span class="n">_unambiguous_primal</span><span class="p">(</span><span class="n">vectors</span><span class="o">=</span><span class="n">vectors</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="n">dim</span><span class="p">,</span> <span class="n">probs</span><span class="o">=</span><span class="n">probs</span><span class="p">,</span> <span class="n">solver</span><span class="o">=</span><span class="n">solver</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 <a id="__codelineno-0-287" name="__codelineno-0-287"></a>
 <a id="__codelineno-0-288" name="__codelineno-0-288"></a>    <span class="k">return</span> <span class="n">_unambiguous_dual</span><span class="p">(</span><span class="n">vectors</span><span class="o">=</span><span class="n">vectors</span><span class="p">,</span> <span class="n">probs</span><span class="o">=</span><span class="n">probs</span><span class="p">,</span> <span class="n">solver</span><span class="o">=</span><span class="n">solver</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-</code></pre></div></td></tr></table></div>
-            </details>
-    </div>
-
-</div>
-
-<div class="doc doc-object doc-function">
-
-
-<h2 id="toqito.state_opt.state_distinguishability.state_distinguishability_certificate" class="doc doc-heading">
-<code class="doc-symbol doc-symbol-heading doc-symbol-function"></code>            <span class="doc doc-object-name doc-function-name">state_distinguishability_certificate</span>
-
-
-<a href="#toqito.state_opt.state_distinguishability.state_distinguishability_certificate" class="headerlink" title="Permanent link">&para;</a></h2>
-<div class="doc-signature highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">state_distinguishability_certificate</span><span class="p">(</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="n">vectors</span><span class="p">:</span> <span class="n"><span title="list">list</span></span><span class="p">[</span><span class="n"><span title="numpy.ndarray">ndarray</span></span><span class="p">],</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    <span class="n">probs</span><span class="p">:</span> <span class="n"><span title="list">list</span></span><span class="p">[</span><span class="n"><span title="float">float</span></span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    <span class="n">solver</span><span class="p">:</span> <span class="n"><span title="str">str</span></span> <span class="o">=</span> <span class="s2">&quot;cvxopt&quot;</span><span class="p">,</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="n">tol</span><span class="p">:</span> <span class="n"><span title="float">float</span></span> <span class="o">=</span> <span class="mf">1e-06</span><span class="p">,</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n"><span title="typing.Any">Any</span></span><span class="p">,</span>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><span title="dict">dict</span></span><span class="p">[</span><span class="n"><span title="str">str</span></span><span class="p">,</span> <span class="n"><span title="typing.Any">Any</span></span><span class="p">]</span>
-</code></pre></div>
-
-    <div class="doc doc-contents ">
-
-        <p>Minimum-error discrimination with its Holevo-Helstrom optimality certificate.</p>
-<p>Alongside the optimal value and measurement, this returns the Holevo operator
-<span class="arithmatex">\(Y = \sum_i p_i \rho_i M_i\)</span> and reports whether the Yuen-Kennedy-Lax conditions</p>
-<div class="arithmatex">\[
-    Y - p_i \rho_i \geq 0 \quad \text{and} \quad (Y - p_i \rho_i) M_i = 0
-\]</div>
-<p>hold to tolerance <code>tol</code>. These conditions are necessary and sufficient for optimality, so
-<span class="arithmatex">\(Y\)</span> is the object to round to an exact matrix when proving a conjectured closed-form optimum.</p>
-
-
-<p><span class="doc-section-title">Parameters:</span></p>
-    <ul>
-        <li class="doc-section-item field-body">
-            <b><code>vectors</code></b>
-              (<code><span title="list">list</span>[<span title="numpy.ndarray">ndarray</span>]</code>)
-          –
-          <div class="doc-md-description">
-            <p>The states as vectors (pure) or density matrices (mixed).</p>
-          </div>
-        </li>
-        <li class="doc-section-item field-body">
-            <b><code>probs</code></b>
-              (<code><span title="list">list</span>[<span title="float">float</span>] | None</code>, default:
-                  <code>None</code>
-)
-          –
-          <div class="doc-md-description">
-            <p>Prior weights; a uniform distribution is assumed if omitted.</p>
-          </div>
-        </li>
-        <li class="doc-section-item field-body">
-            <b><code>solver</code></b>
-              (<code><span title="str">str</span></code>, default:
-                  <code>&#39;cvxopt&#39;</code>
-)
-          –
-          <div class="doc-md-description">
-            <p>Solver passed to <code>picos</code> for the <span class="arithmatex">\(n &gt; 2\)</span> case (<code>n = 2</code> is closed form).</p>
-          </div>
-        </li>
-        <li class="doc-section-item field-body">
-            <b><code>tol</code></b>
-              (<code><span title="float">float</span></code>, default:
-                  <code>1e-06</code>
-)
-          –
-          <div class="doc-md-description">
-            <p>Tolerance for the positive-semidefiniteness and complementary-slackness checks.</p>
-          </div>
-        </li>
-        <li class="doc-section-item field-body">
-            <b><code>kwargs</code></b>
-              (<code><span title="typing.Any">Any</span></code>, default:
-                  <code>{}</code>
-)
-          –
-          <div class="doc-md-description">
-            <p>Additional arguments forwarded to the solver.</p>
-          </div>
-        </li>
-    </ul>
-
-
-<p><span class="doc-section-title">Returns:</span></p>
-    <ul>
-        <li class="doc-section-item field-body">
-              <code><span title="dict">dict</span>[<span title="str">str</span>, <span title="typing.Any">Any</span>]</code>
-          –
-          <div class="doc-md-description">
-            <p>A dictionary with keys <code>value</code>, <code>measurements</code>, <code>holevo_operator</code>, and</p>
-          </div>
-        </li>
-        <li class="doc-section-item field-body">
-              <code><span title="dict">dict</span>[<span title="str">str</span>, <span title="typing.Any">Any</span>]</code>
-          –
-          <div class="doc-md-description">
-            <p><code>conditions_satisfied</code>.</p>
-          </div>
-        </li>
-    </ul>
-
-
-<p><span class="doc-section-title">Raises:</span></p>
-    <ul>
-        <li class="doc-section-item field-body">
-              <code><span title="ValueError">ValueError</span></code>
-            –
-          <div class="doc-md-description">
-            <p>If the vectors do not all share the same dimension.</p>
-          </div>
-        </li>
-    </ul>
-
-
-            <details class="mkdocstrings-source">
-              <summary>Source code in <code>toqito/state_opt/state_distinguishability.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-291">291</a></span>
-<span class="normal"><a href="#__codelineno-0-292">292</a></span>
-<span class="normal"><a href="#__codelineno-0-293">293</a></span>
-<span class="normal"><a href="#__codelineno-0-294">294</a></span>
-<span class="normal"><a href="#__codelineno-0-295">295</a></span>
-<span class="normal"><a href="#__codelineno-0-296">296</a></span>
-<span class="normal"><a href="#__codelineno-0-297">297</a></span>
-<span class="normal"><a href="#__codelineno-0-298">298</a></span>
-<span class="normal"><a href="#__codelineno-0-299">299</a></span>
-<span class="normal"><a href="#__codelineno-0-300">300</a></span>
-<span class="normal"><a href="#__codelineno-0-301">301</a></span>
-<span class="normal"><a href="#__codelineno-0-302">302</a></span>
-<span class="normal"><a href="#__codelineno-0-303">303</a></span>
-<span class="normal"><a href="#__codelineno-0-304">304</a></span>
-<span class="normal"><a href="#__codelineno-0-305">305</a></span>
-<span class="normal"><a href="#__codelineno-0-306">306</a></span>
-<span class="normal"><a href="#__codelineno-0-307">307</a></span>
-<span class="normal"><a href="#__codelineno-0-308">308</a></span>
-<span class="normal"><a href="#__codelineno-0-309">309</a></span>
-<span class="normal"><a href="#__codelineno-0-310">310</a></span>
-<span class="normal"><a href="#__codelineno-0-311">311</a></span>
-<span class="normal"><a href="#__codelineno-0-312">312</a></span>
-<span class="normal"><a href="#__codelineno-0-313">313</a></span>
-<span class="normal"><a href="#__codelineno-0-314">314</a></span>
-<span class="normal"><a href="#__codelineno-0-315">315</a></span>
-<span class="normal"><a href="#__codelineno-0-316">316</a></span>
-<span class="normal"><a href="#__codelineno-0-317">317</a></span>
-<span class="normal"><a href="#__codelineno-0-318">318</a></span>
-<span class="normal"><a href="#__codelineno-0-319">319</a></span>
-<span class="normal"><a href="#__codelineno-0-320">320</a></span>
-<span class="normal"><a href="#__codelineno-0-321">321</a></span>
-<span class="normal"><a href="#__codelineno-0-322">322</a></span>
-<span class="normal"><a href="#__codelineno-0-323">323</a></span>
-<span class="normal"><a href="#__codelineno-0-324">324</a></span>
-<span class="normal"><a href="#__codelineno-0-325">325</a></span>
-<span class="normal"><a href="#__codelineno-0-326">326</a></span>
-<span class="normal"><a href="#__codelineno-0-327">327</a></span>
-<span class="normal"><a href="#__codelineno-0-328">328</a></span>
-<span class="normal"><a href="#__codelineno-0-329">329</a></span>
-<span class="normal"><a href="#__codelineno-0-330">330</a></span>
-<span class="normal"><a href="#__codelineno-0-331">331</a></span>
-<span class="normal"><a href="#__codelineno-0-332">332</a></span>
-<span class="normal"><a href="#__codelineno-0-333">333</a></span>
-<span class="normal"><a href="#__codelineno-0-334">334</a></span>
-<span class="normal"><a href="#__codelineno-0-335">335</a></span>
-<span class="normal"><a href="#__codelineno-0-336">336</a></span>
-<span class="normal"><a href="#__codelineno-0-337">337</a></span>
-<span class="normal"><a href="#__codelineno-0-338">338</a></span>
-<span class="normal"><a href="#__codelineno-0-339">339</a></span>
-<span class="normal"><a href="#__codelineno-0-340">340</a></span>
-<span class="normal"><a href="#__codelineno-0-341">341</a></span>
-<span class="normal"><a href="#__codelineno-0-342">342</a></span>
-<span class="normal"><a href="#__codelineno-0-343">343</a></span>
-<span class="normal"><a href="#__codelineno-0-344">344</a></span>
-<span class="normal"><a href="#__codelineno-0-345">345</a></span>
-<span class="normal"><a href="#__codelineno-0-346">346</a></span>
-<span class="normal"><a href="#__codelineno-0-347">347</a></span>
-<span class="normal"><a href="#__codelineno-0-348">348</a></span>
-<span class="normal"><a href="#__codelineno-0-349">349</a></span>
-<span class="normal"><a href="#__codelineno-0-350">350</a></span>
-<span class="normal"><a href="#__codelineno-0-351">351</a></span>
-<span class="normal"><a href="#__codelineno-0-352">352</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-291" name="__codelineno-0-291"></a><span class="k">def</span><span class="w"> </span><span class="nf">state_distinguishability_certificate</span><span class="p">(</span>
-<a id="__codelineno-0-292" name="__codelineno-0-292"></a>    <span class="n">vectors</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span>
-<a id="__codelineno-0-293" name="__codelineno-0-293"></a>    <span class="n">probs</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-<a id="__codelineno-0-294" name="__codelineno-0-294"></a>    <span class="n">solver</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;cvxopt&quot;</span><span class="p">,</span>
-<a id="__codelineno-0-295" name="__codelineno-0-295"></a>    <span class="n">tol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-6</span><span class="p">,</span>
-<a id="__codelineno-0-296" name="__codelineno-0-296"></a>    <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
-<a id="__codelineno-0-297" name="__codelineno-0-297"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
-<a id="__codelineno-0-298" name="__codelineno-0-298"></a><span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Minimum-error discrimination with its Holevo-Helstrom optimality certificate.</span>
-<a id="__codelineno-0-299" name="__codelineno-0-299"></a>
-<a id="__codelineno-0-300" name="__codelineno-0-300"></a><span class="sd">    Alongside the optimal value and measurement, this returns the Holevo operator</span>
-<a id="__codelineno-0-301" name="__codelineno-0-301"></a><span class="sd">    \(Y = \sum_i p_i \rho_i M_i\) and reports whether the Yuen-Kennedy-Lax conditions</span>
-<a id="__codelineno-0-302" name="__codelineno-0-302"></a>
-<a id="__codelineno-0-303" name="__codelineno-0-303"></a><span class="sd">    \[</span>
-<a id="__codelineno-0-304" name="__codelineno-0-304"></a><span class="sd">        Y - p_i \rho_i \geq 0 \quad \text{and} \quad (Y - p_i \rho_i) M_i = 0</span>
-<a id="__codelineno-0-305" name="__codelineno-0-305"></a><span class="sd">    \]</span>
-<a id="__codelineno-0-306" name="__codelineno-0-306"></a>
-<a id="__codelineno-0-307" name="__codelineno-0-307"></a><span class="sd">    hold to tolerance `tol`. These conditions are necessary and sufficient for optimality, so</span>
-<a id="__codelineno-0-308" name="__codelineno-0-308"></a><span class="sd">    \(Y\) is the object to round to an exact matrix when proving a conjectured closed-form optimum.</span>
-<a id="__codelineno-0-309" name="__codelineno-0-309"></a>
-<a id="__codelineno-0-310" name="__codelineno-0-310"></a><span class="sd">    Args:</span>
-<a id="__codelineno-0-311" name="__codelineno-0-311"></a><span class="sd">        vectors: The states as vectors (pure) or density matrices (mixed).</span>
-<a id="__codelineno-0-312" name="__codelineno-0-312"></a><span class="sd">        probs: Prior weights; a uniform distribution is assumed if omitted.</span>
-<a id="__codelineno-0-313" name="__codelineno-0-313"></a><span class="sd">        solver: Solver passed to `picos` for the \(n &gt; 2\) case (`n = 2` is closed form).</span>
-<a id="__codelineno-0-314" name="__codelineno-0-314"></a><span class="sd">        tol: Tolerance for the positive-semidefiniteness and complementary-slackness checks.</span>
-<a id="__codelineno-0-315" name="__codelineno-0-315"></a><span class="sd">        kwargs: Additional arguments forwarded to the solver.</span>
-<a id="__codelineno-0-316" name="__codelineno-0-316"></a>
-<a id="__codelineno-0-317" name="__codelineno-0-317"></a><span class="sd">    Returns:</span>
-<a id="__codelineno-0-318" name="__codelineno-0-318"></a><span class="sd">        A dictionary with keys `value`, `measurements`, `holevo_operator`, and</span>
-<a id="__codelineno-0-319" name="__codelineno-0-319"></a><span class="sd">        `conditions_satisfied`.</span>
-<a id="__codelineno-0-320" name="__codelineno-0-320"></a>
-<a id="__codelineno-0-321" name="__codelineno-0-321"></a><span class="sd">    Raises:</span>
-<a id="__codelineno-0-322" name="__codelineno-0-322"></a><span class="sd">        ValueError: If the vectors do not all share the same dimension.</span>
-<a id="__codelineno-0-323" name="__codelineno-0-323"></a>
-<a id="__codelineno-0-324" name="__codelineno-0-324"></a><span class="sd">    &quot;&quot;&quot;</span>
-<a id="__codelineno-0-325" name="__codelineno-0-325"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">has_same_dimension</span><span class="p">(</span><span class="n">vectors</span><span class="p">):</span>
-<a id="__codelineno-0-326" name="__codelineno-0-326"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Vectors for state distinguishability must all have the same dimension.&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-327" name="__codelineno-0-327"></a>
-<a id="__codelineno-0-328" name="__codelineno-0-328"></a>    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">vectors</span><span class="p">)</span>
-<a id="__codelineno-0-329" name="__codelineno-0-329"></a>    <span class="n">probs</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span> <span class="o">/</span> <span class="n">n</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span> <span class="k">if</span> <span class="n">probs</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">probs</span>
-<a id="__codelineno-0-330" name="__codelineno-0-330"></a>    <span class="n">dim</span> <span class="o">=</span> <span class="n">calculate_vector_matrix_dimension</span><span class="p">(</span><span class="n">vectors</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<a id="__codelineno-0-331" name="__codelineno-0-331"></a>    <span class="n">dms</span> <span class="o">=</span> <span class="p">[</span><span class="n">to_density_matrix</span><span class="p">(</span><span class="n">vector</span><span class="p">)</span> <span class="k">for</span> <span class="n">vector</span> <span class="ow">in</span> <span class="n">vectors</span><span class="p">]</span>
-<a id="__codelineno-0-332" name="__codelineno-0-332"></a>
-<a id="__codelineno-0-333" name="__codelineno-0-333"></a>    <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
-<a id="__codelineno-0-334" name="__codelineno-0-334"></a>        <span class="n">value</span><span class="p">,</span> <span class="n">measurements</span> <span class="o">=</span> <span class="n">_min_error_two_state_closed_form</span><span class="p">(</span><span class="n">dms</span><span class="p">,</span> <span class="n">probs</span><span class="p">,</span> <span class="n">dim</span><span class="p">)</span>
-<a id="__codelineno-0-335" name="__codelineno-0-335"></a>    <span class="k">else</span><span class="p">:</span>
-<a id="__codelineno-0-336" name="__codelineno-0-336"></a>        <span class="n">value</span><span class="p">,</span> <span class="n">measurement_vars</span> <span class="o">=</span> <span class="n">_min_error_primal</span><span class="p">(</span><span class="n">vectors</span><span class="o">=</span><span class="n">vectors</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="n">dim</span><span class="p">,</span> <span class="n">probs</span><span class="o">=</span><span class="n">probs</span><span class="p">,</span> <span class="n">solver</span><span class="o">=</span><span class="n">solver</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-<a id="__codelineno-0-337" name="__codelineno-0-337"></a>        <span class="n">measurements</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">)</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">measurement_vars</span><span class="p">]</span>
-<a id="__codelineno-0-338" name="__codelineno-0-338"></a>
-<a id="__codelineno-0-339" name="__codelineno-0-339"></a>    <span class="c1"># Holevo operator Y = sum_i p_i rho_i M_i (symmetrized; rho_i M_i need not be Hermitian).</span>
-<a id="__codelineno-0-340" name="__codelineno-0-340"></a>    <span class="n">holevo_operator</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">probs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">dms</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">@</span> <span class="n">measurements</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
-<a id="__codelineno-0-341" name="__codelineno-0-341"></a>    <span class="n">holevo_operator</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">holevo_operator</span> <span class="o">+</span> <span class="n">holevo_operator</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
-<a id="__codelineno-0-342" name="__codelineno-0-342"></a>
-<a id="__codelineno-0-343" name="__codelineno-0-343"></a>    <span class="n">residuals</span> <span class="o">=</span> <span class="p">[</span><span class="n">holevo_operator</span> <span class="o">-</span> <span class="n">probs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">dms</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)]</span>
-<a id="__codelineno-0-344" name="__codelineno-0-344"></a>    <span class="n">is_psd</span> <span class="o">=</span> <span class="nb">all</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigvalsh</span><span class="p">(</span><span class="n">residual</span><span class="p">))</span> <span class="o">&gt;=</span> <span class="o">-</span><span class="n">tol</span> <span class="k">for</span> <span class="n">residual</span> <span class="ow">in</span> <span class="n">residuals</span><span class="p">)</span>
-<a id="__codelineno-0-345" name="__codelineno-0-345"></a>    <span class="n">max_slack</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">residuals</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">@</span> <span class="n">measurements</span><span class="p">[</span><span class="n">i</span><span class="p">])))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
-<a id="__codelineno-0-346" name="__codelineno-0-346"></a>
-<a id="__codelineno-0-347" name="__codelineno-0-347"></a>    <span class="k">return</span> <span class="p">{</span>
-<a id="__codelineno-0-348" name="__codelineno-0-348"></a>        <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="n">value</span><span class="p">,</span>
-<a id="__codelineno-0-349" name="__codelineno-0-349"></a>        <span class="s2">&quot;measurements&quot;</span><span class="p">:</span> <span class="n">measurements</span><span class="p">,</span>
-<a id="__codelineno-0-350" name="__codelineno-0-350"></a>        <span class="s2">&quot;holevo_operator&quot;</span><span class="p">:</span> <span class="n">holevo_operator</span><span class="p">,</span>
-<a id="__codelineno-0-351" name="__codelineno-0-351"></a>        <span class="s2">&quot;conditions_satisfied&quot;</span><span class="p">:</span> <span class="nb">bool</span><span class="p">(</span><span class="n">is_psd</span> <span class="ow">and</span> <span class="n">max_slack</span> <span class="o">&lt;=</span> <span class="n">tol</span><span class="p">),</span>
-<a id="__codelineno-0-352" name="__codelineno-0-352"></a>    <span class="p">}</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
