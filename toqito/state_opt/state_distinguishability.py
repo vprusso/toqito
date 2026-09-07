@@ -45,9 +45,9 @@ def state_distinguishability(
 
     \[
         \begin{align*}
-            \text{maximize:} \quad & \sum_{i=0}^n p_i \langle M_i, \rho_i \rangle \\
-            \text{subject to:} \quad & M_0 + \ldots + M_n = \mathbb{I},\\
-                                     & M_0, \ldots, M_n \geq 0.
+            \text{maximize:} \quad & \sum_{i=1}^n p_i \langle M_i, \rho_i \rangle \\
+            \text{subject to:} \quad & M_1 + \ldots + M_n = \mathbb{I},\\
+                                     & M_1, \ldots, M_n \geq 0.
         \end{align*}
     \]
 
@@ -68,21 +68,47 @@ def state_distinguishability(
     \[
         \begin{align*}
             \text{minimize:} \quad & \text{Tr}(\Gamma Z) \\
-            \text{subject to:} \quad & z_i + p_i + \text{Tr}\left(F_iZ\right)=0,\\
-                                     & Z, z \geq 0
+            \text{subject to:} \quad & Z_{ii} \geq p_i \quad (i = 1, \ldots, n),\\
+                                     & Z \geq 0.
         \end{align*}
     \]
 
     where \(\mathbf{p}\) is the vector whose \(i\)-th coordinate contains the probability
-    that the state is prepared in state \(\left|\psi_i\right\rangle\), \(\Gamma\) is
-    the Gram matrix of \(\left|\psi_1\right\rangle,\cdots,\left|\psi_n\right\rangle\) and \(F_i\) is
-    \(-|i\rangle\langle i|\).
+    that the state is prepared in state \(\left|\psi_i\right\rangle\) and \(\Gamma\) is
+    the Gram matrix of \(\left|\psi_1\right\rangle,\cdots,\left|\psi_n\right\rangle\).
 
     !!! Note
         For unambiguous discrimination, this function supports both pure states (vectors) and mixed states
         (density matrices). For pure states, the states should be linearly independent. For mixed states,
         the Gram matrix is computed as Tr(ρᵢ ρⱼ). If the states cannot be unambiguously distinguished,
         the optimal probability will be low or zero.
+
+    **Closed-form solutions.** Two structural facts make it possible to obtain or verify optimal
+    values analytically rather than only numerically.
+
+    For \(n = 2\) minimum-error discrimination the optimum is the Holevo-Helstrom bound
+
+    \[
+        \frac{1}{2}\left(p_1 \operatorname{Tr}(\rho_1) + p_2 \operatorname{Tr}(\rho_2)
+            + \| p_1 \rho_1 - p_2 \rho_2 \|_1 \right),
+    \]
+
+    attained by the projective measurement onto the positive and negative eigenspaces of the
+    Helstrom operator \(p_1 \rho_1 - p_2 \rho_2\). For two states this function returns that closed
+    form directly and does not invoke a solver.
+
+    For any \(n\), the dual variable \(Y\) is the Holevo operator \(Y = \sum_i p_i \rho_i M_i\), and a
+    candidate measurement \(\{M_i\}\) is optimal if and only if it satisfies the Yuen-Kennedy-Lax
+    conditions
+
+    \[
+        Y - p_i \rho_i \geq 0 \quad \text{and} \quad (Y - p_i \rho_i) M_i = 0
+        \qquad (i = 1, \ldots, n).
+    \]
+
+    The optimal value equals \(\operatorname{Tr}(Y)\). To recover \(Y\) and check these conditions,
+    see :func:`state_distinguishability_certificate`; rounding \(Y\) to an exact matrix is the usual
+    route to proving a conjectured closed-form optimum.
 
     Args:
         vectors: A list of states provided as vectors (for pure states) or density matrices (for mixed states).
@@ -248,6 +274,10 @@ def state_distinguishability(
         )
 
     if strategy == "min_error":
+        if n == 2:
+            # Two-state minimum error has the closed-form Holevo-Helstrom solution, so skip the SDP.
+            dms = [to_density_matrix(vector) for vector in vectors]
+            return _min_error_two_state_closed_form(dms, probs, dim)
         if primal_dual == "primal":
             return _min_error_primal(vectors=vectors, dim=dim, probs=probs, solver=solver, **kwargs)
         return _min_error_dual(vectors=vectors, dim=dim, probs=probs, solver=solver, **kwargs)
@@ -256,6 +286,70 @@ def state_distinguishability(
         return _unambiguous_primal(vectors=vectors, dim=dim, probs=probs, solver=solver, **kwargs)
 
     return _unambiguous_dual(vectors=vectors, probs=probs, solver=solver, **kwargs)
+
+
+def state_distinguishability_certificate(
+    vectors: list[np.ndarray],
+    probs: list[float] | None = None,
+    solver: str = "cvxopt",
+    tol: float = 1e-6,
+    **kwargs: Any,
+) -> dict[str, Any]:
+    r"""Minimum-error discrimination with its Holevo-Helstrom optimality certificate.
+
+    Alongside the optimal value and measurement, this returns the Holevo operator
+    \(Y = \sum_i p_i \rho_i M_i\) and reports whether the Yuen-Kennedy-Lax conditions
+
+    \[
+        Y - p_i \rho_i \geq 0 \quad \text{and} \quad (Y - p_i \rho_i) M_i = 0
+    \]
+
+    hold to tolerance `tol`. These conditions are necessary and sufficient for optimality, so
+    \(Y\) is the object to round to an exact matrix when proving a conjectured closed-form optimum.
+
+    Args:
+        vectors: The states as vectors (pure) or density matrices (mixed).
+        probs: Prior weights; a uniform distribution is assumed if omitted.
+        solver: Solver passed to `picos` for the \(n > 2\) case (`n = 2` is closed form).
+        tol: Tolerance for the positive-semidefiniteness and complementary-slackness checks.
+        kwargs: Additional arguments forwarded to the solver.
+
+    Returns:
+        A dictionary with keys `value`, `measurements`, `holevo_operator`, and
+        `conditions_satisfied`.
+
+    Raises:
+        ValueError: If the vectors do not all share the same dimension.
+
+    """
+    if not has_same_dimension(vectors):
+        raise ValueError("Vectors for state distinguishability must all have the same dimension.")
+
+    n = len(vectors)
+    probs = [1 / n] * n if probs is None else probs
+    dim = calculate_vector_matrix_dimension(vectors[0])
+    dms = [to_density_matrix(vector) for vector in vectors]
+
+    if n == 2:
+        value, measurements = _min_error_two_state_closed_form(dms, probs, dim)
+    else:
+        value, measurement_vars = _min_error_primal(vectors=vectors, dim=dim, probs=probs, solver=solver, **kwargs)
+        measurements = [np.array(m.value, dtype=np.complex128) for m in measurement_vars]
+
+    # Holevo operator Y = sum_i p_i rho_i M_i (symmetrized; rho_i M_i need not be Hermitian).
+    holevo_operator = sum(probs[i] * dms[i] @ measurements[i] for i in range(n))
+    holevo_operator = 0.5 * (holevo_operator + holevo_operator.conj().T)
+
+    residuals = [holevo_operator - probs[i] * dms[i] for i in range(n)]
+    is_psd = all(np.min(np.linalg.eigvalsh(residual)) >= -tol for residual in residuals)
+    max_slack = max(float(np.max(np.abs(residuals[i] @ measurements[i]))) for i in range(n))
+
+    return {
+        "value": value,
+        "measurements": measurements,
+        "holevo_operator": holevo_operator,
+        "conditions_satisfied": bool(is_psd and max_slack <= tol),
+    }
 
 
 def _validate_ppt_params(dim: int, subsystems: list[int] | None, dimensions: list[int] | None) -> None:
@@ -281,6 +375,42 @@ def _is_pure_state(vector: np.ndarray) -> bool:
 
     """
     return vector.ndim == 1 or (vector.ndim == 2 and vector.shape[1] == 1)
+
+
+def _min_error_two_state_closed_form(
+    dms: list[np.ndarray], probs: list[float], dim: int
+) -> tuple[float, list[np.ndarray]]:
+    """Return the closed-form Holevo-Helstrom solution for two-state minimum-error discrimination.
+
+    The optimal measurement is projective: it measures the sign of the Helstrom operator
+    ``delta = probs[0] * dms[0] - probs[1] * dms[1]``. The measurement onto its positive eigenspace
+    guesses the first state, its complement the second, and the optimal success probability is
+    ``(probs[0] tr(dms[0]) + probs[1] tr(dms[1]) + ||delta||_1) / 2``.
+
+    Args:
+        dms: The two states as density matrices.
+        probs: The two prior weights.
+        dim: The dimension of the states.
+
+    Returns:
+        The optimal value and the two-outcome POVM ``[M_0, M_1]`` as arrays.
+
+    """
+    delta = probs[0] * dms[0] - probs[1] * dms[1]
+    eigenvalues, eigenvectors = np.linalg.eigh(delta)
+
+    positive = eigenvalues > 0
+    if positive.any():
+        basis_positive = eigenvectors[:, positive]
+        m_0 = basis_positive @ basis_positive.conj().T
+    else:
+        m_0 = np.zeros((dim, dim), dtype=np.complex128)
+    m_1 = np.eye(dim, dtype=np.complex128) - m_0
+    measurements = [0.5 * (m + m.conj().T) for m in (m_0, m_1)]
+
+    trace_weight = probs[0] * np.real(np.trace(dms[0])) + probs[1] * np.real(np.trace(dms[1]))
+    value = float(0.5 * (trace_weight + np.sum(np.abs(eigenvalues))))
+    return value, measurements
 
 
 def _min_error_primal(

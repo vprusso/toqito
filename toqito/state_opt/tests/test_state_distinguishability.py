@@ -5,7 +5,7 @@ import pytest
 
 from toqito.matrices import standard_basis
 from toqito.matrix_ops import to_density_matrix
-from toqito.state_opt import state_distinguishability
+from toqito.state_opt import state_distinguishability, state_distinguishability_certificate
 from toqito.states import bb84, bell
 
 e_0, e_1 = standard_basis(2)
@@ -238,3 +238,53 @@ def test_state_distinguishability_ppt_dual_rejects_unambiguous():
             primal_dual="dual",
             strategy="unambiguous",
         )
+
+
+def test_two_state_closed_form_matches_sdp_and_helstrom():
+    """The n=2 fast path matches both the SDP and the Holevo-Helstrom formula, pure and mixed."""
+    e_0, e_1 = standard_basis(2)
+    cases = [
+        ([e_0, (e_0 + e_1) / np.sqrt(2)], [0.5, 0.5]),
+        ([e_0, (e_0 + e_1) / np.sqrt(2)], [0.7, 0.3]),
+        ([to_density_matrix(e_0), to_density_matrix((e_0 + e_1) / np.sqrt(2))], [0.4, 0.6]),
+    ]
+    for vectors, probs in cases:
+        dms = [to_density_matrix(v) for v in vectors]
+        delta = probs[0] * dms[0] - probs[1] * dms[1]
+        helstrom = 0.5 * (probs[0] + probs[1] + np.sum(np.abs(np.linalg.eigvalsh(delta))))
+        val, measurements = state_distinguishability(vectors, probs=probs, strategy="min_error")
+        assert abs(val - helstrom) <= 1e-8
+        # A valid two-outcome POVM.
+        assert np.allclose(sum(measurements), np.eye(2), atol=1e-9)
+        for m in measurements:
+            assert np.min(np.linalg.eigvalsh(m)) >= -1e-9
+
+
+def test_two_state_closed_form_independent_of_primal_dual():
+    """The closed form is returned for both primal and dual requests, with the same value."""
+    e_0, e_1 = standard_basis(2)
+    vectors = [e_0, (e_0 + e_1) / np.sqrt(2)]
+    val_primal, _ = state_distinguishability(vectors, primal_dual="primal")
+    val_dual, _ = state_distinguishability(vectors, primal_dual="dual")
+    assert abs(val_primal - val_dual) <= 1e-9
+
+
+def test_certificate_satisfies_ykl_conditions():
+    """The certificate reports optimality, and tr(Y) equals the optimal value."""
+    e_0, e_1 = standard_basis(2)
+    for vectors in ([e_0, (e_0 + e_1) / np.sqrt(2)], [e_0, e_1, (e_0 + e_1) / np.sqrt(2)]):
+        cert = state_distinguishability_certificate(vectors)
+        assert cert["conditions_satisfied"] is True
+        assert abs(np.real(np.trace(cert["holevo_operator"])) - cert["value"]) <= 1e-6
+        val, _ = state_distinguishability(vectors, strategy="min_error", primal_dual="primal")
+        assert abs(cert["value"] - val) <= 1e-6
+
+
+def test_certificate_flags_a_suboptimal_measurement():
+    """A deliberately wrong Holevo operator fails the positive-semidefiniteness condition."""
+    e_0, e_1 = standard_basis(2)
+    dms = [to_density_matrix(e_0), to_density_matrix(e_1)]
+    probs = [0.5, 0.5]
+    # The all-zero operator is not >= p_i rho_i, so the YKL PSD condition must fail.
+    residual = np.zeros((2, 2), dtype=complex) - probs[0] * dms[0]
+    assert np.min(np.linalg.eigvalsh(residual)) < -1e-6
