@@ -106,8 +106,8 @@ def state_distinguishability(
         \qquad (i = 1, \ldots, n).
     \]
 
-    The optimal value equals \(\operatorname{Tr}(Y)\). To recover \(Y\) and check these conditions,
-    see :func:`state_distinguishability_certificate`; rounding \(Y\) to an exact matrix is the usual
+    The optimal value equals \(\operatorname{Tr}(Y)\). Given the measurement this function returns,
+    \(Y\) is recovered as \(\sum_i p_i \rho_i M_i\); rounding it to an exact matrix is the usual
     route to proving a conjectured closed-form optimum.
 
     Args:
@@ -286,70 +286,6 @@ def state_distinguishability(
         return _unambiguous_primal(vectors=vectors, dim=dim, probs=probs, solver=solver, **kwargs)
 
     return _unambiguous_dual(vectors=vectors, probs=probs, solver=solver, **kwargs)
-
-
-def state_distinguishability_certificate(
-    vectors: list[np.ndarray],
-    probs: list[float] | None = None,
-    solver: str = "cvxopt",
-    tol: float = 1e-6,
-    **kwargs: Any,
-) -> dict[str, Any]:
-    r"""Minimum-error discrimination with its Holevo-Helstrom optimality certificate.
-
-    Alongside the optimal value and measurement, this returns the Holevo operator
-    \(Y = \sum_i p_i \rho_i M_i\) and reports whether the Yuen-Kennedy-Lax conditions
-
-    \[
-        Y - p_i \rho_i \geq 0 \quad \text{and} \quad (Y - p_i \rho_i) M_i = 0
-    \]
-
-    hold to tolerance `tol`. These conditions are necessary and sufficient for optimality, so
-    \(Y\) is the object to round to an exact matrix when proving a conjectured closed-form optimum.
-
-    Args:
-        vectors: The states as vectors (pure) or density matrices (mixed).
-        probs: Prior weights; a uniform distribution is assumed if omitted.
-        solver: Solver passed to `picos` for the \(n > 2\) case (`n = 2` is closed form).
-        tol: Tolerance for the positive-semidefiniteness and complementary-slackness checks.
-        kwargs: Additional arguments forwarded to the solver.
-
-    Returns:
-        A dictionary with keys `value`, `measurements`, `holevo_operator`, and
-        `conditions_satisfied`.
-
-    Raises:
-        ValueError: If the vectors do not all share the same dimension.
-
-    """
-    if not has_same_dimension(vectors):
-        raise ValueError("Vectors for state distinguishability must all have the same dimension.")
-
-    n = len(vectors)
-    probs = [1 / n] * n if probs is None else probs
-    dim = calculate_vector_matrix_dimension(vectors[0])
-    dms = [to_density_matrix(vector) for vector in vectors]
-
-    if n == 2:
-        value, measurements = _min_error_two_state_closed_form(dms, probs, dim)
-    else:
-        value, measurement_vars = _min_error_primal(vectors=vectors, dim=dim, probs=probs, solver=solver, **kwargs)
-        measurements = [np.array(m.value, dtype=np.complex128) for m in measurement_vars]
-
-    # Holevo operator Y = sum_i p_i rho_i M_i (symmetrized; rho_i M_i need not be Hermitian).
-    holevo_operator = sum(probs[i] * dms[i] @ measurements[i] for i in range(n))
-    holevo_operator = 0.5 * (holevo_operator + holevo_operator.conj().T)
-
-    residuals = [holevo_operator - probs[i] * dms[i] for i in range(n)]
-    is_psd = all(np.min(np.linalg.eigvalsh(residual)) >= -tol for residual in residuals)
-    max_slack = max(float(np.max(np.abs(residuals[i] @ measurements[i]))) for i in range(n))
-
-    return {
-        "value": value,
-        "measurements": measurements,
-        "holevo_operator": holevo_operator,
-        "conditions_satisfied": bool(is_psd and max_slack <= tol),
-    }
 
 
 def _validate_ppt_params(dim: int, subsystems: list[int] | None, dimensions: list[int] | None) -> None:

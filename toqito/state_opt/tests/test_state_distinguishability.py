@@ -5,7 +5,7 @@ import pytest
 
 from toqito.matrices import standard_basis
 from toqito.matrix_ops import to_density_matrix
-from toqito.state_opt import state_distinguishability, state_distinguishability_certificate
+from toqito.state_opt import state_distinguishability
 from toqito.states import bb84, bell
 
 e_0, e_1 = standard_basis(2)
@@ -267,24 +267,3 @@ def test_two_state_closed_form_independent_of_primal_dual():
     val_primal, _ = state_distinguishability(vectors, primal_dual="primal")
     val_dual, _ = state_distinguishability(vectors, primal_dual="dual")
     assert abs(val_primal - val_dual) <= 1e-9
-
-
-def test_certificate_satisfies_ykl_conditions():
-    """The certificate reports optimality, and tr(Y) equals the optimal value."""
-    e_0, e_1 = standard_basis(2)
-    for vectors in ([e_0, (e_0 + e_1) / np.sqrt(2)], [e_0, e_1, (e_0 + e_1) / np.sqrt(2)]):
-        cert = state_distinguishability_certificate(vectors)
-        assert cert["conditions_satisfied"] is True
-        assert abs(np.real(np.trace(cert["holevo_operator"])) - cert["value"]) <= 1e-6
-        val, _ = state_distinguishability(vectors, strategy="min_error", primal_dual="primal")
-        assert abs(cert["value"] - val) <= 1e-6
-
-
-def test_certificate_flags_a_suboptimal_measurement():
-    """A deliberately wrong Holevo operator fails the positive-semidefiniteness condition."""
-    e_0, e_1 = standard_basis(2)
-    dms = [to_density_matrix(e_0), to_density_matrix(e_1)]
-    probs = [0.5, 0.5]
-    # The all-zero operator is not >= p_i rho_i, so the YKL PSD condition must fail.
-    residual = np.zeros((2, 2), dtype=complex) - probs[0] * dms[0]
-    assert np.min(np.linalg.eigvalsh(residual)) < -1e-6
