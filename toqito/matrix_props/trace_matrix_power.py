@@ -50,13 +50,31 @@ def trace_matrix_power(mat_a: np.ndarray | cvxpy.Expression, t: float, mat_c: np
         ValueError: If affine or variable CVXPY inputs are passed.
 
     Examples:
-        ```python
+        With \(C = I\) the result is the sum of the eigenvalues of \(A\) raised to
+        \(t\). For \(A\) with eigenvalues \(1\) and \(3\) and \(t = 1/2\), that is
+        \(1 + \sqrt{3}\).
+
+        ```python exec="1" source="above" result="text"
         import numpy as np
         from toqito.matrix_props import trace_matrix_power
+
         mat_a = np.array([[2.0, 1.0], [1.0, 2.0]])
-        t = 0.5
-        mat_c = np.array([[1, 0], [0, 1]])
-        print(trace_matrix_power(mat_a, t, mat_c))
+
+        print(trace_matrix_power(mat_a, 0.5))
+        ```
+
+        A weight matrix \(C\) selects part of that sum. Taking
+        \(C = \operatorname{diag}(1, 0)\) keeps only the first diagonal entry of
+        \(A^{1/2}\).
+
+        ```python exec="1" source="above" result="text"
+        import numpy as np
+        from toqito.matrix_props import trace_matrix_power
+
+        mat_a = np.array([[2.0, 1.0], [1.0, 2.0]])
+        mat_c = np.diag([1.0, 0.0])
+
+        print(trace_matrix_power(mat_a, 0.5, mat_c))
         ```
 
     """
