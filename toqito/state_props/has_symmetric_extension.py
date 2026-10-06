@@ -5,9 +5,9 @@ import warnings
 import cvxpy
 import numpy as np
 
-from toqito.matrix_ops import partial_trace, partial_transpose
+from toqito.matrix_ops import partial_trace
 from toqito.matrix_props import is_positive_semidefinite
-from toqito.perms import symmetric_projection
+from toqito.state_opt._symmetric_extension import symmetric_extension_sdp
 from toqito.state_props.is_ppt import is_ppt
 
 
@@ -144,23 +144,10 @@ def has_symmetric_extension(
     # We solve a feasibility SDP: find sigma on X ⊗ Y^⊗level such that
     # tr_{Y_2,...,Y_level}(sigma) = rho, sigma >= 0, sigma is symmetric
     # under permutations of Y copies, and (optionally) PPT constraints hold.
-    dim_list = np.array([dim_x] + [dim_y] * level, dtype=int)
-    sys_list = list(range(2, 2 + level - 1))
-    sym = symmetric_projection(dim_y, level)
-    dim_total = int(np.prod(dim_list))
-
-    sigma = cvxpy.Variable((dim_total, dim_total), hermitian=True)
-
-    constraints = [
-        partial_trace(sigma, sys_list, dim_list) == rho,
-        sigma >> 0,
-        np.kron(np.identity(dim_x), sym) @ sigma @ np.kron(np.identity(dim_x), sym) == sigma,
-    ]
-
-    if ppt:
-        constraints.append(partial_transpose(sigma, [0], dim_list) >> 0)
-        for sys in range(level - 1):
-            constraints.append(partial_transpose(sigma, [sys + 2], dim_list) >> 0)
+    # The extension is parameterized directly on X ⊗ Sym^level(Y), which enforces
+    # the symmetry and keeps every PSD cone on the reduced space.
+    _, marginal, constraints = symmetric_extension_sdp(dim_x, dim_y, level, ppt)
+    constraints.append(marginal == rho)
 
     with warnings.catch_warnings():
         warnings.filterwarnings("ignore", message="Constraint.*subexpressions")
