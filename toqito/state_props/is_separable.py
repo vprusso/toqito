@@ -493,7 +493,11 @@ def is_separable(
     # if they are determined to be "weakly irreducible", as per Cariello [@cariello2013separability]
     # and QETLAB's implementation. This is distinct from this pure state check.)
     if state_rank == 1:
-        s_rank = schmidt_rank(current_state, dims_list)
+        # Recover the state vector and compute its Schmidt rank. Passing the density matrix itself
+        # to `schmidt_rank` would return the operator Schmidt rank, which for a pure state is the
+        # square of the Schmidt rank (e.g. 4 instead of 2 for a Bell state).
+        _, eigenvectors = np.linalg.eigh(current_state)
+        s_rank = schmidt_rank(eigenvectors[:, -1], dims_list)
         if s_rank == 1:
             return True, "pure state with Schmidt rank 1"
         return False, f"pure state with Schmidt rank {int(s_rank)} > 1"
