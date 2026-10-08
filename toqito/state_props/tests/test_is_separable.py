@@ -2147,3 +2147,38 @@ def test_sorted_real_eigs_desc_returns_none_when_both_solvers_fail():
         mock.patch("numpy.linalg.eigvals", side_effect=np.linalg.LinAlgError("no convergence")),
     ):
         assert _sorted_real_eigs_desc(np.diag([0.5, 0.3, 0.2])) is None
+
+
+@pytest.mark.parametrize(
+    "vec, dims, expected_sep, expected_rank",
+    [
+        # Product state |0>|1>.
+        (np.kron(basis(2, 0), basis(2, 1)), [2, 2], True, 1),
+        # Bell state on 2x2.
+        (bell(0), [2, 2], False, 2),
+        # Maximally entangled state on 3x3.
+        (max_entangled(3, False, False), [3, 3], False, 3),
+        # Product state on 2x3 (unequal dimensions), previously reported as entangled.
+        (np.kron(np.array([[1], [2]]) / np.sqrt(5), np.array([[1], [2], [3]]) / np.sqrt(14)), [2, 3], True, 1),
+        # Partially entangled state on 2x3 with two non-zero Schmidt coefficients.
+        (
+            (np.sqrt(0.7) * np.kron(basis(2, 0), basis(3, 0)) + np.sqrt(0.3) * np.kron(basis(2, 1), basis(3, 2))),
+            [2, 3],
+            False,
+            2,
+        ),
+    ],
+)
+def test_pure_state_reports_schmidt_rank_not_operator_schmidt_rank(vec, dims, expected_sep, expected_rank):
+    """The pure-state branch reports the Schmidt rank of the vector, not the operator Schmidt rank.
+
+    The operator Schmidt rank of a pure state is the square of its Schmidt rank, so a Bell state was
+    previously reported as having "Schmidt rank 4".
+    """
+    rho = vec @ vec.conj().T
+    separable, reason = is_separable(rho, dims)
+    assert separable is expected_sep
+    if expected_sep:
+        assert reason == "pure state with Schmidt rank 1"
+    else:
+        assert reason == f"pure state with Schmidt rank {expected_rank} > 1"
