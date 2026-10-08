@@ -4,7 +4,7 @@ import numpy as np
 import pytest
 
 from toqito.state_props import has_symmetric_extension
-from toqito.states import bell, max_entangled
+from toqito.states import bell, horodecki, isotropic, max_entangled
 
 # Maximally entangled qutrit state (3x3 system, reaches SDP path since dim > 6).
 _psi_qutrit = max_entangled(3)
@@ -40,6 +40,14 @@ _rho_qutrit_ent = _psi_qutrit @ _psi_qutrit.conj().T
         (np.identity(9) / 9, 2, None, True, True),
         # Entangled qutrit (3x3, SDP path) without PPT constraint should not have symmetric extension.
         (_rho_qutrit_ent, 2, None, False, False),
+        # Entangled isotropic qutrit state is not PPT-2-extendible.
+        (isotropic(3, 0.3), 2, None, True, False),
+        # Isotropic qutrit state with a non-PPT 3-copy extension.
+        (isotropic(3, 0.3), 3, None, False, True),
+        # Bound entangled (PPT) Horodecki state is detected at level 3.
+        (horodecki(0.5), 3, None, True, False),
+        # Unequal subsystem dimensions (3x2) at level 3.
+        (np.identity(6) / 6, 3, 3, False, True),
     ],
 )
 def test_has_symmetric_extension(rho, level, dim, ppt, expected_result):

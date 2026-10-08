@@ -5,8 +5,7 @@ import warnings
 import cvxpy
 import numpy as np
 
-from toqito.matrix_ops import partial_trace, partial_transpose
-from toqito.perms import symmetric_projection
+from toqito.state_opt._symmetric_extension import symmetric_extension_sdp
 
 
 def symmetric_extension_hierarchy(
@@ -72,8 +71,9 @@ def symmetric_extension_hierarchy(
     At level 1 this recovers the PPT exclusion value, and as the level increases it gives a
     non-decreasing lower bound on the separable exclusion error -- in contrast to the
     distinguishability case, where the hierarchy yields an upper bound that decreases with the
-    level. In the implementation, `meas[k]` is the measurement operator \(\mu(k)\), `x_var[k]` is
-    its symmetric extension \(X_k\), and `sym` is the symmetric projector \(\Pi\).
+    level. In the implementation, `meas[k]` is the measurement operator \(\mu(k)\). Its symmetric
+    extension \(X_k\) is parameterized directly on the range of
+    \(\mathbb{I}_{\mathcal{X}} \otimes \Pi\), so the projector constraint holds by construction.
 
     Args:
         states: A list of states provided as either matrices or vectors.
@@ -180,7 +180,6 @@ def symmetric_extension_hierarchy(
     """
     obj_func = []
     meas = []
-    x_var = []
     constraints = []
 
     if objective not in ("distinguish", "exclude"):
@@ -213,24 +212,14 @@ def symmetric_extension_hierarchy(
 
     dim_x, dim_y = int(dim[0]), int(dim[1])
 
-    dim_list = np.array([dim_x] + [dim_y] * level, dtype=int)
-    # The `sys_list` variable contains the numbering pertaining to the symmetrically extended
-    # spaces.
-    sys_list = list(range(2, 2 + level - 1))
-    sym = symmetric_projection(dim_y, level)
-
-    dim_xyy = np.prod(dim_list)
-    i_kron_sym = np.kron(np.identity(dim_x), sym)
     for k, item in enumerate(states):
         meas.append(cvxpy.Variable((dim_xy, dim_xy), hermitian=True))
-        x_var.append(cvxpy.Variable((dim_xyy, dim_xyy), hermitian=True))
-        constraints.append(partial_trace(x_var[k], sys_list, dim_list) == meas[k])
-        constraints.append(x_var[k] >> 0)
+        # The extension X_k is parameterized on X ⊗ Sym^level(Y), which enforces the symmetric
+        # projector constraint and keeps the PSD and PPT cones on the reduced space.
+        _, marginal, ext_constraints = symmetric_extension_sdp(dim_x, dim_y, level)
+        constraints.extend(ext_constraints)
+        constraints.append(marginal == meas[k])
         constraints.append(meas[k] >> 0)
-        constraints.append(i_kron_sym @ x_var[k] @ i_kron_sym == x_var[k])
-        constraints.append(partial_transpose(x_var[k], [0], dim_list) >> 0)
-        for sys in range(level - 1):
-            constraints.append(partial_transpose(x_var[k], [sys + 2], dim_list) >> 0)
 
         obj_func.append(probs[k] * cvxpy.trace(item.conj().T @ meas[k]))
 
