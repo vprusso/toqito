@@ -8,6 +8,7 @@ import pytest
 from scipy.linalg import LinAlgError
 
 from toqito.channel_metrics.channel_relative_entropy import channel_relative_entropy
+from toqito.channel_ops import kraus_to_choi
 from toqito.channels import depolarizing, pauli_channel
 from toqito.perms import swap_operator
 from toqito.state_props.integral_relative_entropy import _sandwich_parameters
@@ -155,6 +156,21 @@ def test_channel_1_must_be_quantum_channel():
             in_dim=2,
             epsilon_dec=0.2,
         )
+
+
+def test_channel_1_with_unequal_input_output_dimensions():
+    """A channel from a qubit to a qutrit is accepted as channel_1 when in_dim is given."""
+    # channel_1 embeds a qubit into a qutrit with the isometry V = |0><0| + |1><1|. channel_2 mixes it equally with
+    # the replacement channel rho -> Tr(rho) I_3 / 3. For a maximally entangled input, the output of channel_1 is
+    # pure and is an eigenvector of the output of channel_2 with eigenvalue 1/2 + 1/12 = 7/12, so the relative
+    # entropy there is -ln(7/12).
+    isometry = np.array([[1, 0], [0, 1], [0, 0]])
+    choi_1 = kraus_to_choi([isometry])
+    choi_2 = (choi_1 + np.kron(np.identity(2), np.identity(3) / 3)) / 2
+
+    avg = channel_relative_entropy(choi_1, choi_2, in_dim=2, mean=True)
+
+    assert avg == pytest.approx(-np.log(7 / 12), abs=2e-2)
 
 
 def test_channel_2_must_be_completely_positive():
