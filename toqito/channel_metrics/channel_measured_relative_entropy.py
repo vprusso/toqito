@@ -99,7 +99,7 @@ def channel_measured_relative_entropy(
         ```
 
     """
-    if not is_quantum_channel(channel_1):
+    if not is_quantum_channel(channel_1, dim=[in_dim, len(channel_1) // in_dim]):
         raise ValueError("Measured relative entropy is only defined if channel_1 is a quantum channel.")
     if not is_completely_positive(channel_2):
         raise ValueError("Measured relative entropy is only defined if channel_2 is a completely positive map.")
