@@ -3,6 +3,7 @@
 import numpy as np
 
 from toqito.channel_ops import partial_channel
+from toqito.channel_props._kraus_format import normalize_kraus
 from toqito.channel_props.channel_dim import channel_dim
 from toqito.states import max_entangled
 
@@ -68,12 +69,10 @@ def kraus_to_choi(kraus_ops: list[np.ndarray] | list[list[np.ndarray]], sys: int
         # Fast path for the default convention (apply the channel to the second subsystem of the unnormalized
         # maximally entangled state). The Choi matrix is then sum_i vec(A_i) vec(B_i)^dagger, where vec stacks the
         # columns of an operator. This avoids building the entangled state and the dense Kronecker products that the
-        # general partial_channel path uses. For a flat completely-positive list [K_1, ...], B_i = A_i.
-        if isinstance(kraus_ops[0], np.ndarray):
-            left = right = np.stack([np.asarray(k, dtype=complex) for k in kraus_ops])
-        else:
-            left = np.stack([np.asarray(pair[0], dtype=complex) for pair in kraus_ops])
-            right = np.stack([np.asarray(pair[1], dtype=complex) for pair in kraus_ops])
+        # general partial_channel path uses. For the completely-positive forms, B_i = A_i.
+        left_ops, right_ops, is_cp = normalize_kraus(kraus_ops)
+        left = np.stack([np.asarray(k, dtype=complex) for k in left_ops])
+        right = left if is_cp else np.stack([np.asarray(k, dtype=complex) for k in right_ops])
         # Column-major vectorization of each operator: transpose to (r, d_in, d_out) then flatten the last two axes.
         v_left = left.transpose(0, 2, 1).reshape(left.shape[0], -1)
         v_right = right.transpose(0, 2, 1).reshape(right.shape[0], -1)
