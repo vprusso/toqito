@@ -166,3 +166,16 @@ def test_kraus_to_choi_general_sys_branch():
     herm = (choi + choi.conj().T) / 2
     np.testing.assert_allclose(choi, herm)
     assert np.linalg.eigvalsh(herm).min() > -1e-10
+
+
+@pytest.mark.parametrize(
+    "wrap", [lambda ops: [[k] for k in ops], lambda ops: [ops]], ids=["one_per_wrapper", "single_wrapper"]
+)
+def test_kraus_to_choi_wrapped_cp_formats(wrap):
+    """The wrapped CP forms [[K1], [K2], ...] and [[K1, K2, K3]] match the flat list."""
+    kraus_ops = [
+        np.sqrt(1 / 3) * np.eye(2),
+        np.sqrt(1 / 3) * np.array([[0, 1], [1, 0]]),
+        np.sqrt(1 / 3) * np.diag([1, -1]),
+    ]
+    np.testing.assert_allclose(kraus_to_choi(wrap(kraus_ops)), kraus_to_choi(kraus_ops))
