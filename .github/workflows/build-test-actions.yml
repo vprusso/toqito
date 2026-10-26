@@ -1,7 +1,8 @@
 name: check-build
+# Least privilege at the workflow level; id-token is granted only to the job that
+# needs it for codecov's OIDC upload (see the toqito-pytest job below).
 permissions:
   contents: read
-  id-token: write
 
 on:
   pull_request:
@@ -20,7 +21,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       # Pin ruff to the version in pyproject so CI formatting matches local/pre-commit.
-      - uses: astral-sh/ruff-action@v3
+      - uses: astral-sh/ruff-action@4919ec5cf1f49eff0871dbcea0da843445b837e6 # v3
         with:
           version: "0.16.0"
       # Check only (no --fix / no in-place format): style and format violations must fail CI
@@ -28,7 +29,7 @@ jobs:
       - run: ruff check
       - run: ruff format --check
       - name: Install uv
-        uses: astral-sh/setup-uv@v7
+        uses: astral-sh/setup-uv@37802adc94f370d6bfd71619e3f0bf239e1f3b78 # v7
         with:
           enable-cache: true
       # Run the ty type checker for visibility. Non-blocking for now: there is a large backlog of existing
@@ -38,6 +39,10 @@ jobs:
         run: uv run --group lint ty check toqito
 
   toqito-pytest:
+    # id-token is needed here for codecov's OIDC upload; the code-style job does not get it.
+    permissions:
+      contents: read
+      id-token: write
     strategy:
       fail-fast: false
       matrix:
@@ -68,7 +73,7 @@ jobs:
         run: |
           brew install openblas lapack suite-sparse
       - name: Install uv
-        uses: astral-sh/setup-uv@v7
+        uses: astral-sh/setup-uv@37802adc94f370d6bfd71619e3f0bf239e1f3b78 # v7
         with:
           enable-cache: true
       - name: Install toqito + dependencies
@@ -82,7 +87,7 @@ jobs:
         run: uv run pytest -v --runslow -n auto --dist worksteal --cov-config=.coveragerc --cov-report=xml --cov-report term-missing:skip-covered --cov=toqito
       - name: Upload coverage information
         if: matrix.python-version == '3.12' && matrix.os == 'ubuntu-latest'
-        uses: codecov/codecov-action@v7
+        uses: codecov/codecov-action@fb8b3582c8e4def4969c97caa2f19720cb33a72f # v7
         with:
           use_oidc: true
           # Coverage upload is informational; a transient codecov CLI/CDN or

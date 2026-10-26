@@ -42,7 +42,7 @@ jobs:
 
       - name: Install uv
         if: github.event.action != 'closed'
-        uses: astral-sh/setup-uv@v7
+        uses: astral-sh/setup-uv@37802adc94f370d6bfd71619e3f0bf239e1f3b78 # v7
 
       - name: Install dependencies with uv
         if: github.event.action != 'closed'
@@ -55,7 +55,7 @@ jobs:
           uv run mkdocs build --strict
 
       - name: Deploy PR preview
-        uses: rossjrw/pr-preview-action@v1
+        uses: rossjrw/pr-preview-action@ffa7509e91a3ec8dfc2e5536c4d5c1acdf7a6de9 # v1
         with:
           source-dir: docs/site/
           preview-branch: gh-pages
