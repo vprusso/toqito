@@ -219,7 +219,7 @@ All contributions, bug reports, bug fixes, documentation improvements, enhanceme
 A detailed overview of how to contribute can be found in the
 [contributing guide](https://vprusso.github.io/toqito/contributing-guide/).
 
-Chat with us in our |toqito⟩ channel on [Discord](http://discord.unitary.fund/). 
+Chat with us in our |toqito⟩ channel on [Discord](http://discord.unitary.foundation/). 
 
 ## License
 
