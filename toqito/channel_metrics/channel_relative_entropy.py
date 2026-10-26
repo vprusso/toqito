@@ -112,7 +112,7 @@ def channel_relative_entropy(
         hamiltonian = np.asarray(hamiltonian, dtype=complex)
     if hamiltonian.shape != (in_dim, in_dim):
         raise ValueError("The Hamiltonian must have shape (in_dim, in_dim).")
-    if not is_quantum_channel(channel_1):
+    if not is_quantum_channel(channel_1, dim=[in_dim, n // in_dim]):
         raise ValueError("Channel relative entropy is only defined if channel_1 is a quantum channel.")
     if not is_completely_positive(channel_2):
         raise ValueError("Channel relative entropy is only defined if channel_2 is completely positive.")

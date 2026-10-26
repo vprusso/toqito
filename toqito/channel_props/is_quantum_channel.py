@@ -2,7 +2,6 @@
 
 import numpy as np
 
-from toqito.channel_ops import kraus_to_choi
 from toqito.channel_props import is_completely_positive, is_trace_preserving
 
 
@@ -10,6 +9,7 @@ def is_quantum_channel(
     phi: np.ndarray | list[list[np.ndarray]],
     rtol: float = 1e-05,
     atol: float = 1e-08,
+    dim: list[int] | np.ndarray | None = None,
 ) -> bool:
     r"""Determine whether the given input is a quantum channel.
 
@@ -27,6 +27,9 @@ def is_quantum_channel(
         phi: The channel provided as either a Choi matrix or a list of Kraus operators.
         rtol: The relative tolerance parameter (default 1e-05).
         atol: The absolute tolerance parameter (default 1e-08).
+        dim: The input and output dimensions, only needed when `phi` is the Choi matrix of a channel whose
+            input and output dimensions differ. If `None`, they are assumed to be equal. Kraus operators already
+            carry their dimensions, so `dim` is not needed for them.
 
     Returns:
         `True` if the channel is a quantum channel, and `False` otherwise.
@@ -88,14 +91,12 @@ def is_quantum_channel(
             "phi must be either a numpy array (Choi matrix) or a list of Kraus operators "
             "(a flat list, or a list of [A, B] pairs)."
         )
-    if isinstance(phi, list):
-        phi = kraus_to_choi(phi)
 
     # A valid quantum channel is a superoperator that is both completely positive and
     # trace-preserving. A ValueError here means the input does not have a shape that can describe a
     # channel (e.g. dimensions that cannot be split), so it is not a quantum channel; other
     # exceptions indicate genuine problems and should surface rather than be hidden as a False.
     try:
-        return is_completely_positive(phi, rtol, atol) and is_trace_preserving(phi, rtol, atol)
+        return is_completely_positive(phi, rtol, atol) and is_trace_preserving(phi, rtol, atol, dim=dim)
     except ValueError:
         return False
