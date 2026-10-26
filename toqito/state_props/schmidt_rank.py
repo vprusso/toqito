@@ -96,7 +96,7 @@ def schmidt_rank(rho: np.ndarray, dim: int | list[int] | np.ndarray | None = Non
         dim = np.array([dim, len(rho) / dim], dtype=int)
         dim[1] = np.round(dim[1])
 
-    return np.linalg.matrix_rank(np.reshape(rho, dim[::-1]))
+    return np.linalg.matrix_rank(np.reshape(rho, dim))
 
 
 def _operator_schmidt_rank(rho: np.ndarray, dim: int | list[int] | np.ndarray | None = None) -> int | float:

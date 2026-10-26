@@ -68,3 +68,37 @@ def test_schmidt_rank_one_dimensional_vector():
     """A 1D (non-column) vector input is handled (covers the vector branch)."""
     bell_1d = np.array([1, 0, 0, 1]) / np.sqrt(2)
     assert schmidt_rank(bell_1d) == 2
+
+
+@pytest.mark.parametrize(
+    "vec, dim, expected_result",
+    [
+        # Product states with unequal subsystem dimensions have Schmidt rank 1.
+        (np.kron(np.array([[1], [2]]) / np.sqrt(5), np.array([[1], [0], [0]])), [2, 3], 1),
+        (np.kron(np.array([[1], [0]]), np.array([[1], [2], [3]]) / np.sqrt(14)), [2, 3], 1),
+        (np.kron(np.array([[1], [2], [3]]) / np.sqrt(14), np.array([[1], [1j]]) / np.sqrt(2)), [3, 2], 1),
+        # (|00> + |11>) / sqrt(2) embedded in 2x3 and 3x2 has Schmidt rank 2.
+        ((np.kron([[1], [0]], [[1], [0], [0]]) + np.kron([[0], [1]], [[0], [1], [0]])) / np.sqrt(2), [2, 3], 2),
+        ((np.kron([[1], [0], [0]], [[1], [0]]) + np.kron([[0], [1], [0]], [[0], [1]])) / np.sqrt(2), [3, 2], 2),
+        # Integer `dim` gives the dimension of the first subsystem.
+        ((np.kron([[1], [0]], [[1], [0], [0]]) + np.kron([[0], [1]], [[0], [1], [0]])) / np.sqrt(2), 2, 2),
+    ],
+)
+def test_schmidt_rank_unequal_dimensions(vec, dim, expected_result):
+    """Schmidt rank is correct when the two subsystems have different dimensions."""
+    assert schmidt_rank(vec, dim) == expected_result
+
+
+@pytest.mark.parametrize(
+    "vec, dims, expected_result",
+    [
+        # Product state on 2x3: operator Schmidt rank 1.
+        (np.kron(np.array([[1], [2]]) / np.sqrt(5), np.array([[1], [2], [3]]) / np.sqrt(14)), [2, 3], 1),
+        # Pure state with Schmidt rank 2 on 2x3: operator Schmidt rank 2**2 = 4.
+        ((np.kron([[1], [0]], [[1], [0], [0]]) + np.kron([[0], [1]], [[0], [1], [0]])) / np.sqrt(2), [2, 3], 4),
+    ],
+)
+def test_operator_schmidt_rank_unequal_dimensions(vec, dims, expected_result):
+    """Operator Schmidt rank is correct when the two subsystems have different dimensions."""
+    rho = vec @ vec.conj().T
+    assert schmidt_rank(rho, dims) == expected_result
