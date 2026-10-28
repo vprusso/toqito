@@ -10391,8 +10391,9 @@ objective is <em>minimized</em> rather than maximized,</p>
 <p>At level 1 this recovers the PPT exclusion value, and as the level increases it gives a
 non-decreasing lower bound on the separable exclusion error -- in contrast to the
 distinguishability case, where the hierarchy yields an upper bound that decreases with the
-level. In the implementation, <code>meas[k]</code> is the measurement operator <span class="arithmatex">\(\mu(k)\)</span>, <code>x_var[k]</code> is
-its symmetric extension <span class="arithmatex">\(X_k\)</span>, and <code>sym</code> is the symmetric projector <span class="arithmatex">\(\Pi\)</span>.</p>
+level. In the implementation, <code>meas[k]</code> is the measurement operator <span class="arithmatex">\(\mu(k)\)</span>. Its symmetric
+extension <span class="arithmatex">\(X_k\)</span> is parameterized directly on the range of
+<span class="arithmatex">\(\mathbb{I}_{\mathcal{X}} \otimes \Pi\)</span>, so the projector constraint holds by construction.</p>
 
 
 <p><span class="doc-section-title">Parameters:</span></p>
@@ -10575,7 +10576,8 @@ error already at the first level of the hierarchy.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>toqito/state_opt/symmetric_extension_hierarchy.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-12"> 12</a></span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-11"> 11</a></span>
+<span class="normal"><a href="#__codelineno-0-12"> 12</a></span>
 <span class="normal"><a href="#__codelineno-0-13"> 13</a></span>
 <span class="normal"><a href="#__codelineno-0-14"> 14</a></span>
 <span class="normal"><a href="#__codelineno-0-15"> 15</a></span>
@@ -10801,82 +10803,72 @@ error already at the first level of the hierarchy.</p>
 <span class="normal"><a href="#__codelineno-0-235">235</a></span>
 <span class="normal"><a href="#__codelineno-0-236">236</a></span>
 <span class="normal"><a href="#__codelineno-0-237">237</a></span>
-<span class="normal"><a href="#__codelineno-0-238">238</a></span>
-<span class="normal"><a href="#__codelineno-0-239">239</a></span>
-<span class="normal"><a href="#__codelineno-0-240">240</a></span>
-<span class="normal"><a href="#__codelineno-0-241">241</a></span>
-<span class="normal"><a href="#__codelineno-0-242">242</a></span>
-<span class="normal"><a href="#__codelineno-0-243">243</a></span>
-<span class="normal"><a href="#__codelineno-0-244">244</a></span>
-<span class="normal"><a href="#__codelineno-0-245">245</a></span>
-<span class="normal"><a href="#__codelineno-0-246">246</a></span>
-<span class="normal"><a href="#__codelineno-0-247">247</a></span>
-<span class="normal"><a href="#__codelineno-0-248">248</a></span>
-<span class="normal"><a href="#__codelineno-0-249">249</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-12" name="__codelineno-0-12"></a><span class="k">def</span><span class="w"> </span><span class="nf">symmetric_extension_hierarchy</span><span class="p">(</span>
-<a id="__codelineno-0-13" name="__codelineno-0-13"></a>    <span class="n">states</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span>
-<a id="__codelineno-0-14" name="__codelineno-0-14"></a>    <span class="n">probs</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-<a id="__codelineno-0-15" name="__codelineno-0-15"></a>    <span class="n">level</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
-<a id="__codelineno-0-16" name="__codelineno-0-16"></a>    <span class="n">dim</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-<a id="__codelineno-0-17" name="__codelineno-0-17"></a>    <span class="n">objective</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;distinguish&quot;</span><span class="p">,</span>
-<a id="__codelineno-0-18" name="__codelineno-0-18"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-<a id="__codelineno-0-19" name="__codelineno-0-19"></a><span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Compute optimal value of the symmetric extension hierarchy SDP [@navascues2008pure].</span>
-<a id="__codelineno-0-20" name="__codelineno-0-20"></a>
-<a id="__codelineno-0-21" name="__codelineno-0-21"></a><span class="sd">    The probability of distinguishing a given set of states via PPT measurements serves as a natural</span>
-<a id="__codelineno-0-22" name="__codelineno-0-22"></a><span class="sd">    upper bound to the value of obtaining via separable measurements. Due to the nature of separable</span>
-<a id="__codelineno-0-23" name="__codelineno-0-23"></a><span class="sd">    measurements, it is not possible to optimize directly over these objects via semidefinite</span>
-<a id="__codelineno-0-24" name="__codelineno-0-24"></a><span class="sd">    programming techniques.</span>
-<a id="__codelineno-0-25" name="__codelineno-0-25"></a>
-<a id="__codelineno-0-26" name="__codelineno-0-26"></a><span class="sd">    We can, however, construct a hierarchy of semidefinite programs that attains closer and closer</span>
-<a id="__codelineno-0-27" name="__codelineno-0-27"></a><span class="sd">    approximations at the separable value via the techniques described in [@navascues2008pure].</span>
-<a id="__codelineno-0-28" name="__codelineno-0-28"></a>
-<a id="__codelineno-0-29" name="__codelineno-0-29"></a><span class="sd">    The mathematical form of this hierarchy implemented here is explicitly given from equation 4.55</span>
-<a id="__codelineno-0-30" name="__codelineno-0-30"></a><span class="sd">    in [@cosentino2015quantum].</span>
-<a id="__codelineno-0-31" name="__codelineno-0-31"></a>
-<a id="__codelineno-0-32" name="__codelineno-0-32"></a><span class="sd">    \[</span>
-<a id="__codelineno-0-33" name="__codelineno-0-33"></a><span class="sd">        \begin{equation}</span>
-<a id="__codelineno-0-34" name="__codelineno-0-34"></a><span class="sd">            \begin{aligned}</span>
-<a id="__codelineno-0-35" name="__codelineno-0-35"></a><span class="sd">                \text{maximize:} \quad &amp; \sum_{k=1}^N p_k \langle \rho_k, \mu(k) \rangle, \\</span>
-<a id="__codelineno-0-36" name="__codelineno-0-36"></a><span class="sd">                \text{subject to:} \quad &amp; \sum_{k=1}^N \mu(k) =</span>
-<a id="__codelineno-0-37" name="__codelineno-0-37"></a><span class="sd">                                           \mathbb{I}_{\mathcal{X} \otimes \mathcal{Y}}, \\</span>
-<a id="__codelineno-0-38" name="__codelineno-0-38"></a><span class="sd">                                        &amp; \text{Tr}_{\mathcal{Y}_2 \otimes \ldots \otimes</span>
-<a id="__codelineno-0-39" name="__codelineno-0-39"></a><span class="sd">                                          \mathcal{Y}_s}(X_k) = \mu(k), \\</span>
-<a id="__codelineno-0-40" name="__codelineno-0-40"></a><span class="sd">                                        &amp; \left( \mathbb{I}_{\mathcal{X}} \otimes</span>
-<a id="__codelineno-0-41" name="__codelineno-0-41"></a><span class="sd">                                          \Pi_{\mathcal{Y} \circledvee \mathcal{Y}_2 \circledvee \ldots \circledvee</span>
-<a id="__codelineno-0-42" name="__codelineno-0-42"></a><span class="sd">                                          \mathcal{Y}_s} \right) X_k</span>
-<a id="__codelineno-0-43" name="__codelineno-0-43"></a><span class="sd">                                          \left(\mathbb{I}_{\mathcal{X}} \otimes</span>
-<a id="__codelineno-0-44" name="__codelineno-0-44"></a><span class="sd">                                          \Pi_{\mathcal{Y} \circledvee \mathcal{Y}_2 \circledvee \ldots \circledvee</span>
-<a id="__codelineno-0-45" name="__codelineno-0-45"></a><span class="sd">                                          \mathcal{Y}_s} \right)</span>
-<a id="__codelineno-0-46" name="__codelineno-0-46"></a><span class="sd">                                          = X_k \\</span>
-<a id="__codelineno-0-47" name="__codelineno-0-47"></a><span class="sd">                                        &amp; \text{T}_{\mathcal{X}}(X_k) \in \text{Pos}\left(</span>
-<a id="__codelineno-0-48" name="__codelineno-0-48"></a><span class="sd">                                            \mathcal{X} \otimes \mathcal{Y} \otimes \mathcal{Y}_2</span>
-<a id="__codelineno-0-49" name="__codelineno-0-49"></a><span class="sd">                                            \otimes \ldots \otimes \mathcal{Y}_s \right), \\</span>
-<a id="__codelineno-0-50" name="__codelineno-0-50"></a><span class="sd">                                        &amp; \text{T}_{\mathcal{Y}_2 \otimes \ldots \otimes</span>
-<a id="__codelineno-0-51" name="__codelineno-0-51"></a><span class="sd">                                            \mathcal{Y}_s}(X_k) \in \text{Pos}\left(</span>
-<a id="__codelineno-0-52" name="__codelineno-0-52"></a><span class="sd">                                            \mathcal{X} \otimes \mathcal{Y} \otimes \mathcal{Y}_2</span>
-<a id="__codelineno-0-53" name="__codelineno-0-53"></a><span class="sd">                                            \otimes \ldots \otimes \mathcal{Y}_s \right), \\</span>
-<a id="__codelineno-0-54" name="__codelineno-0-54"></a><span class="sd">                                        &amp; X_1, \ldots, X_N \in</span>
-<a id="__codelineno-0-55" name="__codelineno-0-55"></a><span class="sd">                                          \text{Pos}\left(\mathcal{X} \otimes \mathcal{Y} \otimes</span>
-<a id="__codelineno-0-56" name="__codelineno-0-56"></a><span class="sd">                                          \mathcal{Y}_2 \otimes \ldots \otimes \mathcal{Y}_s</span>
-<a id="__codelineno-0-57" name="__codelineno-0-57"></a><span class="sd">                                          \right).</span>
-<a id="__codelineno-0-58" name="__codelineno-0-58"></a><span class="sd">            \end{aligned}</span>
-<a id="__codelineno-0-59" name="__codelineno-0-59"></a><span class="sd">        \end{equation}</span>
-<a id="__codelineno-0-60" name="__codelineno-0-60"></a><span class="sd">    \]</span>
-<a id="__codelineno-0-61" name="__codelineno-0-61"></a>
-<a id="__codelineno-0-62" name="__codelineno-0-62"></a><span class="sd">    For state **exclusion**, set `objective=&quot;exclude&quot;`. The feasible region is identical; only the</span>
-<a id="__codelineno-0-63" name="__codelineno-0-63"></a><span class="sd">    objective is *minimized* rather than maximized,</span>
-<a id="__codelineno-0-64" name="__codelineno-0-64"></a>
-<a id="__codelineno-0-65" name="__codelineno-0-65"></a><span class="sd">    \[</span>
-<a id="__codelineno-0-66" name="__codelineno-0-66"></a><span class="sd">        \begin{equation}</span>
-<a id="__codelineno-0-67" name="__codelineno-0-67"></a><span class="sd">            \text{minimize:} \quad \sum_{k=1}^N p_k \langle \rho_k, \mu(k) \rangle</span>
-<a id="__codelineno-0-68" name="__codelineno-0-68"></a><span class="sd">            \quad \text{subject to the same constraints.}</span>
-<a id="__codelineno-0-69" name="__codelineno-0-69"></a><span class="sd">        \end{equation}</span>
-<a id="__codelineno-0-70" name="__codelineno-0-70"></a><span class="sd">    \]</span>
-<a id="__codelineno-0-71" name="__codelineno-0-71"></a>
-<a id="__codelineno-0-72" name="__codelineno-0-72"></a><span class="sd">    At level 1 this recovers the PPT exclusion value, and as the level increases it gives a</span>
-<a id="__codelineno-0-73" name="__codelineno-0-73"></a><span class="sd">    non-decreasing lower bound on the separable exclusion error -- in contrast to the</span>
-<a id="__codelineno-0-74" name="__codelineno-0-74"></a><span class="sd">    distinguishability case, where the hierarchy yields an upper bound that decreases with the</span>
-<a id="__codelineno-0-75" name="__codelineno-0-75"></a><span class="sd">    level. In the implementation, `meas[k]` is the measurement operator \(\mu(k)\), `x_var[k]` is</span>
-<a id="__codelineno-0-76" name="__codelineno-0-76"></a><span class="sd">    its symmetric extension \(X_k\), and `sym` is the symmetric projector \(\Pi\).</span>
+<span class="normal"><a href="#__codelineno-0-238">238</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-11" name="__codelineno-0-11"></a><span class="k">def</span><span class="w"> </span><span class="nf">symmetric_extension_hierarchy</span><span class="p">(</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12"></a>    <span class="n">states</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13"></a>    <span class="n">probs</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14"></a>    <span class="n">level</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15"></a>    <span class="n">dim</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16"></a>    <span class="n">objective</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;distinguish&quot;</span><span class="p">,</span>
+<a id="__codelineno-0-17" name="__codelineno-0-17"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<a id="__codelineno-0-18" name="__codelineno-0-18"></a><span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Compute optimal value of the symmetric extension hierarchy SDP [@navascues2008pure].</span>
+<a id="__codelineno-0-19" name="__codelineno-0-19"></a>
+<a id="__codelineno-0-20" name="__codelineno-0-20"></a><span class="sd">    The probability of distinguishing a given set of states via PPT measurements serves as a natural</span>
+<a id="__codelineno-0-21" name="__codelineno-0-21"></a><span class="sd">    upper bound to the value of obtaining via separable measurements. Due to the nature of separable</span>
+<a id="__codelineno-0-22" name="__codelineno-0-22"></a><span class="sd">    measurements, it is not possible to optimize directly over these objects via semidefinite</span>
+<a id="__codelineno-0-23" name="__codelineno-0-23"></a><span class="sd">    programming techniques.</span>
+<a id="__codelineno-0-24" name="__codelineno-0-24"></a>
+<a id="__codelineno-0-25" name="__codelineno-0-25"></a><span class="sd">    We can, however, construct a hierarchy of semidefinite programs that attains closer and closer</span>
+<a id="__codelineno-0-26" name="__codelineno-0-26"></a><span class="sd">    approximations at the separable value via the techniques described in [@navascues2008pure].</span>
+<a id="__codelineno-0-27" name="__codelineno-0-27"></a>
+<a id="__codelineno-0-28" name="__codelineno-0-28"></a><span class="sd">    The mathematical form of this hierarchy implemented here is explicitly given from equation 4.55</span>
+<a id="__codelineno-0-29" name="__codelineno-0-29"></a><span class="sd">    in [@cosentino2015quantum].</span>
+<a id="__codelineno-0-30" name="__codelineno-0-30"></a>
+<a id="__codelineno-0-31" name="__codelineno-0-31"></a><span class="sd">    \[</span>
+<a id="__codelineno-0-32" name="__codelineno-0-32"></a><span class="sd">        \begin{equation}</span>
+<a id="__codelineno-0-33" name="__codelineno-0-33"></a><span class="sd">            \begin{aligned}</span>
+<a id="__codelineno-0-34" name="__codelineno-0-34"></a><span class="sd">                \text{maximize:} \quad &amp; \sum_{k=1}^N p_k \langle \rho_k, \mu(k) \rangle, \\</span>
+<a id="__codelineno-0-35" name="__codelineno-0-35"></a><span class="sd">                \text{subject to:} \quad &amp; \sum_{k=1}^N \mu(k) =</span>
+<a id="__codelineno-0-36" name="__codelineno-0-36"></a><span class="sd">                                           \mathbb{I}_{\mathcal{X} \otimes \mathcal{Y}}, \\</span>
+<a id="__codelineno-0-37" name="__codelineno-0-37"></a><span class="sd">                                        &amp; \text{Tr}_{\mathcal{Y}_2 \otimes \ldots \otimes</span>
+<a id="__codelineno-0-38" name="__codelineno-0-38"></a><span class="sd">                                          \mathcal{Y}_s}(X_k) = \mu(k), \\</span>
+<a id="__codelineno-0-39" name="__codelineno-0-39"></a><span class="sd">                                        &amp; \left( \mathbb{I}_{\mathcal{X}} \otimes</span>
+<a id="__codelineno-0-40" name="__codelineno-0-40"></a><span class="sd">                                          \Pi_{\mathcal{Y} \circledvee \mathcal{Y}_2 \circledvee \ldots \circledvee</span>
+<a id="__codelineno-0-41" name="__codelineno-0-41"></a><span class="sd">                                          \mathcal{Y}_s} \right) X_k</span>
+<a id="__codelineno-0-42" name="__codelineno-0-42"></a><span class="sd">                                          \left(\mathbb{I}_{\mathcal{X}} \otimes</span>
+<a id="__codelineno-0-43" name="__codelineno-0-43"></a><span class="sd">                                          \Pi_{\mathcal{Y} \circledvee \mathcal{Y}_2 \circledvee \ldots \circledvee</span>
+<a id="__codelineno-0-44" name="__codelineno-0-44"></a><span class="sd">                                          \mathcal{Y}_s} \right)</span>
+<a id="__codelineno-0-45" name="__codelineno-0-45"></a><span class="sd">                                          = X_k \\</span>
+<a id="__codelineno-0-46" name="__codelineno-0-46"></a><span class="sd">                                        &amp; \text{T}_{\mathcal{X}}(X_k) \in \text{Pos}\left(</span>
+<a id="__codelineno-0-47" name="__codelineno-0-47"></a><span class="sd">                                            \mathcal{X} \otimes \mathcal{Y} \otimes \mathcal{Y}_2</span>
+<a id="__codelineno-0-48" name="__codelineno-0-48"></a><span class="sd">                                            \otimes \ldots \otimes \mathcal{Y}_s \right), \\</span>
+<a id="__codelineno-0-49" name="__codelineno-0-49"></a><span class="sd">                                        &amp; \text{T}_{\mathcal{Y}_2 \otimes \ldots \otimes</span>
+<a id="__codelineno-0-50" name="__codelineno-0-50"></a><span class="sd">                                            \mathcal{Y}_s}(X_k) \in \text{Pos}\left(</span>
+<a id="__codelineno-0-51" name="__codelineno-0-51"></a><span class="sd">                                            \mathcal{X} \otimes \mathcal{Y} \otimes \mathcal{Y}_2</span>
+<a id="__codelineno-0-52" name="__codelineno-0-52"></a><span class="sd">                                            \otimes \ldots \otimes \mathcal{Y}_s \right), \\</span>
+<a id="__codelineno-0-53" name="__codelineno-0-53"></a><span class="sd">                                        &amp; X_1, \ldots, X_N \in</span>
+<a id="__codelineno-0-54" name="__codelineno-0-54"></a><span class="sd">                                          \text{Pos}\left(\mathcal{X} \otimes \mathcal{Y} \otimes</span>
+<a id="__codelineno-0-55" name="__codelineno-0-55"></a><span class="sd">                                          \mathcal{Y}_2 \otimes \ldots \otimes \mathcal{Y}_s</span>
+<a id="__codelineno-0-56" name="__codelineno-0-56"></a><span class="sd">                                          \right).</span>
+<a id="__codelineno-0-57" name="__codelineno-0-57"></a><span class="sd">            \end{aligned}</span>
+<a id="__codelineno-0-58" name="__codelineno-0-58"></a><span class="sd">        \end{equation}</span>
+<a id="__codelineno-0-59" name="__codelineno-0-59"></a><span class="sd">    \]</span>
+<a id="__codelineno-0-60" name="__codelineno-0-60"></a>
+<a id="__codelineno-0-61" name="__codelineno-0-61"></a><span class="sd">    For state **exclusion**, set `objective=&quot;exclude&quot;`. The feasible region is identical; only the</span>
+<a id="__codelineno-0-62" name="__codelineno-0-62"></a><span class="sd">    objective is *minimized* rather than maximized,</span>
+<a id="__codelineno-0-63" name="__codelineno-0-63"></a>
+<a id="__codelineno-0-64" name="__codelineno-0-64"></a><span class="sd">    \[</span>
+<a id="__codelineno-0-65" name="__codelineno-0-65"></a><span class="sd">        \begin{equation}</span>
+<a id="__codelineno-0-66" name="__codelineno-0-66"></a><span class="sd">            \text{minimize:} \quad \sum_{k=1}^N p_k \langle \rho_k, \mu(k) \rangle</span>
+<a id="__codelineno-0-67" name="__codelineno-0-67"></a><span class="sd">            \quad \text{subject to the same constraints.}</span>
+<a id="__codelineno-0-68" name="__codelineno-0-68"></a><span class="sd">        \end{equation}</span>
+<a id="__codelineno-0-69" name="__codelineno-0-69"></a><span class="sd">    \]</span>
+<a id="__codelineno-0-70" name="__codelineno-0-70"></a>
+<a id="__codelineno-0-71" name="__codelineno-0-71"></a><span class="sd">    At level 1 this recovers the PPT exclusion value, and as the level increases it gives a</span>
+<a id="__codelineno-0-72" name="__codelineno-0-72"></a><span class="sd">    non-decreasing lower bound on the separable exclusion error -- in contrast to the</span>
+<a id="__codelineno-0-73" name="__codelineno-0-73"></a><span class="sd">    distinguishability case, where the hierarchy yields an upper bound that decreases with the</span>
+<a id="__codelineno-0-74" name="__codelineno-0-74"></a><span class="sd">    level. In the implementation, `meas[k]` is the measurement operator \(\mu(k)\). Its symmetric</span>
+<a id="__codelineno-0-75" name="__codelineno-0-75"></a><span class="sd">    extension \(X_k\) is parameterized directly on the range of</span>
+<a id="__codelineno-0-76" name="__codelineno-0-76"></a><span class="sd">    \(\mathbb{I}_{\mathcal{X}} \otimes \Pi\), so the projector constraint holds by construction.</span>
 <a id="__codelineno-0-77" name="__codelineno-0-77"></a>
 <a id="__codelineno-0-78" name="__codelineno-0-78"></a><span class="sd">    Args:</span>
 <a id="__codelineno-0-79" name="__codelineno-0-79"></a><span class="sd">        states: A list of states provided as either matrices or vectors.</span>
@@ -10983,73 +10975,62 @@ error already at the first level of the hierarchy.</p>
 <a id="__codelineno-0-180" name="__codelineno-0-180"></a><span class="sd">    &quot;&quot;&quot;</span>
 <a id="__codelineno-0-181" name="__codelineno-0-181"></a>    <span class="n">obj_func</span> <span class="o">=</span> <span class="p">[]</span>
 <a id="__codelineno-0-182" name="__codelineno-0-182"></a>    <span class="n">meas</span> <span class="o">=</span> <span class="p">[]</span>
-<a id="__codelineno-0-183" name="__codelineno-0-183"></a>    <span class="n">x_var</span> <span class="o">=</span> <span class="p">[]</span>
-<a id="__codelineno-0-184" name="__codelineno-0-184"></a>    <span class="n">constraints</span> <span class="o">=</span> <span class="p">[]</span>
-<a id="__codelineno-0-185" name="__codelineno-0-185"></a>
-<a id="__codelineno-0-186" name="__codelineno-0-186"></a>    <span class="k">if</span> <span class="n">objective</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;distinguish&quot;</span><span class="p">,</span> <span class="s2">&quot;exclude&quot;</span><span class="p">):</span>
-<a id="__codelineno-0-187" name="__codelineno-0-187"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Argument `objective` must be either &#39;distinguish&#39; or &#39;exclude&#39;.&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-188" name="__codelineno-0-188"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">states</span><span class="p">:</span>
-<a id="__codelineno-0-189" name="__codelineno-0-189"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;At least one state must be provided.&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-190" name="__codelineno-0-190"></a>    <span class="k">if</span> <span class="n">probs</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-<a id="__codelineno-0-191" name="__codelineno-0-191"></a>        <span class="n">probs</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">states</span><span class="p">)]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">states</span><span class="p">)</span>
-<a id="__codelineno-0-192" name="__codelineno-0-192"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">probs</span><span class="p">),</span> <span class="mi">1</span><span class="p">):</span>
-<a id="__codelineno-0-193" name="__codelineno-0-193"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Probabilities must sum to 1.&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-194" name="__codelineno-0-194"></a>
-<a id="__codelineno-0-195" name="__codelineno-0-195"></a>    <span class="n">dim_xy</span><span class="p">,</span> <span class="n">n_cols</span> <span class="o">=</span> <span class="n">states</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span>
-<a id="__codelineno-0-196" name="__codelineno-0-196"></a>
-<a id="__codelineno-0-197" name="__codelineno-0-197"></a>    <span class="c1"># The variable `states` is provided as a list of vectors. Transform them</span>
-<a id="__codelineno-0-198" name="__codelineno-0-198"></a>    <span class="c1"># into density matrices.</span>
-<a id="__codelineno-0-199" name="__codelineno-0-199"></a>    <span class="k">if</span> <span class="n">n_cols</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-<a id="__codelineno-0-200" name="__codelineno-0-200"></a>        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">state_ket</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">states</span><span class="p">):</span>
-<a id="__codelineno-0-201" name="__codelineno-0-201"></a>            <span class="n">states</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">state_ket</span> <span class="o">@</span> <span class="n">state_ket</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span>
-<a id="__codelineno-0-202" name="__codelineno-0-202"></a>
-<a id="__codelineno-0-203" name="__codelineno-0-203"></a>    <span class="c1"># Set default dimension if none was provided.</span>
-<a id="__codelineno-0-204" name="__codelineno-0-204"></a>    <span class="k">if</span> <span class="n">dim</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-<a id="__codelineno-0-205" name="__codelineno-0-205"></a>        <span class="n">dim</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">dim_xy</span><span class="p">)))</span>
-<a id="__codelineno-0-206" name="__codelineno-0-206"></a>
-<a id="__codelineno-0-207" name="__codelineno-0-207"></a>    <span class="c1"># Allow the user to enter in a single integer for dimension.</span>
-<a id="__codelineno-0-208" name="__codelineno-0-208"></a>    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dim</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
-<a id="__codelineno-0-209" name="__codelineno-0-209"></a>        <span class="n">dim</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">dim</span><span class="p">,</span> <span class="n">dim_xy</span> <span class="o">/</span> <span class="n">dim</span><span class="p">])</span>
-<a id="__codelineno-0-210" name="__codelineno-0-210"></a>        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">dim</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">dim</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span> <span class="o">&gt;=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">dim_xy</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">finfo</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span><span class="o">.</span><span class="n">eps</span><span class="p">:</span>
-<a id="__codelineno-0-211" name="__codelineno-0-211"></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;If `dim` is a scalar, it must evenly divide the length of the state.&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-212" name="__codelineno-0-212"></a>        <span class="n">dim</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">dim</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
-<a id="__codelineno-0-213" name="__codelineno-0-213"></a>
-<a id="__codelineno-0-214" name="__codelineno-0-214"></a>    <span class="n">dim_x</span><span class="p">,</span> <span class="n">dim_y</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">dim</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="nb">int</span><span class="p">(</span><span class="n">dim</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-<a id="__codelineno-0-215" name="__codelineno-0-215"></a>
-<a id="__codelineno-0-216" name="__codelineno-0-216"></a>    <span class="n">dim_list</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">dim_x</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="n">dim_y</span><span class="p">]</span> <span class="o">*</span> <span class="n">level</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
-<a id="__codelineno-0-217" name="__codelineno-0-217"></a>    <span class="c1"># The `sys_list` variable contains the numbering pertaining to the symmetrically extended</span>
-<a id="__codelineno-0-218" name="__codelineno-0-218"></a>    <span class="c1"># spaces.</span>
-<a id="__codelineno-0-219" name="__codelineno-0-219"></a>    <span class="n">sys_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">level</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
-<a id="__codelineno-0-220" name="__codelineno-0-220"></a>    <span class="n">sym</span> <span class="o">=</span> <span class="n">symmetric_projection</span><span class="p">(</span><span class="n">dim_y</span><span class="p">,</span> <span class="n">level</span><span class="p">)</span>
-<a id="__codelineno-0-221" name="__codelineno-0-221"></a>
-<a id="__codelineno-0-222" name="__codelineno-0-222"></a>    <span class="n">dim_xyy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">dim_list</span><span class="p">)</span>
-<a id="__codelineno-0-223" name="__codelineno-0-223"></a>    <span class="n">i_kron_sym</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">kron</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="n">dim_x</span><span class="p">),</span> <span class="n">sym</span><span class="p">)</span>
-<a id="__codelineno-0-224" name="__codelineno-0-224"></a>    <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">item</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">states</span><span class="p">):</span>
-<a id="__codelineno-0-225" name="__codelineno-0-225"></a>        <span class="n">meas</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cvxpy</span><span class="o">.</span><span class="n">Variable</span><span class="p">((</span><span class="n">dim_xy</span><span class="p">,</span> <span class="n">dim_xy</span><span class="p">),</span> <span class="n">hermitian</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
-<a id="__codelineno-0-226" name="__codelineno-0-226"></a>        <span class="n">x_var</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cvxpy</span><span class="o">.</span><span class="n">Variable</span><span class="p">((</span><span class="n">dim_xyy</span><span class="p">,</span> <span class="n">dim_xyy</span><span class="p">),</span> <span class="n">hermitian</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
-<a id="__codelineno-0-227" name="__codelineno-0-227"></a>        <span class="n">constraints</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">partial_trace</span><span class="p">(</span><span class="n">x_var</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">sys_list</span><span class="p">,</span> <span class="n">dim_list</span><span class="p">)</span> <span class="o">==</span> <span class="n">meas</span><span class="p">[</span><span class="n">k</span><span class="p">])</span>
-<a id="__codelineno-0-228" name="__codelineno-0-228"></a>        <span class="n">constraints</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x_var</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">&gt;&gt;</span> <span class="mi">0</span><span class="p">)</span>
-<a id="__codelineno-0-229" name="__codelineno-0-229"></a>        <span class="n">constraints</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">meas</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">&gt;&gt;</span> <span class="mi">0</span><span class="p">)</span>
-<a id="__codelineno-0-230" name="__codelineno-0-230"></a>        <span class="n">constraints</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i_kron_sym</span> <span class="o">@</span> <span class="n">x_var</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">@</span> <span class="n">i_kron_sym</span> <span class="o">==</span> <span class="n">x_var</span><span class="p">[</span><span class="n">k</span><span class="p">])</span>
-<a id="__codelineno-0-231" name="__codelineno-0-231"></a>        <span class="n">constraints</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">partial_transpose</span><span class="p">(</span><span class="n">x_var</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">dim_list</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="mi">0</span><span class="p">)</span>
-<a id="__codelineno-0-232" name="__codelineno-0-232"></a>        <span class="k">for</span> <span class="n">sys</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">level</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
-<a id="__codelineno-0-233" name="__codelineno-0-233"></a>            <span class="n">constraints</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">partial_transpose</span><span class="p">(</span><span class="n">x_var</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="p">[</span><span class="n">sys</span> <span class="o">+</span> <span class="mi">2</span><span class="p">],</span> <span class="n">dim_list</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="mi">0</span><span class="p">)</span>
-<a id="__codelineno-0-234" name="__codelineno-0-234"></a>
-<a id="__codelineno-0-235" name="__codelineno-0-235"></a>        <span class="n">obj_func</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">probs</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">*</span> <span class="n">cvxpy</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">meas</span><span class="p">[</span><span class="n">k</span><span class="p">]))</span>
-<a id="__codelineno-0-236" name="__codelineno-0-236"></a>
-<a id="__codelineno-0-237" name="__codelineno-0-237"></a>    <span class="n">constraints</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">meas</span><span class="p">)</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="n">dim_xy</span><span class="p">))</span>
-<a id="__codelineno-0-238" name="__codelineno-0-238"></a>
-<a id="__codelineno-0-239" name="__codelineno-0-239"></a>    <span class="c1"># For distinguishability we maximize the success probability; for exclusion we</span>
-<a id="__codelineno-0-240" name="__codelineno-0-240"></a>    <span class="c1"># minimize the error probability. The feasible region (symmetric extension + PPT</span>
-<a id="__codelineno-0-241" name="__codelineno-0-241"></a>    <span class="c1"># constraints) is identical in both cases.</span>
-<a id="__codelineno-0-242" name="__codelineno-0-242"></a>    <span class="n">obj_expr</span> <span class="o">=</span> <span class="n">cvxpy</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">obj_func</span><span class="p">))</span>
-<a id="__codelineno-0-243" name="__codelineno-0-243"></a>    <span class="n">problem_objective</span> <span class="o">=</span> <span class="n">cvxpy</span><span class="o">.</span><span class="n">Maximize</span><span class="p">(</span><span class="n">obj_expr</span><span class="p">)</span> <span class="k">if</span> <span class="n">objective</span> <span class="o">==</span> <span class="s2">&quot;distinguish&quot;</span> <span class="k">else</span> <span class="n">cvxpy</span><span class="o">.</span><span class="n">Minimize</span><span class="p">(</span><span class="n">obj_expr</span><span class="p">)</span>
-<a id="__codelineno-0-244" name="__codelineno-0-244"></a>    <span class="k">with</span> <span class="n">warnings</span><span class="o">.</span><span class="n">catch_warnings</span><span class="p">():</span>
-<a id="__codelineno-0-245" name="__codelineno-0-245"></a>        <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="s2">&quot;Constraint.*subexpressions&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-246" name="__codelineno-0-246"></a>        <span class="n">problem</span> <span class="o">=</span> <span class="n">cvxpy</span><span class="o">.</span><span class="n">Problem</span><span class="p">(</span><span class="n">problem_objective</span><span class="p">,</span> <span class="n">constraints</span><span class="p">)</span>
-<a id="__codelineno-0-247" name="__codelineno-0-247"></a>        <span class="n">sol_default</span> <span class="o">=</span> <span class="n">problem</span><span class="o">.</span><span class="n">solve</span><span class="p">()</span>
-<a id="__codelineno-0-248" name="__codelineno-0-248"></a>
-<a id="__codelineno-0-249" name="__codelineno-0-249"></a>    <span class="k">return</span> <span class="n">sol_default</span>
+<a id="__codelineno-0-183" name="__codelineno-0-183"></a>    <span class="n">constraints</span> <span class="o">=</span> <span class="p">[]</span>
+<a id="__codelineno-0-184" name="__codelineno-0-184"></a>
+<a id="__codelineno-0-185" name="__codelineno-0-185"></a>    <span class="k">if</span> <span class="n">objective</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;distinguish&quot;</span><span class="p">,</span> <span class="s2">&quot;exclude&quot;</span><span class="p">):</span>
+<a id="__codelineno-0-186" name="__codelineno-0-186"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Argument `objective` must be either &#39;distinguish&#39; or &#39;exclude&#39;.&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-187" name="__codelineno-0-187"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">states</span><span class="p">:</span>
+<a id="__codelineno-0-188" name="__codelineno-0-188"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;At least one state must be provided.&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-189" name="__codelineno-0-189"></a>    <span class="k">if</span> <span class="n">probs</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-0-190" name="__codelineno-0-190"></a>        <span class="n">probs</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">states</span><span class="p">)]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">states</span><span class="p">)</span>
+<a id="__codelineno-0-191" name="__codelineno-0-191"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">probs</span><span class="p">),</span> <span class="mi">1</span><span class="p">):</span>
+<a id="__codelineno-0-192" name="__codelineno-0-192"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Probabilities must sum to 1.&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-193" name="__codelineno-0-193"></a>
+<a id="__codelineno-0-194" name="__codelineno-0-194"></a>    <span class="n">dim_xy</span><span class="p">,</span> <span class="n">n_cols</span> <span class="o">=</span> <span class="n">states</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span>
+<a id="__codelineno-0-195" name="__codelineno-0-195"></a>
+<a id="__codelineno-0-196" name="__codelineno-0-196"></a>    <span class="c1"># The variable `states` is provided as a list of vectors. Transform them</span>
+<a id="__codelineno-0-197" name="__codelineno-0-197"></a>    <span class="c1"># into density matrices.</span>
+<a id="__codelineno-0-198" name="__codelineno-0-198"></a>    <span class="k">if</span> <span class="n">n_cols</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+<a id="__codelineno-0-199" name="__codelineno-0-199"></a>        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">state_ket</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">states</span><span class="p">):</span>
+<a id="__codelineno-0-200" name="__codelineno-0-200"></a>            <span class="n">states</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">state_ket</span> <span class="o">@</span> <span class="n">state_ket</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span>
+<a id="__codelineno-0-201" name="__codelineno-0-201"></a>
+<a id="__codelineno-0-202" name="__codelineno-0-202"></a>    <span class="c1"># Set default dimension if none was provided.</span>
+<a id="__codelineno-0-203" name="__codelineno-0-203"></a>    <span class="k">if</span> <span class="n">dim</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-0-204" name="__codelineno-0-204"></a>        <span class="n">dim</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">dim_xy</span><span class="p">)))</span>
+<a id="__codelineno-0-205" name="__codelineno-0-205"></a>
+<a id="__codelineno-0-206" name="__codelineno-0-206"></a>    <span class="c1"># Allow the user to enter in a single integer for dimension.</span>
+<a id="__codelineno-0-207" name="__codelineno-0-207"></a>    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dim</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+<a id="__codelineno-0-208" name="__codelineno-0-208"></a>        <span class="n">dim</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">dim</span><span class="p">,</span> <span class="n">dim_xy</span> <span class="o">/</span> <span class="n">dim</span><span class="p">])</span>
+<a id="__codelineno-0-209" name="__codelineno-0-209"></a>        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">dim</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">dim</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span> <span class="o">&gt;=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">dim_xy</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">finfo</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span><span class="o">.</span><span class="n">eps</span><span class="p">:</span>
+<a id="__codelineno-0-210" name="__codelineno-0-210"></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;If `dim` is a scalar, it must evenly divide the length of the state.&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-211" name="__codelineno-0-211"></a>        <span class="n">dim</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">dim</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+<a id="__codelineno-0-212" name="__codelineno-0-212"></a>
+<a id="__codelineno-0-213" name="__codelineno-0-213"></a>    <span class="n">dim_x</span><span class="p">,</span> <span class="n">dim_y</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">dim</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="nb">int</span><span class="p">(</span><span class="n">dim</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<a id="__codelineno-0-214" name="__codelineno-0-214"></a>
+<a id="__codelineno-0-215" name="__codelineno-0-215"></a>    <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">item</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">states</span><span class="p">):</span>
+<a id="__codelineno-0-216" name="__codelineno-0-216"></a>        <span class="n">meas</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cvxpy</span><span class="o">.</span><span class="n">Variable</span><span class="p">((</span><span class="n">dim_xy</span><span class="p">,</span> <span class="n">dim_xy</span><span class="p">),</span> <span class="n">hermitian</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+<a id="__codelineno-0-217" name="__codelineno-0-217"></a>        <span class="c1"># The extension X_k is parameterized on X ⊗ Sym^level(Y), which enforces the symmetric</span>
+<a id="__codelineno-0-218" name="__codelineno-0-218"></a>        <span class="c1"># projector constraint and keeps the PSD and PPT cones on the reduced space.</span>
+<a id="__codelineno-0-219" name="__codelineno-0-219"></a>        <span class="n">marginal</span><span class="p">,</span> <span class="n">ext_constraints</span> <span class="o">=</span> <span class="n">symmetric_extension_sdp</span><span class="p">(</span><span class="n">dim_x</span><span class="p">,</span> <span class="n">dim_y</span><span class="p">,</span> <span class="n">level</span><span class="p">)</span>
+<a id="__codelineno-0-220" name="__codelineno-0-220"></a>        <span class="n">constraints</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">ext_constraints</span><span class="p">)</span>
+<a id="__codelineno-0-221" name="__codelineno-0-221"></a>        <span class="n">constraints</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">marginal</span> <span class="o">==</span> <span class="n">meas</span><span class="p">[</span><span class="n">k</span><span class="p">])</span>
+<a id="__codelineno-0-222" name="__codelineno-0-222"></a>        <span class="n">constraints</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">meas</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">&gt;&gt;</span> <span class="mi">0</span><span class="p">)</span>
+<a id="__codelineno-0-223" name="__codelineno-0-223"></a>
+<a id="__codelineno-0-224" name="__codelineno-0-224"></a>        <span class="n">obj_func</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">probs</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">*</span> <span class="n">cvxpy</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">meas</span><span class="p">[</span><span class="n">k</span><span class="p">]))</span>
+<a id="__codelineno-0-225" name="__codelineno-0-225"></a>
+<a id="__codelineno-0-226" name="__codelineno-0-226"></a>    <span class="n">constraints</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">meas</span><span class="p">)</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="n">dim_xy</span><span class="p">))</span>
+<a id="__codelineno-0-227" name="__codelineno-0-227"></a>
+<a id="__codelineno-0-228" name="__codelineno-0-228"></a>    <span class="c1"># For distinguishability we maximize the success probability; for exclusion we</span>
+<a id="__codelineno-0-229" name="__codelineno-0-229"></a>    <span class="c1"># minimize the error probability. The feasible region (symmetric extension + PPT</span>
+<a id="__codelineno-0-230" name="__codelineno-0-230"></a>    <span class="c1"># constraints) is identical in both cases.</span>
+<a id="__codelineno-0-231" name="__codelineno-0-231"></a>    <span class="n">obj_expr</span> <span class="o">=</span> <span class="n">cvxpy</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">obj_func</span><span class="p">))</span>
+<a id="__codelineno-0-232" name="__codelineno-0-232"></a>    <span class="n">problem_objective</span> <span class="o">=</span> <span class="n">cvxpy</span><span class="o">.</span><span class="n">Maximize</span><span class="p">(</span><span class="n">obj_expr</span><span class="p">)</span> <span class="k">if</span> <span class="n">objective</span> <span class="o">==</span> <span class="s2">&quot;distinguish&quot;</span> <span class="k">else</span> <span class="n">cvxpy</span><span class="o">.</span><span class="n">Minimize</span><span class="p">(</span><span class="n">obj_expr</span><span class="p">)</span>
+<a id="__codelineno-0-233" name="__codelineno-0-233"></a>    <span class="k">with</span> <span class="n">warnings</span><span class="o">.</span><span class="n">catch_warnings</span><span class="p">():</span>
+<a id="__codelineno-0-234" name="__codelineno-0-234"></a>        <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="s2">&quot;Constraint.*subexpressions&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-235" name="__codelineno-0-235"></a>        <span class="n">problem</span> <span class="o">=</span> <span class="n">cvxpy</span><span class="o">.</span><span class="n">Problem</span><span class="p">(</span><span class="n">problem_objective</span><span class="p">,</span> <span class="n">constraints</span><span class="p">)</span>
+<a id="__codelineno-0-236" name="__codelineno-0-236"></a>        <span class="n">sol_default</span> <span class="o">=</span> <span class="n">problem</span><span class="o">.</span><span class="n">solve</span><span class="p">()</span>
+<a id="__codelineno-0-237" name="__codelineno-0-237"></a>
+<a id="__codelineno-0-238" name="__codelineno-0-238"></a>    <span class="k">return</span> <span class="n">sol_default</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
