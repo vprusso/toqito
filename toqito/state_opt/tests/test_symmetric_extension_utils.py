@@ -48,7 +48,8 @@ def test_vec_partial_transpose_perm(sys):
 @pytest.mark.parametrize("ppt", [True, False])
 def test_symmetric_extension_sdp_shapes(level, ppt):
     """The reduced variable lives on X ⊗ Sym(Y) and the marginal on X ⊗ Y."""
-    z_var, marginal, constraints = symmetric_extension_sdp(2, 3, level, ppt)
+    marginal, constraints = symmetric_extension_sdp(2, 3, level, ppt)
+    (z_var,) = marginal.variables()
     sym_dim = symmetric_projection(3, level, partial=True).shape[1]
     assert z_var.shape == (2 * sym_dim, 2 * sym_dim)
     assert marginal.shape == (6, 6)
@@ -58,7 +59,8 @@ def test_symmetric_extension_sdp_shapes(level, ppt):
 def test_symmetric_extension_sdp_marginal():
     """Lifting a reduced operator through the isometry reproduces the marginal expression."""
     dim_x, dim_y, level = 2, 2, 3
-    z_var, marginal, _ = symmetric_extension_sdp(dim_x, dim_y, level)
+    marginal, _ = symmetric_extension_sdp(dim_x, dim_y, level)
+    (z_var,) = marginal.variables()
     rng = np.random.default_rng(2)
     n = z_var.shape[0]
     mat = rng.normal(size=(n, n)) + 1j * rng.normal(size=(n, n))
@@ -71,7 +73,7 @@ def test_symmetric_extension_sdp_marginal():
 def test_symmetric_extension_sdp_entangled_infeasible():
     """A Bell state has no PPT symmetric extension, but a mixed state does."""
     for rho, expected in [(bell(0) @ bell(0).conj().T, "infeasible"), (np.identity(4) / 4, "optimal")]:
-        _, marginal, constraints = symmetric_extension_sdp(2, 2, 2)
+        marginal, constraints = symmetric_extension_sdp(2, 2, 2)
         problem = cvxpy.Problem(cvxpy.Minimize(0), constraints + [marginal == rho])
         problem.solve()
         assert problem.status.startswith(expected)

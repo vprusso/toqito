@@ -146,7 +146,7 @@ def has_symmetric_extension(
     # under permutations of Y copies, and (optionally) PPT constraints hold.
     # The extension is parameterized directly on X ⊗ Sym^level(Y), which enforces
     # the symmetry and keeps every PSD cone on the reduced space.
-    _, marginal, constraints = symmetric_extension_sdp(dim_x, dim_y, level, ppt)
+    marginal, constraints = symmetric_extension_sdp(dim_x, dim_y, level, ppt)
     constraints.append(marginal == rho)
 
     with warnings.catch_warnings():

@@ -216,7 +216,7 @@ def symmetric_extension_hierarchy(
         meas.append(cvxpy.Variable((dim_xy, dim_xy), hermitian=True))
         # The extension X_k is parameterized on X ⊗ Sym^level(Y), which enforces the symmetric
         # projector constraint and keeps the PSD and PPT cones on the reduced space.
-        _, marginal, ext_constraints = symmetric_extension_sdp(dim_x, dim_y, level)
+        marginal, ext_constraints = symmetric_extension_sdp(dim_x, dim_y, level)
         constraints.extend(ext_constraints)
         constraints.append(marginal == meas[k])
         constraints.append(meas[k] >> 0)

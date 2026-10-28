@@ -53,7 +53,7 @@ def _apply_vec_map(vec_map: sparse.csr_array, var: cvxpy.Expression, out_dim: in
 
 def symmetric_extension_sdp(
     dim_x: int, dim_y: int, level: int, ppt: bool = True
-) -> tuple[cvxpy.Variable, cvxpy.Expression, list[cvxpy.Constraint]]:
+) -> tuple[cvxpy.Expression, list[cvxpy.Constraint]]:
     r"""Build a (PPT) symmetric extension of an operator on \(X \otimes Y\) on the symmetric subspace.
 
     A symmetric extension \(\sigma\) on \(X \otimes Y^{\otimes k}\) is supported on
@@ -74,9 +74,8 @@ def symmetric_extension_sdp(
         ppt: If `True`, require the extension to be PPT.
 
     Returns:
-        The reduced variable \(Z\), the expression for the marginal
-        \(\text{Tr}_{Y_2 \otimes \cdots \otimes Y_k}(\sigma)\) on \(X \otimes Y\), and the list of
-        positivity constraints on the extension.
+        The expression for the marginal \(\text{Tr}_{Y_2 \otimes \cdots \otimes Y_k}(\sigma)\) on
+        \(X \otimes Y\) and the list of positivity constraints on the extension.
 
     """
     sym_dim = comb(dim_y + level - 1, level)
@@ -100,4 +99,4 @@ def symmetric_extension_sdp(
             pt_map = sparse.kron(compress, compress, format="csr") @ transpose_y1
             constraints.append(_apply_vec_map(pt_map, z_var, compress.shape[0]) >> 0)
 
-    return z_var, marginal, constraints
+    return marginal, constraints
