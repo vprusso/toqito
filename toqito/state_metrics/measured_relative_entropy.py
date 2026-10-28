@@ -135,7 +135,10 @@ def measured_relative_entropy(rho: np.ndarray, sigma: np.ndarray, eps: float = 1
     sigma = cvx.Constant(sigma)
     obj = cvx.Maximize(cvx.real(cvx.trace(theta @ rho) - cvx.trace(w @ sigma) + 1))
     problem = cvx.Problem(obj, constraints=cons)
-    problem.solve(verbose=False)
+    # When rho is rank deficient the optimal omega has eigenvalues of order eps, and SCS with Anderson
+    # acceleration can stall on the resulting flat direction and return an inaccurate solution. Plain
+    # ADMM takes more iterations but converges on every such instance tried.
+    problem.solve(solver=cvx.SCS, acceleration_lookback=0, verbose=False)
     return obj.value
 
 
