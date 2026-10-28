@@ -124,9 +124,13 @@ def measured_relative_entropy(rho: np.ndarray, sigma: np.ndarray, eps: float = 1
         for j in range(m)
     ]
 
+    # The quadrature constraint is written with the 2^k factor on the T side. Written as
+    # sum_j w_j T_j = 2^{-k} theta, a residual of size eps_abs in it is amplified by 2^k in theta,
+    # which enters the objective directly; with k around 10 that is a 1e-3 objective error from a
+    # converged solve.
     cons = (
         [zs[0] == w, w >> 0]
-        + [(sum(weights[i] * ts[i] for i in range(m))) == 2 ** (-k) * theta]
+        + [2**k * (sum(weights[i] * ts[i] for i in range(m))) == theta]
         + [zblocks[i] >> 0 for i in range(k)]
         + [tblocks[j] >> 0 for j in range(m)]
     )
@@ -136,9 +140,9 @@ def measured_relative_entropy(rho: np.ndarray, sigma: np.ndarray, eps: float = 1
     obj = cvx.Maximize(cvx.real(cvx.trace(theta @ rho) - cvx.trace(w @ sigma) + 1))
     problem = cvx.Problem(obj, constraints=cons)
     # When rho is rank deficient the optimal omega has eigenvalues of order eps, and SCS with Anderson
-    # acceleration can stall on the resulting flat direction and return an inaccurate solution. Plain
-    # ADMM takes more iterations but converges on every such instance tried.
-    problem.solve(solver=cvx.SCS, acceleration_lookback=0, verbose=False)
+    # acceleration can stall on the resulting flat direction. Plain ADMM at a tolerance below the
+    # quadrature error converged on every such instance tried.
+    problem.solve(solver=cvx.SCS, eps_abs=1e-6, eps_rel=1e-6, acceleration_lookback=0, verbose=False)
     return obj.value
 
 
