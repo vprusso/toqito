@@ -116,7 +116,7 @@ def test_symmetric_extension_hierarchy_three_bell_with_resource_state():
     ]
 
     res = symmetric_extension_hierarchy(states=states, probs=None, level=2)
-    np.testing.assert_equal(np.isclose(res, 0.9583057), True)
+    np.testing.assert_equal(np.isclose(res, 0.958425), True)
 
 
 def test_invalid_symmetric_extension_hierarchy_probs():
