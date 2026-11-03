@@ -25,3 +25,8 @@ from toqito.states.singlet import singlet
 from toqito.states.trine import trine
 from toqito.states.mutually_unbiased_basis import mutually_unbiased_basis
 from toqito.states.pusey_barrett_rudolph import pusey_barrett_rudolph
+from toqito.states.upb_state import upb_state
+from toqito.states.pyramid import pyramid
+from toqito.states.gen_tiles1 import gen_tiles1
+from toqito.states.gen_tiles2 import gen_tiles2
+from toqito.states.divincenzo_upb import divincenzo_upb
