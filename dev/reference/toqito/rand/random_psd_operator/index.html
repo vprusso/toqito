@@ -13,7 +13,7 @@
         <link rel="canonical" href="https://vprusso.github.io/toqito/dev/reference/toqito/rand/random_psd_operator/">
       
       
-        <link rel="prev" href="../random_povm/">
+        <link rel="prev" href="../random_ppt_state/">
       
       
         <link rel="next" href="../random_state_vector/">
@@ -6998,6 +6998,12 @@
       
         
       
+        
+      
+        
+      
+        
+      
     
     
     
@@ -7166,6 +7172,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../random_npt_state/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code>random_npt_state
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../random_orthonormal_basis/" class="md-nav__link">
         
   
@@ -7202,6 +7236,62 @@
     
   
     <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code>random_povm
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../random_ppt_boundary_state/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code>random_ppt_boundary_state
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../random_ppt_state/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code>random_ppt_state
   
 
     
@@ -10468,8 +10558,8 @@ For <span class="arithmatex">\(\text{dim}=2\)</span>, this can be accomplished a
 <a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
 <a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">complex_psd_mat</span><span class="p">)</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>[[0.90591428+0.j         0.58168276-0.22809379j]
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a> [0.58168276+0.22809379j 0.65061625+0.j        ]]
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>[[0.80625884+0.00000000e+00j 0.58747956+2.62230567e-01j]
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a> [0.58747956-2.62230567e-01j 0.75810305-2.03269355e-17j]]
 </code></pre></div>
 <p>We can confirm that this matrix indeed represents a valid positive semidefinite matrix by utilizing
 the <code>is_positive_semidefinite</code> function from <code>|toqito⟩</code>.</p>
@@ -10484,8 +10574,8 @@ the <code>is_positive_semidefinite</code> function from <code>|toqito⟩</code>.
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">real_psd_mat</span><span class="p">)</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>[[0.69894718 0.26158742]
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a> [0.26158742 0.1207918 ]]
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>[[0.3686806  0.08926611]
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a> [0.08926611 0.72386997]]
 </code></pre></div>
 <p>Again, verifying that this is a valid positive semidefinite matrix can be done as follows.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nb">print</span><span class="p">(</span><span class="n">is_positive_semidefinite</span><span class="p">(</span><span class="n">real_psd_mat</span><span class="p">))</span>
@@ -10509,9 +10599,9 @@ construction, though still valid PSD.</p>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">wishart_mat</span><span class="p">)</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>[[ 2.33979852+0.j         -0.42592184-2.64913655j  0.63204236+0.98852626j]
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a> [-0.42592184+2.64913655j  7.73824134+0.j         -0.31239892+1.71121059j]
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a> [ 0.63204236-0.98852626j -0.31239892-1.71121059j  4.5500331 +0.j        ]]
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>[[ 4.06998194+4.48161920e-17j  1.83145654+3.41390425e-01j -1.00068598+1.21556830e+00j]
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a> [ 1.83145654-3.41390425e-01j  3.58996076+1.17728729e-17j  0.49156917+2.53560956e+00j]
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a> [-1.00068598-1.21556830e+00j  0.49156917-2.53560956e+00j  6.82754348-5.27819446e-17j]]
 </code></pre></div>
 
 
