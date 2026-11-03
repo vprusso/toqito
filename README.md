@@ -167,6 +167,9 @@ helpful in probing. Feel free to add to this list and/or contribute solutions!
 
 The |toqito⟩ project has been used or referenced in the following works:
 
+- [![a](https://img.shields.io/static/v1?label=arXiv&message=2610.37785&color=inactive&style=flat-square)](https://arxiv.org/abs/2610.37785) van Cleemput, Anton and Gühne, Otfried and Rico, Albert
+*"Entanglement measures and LOCC conversion criteria from Schur-Weyl duality"*, arXiv:2610.37785, (2026).
+
 - [![a](https://img.shields.io/static/v1?label=arXiv&message=2604.12808&color=inactive&style=flat-square)](https://arxiv.org/abs/2604.12808) Johnston, Nathaniel and Russo, Vincent
 *"Distinguishability of locally diagonal orthogonally invariant quantum states"*, arXiv:2606.12808, (2026).
 
