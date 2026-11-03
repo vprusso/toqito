@@ -1133,11 +1133,23 @@
          <lastmod>2026-11-03</lastmod>
     </url>
     <url>
+         <loc>https://vprusso.github.io/toqito/dev/reference/toqito/states/divincenzo_upb/</loc>
+         <lastmod>2026-11-03</lastmod>
+    </url>
+    <url>
          <loc>https://vprusso.github.io/toqito/dev/reference/toqito/states/domino/</loc>
          <lastmod>2026-11-03</lastmod>
     </url>
     <url>
          <loc>https://vprusso.github.io/toqito/dev/reference/toqito/states/gen_bell/</loc>
+         <lastmod>2026-11-03</lastmod>
+    </url>
+    <url>
+         <loc>https://vprusso.github.io/toqito/dev/reference/toqito/states/gen_tiles1/</loc>
+         <lastmod>2026-11-03</lastmod>
+    </url>
+    <url>
+         <loc>https://vprusso.github.io/toqito/dev/reference/toqito/states/gen_tiles2/</loc>
          <lastmod>2026-11-03</lastmod>
     </url>
     <url>
@@ -1173,6 +1185,10 @@
          <lastmod>2026-11-03</lastmod>
     </url>
     <url>
+         <loc>https://vprusso.github.io/toqito/dev/reference/toqito/states/pyramid/</loc>
+         <lastmod>2026-11-03</lastmod>
+    </url>
+    <url>
          <loc>https://vprusso.github.io/toqito/dev/reference/toqito/states/singlet/</loc>
          <lastmod>2026-11-03</lastmod>
     </url>
@@ -1182,6 +1198,10 @@
     </url>
     <url>
          <loc>https://vprusso.github.io/toqito/dev/reference/toqito/states/trine/</loc>
+         <lastmod>2026-11-03</lastmod>
+    </url>
+    <url>
+         <loc>https://vprusso.github.io/toqito/dev/reference/toqito/states/upb_state/</loc>
          <lastmod>2026-11-03</lastmod>
     </url>
     <url>
