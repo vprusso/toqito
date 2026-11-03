@@ -40,3 +40,7 @@ from toqito.states.krebs_gachechiladze import krebs_gachechiladze
 from toqito.states.vertesi_brunner import vertesi_brunner
 from toqito.states.moroder_steering import moroder_steering
 from toqito.states.piani import piani
+from toqito.states.yu_oh import yu_oh
+from toqito.states.private_singlet import private_singlet
+from toqito.states.orthogonal_singlet import orthogonal_singlet
+from toqito.states.generalized_horodecki import generalized_horodecki
