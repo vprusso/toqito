@@ -30,3 +30,6 @@ from toqito.states.pyramid import pyramid
 from toqito.states.gen_tiles1 import gen_tiles1
 from toqito.states.gen_tiles2 import gen_tiles2
 from toqito.states.divincenzo_upb import divincenzo_upb
+from toqito.states.generalized_smolin import generalized_smolin
+from toqito.states.smolin import smolin
+from toqito.states.quasi_ds import quasi_ds
