@@ -809,11 +809,23 @@
          <lastmod>2026-11-03</lastmod>
     </url>
     <url>
+         <loc>https://vprusso.github.io/toqito/reference/toqito/rand/random_npt_state/</loc>
+         <lastmod>2026-11-03</lastmod>
+    </url>
+    <url>
          <loc>https://vprusso.github.io/toqito/reference/toqito/rand/random_orthonormal_basis/</loc>
          <lastmod>2026-11-03</lastmod>
     </url>
     <url>
          <loc>https://vprusso.github.io/toqito/reference/toqito/rand/random_povm/</loc>
+         <lastmod>2026-11-03</lastmod>
+    </url>
+    <url>
+         <loc>https://vprusso.github.io/toqito/reference/toqito/rand/random_ppt_boundary_state/</loc>
+         <lastmod>2026-11-03</lastmod>
+    </url>
+    <url>
+         <loc>https://vprusso.github.io/toqito/reference/toqito/rand/random_ppt_state/</loc>
          <lastmod>2026-11-03</lastmod>
     </url>
     <url>

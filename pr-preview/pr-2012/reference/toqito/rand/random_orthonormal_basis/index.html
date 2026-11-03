@@ -13,7 +13,7 @@
         <link rel="canonical" href="https://vprusso.github.io/toqito/reference/toqito/rand/random_orthonormal_basis/">
       
       
-        <link rel="prev" href="../random_linearly_independent_vectors/">
+        <link rel="prev" href="../random_npt_state/">
       
       
         <link rel="next" href="../random_povm/">
@@ -6998,6 +6998,12 @@
       
         
       
+        
+      
+        
+      
+        
+      
     
     
     
@@ -7163,6 +7169,34 @@
                 
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../random_npt_state/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code>random_npt_state
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
     
   
   
@@ -7260,6 +7294,62 @@
     
   
     <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code>random_povm
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../random_ppt_boundary_state/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code>random_ppt_boundary_state
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../random_ppt_state/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code>random_ppt_state
   
 
     
@@ -10544,7 +10634,7 @@ as the columns of a unitary matrix typically form an orthonormal basis <sup><a i
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">random_orthonormal_basis</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">is_real</span> <span class="o">=</span> <span class="kc">True</span><span class="p">))</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>[array([0.94244157, 0.06288101, 0.24103964, 0.22304654]), array([ 0.20014702, -0.79518618, -0.57237344, -0.00295936]), array([ 0.10704316, -0.28543206,  0.43834709, -0.84553068]), array([ 0.24553374,  0.53127532, -0.6497233 , -0.48509726])]
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>[array([-0.55938283,  0.42092089,  0.57883475, -0.41817075]), array([ 0.60996219, -0.06227817,  0.06604062, -0.78721419]), array([-0.54444181, -0.65796651, -0.3351502 , -0.39791648]), array([ 0.13645543, -0.62131079,  0.74044805,  0.21700117])]
 </code></pre></div>
 <p>It is also possible to add a seed for reproducibility.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.rand</span><span class="w"> </span><span class="kn">import</span> <span class="n">random_orthonormal_basis</span>
