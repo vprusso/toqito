@@ -1129,6 +1129,10 @@
          <lastmod>2026-11-03</lastmod>
     </url>
     <url>
+         <loc>https://vprusso.github.io/toqito/dev/reference/toqito/states/cross_hatch/</loc>
+         <lastmod>2026-11-03</lastmod>
+    </url>
+    <url>
          <loc>https://vprusso.github.io/toqito/dev/reference/toqito/states/dicke/</loc>
          <lastmod>2026-11-03</lastmod>
     </url>
@@ -1153,6 +1157,10 @@
          <lastmod>2026-11-03</lastmod>
     </url>
     <url>
+         <loc>https://vprusso.github.io/toqito/dev/reference/toqito/states/generalized_grid_state/</loc>
+         <lastmod>2026-11-03</lastmod>
+    </url>
+    <url>
          <loc>https://vprusso.github.io/toqito/dev/reference/toqito/states/generalized_smolin/</loc>
          <lastmod>2026-11-03</lastmod>
     </url>
@@ -1165,11 +1173,19 @@
          <lastmod>2026-11-03</lastmod>
     </url>
     <url>
+         <loc>https://vprusso.github.io/toqito/dev/reference/toqito/states/grid_state/</loc>
+         <lastmod>2026-11-03</lastmod>
+    </url>
+    <url>
          <loc>https://vprusso.github.io/toqito/dev/reference/toqito/states/horodecki/</loc>
          <lastmod>2026-11-03</lastmod>
     </url>
     <url>
          <loc>https://vprusso.github.io/toqito/dev/reference/toqito/states/isotropic/</loc>
+         <lastmod>2026-11-03</lastmod>
+    </url>
+    <url>
+         <loc>https://vprusso.github.io/toqito/dev/reference/toqito/states/krebs_gachechiladze/</loc>
          <lastmod>2026-11-03</lastmod>
     </url>
     <url>
@@ -1181,7 +1197,15 @@
          <lastmod>2026-11-03</lastmod>
     </url>
     <url>
+         <loc>https://vprusso.github.io/toqito/dev/reference/toqito/states/moroder_steering/</loc>
+         <lastmod>2026-11-03</lastmod>
+    </url>
+    <url>
          <loc>https://vprusso.github.io/toqito/dev/reference/toqito/states/mutually_unbiased_basis/</loc>
+         <lastmod>2026-11-03</lastmod>
+    </url>
+    <url>
+         <loc>https://vprusso.github.io/toqito/dev/reference/toqito/states/piani/</loc>
          <lastmod>2026-11-03</lastmod>
     </url>
     <url>
@@ -1214,6 +1238,10 @@
     </url>
     <url>
          <loc>https://vprusso.github.io/toqito/dev/reference/toqito/states/upb_state/</loc>
+         <lastmod>2026-11-03</lastmod>
+    </url>
+    <url>
+         <loc>https://vprusso.github.io/toqito/dev/reference/toqito/states/vertesi_brunner/</loc>
          <lastmod>2026-11-03</lastmod>
     </url>
     <url>
