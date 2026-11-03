@@ -1161,6 +1161,10 @@
          <lastmod>2026-11-03</lastmod>
     </url>
     <url>
+         <loc>https://vprusso.github.io/toqito/dev/reference/toqito/states/generalized_horodecki/</loc>
+         <lastmod>2026-11-03</lastmod>
+    </url>
+    <url>
          <loc>https://vprusso.github.io/toqito/dev/reference/toqito/states/generalized_smolin/</loc>
          <lastmod>2026-11-03</lastmod>
     </url>
@@ -1205,7 +1209,15 @@
          <lastmod>2026-11-03</lastmod>
     </url>
     <url>
+         <loc>https://vprusso.github.io/toqito/dev/reference/toqito/states/orthogonal_singlet/</loc>
+         <lastmod>2026-11-03</lastmod>
+    </url>
+    <url>
          <loc>https://vprusso.github.io/toqito/dev/reference/toqito/states/piani/</loc>
+         <lastmod>2026-11-03</lastmod>
+    </url>
+    <url>
+         <loc>https://vprusso.github.io/toqito/dev/reference/toqito/states/private_singlet/</loc>
          <lastmod>2026-11-03</lastmod>
     </url>
     <url>
@@ -1250,6 +1262,10 @@
     </url>
     <url>
          <loc>https://vprusso.github.io/toqito/dev/reference/toqito/states/werner/</loc>
+         <lastmod>2026-11-03</lastmod>
+    </url>
+    <url>
+         <loc>https://vprusso.github.io/toqito/dev/reference/toqito/states/yu_oh/</loc>
          <lastmod>2026-11-03</lastmod>
     </url>
 </urlset>
