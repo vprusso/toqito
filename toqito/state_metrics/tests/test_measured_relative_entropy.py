@@ -2,6 +2,7 @@
 
 import numpy as np
 import pytest
+from scipy.special import rel_entr
 
 from toqito.matrices import pauli
 from toqito.state_metrics import measured_relative_entropy
@@ -14,7 +15,8 @@ def bernoulli_relative_entropy(r: np.ndarray, s: np.ndarray, alpha: float) -> fl
     p = (1 + rnorm * np.cos(alpha)) / 2
     phi = np.arccos(np.dot(r, s) / rnorm / snorm)
     q = (1 + snorm * np.cos(alpha - phi)) / 2
-    return p * np.log(p / q) + (1 - p) * np.log((1 - p) / (1 - q))
+    # rel_entr treats p = 0 as contributing 0, so pure states (|r| = 1) are handled.
+    return rel_entr(p, q) + rel_entr(1 - p, 1 - q)
 
 
 def state(vec: np.ndarray) -> np.ndarray:
@@ -47,6 +49,14 @@ s3 = np.array([0.23, -0.15, 0.06])
 r4 = np.array([0.1, 0.1, 0.1])
 s4 = np.array([0.1, 0.1, 0.1])
 
+# Pure rho (|r| = 1) against full-rank sigma. The previous implementation inverted sqrtm(rho)
+# here and read a platform-dependent quadrature size off a singular matrix.
+r7 = np.array([0.0, 1.0, 0.0])
+s7 = np.array([0.3, 0.2, 0.1])
+
+r8 = np.array([0.6, 0.0, 0.8])
+s8 = np.array([-0.1, 0.4, 0.2])
+
 
 @pytest.mark.parametrize(
     "r, s, eps",
@@ -56,6 +66,9 @@ s4 = np.array([0.1, 0.1, 0.1])
         (r3, s3, eps),
         # test when states are the same
         (r4, s4, eps),
+        # pure rho, full-rank sigma
+        (r7, s7, eps),
+        (r8, s8, eps),
     ],
 )
 def test_measured_relative_entropy(r: np.ndarray, s: np.ndarray, eps: float):
@@ -88,4 +101,35 @@ def test_meausred_relative_entropy_invalid_input(r: np.ndarray, s: np.ndarray, e
     rho = state(r)
     sigma = state(s)
     with pytest.raises(ValueError, match=expected_msg):
+        measured_relative_entropy(rho, sigma, eps)
+
+
+def test_measured_relative_entropy_pure_against_maximally_mixed():
+    """|0><0| against I/2 is ln(2): the computational-basis measurement attains the Umegaki value."""
+    rho = np.diag([1.0, 0.0])
+    sigma = np.identity(2) / 2
+    assert abs(measured_relative_entropy(rho, sigma, eps) - np.log(2)) <= 1e-4
+
+
+def test_measured_relative_entropy_singular_sigma_on_support():
+    """A singular sigma whose support contains rho is handled by compressing onto that support."""
+    plus = np.array([[1.0], [1.0], [0.0]]) / np.sqrt(2)
+    rho = plus @ plus.conj().T
+    sigma = np.diag([0.5, 0.5, 0.0])
+    assert abs(measured_relative_entropy(rho, sigma, eps) - np.log(2)) <= 1e-4
+
+
+def test_measured_relative_entropy_commuting_singular_sigma():
+    """Commuting rank-deficient inputs reduce to the classical relative entropy of the spectra."""
+    rho = np.diag([0.5, 0.5, 0.0])
+    sigma = np.diag([0.2, 0.8, 0.0])
+    expected = 0.5 * np.log(0.5 / 0.2) + 0.5 * np.log(0.5 / 0.8)
+    assert abs(measured_relative_entropy(rho, sigma, eps) - expected) <= 1e-4
+
+
+def test_measured_relative_entropy_support_not_contained():
+    """If rho has weight outside the support of sigma, the value is infinite and an error is raised."""
+    rho = np.diag([0.7, 0.3])
+    sigma = np.diag([1.0, 0.0])
+    with pytest.raises(ValueError, match="support of rho is not contained in the support of sigma"):
         measured_relative_entropy(rho, sigma, eps)

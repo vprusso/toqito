@@ -2,7 +2,6 @@
 
 import cvxpy as cvx
 import numpy as np
-import scipy.linalg
 
 from toqito._quadrature import _gauss_legendre_01
 from toqito.matrix_props import is_density, is_positive_semidefinite
@@ -78,6 +77,8 @@ def measured_relative_entropy(rho: np.ndarray, sigma: np.ndarray, eps: float = 1
 
     Raises:
         ValueError: If `rho` if not a density operator or if `sigma` is not positive semi-definite.
+        ValueError: If the support of `rho` is not contained in the support of `sigma`, in which
+            case the measured relative entropy is infinite.
 
     Examples:
         Consider the following quantum state \(\rho = \frac{1}{2}(I + r \cdot \mathbf{\sigma})\)
@@ -106,6 +107,7 @@ def measured_relative_entropy(rho: np.ndarray, sigma: np.ndarray, eps: float = 1
         raise ValueError("Measured relative entropy is only defined if sigma is positive semi-definite.")
     if np.array_equal(rho, sigma):
         return 0
+    rho, sigma = _restrict_to_support(rho, sigma)
     n = len(rho)
     m, k = _find_mk(rho, sigma, eps)
     w, theta = cvx.Variable((n, n), complex=True), cvx.Variable((n, n), hermitian=True)
@@ -122,9 +124,13 @@ def measured_relative_entropy(rho: np.ndarray, sigma: np.ndarray, eps: float = 1
         for j in range(m)
     ]
 
+    # The quadrature constraint is written with the 2^k factor on the T side. Written as
+    # sum_j w_j T_j = 2^{-k} theta, a residual of size eps_abs in it is amplified by 2^k in theta,
+    # which enters the objective directly; with k around 10 that is a 1e-3 objective error from a
+    # converged solve.
     cons = (
         [zs[0] == w, w >> 0]
-        + [(sum(weights[i] * ts[i] for i in range(m))) == 2 ** (-k) * theta]
+        + [2**k * (sum(weights[i] * ts[i] for i in range(m))) == theta]
         + [zblocks[i] >> 0 for i in range(k)]
         + [tblocks[j] >> 0 for j in range(m)]
     )
@@ -133,22 +139,58 @@ def measured_relative_entropy(rho: np.ndarray, sigma: np.ndarray, eps: float = 1
     sigma = cvx.Constant(sigma)
     obj = cvx.Maximize(cvx.real(cvx.trace(theta @ rho) - cvx.trace(w @ sigma) + 1))
     problem = cvx.Problem(obj, constraints=cons)
-    problem.solve(verbose=False)
+    # When rho is rank deficient the optimal omega has eigenvalues of order eps, and SCS with Anderson
+    # acceleration can stall on the resulting flat direction. Plain ADMM at a tolerance below the
+    # quadrature error converged on every such instance tried.
+    problem.solve(solver=cvx.SCS, eps_abs=1e-6, eps_rel=1e-6, acceleration_lookback=0, verbose=False)
     return obj.value
 
 
-def _compute_a(rho: np.ndarray, sigma: np.ndarray) -> float:
-    """Find optimal a."""
-    rho_half_inv = scipy.linalg.inv(scipy.linalg.sqrtm(rho))
-    X = rho_half_inv @ sigma @ rho_half_inv
-    eigs = np.linalg.eigvalsh(X)
-    a = max(eigs.max(), 1.0 / eigs.min())
-    return a
+def _restrict_to_support(rho: np.ndarray, sigma: np.ndarray, tol: float = 1e-9) -> tuple[np.ndarray, np.ndarray]:
+    r"""Compress both operators onto the support of `sigma`.
+
+    A measurement outcome supported outside the support of \(\sigma\) has
+    \(\operatorname{Tr}[\Lambda_x \sigma] = 0\), so it contributes nothing when
+    \(\operatorname{Tr}[\Lambda_x \rho] = 0\) and makes the relative entropy infinite otherwise.
+    Compressing onto the support therefore preserves the value exactly and leaves \(\sigma\)
+    positive definite, which is what the choice of quadrature size below requires.
+    """
+    eig_rho, vec_rho = np.linalg.eigh(rho)
+    eig_sigma, vec_sigma = np.linalg.eigh(sigma)
+    kernel = eig_sigma <= tol
+    if not kernel.any():
+        return rho, sigma
+    weights = eig_rho @ np.abs(vec_rho.conj().T @ vec_sigma) ** 2
+    if np.any(weights[kernel] > tol):
+        raise ValueError(
+            "Measured relative entropy is infinite because the support of rho is not contained in the support of sigma."
+        )
+    basis = vec_sigma[:, ~kernel]
+    return basis.conj().T @ rho @ basis, basis.conj().T @ sigma @ basis
 
 
 def _find_mk(rho: np.ndarray, sigma: np.ndarray, eps: float) -> tuple[int, int]:
-    """Find m and k for the desired epsilon value."""
-    a = _compute_a(rho, sigma)
+    r"""Find m and k for the desired epsilon value.
+
+    The optimal \(\omega\) in the variational formula has its spectrum inside
+    \([\lambda_{\min}, \lambda_{\max}]\) of \(\sigma^{-1/2} \rho \sigma^{-1/2}\), so the quadrature only
+    has to be accurate on \([1/a, a]\) with \(a = \max(\lambda_{\max}, 1/\lambda_{\min})\). When
+    \(\rho\) is singular on the support of \(\sigma\) the lower end is zero. Lifting the corresponding
+    eigenvalues of \(\omega\) to \(1/a\) changes the objective by at most \(\operatorname{Tr}[\sigma]/a\),
+    so taking \(a = 2\operatorname{Tr}[\sigma]/\varepsilon\) and leaving \(\varepsilon/2\) for the
+    quadrature keeps the total error within \(\varepsilon\). The same bound is used whenever it gives
+    the smaller \(a\).
+    """
+    eig_sigma, vec_sigma = np.linalg.eigh(sigma)
+    sigma_half_inv = (vec_sigma / np.sqrt(eig_sigma)) @ vec_sigma.conj().T
+    eigs = np.linalg.eigvalsh(sigma_half_inv @ rho @ sigma_half_inv)
+    lower, upper = eigs.min(), eigs.max()
+    trace_sigma = np.trace(sigma).real
+    if lower > 0 and 1 / lower <= 2 * trace_sigma / eps:
+        a = max(upper, 1 / lower)
+    else:
+        eps = eps / 2
+        a = max(upper, trace_sigma / eps)
     k1 = int(np.ceil(np.log2(np.log(a))) + 1)
     k2 = int(2 * np.ceil(np.sqrt(np.log2(32 * np.log(a) / eps)) / 2))
     k = k1 + k2
