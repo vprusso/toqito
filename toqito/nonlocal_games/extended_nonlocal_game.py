@@ -1,26 +1,23 @@
 """Two-player extended nonlocal game."""
 
 import itertools
-from typing import Literal, TypeAlias
 
 import cvxpy
 import numpy as np
 
 from toqito._sdp import solve_sdp
-from toqito.matrix_ops import tensor
-from toqito.nonlocal_games.nonlocal_game import (
-    QuantumStrategy,
-    _random_measurements,
-    _strategy_from_seesaw,
-    _validate_game,
+from toqito.nonlocal_games._common import (
+    AnswerEventConstraint,
+    answer_event_linear_constraint,
+    answer_event_probability,
+    npa_upper_bound,
+    parallel_repetition,
+    seesaw,
+    validate_game,
 )
-from toqito.state_opt.npa_hierarchy import npa_constraints
+from toqito.nonlocal_games.nonlocal_game import QuantumStrategy, _strategy_from_seesaw
 
-AnswerEventConstraint: TypeAlias = tuple[
-    dict[tuple[int, int, int, int], float] | np.ndarray,
-    Literal["==", "<=", ">="],
-    float,
-]
+__all__ = ["AnswerEventConstraint", "ExtendedNonlocalGame"]
 
 
 class ExtendedNonlocalGame:
@@ -58,37 +55,13 @@ class ExtendedNonlocalGame:
         """
         prob_mat = np.asarray(prob_mat)
         pred_mat = np.asarray(pred_mat)
-        _validate_game(prob_mat, pred_mat, pred_ndim=6)
+        validate_game(prob_mat, pred_mat, pred_ndim=6)
         if pred_mat.shape[0] != pred_mat.shape[1]:
             raise ValueError("Invalid: the referee operators in `pred_mat` must be square.")
         self.reps = reps
-        if reps == 1:
-            self.prob_mat = prob_mat
-            self.pred_mat = pred_mat
-        else:
-            referee_dim, _, num_alice_out, num_bob_out, num_alice_in, num_bob_in = pred_mat.shape
-            self.prob_mat = tensor(prob_mat, reps)
-
-            pred_mat2 = np.zeros(
-                (
-                    referee_dim**reps,
-                    referee_dim**reps,
-                    num_alice_out**reps,
-                    num_bob_out**reps,
-                    num_alice_in**reps,
-                    num_bob_in**reps,
-                ),
-                dtype=pred_mat.dtype,
-            )
-            for i, i_ind in enumerate(itertools.product(range(num_alice_in), repeat=reps)):
-                for j, j_ind in enumerate(itertools.product(range(num_bob_in), repeat=reps)):
-                    to_tensor = np.empty(
-                        [reps, referee_dim, referee_dim, num_alice_out, num_bob_out], dtype=pred_mat.dtype
-                    )
-                    for k in range(reps - 1, -1, -1):
-                        to_tensor[k] = pred_mat[:, :, :, :, i_ind[k], j_ind[k]]
-                    pred_mat2[:, :, :, :, i, j] = tensor(to_tensor)
-            self.pred_mat = pred_mat2
+        self.prob_mat, self.pred_mat = (
+            parallel_repetition(prob_mat, pred_mat, reps) if reps > 1 else (prob_mat, pred_mat)
+        )
         (
             self.referee_dim,
             _,
@@ -351,151 +324,17 @@ class ExtendedNonlocalGame:
             `return_strategy` is True.
 
         """
-        referee_dim = self.referee_dim
-        alice_out, bob_out, alice_in, bob_in = self.num_alice_out, self.num_bob_out, self.num_alice_in, self.num_bob_in
         if dim is None:
-            dim = bob_out
-        if solver_params is None:
-            solver_params = {"eps": 1e-8, "max_iters": 50_000} if solver == cvxpy.SCS else {}
-        if initial_bob_povms is not None and np.shape(initial_bob_povms) != (dim, dim, bob_in, bob_out):
-            raise ValueError(f"`initial_bob_povms` must have shape {(dim, dim, bob_in, bob_out)}.")
-        rng = np.random.default_rng(seed)
-        joint_dim = referee_dim * dim
-
-        # Both SDPs are built once; the fixed opponent operators enter through `cvxpy.Parameter`s whose values are
-        # recomputed in numpy at every see-saw step.
-
-        # Alice's SDP: maximize sum_{x, a} <C_a^x, rho_a^x> over rho_a^x >= 0 with sum_a rho_a^x = tau and
-        # Tr(tau) = 1, where C_a^x = sum_{y, b} pi(x, y) V(a, b | x, y) (x) B_b^y.
-        rho_vars = {
-            (x, a): cvxpy.Variable((joint_dim, joint_dim), hermitian=True)
-            for x in range(alice_in)
-            for a in range(alice_out)
-        }
-        tau = cvxpy.Variable((joint_dim, joint_dim), hermitian=True)
-        rho_coeffs = {key: cvxpy.Parameter((joint_dim, joint_dim), complex=True) for key in rho_vars}
-        alice_win = sum(cvxpy.real(cvxpy.trace(rho_coeffs[key] @ rho_vars[key])) for key in rho_vars)
-        alice_constraints = [var >> 0 for var in rho_vars.values()]
-        alice_constraints += [sum(rho_vars[x, a] for a in range(alice_out)) == tau for x in range(alice_in)]
-        # tau is positive semidefinite as a sum of positive semidefinite operators, so only its trace is constrained.
-        alice_constraints.append(cvxpy.trace(tau) == 1)
-        alice_problem = cvxpy.Problem(cvxpy.Maximize(alice_win), alice_constraints)
-
-        # Bob's SDP: maximize sum_{y, b} <D_b^y, B_b^y> over POVMs {B_b^y}_b, where
-        # D_b^y = sum_{x, a} pi(x, y) Tr_R[(V(a, b | x, y) (x) 1) rho_a^x].
-        bob_vars = {(y, b): cvxpy.Variable((dim, dim), hermitian=True) for y in range(bob_in) for b in range(bob_out)}
-        bob_coeffs = {key: cvxpy.Parameter((dim, dim), complex=True) for key in bob_vars}
-        bob_win = sum(cvxpy.real(cvxpy.trace(bob_coeffs[key] @ bob_vars[key])) for key in bob_vars)
-        bob_constraints = [var >> 0 for var in bob_vars.values()]
-        bob_constraints += [sum(bob_vars[y, b] for b in range(bob_out)) == np.identity(dim) for y in range(bob_in)]
-        bob_problem = cvxpy.Problem(cvxpy.Maximize(bob_win), bob_constraints)
-
-        best_lower_bound = float("-inf")
-        best_operators = None
-        for restart in range(iters):
-            if restart == 0 and initial_bob_povms is not None:
-                bob_vals = np.asarray(initial_bob_povms, dtype=complex).transpose(2, 3, 0, 1)
-            else:
-                bob_vals = _random_measurements(dim, bob_in, bob_out, int(rng.integers(0, 2**32 - 1)))
-
-            prev_win = float("-inf")
-            for _step in range(max_steps):
-                coeffs = np.einsum("xy,ijabxy,ybkl->xaikjl", self.prob_mat, self.pred_mat, bob_vals)
-                coeffs = coeffs.reshape(alice_in, alice_out, joint_dim, joint_dim)
-                for (x, a), param in rho_coeffs.items():
-                    param.value = coeffs[x, a]
-                solve_sdp(alice_problem, solver, solver_params)
-                rho_vals = np.array([[rho_vars[x, a].value for a in range(alice_out)] for x in range(alice_in)])
-                rho_blocks = rho_vals.reshape(alice_in, alice_out, referee_dim, dim, referee_dim, dim)
-
-                coeffs = np.einsum("xy,ikabxy,xaklij->yblj", self.prob_mat, self.pred_mat, rho_blocks)
-                for (y, b), param in bob_coeffs.items():
-                    param.value = coeffs[y, b]
-                lower_bound = solve_sdp(bob_problem, solver, solver_params)
-                bob_vals = np.array([[bob_vars[y, b].value for b in range(bob_out)] for y in range(bob_in)])
-
-                if lower_bound > best_lower_bound:
-                    best_lower_bound, best_operators = lower_bound, (rho_vals, bob_vals)
-                if abs(lower_bound - prev_win) <= tol:
-                    break
-                prev_win = lower_bound
-
+            dim = self.num_bob_out
+        value, rho_vals, bob_vals = seesaw(
+            self.prob_mat, self.pred_mat, dim, iters, tol, seed, max_steps, initial_bob_povms, solver, solver_params
+        )
         if not return_strategy:
-            return best_lower_bound
-        return best_lower_bound, _strategy_from_seesaw(*best_operators, referee_dim=referee_dim)
+            return value
+        return value, _strategy_from_seesaw(rho_vals, bob_vals, referee_dim=self.referee_dim)
 
-    @staticmethod
-    def _answer_event_probability(
-        assemblage: dict[tuple[int, int], cvxpy.Variable],
-        a: int,
-        b: int,
-        x: int,
-        y: int,
-        referee_dim: int,
-    ) -> cvxpy.Expression:
-        r"""Return the commuting-measurement answer probability \(p(a, b \mid x, y)\).
-
-        At NPA level 1 and above, the block
-        \(K_{xy}(a,b) = \mathrm{Tr}_{AB}(I_R \otimes A_a^x B_b^y \, \sigma)\)
-        in the assemblage satisfies \(p(a,b \mid x,y) = \mathrm{Tr}\, K_{xy}(a,b)\).
-        """
-        block = assemblage[x, y][
-            a * referee_dim : (a + 1) * referee_dim,
-            b * referee_dim : (b + 1) * referee_dim,
-        ]
-        return cvxpy.trace(block)
-
-    @staticmethod
-    def _answer_event_linear_constraint(
-        assemblage: dict[tuple[int, int], cvxpy.Variable],
-        constraint: AnswerEventConstraint,
-        referee_dim: int,
-        num_a_out: int,
-        num_b_out: int,
-        num_a_in: int,
-        num_b_in: int,
-    ) -> cvxpy.constraints.constraint.Constraint:
-        """Build a single cvxpy constraint from sparse or dense answer-event coefficients."""
-        coeffs, op, rhs = constraint
-        terms: list[cvxpy.Expression] = []
-        expected_shape = (num_a_out, num_b_out, num_a_in, num_b_in)
-
-        if isinstance(coeffs, np.ndarray):
-            if coeffs.shape != expected_shape:
-                raise ValueError(f"Dense constraint coefficients must have shape {expected_shape}, got {coeffs.shape}.")
-            for x in range(num_a_in):
-                for y in range(num_b_in):
-                    for a in range(num_a_out):
-                        for b in range(num_b_out):
-                            coeff = float(coeffs[a, b, x, y])
-                            if coeff != 0.0:
-                                terms.append(
-                                    coeff
-                                    * ExtendedNonlocalGame._answer_event_probability(
-                                        assemblage, a, b, x, y, referee_dim
-                                    )
-                                )
-        else:
-            # Sparse keys are validated explicitly with per-index bounds.
-            for (a, b, x, y), coeff in coeffs.items():
-                if not (0 <= a < num_a_out and 0 <= b < num_b_out and 0 <= x < num_a_in and 0 <= y < num_b_in):
-                    raise ValueError(
-                        f"Constraint index (a={a}, b={b}, x={x}, y={y}) is out of range for game dimensions "
-                        f"{expected_shape}."
-                    )
-                terms.append(
-                    float(coeff) * ExtendedNonlocalGame._answer_event_probability(assemblage, a, b, x, y, referee_dim)
-                )
-
-        linear_expr = cvxpy.real(cvxpy.sum(terms)) if terms else cvxpy.Constant(0)
-
-        if op == "==":
-            return linear_expr == rhs
-        if op == "<=":
-            return linear_expr <= rhs
-        if op == ">=":
-            return linear_expr >= rhs
-        raise ValueError(f"Constraint operator must be '==', '<=', or '>=', got {op!r}.")
+    _answer_event_probability = staticmethod(answer_event_probability)
+    _answer_event_linear_constraint = staticmethod(answer_event_linear_constraint)
 
     def commuting_measurement_value_upper_bound(
         self,
@@ -547,34 +386,7 @@ class ExtendedNonlocalGame:
             assemblage of the relaxation when `return_strategy` is True.
 
         """
-        if solver_params is None:
-            solver_params = {"eps": 1e-8, "max_iters": 100_000} if solver == cvxpy.SCS else {}
-        dR, _, A_out, B_out, A_in, B_in = self.pred_mat.shape
-        K = {}
-        for x in range(A_in):
-            for y in range(B_in):
-                blocks = [[None for _ in range(B_out)] for _ in range(A_out)]
-                for a in range(A_out):
-                    for b in range(B_out):
-                        blocks[a][b] = cvxpy.Variable((dR, dR), hermitian=True, name=f"K({x},{y})_{a}{b}")
-                K[(x, y)] = cvxpy.bmat(blocks)
-        # The winning probability is sum_{x, y} <W_xy, K_xy> with W_xy the block matrix of weighted referee operators
-        # pi(x, y) V(a, b | x, y), laid out in the same (a, b) block pattern as the assemblage K_xy.
-        total_win = 0
-        for x in range(A_in):
-            for y in range(B_in):
-                blocks = [[self.pred_mat[:, :, a, b, x, y] for b in range(B_out)] for a in range(A_out)]
-                weights = self.prob_mat[x, y] * np.block(blocks)
-                total_win += cvxpy.sum(cvxpy.multiply(weights.conj(), K[(x, y)]))
-        cons = npa_constraints(K, k, referee_dim=dR, no_signaling=no_signaling)
-        if constraints is not None:
-            for constraint in constraints:
-                cons.append(self._answer_event_linear_constraint(K, constraint, dR, A_out, B_out, A_in, B_in))
-        prob = cvxpy.Problem(cvxpy.Maximize(cvxpy.real(total_win)), cons)
-        value = solve_sdp(prob, solver, solver_params)
-        if not return_strategy:
-            return value
-        assemblage = np.zeros((dR, dR, A_out, B_out, A_in, B_in), dtype=complex)
-        for (x, y), var in K.items():
-            assemblage[:, :, :, :, x, y] = var.value.reshape(A_out, dR, B_out, dR).transpose(1, 3, 0, 2)
-        return value, assemblage
+        value, assemblage = npa_upper_bound(
+            self.prob_mat, self.pred_mat, k, no_signaling, constraints, solver, solver_params
+        )
+        return (value, assemblage) if return_strategy else value
