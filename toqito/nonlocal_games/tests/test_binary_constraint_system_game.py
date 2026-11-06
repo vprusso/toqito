@@ -4,6 +4,7 @@ import numpy as np
 import pytest
 
 from toqito.nonlocal_games.binary_constraint_system_game import (
+    _enumerate_solution_group,
     check_perfect_commuting_strategy,
     create_bcs_constraints,
     generate_solution_group,
@@ -136,12 +137,42 @@ def test_disjoint_components_each_need_a_perfect_strategy():
     assert check_perfect_commuting_strategy(M, np.concatenate([MAGIC_SQUARE_B, satisfiable_cycle_b]))
 
 
-def test_hypergraph_systems_are_not_decided():
-    """An unsatisfiable system with a variable in three constraints is outside the decided cases."""
+def test_hypergraph_system_with_trivial_j():
+    """A variable in three constraints is decided by enumerating the solution group; here the relations force J = e."""
     M = np.array([[1, 1, 0], [1, 0, 1], [1, 1, 1], [0, 1, 1]])
     b = np.array([0, 0, 0, 1])
-    with pytest.raises(NotImplementedError):
-        check_perfect_commuting_strategy(M, b)
+    assert not check_perfect_commuting_strategy(M, b)
+
+
+def test_hypergraph_system_with_nontrivial_j():
+    """The magic square with one extra variable shared by four constraints keeps its perfect strategy.
+
+    Assigning the identity to the extra variable turns the Pauli representation of the magic square into a
+    representation of this system with J = -1, so J is nontrivial; the system is still unsatisfiable classically.
+    """
+    M = np.hstack([MAGIC_SQUARE_M, np.array([[1], [1], [0], [1], [1], [0]])])
+    assert check_perfect_commuting_strategy(M, MAGIC_SQUARE_B)
+
+
+@pytest.mark.parametrize(
+    "M, b, expected_order, expected_j_trivial",
+    [
+        (MAGIC_SQUARE_M, MAGIC_SQUARE_B, 32, False),
+        (MAGIC_PENTAGRAM_M, MAGIC_PENTAGRAM_B, 128, False),
+        (np.array([[1, 1], [1, 1]]), np.array([0, 1]), 2, True),
+    ],
+)
+def test_solution_group_enumeration(M, b, expected_order, expected_j_trivial):
+    """The coset enumeration returns the known orders of small solution groups and whether J is trivial."""
+    assert _enumerate_solution_group(M, b, max_cosets=10_000) == (expected_order, expected_j_trivial)
+
+
+def test_solution_group_enumeration_respects_cap():
+    """An enumeration that needs more cosets than allowed is reported as undecided."""
+    assert _enumerate_solution_group(MAGIC_SQUARE_M, MAGIC_SQUARE_B, max_cosets=8) is None
+    M = np.hstack([MAGIC_SQUARE_M, np.array([[1], [1], [0], [1], [1], [0]])])
+    with pytest.raises(NotImplementedError, match="did not close"):
+        check_perfect_commuting_strategy(M, MAGIC_SQUARE_B, max_cosets=8)
 
 
 def test_is_bcs_perfect_commuting_strategy_requires_bcs_game():
