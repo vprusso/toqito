@@ -131,18 +131,18 @@ def test_i3322_cg_classical(i3322_cg, desc_i3322):
 
 @pytest.mark.skipif(cvxpy.CLARABEL not in cvxpy.installed_solvers(), reason="SCS solver not installed.")
 @pytest.mark.parametrize(
-    "k_level, expected_val_toqito",
+    "k_level, expected_val",
     [
         (1, 1.375),
-        ("1+ab", 1.26870172),
-        (2, 1.25538020),
+        ("1+ab", 1.2514709),
+        (2, 1.2509397),
     ],
 )
-def test_i3322_cg_quantum(i3322_cg, desc_i3322, k_level, expected_val_toqito):
-    """Test quantum maximum for I3322 inequality in CG notation using various NPA levels."""
+def test_i3322_cg_quantum(i3322_cg, desc_i3322, k_level, expected_val):
+    """Quantum upper bounds for I3322 at NPA levels 1, 1+AB and 2 match the values reported by NPA."""
     sdp_tol = 1e-7
     assert bim.bell_inequality_max(i3322_cg, desc_i3322, "cg", "quantum", k=k_level, tol=sdp_tol) == pytest.approx(
-        expected_val_toqito, rel=RTOL, abs=ATOL
+        expected_val, rel=RTOL, abs=ATOL
     )
 
 
@@ -420,74 +420,24 @@ def test_classical_nonbinary_swap_triggered():
 # --- MOCKED TESTS---
 
 
-@pytest.mark.skipif(cvxpy.CLARABEL not in cvxpy.installed_solvers(), reason="SCS solver not installed.")
-def test_nosignal_infeasible_status(capfd):
-    """Test handling of infeasible solver status for no-signalling (mocked)."""
+@pytest.mark.parametrize(
+    "mtype, status",
+    [
+        ("nosignal", cvxpy.INFEASIBLE),
+        ("nosignal", cvxpy.UNBOUNDED),
+        ("quantum", cvxpy.INFEASIBLE_INACCURATE),
+        ("quantum", cvxpy.UNBOUNDED_INACCURATE),
+    ],
+)
+def test_non_optimal_solver_status_raises(chsh_cg, desc_chsh, mtype, status):
+    """A solve that ends infeasible or unbounded is reported as an error (mocked solver)."""
     mock_problem = MagicMock(spec=cvxpy.Problem)
-    mock_problem.solve.return_value = -np.inf
-    mock_problem.status = cvxpy.INFEASIBLE
+    mock_problem.solve.return_value = None
+    mock_problem.status = status
 
     with patch("cvxpy.Problem", return_value=mock_problem):
-        # PATCH THE MODULE ALIAS, NOT THE STRING PATH
-        with patch.object(bim, "_fp_to_cg", side_effect=None):
-            desc = [2, 2, 1, 1]
-            coeffs_cg = np.array([[0, 0], [0, 1]])
-            result = bim.bell_inequality_max(coeffs_cg, desc, "cg", "nosignal")
-            captured = capfd.readouterr()
-            assert result == -np.inf
-            assert "Warning: Solver status for 'nosignal': infeasible" in captured.out
-
-
-@pytest.mark.skipif(cvxpy.CLARABEL not in cvxpy.installed_solvers(), reason="SCS solver not installed.")
-def test_nosignal_unbounded_status(capfd):
-    """Test handling of unbounded solver status for no-signalling (mocked)."""
-    mock_problem = MagicMock(spec=cvxpy.Problem)
-    mock_problem.solve.return_value = np.inf
-    mock_problem.status = cvxpy.UNBOUNDED
-
-    with patch("cvxpy.Problem", return_value=mock_problem):
-        desc = [2, 2, 1, 1]
-        coeffs_cg = np.array([[0, 0], [0, 1]])
-        result = bim.bell_inequality_max(coeffs_cg, desc, "cg", "nosignal")
-        captured = capfd.readouterr()
-        assert result == np.inf
-        assert "Warning: Solver status for 'nosignal': unbounded" in captured.out
-
-
-@pytest.mark.skipif(cvxpy.CLARABEL not in cvxpy.installed_solvers(), reason="SCS solver not installed.")
-def test_quantum_infeasible_status(capfd):
-    """Test handling of infeasible solver status for quantum (mocked)."""
-    mock_problem = MagicMock(spec=cvxpy.Problem)
-    mock_problem.solve.return_value = -np.inf
-    mock_problem.status = cvxpy.INFEASIBLE_INACCURATE
-
-    with patch("cvxpy.Problem", return_value=mock_problem):
-        # PATCH THE MODULE ALIAS
-        with patch.object(bim, "bell_npa_constraints", return_value=[]):
-            desc = [2, 2, 2, 2]
-            coeffs_cg = np.array([[0, -1, 0], [-1, 1, 1], [0, 1, -1]])
-            result = bim.bell_inequality_max(coeffs_cg, desc, "cg", "quantum")
-            captured = capfd.readouterr()
-            assert result == -np.inf
-            assert "Warning: Solver status for 'quantum' k=1: infeasible_inaccurate" in captured.out
-
-
-@pytest.mark.skipif(cvxpy.CLARABEL not in cvxpy.installed_solvers(), reason="SCS solver not installed.")
-def test_quantum_unbounded_status(capfd):
-    """Test handling of unbounded solver status for quantum (mocked)."""
-    mock_problem = MagicMock(spec=cvxpy.Problem)
-    mock_problem.solve.return_value = np.inf
-    mock_problem.status = cvxpy.UNBOUNDED_INACCURATE
-
-    with patch("cvxpy.Problem", return_value=mock_problem):
-        # PATCH THE MODULE ALIAS
-        with patch.object(bim, "bell_npa_constraints", return_value=[]):
-            desc = [2, 2, 2, 2]
-            coeffs_cg = np.array([[0, -1, 0], [-1, 1, 1], [0, 1, -1]])
-            result = bim.bell_inequality_max(coeffs_cg, desc, "cg", "quantum")
-            captured = capfd.readouterr()
-            assert result == np.inf
-            assert "Warning: Solver status for 'quantum' k=1: unbounded_inaccurate" in captured.out
+        with pytest.raises(ValueError, match=f"did not solve successfully \\(status: {status}\\)"):
+            bim.bell_inequality_max(chsh_cg, desc_chsh, "cg", mtype)
 
 
 @pytest.mark.skipif(cvxpy.CLARABEL not in cvxpy.installed_solvers(), reason="SCS solver not installed.")
@@ -499,28 +449,16 @@ def test_quantum_npa_error(chsh_cg, desc_chsh):
             bim.bell_inequality_max(chsh_cg, desc_chsh, "cg", "quantum", k=1)
 
 
-@pytest.mark.skipif(cvxpy.CLARABEL not in cvxpy.installed_solvers(), reason="SCS solver not installed.")
-def test_quantum_result_is_nan(chsh_cg, desc_chsh):
-    """Test return value is -inf if solver returns NaN for quantum."""
-    mock_problem = MagicMock(spec=cvxpy.Problem)
-    mock_problem.solve.return_value = np.nan
-    mock_problem.status = cvxpy.SOLVER_ERROR
-
-    with patch("cvxpy.Problem", return_value=mock_problem):
-        # PATCH THE MODULE ALIAS
-        with patch.object(bim, "bell_npa_constraints", return_value=[]):
-            assert bim.bell_inequality_max(chsh_cg, desc_chsh, "cg", "quantum") == -np.inf
-
-
-@pytest.mark.skipif(cvxpy.CLARABEL not in cvxpy.installed_solvers(), reason="SCS solver not installed.")
-def test_nosignal_result_is_nan(chsh_cg, desc_chsh):
-    """Test return value is -inf if solver returns None/NaN for no-signalling."""
+@pytest.mark.parametrize("mtype", ["quantum", "nosignal"])
+def test_solver_error_raises(chsh_cg, desc_chsh, mtype):
+    """A solver error is reported rather than mapped to an infinite value (mocked solver)."""
     mock_problem = MagicMock(spec=cvxpy.Problem)
     mock_problem.solve.return_value = None
     mock_problem.status = cvxpy.SOLVER_ERROR
 
     with patch("cvxpy.Problem", return_value=mock_problem):
-        assert bim.bell_inequality_max(chsh_cg, desc_chsh, "cg", "nosignal") == -np.inf
+        with pytest.raises(ValueError, match="did not solve successfully"):
+            bim.bell_inequality_max(chsh_cg, desc_chsh, "cg", mtype)
 
 
 @pytest.mark.skipif(cvxpy.CLARABEL not in cvxpy.installed_solvers(), reason="SCS solver not installed.")

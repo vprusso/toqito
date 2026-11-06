@@ -8,6 +8,7 @@ from itertools import combinations
 import cvxpy as cp
 import numpy as np
 
+from toqito._sdp import solve_sdp
 from toqito.matrix_ops import partial_transpose
 from toqito.perms import permutation_operator, swap
 from toqito.state_opt.npa_hierarchy import bell_npa_constraints
@@ -54,7 +55,7 @@ def bell_inequality_max(
         ValueError: If notation conversion fails (e.g., 'fc' for non-binary outputs).
         ValueError: If the NPA level ``k`` is invalid.
         ValueError: If generating NPA constraints fails.
-        cp.error.SolverError: If the cp solver fails.
+        ValueError: If the solver does not reach an optimum (for example the program is infeasible or unbounded).
 
     Examples:
         The CHSH inequality in Full Correlator (FC) notation.
@@ -128,109 +129,35 @@ def bell_inequality_max(
     if notation_low not in ["fp", "fc", "cg"]:
         raise ValueError(f"Invalid notation: {notation}. Must be 'fp', 'fc', or 'cg'.")
 
-    bmax = None
-    problem = None
-
-    if mtype_low == "nosignal":
-        if notation_low == "fc" and (oa != 2 or ob != 2):
-            raise ValueError(
-                "Notation conversion failed: 'fc' notation is only supported for binary outputs (oa=2, ob=2)."
-            )
-        try:
-            if notation_low == "cg":
-                M = coefficients
-            elif notation_low == "fp":
-                M = _fp_to_cg(coefficients, behavior=False)
-            else:
-                M = _fc_to_cg(coefficients, behavior=False)
-        except ValueError as e:
-            raise ValueError(f"Notation conversion failed: {e}") from e
-
-        cg_dim = ((oa - 1) * ma + 1, (ob - 1) * mb + 1)
-        if M.shape != cg_dim:
-            raise ValueError(
-                f"Coefficient shape {M.shape} incompatible with desc={desc} and CG notation (expected {cg_dim})."
-            )
-
-        p_cg = cp.Variable(cg_dim, name="p_cg")
-
-        objective = cp.Maximize(cp.sum(cp.multiply(M, p_cg)))
-
-        constraints = [p_cg[0, 0] == 1]
-        fp_expressions = _cg_to_fp_cp(p_cg, desc)
-
-        constraints += [expr >= -tol for expr in fp_expressions]
-
-        problem = cp.Problem(objective, constraints)
-
-        with warnings.catch_warnings():
-            warnings.simplefilter("ignore", category=UserWarning)
-            bmax = problem.solve(solver=cp.SCS, eps=tol, verbose=False)
-
-        if problem.status not in [cp.OPTIMAL, cp.OPTIMAL_INACCURATE]:
-            print(f"Warning: Solver status for 'nosignal': {problem.status}")
-            if problem.status in [cp.INFEASIBLE, cp.INFEASIBLE_INACCURATE]:
-                bmax = -np.inf
-            elif problem.status in [cp.UNBOUNDED, cp.UNBOUNDED_INACCURATE]:
-                bmax = np.inf
-
-    elif mtype_low == "quantum":
-        if notation_low == "fc" and (oa != 2 or ob != 2):
-            raise ValueError(
-                "Notation conversion failed: 'fc' notation is only supported for binary outputs (oa=2, ob=2)."
-            )
-
-        if not isinstance(k, (str, numbers.Integral)) or (isinstance(k, numbers.Integral) and k < 0):
-            raise ValueError(f"Invalid NPA level k={k}. Must be a non-negative integer or a valid string level.")
-        if isinstance(k, str):
-            # Use regex to validate the string format: digits optionally followed by '+' and 'a's/'b's
-            if not re.fullmatch(r"\d+(\+[ab]+)?", k):
+    if mtype_low in ("nosignal", "quantum"):
+        if mtype_low == "quantum":
+            if not isinstance(k, (str, numbers.Integral)) or (isinstance(k, numbers.Integral) and k < 0):
+                raise ValueError(f"Invalid NPA level k={k}. Must be a non-negative integer or a valid string level.")
+            # A string level is digits optionally followed by '+' and a run of 'a's and 'b's.
+            if isinstance(k, str) and not re.fullmatch(r"\d+(\+[ab]+)?", k):
                 raise ValueError(
                     f"Invalid NPA level k='{k}'. String format must be an integer (e.g., '1', '2') "
                     f"optionally followed by '+' and a sequence of 'a's and 'b's (e.g., '1+ab', '2+aab')."
                 )
 
-        try:
-            if notation_low == "cg":
-                M = coefficients
-            elif notation_low == "fp":
-                M = _fp_to_cg(coefficients, behavior=False)
-            else:
-                M = _fc_to_cg(coefficients, behavior=False)
-        except ValueError as e:
-            raise ValueError(f"Notation conversion failed: {e}") from e
+        M = _coefficients_to_cg(coefficients, desc, notation_low)
+        p_cg = cp.Variable(M.shape, name="p_cg")
+        constraints = [p_cg[0, 0] == 1]
+        if mtype_low == "nosignal":
+            # Every full probability is non-negative; the no-signaling conditions are built into the CG notation.
+            constraints += [expr >= -tol for expr in _cg_to_fp_cp(p_cg, desc)]
+        else:
+            try:
+                constraints += bell_npa_constraints(p_cg, desc, k)
+            except ValueError as e:
+                raise ValueError(f"Error generating NPA constraints: {e}") from e
 
-        cg_dim = ((oa - 1) * ma + 1, (ob - 1) * mb + 1)
-        if M.shape != cg_dim:
-            raise ValueError(
-                f"Coefficient shape {M.shape} incompatible with desc={desc} and CG notation (expected {cg_dim})."
-            )
-
-        p_var = cp.Variable(cg_dim, name="p_cg_quantum")
-
-        objective = cp.Maximize(cp.sum(cp.multiply(M, p_var)))
-
-        constraints = [p_var[0, 0] == 1]
-        try:
-            npa_constraints = bell_npa_constraints(p_var, desc, k)
-            constraints += npa_constraints
-        except ValueError as e:
-            raise ValueError(f"Error generating NPA constraints: {e}") from e
-
-        problem = cp.Problem(objective, constraints)
-
+        problem = cp.Problem(cp.Maximize(cp.sum(cp.multiply(M, p_cg))), constraints)
         with warnings.catch_warnings():
             warnings.simplefilter("ignore", category=UserWarning)
-            bmax = problem.solve(solver=cp.SCS, eps=tol, verbose=False)
+            return solve_sdp(problem, cp.SCS, {"eps": tol, "verbose": False})
 
-        if problem.status not in [cp.OPTIMAL, cp.OPTIMAL_INACCURATE]:
-            print(f"Warning: Solver status for 'quantum' k={k}: {problem.status}")
-            if problem.status in [cp.INFEASIBLE, cp.INFEASIBLE_INACCURATE]:
-                bmax = -np.inf
-            elif problem.status in [cp.UNBOUNDED, cp.UNBOUNDED_INACCURATE]:
-                bmax = np.inf
-
-    elif mtype_low == "classical":
+    if mtype_low == "classical":
         current_oa, current_ob, current_ma, current_mb = oa, ob, ma, mb
 
         if current_oa == 2 and current_ob == 2:
@@ -349,16 +276,32 @@ def bell_inequality_max(
                 temp_bmax = np.sum(max_a_for_x)
                 bmax = max(bmax, temp_bmax)
 
-    else:
-        raise ValueError(f"Invalid mtype: {mtype}. Must be 'classical', 'quantum', or 'nosignal'.")
-
-    if bmax is None or np.isnan(bmax):
-        return -np.inf
-
-    if np.isinf(bmax):
         return float(bmax)
 
-    return float(bmax)
+    raise ValueError(f"Invalid mtype: {mtype}. Must be 'classical', 'quantum', or 'nosignal'.")
+
+
+def _coefficients_to_cg(coefficients: np.ndarray, desc: list[int], notation: str) -> np.ndarray:
+    """Convert Bell functional coefficients to Collins-Gisin notation and check their shape against ``desc``."""
+    oa, ob, ma, mb = desc
+    if notation == "fc" and (oa != 2 or ob != 2):
+        raise ValueError("Notation conversion failed: 'fc' notation is only supported for binary outputs (oa=2, ob=2).")
+    try:
+        if notation == "cg":
+            M = coefficients
+        elif notation == "fp":
+            M = _fp_to_cg(coefficients, behavior=False)
+        else:
+            M = _fc_to_cg(coefficients, behavior=False)
+    except ValueError as e:
+        raise ValueError(f"Notation conversion failed: {e}") from e
+
+    cg_dim = ((oa - 1) * ma + 1, (ob - 1) * mb + 1)
+    if M.shape != cg_dim:
+        raise ValueError(
+            f"Coefficient shape {M.shape} incompatible with desc={desc} and CG notation (expected {cg_dim})."
+        )
+    return M
 
 
 def bell_inequality_max_qubits(
@@ -501,10 +444,7 @@ def bell_inequality_max_qubits(
             pt_matrix = partial_transpose(W, ppt_partition_updated, [4] + [2] * (2 * (m - 1)))
             constraints.append(pt_matrix >> 0)
 
-    prob = cp.Problem(objective, constraints)
-    prob.solve(solver=solver_name, verbose=False)
-
-    return prob.value
+    return solve_sdp(cp.Problem(objective, constraints), solver_name, {"verbose": False})
 
 
 def _integer_digits(number: int, base: int, digits: int) -> np.ndarray:

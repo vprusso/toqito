@@ -5,6 +5,7 @@ import itertools
 import cvxpy
 import numpy as np
 
+from toqito._sdp import solve_sdp
 from toqito.matrix_ops import tensor
 from toqito.nonlocal_games.binary_constraint_system_game import (
     _parity_system_from_truth_tables,
@@ -31,14 +32,6 @@ def _random_measurements(dim: int, num_inputs: int, num_outputs: int, seed: int)
             vector = basis[:, column]
             measurements[y, min(column, num_outputs - 1)] += np.outer(vector, vector.conj())
     return measurements
-
-
-def _solve_sdp(problem: cvxpy.Problem, solver: str | None = None, solver_params: dict | None = None) -> float:
-    """Solve a cvxpy problem and return its value, raising if the solver did not reach an optimum."""
-    problem.solve(solver=solver, **({} if solver_params is None else solver_params))
-    if problem.status not in (cvxpy.OPTIMAL, cvxpy.OPTIMAL_INACCURATE) or problem.value is None:
-        raise ValueError(f"The semidefinite program did not solve successfully (status: {problem.status}).")
-    return float(problem.value)
 
 
 def _validate_game(prob_mat: np.ndarray, pred_mat: np.ndarray, pred_ndim: int) -> None:
@@ -414,7 +407,7 @@ class NonlocalGame:
                 coeffs = np.einsum("abxy,ybij->xaij", weights, bob_vals)
                 for (x, a), param in alice_coeffs.items():
                     param.value = coeffs[x, a]
-                _solve_sdp(alice_problem, solver, solver_params)
+                solve_sdp(alice_problem, solver, solver_params)
                 alice_vals = np.array(
                     [[alice_ops[x, a].value for a in range(num_outputs_alice)] for x in range(num_inputs_alice)]
                 )
@@ -422,7 +415,7 @@ class NonlocalGame:
                 coeffs = np.einsum("abxy,xaij->ybij", weights, alice_vals)
                 for (y, b), param in bob_coeffs.items():
                     param.value = coeffs[y, b]
-                lower_bound = _solve_sdp(bob_problem, solver, solver_params)
+                lower_bound = solve_sdp(bob_problem, solver, solver_params)
                 bob_vals = np.array(
                     [[bob_ops[y, b].value for b in range(num_outputs_bob)] for y in range(num_inputs_bob)]
                 )
@@ -471,7 +464,7 @@ class NonlocalGame:
 
         weights = np.real(self.pred_mat * self.prob_mat).reshape(alice_out * bob_out, alice_in * bob_in)
         problem = cvxpy.Problem(cvxpy.Maximize(cvxpy.sum(cvxpy.multiply(weights, p_var))), constraints)
-        return _solve_sdp(problem, solver, solver_params)
+        return solve_sdp(problem, solver, solver_params)
 
     def commuting_measurement_value_upper_bound(
         self, k: int | str = 1, solver: str | None = None, solver_params: dict | None = None
@@ -507,4 +500,4 @@ class NonlocalGame:
         }
         p_win = sum(cvxpy.sum(cvxpy.multiply(weights[:, :, x, y], mat[x, y])) for (x, y) in mat)
         problem = cvxpy.Problem(cvxpy.Maximize(p_win), npa_constraints(mat, k))
-        return _solve_sdp(problem, solver, solver_params)
+        return solve_sdp(problem, solver, solver_params)

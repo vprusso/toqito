@@ -3,8 +3,8 @@
 import cvxpy
 import numpy as np
 
+from toqito._sdp import solve_sdp
 from toqito.matrix_ops import partial_trace
-from toqito.nonlocal_games.nonlocal_game import _solve_sdp
 from toqito.perms import permutation_operator
 
 
@@ -94,7 +94,7 @@ class QuantumHedging:
         objective = cvxpy.real(cvxpy.trace(self._q_a.conj().T @ x_var))
         constraints = [partial_trace(x_var, self._sys, self._dim) == np.identity(2**self._num_reps), x_var >> 0]
         problem = cvxpy.Problem(cvxpy.Maximize(objective) if maximize else cvxpy.Minimize(objective), constraints)
-        return _solve_sdp(problem)
+        return solve_sdp(problem)
 
     def _dual(self, maximize: bool) -> float:
         """Solve the dual hedging program for the maximal (`maximize`) or minimal probability of outcome "a"."""
@@ -105,7 +105,7 @@ class QuantumHedging:
             problem = cvxpy.Problem(cvxpy.Minimize(objective), [lifted >> self._q_a])
         else:
             problem = cvxpy.Problem(cvxpy.Maximize(objective), [lifted << self._q_a])
-        return _solve_sdp(problem)
+        return solve_sdp(problem)
 
     def max_prob_outcome_a_primal(self) -> float:
         r"""Compute the maximal probability for calculating outcome "a".
