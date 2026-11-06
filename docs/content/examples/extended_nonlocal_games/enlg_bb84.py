@@ -145,7 +145,18 @@ from toqito.nonlocal_games.extended_nonlocal_game import ExtendedNonlocalGame
 bb84_lb = ExtendedNonlocalGame(bb84_prob_mat, bb84_pred_mat)
 
 # The standard quantum value is cos(pi/8)**2 \approx 0.85356
-print("The standard quantum value is ", np.around(bb84_lb.quantum_value_lower_bound(), decimals=2))
+print("The standard quantum value is ", np.around(bb84_lb.quantum_value_lower_bound(seed=0), decimals=2))
+
+# %%
+# The strategy that attains the bound can be returned alongside it. It consists of
+# a shared state on the referee's qubit, Alice's system and Bob's qubit, in that
+# order, together with one measurement per question for each player. Evaluating
+# the strategy on the game reproduces the bound.
+
+value, strategy = bb84_lb.quantum_value_lower_bound(seed=0, return_strategy=True)
+print("Winning probability of the returned strategy:", np.around(bb84_lb.quantum_strategy_value(strategy), decimals=4))
+print("Shape of the shared state:", strategy.state.shape)
+print("Shape of Bob's measurements:", strategy.bob_povms.shape)
 
 # %%
 # From [@johnston2016extended], it is known that $\omega(G_{BB84}) =

@@ -208,3 +208,41 @@ class TestXORGameSolverFailure(unittest.TestCase):
         with mock.patch.object(cvxpy.Problem, "solve", lambda self, *args, **kwargs: None):
             with self.assertRaisesRegex(ValueError, "did not solve successfully"):
                 chsh.quantum_value()
+
+
+class TestXORGameStrategy(unittest.TestCase):
+    """The strategy returned with the quantum value attains it."""
+
+    @staticmethod
+    def chsh():
+        """Build the CHSH game."""
+        return XORGame(np.array([[1 / 4, 1 / 4], [1 / 4, 1 / 4]]), np.array([[0, 0], [0, 1]]))
+
+    def test_chsh_strategy_attains_quantum_value(self):
+        """The Tsirelson strategy for CHSH lives on two qubits and wins with probability cos^2(pi/8)."""
+        chsh = self.chsh()
+        value, strategy = chsh.quantum_value(return_strategy=True)
+        self.assertAlmostEqual(value, np.cos(np.pi / 8) ** 2, delta=1e-5)
+        self.assertAlmostEqual(chsh.quantum_strategy_value(strategy), value, delta=1e-5)
+        self.assertEqual(strategy.state.shape, (4, 4))
+        self.assertEqual(strategy.alice_povms.shape, (2, 2, 2, 2))
+        for povms in (strategy.alice_povms, strategy.bob_povms):
+            np.testing.assert_allclose(povms.sum(axis=3), np.broadcast_to(np.eye(2)[:, :, None], (2, 2, 2)), atol=1e-8)
+            self.assertGreaterEqual(np.linalg.eigvalsh(np.moveaxis(povms, (2, 3), (0, 1))).min(), -1e-6)
+
+    def test_odd_cycle_strategy_attains_quantum_value(self):
+        """The strategy for the five-cycle game reproduces its quantum value."""
+        prob_mat = np.array(
+            [[0.1, 0.1, 0, 0, 0], [0, 0.1, 0.1, 0, 0], [0, 0, 0.1, 0.1, 0], [0, 0, 0, 0.1, 0.1], [0.1, 0, 0, 0, 0.1]]
+        )
+        pred_mat = np.array([[0, 1, 0, 0, 0], [0, 0, 1, 0, 0], [0, 0, 0, 1, 0], [0, 0, 0, 0, 1], [1, 0, 0, 0, 0]])
+        odd_cycle = XORGame(prob_mat, pred_mat)
+        value, strategy = odd_cycle.quantum_value(return_strategy=True)
+        self.assertAlmostEqual(value, 0.975528, delta=1e-5)
+        self.assertAlmostEqual(odd_cycle.quantum_strategy_value(strategy), value, delta=1e-5)
+
+    def test_strategy_requires_single_repetition(self):
+        """A strategy is only returned for one repetition of the game."""
+        chsh = XORGame(np.array([[1 / 4, 1 / 4], [1 / 4, 1 / 4]]), np.array([[0, 0], [0, 1]]), reps=2)
+        with pytest.raises(ValueError, match="single repetition"):
+            chsh.quantum_value(return_strategy=True)

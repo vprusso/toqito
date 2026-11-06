@@ -4,7 +4,28 @@ import cvxpy
 import numpy as np
 
 from toqito._sdp import solve_sdp
-from toqito.nonlocal_games.nonlocal_game import NonlocalGame
+from toqito.nonlocal_games.nonlocal_game import NonlocalGame, QuantumStrategy
+
+
+def _clifford_generators(count: int) -> np.ndarray:
+    r"""Return ``count`` pairwise anticommuting Hermitian involutions on \(2^{\lceil count/2 \rceil}\) dimensions.
+
+    The Jordan-Wigner construction on \(q\) qubits gives \(2q\) of them: \(Z^{\otimes (j-1)} \otimes X \otimes
+    \mathbb{1}\) and \(Z^{\otimes (j-1)} \otimes Y \otimes \mathbb{1}\) for \(j = 1, \ldots, q\).
+    """
+    pauli_x = np.array([[0, 1], [1, 0]], dtype=complex)
+    pauli_y = np.array([[0, -1j], [1j, 0]], dtype=complex)
+    pauli_z = np.array([[1, 0], [0, -1]], dtype=complex)
+    num_qubits = max(1, -(-count // 2))
+    generators = []
+    for qubit in range(num_qubits):
+        for pauli in (pauli_x, pauli_y):
+            factors = [pauli_z] * qubit + [pauli] + [np.eye(2)] * (num_qubits - qubit - 1)
+            operator = factors[0]
+            for factor in factors[1:]:
+                operator = np.kron(operator, factor)
+            generators.append(operator)
+    return np.array(generators[:count])
 
 
 class XORGame:
@@ -177,60 +198,105 @@ class XORGame:
                 "Invalid: The variable `prob_mat` must be a probability matrix: its entries must sum to 1."
             )
 
-    def quantum_value(self, solver: str | None = None, solver_params: dict | None = None) -> float:
+    def quantum_value(
+        self, solver: str | None = None, solver_params: dict | None = None, return_strategy: bool = False
+    ) -> float | tuple[float, QuantumStrategy]:
         r"""Compute the quantum value of the XOR game.
 
-        To obtain the quantum value of the XOR game, we calculate the following
-        simplified dual problem of the semidefinite program from the set of
-        notes: Lecture 6 of [@watrous2011theory]
+        By Tsirelson's theorem the quantum bias of an XOR game is the value of the semidefinite program (Lecture 6
+        of [@watrous2011theory])
 
         \[
         \begin{equation}
                 \begin{aligned}
-                        \text{minimize:} \quad & \frac{1}{2} \sum_{x \in X} u(x) +
-                                                                            \frac{1}{2} \sum_{
-                                                                            y \in Y} v(y) \\
-                        \text{subject to:} \quad &
-                                        \begin{pmatrix}
-                                                \text{Diag}(u) & -D \\
-                                                -D^* & \text{Diag}(v)
-                                        \end{pmatrix} \geq 0, \\
-                                        & u \in \mathbb{R}^X, \
-                                            v \in \mathbb{R}^Y.
+                        \text{maximize:} \quad & \sum_{x \in X, y \in Y} D(x, y) \langle u_x, v_y \rangle \\
+                        \text{subject to:} \quad & \lVert u_x \rVert = \lVert v_y \rVert = 1,
                 \end{aligned}
         \end{equation}
         \]
 
-        where \(D\) is the matrix defined to be
+        over real unit vectors, which is solved as a semidefinite program in their Gram matrix. Here \(D\) is the
+        matrix
 
         \[
-        D(x,y) = \pi(x, y) (-1)^{f(x,y)}
+        D(x,y) = \pi(x, y) (-1)^{f(x,y)},
         \]
 
-        In other words, \(\pi(x, y)\) corresponds to `prob_mat[x, y]`, and \(f(x,y)\) corresponds to `pred_mat[x, y]`.
+        where \(\pi(x, y)\) corresponds to `prob_mat[x, y]` and \(f(x,y)\) corresponds to `pred_mat[x, y]`, and the
+        quantum value is \((1 + \text{bias}) / 2\).
+
+        The optimal vectors also give an optimal strategy: with anticommuting Hermitian involutions
+        \(C_1, \ldots, C_r\) on \(2^{\lceil r/2 \rceil}\) dimensions, Alice measures the observable
+        \(\sum_i u_x(i) C_i\), Bob measures \(\sum_i v_y(i) C_i^{\mathsf{T}}\), and they share the maximally
+        entangled state, so that \(\langle A_x \otimes B_y \rangle = \langle u_x, v_y \rangle\).
 
         Args:
             solver: The cvxpy solver to use (default is cvxpy's choice).
             solver_params: Extra keyword arguments passed to `cvxpy.Problem.solve`.
+            return_strategy: If True, also return the optimal strategy as a `QuantumStrategy` whose measurements
+                have outcome ``0`` for the \(+1\) eigenspace of the observable and ``1`` for the \(-1\) eigenspace
+                (default is False). Only available for a single repetition.
+
+        Raises:
+            ValueError: If a strategy is requested for more than one repetition.
 
         Returns:
-            A value between `[0, 1]` representing the quantum value.
+            A value between `[0, 1]` representing the quantum value, followed by the optimal strategy when
+            `return_strategy` is True.
 
         """
+        if return_strategy and self.reps != 1:
+            raise ValueError("A strategy can only be returned for a single repetition of the game.")
         alice_in, bob_in = self.prob_mat.shape
         d_mat = self.prob_mat * (-1.0) ** self.pred_mat
 
-        u_vec = cvxpy.Variable(alice_in)
-        v_vec = cvxpy.Variable(bob_in)
+        # gram[i, j] = <w_i, w_j> for the stacked vectors (u_0, ..., u_{m-1}, v_0, ..., v_{n-1}).
+        num_vectors = alice_in + bob_in
+        gram = cvxpy.Variable((num_vectors, num_vectors), symmetric=True)
+        weights = np.zeros((num_vectors, num_vectors))
+        weights[:alice_in, alice_in:] = d_mat / 2
+        weights += weights.T
+        objective = cvxpy.Maximize(cvxpy.sum(cvxpy.multiply(weights, gram)))
+        bias = solve_sdp(cvxpy.Problem(objective, [gram >> 0, cvxpy.diag(gram) == 1]), solver, solver_params)
 
-        objective = cvxpy.Minimize(cvxpy.sum(u_vec) + cvxpy.sum(v_vec))
-        constraints = [cvxpy.bmat([[cvxpy.diag(u_vec), -d_mat], [-d_mat.T, cvxpy.diag(v_vec)]]) >> 0]
-        bias = solve_sdp(cvxpy.Problem(objective, constraints), solver, solver_params)
-
-        # The optimal objective is twice the bias of the game, and the winning probability is (1 + bias) / 2.
         # It holds from (https://arxiv.org/abs/quant-ph/0608146) that the quantum value of any XOR game obeys strong
         # parallel repetition, so the value of `reps` parallel copies is the single-copy value to that power.
-        return (bias / 4 + 1 / 2) ** self.reps
+        value = ((1 + bias) / 2) ** self.reps
+        if not return_strategy:
+            return value
+
+        # Read the vectors off the Gram matrix, keeping only the directions that carry weight.
+        eigvals, eigvecs = np.linalg.eigh(gram.value)
+        keep = eigvals > 1e-9 * eigvals.max()
+        vectors = eigvecs[:, keep] * np.sqrt(eigvals[keep])
+        vectors /= np.linalg.norm(vectors, axis=1, keepdims=True)
+        generators = _clifford_generators(vectors.shape[1])
+        dim = generators.shape[1]
+
+        alice_obs = np.einsum("xi,ijk->xjk", vectors[:alice_in], generators)
+        bob_obs = np.einsum("yi,ijk->yjk", vectors[alice_in:], generators.transpose(0, 2, 1))
+        signs = np.array([1.0, -1.0])
+        alice_povms = (np.eye(dim)[None, None] + signs[None, :, None, None] * alice_obs[:, None]) / 2
+        bob_povms = (np.eye(dim)[None, None] + signs[None, :, None, None] * bob_obs[:, None]) / 2
+        psi = np.eye(dim).reshape(-1) / np.sqrt(dim)
+        strategy = QuantumStrategy(
+            state=np.outer(psi, psi.conj()),
+            alice_povms=alice_povms.transpose(2, 3, 0, 1),
+            bob_povms=bob_povms.transpose(2, 3, 0, 1),
+        )
+        return value, strategy
+
+    def quantum_strategy_value(self, strategy: QuantumStrategy) -> float:
+        """Compute the winning probability of a quantum strategy, as for the equivalent `NonlocalGame`.
+
+        Args:
+            strategy: A shared state on Alice's and Bob's systems and their measurements.
+
+        Returns:
+            The probability of winning the game with the strategy.
+
+        """
+        return self.to_nonlocal_game().quantum_strategy_value(strategy)
 
     def classical_value(self) -> float:
         r"""Compute the classical value of the XOR game.
