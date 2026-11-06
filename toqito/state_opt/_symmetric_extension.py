@@ -1,12 +1,18 @@
-"""Shared internal helpers for symmetric-extension SDPs parameterized on the symmetric subspace."""
+r"""Shared internal helpers for symmetric-extension SDPs parameterized on the symmetric subspace.
+
+A (Bose-)symmetric extension of an operator on \(X \otimes Y\) to \(X \otimes Y^{\otimes k}\) is supported on
+\(X \otimes \mathrm{Sym}^k(Y)\), so it is parameterized as \(\sigma = (I_X \otimes V) Z (I_X \otimes V)^T\)
+with \(V\) the isometry onto the symmetric subspace and \(Z \succeq 0\) a variable on the much smaller space.
+Every linear map of \(\sigma\) that an SDP needs (partial traces, partial transposes, tensoring with an identity)
+is built here as a sparse matrix acting on the row-major vectorization of \(Z\), so each constraint is a single
+sparse product rather than an expression tree over blocks.
+"""
 
 from math import comb
 
 import cvxpy
 import numpy as np
 from scipy import sparse
-
-from toqito.matrix_ops import partial_transpose
 
 
 def _symmetric_isometry(dim: int, level: int) -> sparse.csr_array:
@@ -38,12 +44,28 @@ def _vec_partial_trace(dims: list[int], sys: list[int]) -> sparse.csr_array:
     return sparse.csr_array((np.ones(rows.size), (rows, cols.ravel())), shape=(dim_keep**2, dim_total**2))
 
 
-def _vec_partial_transpose_perm(dims: list[int], sys: int) -> np.ndarray:
-    r"""Return `perm` such that the row-major vectorization of \(T_{sys}(X)\) is `vec(X)[perm]`."""
+def _vec_partial_transpose_perm(dims: list[int], sys: int | list[int]) -> np.ndarray:
+    r"""Return `perm` such that the row-major vectorization of \(T_{sys}(X)\) is `vec(X)[perm]`.
+
+    Transposes of distinct subsystems commute, so a list of subsystems is handled by transposing each in turn.
+    """
     num = len(dims)
     dim_total = int(np.prod(dims))
     idx = np.arange(dim_total**2).reshape(dims + dims)
-    return np.swapaxes(idx, sys, num + sys).ravel()
+    for system in [sys] if isinstance(sys, int) else sys:
+        idx = np.swapaxes(idx, system, num + system)
+    return idx.ravel()
+
+
+def _vec_kron_identity(dim: int, dim_identity: int) -> sparse.csr_array:
+    r"""Return the sparse matrix mapping the row-major vectorization of \(A\) to that of \(A \otimes \mathbb{I}\)."""
+    rows_a, cols_a = np.divmod(np.arange(dim**2), dim)
+    diag = np.arange(dim_identity)
+    rows = (
+        (rows_a[:, None] * dim_identity + diag) * (dim * dim_identity) + cols_a[:, None] * dim_identity + diag
+    ).ravel()
+    cols = np.repeat(np.arange(dim**2), dim_identity)
+    return sparse.csr_array((np.ones(rows.size), (rows, cols)), shape=((dim * dim_identity) ** 2, dim**2))
 
 
 def _apply_vec_map(vec_map: sparse.csr_array, var: cvxpy.Expression, out_dim: int) -> cvxpy.Expression:
@@ -51,21 +73,63 @@ def _apply_vec_map(vec_map: sparse.csr_array, var: cvxpy.Expression, out_dim: in
     return cvxpy.reshape(vec_map @ cvxpy.vec(var, order="C"), (out_dim, out_dim), order="C")
 
 
+class SymmetricExtension:
+    r"""A symmetric extension variable on \(X \otimes \mathrm{Sym}^k(Y)\) and the sparse maps that read it out.
+
+    Attributes:
+        variable: The Hermitian cvxpy variable \(Z\); the extension is \(\sigma = (I_X \otimes V) Z (I_X \otimes V)^T\)
+            and has the same trace as \(Z\).
+        dims: The dimensions ``[dim_x, dim_y, ..., dim_y]`` of the extended space, with ``level`` copies of \(Y\).
+        embed: The sparse matrix mapping the vectorization of \(Z\) to that of \(\sigma\).
+
+    """
+
+    def __init__(self, dim_x: int, dim_y: int, level: int) -> None:
+        r"""Create the variable for a symmetric extension with ``level`` copies of \(Y\)."""
+        sym_dim = comb(dim_y + level - 1, level)
+        self.dim_x, self.dim_y, self.level, self.sym_dim = dim_x, dim_y, level, sym_dim
+        self.dims = [dim_x] + [dim_y] * level
+        self.variable = cvxpy.Variable((dim_x * sym_dim, dim_x * sym_dim), hermitian=True)
+        isometry = sparse.kron(sparse.eye_array(dim_x), _symmetric_isometry(dim_y, level), format="csr")
+        # vec(A Z A^T) = (A (x) A) vec(Z) maps the reduced variable to the full extension.
+        self.embed = sparse.kron(isometry, isometry, format="csr")
+
+    def partial_trace(self, sys: list[int]) -> cvxpy.Expression:
+        r"""Return \(\mathrm{Tr}_{sys}(\sigma)\), with subsystems numbered from \(X = 0\)."""
+        vec_map = _vec_partial_trace(self.dims, sys) @ self.embed
+        return _apply_vec_map(vec_map, self.variable, int(np.sqrt(vec_map.shape[0])))
+
+    def partial_trace_map(self, sys: list[int]) -> sparse.csr_array:
+        r"""Return the sparse map from the vectorization of \(Z\) to that of \(\mathrm{Tr}_{sys}(\sigma)\)."""
+        return _vec_partial_trace(self.dims, sys) @ self.embed
+
+    def partial_transpose(self, sys: list[int]) -> cvxpy.Expression:
+        r"""Return \(T_{sys}(\sigma)\) on the full extended space.
+
+        When ``sys`` is ``[0]``, transposing \(X\) commutes with the embedding and \(T_X(\sigma) \succeq 0\) exactly
+        when \(T_X(Z) \succeq 0\), so the much smaller transposed \(Z\) is returned instead. When ``sys`` is ``[1]``
+        the result is supported on \(X \otimes Y_1 \otimes \mathrm{Sym}^{k-1}(Y)\) and is compressed onto it.
+        """
+        if sys == [0]:
+            perm = _vec_partial_transpose_perm([self.dim_x, self.sym_dim], 0)
+            return cvxpy.reshape(cvxpy.vec(self.variable, order="C")[perm], self.variable.shape, order="C")
+        vec_map = self.embed[_vec_partial_transpose_perm(self.dims, sys)]
+        if sys == [1] and self.level > 1:
+            compress = sparse.kron(
+                sparse.eye_array(self.dim_x * self.dim_y), _symmetric_isometry(self.dim_y, self.level - 1), format="csr"
+            ).T
+            vec_map = sparse.kron(compress, compress, format="csr") @ vec_map
+        return _apply_vec_map(vec_map, self.variable, int(np.sqrt(vec_map.shape[0])))
+
+
 def symmetric_extension_sdp(
     dim_x: int, dim_y: int, level: int, ppt: bool = True
 ) -> tuple[cvxpy.Expression, list[cvxpy.Constraint]]:
     r"""Build a (PPT) symmetric extension of an operator on \(X \otimes Y\) on the symmetric subspace.
 
-    A symmetric extension \(\sigma\) on \(X \otimes Y^{\otimes k}\) is supported on
-    \(X \otimes \text{Sym}^k(Y)\), so it is parameterized as \(\sigma = (I_X \otimes V) Z (I_X \otimes V)^T\)
-    with \(V\) the isometry onto the symmetric subspace and \(Z \succeq 0\) the (much smaller) variable.
-    This removes the Bose-symmetry equality constraint. No operator on the full space is formed: the
-    marginal and PPT constraints are applied directly to \(Z\) as sparse linear maps.
-
-    PPT constraints are also reduced to the inequivalent ones. Since \(\sigma\) is invariant under
+    PPT constraints are reduced to the inequivalent ones. Since \(\sigma\) is invariant under
     permutations of the \(Y\) copies, transposing any single copy is unitarily equivalent to transposing
-    \(Y_1\), and \(T_{Y_1}(\sigma)\) is supported on \(X \otimes Y_1 \otimes \text{Sym}^{k-1}(Y)\), where
-    it is compressed. Likewise \(T_X(\sigma) \succeq 0\) if and only if \(T_X(Z) \succeq 0\).
+    \(Y_1\), and \(T_X(\sigma) \succeq 0\) if and only if \(T_X(Z) \succeq 0\).
 
     Args:
         dim_x: Dimension of the unextended subsystem \(X\).
@@ -78,25 +142,10 @@ def symmetric_extension_sdp(
         \(X \otimes Y\) and the list of positivity constraints on the extension.
 
     """
-    sym_dim = comb(dim_y + level - 1, level)
-    dim_xy = dim_x * dim_y
-    full_dims = [dim_x] + [dim_y] * level
-
-    z_var = cvxpy.Variable((dim_x * sym_dim, dim_x * sym_dim), hermitian=True)
-    constraints = [z_var >> 0]
-
-    # vec(A Z A^T) = (A ⊗ A) vec(Z) maps the reduced variable to the full extension.
-    embed = sparse.kron(sparse.eye_array(dim_x), _symmetric_isometry(dim_y, level), format="csr")
-    embed_vec = sparse.kron(embed, embed, format="csr")
-    marginal_map = _vec_partial_trace(full_dims, list(range(2, level + 1))) @ embed_vec
-    marginal = _apply_vec_map(marginal_map, z_var, dim_xy)
-
+    extension = SymmetricExtension(dim_x, dim_y, level)
+    constraints = [extension.variable >> 0]
     if ppt:
-        constraints.append(partial_transpose(z_var, [0], [dim_x, sym_dim]) >> 0)
+        constraints.append(extension.partial_transpose([0]) >> 0)
         if level > 1:
-            compress = sparse.kron(sparse.eye_array(dim_xy), _symmetric_isometry(dim_y, level - 1), format="csr").T
-            transpose_y1 = embed_vec[_vec_partial_transpose_perm(full_dims, 1)]
-            pt_map = sparse.kron(compress, compress, format="csr") @ transpose_y1
-            constraints.append(_apply_vec_map(pt_map, z_var, compress.shape[0]) >> 0)
-
-    return marginal, constraints
+            constraints.append(extension.partial_transpose([1]) >> 0)
+    return extension.partial_trace(list(range(2, level + 1))), constraints
