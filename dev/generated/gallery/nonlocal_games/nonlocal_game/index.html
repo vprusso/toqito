@@ -1105,17 +1105,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#the-ffl-game" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        The FFL game
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#parallel-repetitions-of-nonlocal-games" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -11148,17 +11137,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#the-ffl-game" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        The FFL game
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#parallel-repetitions-of-nonlocal-games" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -11556,88 +11534,103 @@ in this matrix into the <code>pred_mat</code> variable.</p>
 
 <p>Now that we have both <code>prob_mat</code> and <code>pred_mat</code> defined, we can
 use <code>|toqito⟩</code> to determine the lower bound on the quantum value.</p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 367-377 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 367-376 -->
 
 <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
 <a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.nonlocal_games.nonlocal_game</span><span class="w"> </span><span class="kn">import</span> <span class="n">NonlocalGame</span>
 <a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>
 <a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="n">chsh</span> <span class="o">=</span> <span class="n">NonlocalGame</span><span class="p">(</span><span class="n">prob_mat</span><span class="p">,</span> <span class="n">pred_mat</span><span class="p">)</span>
-<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="c1"># Multiple runs to avoid trap in suboptimal quantum value.</span>
-<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="n">results</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">around</span><span class="p">(</span><span class="n">chsh</span><span class="o">.</span><span class="n">quantum_value_lower_bound</span><span class="p">(),</span> <span class="n">decimals</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">)]</span>
-<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Maximum quantum value after multiple runs is: </span><span class="si">{</span><span class="nb">max</span><span class="p">(</span><span class="n">results</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="n">lower_bound</span><span class="p">,</span> <span class="n">strategy</span> <span class="o">=</span> <span class="n">chsh</span><span class="o">.</span><span class="n">quantum_value_lower_bound</span><span class="p">(</span><span class="n">seed</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">return_strategy</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Quantum value (lower bound): </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">around</span><span class="p">(</span><span class="n">lower_bound</span><span class="p">,</span><span class="w"> </span><span class="n">decimals</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </code></pre></div>
 <p class="mkd-glr-script-out">Out:</p>
-<div class="mkd-glr-script-out-disp highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>Maximum<span class="w"> </span>quantum<span class="w"> </span>value<span class="w"> </span>after<span class="w"> </span>multiple<span class="w"> </span>runs<span class="w"> </span>is:<span class="w"> </span><span class="m">0</span>.85
+<div class="mkd-glr-script-out-disp highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>Quantum<span class="w"> </span>value<span class="w"> </span><span class="o">(</span>lower<span class="w"> </span>bound<span class="o">)</span>:<span class="w"> </span><span class="m">0</span>.8536
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 378-421 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 377-382 -->
 
 <p>In this case, we can see that the quantum value of the CHSH game is in fact
-attained as <span class="arithmatex">\(\cos^2(\pi/8) \approx 0.85355\)</span>.</p>
-<h2 id="the-ffl-game">The FFL game<a class="headerlink" href="#the-ffl-game" title="Permanent link">&para;</a></h2>
-<p>The <em>FFL (Fortnow, Feige, Lovasz) game</em> is a nonlocal game specified as
-follows.</p>
-<div class="arithmatex">\[
-\begin{equation}
-\begin{aligned}
-&amp;\pi(0, 0) = \frac{1}{3}, \quad
-\pi(0, 1) = \frac{1}{3}, \quad
-\pi(1, 0) = \frac{1}{3}, \quad
-\pi(1, 1) = 0, \\
-&amp;(x,y) \in \Sigma_A \times \Sigma_B, \qquad \text{and} \qquad (a, b) \in \Gamma_A \times \Gamma_B,
-\end{aligned}
-\end{equation}
-\]</div>
-<p>where</p>
-<div class="arithmatex">\[
-\begin{equation}
-\Sigma_A = \{0, 1\}, \quad \Sigma_B = \{0, 1\}, \quad \Gamma_A =
-\{0,1\}, \quad \text{and} \quad \Gamma_B = \{0, 1\}.
-\end{equation}
-\]</div>
-<p>Alice and Bob win the FFL game if and only if the following equation is
-satisfied</p>
-<div class="arithmatex">\[
-\begin{equation}
-a \lor x = b \lor y.
-\end{equation}
-\]</div>
-<p>It is well-known that both the classical and quantum value of this nonlocal
-game is <span class="arithmatex">\(2/3\)</span> <sup id="fnref:watrous2020advanced"><a class="footnote-ref" href="#fn:watrous2020advanced">3</a></sup>. We can verify this fact using <code>|toqito⟩</code>.
-The following example encodes the FFL game. We then calculate the classical
-value and calculate lower bounds on the quantum value of the FFL game.</p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 421-447 -->
+attained as <span class="arithmatex">\(\cos^2(\pi/8) \approx 0.85355\)</span>. The strategy that attains it is
+returned alongside the value: a shared two-qubit state and one measurement per
+question for each player. Evaluating that strategy on the game reproduces the
+bound, and the state is the maximally entangled state.</p>
+<!-- GENERATED FROM PYTHON SOURCE LINES 382-452 -->
 
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>
-<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.nonlocal_games.nonlocal_game</span><span class="w"> </span><span class="kn">import</span> <span class="n">NonlocalGame</span>
-<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>
-<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="c1"># Specify the number of inputs, and number of outputs.</span>
-<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="n">num_alice_in</span><span class="p">,</span> <span class="n">num_alice_out</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span>
-<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="n">num_bob_in</span><span class="p">,</span> <span class="n">num_bob_out</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span>
-<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>
-<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="c1"># Define the probability matrix of the FFL game.</span>
-<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="n">prob_mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span> <span class="o">/</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span> <span class="o">/</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span> <span class="o">/</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">]])</span>
-<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>
-<a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>
-<a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a><span class="c1"># Define the predicate matrix of the FFL game.</span>
-<a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a><span class="n">pred_mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">num_alice_out</span><span class="p">,</span> <span class="n">num_bob_out</span><span class="p">,</span> <span class="n">num_alice_in</span><span class="p">,</span> <span class="n">num_bob_in</span><span class="p">))</span>
-<a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a><span class="k">for</span> <span class="n">a_alice</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_alice_out</span><span class="p">):</span>
-<a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a>    <span class="k">for</span> <span class="n">b_bob</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_bob_out</span><span class="p">):</span>
-<a id="__codelineno-7-17" name="__codelineno-7-17" href="#__codelineno-7-17"></a>        <span class="k">for</span> <span class="n">x_alice</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_alice_in</span><span class="p">):</span>
-<a id="__codelineno-7-18" name="__codelineno-7-18" href="#__codelineno-7-18"></a>            <span class="k">for</span> <span class="n">y_bob</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_bob_in</span><span class="p">):</span>
-<a id="__codelineno-7-19" name="__codelineno-7-19" href="#__codelineno-7-19"></a>                <span class="k">if</span> <span class="p">(</span><span class="n">a_alice</span> <span class="ow">or</span> <span class="n">x_alice</span><span class="p">)</span> <span class="o">!=</span> <span class="p">(</span><span class="n">b_bob</span> <span class="ow">or</span> <span class="n">y_bob</span><span class="p">):</span>
-<a id="__codelineno-7-20" name="__codelineno-7-20" href="#__codelineno-7-20"></a>                    <span class="n">pred_mat</span><span class="p">[</span><span class="n">a_alice</span><span class="p">,</span> <span class="n">b_bob</span><span class="p">,</span> <span class="n">x_alice</span><span class="p">,</span> <span class="n">y_bob</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
-<a id="__codelineno-7-21" name="__codelineno-7-21" href="#__codelineno-7-21"></a><span class="c1"># Define the FFL game object.</span>
-<a id="__codelineno-7-22" name="__codelineno-7-22" href="#__codelineno-7-22"></a><span class="n">ffl</span> <span class="o">=</span> <span class="n">NonlocalGame</span><span class="p">(</span><span class="n">prob_mat</span><span class="p">,</span> <span class="n">pred_mat</span><span class="p">)</span>
-<a id="__codelineno-7-23" name="__codelineno-7-23" href="#__codelineno-7-23"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Classical value: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">around</span><span class="p">(</span><span class="n">ffl</span><span class="o">.</span><span class="n">classical_value</span><span class="p">(),</span><span class="w"> </span><span class="n">decimals</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-<a id="__codelineno-7-24" name="__codelineno-7-24" href="#__codelineno-7-24"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Quantum value (lower bound): </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">around</span><span class="p">(</span><span class="n">ffl</span><span class="o">.</span><span class="n">quantum_value_lower_bound</span><span class="p">(),</span><span class="w"> </span><span class="n">decimals</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Winning probability of the returned strategy: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">around</span><span class="p">(</span><span class="n">chsh</span><span class="o">.</span><span class="n">quantum_strategy_value</span><span class="p">(</span><span class="n">strategy</span><span class="p">),</span><span class="w"> </span><span class="n">decimals</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Eigenvalues of Alice&#39;s reduced state: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">around</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigvalsh</span><span class="p">(</span><span class="n">strategy</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="n">axis1</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">axis2</span><span class="o">=</span><span class="mi">3</span><span class="p">)),</span><span class="w"> </span><span class="n">decimals</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="c1">#</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="c1"># ## The FFL game</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="c1">#</span>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="c1"># The *FFL (Fortnow, Feige, Lovasz) game* is a nonlocal game specified as</span>
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="c1"># follows.</span>
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="c1">#</span>
+<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="c1"># $$</span>
+<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="c1"># \begin{equation}</span>
+<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a><span class="c1"># \begin{aligned}</span>
+<a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a><span class="c1"># &amp;\pi(0, 0) = \frac{1}{3}, \quad</span>
+<a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a><span class="c1"># \pi(0, 1) = \frac{1}{3}, \quad</span>
+<a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a><span class="c1"># \pi(1, 0) = \frac{1}{3}, \quad</span>
+<a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a><span class="c1"># \pi(1, 1) = 0, \\</span>
+<a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a><span class="c1"># &amp;(x,y) \in \Sigma_A \times \Sigma_B, \qquad \text{and} \qquad (a, b) \in \Gamma_A \times \Gamma_B,</span>
+<a id="__codelineno-7-17" name="__codelineno-7-17" href="#__codelineno-7-17"></a><span class="c1"># \end{aligned}</span>
+<a id="__codelineno-7-18" name="__codelineno-7-18" href="#__codelineno-7-18"></a><span class="c1"># \end{equation}</span>
+<a id="__codelineno-7-19" name="__codelineno-7-19" href="#__codelineno-7-19"></a><span class="c1"># $$</span>
+<a id="__codelineno-7-20" name="__codelineno-7-20" href="#__codelineno-7-20"></a><span class="c1">#</span>
+<a id="__codelineno-7-21" name="__codelineno-7-21" href="#__codelineno-7-21"></a><span class="c1"># where</span>
+<a id="__codelineno-7-22" name="__codelineno-7-22" href="#__codelineno-7-22"></a><span class="c1">#</span>
+<a id="__codelineno-7-23" name="__codelineno-7-23" href="#__codelineno-7-23"></a><span class="c1"># $$</span>
+<a id="__codelineno-7-24" name="__codelineno-7-24" href="#__codelineno-7-24"></a><span class="c1"># \begin{equation}</span>
+<a id="__codelineno-7-25" name="__codelineno-7-25" href="#__codelineno-7-25"></a><span class="c1"># \Sigma_A = \{0, 1\}, \quad \Sigma_B = \{0, 1\}, \quad \Gamma_A =</span>
+<a id="__codelineno-7-26" name="__codelineno-7-26" href="#__codelineno-7-26"></a><span class="c1"># \{0,1\}, \quad \text{and} \quad \Gamma_B = \{0, 1\}.</span>
+<a id="__codelineno-7-27" name="__codelineno-7-27" href="#__codelineno-7-27"></a><span class="c1"># \end{equation}</span>
+<a id="__codelineno-7-28" name="__codelineno-7-28" href="#__codelineno-7-28"></a><span class="c1"># $$</span>
+<a id="__codelineno-7-29" name="__codelineno-7-29" href="#__codelineno-7-29"></a><span class="c1">#</span>
+<a id="__codelineno-7-30" name="__codelineno-7-30" href="#__codelineno-7-30"></a><span class="c1"># Alice and Bob win the FFL game if and only if the following equation is</span>
+<a id="__codelineno-7-31" name="__codelineno-7-31" href="#__codelineno-7-31"></a><span class="c1"># satisfied</span>
+<a id="__codelineno-7-32" name="__codelineno-7-32" href="#__codelineno-7-32"></a><span class="c1">#</span>
+<a id="__codelineno-7-33" name="__codelineno-7-33" href="#__codelineno-7-33"></a><span class="c1"># $$</span>
+<a id="__codelineno-7-34" name="__codelineno-7-34" href="#__codelineno-7-34"></a><span class="c1"># \begin{equation}</span>
+<a id="__codelineno-7-35" name="__codelineno-7-35" href="#__codelineno-7-35"></a><span class="c1"># a \lor x = b \lor y.</span>
+<a id="__codelineno-7-36" name="__codelineno-7-36" href="#__codelineno-7-36"></a><span class="c1"># \end{equation}</span>
+<a id="__codelineno-7-37" name="__codelineno-7-37" href="#__codelineno-7-37"></a><span class="c1"># $$</span>
+<a id="__codelineno-7-38" name="__codelineno-7-38" href="#__codelineno-7-38"></a><span class="c1">#</span>
+<a id="__codelineno-7-39" name="__codelineno-7-39" href="#__codelineno-7-39"></a><span class="c1"># It is well-known that both the classical and quantum value of this nonlocal</span>
+<a id="__codelineno-7-40" name="__codelineno-7-40" href="#__codelineno-7-40"></a><span class="c1"># game is $2/3$ [^watrous2020advanced]. We can verify this fact using `|toqito⟩`.</span>
+<a id="__codelineno-7-41" name="__codelineno-7-41" href="#__codelineno-7-41"></a><span class="c1"># The following example encodes the FFL game. We then calculate the classical</span>
+<a id="__codelineno-7-42" name="__codelineno-7-42" href="#__codelineno-7-42"></a><span class="c1"># value and calculate lower bounds on the quantum value of the FFL game.</span>
+<a id="__codelineno-7-43" name="__codelineno-7-43" href="#__codelineno-7-43"></a><span class="c1">#</span>
+<a id="__codelineno-7-44" name="__codelineno-7-44" href="#__codelineno-7-44"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<a id="__codelineno-7-45" name="__codelineno-7-45" href="#__codelineno-7-45"></a>
+<a id="__codelineno-7-46" name="__codelineno-7-46" href="#__codelineno-7-46"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.nonlocal_games.nonlocal_game</span><span class="w"> </span><span class="kn">import</span> <span class="n">NonlocalGame</span>
+<a id="__codelineno-7-47" name="__codelineno-7-47" href="#__codelineno-7-47"></a>
+<a id="__codelineno-7-48" name="__codelineno-7-48" href="#__codelineno-7-48"></a><span class="c1"># Specify the number of inputs, and number of outputs.</span>
+<a id="__codelineno-7-49" name="__codelineno-7-49" href="#__codelineno-7-49"></a><span class="n">num_alice_in</span><span class="p">,</span> <span class="n">num_alice_out</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span>
+<a id="__codelineno-7-50" name="__codelineno-7-50" href="#__codelineno-7-50"></a><span class="n">num_bob_in</span><span class="p">,</span> <span class="n">num_bob_out</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span>
+<a id="__codelineno-7-51" name="__codelineno-7-51" href="#__codelineno-7-51"></a>
+<a id="__codelineno-7-52" name="__codelineno-7-52" href="#__codelineno-7-52"></a><span class="c1"># Define the probability matrix of the FFL game.</span>
+<a id="__codelineno-7-53" name="__codelineno-7-53" href="#__codelineno-7-53"></a><span class="n">prob_mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span> <span class="o">/</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span> <span class="o">/</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span> <span class="o">/</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">]])</span>
+<a id="__codelineno-7-54" name="__codelineno-7-54" href="#__codelineno-7-54"></a>
+<a id="__codelineno-7-55" name="__codelineno-7-55" href="#__codelineno-7-55"></a>
+<a id="__codelineno-7-56" name="__codelineno-7-56" href="#__codelineno-7-56"></a><span class="c1"># Define the predicate matrix of the FFL game.</span>
+<a id="__codelineno-7-57" name="__codelineno-7-57" href="#__codelineno-7-57"></a><span class="n">pred_mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">num_alice_out</span><span class="p">,</span> <span class="n">num_bob_out</span><span class="p">,</span> <span class="n">num_alice_in</span><span class="p">,</span> <span class="n">num_bob_in</span><span class="p">))</span>
+<a id="__codelineno-7-58" name="__codelineno-7-58" href="#__codelineno-7-58"></a><span class="k">for</span> <span class="n">a_alice</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_alice_out</span><span class="p">):</span>
+<a id="__codelineno-7-59" name="__codelineno-7-59" href="#__codelineno-7-59"></a>    <span class="k">for</span> <span class="n">b_bob</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_bob_out</span><span class="p">):</span>
+<a id="__codelineno-7-60" name="__codelineno-7-60" href="#__codelineno-7-60"></a>        <span class="k">for</span> <span class="n">x_alice</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_alice_in</span><span class="p">):</span>
+<a id="__codelineno-7-61" name="__codelineno-7-61" href="#__codelineno-7-61"></a>            <span class="k">for</span> <span class="n">y_bob</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_bob_in</span><span class="p">):</span>
+<a id="__codelineno-7-62" name="__codelineno-7-62" href="#__codelineno-7-62"></a>                <span class="k">if</span> <span class="p">(</span><span class="n">a_alice</span> <span class="ow">or</span> <span class="n">x_alice</span><span class="p">)</span> <span class="o">!=</span> <span class="p">(</span><span class="n">b_bob</span> <span class="ow">or</span> <span class="n">y_bob</span><span class="p">):</span>
+<a id="__codelineno-7-63" name="__codelineno-7-63" href="#__codelineno-7-63"></a>                    <span class="n">pred_mat</span><span class="p">[</span><span class="n">a_alice</span><span class="p">,</span> <span class="n">b_bob</span><span class="p">,</span> <span class="n">x_alice</span><span class="p">,</span> <span class="n">y_bob</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+<a id="__codelineno-7-64" name="__codelineno-7-64" href="#__codelineno-7-64"></a><span class="c1"># Define the FFL game object.</span>
+<a id="__codelineno-7-65" name="__codelineno-7-65" href="#__codelineno-7-65"></a><span class="n">ffl</span> <span class="o">=</span> <span class="n">NonlocalGame</span><span class="p">(</span><span class="n">prob_mat</span><span class="p">,</span> <span class="n">pred_mat</span><span class="p">)</span>
+<a id="__codelineno-7-66" name="__codelineno-7-66" href="#__codelineno-7-66"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Classical value: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">around</span><span class="p">(</span><span class="n">ffl</span><span class="o">.</span><span class="n">classical_value</span><span class="p">(),</span><span class="w"> </span><span class="n">decimals</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-7-67" name="__codelineno-7-67" href="#__codelineno-7-67"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Quantum value (lower bound): </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">around</span><span class="p">(</span><span class="n">ffl</span><span class="o">.</span><span class="n">quantum_value_lower_bound</span><span class="p">(),</span><span class="w"> </span><span class="n">decimals</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </code></pre></div>
 <p class="mkd-glr-script-out">Out:</p>
-<div class="mkd-glr-script-out-disp highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>Classical<span class="w"> </span>value:<span class="w"> </span><span class="m">0</span>.67
-<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>Quantum<span class="w"> </span>value<span class="w"> </span><span class="o">(</span>lower<span class="w"> </span>bound<span class="o">)</span>:<span class="w"> </span><span class="m">0</span>.67
+<div class="mkd-glr-script-out-disp highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>Winning<span class="w"> </span>probability<span class="w"> </span>of<span class="w"> </span>the<span class="w"> </span>returned<span class="w"> </span>strategy:<span class="w"> </span><span class="m">0</span>.8536
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>Eigenvalues<span class="w"> </span>of<span class="w"> </span>Alice<span class="err">&#39;</span>s<span class="w"> </span>reduced<span class="w"> </span>state:<span class="w"> </span><span class="o">[</span><span class="m">0</span>.5<span class="w"> </span><span class="m">0</span>.5<span class="o">]</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>Classical<span class="w"> </span>value:<span class="w"> </span><span class="m">0</span>.67
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>Quantum<span class="w"> </span>value<span class="w"> </span><span class="o">(</span>lower<span class="w"> </span>bound<span class="o">)</span>:<span class="w"> </span><span class="m">0</span>.67
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 448-493 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 453-498 -->
 
 <p>In this case, we obtained the correct quantum value of <span class="arithmatex">\(2/3\)</span>, however,
 the lower bound technique is not guaranteed to converge to the true quantum
@@ -11673,7 +11666,7 @@ variable <code>x_t</code>. The verifier accepts the answer if and only if:</p>
 v_1 \oplus v_2 = 0 \quad \text{and} \quad v_1 \oplus v_2 = 1
 \]</div>
 <p>In <code>|toqito⟩</code>, we can encode this as a BCS game as follows</p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 493-518 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 498-521 -->
 
 <div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>
@@ -11696,15 +11689,13 @@ v_1 \oplus v_2 = 0 \quad \text{and} \quad v_1 \oplus v_2 = 1
 <a id="__codelineno-9-19" name="__codelineno-9-19" href="#__codelineno-9-19"></a><span class="c1"># Classical value of CHSH is 3 / 4 = 0.75</span>
 <a id="__codelineno-9-20" name="__codelineno-9-20" href="#__codelineno-9-20"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Classical value: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">around</span><span class="p">(</span><span class="n">chsh_bcs</span><span class="o">.</span><span class="n">classical_value</span><span class="p">(),</span><span class="w"> </span><span class="n">decimals</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 <a id="__codelineno-9-21" name="__codelineno-9-21" href="#__codelineno-9-21"></a><span class="c1"># Quantum value of CHSH is cos^2(pi/8) \approx 0.853</span>
-<a id="__codelineno-9-22" name="__codelineno-9-22" href="#__codelineno-9-22"></a><span class="c1"># Multiple runs to avoid trap in suboptimal quantum value.</span>
-<a id="__codelineno-9-23" name="__codelineno-9-23" href="#__codelineno-9-23"></a><span class="n">results</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">around</span><span class="p">(</span><span class="n">chsh_bcs</span><span class="o">.</span><span class="n">quantum_value_lower_bound</span><span class="p">(),</span> <span class="n">decimals</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">)]</span>
-<a id="__codelineno-9-24" name="__codelineno-9-24" href="#__codelineno-9-24"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Maximum quantum value after multiple runs is: </span><span class="si">{</span><span class="nb">max</span><span class="p">(</span><span class="n">results</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-9-22" name="__codelineno-9-22" href="#__codelineno-9-22"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Quantum value (lower bound): </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">around</span><span class="p">(</span><span class="n">chsh_bcs</span><span class="o">.</span><span class="n">quantum_value_lower_bound</span><span class="p">(</span><span class="n">seed</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span><span class="w"> </span><span class="n">decimals</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </code></pre></div>
 <p class="mkd-glr-script-out">Out:</p>
 <div class="mkd-glr-script-out-disp highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>Classical<span class="w"> </span>value:<span class="w"> </span><span class="m">0</span>.75
-<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>Maximum<span class="w"> </span>quantum<span class="w"> </span>value<span class="w"> </span>after<span class="w"> </span>multiple<span class="w"> </span>runs<span class="w"> </span>is:<span class="w"> </span><span class="m">0</span>.85
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>Quantum<span class="w"> </span>value<span class="w"> </span><span class="o">(</span>lower<span class="w"> </span>bound<span class="o">)</span>:<span class="w"> </span><span class="m">0</span>.8536
 </code></pre></div>
-<p><strong>Total running time of the script:</strong> ( 0 minutes  2.556 seconds)</p>
+<p><strong>Total running time of the script:</strong> ( 0 minutes  0.691 seconds)</p>
 <div id="download_links"></div>
 
 <p><a class="md-button center" href="../nonlocal_game.py"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M256 32c0-17.7-14.3-32-32-32s-32 14.3-32 32v210.7l-41.4-41.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l96 96c12.5 12.5 32.8 12.5 45.3 0l96-96c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 242.7zM64 320c-35.3 0-64 28.7-64 64v32c0 35.3 28.7 64 64 64h320c35.3 0 64-28.7 64-64v-32c0-35.3-28.7-64-64-64h-46.9l-56.6 56.6c-31.2 31.2-81.9 31.2-113.1 0L110.9 320zm304 56a24 24 0 1 1 0 48 24 24 0 1 1 0-48"/></svg></span> Download Python source code: nonlocal_game.py</a></p>

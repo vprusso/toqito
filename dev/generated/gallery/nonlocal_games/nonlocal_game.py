@@ -370,13 +370,18 @@ import numpy as np
 from toqito.nonlocal_games.nonlocal_game import NonlocalGame
 
 chsh = NonlocalGame(prob_mat, pred_mat)
-# Multiple runs to avoid trap in suboptimal quantum value.
-results = [np.around(chsh.quantum_value_lower_bound(), decimals=2) for _ in range(5)]
-print(f"Maximum quantum value after multiple runs is: {max(results)}")
+lower_bound, strategy = chsh.quantum_value_lower_bound(seed=0, return_strategy=True)
+print(f"Quantum value (lower bound): {np.around(lower_bound, decimals=4)}")
 
 # %%
 # In this case, we can see that the quantum value of the CHSH game is in fact
-# attained as $\cos^2(\pi/8) \approx 0.85355$.
+# attained as $\cos^2(\pi/8) \approx 0.85355$. The strategy that attains it is
+# returned alongside the value: a shared two-qubit state and one measurement per
+# question for each player. Evaluating that strategy on the game reproduces the
+# bound, and the state is the maximally entangled state.
+
+print(f"Winning probability of the returned strategy: {np.around(chsh.quantum_strategy_value(strategy), decimals=4)}")
+print(f"Eigenvalues of Alice's reduced state: {np.around(np.linalg.eigvalsh(strategy.state.reshape(2, 2, 2, 2).trace(axis1=1, axis2=3)), decimals=4)}")
 #
 # ## The FFL game
 #
@@ -512,8 +517,6 @@ chsh_bcs = NonlocalGame.from_bcs_game([c_1, c_2])
 # Classical value of CHSH is 3 / 4 = 0.75
 print(f"Classical value: {np.around(chsh_bcs.classical_value(), decimals=2)}")
 # Quantum value of CHSH is cos^2(pi/8) \approx 0.853
-# Multiple runs to avoid trap in suboptimal quantum value.
-results = [np.around(chsh_bcs.quantum_value_lower_bound(), decimals=2) for _ in range(5)]
-print(f"Maximum quantum value after multiple runs is: {max(results)}")
+print(f"Quantum value (lower bound): {np.around(chsh_bcs.quantum_value_lower_bound(seed=0), decimals=4)}")
 
 # %%
