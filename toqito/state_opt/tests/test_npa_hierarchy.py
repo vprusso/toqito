@@ -11,6 +11,7 @@ from toqito.state_opt.npa_hierarchy import (
     IDENTITY_SYMBOL,
     Symbol,
     _gen_words,
+    _moment_matrix,
     _parse,
     _reduce,
     _word_to_p_cg_index,
@@ -628,21 +629,51 @@ def test_npa_constraints_non_trivial_identity_product(mock_assemblage_setup):
     ],
 )
 def test_bell_npa_constraints_output_structure(k, desc, expected_gamma_shape):
-    """Test the output structure and Gamma matrix shape."""
+    """The moment matrix in the PSD constraint has one row per word."""
     oa, ob, ma, mb = desc
     p_var_dim = ((oa - 1) * ma + 1, (ob - 1) * mb + 1)
     p_var = cvxpy.Variable(p_var_dim, name="p_test")
     constraints = bell_npa_constraints(p_var, desc, k=k)
 
-    # Check for Gamma PSD constraint
-    gamma_var = None
-    for constr in constraints:
-        if isinstance(constr, cvxpy.constraints.PSD):
-            gamma_var = constr.args[0].variables()[0]
-            break
+    psd_constraints = [constr for constr in constraints if isinstance(constr, cvxpy.constraints.PSD)]
+    assert len(psd_constraints) == 1
+    assert psd_constraints[0].args[0].shape == expected_gamma_shape
 
-    assert gamma_var is not None
-    assert gamma_var.shape == expected_gamma_shape
+
+def test_moment_matrix_shares_entries_between_equal_products():
+    """Entries whose operator products reduce to the same word share one variable, and the matrix is symmetric."""
+    words = _gen_words(2, 2, 2, 2, 2)
+    moment_matrix, first_position = _moment_matrix(words, referee_dim=1, complex_entries=False)
+    rng = np.random.default_rng(0)
+    for var in moment_matrix.variables():
+        var.value = rng.normal(size=var.shape)
+    gamma = moment_matrix.value
+
+    assert first_position[(IDENTITY_SYMBOL,)] == (0, 0)
+    assert np.allclose(gamma, gamma.T)
+    # (A00 B00)^dagger (A00 B00) = A00 B00 = I^dagger (A00 B00): both positions carry the same moment.
+    i = words.index((A00_test, B00_test))
+    assert np.isclose(gamma[i, i], gamma[0, i])
+    # A00^dagger A10 and A10^dagger A00 are adjoint words, so the moment is shared across the diagonal.
+    i, j = words.index((A00_test,)), words.index((A10_test,))
+    assert np.isclose(gamma[i, j], gamma[j, i])
+    # Orthogonal projectors of one measurement give a vanishing moment.
+    a01 = words.index((Symbol("Alice", 0, 1),)) if (Symbol("Alice", 0, 1),) in words else None
+    assert a01 is None or np.isclose(gamma[i, a01], 0.0)
+
+
+def test_moment_matrix_hermitian_with_referee_blocks():
+    """With a referee system the moment matrix is complex Hermitian by construction."""
+    words = _gen_words("1+ab", 2, 2, 2, 2)
+    moment_matrix, _ = _moment_matrix(words, referee_dim=2, complex_entries=True)
+    rng = np.random.default_rng(1)
+    for var in moment_matrix.variables():
+        var.value = rng.normal(size=var.shape)
+    gamma = moment_matrix.value
+
+    assert gamma.shape == (2 * len(words), 2 * len(words))
+    assert np.allclose(gamma, gamma.conj().T)
+    assert np.abs(gamma.imag).max() > 0
 
 
 @pytest.mark.parametrize(
@@ -673,21 +704,14 @@ def test_word_to_p_cg_index(word, desc, expected_index):
     assert _word_to_p_cg_index(word, oa, ob, ma, mb) == expected_index
 
 
-def test_bell_npa_constraints_identity_constraint():
-    """Test that Gamma[0,0] == p_var[0,0] constraint exists."""
+def test_bell_npa_constraints_identify_moments_with_cg_entries():
+    """Every Collins-Gisin entry is tied to a moment, so fixing the moments fixes the CG matrix."""
     desc = [2, 2, 2, 2]
     p_var = cvxpy.Variable((3, 3), name="p")
     constraints = bell_npa_constraints(p_var, desc, k=1)
 
-    # Simple check: one equality constraint involves both variables
-    has_identity = False
-    for c in constraints:
-        if isinstance(c, cvxpy.constraints.Equality):
-            vars_in_constraint = c.variables()
-            # We expect p_var and Gamma to be involved
-            if len(vars_in_constraint) == 2:
-                names = [v.name() for v in vars_in_constraint]
-                if any("p" in n for n in names) and any("Gamma" in n for n in names):
-                    has_identity = True
-                    break
-    assert has_identity
+    equalities = [c for c in constraints if isinstance(c, cvxpy.constraints.Equality)]
+    assert len(equalities) == 1
+    assert any(var is p_var for var in equalities[0].variables())
+    # Identity, four marginals and four joint moments: one per CG entry.
+    assert equalities[0].args[0].shape == (9,)

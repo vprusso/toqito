@@ -5,6 +5,7 @@ from itertools import product
 
 import cvxpy
 import numpy as np
+import scipy.sparse
 
 Symbol = namedtuple("Symbol", ["player", "question", "answer"], defaults=["", None, None])
 IDENTITY_SYMBOL = Symbol()  # Identity symbol: the namedtuple defaults ("", None, None).
@@ -33,6 +34,11 @@ def npa_constraints(
             I_R \otimes A_a^x B_b^y \big) \sigma \Big) |j \rangle
     \]
 
+    The moment matrix is parametrised by one free block per distinct operator product, so entries that must agree
+    share a variable rather than being tied together by equality constraints, and the only constraints returned are
+    positivity of the moment matrix, the identification of its low-order blocks with the assemblage, and the
+    assemblage's own positivity, normalisation and (optionally) no-signaling conditions.
+
     Examples:
         The constraints returned here are meant to be handed straight to a cvxpy problem.
         Maximising the CHSH winning probability over the level-1 relaxation recovers the
@@ -43,18 +49,13 @@ def npa_constraints(
         answers when \(a \oplus b = x \land y\):
 
         ```python exec="1" source="above" result="text"
-        from collections import defaultdict
-
         import cvxpy
 
         from toqito.state_opt.npa_hierarchy import npa_constraints
 
-        assemblage = defaultdict(cvxpy.Variable)
-        for x in range(2):
-            for y in range(2):
-                assemblage[x, y] = cvxpy.Variable((2, 2), name=f"K({x},{y})")
+        assemblage = {(x, y): cvxpy.Variable((2, 2), name=f"K({x},{y})") for x in range(2) for y in range(2)}
 
-        p_win = cvxpy.Constant(0)
+        p_win = 0
         for x in range(2):
             for y in range(2):
                 for a in range(2):
@@ -70,7 +71,7 @@ def npa_constraints(
         assemblage: The commuting measurement assemblage operator.
         k: The level of the NPA hierarchy to use (default=1).
         referee_dim: The dimension of the referee's quantum system (default=1).
-        no_signaling: bool
+        no_signaling: Whether to impose the no-signaling conditions on the assemblage (default=True).
 
     Returns:
         A list of cvxpy constraints.
@@ -79,177 +80,64 @@ def npa_constraints(
     a_out, a_in, b_out, b_in = _get_nonlocal_game_params(assemblage, referee_dim)
 
     words = _gen_words(k, a_out, a_in, b_out, b_in)
-    dim = len(words)
-
-    if dim == 0:
-        # Should not happen if IDENTITY_SYMBOL is always included
+    if len(words) == 0:
         raise ValueError("Generated word list is empty. Check _gen_words logic.")
 
-    # Moment matrix (Gamma matrix in [@navascues2008convergent])
-    # moment_matrix_R block corresponds to E[S_i^dagger S_j]
-    moment_matrix_R = cvxpy.Variable((referee_dim * dim, referee_dim * dim), hermitian=True, name="R")
+    # Moment matrix (Gamma matrix in [@navascues2008convergent]) with one `referee_dim`-dimensional block per pair of
+    # words, generalised to referee systems as in extended nonlocal games [@speelman2016position].
+    moment_matrix, first_position = _moment_matrix(words, referee_dim, complex_entries=referee_dim > 1)
 
-    # Referee's effective state rho_R = E[I]
-    # This is the (0,0) block of moment_matrix_R since words[0] is Identity
-    rho_R_referee = moment_matrix_R[0:referee_dim, 0:referee_dim]
+    def block(i: int, j: int) -> cvxpy.Expression:
+        return moment_matrix[i * referee_dim : (i + 1) * referee_dim, j * referee_dim : (j + 1) * referee_dim]
 
-    # Ensure rho_R_referee is a valid quantum state
-    constraints = [
-        cvxpy.trace(rho_R_referee) == 1,
-        moment_matrix_R >> 0,
-        # rho_R_referee >> 0 holds since it is a minor of moment_matrix_R
-    ]
+    def assemblage_block(x: int, y: int, a: int, b: int) -> cvxpy.Expression:
+        return assemblage[x, y][a * referee_dim : (a + 1) * referee_dim, b * referee_dim : (b + 1) * referee_dim]
 
-    # Store relations for (S_i^dagger S_j) -> block_index in moment_matrix_R
-    # This helps enforce Γ(S_i^dagger S_j) = Γ(S_k^dagger S_l) if products are algebraically equal
-    seen_reduced_products = {}
+    # The referee's effective state is the block of the identity word.
+    rho_referee = block(*first_position[(IDENTITY_SYMBOL,)])
+    constraints = [moment_matrix >> 0, cvxpy.trace(rho_referee) == 1]
 
-    for i in range(dim):
-        for j in range(i, dim):  # Iterate over upper triangle including diagonal
-            word_i_conj = tuple(reversed(words[i]))  # S_i^dagger
-
-            # The product S_i^dagger S_j
-            # For _reduce, ensure no IDENTITY_SYMBOL unless it's the only element.
-            # If word_i_conj is (ID,), S_i_dagger_S_j is S_j. If word_j is (ID,), it's S_i_dagger.
-            # If both are (ID,), product is (ID,).
-
-            product_unreduced = []
-            if word_i_conj != (IDENTITY_SYMBOL,):
-                product_unreduced.extend(list(word_i_conj))
-            if words[j] != (IDENTITY_SYMBOL,):
-                product_unreduced.extend(list(words[j]))
-
-            # This happens if both words[i] and words[j] were IDENTITY_SYMBOL
-            if not product_unreduced:
-                product_S_i_adj_S_j = (IDENTITY_SYMBOL,)
+    # Identify the blocks of low-order words with the assemblage. Marginals of a single player are read off at the
+    # other player's first question, which is immaterial under no-signaling.
+    for word, (i, j) in first_position.items():
+        if _is_meas(word):
+            alice, bob = word
+            target = assemblage_block(alice.question, bob.question, alice.answer, bob.answer)
+        elif _is_meas_on_one_player(word):
+            symbol = word[0]
+            if symbol.player == "Alice":
+                target = sum(assemblage_block(symbol.question, 0, symbol.answer, b) for b in range(b_out))
             else:
-                product_S_i_adj_S_j = _reduce(tuple(product_unreduced))
+                target = sum(assemblage_block(0, symbol.question, a, symbol.answer) for a in range(a_out))
+        else:
+            continue
+        constraints.append(block(i, j) == target)
 
-            # Moment matrix (Gamma matrix in NPA paper [@navascues2008convergent] - arXiv:0803.4290)
-            # This hierarchy can be generalized, e.g., to incorporate referee systems
-            # as seen in extended nonlocal games (see, e.g., F. Speelman's thesis, [@speelman2016position]).
-            current_block = moment_matrix_R[
-                i * referee_dim : (i + 1) * referee_dim, j * referee_dim : (j + 1) * referee_dim
-            ]
-
-            if _is_zero(product_S_i_adj_S_j):  # Product is algebraically zero
-                constraints.append(current_block == 0)
-            elif _is_identity(product_S_i_adj_S_j):  # Product is identity operator
-                # This occurs for (i,j) where S_i^dagger S_j = I. e.g. S_i = S_j and S_i is unitary (proj).
-                # Or i=0, j=0 (I^dagger I = I).
-                # This means current_block should be rho_R_referee if product_S_i_adj_S_j is I
-                constraints.append(current_block == rho_R_referee)
-
-            # Product is A_a^x B_b^y
-            elif _is_meas(product_S_i_adj_S_j):
-                alice_symbol, bob_symbol = product_S_i_adj_S_j
-                constraints.append(
-                    current_block
-                    == assemblage[alice_symbol.question, bob_symbol.question][
-                        alice_symbol.answer * referee_dim : (alice_symbol.answer + 1) * referee_dim,
-                        bob_symbol.answer * referee_dim : (bob_symbol.answer + 1) * referee_dim,
-                    ]
-                )
-            # Product is A_a^x or B_b^y (i.e., only one player involved)
-            elif _is_meas_on_one_player(product_S_i_adj_S_j):  # Product is A_a^x or B_b^y
-                symbol = product_S_i_adj_S_j[0]
-                if symbol.player == "Alice":
-                    # Sum over Bob's outcomes for a fixed Bob question (e.g., y=0)
-                    # E[A_a^x] = sum_b K_x0(a,b)
-                    sum_over_bob_outcomes = sum(
-                        assemblage[symbol.question, 0][  # Assuming y=0 for Bob's marginal
-                            symbol.answer * referee_dim : (symbol.answer + 1) * referee_dim,
-                            b_ans * referee_dim : (b_ans + 1) * referee_dim,
-                        ]
-                        for b_ans in range(b_out)
-                    )
-                    constraints.append(current_block == sum_over_bob_outcomes)
-                else:  # elif symbol.player == "Bob":
-                    # Sum over Alice's outcomes for a fixed Alice question (e.g., x=0)
-                    # E[B_b^y] = sum_a K_0y(a,b)
-                    sum_over_alice_outcomes = sum(
-                        assemblage[0, symbol.question][  # Assuming x=0 for Alice's marginal
-                            a_ans * referee_dim : (a_ans + 1) * referee_dim,
-                            symbol.answer * referee_dim : (symbol.answer + 1) * referee_dim,
-                        ]
-                        for a_ans in range(a_out)
-                    )
-                    constraints.append(current_block == sum_over_alice_outcomes)
-            elif product_S_i_adj_S_j in seen_reduced_products:
-                # This product S_k has been seen before as S_p^dagger S_q
-                # So, Γ(S_i, S_j) = Γ(S_p, S_q)
-                prev_i, prev_j = seen_reduced_products[product_S_i_adj_S_j]
-                # Make sure to get the upper triangle element if current (i,j) is lower
-                # The prev_i, prev_j should always refer to an upper triangle element by construction.
-                previous_block = moment_matrix_R[
-                    prev_i * referee_dim : (prev_i + 1) * referee_dim, prev_j * referee_dim : (prev_j + 1) * referee_dim
-                ]
-                constraints.append(current_block == previous_block)
+    # Constraints on the assemblage itself: positivity of every block and normalisation to the referee's state.
+    for x in range(a_in):
+        for y in range(b_in):
+            if referee_dim == 1:
+                constraints.append(assemblage[x, y] >= 0)
             else:
-                # First time seeing this operator product S_k
-                seen_reduced_products[product_S_i_adj_S_j] = (i, j)
-
-    # Constraints on the assemblage K_xy(a,b) itself --always apply all of these constraints!
-    for x_alice_in in range(a_in):
-        for y_bob_in in range(b_in):
-            # Positivity: K_xy(a,b) >= 0 (operator PSD)
-            for a_alice_out in range(a_out):
-                for b_bob_out in range(b_out):
-                    assemblage_block = assemblage[x_alice_in, y_bob_in][
-                        a_alice_out * referee_dim : (a_alice_out + 1) * referee_dim,
-                        b_bob_out * referee_dim : (b_bob_out + 1) * referee_dim,
-                    ]
-                    constraints.append(assemblage_block >> 0)
-
-            # Normalization: Sum_{a,b} K_xy(a,b) = rho_R
-            sum_over_outcomes_ab = sum(
-                assemblage[x_alice_in, y_bob_in][
-                    a * referee_dim : (a + 1) * referee_dim, b * referee_dim : (b + 1) * referee_dim
-                ]
-                for a in range(a_out)
-                for b in range(b_out)
+                constraints += [assemblage_block(x, y, a, b) >> 0 for a in range(a_out) for b in range(b_out)]
+            constraints.append(
+                sum(assemblage_block(x, y, a, b) for a in range(a_out) for b in range(b_out)) == rho_referee
             )
-            constraints.append(sum_over_outcomes_ab == rho_R_referee)
-    if no_signaling:
-        # No-signaling constraints on assemblage - ALWAYS APPLY
-        # Bob's marginal rho_B(b|y) = Sum_a K_xy(a,b) must be independent of x
-        for y_bob_in in range(b_in):
-            for b_bob_out in range(b_out):
-                sum_over_a_for_x0 = sum(
-                    assemblage[0, y_bob_in][
-                        a * referee_dim : (a + 1) * referee_dim, b_bob_out * referee_dim : (b_bob_out + 1) * referee_dim
-                    ]
-                    for a in range(a_out)
-                )
-                for x_alice_in in range(1, a_in):
-                    sum_over_a_for_x_current = sum(
-                        assemblage[x_alice_in, y_bob_in][
-                            a * referee_dim : (a + 1) * referee_dim,
-                            b_bob_out * referee_dim : (b_bob_out + 1) * referee_dim,
-                        ]
-                        for a in range(a_out)
-                    )
-                    constraints.append(sum_over_a_for_x0 == sum_over_a_for_x_current)
 
-        # Alice's marginal rho_A(a|x) = Sum_b K_xy(a,b) must be independent of y
-        for x_alice_in in range(a_in):
-            for a_alice_out in range(a_out):  # For each Alice outcome a
-                sum_over_b_for_y0 = sum(
-                    assemblage[x_alice_in, 0][
-                        a_alice_out * referee_dim : (a_alice_out + 1) * referee_dim,
-                        b * referee_dim : (b + 1) * referee_dim,
-                    ]
-                    for b in range(b_out)
-                )
-                for y_bob_in in range(1, b_in):
-                    sum_over_b_for_y_current = sum(
-                        assemblage[x_alice_in, y_bob_in][
-                            a_alice_out * referee_dim : (a_alice_out + 1) * referee_dim,
-                            b * referee_dim : (b + 1) * referee_dim,
-                        ]
-                        for b in range(b_out)
-                    )
-                    constraints.append(sum_over_b_for_y0 == sum_over_b_for_y_current)
+    if no_signaling:
+        # Bob's marginal sum_a K_xy(a, b) must not depend on x, and Alice's sum_b K_xy(a, b) must not depend on y.
+        for y in range(b_in):
+            for b in range(b_out):
+                reference = sum(assemblage_block(0, y, a, b) for a in range(a_out))
+                constraints += [
+                    sum(assemblage_block(x, y, a, b) for a in range(a_out)) == reference for x in range(1, a_in)
+                ]
+        for x in range(a_in):
+            for a in range(a_out):
+                reference = sum(assemblage_block(x, 0, a, b) for b in range(b_out))
+                constraints += [
+                    sum(assemblage_block(x, y, a, b) for b in range(b_out)) == reference for y in range(1, b_in)
+                ]
 
     return constraints
 
@@ -287,6 +175,10 @@ def bell_npa_constraints(
                       \(B_{b|y}\) (using \(0\) to \(ob-2\) for \(b\)).
     - ``p_var[i, j]`` corresponds to the expectation of the product \(A_{a|x} B_{b|y}\).
 
+    The moment matrix is real and symmetric, parametrised by one free entry per distinct operator product, and the
+    returned constraints are its positivity and a single vector equality identifying the low-order moments with the
+    entries of ``p_var``.
+
     Args:
         p_var: A CVXPY Variable representing probabilities/correlations in Collins-Gisin notation.
                   Shape: \(((oa-1) \times ma+1, (ob-1) \times mb+1)\).
@@ -297,9 +189,6 @@ def bell_npa_constraints(
 
     Returns:
         A list of CVXPY constraints.
-
-    Raises:
-        ValueError: If internal identity mapping fails.
 
     Examples:
         Consider the CHSH inequality scenario with ``desc = [2, 2, 2, 2]``. We want to generate the NPA level 1
@@ -315,15 +204,14 @@ def bell_npa_constraints(
         p_var = cvxpy.Variable(p_var_dim, name="p_cg")
         constraints = bell_npa_constraints(p_var, desc, k=1)
         print(len(constraints))
-        print(constraints[0])
+        print(constraints[0].args[0].shape)
         ```
 
         We can also use intermediate levels, like "1+ab":
 
         ```python exec="1" source="above" result="text" session="npa_example"
         constraints_1ab = bell_npa_constraints(p_var, desc, k="1+ab")
-        print(len(constraints_1ab))
-        print(constraints_1ab[0])
+        print(constraints_1ab[0].args[0].shape)
         ```
 
         For the CGLMP inequality with ``dim=3``, ``desc = [3, 3, 2, 2]``, level 1:
@@ -337,51 +225,117 @@ def bell_npa_constraints(
         p_var_dim_c = ((oa_c - 1) * ma_c + 1, (ob_c - 1) * mb_c + 1)
         p_var_c = cvxpy.Variable(p_var_dim_c, name="p_cglmp")
         constraints_c = bell_npa_constraints(p_var_c, desc_cglmp, k=1)
-        print(len(constraints_c))
-        print(constraints_c[0])
+        print(constraints_c[0].args[0].shape)
         ```
 
 
     """
     oa, ob, ma, mb = desc
     words = _gen_words(k, oa, ma, ob, mb)
-    dim = len(words)
-    gamma = cvxpy.Variable((dim, dim), name="Gamma", symmetric=True)
-    constraints = [gamma >> 0]
+    moment_matrix, first_position = _moment_matrix(words, referee_dim=1, complex_entries=False)
+
+    # Every word with a Collins-Gisin entry is identified with it in one vector equality.
+    moment_entries, cg_indices = [], []
+    for word, (i, j) in first_position.items():
+        cg_index = _word_to_p_cg_index(() if _is_identity(word) else word, oa, ob, ma, mb)
+        if cg_index is not None:
+            moment_entries.append(moment_matrix[i, j])
+            cg_indices.append(cg_index)
     p_flat = p_var.flatten(order="F")
-    seen_constraints = {}
+    return [moment_matrix >> 0, cvxpy.hstack(moment_entries) == p_flat[cg_indices]]
 
-    constraints.append(gamma[0, 0] == p_var[0, 0])
 
-    seen_constraints[()] = (0, 0)
+def _conjugate(word: tuple[Symbol, ...]) -> tuple[Symbol, ...]:
+    """Return the reduced adjoint of a word.
 
-    for i in range(dim):
-        for j in range(i, dim):
-            if i == 0 and j == 0:
+    Projectors are self-adjoint, so the adjoint reverses the order of the factors; reducing restores the canonical
+    Alice-before-Bob order, which reverses each player's block separately.
+    """
+    return _reduce(word[::-1])
+
+
+def _word_key(word: tuple[Symbol, ...]) -> tuple:
+    """Return a sortable key for a word, used to order words and to pick class representatives."""
+    return (len(word), tuple(repr(symbol) for symbol in word))
+
+
+def _moment_matrix(
+    words: list[tuple[Symbol, ...]], referee_dim: int, complex_entries: bool
+) -> tuple[cvxpy.Expression, dict[tuple[Symbol, ...], tuple[int, int]]]:
+    r"""Build the moment matrix of a word list as a linear image of free variables.
+
+    Block ``(i, j)`` of the moment matrix is the moment of the product \(S_i^\dagger S_j\). Products that reduce to
+    the same word, or to adjoint words, share one ``referee_dim``-dimensional block variable, with the adjoint word
+    carrying the block's conjugate transpose, so the matrix is Hermitian (symmetric in the real case) by
+    construction. Products that reduce to zero are fixed to zero.
+
+    Returns the matrix expression and, for every reduced word, the first ``(i, j)`` block at which it appears.
+    """
+    n = len(words)
+    dim = referee_dim
+    # Each class is an unordered pair {word, adjoint}; `representatives[word]` names it.
+    representatives: dict[tuple[Symbol, ...], tuple[Symbol, ...]] = {}
+    first_position: dict[tuple[Symbol, ...], tuple[int, int]] = {}
+    # One entry per (block position, block row, block column): the variable index and sign for the real part, and
+    # for the imaginary part when the matrix is complex.
+    placements: list[tuple[int, int, tuple[Symbol, ...], bool]] = []
+    for i in range(n):
+        for j in range(n):
+            word = _reduce(words[i][::-1] + words[j])
+            if _is_zero(word):
                 continue
-            word_i = words[i]
-            word_j = words[j]
-            word_i_conj = tuple(reversed(word_i))
-            combined_word = _reduce(word_i_conj + word_j)
+            first_position.setdefault(word, (i, j))
+            adjoint = _conjugate(word)
+            representative = min(word, adjoint, key=_word_key)
+            representatives.setdefault(word, representative)
+            placements.append((i, j, representative, word != representative))
 
-            if not combined_word:
-                constraints.append(gamma[i, j] == 0)
-                continue
+    classes = sorted(set(representatives.values()), key=_word_key)
+    # Variable layout: for each class, a `dim`-by-`dim` block. A self-adjoint class holds a Hermitian block, so only
+    # the upper triangle of its real part and the strict upper triangle of its imaginary part are free; any other
+    # class holds a general block.
+    real_index: dict[tuple, int] = {}
+    imag_index: dict[tuple, int] = {}
+    for representative in classes:
+        self_adjoint = _conjugate(representative) == representative
+        for r in range(dim):
+            for s in range(dim):
+                if self_adjoint and r > s:
+                    continue
+                real_index[representative, r, s] = len(real_index)
+                if complex_entries and not (self_adjoint and r == s):
+                    imag_index[representative, r, s] = len(imag_index)
 
-            constraint_key = combined_word
-            if constraint_key in seen_constraints:
-                prev_i, prev_j = seen_constraints[constraint_key]
-                constraints.append(gamma[i, j] == gamma[prev_i, prev_j])
-                continue
+    def lookup(representative: tuple[Symbol, ...], r: int, s: int) -> tuple[int, int | None, float]:
+        """Return the real variable index, the imaginary variable index and its sign for entry (r, s) of a block."""
+        if (representative, r, s) in real_index:
+            return real_index[representative, r, s], imag_index.get((representative, r, s)), 1.0
+        # Lower triangle of a Hermitian block: the conjugate of the mirrored entry.
+        return real_index[representative, s, r], imag_index.get((representative, s, r)), -1.0
 
-            p_cg_index = _word_to_p_cg_index(combined_word, oa, ob, ma, mb)
-            if p_cg_index is not None:
-                constraints.append(gamma[i, j] == p_flat[p_cg_index])
-                seen_constraints[constraint_key] = (i, j)
-            else:
-                seen_constraints[constraint_key] = (i, j)
+    rows, real_cols, imag_rows, imag_cols, imag_signs = [], [], [], [], []
+    for i, j, representative, is_adjoint in placements:
+        for r in range(dim):
+            for s in range(dim):
+                # The adjoint word carries the conjugate transpose of the block.
+                re_idx, im_idx, sign = lookup(representative, s, r) if is_adjoint else lookup(representative, r, s)
+                entry = (i * dim + r) * (n * dim) + (j * dim + s)
+                rows.append(entry)
+                real_cols.append(re_idx)
+                if im_idx is not None:
+                    imag_rows.append(entry)
+                    imag_cols.append(im_idx)
+                    imag_signs.append(-sign if is_adjoint else sign)
 
-    return constraints
+    size = n * dim
+    real_map = scipy.sparse.csc_matrix((np.ones(len(rows)), (rows, real_cols)), shape=(size * size, len(real_index)))
+    real_part = cvxpy.Variable(len(real_index), name="moments")
+    moment_matrix = cvxpy.reshape(real_map @ real_part, (size, size), order="C")
+    if imag_index:
+        imag_map = scipy.sparse.csc_matrix((imag_signs, (imag_rows, imag_cols)), shape=(size * size, len(imag_index)))
+        imag_part = cvxpy.Variable(len(imag_index), name="moments_imag")
+        moment_matrix = moment_matrix + 1j * cvxpy.reshape(imag_map @ imag_part, (size, size), order="C")
+    return moment_matrix, first_position
 
 
 def _reduce(word: tuple[Symbol, ...]) -> tuple[Symbol, ...]:
@@ -392,178 +346,78 @@ def _reduce(word: tuple[Symbol, ...]) -> tuple[Symbol, ...]:
     Orthogonality: P_x,a P_x,b = 0 if a != b (for same player x)
     Idempotence: P_x,a P_x,a = P_x,a (for same player x)
 
+    The empty tuple represents the zero operator and ``(IDENTITY_SYMBOL,)`` the identity.
+
     """
     if not word:
         return ()
+    symbols = [symbol for symbol in word if symbol != IDENTITY_SYMBOL]
+    if not symbols:
+        return (IDENTITY_SYMBOL,)
 
-    # Initial pass to filter out identities IF other ops are present
-    current_list = [s for s in word if s != IDENTITY_SYMBOL]
-    if not current_list:  # Original word was all identities or empty
-        return (IDENTITY_SYMBOL,) if any(s == IDENTITY_SYMBOL for s in word) else ()
-
-    # Canonical player order (Alice then Bob), preserving original relative internal order
-    alice_ops = [s for s in current_list if s.player == "Alice"]
-    bob_ops = [s for s in current_list if s.player == "Bob"]
-    current_list = alice_ops + bob_ops  # This is now a list of Symbol objects
-
-    # Iteratively apply reduction rules until no more changes occur
-    while True:
-        len_before_pass = len(current_list)
-        next_pass_list = []
-        idx = 0
-        made_change_in_pass = False
-
-        while idx < len(current_list):
-            s_x = current_list[idx]
-
-            if idx + 1 < len(current_list):
-                s_y = current_list[idx + 1]
-                # Only apply if s_x and s_y are from the same player.
-                if s_x == s_y and s_x.player in PLAYERS:  # s_x != IDENTITY_SYMBOL
-                    next_pass_list.append(s_x)
-                    idx += 2  # Consumed s_x, s_y; added s_x
-                    made_change_in_pass = True
-                    continue
-                # Rule 2: Orthogonality (S_x,a S_x,b = 0 if a!=b, for same player and question)
-                elif (
-                    s_x.player == s_y.player
-                    and s_x.player in PLAYERS  # Ensure not identity
-                    and s_x.question == s_y.question
-                    and s_x.answer != s_y.answer
-                ):
-                    return ()  # Entire word becomes zero
-                else:
-                    # No reduction for this pair, keep s_x
-                    next_pass_list.append(s_x)
-                    idx += 1
-            else:
-                # Last element, just append it
-                next_pass_list.append(s_x)
-                idx += 1
-
-        current_list = next_pass_list
-        if not made_change_in_pass and len(current_list) == len_before_pass:  # Stable
-            break
-
-    return tuple(current_list) if current_list else ()
+    reduced: list[Symbol] = []
+    # Alice's operators commute with Bob's, so the canonical order is all of Alice's followed by all of Bob's.
+    for symbol in [s for s in symbols if s.player == "Alice"] + [s for s in symbols if s.player == "Bob"]:
+        if reduced and reduced[-1] == symbol:
+            continue  # Idempotence.
+        if reduced and reduced[-1].player == symbol.player and reduced[-1].question == symbol.question:
+            return ()  # Orthogonal projectors of one measurement.
+        reduced.append(symbol)
+    return tuple(reduced)
 
 
 def _parse(k_str: str) -> tuple[int, set[tuple[int, int]]]:
-    if not k_str:  # Explicitly handle empty string input for k_str
+    """Parse a level string such as ``"1+ab+aab"`` into the base level and the extra (Alice, Bob) length pairs."""
+    if not k_str:
         raise ValueError("Input string k_str cannot be empty.")
     parts = k_str.split("+")
-    if not parts[0] or parts[0] == "":  # Check if the first part (base_k) is empty
+    if not parts[0]:
         raise ValueError("Base level k must be specified, e.g., '1+ab'")
     try:
         base_k = int(parts[0])
     except ValueError as e:
         raise ValueError(f"Base level k '{parts[0]}' is not a valid integer: {e}") from e
 
-    conf = set()
-    if len(parts) == 1 and base_k >= 0:  # e.g. "0", "1"
-        pass  # conf remains empty, which is correct.
-
-    for val_content in parts[1:]:  # Process each part after the base_k
-        cnt_a, cnt_b = 0, 0
-        if not val_content:  # Handles "1++ab" -> parts like '', skip these
+    configurations = set()
+    for component in parts[1:]:
+        if not component:
             continue
-        # If val_content is an empty string (e.g., from "0+", "1++a"),
-        # cnt_a and cnt_b will remain 0, and (0,0) will be added to conf.
-        for char_val in val_content:  # Loop over empty string does nothing
-            if char_val == "a":
-                cnt_a += 1
-            elif char_val == "b":
-                cnt_b += 1
-            else:
+        for char in component:
+            if char not in ("a", "b"):
                 raise ValueError(
-                    f"Invalid character '{char_val}' in k string component "
-                    + f"'{val_content}'. Only 'a' or 'b' allowed after base k."
+                    f"Invalid character '{char}' in k string component '{component}'. "
+                    "Only 'a' or 'b' allowed after base k."
                 )
-        conf.add((cnt_a, cnt_b))
-    return base_k, conf
+        configurations.add((component.count("a"), component.count("b")))
+    return base_k, configurations
 
 
 def _gen_words(k: int | str, a_out: int, a_in: int, b_out: int, b_in: int) -> list[tuple[Symbol, ...]]:
-    # Symbols for non-identity measurements (last outcome is dependent)
+    """Generate the reduced words indexing the moment matrix at level ``k``, with the identity first."""
+    # Symbols for non-identity measurements (the last outcome of each measurement is dependent).
     alice_symbols = [Symbol("Alice", x, a) for x in range(a_in) for a in range(a_out - 1)]
     bob_symbols = [Symbol("Bob", y, b) for y in range(b_in) for b in range(b_out - 1)]
 
-    words = set([(IDENTITY_SYMBOL,)])  # Start with identity operator
+    base_k, configurations = _parse(k) if isinstance(k, str) else (k, set())
+    # Every (Alice length, Bob length) pair up to the base level, plus the extra configurations.
+    length_pairs = {(alice_len, length - alice_len) for length in range(base_k + 1) for alice_len in range(length + 1)}
+    length_pairs |= configurations
 
-    k_int = k
-    configurations = set()
-
-    if isinstance(k, str):
-        k_int, configurations = _parse(k)
-
-    # Loop 1: Generate words up to length k_int from the hierarchy
-    for length in range(0, k_int + 1):  # Lengths 1, ..., k_int
-        for alice_len in range(length + 1):
-            bob_len = length - alice_len
-
-            # Generate Alice's part
-            # If alice_len is 0, product yields one item: ()
-            for word_a_tuple in product(alice_symbols, repeat=alice_len):
-                reduced_a = _reduce(word_a_tuple)
-                # Alice's part (non-empty originally) reduced to zero
-                if reduced_a == () and alice_len > 0:
-                    continue
-
-                # Generate Bob's part
-                # If bob_len is 0, product yields one item: ()
-                for word_b_tuple in product(bob_symbols, repeat=bob_len):
-                    reduced_b = _reduce(word_b_tuple)
-                    # Bob's part (non-empty originally) reduced to zero
-                    if reduced_b == () and bob_len > 0:
-                        continue
-
-                    if not reduced_a and not reduced_b:  # Both parts are empty (e.g. alice_len=0, bob_len=0)
-                        # This means the total length of operators is 0.
-                        final_word = (IDENTITY_SYMBOL,)
-                    else:
-                        # _reduce will put Alice operators before Bob operators if somehow mixed,
-                        # and apply rules. It also handles identity filtering if I was part of word.
-                        # Here, reduced_a + reduced_b is already A...AB...B (or just A...A or B...B).
-                        final_word = _reduce(reduced_a + reduced_b)
-                    words.add(final_word)
-
-    # Loop 2: Add words from specific configurations (e.g., "1+ab" means k_int=1, configurations={(1,1)})
-    for alice_len_conf, bob_len_conf in configurations:
-        if alice_len_conf == 0 and bob_len_conf == 0 and k_int == 0 and (IDENTITY_SYMBOL,) in words:
-            pass  # The set `words` will handle duplicates from k_int loop vs config loop.
-
-        for word_a_tuple in product(alice_symbols, repeat=alice_len_conf):
-            reduced_a = _reduce(word_a_tuple)
-            if reduced_a == () and alice_len_conf > 0:
+    words = {(IDENTITY_SYMBOL,)}
+    for alice_len, bob_len in length_pairs:
+        for alice_word in product(alice_symbols, repeat=alice_len):
+            reduced_alice = _reduce(alice_word)
+            if _is_zero(reduced_alice) and alice_len > 0:
                 continue
-
-            for word_b_tuple in product(bob_symbols, repeat=bob_len_conf):
-                reduced_b = _reduce(word_b_tuple)
-                if reduced_b == () and bob_len_conf > 0:
+            for bob_word in product(bob_symbols, repeat=bob_len):
+                reduced_bob = _reduce(bob_word)
+                if _is_zero(reduced_bob) and bob_len > 0:
                     continue
+                words.add(_reduce(reduced_alice + reduced_bob))
 
-                # Combine and add as in the main loop
-                # Both parts are empty (e.g. alice_len_conf=0, bob_len_conf=0)
-                if not reduced_a and not reduced_b:
-                    # Should not happen if _parse filters (0,0) from conf
-                    final_word = (IDENTITY_SYMBOL,)
-
-                else:
-                    final_word = _reduce(reduced_a + reduced_b)
-
-                words.add(final_word)
-
-    # If `words` contains `()`, filter it out before converting to list.
-    words = {w for w in words if w != ()}
-    # Convert set to list, then sort.
-    # Make sure (IDENTITY_SYMBOL,) is always at index 0.
-    list_of_words = list(words)
-    list_of_words.remove((IDENTITY_SYMBOL,))
-    # Sort remaining words: typically by length, then by content.
-    # Sorting tuples of Symbols needs a consistent key.
-    # repr(s) can give a consistent string for sorting.
-    list_of_words.sort(key=lambda w: (len(w), tuple(repr(s) for s in w)))
-    return [(IDENTITY_SYMBOL,)] + list_of_words
+    words.discard(())
+    words.discard((IDENTITY_SYMBOL,))
+    return [(IDENTITY_SYMBOL,)] + sorted(words, key=_word_key)
 
 
 def _is_zero(word: tuple[Symbol, ...]) -> bool:

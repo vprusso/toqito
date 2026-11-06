@@ -6,6 +6,7 @@ import cvxpy
 import numpy as np
 import scipy
 
+from toqito._sdp import solve_sdp
 from toqito.channels.realignment import realignment
 from toqito.matrix_ops.partial_trace import partial_trace
 from toqito.matrix_ops.partial_transpose import partial_transpose
@@ -224,12 +225,9 @@ def sk_operator_norm(
 
         with warnings.catch_warnings():
             warnings.filterwarnings("ignore", message="Constraint.*subexpressions")
-            problem = cvxpy.Problem(objective, constraints)
-            cvx_optval = problem.solve()
-        if problem.status != "optimal":  # pragma: no cover - defensive
-            raise ValueError("Numerical problems encountered.")
+            cvx_optval = solve_sdp(cvxpy.Problem(objective, constraints))
 
-        upper_bound = min(upper_bound, np.real(cvx_optval))
+        upper_bound = min(upper_bound, cvx_optval)
 
         # In small dimensions, the transpose map gets the result exactly.
         if is_trans_exact and k == 1:
@@ -270,12 +268,9 @@ def sk_operator_norm(
 
                 with warnings.catch_warnings():
                     warnings.filterwarnings("ignore", message="Constraint.*subexpressions")
-                    problem = cvxpy.Problem(objective, constraints)
-                    cvx_optval = problem.solve()
-                if problem.status != "optimal":  # pragma: no cover - defensive
-                    raise ValueError("Numerical problems encountered.")
+                    cvx_optval = solve_sdp(cvxpy.Problem(objective, constraints))
 
-                upper_bound = min(upper_bound, np.real(cvx_optval))
+                upper_bound = min(upper_bound, cvx_optval)
 
                 roots, _ = scipy.special.roots_jacobi(np.floor(j / 2) + 1, dim[1] - 2, j % 2)
                 gs = min(1 - roots)

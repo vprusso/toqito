@@ -6,8 +6,9 @@ from typing import Literal, TypeAlias
 import cvxpy
 import numpy as np
 
+from toqito._sdp import solve_sdp
 from toqito.matrix_ops import tensor
-from toqito.nonlocal_games.nonlocal_game import _random_measurements, _solve_sdp, _validate_game
+from toqito.nonlocal_games.nonlocal_game import _random_measurements, _validate_game
 from toqito.state_opt.npa_hierarchy import npa_constraints
 
 AnswerEventConstraint: TypeAlias = tuple[
@@ -215,7 +216,7 @@ class ExtendedNonlocalGame:
         constraints += [cvxpy.trace(tau) == 1, tau >> 0]
 
         problem = cvxpy.Problem(cvxpy.Maximize(cvxpy.real(p_win)), constraints)
-        return _solve_sdp(problem, solver, solver_params)
+        return solve_sdp(problem, solver, solver_params)
 
     def quantum_value_lower_bound(
         self,
@@ -309,14 +310,14 @@ class ExtendedNonlocalGame:
                 coeffs = coeffs.reshape(alice_in, alice_out, joint_dim, joint_dim)
                 for (x, a), param in rho_coeffs.items():
                     param.value = coeffs[x, a]
-                _solve_sdp(alice_problem, solver, solver_params)
+                solve_sdp(alice_problem, solver, solver_params)
                 rho_vals = np.array([[rho_vars[x, a].value for a in range(alice_out)] for x in range(alice_in)])
                 rho_vals = rho_vals.reshape(alice_in, alice_out, referee_dim, dim, referee_dim, dim)
 
                 coeffs = np.einsum("xy,ikabxy,xaklij->yblj", self.prob_mat, self.pred_mat, rho_vals)
                 for (y, b), param in bob_coeffs.items():
                     param.value = coeffs[y, b]
-                lower_bound = _solve_sdp(bob_problem, solver, solver_params)
+                lower_bound = solve_sdp(bob_problem, solver, solver_params)
                 bob_vals = np.array([[bob_vars[y, b].value for b in range(bob_out)] for y in range(bob_in)])
 
                 best_lower_bound = max(best_lower_bound, lower_bound)
@@ -468,4 +469,4 @@ class ExtendedNonlocalGame:
             for constraint in constraints:
                 cons.append(self._answer_event_linear_constraint(K, constraint, dR, A_out, B_out, A_in, B_in))
         prob = cvxpy.Problem(cvxpy.Maximize(cvxpy.real(total_win)), cons)
-        return _solve_sdp(prob, solver, solver_params)
+        return solve_sdp(prob, solver, solver_params)

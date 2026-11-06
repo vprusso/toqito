@@ -5,6 +5,7 @@ import warnings
 import cvxpy
 import numpy as np
 
+from toqito._sdp import solve_sdp
 from toqito.state_opt._symmetric_extension import symmetric_extension_sdp
 
 
@@ -232,7 +233,4 @@ def symmetric_extension_hierarchy(
     problem_objective = cvxpy.Maximize(obj_expr) if objective == "distinguish" else cvxpy.Minimize(obj_expr)
     with warnings.catch_warnings():
         warnings.filterwarnings("ignore", message="Constraint.*subexpressions")
-        problem = cvxpy.Problem(problem_objective, constraints)
-        sol_default = problem.solve()
-
-    return sol_default
+        return solve_sdp(cvxpy.Problem(problem_objective, constraints))

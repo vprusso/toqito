@@ -3,7 +3,8 @@
 import cvxpy
 import numpy as np
 
-from toqito.nonlocal_games.nonlocal_game import NonlocalGame, _solve_sdp
+from toqito._sdp import solve_sdp
+from toqito.nonlocal_games.nonlocal_game import NonlocalGame
 
 
 class XORGame:
@@ -224,7 +225,7 @@ class XORGame:
 
         objective = cvxpy.Minimize(cvxpy.sum(u_vec) + cvxpy.sum(v_vec))
         constraints = [cvxpy.bmat([[cvxpy.diag(u_vec), -d_mat], [-d_mat.T, cvxpy.diag(v_vec)]]) >> 0]
-        bias = _solve_sdp(cvxpy.Problem(objective, constraints), solver, solver_params)
+        bias = solve_sdp(cvxpy.Problem(objective, constraints), solver, solver_params)
 
         # The optimal objective is twice the bias of the game, and the winning probability is (1 + bias) / 2.
         # It holds from (https://arxiv.org/abs/quant-ph/0608146) that the quantum value of any XOR game obeys strong

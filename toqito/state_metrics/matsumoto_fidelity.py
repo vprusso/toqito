@@ -4,6 +4,7 @@ import cvxpy
 import numpy as np
 import scipy
 
+from toqito._sdp import solve_sdp
 from toqito.matrix_props import is_density
 
 
@@ -90,9 +91,7 @@ def matsumoto_fidelity(rho: np.ndarray, sigma: np.ndarray) -> float | np.floatin
         w_var = cvxpy.Variable(rho.shape, hermitian=True)
         objective = cvxpy.Maximize(cvxpy.real(cvxpy.trace(w_var)))
         constraints = [cvxpy.bmat([[rho, w_var], [w_var, sigma]]) >> 0]
-        problem = cvxpy.Problem(objective, constraints)
-
-        return problem.solve()
+        return solve_sdp(cvxpy.Problem(objective, constraints))
 
     if not is_density(rho) or not is_density(sigma):
         raise ValueError("Matsumoto fidelity is only defined for density operators.")
@@ -118,7 +117,7 @@ def matsumoto_fidelity(rho: np.ndarray, sigma: np.ndarray) -> float | np.floatin
         w_var = cvxpy.Variable(rho.shape, hermitian=True)
         objective = cvxpy.Maximize(cvxpy.real(cvxpy.trace(w_var)))
         constraints = [cvxpy.bmat([[rho, w_var], [w_var, sigma]]) >> 0]
-        return cvxpy.Problem(objective, constraints).solve(solver=cvxpy.CLARABEL)
+        return solve_sdp(cvxpy.Problem(objective, constraints), cvxpy.CLARABEL)
 
     sqrt_eigvals = np.sqrt(eigvals)
     sq_rho = (eigvecs * sqrt_eigvals) @ eigvecs.conj().T
