@@ -4,6 +4,7 @@ import cvxpy
 import numpy as np
 
 from toqito.matrix_ops import partial_trace
+from toqito.nonlocal_games.nonlocal_game import _solve_sdp
 from toqito.perms import permutation_operator
 
 
@@ -29,12 +30,13 @@ class QuantumHedging:
         \]
 
         As was illustrated in [@molina2012hedging], the hedging value of the above scenario is
-        \(\cos(\pi/8)^2 \approx 0.8536\)
+        \(\cos(\pi/8)^2 \approx 0.8536\). The primal and dual programs for the maximal probability agree on this
+        value, and so do the two programs for the minimal probability.
 
         ```python exec="1" source="above" result="text"
         import numpy as np
         from toqito.states import basis
-        from numpy import kron, cos, sin, pi, sqrt, isclose
+        from numpy import kron, cos, sin, pi, sqrt
         from toqito.nonlocal_games.quantum_hedging import QuantumHedging
 
         e_0, e_1 = basis(2, 0), basis(2, 1)
@@ -56,84 +58,8 @@ class QuantumHedging:
 
         # cos(pi/8)**2 \approx 0.8536
         print(np.around(molina_watrous.max_prob_outcome_a_primal(), decimals=2))
-        ```
-
-        This example demonstrates strong duality with matching primal and dual values, as can be seen below:
-
-        ```python exec="1" source="above" result="text"
-        import numpy as np
-        from toqito.states import basis
-        from numpy import kron, cos, sin, pi, sqrt, isclose
-        from toqito.nonlocal_games.quantum_hedging import QuantumHedging
-
-        e_0, e_1 = basis(2, 0), basis(2, 1)
-        e_00, e_01 = kron(e_0, e_0), kron(e_0, e_1)
-        e_10, e_11 = kron(e_1, e_0), kron(e_1, e_1)
-
-        alpha = 1 / sqrt(2)
-        theta = pi / 8
-        w_var = alpha * cos(theta) * e_00 + sqrt(1 - alpha ** 2) * sin(theta) * e_11
-
-        l_1 = -alpha * sin(theta) * e_00 + sqrt(1 - alpha ** 2) * cos(theta) * e_11
-        l_2 = alpha * sin(theta) * e_10
-        l_3 = sqrt(1 - alpha ** 2) * cos(theta) * e_01
-
-        q_1 = w_var @ w_var.conj().T
-        q_0 = l_1 @ l_1.conj().T + l_2 @ l_2.conj().T + l_3 @ l_3.conj().T
-
-        molina_watrous = QuantumHedging(q_0, 1)
         print(np.around(molina_watrous.max_prob_outcome_a_dual(), decimals=2))
-        ```
-
-        and
-
-        ```python exec="1" source="above" result="text"
-        import numpy as np
-        from toqito.states import basis
-        from numpy import kron, cos, sin, pi, sqrt, isclose
-        from toqito.nonlocal_games.quantum_hedging import QuantumHedging
-
-        e_0, e_1 = basis(2, 0), basis(2, 1)
-        e_00, e_01 = kron(e_0, e_0), kron(e_0, e_1)
-        e_10, e_11 = kron(e_1, e_0), kron(e_1, e_1)
-
-        alpha = 1 / sqrt(2)
-        theta = pi / 8
-        w_var = alpha * cos(theta) * e_00 + sqrt(1 - alpha ** 2) * sin(theta) * e_11
-
-        l_1 = -alpha * sin(theta) * e_00 + sqrt(1 - alpha ** 2) * cos(theta) * e_11
-        l_2 = alpha * sin(theta) * e_10
-        l_3 = sqrt(1 - alpha ** 2) * cos(theta) * e_01
-
-        q_1 = w_var @ w_var.conj().T
-        q_0 = l_1 @ l_1.conj().T + l_2 @ l_2.conj().T + l_3 @ l_3.conj().T
-
-        molina_watrous = QuantumHedging(q_0, 1)
         print(np.around(molina_watrous.min_prob_outcome_a_primal(), decimals=2))
-        ```
-
-        ```python exec="1" source="above" result="text"
-        import numpy as np
-        from toqito.states import basis
-        from numpy import kron, cos, sin, pi, sqrt, isclose
-        from toqito.nonlocal_games.quantum_hedging import QuantumHedging
-
-        e_0, e_1 = basis(2, 0), basis(2, 1)
-        e_00, e_01 = kron(e_0, e_0), kron(e_0, e_1)
-        e_10, e_11 = kron(e_1, e_0), kron(e_1, e_1)
-
-        alpha = 1 / sqrt(2)
-        theta = pi / 8
-        w_var = alpha * cos(theta) * e_00 + sqrt(1 - alpha ** 2) * sin(theta) * e_11
-
-        l_1 = -alpha * sin(theta) * e_00 + sqrt(1 - alpha ** 2) * cos(theta) * e_11
-        l_2 = alpha * sin(theta) * e_10
-        l_3 = sqrt(1 - alpha ** 2) * cos(theta) * e_01
-
-        q_1 = w_var @ w_var.conj().T
-        q_0 = l_1 @ l_1.conj().T + l_2 @ l_2.conj().T + l_3 @ l_3.conj().T
-
-        molina_watrous = QuantumHedging(q_0, 1)
         print(np.around(molina_watrous.min_prob_outcome_a_dual(), decimals=2))
         ```
 
@@ -150,23 +76,36 @@ class QuantumHedging:
         self._q_a = q_a
         self._num_reps = num_reps
 
-        self._sys = list(range(0, 2 * self._num_reps - 1, 2))
-
-        self._dim = 2 * np.ones((1, 2 * self._num_reps)).astype(int).flatten()
-        self._dim = self._dim.tolist()
+        # The 2n qubit systems are ordered Y_1, X_1, ..., Y_n, X_n; the partial trace is over the Y systems.
+        self._sys = list(range(0, 2 * num_reps, 2))
+        self._dim = [2] * (2 * num_reps)
 
         # For the dual problem, the following unitary operator is used to
         # permute the subsystems of Alice and Bob which is defined by the
         # action:
         #   π(y1 ⊗ y2 ⊗ x1 ⊗ x2) = y1 ⊗ x1 ⊗ y2 ⊗ x2
         # for all y1 ∈ Y1, y2 ∈ Y2, x1 ∈ X1, x2 ∈ X2.).
-        l_1 = list(range(self._num_reps))
-        l_2 = list(range(self._num_reps, self._num_reps**2))
-        if self._num_reps == 1:
-            self._pperm = np.array([1])
+        perm = [system for pair in zip(range(num_reps), range(num_reps, 2 * num_reps)) for system in pair]
+        self._pperm = permutation_operator(2, perm)
+
+    def _primal(self, maximize: bool) -> float:
+        """Solve the primal hedging program, maximizing or minimizing the probability of outcome "a"."""
+        x_var = cvxpy.Variable((4**self._num_reps, 4**self._num_reps), hermitian=True)
+        objective = cvxpy.real(cvxpy.trace(self._q_a.conj().T @ x_var))
+        constraints = [partial_trace(x_var, self._sys, self._dim) == np.identity(2**self._num_reps), x_var >> 0]
+        problem = cvxpy.Problem(cvxpy.Maximize(objective) if maximize else cvxpy.Minimize(objective), constraints)
+        return _solve_sdp(problem)
+
+    def _dual(self, maximize: bool) -> float:
+        """Solve the dual hedging program for the maximal (`maximize`) or minimal probability of outcome "a"."""
+        y_var = cvxpy.Variable((2**self._num_reps, 2**self._num_reps), hermitian=True)
+        objective = cvxpy.real(cvxpy.trace(y_var))
+        lifted = self._pperm @ cvxpy.kron(np.eye(2**self._num_reps), y_var) @ self._pperm.conj().T
+        if maximize:
+            problem = cvxpy.Problem(cvxpy.Minimize(objective), [lifted >> self._q_a])
         else:
-            perm = [*sum(zip(l_1, l_2), ())]
-            self._pperm = permutation_operator(2, perm)
+            problem = cvxpy.Problem(cvxpy.Maximize(objective), [lifted << self._q_a])
+        return _solve_sdp(problem)
 
     def max_prob_outcome_a_primal(self) -> float:
         r"""Compute the maximal probability for calculating outcome "a".
@@ -194,12 +133,7 @@ class QuantumHedging:
             The optimal maximal probability for obtaining outcome "a".
 
         """
-        x_var = cvxpy.Variable((4**self._num_reps, 4**self._num_reps), hermitian=True)
-        objective = cvxpy.Maximize(cvxpy.real(cvxpy.trace(self._q_a.conj().T @ x_var)))
-        constraints = [partial_trace(x_var, self._sys, self._dim) == np.identity(2**self._num_reps), x_var >> 0]
-        problem = cvxpy.Problem(objective, constraints)
-
-        return problem.solve(verbose=False)
+        return self._primal(maximize=True)
 
     def max_prob_outcome_a_dual(self) -> float:
         r"""Compute the maximal probability for calculating outcome "a".
@@ -223,18 +157,7 @@ class QuantumHedging:
             The optimal maximal probability for obtaining outcome "a".
 
         """
-        y_var = cvxpy.Variable((2**self._num_reps, 2**self._num_reps), hermitian=True)
-        objective = cvxpy.Minimize(cvxpy.trace(cvxpy.real(y_var)))
-
-        kron_var = cvxpy.kron(np.eye(2**self._num_reps), y_var)
-        if self._num_reps == 1:
-            u_var = cvxpy.multiply(cvxpy.multiply(self._pperm, kron_var), self._pperm.conj().T)
-            constraints = [cvxpy.real(u_var) >> self._q_a]
-        else:
-            constraints = [cvxpy.real(self._pperm @ kron_var @ self._pperm.conj().T) >> self._q_a]
-        problem = cvxpy.Problem(objective, constraints)
-
-        return problem.solve(verbose=False)
+        return self._dual(maximize=True)
 
     def min_prob_outcome_a_primal(self) -> float:
         r"""Compute the minimal probability for calculating outcome "a".
@@ -262,12 +185,7 @@ class QuantumHedging:
             The optimal minimal probability for obtaining outcome "a".
 
         """
-        x_var = cvxpy.Variable((4**self._num_reps, 4**self._num_reps), hermitian=True)
-        objective = cvxpy.Minimize(cvxpy.real(cvxpy.trace(self._q_a.conj().T @ x_var)))
-        constraints = [partial_trace(x_var, self._sys, self._dim) == np.identity(2**self._num_reps), x_var >> 0]
-        problem = cvxpy.Problem(objective, constraints)
-
-        return problem.solve(verbose=False)
+        return self._primal(maximize=False)
 
     def min_prob_outcome_a_dual(self) -> float:
         r"""Compute the minimal probability for calculating outcome "a".
@@ -291,16 +209,4 @@ class QuantumHedging:
             The optimal minimal probability for obtaining outcome "a".
 
         """
-        y_var = cvxpy.Variable((2**self._num_reps, 2**self._num_reps), hermitian=True)
-        objective = cvxpy.Maximize(cvxpy.trace(cvxpy.real(y_var)))
-
-        kron_var = cvxpy.kron(np.eye(2**self._num_reps), y_var)
-
-        if self._num_reps == 1:
-            u_var = cvxpy.multiply(cvxpy.multiply(self._pperm, kron_var), self._pperm.conj().T)
-            constraints = [cvxpy.real(u_var) << self._q_a]
-        else:
-            constraints = [cvxpy.real(self._pperm @ kron_var @ self._pperm.conj().T) << self._q_a]
-        problem = cvxpy.Problem(objective, constraints)
-
-        return problem.solve(verbose=False)
+        return self._dual(maximize=False)
