@@ -1,6 +1,7 @@
 """Two-player nonlocal game."""
 
 import itertools
+from dataclasses import dataclass
 
 import cvxpy
 import numpy as np
@@ -48,6 +49,60 @@ def _validate_game(prob_mat: np.ndarray, pred_mat: np.ndarray, pred_ndim: int) -
         )
     if not np.isclose(np.sum(prob_mat), 1, atol=1e-8):
         raise ValueError("Invalid: The variable `prob_mat` must be a probability matrix: its entries must sum to 1.")
+
+
+@dataclass(frozen=True)
+class QuantumStrategy:
+    """A shared state together with one measurement per question for each player.
+
+    Attributes:
+        state: The shared density operator, on Alice's system tensored with Bob's for a nonlocal game, and on the
+            referee's system tensored with Alice's and then Bob's for an extended nonlocal game.
+        alice_povms: Alice's measurements as an array of shape ``(dim_alice, dim_alice, num_alice_in, num_alice_out)``
+            whose ``[:, :, x, a]`` slice is the operator for answer ``a`` to question ``x``.
+        bob_povms: Bob's measurements, laid out in the same way with shape ``(dim_bob, dim_bob, num_bob_in,
+            num_bob_out)``.
+
+    """
+
+    state: np.ndarray
+    alice_povms: np.ndarray
+    bob_povms: np.ndarray
+
+
+def _strategy_from_seesaw(rho_vals: np.ndarray, bob_vals: np.ndarray, referee_dim: int = 1) -> QuantumStrategy:
+    r"""Recover a quantum strategy from the operators the see-saw optimizes over.
+
+    The see-saw represents Alice's side by the operators \(\rho_a^x = \mathrm{Tr}_A[(A_a^x \otimes \mathbb{1})\rho]\)
+    on the referee and Bob, with \(\tau = \sum_a \rho_a^x\) their reduced state. Taking the purification
+    \(|\psi\rangle = \sum_{ij} \overline{\sqrt{\tau}}_{ij} |i\rangle|j\rangle\) on a copy of that space for Alice gives
+    \(\mathrm{Tr}_A[(M \otimes \mathbb{1})|\psi\rangle\langle\psi|] = \sqrt{\tau} M^{\mathsf{T}} \sqrt{\tau}\), so
+    \(A_a^x = (\tau^{-1/2} \rho_a^x \tau^{-1/2})^{\mathsf{T}}\) reproduces every \(\rho_a^x\). The inverse is taken on
+    the support of \(\tau\) and the complement of the support is added to one element of each POVM.
+
+    Args:
+        rho_vals: Array of shape ``(num_alice_in, num_alice_out, d, d)`` holding \(\rho_a^x\).
+        bob_vals: Array of shape ``(num_bob_in, num_bob_out, dim_bob, dim_bob)`` holding Bob's POVMs.
+        referee_dim: The referee dimension, with ``d = referee_dim * dim_bob``.
+
+    """
+    alice_in, alice_out, joint_dim, _ = rho_vals.shape
+    dim_bob = joint_dim // referee_dim
+    tau = rho_vals[0].sum(axis=0)
+    tau = (tau + tau.conj().T) / 2
+    eigvals, eigvecs = np.linalg.eigh(tau)
+    support = eigvals > 1e-10 * eigvals.max()
+    sqrt_tau = (eigvecs[:, support] * np.sqrt(eigvals[support])) @ eigvecs[:, support].conj().T
+    inv_sqrt_tau = (eigvecs[:, support] / np.sqrt(eigvals[support])) @ eigvecs[:, support].conj().T
+    complement = np.eye(joint_dim) - eigvecs[:, support] @ eigvecs[:, support].conj().T
+
+    alice_povms = np.einsum("ij,xajk,kl->lixa", inv_sqrt_tau, rho_vals, inv_sqrt_tau)  # transposed in the last step
+    alice_povms[:, :, :, 0] += complement.T[:, :, np.newaxis]
+
+    # |psi> on Alice's copy tensored with (referee, Bob); reorder to (referee, Alice, Bob) for an extended game.
+    psi = sqrt_tau.conj().reshape(joint_dim, referee_dim, dim_bob).transpose(1, 0, 2).reshape(-1)
+    state = np.outer(psi, psi.conj())
+    return QuantumStrategy(state=state, alice_povms=alice_povms, bob_povms=bob_vals.transpose(2, 3, 0, 1))
 
 
 class NonlocalGame:
@@ -181,13 +236,23 @@ class NonlocalGame:
         M, b = _parity_system_from_truth_tables(self._raw_constraints)
         return check_perfect_commuting_strategy(M, b)
 
-    def classical_value(self) -> float:
-        r"""Compute the classical value of the nonlocal game."""
+    def classical_value(self, return_strategy: bool = False) -> float | tuple[float, tuple[np.ndarray, np.ndarray]]:
+        r"""Compute the classical value of the nonlocal game.
+
+        Args:
+            return_strategy: If True, also return an optimal deterministic strategy as a pair of integer arrays
+                giving Alice's answer to each question and Bob's answer to each question (default is False).
+
+        Returns:
+            The classical value, followed by the optimal strategy when `return_strategy` is True.
+
+        """
         A_out, B_out, A_in, B_in = self.pred_mat.shape
         pm = self.pred_mat * self.prob_mat
 
         # Enumerate the smaller of the two deterministic-strategy spaces.
-        if A_out**A_in < B_out**B_in:
+        swapped = A_out**A_in < B_out**B_in
+        if swapped:
             pm = pm.transpose((1, 0, 3, 2))
             A_out, B_out, A_in, B_in = pm.shape
 
@@ -200,8 +265,62 @@ class NonlocalGame:
         strategies = np.array(list(itertools.product(range(B_out), repeat=B_in)))  # (num_strategies, B_in)
         # gathered[a, x, s, y] = pm[a, x, strategies[s, y], y]
         gathered = pm[:, :, strategies, np.arange(B_in)]  # (A_out, A_in, num_strategies, B_in)
-        per_strategy = gathered.sum(axis=-1).max(axis=0).sum(axis=0)  # (num_strategies,)
-        return float(per_strategy.max())
+        per_question = gathered.sum(axis=-1)  # (A_out, A_in, num_strategies)
+        per_strategy = per_question.max(axis=0).sum(axis=0)  # (num_strategies,)
+        best = int(per_strategy.argmax())
+        value = float(per_strategy[best])
+        if not return_strategy:
+            return value
+        bob_outputs = strategies[best]
+        alice_outputs = per_question[:, :, best].argmax(axis=0)
+        if swapped:
+            alice_outputs, bob_outputs = bob_outputs, alice_outputs
+        return value, (alice_outputs, bob_outputs)
+
+    def classical_strategy_value(self, alice_outputs: np.ndarray, bob_outputs: np.ndarray) -> float:
+        """Compute the winning probability of a deterministic strategy.
+
+        Args:
+            alice_outputs: Alice's answer to each of her questions, as an integer array of length ``num_alice_in``.
+            bob_outputs: Bob's answer to each of his questions, as an integer array of length ``num_bob_in``.
+
+        Returns:
+            The probability of winning the game with these answers.
+
+        """
+        alice_in, bob_in = self.prob_mat.shape
+        alice_outputs = np.asarray(alice_outputs)[:, np.newaxis]
+        bob_outputs = np.asarray(bob_outputs)[np.newaxis, :]
+        wins = self.pred_mat[alice_outputs, bob_outputs, np.arange(alice_in)[:, np.newaxis], np.arange(bob_in)]
+        return float(np.real(np.sum(self.prob_mat * wins)))
+
+    def quantum_strategy_value(self, strategy: QuantumStrategy) -> float:
+        r"""Compute the winning probability of a quantum strategy.
+
+        Args:
+            strategy: A shared state on Alice's and Bob's systems and their measurements.
+
+        Returns:
+            The probability \(\sum_{x,y,a,b} \pi(x,y) V(a,b|x,y) \mathrm{Tr}[(A_a^x \otimes B_b^y) \rho]\).
+
+        """
+        dim_alice, dim_bob = strategy.alice_povms.shape[0], strategy.bob_povms.shape[0]
+        state = np.asarray(strategy.state).reshape(dim_alice, dim_bob, dim_alice, dim_bob)
+        probs = np.einsum("iIxa,jJyb,IJij->abxy", strategy.alice_povms, strategy.bob_povms, state)
+        return float(np.real(np.sum(self.pred_mat * self.prob_mat * probs)))
+
+    def distribution_value(self, distribution: np.ndarray) -> float:
+        """Compute the winning probability of a conditional distribution of answers.
+
+        Args:
+            distribution: An array of shape ``(num_alice_out, num_bob_out, num_alice_in, num_bob_in)`` whose
+                ``[a, b, x, y]`` entry is the probability of answers ``(a, b)`` to questions ``(x, y)``.
+
+        Returns:
+            The probability of winning the game when answering according to the distribution.
+
+        """
+        return float(np.real(np.sum(self.pred_mat * self.prob_mat * np.asarray(distribution))))
 
     def quantum_value_lower_bound(
         self,
@@ -212,7 +331,8 @@ class NonlocalGame:
         max_steps: int = 100,
         solver: str | None = cvxpy.SCS,
         solver_params: dict | None = None,
-    ) -> float:
+        return_strategy: bool = False,
+    ) -> float | tuple[float, QuantumStrategy]:
         r"""Compute a lower bound on the quantum value of a nonlocal game [@liang2007bounds].
 
         Calculates a lower bound on the maximum value that the specified
@@ -287,9 +407,12 @@ class NonlocalGame:
             solver_params: Extra keyword arguments passed to `cvxpy.Problem.solve` (default, for SCS, is
                     ``{"eps": 1e-8, "max_iters": 50_000}``, tight enough that the returned value is an achievable
                     winning probability to within solver accuracy).
+            return_strategy: If True, also return the strategy attaining the bound as a `QuantumStrategy` on
+                    two `dim`-dimensional systems (default is False).
 
         Returns:
-            The lower bound on the quantum value of a nonlocal game.
+            The lower bound on the quantum value of a nonlocal game, followed by the strategy attaining it when
+            `return_strategy` is True.
 
         Examples:
             The CHSH game
@@ -398,6 +521,7 @@ class NonlocalGame:
         bob_problem = cvxpy.Problem(cvxpy.Maximize(bob_win), bob_constraints)
 
         best_lower_bound = float("-inf")
+        best_operators = None
         for _ in range(iters):
             # Random measurements for Bob are the starting point of the alternating projection algorithm.
             bob_vals = _random_measurements(dim, num_inputs_bob, num_outputs_bob, int(rng.integers(0, 2**32 - 1)))
@@ -420,15 +544,20 @@ class NonlocalGame:
                     [[bob_ops[y, b].value for b in range(num_outputs_bob)] for y in range(num_inputs_bob)]
                 )
 
-                best_lower_bound = max(best_lower_bound, lower_bound)
+                if lower_bound > best_lower_bound:
+                    best_lower_bound, best_operators = lower_bound, (alice_vals, bob_vals)
                 # Use the absolute change so a non-monotone step does not terminate the loop prematurely.
                 if abs(lower_bound - prev_win) <= tol:
                     break
                 prev_win = lower_bound
 
-        return best_lower_bound
+        if not return_strategy:
+            return best_lower_bound
+        return best_lower_bound, _strategy_from_seesaw(*best_operators)
 
-    def nonsignaling_value(self, solver: str | None = None, solver_params: dict | None = None) -> float:
+    def nonsignaling_value(
+        self, solver: str | None = None, solver_params: dict | None = None, return_strategy: bool = False
+    ) -> float | tuple[float, np.ndarray]:
         r"""Compute the non-signaling value of the nonlocal game.
 
         The non-signaling value is the maximum winning probability over all conditional distributions
@@ -437,9 +566,12 @@ class NonlocalGame:
         Args:
             solver: The cvxpy solver to use (default is cvxpy's choice).
             solver_params: Extra keyword arguments passed to `cvxpy.Problem.solve`.
+            return_strategy: If True, also return the optimal distribution as an array of shape
+                ``(num_alice_out, num_bob_out, num_alice_in, num_bob_in)`` (default is False).
 
         Returns:
-            A value between `[0, 1]` representing the non-signaling value.
+            A value between `[0, 1]` representing the non-signaling value, followed by the optimal distribution when
+            `return_strategy` is True.
 
         """
         alice_out, bob_out, alice_in, bob_in = self.pred_mat.shape
@@ -464,11 +596,18 @@ class NonlocalGame:
 
         weights = np.real(self.pred_mat * self.prob_mat).reshape(alice_out * bob_out, alice_in * bob_in)
         problem = cvxpy.Problem(cvxpy.Maximize(cvxpy.sum(cvxpy.multiply(weights, p_var))), constraints)
-        return solve_sdp(problem, solver, solver_params)
+        value = solve_sdp(problem, solver, solver_params)
+        if not return_strategy:
+            return value
+        return value, p_var.value.reshape(alice_out, bob_out, alice_in, bob_in)
 
     def commuting_measurement_value_upper_bound(
-        self, k: int | str = 1, solver: str | None = None, solver_params: dict | None = None
-    ) -> float:
+        self,
+        k: int | str = 1,
+        solver: str | None = None,
+        solver_params: dict | None = None,
+        return_strategy: bool = False,
+    ) -> float | tuple[float, np.ndarray]:
         r"""Compute an upper bound on the commuting measurement value of the nonlocal game.
 
         This function calculates an upper bound on the commuting measurement value by
@@ -485,9 +624,13 @@ class NonlocalGame:
             k: The level of the NPA hierarchy to use (default=1).
             solver: The cvxpy solver to use (default is cvxpy's choice).
             solver_params: Extra keyword arguments passed to `cvxpy.Problem.solve`.
+            return_strategy: If True, also return the optimal distribution of the relaxation as an array of shape
+                ``(num_alice_out, num_bob_out, num_alice_in, num_bob_in)`` (default is False). At a finite level
+                this distribution need not be realisable by commuting measurements.
 
         Returns:
-            The upper bound on the commuting strategy value of a nonlocal game.
+            The upper bound on the commuting strategy value of a nonlocal game, followed by the optimal distribution
+            of the relaxation when `return_strategy` is True.
 
         """
         alice_out, bob_out, alice_in, bob_in = self.pred_mat.shape
@@ -500,4 +643,10 @@ class NonlocalGame:
         }
         p_win = sum(cvxpy.sum(cvxpy.multiply(weights[:, :, x, y], mat[x, y])) for (x, y) in mat)
         problem = cvxpy.Problem(cvxpy.Maximize(p_win), npa_constraints(mat, k))
-        return solve_sdp(problem, solver, solver_params)
+        value = solve_sdp(problem, solver, solver_params)
+        if not return_strategy:
+            return value
+        distribution = np.zeros((alice_out, bob_out, alice_in, bob_in))
+        for (x, y), var in mat.items():
+            distribution[:, :, x, y] = var.value
+        return value, distribution

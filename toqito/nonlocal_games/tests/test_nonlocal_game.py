@@ -405,3 +405,77 @@ class TestNonlocalGame(unittest.TestCase):
         game = NonlocalGame.from_bcs_game([c_1, c_2])
         val = game.classical_value()
         self.assertAlmostEqual(val, 5 / 6, places=6)
+
+
+class TestNonlocalGameStrategies(unittest.TestCase):
+    """The strategies returned alongside each value reproduce that value."""
+
+    @staticmethod
+    def chsh():
+        """Build the CHSH game."""
+        return NonlocalGame(*TestNonlocalGame.chsh_nonlocal_game())
+
+    def test_classical_strategy_attains_classical_value(self):
+        """The optimal deterministic strategy wins with the classical value."""
+        chsh = self.chsh()
+        value, (alice_outputs, bob_outputs) = chsh.classical_value(return_strategy=True)
+        self.assertAlmostEqual(value, 3 / 4)
+        self.assertEqual(alice_outputs.shape, (2,))
+        self.assertEqual(bob_outputs.shape, (2,))
+        self.assertAlmostEqual(chsh.classical_strategy_value(alice_outputs, bob_outputs), value)
+
+    def test_classical_strategy_when_roles_are_swapped(self):
+        """The strategy is reported in the right order when Alice's strategy space is the smaller one."""
+        prob_mat = np.full((2, 2), 1 / 4)
+        pred_mat = np.zeros((1, 3, 2, 2))
+        pred_mat[0, 1, 0, :] = 1
+        pred_mat[0, 2, 1, :] = 1
+        game = NonlocalGame(prob_mat, pred_mat)
+        value, (alice_outputs, bob_outputs) = game.classical_value(return_strategy=True)
+        self.assertEqual(alice_outputs.shape, (2,))
+        self.assertEqual(bob_outputs.shape, (2,))
+        self.assertAlmostEqual(game.classical_strategy_value(alice_outputs, bob_outputs), value)
+        self.assertAlmostEqual(value, 1 / 2)
+
+    def test_quantum_strategy_attains_lower_bound(self):
+        """The returned state and measurements form a valid strategy whose winning probability is the bound."""
+        chsh = self.chsh()
+        value, strategy = chsh.quantum_value_lower_bound(seed=0, return_strategy=True)
+        self.assertAlmostEqual(value, np.cos(np.pi / 8) ** 2, delta=1e-4)
+        self.assertAlmostEqual(chsh.quantum_strategy_value(strategy), value, delta=1e-6)
+
+        self.assertEqual(strategy.state.shape, (4, 4))
+        self.assertAlmostEqual(np.trace(strategy.state).real, 1.0, delta=1e-8)
+        self.assertGreaterEqual(np.linalg.eigvalsh(strategy.state).min(), -1e-8)
+        for povms in (strategy.alice_povms, strategy.bob_povms):
+            self.assertEqual(povms.shape, (2, 2, 2, 2))
+            np.testing.assert_allclose(
+                povms.sum(axis=3), np.broadcast_to(np.eye(2)[:, :, np.newaxis], (2, 2, 2)), atol=1e-6
+            )
+            self.assertGreaterEqual(np.linalg.eigvalsh(np.moveaxis(povms, (2, 3), (0, 1))).min(), -1e-6)
+
+    def test_quantum_strategy_with_larger_dimension(self):
+        """A strategy on larger local systems is reconstructed on the right dimensions."""
+        chsh = self.chsh()
+        value, strategy = chsh.quantum_value_lower_bound(dim=3, iters=1, seed=0, return_strategy=True)
+        self.assertEqual(strategy.state.shape, (9, 9))
+        self.assertEqual(strategy.alice_povms.shape, (3, 3, 2, 2))
+        self.assertAlmostEqual(chsh.quantum_strategy_value(strategy), value, delta=1e-6)
+
+    def test_nonsignaling_distribution_attains_value(self):
+        """The optimal non-signaling distribution is normalised, non-signaling and wins with the value."""
+        chsh = self.chsh()
+        value, distribution = chsh.nonsignaling_value(return_strategy=True)
+        self.assertAlmostEqual(value, 1.0, delta=1e-6)
+        self.assertAlmostEqual(chsh.distribution_value(distribution), value, delta=1e-6)
+        np.testing.assert_allclose(distribution.sum(axis=(0, 1)), 1.0, atol=1e-6)
+        alice_marginal = distribution.sum(axis=1)
+        np.testing.assert_allclose(alice_marginal[:, :, 0], alice_marginal[:, :, 1], atol=1e-6)
+
+    def test_commuting_distribution_attains_upper_bound(self):
+        """The distribution of the level-1 relaxation wins with the upper bound."""
+        chsh = self.chsh()
+        value, distribution = chsh.commuting_measurement_value_upper_bound(k=1, return_strategy=True)
+        self.assertAlmostEqual(value, np.cos(np.pi / 8) ** 2, delta=1e-4)
+        self.assertAlmostEqual(chsh.distribution_value(distribution), value, delta=1e-6)
+        np.testing.assert_allclose(distribution.sum(axis=(0, 1)), 1.0, atol=1e-5)
