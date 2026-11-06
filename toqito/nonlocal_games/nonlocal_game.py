@@ -7,48 +7,17 @@ import cvxpy
 import numpy as np
 
 from toqito._sdp import solve_sdp
-from toqito.matrix_ops import tensor
+from toqito.nonlocal_games._common import (
+    AnswerEventConstraint,
+    npa_upper_bound,
+    parallel_repetition,
+    seesaw,
+    validate_game,
+)
 from toqito.nonlocal_games.binary_constraint_system_game import (
     _parity_system_from_truth_tables,
     check_perfect_commuting_strategy,
 )
-from toqito.rand import random_povm, random_unitary
-from toqito.state_opt.npa_hierarchy import npa_constraints
-
-
-def _random_measurements(dim: int, num_inputs: int, num_outputs: int, seed: int) -> np.ndarray:
-    """Draw random starting measurements for a see-saw, as an array indexed by ``[input, output]``.
-
-    When the dimension allows, each measurement is projective in a Haar-random basis (the surplus basis vectors
-    all go to the last outcome); such starts reach entangled optima more reliably than generic POVMs. Otherwise a
-    random POVM is drawn.
-    """
-    if dim < num_outputs:
-        return random_povm(dim, num_inputs, num_outputs, seed=seed).transpose(2, 3, 0, 1)
-    rng = np.random.default_rng(seed)
-    measurements = np.zeros((num_inputs, num_outputs, dim, dim), dtype=complex)
-    for y in range(num_inputs):
-        basis = random_unitary(dim, seed=int(rng.integers(0, 2**32 - 1)))
-        for column in range(dim):
-            vector = basis[:, column]
-            measurements[y, min(column, num_outputs - 1)] += np.outer(vector, vector.conj())
-    return measurements
-
-
-def _validate_game(prob_mat: np.ndarray, pred_mat: np.ndarray, pred_ndim: int) -> None:
-    """Check that the predicate has the expected shape and that the question distribution matches it."""
-    if pred_mat.ndim != pred_ndim:
-        raise ValueError(f"Invalid: `pred_mat` must have {pred_ndim} dimensions, got {pred_mat.ndim}.")
-    if prob_mat.shape != pred_mat.shape[-2:]:
-        raise ValueError(
-            f"Invalid: `prob_mat` has shape {prob_mat.shape} but `pred_mat` has {pred_mat.shape[-2:]} question pairs."
-        )
-    if np.min(prob_mat) < -1e-12:
-        raise ValueError(
-            "Invalid: The variable `prob_mat` must be a probability matrix: its entries must be non-negative."
-        )
-    if not np.isclose(np.sum(prob_mat), 1, atol=1e-8):
-        raise ValueError("Invalid: The variable `prob_mat` must be a probability matrix: its entries must sum to 1.")
 
 
 @dataclass(frozen=True)
@@ -139,30 +108,11 @@ class NonlocalGame:
         """
         prob_mat = np.asarray(prob_mat)
         pred_mat = np.asarray(pred_mat)
-        _validate_game(prob_mat, pred_mat, pred_ndim=4)
+        validate_game(prob_mat, pred_mat, pred_ndim=4)
         self.reps = reps
-        if reps == 1:
-            self.prob_mat = prob_mat
-            self.pred_mat = pred_mat
-        else:
-            num_alice_out, num_bob_out, num_alice_in, num_bob_in = pred_mat.shape
-            self.prob_mat = tensor(prob_mat, reps)
-
-            pred_mat2 = np.zeros(
-                (
-                    num_alice_out**reps,
-                    num_bob_out**reps,
-                    num_alice_in**reps,
-                    num_bob_in**reps,
-                )
-            )
-            for i, i_ind in enumerate(itertools.product(range(num_alice_in), repeat=reps)):
-                for j, j_ind in enumerate(itertools.product(range(num_bob_in), repeat=reps)):
-                    to_tensor = np.empty([reps, num_alice_out, num_bob_out])
-                    for k in range(reps - 1, -1, -1):
-                        to_tensor[k] = pred_mat[:, :, i_ind[k], j_ind[k]]
-                    pred_mat2[:, :, i, j] = tensor(to_tensor)
-            self.pred_mat = pred_mat2
+        self.prob_mat, self.pred_mat = (
+            parallel_repetition(prob_mat, pred_mat, reps) if reps > 1 else (prob_mat, pred_mat)
+        )
         # The truth-table constraints this game was built from, when it came from `from_bcs_game`.
         self._raw_constraints = None
 
@@ -476,84 +426,22 @@ class NonlocalGame:
             ```
 
         """
-        num_outputs_alice, num_outputs_bob, num_inputs_alice, num_inputs_bob = self.pred_mat.shape
-        if solver_params is None:
-            solver_params = {"eps": 1e-8, "max_iters": 50_000} if solver == cvxpy.SCS else {}
-        # weights[a, b, x, y] = pi(x, y) V(a, b | x, y)
-        weights = self.pred_mat * self.prob_mat
-        rng = np.random.default_rng(seed)
-
-        # Both alternating SDPs have the same variables and constraints on every see-saw step and restart; only the
-        # fixed opponent operators change. Each is built once with the opponent folded into one `cvxpy.Parameter`
-        # per own operator, so a see-saw step only reassigns parameter values and re-solves.
-
-        # SDP-1: Alice's operators A_a^x, with sum_a A_a^x = tau for every x. The objective is
-        # sum_{x, a} <C_a^x, A_a^x> with C_a^x = sum_{y, b} pi(x, y) V(a, b | x, y) B_b^y.
-        alice_ops = {
-            (x, a): cvxpy.Variable((dim, dim), hermitian=True)
-            for x in range(num_inputs_alice)
-            for a in range(num_outputs_alice)
-        }
-        tau = cvxpy.Variable((dim, dim), hermitian=True)
-        alice_coeffs = {key: cvxpy.Parameter((dim, dim), complex=True) for key in alice_ops}
-        alice_win = sum(cvxpy.real(cvxpy.trace(alice_coeffs[key] @ alice_ops[key])) for key in alice_ops)
-        alice_constraints = [op >> 0 for op in alice_ops.values()]
-        alice_constraints += [
-            sum(alice_ops[x, a] for a in range(num_outputs_alice)) == tau for x in range(num_inputs_alice)
-        ]
-        # tau is positive semidefinite as a sum of positive semidefinite operators, so only its trace is constrained.
-        alice_constraints.append(cvxpy.trace(tau) == 1)
-        alice_problem = cvxpy.Problem(cvxpy.Maximize(alice_win), alice_constraints)
-
-        # SDP-2: Bob's POVMs B_b^y, with sum_b B_b^y = I for every y. The objective is
-        # sum_{y, b} <D_b^y, B_b^y> with D_b^y = sum_{x, a} pi(x, y) V(a, b | x, y) A_a^x.
-        bob_ops = {
-            (y, b): cvxpy.Variable((dim, dim), hermitian=True)
-            for y in range(num_inputs_bob)
-            for b in range(num_outputs_bob)
-        }
-        bob_coeffs = {key: cvxpy.Parameter((dim, dim), complex=True) for key in bob_ops}
-        bob_win = sum(cvxpy.real(cvxpy.trace(bob_coeffs[key] @ bob_ops[key])) for key in bob_ops)
-        bob_constraints = [op >> 0 for op in bob_ops.values()]
-        bob_constraints += [
-            sum(bob_ops[y, b] for b in range(num_outputs_bob)) == np.identity(dim) for y in range(num_inputs_bob)
-        ]
-        bob_problem = cvxpy.Problem(cvxpy.Maximize(bob_win), bob_constraints)
-
-        best_lower_bound = float("-inf")
-        best_operators = None
-        for _ in range(iters):
-            # Random measurements for Bob are the starting point of the alternating projection algorithm.
-            bob_vals = _random_measurements(dim, num_inputs_bob, num_outputs_bob, int(rng.integers(0, 2**32 - 1)))
-
-            prev_win = float("-inf")
-            for _step in range(max_steps):
-                coeffs = np.einsum("abxy,ybij->xaij", weights, bob_vals)
-                for (x, a), param in alice_coeffs.items():
-                    param.value = coeffs[x, a]
-                solve_sdp(alice_problem, solver, solver_params)
-                alice_vals = np.array(
-                    [[alice_ops[x, a].value for a in range(num_outputs_alice)] for x in range(num_inputs_alice)]
-                )
-
-                coeffs = np.einsum("abxy,xaij->ybij", weights, alice_vals)
-                for (y, b), param in bob_coeffs.items():
-                    param.value = coeffs[y, b]
-                lower_bound = solve_sdp(bob_problem, solver, solver_params)
-                bob_vals = np.array(
-                    [[bob_ops[y, b].value for b in range(num_outputs_bob)] for y in range(num_inputs_bob)]
-                )
-
-                if lower_bound > best_lower_bound:
-                    best_lower_bound, best_operators = lower_bound, (alice_vals, bob_vals)
-                # Use the absolute change so a non-monotone step does not terminate the loop prematurely.
-                if abs(lower_bound - prev_win) <= tol:
-                    break
-                prev_win = lower_bound
-
+        # A nonlocal game is an extended nonlocal game with a one-dimensional referee.
+        value, rho_vals, bob_vals = seesaw(
+            self.prob_mat,
+            self.pred_mat[np.newaxis, np.newaxis],
+            dim,
+            iters,
+            tol,
+            seed,
+            max_steps,
+            None,
+            solver,
+            solver_params,
+        )
         if not return_strategy:
-            return best_lower_bound
-        return best_lower_bound, _strategy_from_seesaw(*best_operators)
+            return value
+        return value, _strategy_from_seesaw(rho_vals, bob_vals)
 
     def nonsignaling_value(
         self, solver: str | None = None, solver_params: dict | None = None, return_strategy: bool = False
@@ -604,6 +492,8 @@ class NonlocalGame:
     def commuting_measurement_value_upper_bound(
         self,
         k: int | str = 1,
+        no_signaling: bool = True,
+        constraints: list[AnswerEventConstraint] | None = None,
         solver: str | None = None,
         solver_params: dict | None = None,
         return_strategy: bool = False,
@@ -620,8 +510,13 @@ class NonlocalGame:
             should be used, where this example uses all products of one measurement, all products of
             one Alice and one Bob measurement, and all products of two Alice and one Bob measurements.
 
+        Optional linear constraints on the answer probabilities may be supplied in the form documented for
+        `ExtendedNonlocalGame.commuting_measurement_value_upper_bound`.
+
         Args:
             k: The level of the NPA hierarchy to use (default=1).
+            no_signaling: Whether to enforce the no-signaling constraints (default=True).
+            constraints: Optional linear constraints on answer probabilities.
             solver: The cvxpy solver to use (default is cvxpy's choice).
             solver_params: Extra keyword arguments passed to `cvxpy.Problem.solve`.
             return_strategy: If True, also return the optimal distribution of the relaxation as an array of shape
@@ -633,20 +528,9 @@ class NonlocalGame:
             of the relaxation when `return_strategy` is True.
 
         """
-        alice_out, bob_out, alice_in, bob_in = self.pred_mat.shape
-        weights = np.real(self.pred_mat * self.prob_mat)
-
-        mat = {
-            (x, y): cvxpy.Variable((alice_out, bob_out), name=f"M(a, b | {x}, {y})")
-            for x in range(alice_in)
-            for y in range(bob_in)
-        }
-        p_win = sum(cvxpy.sum(cvxpy.multiply(weights[:, :, x, y], mat[x, y])) for (x, y) in mat)
-        problem = cvxpy.Problem(cvxpy.Maximize(p_win), npa_constraints(mat, k))
-        value = solve_sdp(problem, solver, solver_params)
+        value, assemblage = npa_upper_bound(
+            self.prob_mat, self.pred_mat[np.newaxis, np.newaxis], k, no_signaling, constraints, solver, solver_params
+        )
         if not return_strategy:
             return value
-        distribution = np.zeros((alice_out, bob_out, alice_in, bob_in))
-        for (x, y), var in mat.items():
-            distribution[:, :, x, y] = var.value
-        return value, distribution
+        return value, assemblage[0, 0].real
