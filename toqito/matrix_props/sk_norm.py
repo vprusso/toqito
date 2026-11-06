@@ -8,13 +8,17 @@ import scipy
 
 from toqito._sdp import solve_sdp
 from toqito.channels.realignment import realignment
-from toqito.matrix_ops.partial_trace import partial_trace
-from toqito.matrix_ops.partial_transpose import partial_transpose
 from toqito.matrix_props.is_hermitian import is_hermitian
 from toqito.matrix_props.kp_norm import kp_norm
 from toqito.perms.swap import swap
-from toqito.perms.symmetric_projection import symmetric_projection
 from toqito.state_ops.schmidt_decomposition import schmidt_decomposition
+from toqito.state_opt._symmetric_extension import (
+    SymmetricExtension,
+    _apply_vec_map,
+    _vec_kron_identity,
+    _vec_partial_trace,
+    _vec_partial_transpose_perm,
+)
 from toqito.state_props.schmidt_rank import schmidt_rank
 from toqito.state_props.sk_vec_norm import sk_vector_norm
 from toqito.states.max_entangled import max_entangled
@@ -219,13 +223,14 @@ def sk_operator_norm(
 
         constraints = [rho >> 0, cvxpy.real(cvxpy.trace(rho)) <= 1]
         if k == 1:
-            constraints.append(partial_transpose(rho, [1], dim) >> 0)
+            perm = _vec_partial_transpose_perm(dim.tolist(), 1)
+            constraints.append(cvxpy.reshape(cvxpy.vec(rho, order="C")[perm], rho.shape, order="C") >> 0)
         else:
-            constraints.append(k * cvxpy.kron(partial_trace(rho, [1], dim), np.eye(dim[1])) >> rho)
+            # k Tr_Y(rho) (x) 1_Y >= rho, with the left-hand side as one sparse map of vec(rho).
+            reduction = _vec_kron_identity(dim[0], dim[1]) @ _vec_partial_trace(dim.tolist(), [1])
+            constraints.append(k * _apply_vec_map(reduction, rho, prod_dim) >> rho)
 
-        with warnings.catch_warnings():
-            warnings.filterwarnings("ignore", message="Constraint.*subexpressions")
-            cvx_optval = solve_sdp(cvxpy.Problem(objective, constraints))
+        cvx_optval = solve_sdp(cvxpy.Problem(objective, constraints))
 
         upper_bound = min(upper_bound, cvx_optval)
 
@@ -250,25 +255,17 @@ def sk_operator_norm(
                 if __target_is_proved(lower_bound, upper_bound, op_norm, tol, target):
                     return op_norm * lower_bound, op_norm * upper_bound
 
-                sym_dim = [dim[0]] + [dim[1]] * j
-                prod_sym_dim = dim[0] * (dim[1] ** j)
-                sym_proj = np.kron(np.eye(dim[0]), symmetric_projection(dim[1], j))
-
-                rho = cvxpy.Variable((prod_sym_dim, prod_sym_dim), hermitian=True, name="rho")
-                objective = cvxpy.Maximize(
-                    cvxpy.real(cvxpy.trace(mat @ partial_trace(rho, list(range(2, j + 1)), sym_dim)))
-                )
-
+                # The extension lives on X (x) Sym^j(Y), which enforces its symmetry by construction and keeps the
+                # variable small; its trace equals that of the reduced variable.
+                extension = SymmetricExtension(int(dim[0]), int(dim[1]), j)
+                marginal = extension.partial_trace(list(range(2, j + 1)))
+                objective = cvxpy.Maximize(cvxpy.real(cvxpy.trace(mat @ marginal)))
                 constraints = [
-                    rho >> 0,
-                    cvxpy.real(cvxpy.trace(rho)) <= 1,
-                    sym_proj @ rho @ sym_proj == rho,
-                    partial_transpose(rho, list(range(0, int(np.ceil(j / 2)) + 1)), sym_dim) >> 0,
+                    extension.variable >> 0,
+                    cvxpy.real(cvxpy.trace(extension.variable)) <= 1,
+                    extension.partial_transpose(list(range(int(np.ceil(j / 2)) + 1))) >> 0,
                 ]
-
-                with warnings.catch_warnings():
-                    warnings.filterwarnings("ignore", message="Constraint.*subexpressions")
-                    cvx_optval = solve_sdp(cvxpy.Problem(objective, constraints))
+                cvx_optval = solve_sdp(cvxpy.Problem(objective, constraints))
 
                 upper_bound = min(upper_bound, cvx_optval)
 

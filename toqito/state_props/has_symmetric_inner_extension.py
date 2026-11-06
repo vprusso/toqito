@@ -1,15 +1,13 @@
 """Determine whether a bipartite operator has a symmetric inner extension."""
 
 import math
-import warnings
 
 import cvxpy
 import numpy as np
 from scipy.special import roots_jacobi
 
-from toqito.matrix_ops import partial_trace, partial_transpose
 from toqito.matrix_props import is_positive_semidefinite
-from toqito.perms import symmetric_projection
+from toqito.state_opt._symmetric_extension import SymmetricExtension, _apply_vec_map, _vec_kron_identity
 
 
 def has_symmetric_inner_extension(
@@ -97,16 +95,11 @@ def has_symmetric_inner_extension(
     if min(dim_x, dim_y) == 1:
         return is_positive_semidefinite(rho)
 
-    sdp_dim = np.array([dim_x] + [dim_y] * level, dtype=int)
-    sym_basis = symmetric_projection(dim_y, level, partial=True)
-    projector = np.kron(np.eye(dim_x), sym_basis)
-    reduced_dim = dim_x * sym_basis.shape[1]
-
-    sigma_reduced = cvxpy.Variable((reduced_dim, reduced_dim), hermitian=True)
-    sigma = projector @ sigma_reduced @ projector.conj().T
-
-    traced_ab = partial_trace(sigma, list(range(2, level + 1)), sdp_dim)
-    traced_a = partial_trace(sigma, list(range(1, level + 1)), sdp_dim)
+    # The extension sigma lives on X (x) Sym^level(Y); its marginals on X (x) Y and on X enter the affine image
+    # through one sparse map each, so the whole image is a single linear map of the variable.
+    extension = SymmetricExtension(dim_x, dim_y, level)
+    traced_ab = extension.partial_trace_map(list(range(2, level + 1)))
+    traced_a_times_identity = _vec_kron_identity(dim_x, dim_y) @ extension.partial_trace_map(list(range(1, level + 1)))
 
     if ppt:
         jacobi_degree = dim_y - 2
@@ -116,19 +109,15 @@ def has_symmetric_inner_extension(
             roots, _weights = roots_jacobi(jacobi_degree, level % 2, math.floor(level / 2) + 1)
             eta = float(np.min(1.0 - roots))
         eta *= dim_y / (2 * (dim_y - 1))
-        affine_image = (1.0 - eta) * traced_ab + eta * cvxpy.kron(traced_a, np.eye(dim_y)) / dim_y
+        image_map = (1.0 - eta) * traced_ab + (eta / dim_y) * traced_a_times_identity
     else:
-        affine_image = traced_ab * level / (level + dim_y) + cvxpy.kron(traced_a, np.eye(dim_y)) / (level + dim_y)
+        image_map = (level * traced_ab + traced_a_times_identity) / (level + dim_y)
 
-    constraints = [sigma_reduced >> 0, affine_image == rho]
-
+    constraints = [extension.variable >> 0, _apply_vec_map(image_map, extension.variable, dim_x * dim_y) == rho]
     if ppt:
-        ppt_systems = list(range(math.ceil(level / 2) + 1))
-        constraints.append(partial_transpose(sigma, ppt_systems, sdp_dim) >> 0)
+        constraints.append(extension.partial_transpose(list(range(math.ceil(level / 2) + 1))) >> 0)
 
-    with warnings.catch_warnings():
-        warnings.filterwarnings("ignore", message="Constraint.*subexpressions")
-        problem = cvxpy.Problem(cvxpy.Minimize(0), constraints)
-        problem.solve(solver=cvxpy.SCS, eps_abs=tol, eps_rel=tol, max_iters=100_000, verbose=False)
+    problem = cvxpy.Problem(cvxpy.Minimize(0), constraints)
+    problem.solve(solver=cvxpy.SCS, eps_abs=tol, eps_rel=tol, max_iters=100_000, verbose=False)
 
     return problem.status in {"optimal", "optimal_inaccurate"}

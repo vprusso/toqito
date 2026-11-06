@@ -1,7 +1,5 @@
 """Determine whether there exists a symmetric extension for a given quantum state."""
 
-import warnings
-
 import cvxpy
 import numpy as np
 
@@ -149,9 +147,7 @@ def has_symmetric_extension(
     marginal, constraints = symmetric_extension_sdp(dim_x, dim_y, level, ppt)
     constraints.append(marginal == rho)
 
-    with warnings.catch_warnings():
-        warnings.filterwarnings("ignore", message="Constraint.*subexpressions")
-        problem = cvxpy.Problem(cvxpy.Minimize(0), constraints)
-        problem.solve()
+    problem = cvxpy.Problem(cvxpy.Minimize(0), constraints)
+    problem.solve()
 
     return problem.status in {"optimal", "optimal_inaccurate"}
