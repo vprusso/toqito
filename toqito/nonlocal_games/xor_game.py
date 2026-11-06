@@ -3,7 +3,7 @@
 import cvxpy
 import numpy as np
 
-from toqito.nonlocal_games.nonlocal_game import NonlocalGame
+from toqito.nonlocal_games.nonlocal_game import NonlocalGame, _solve_sdp
 
 
 class XORGame:
@@ -152,35 +152,31 @@ class XORGame:
             pred_mat: A binary matrix whose (q_0, q_1)-entry indicates the
                                  winning choice (either 0 or 1) when Alice and Bob receive
                                  values `q_0` and `q_1` from the referee.
-            reps: int
+            reps: Number of parallel repetitions to perform. Default is 1.
             tol: The error tolerance for the value.
-                                                dimension of predicate matrix.
 
         """
-        self.prob_mat = prob_mat
-        self.pred_mat = pred_mat
+        self.prob_mat = np.asarray(prob_mat)
+        self.pred_mat = np.asarray(pred_mat)
         self.reps = reps
 
         q_0, q_1 = self.prob_mat.shape
-        if tol is None:
-            self.tol = np.finfo(float).eps * q_0**2 * q_1**2
-        else:
-            self.tol = tol
+        self.tol = np.finfo(float).eps * q_0**2 * q_1**2 if tol is None else tol
 
         # Perform some basic error checking to ensure the probability and
         # predicate matrices are well-defined.
         if (q_0, q_1) != self.pred_mat.shape:
             raise ValueError("Invalid: The matrices `prob_mat` and `pred_mat` must be matrices of the same size.")
-        if -np.min(np.min(self.prob_mat)) > self.tol:
+        if -self.prob_mat.min() > self.tol:
             raise ValueError(
                 "Invalid: The variable `prob_mat` must be a probability matrix: its entries must be non-negative."
             )
-        if np.abs(np.sum(np.sum(self.prob_mat)) - 1) > self.tol:
+        if abs(self.prob_mat.sum() - 1) > self.tol:
             raise ValueError(
                 "Invalid: The variable `prob_mat` must be a probability matrix: its entries must sum to 1."
             )
 
-    def quantum_value(self) -> float:
+    def quantum_value(self, solver: str | None = None, solver_params: dict | None = None) -> float:
         r"""Compute the quantum value of the XOR game.
 
         To obtain the quantum value of the XOR game, we calculate the following
@@ -212,45 +208,28 @@ class XORGame:
 
         In other words, \(\pi(x, y)\) corresponds to `prob_mat[x, y]`, and \(f(x,y)\) corresponds to `pred_mat[x, y]`.
 
+        Args:
+            solver: The cvxpy solver to use (default is cvxpy's choice).
+            solver_params: Extra keyword arguments passed to `cvxpy.Problem.solve`.
+
         Returns:
             A value between `[0, 1]` representing the quantum value.
 
         """
         alice_in, bob_in = self.prob_mat.shape
-        d_mat = np.zeros([alice_in, bob_in])
+        d_mat = self.prob_mat * (-1.0) ** self.pred_mat
 
-        for x_alice in range(alice_in):
-            for y_bob in range(bob_in):
-                d_mat[x_alice, y_bob] = self.prob_mat[x_alice, y_bob] * (-1) ** (self.pred_mat[x_alice, y_bob])
-
-        u_vec = cvxpy.Variable(alice_in, complex=False)
-        v_vec = cvxpy.Variable(bob_in, complex=False)
+        u_vec = cvxpy.Variable(alice_in)
+        v_vec = cvxpy.Variable(bob_in)
 
         objective = cvxpy.Minimize(cvxpy.sum(u_vec) + cvxpy.sum(v_vec))
-        constraints = [
-            cvxpy.bmat(
-                [
-                    [cvxpy.diag(u_vec), -d_mat],
-                    [np.negative(d_mat.conj().T), cvxpy.diag(v_vec)],
-                ]
-            )
-            >> 0
-        ]
+        constraints = [cvxpy.bmat([[cvxpy.diag(u_vec), -d_mat], [-d_mat.T, cvxpy.diag(v_vec)]]) >> 0]
+        bias = _solve_sdp(cvxpy.Problem(objective, constraints), solver, solver_params)
 
-        problem = cvxpy.Problem(objective, constraints)
-        problem.solve(verbose=False)
-
-        if problem.value is None:
-            raise ValueError(f"The XOR game SDP did not solve successfully (status: {problem.status}).")
-
-        if self.reps == 1:
-            return np.real(problem.value) / 4 + 1 / 2
-        # It holds from (https://arxiv.org/abs/quant-ph/0608146) that the
-        # quantum value of any XOR game obeys strong parallel repetition. That
-        # is, it holds that:
-        #   \omega^*(G^{^n}) = \omega^*(G)^n,
-        # where G^{^n} denotes playing the game G n-times.
-        return (np.real(problem.value) / 4 + 1 / 2) ** self.reps
+        # The optimal objective is twice the bias of the game, and the winning probability is (1 + bias) / 2.
+        # It holds from (https://arxiv.org/abs/quant-ph/0608146) that the quantum value of any XOR game obeys strong
+        # parallel repetition, so the value of `reps` parallel copies is the single-copy value to that power.
+        return (bias / 4 + 1 / 2) ** self.reps
 
     def classical_value(self) -> float:
         r"""Compute the classical value of the XOR game.
@@ -280,13 +259,9 @@ class XORGame:
 
         """
         q_0, q_1 = self.prob_mat.shape
-        xor_pred_mat = self.pred_mat
-        nlg_pred_mat = np.ndarray((2, 2, q_0, q_1))
-
+        # Answers (a, b) win on questions (x, y) exactly when a XOR b equals the predicate bit.
+        nlg_pred_mat = np.zeros((2, 2, q_0, q_1))
         for a in range(2):
             for b in range(2):
-                for x in range(q_0):
-                    for y in range(q_1):
-                        nlg_pred_mat[a, b, x, y] = xor_pred_mat[x, y] == a ^ b
-
+                nlg_pred_mat[a, b] = self.pred_mat == (a ^ b)
         return NonlocalGame(self.prob_mat, nlg_pred_mat, reps=self.reps)

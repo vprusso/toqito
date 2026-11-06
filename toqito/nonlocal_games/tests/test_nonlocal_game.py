@@ -2,7 +2,9 @@
 
 import re
 import unittest
+from unittest import mock
 
+import cvxpy
 import numpy as np
 import pytest
 
@@ -91,52 +93,52 @@ class TestNonlocalGame(unittest.TestCase):
         with pytest.raises(ValueError, match=re.escape("Constraint 0 is degenerate (has no dependent variables).")):
             NonlocalGame.from_bcs_game([constraint])
 
+    def test_bcs_game_malformed_constraint_shape(self):
+        """Constraints must all be truth tables of shape (2,) * n."""
+        with pytest.raises(ValueError, match="truth table of shape"):
+            NonlocalGame.from_bcs_game([np.array([1, 1, 0])])
+        with pytest.raises(ValueError, match="truth table of shape"):
+            NonlocalGame.from_bcs_game([np.eye(2), np.ones((2, 2, 2))])
+
+    def test_invalid_game_inputs(self):
+        """The constructor rejects mismatched shapes and improper question distributions."""
+        prob_mat, pred_mat = self.chsh_nonlocal_game()
+        with pytest.raises(ValueError, match="must have 4 dimensions"):
+            NonlocalGame(prob_mat, pred_mat[0])
+        with pytest.raises(ValueError, match="question pairs"):
+            NonlocalGame(np.full((2, 3), 1 / 6), pred_mat)
+        with pytest.raises(ValueError, match="non-negative"):
+            NonlocalGame(np.array([[1 / 2, 1 / 2], [1 / 2, -1 / 2]]), pred_mat)
+        with pytest.raises(ValueError, match="sum to 1"):
+            NonlocalGame(np.full((2, 2), 1 / 2), pred_mat)
+
     def test_chsh_lower_bound(self):
-        """Calculate the lower bound on the quantum value for the CHSH game."""
+        """The see-saw reaches the quantum value of the CHSH game from random starts."""
         prob_mat, pred_mat = self.chsh_nonlocal_game()
         chsh = NonlocalGame(prob_mat, pred_mat)
-        res = chsh.quantum_value_lower_bound()
+        res = chsh.quantum_value_lower_bound(seed=0)
+        self.assertAlmostEqual(res, np.cos(np.pi / 8) ** 2, delta=1e-4)
 
-        # It may be possible for the lower bound to not be equal to the correct
-        # quantum value (as it may get stuck in a local minimum), but it should
-        # never be possible for the lower bound to attain a value higher than
-        # the true quantum value.
-        self.assertLessEqual(res, np.cos(np.pi / 8) ** 2 + 1e-2)
-
-        # Even with 2 qubits each, the lower bound remains the same
-        res = chsh.quantum_value_lower_bound(4)
-        self.assertLessEqual(res, np.cos(np.pi / 8) ** 2 + 1e-2)
+        # Larger local dimension cannot help for CHSH, and the bound stays achievable.
+        res = chsh.quantum_value_lower_bound(dim=4, seed=0)
+        self.assertLessEqual(res, np.cos(np.pi / 8) ** 2 + 1e-4)
+        self.assertGreater(res, 3 / 4 + 1e-3)
 
     def test_chsh_lower_bound_converges_early(self):
-        """With a loose tolerance the see-saw stabilizes and stops before the step cap.
-
-        This exercises the early-convergence break in the see-saw loop: after the first
-        step the winning probability changes by less than ``tol`` between steps, so the
-        optimization terminates early rather than running every step.
-        """
+        """With a loose tolerance the see-saw stops after one step and still returns an achievable value."""
         prob_mat, pred_mat = self.chsh_nonlocal_game()
         chsh = NonlocalGame(prob_mat, pred_mat)
         res = chsh.quantum_value_lower_bound(tol=1e-1, seed=42)
-        self.assertLessEqual(res, np.cos(np.pi / 8) ** 2 + 1e-2)
+        self.assertGreater(res, 3 / 4 - 1e-6)
+        self.assertLessEqual(res, np.cos(np.pi / 8) ** 2 + 1e-4)
 
     def test_chsh_lower_bound_runs_to_step_cap(self):
-        """With a tolerance the convergence check can never meet, the see-saw runs every step.
-
-        Counterpart to ``test_chsh_lower_bound_converges_early``. That test covers the
-        ``break`` in the see-saw loop; this one covers the loop instead running to the
-        internal ``max_seesaw_steps`` cap and falling through, which is the path a game
-        that fails to converge would take. The step cap is not a parameter, so the only
-        way to reach it from the public API is a tolerance the step-to-step change never
-        drops below.
-        """
+        """With a tolerance the convergence check can never meet, the see-saw runs `max_steps` steps and returns."""
         prob_mat, pred_mat = self.chsh_nonlocal_game()
         chsh = NonlocalGame(prob_mat, pred_mat)
-        res = chsh.quantum_value_lower_bound(iters=1, tol=1e-20, seed=1)
-
-        # Exhausting the cap must still return the best value seen, not a partial or
-        # degenerate one, so the usual bounds on a see-saw lower bound still hold.
-        self.assertGreater(res, 0.0)
-        self.assertLessEqual(res, np.cos(np.pi / 8) ** 2 + 1e-2)
+        res = chsh.quantum_value_lower_bound(iters=1, tol=0.0, seed=1, max_steps=3)
+        self.assertGreater(res, 3 / 4 - 1e-6)
+        self.assertLessEqual(res, np.cos(np.pi / 8) ** 2 + 1e-4)
 
     def test_chsh_lower_bound_seed_reproducible(self):
         """A fixed seed makes the see-saw lower bound reproducible and a valid bound."""
@@ -146,11 +148,16 @@ class TestNonlocalGame(unittest.TestCase):
         res1 = chsh.quantum_value_lower_bound(seed=42)
         res2 = chsh.quantum_value_lower_bound(seed=42)
 
-        # Same seed gives the same result.
         self.assertTrue(np.isclose(res1, res2))
-        # The see-saw produces an achievable value, so it cannot exceed the true quantum value cos^2(pi/8).
-        self.assertLessEqual(res1, np.cos(np.pi / 8) ** 2 + 1e-3)
-        self.assertGreaterEqual(res1, 0.0)
+        self.assertAlmostEqual(res1, np.cos(np.pi / 8) ** 2, delta=1e-4)
+
+    def test_lower_bound_raises_when_solver_fails(self):
+        """A see-saw step whose SDP does not solve is reported rather than silently skipped."""
+        prob_mat, pred_mat = self.chsh_nonlocal_game()
+        chsh = NonlocalGame(prob_mat, pred_mat)
+        with mock.patch.object(cvxpy.Problem, "solve", lambda self, *args, **kwargs: None):
+            with pytest.raises(ValueError, match="did not solve successfully"):
+                chsh.quantum_value_lower_bound(iters=1)
 
     def test_chsh_game_classical_value(self):
         """Classical value for the CHSH game."""
@@ -177,11 +184,11 @@ class TestNonlocalGame(unittest.TestCase):
         self.assertEqual(np.isclose(res, expected_res), True)
 
     def test_bcs_chsh_lower_bound(self):
-        """Calculate the lower bound on the quantum value for the converted BCS CHSH game."""
+        """The see-saw reaches the quantum value of the converted BCS CHSH game."""
         bcs_game = self.chsh_bcs_game()
         chsh = NonlocalGame.from_bcs_game(bcs_game)
-        res = chsh.quantum_value_lower_bound()
-        self.assertLessEqual(res, np.cos(np.pi / 8) ** 2 + 1e-2)
+        res = chsh.quantum_value_lower_bound(seed=0)
+        self.assertAlmostEqual(res, np.cos(np.pi / 8) ** 2, delta=1e-4)
 
     def test_bcs_chsh_game_classical_value(self):
         """Classical value for the converted BCS CHSH game."""
@@ -229,10 +236,9 @@ class TestNonlocalGame(unittest.TestCase):
         prob_mat, pred_mat = self.ffl_nonlocal_game()
 
         ffl = NonlocalGame(prob_mat, pred_mat, 2)
-        res = ffl.quantum_value_lower_bound()
-        expected_res = 2 / 3
-        # A lower bound on the quantum value cannot exceed the true value.
-        self.assertLessEqual(res, expected_res + 1e-2)
+        res = ffl.quantum_value_lower_bound(seed=0)
+        # Two parallel repetitions of FFL still have quantum value 2/3, and the see-saw attains it.
+        self.assertAlmostEqual(res, 2 / 3, delta=1e-4)
 
     def test_ffl_game_nonsignaling_value(self):
         """Non-signaling value for the FFL game."""
@@ -293,7 +299,7 @@ class TestNonlocalGame(unittest.TestCase):
         num_alice_inputs, num_alice_outputs = 2, 1
         num_bob_inputs, num_bob_outputs = 2, 3
 
-        prob_mat = np.array([[1 / 6, 1 / 6, 1 / 6], [1 / 6, 1 / 6, 1 / 6]])
+        prob_mat = np.full((num_alice_inputs, num_bob_inputs), 1 / 4)
         pred_mat = np.zeros((num_alice_outputs, num_bob_outputs, num_alice_inputs, num_bob_inputs))
 
         for a_alice in range(num_alice_outputs):
