@@ -8,7 +8,12 @@ import numpy as np
 
 from toqito._sdp import solve_sdp
 from toqito.matrix_ops import tensor
-from toqito.nonlocal_games.nonlocal_game import _random_measurements, _validate_game
+from toqito.nonlocal_games.nonlocal_game import (
+    QuantumStrategy,
+    _random_measurements,
+    _strategy_from_seesaw,
+    _validate_game,
+)
 from toqito.state_opt.npa_hierarchy import npa_constraints
 
 AnswerEventConstraint: TypeAlias = tuple[
@@ -93,7 +98,64 @@ class ExtendedNonlocalGame:
             self.num_bob_in,
         ) = self.pred_mat.shape
 
-    def unentangled_value(self) -> float:
+    def unentangled_strategy_value(
+        self, alice_outputs: np.ndarray, bob_outputs: np.ndarray, referee_state: np.ndarray
+    ) -> float:
+        """Compute the winning probability of an unentangled strategy.
+
+        Args:
+            alice_outputs: Alice's answer to each of her questions, as an integer array of length ``num_alice_in``.
+            bob_outputs: Bob's answer to each of his questions, as an integer array of length ``num_bob_in``.
+            referee_state: The density operator the players prepare on the referee's system.
+
+        Returns:
+            The probability of winning the game with these answers and this referee state.
+
+        """
+        alice_in, bob_in = self.prob_mat.shape
+        alice_outputs = np.asarray(alice_outputs)[:, np.newaxis]
+        bob_outputs = np.asarray(bob_outputs)[np.newaxis, :]
+        operators = self.pred_mat[
+            :, :, alice_outputs, bob_outputs, np.arange(alice_in)[:, np.newaxis], np.arange(bob_in)
+        ]
+        total = np.einsum("xy,ijxy->ij", self.prob_mat, operators)
+        return float(np.real(np.trace(total @ np.asarray(referee_state))))
+
+    def quantum_strategy_value(self, strategy: QuantumStrategy) -> float:
+        r"""Compute the winning probability of a quantum strategy.
+
+        Args:
+            strategy: A shared state on the referee's, Alice's and Bob's systems (in that order) and the players'
+                measurements.
+
+        Returns:
+            The probability \(\sum_{x,y,a,b} \pi(x,y) \mathrm{Tr}[(V(a,b|x,y) \otimes A_a^x \otimes B_b^y) \rho]\).
+
+        """
+        dim_alice, dim_bob = strategy.alice_povms.shape[0], strategy.bob_povms.shape[0]
+        dims = (self.referee_dim, dim_alice, dim_bob)
+        state = np.asarray(strategy.state).reshape(dims + dims)
+        total = np.einsum("rRabxy,iIxa,jJyb,RIJrij->xy", self.pred_mat, strategy.alice_povms, strategy.bob_povms, state)
+        return float(np.real(np.sum(self.prob_mat * total)))
+
+    def assemblage_value(self, assemblage: np.ndarray) -> float:
+        r"""Compute the winning probability of an assemblage.
+
+        Args:
+            assemblage: An array of shape ``(referee_dim, referee_dim, num_alice_out, num_bob_out, num_alice_in,
+                num_bob_in)`` whose ``[:, :, a, b, x, y]`` slice is the referee's unnormalised state conditioned on
+                answers ``(a, b)`` to questions ``(x, y)``.
+
+        Returns:
+            The probability \(\sum_{x,y,a,b} \pi(x,y) \langle V(a,b|x,y), K(a,b|x,y) \rangle\).
+
+        """
+        overlaps = np.einsum("ijabxy,ijabxy->xy", self.pred_mat.conj(), np.asarray(assemblage))
+        return float(np.real(np.sum(self.prob_mat * overlaps)))
+
+    def unentangled_value(
+        self, return_strategy: bool = False
+    ) -> float | tuple[float, tuple[np.ndarray, np.ndarray, np.ndarray]]:
         r"""Calculate the unentangled value of an extended nonlocal game.
 
         The *unentangled value* of an extended nonlocal game is the supremum
@@ -112,8 +174,14 @@ class ExtendedNonlocalGame:
         where the maximum is over all functions \(f : \Sigma_A \rightarrow
         \Gamma_A\) and \(g : \Sigma_B \rightarrow \Gamma_B\).
 
+        Args:
+            return_strategy: If True, also return an optimal unentangled strategy as a triple of Alice's answers to
+                her questions, Bob's answers to his, and the pure referee state they prepare (as a density operator)
+                (default is False).
+
         Returns:
-            The unentangled value of the extended nonlocal game.
+            The unentangled value of the extended nonlocal game, followed by the optimal strategy when
+            `return_strategy` is True.
 
         """
         alice_out, bob_out, alice_in, bob_in = self.num_alice_out, self.num_bob_out, self.num_alice_in, self.num_bob_in
@@ -122,15 +190,25 @@ class ExtendedNonlocalGame:
 
         alice_strategies = np.array(list(itertools.product(range(alice_out), repeat=alice_in)))  # (num_f, alice_in)
         max_unent_val = float("-inf")
+        best = None
         for g_bob in itertools.product(range(bob_out), repeat=bob_in):
             # summed_y[a, x] = sum_y weights[a, g(y), x, y]
             summed_y = weights[:, list(g_bob), :, np.arange(bob_in)].sum(axis=0)
             # operators[f] = sum_x summed_y[f(x), x], for every deterministic strategy f of Alice at once
             operators = summed_y[alice_strategies, np.arange(alice_in)].sum(axis=1)
-            max_unent_val = max(max_unent_val, np.linalg.eigvalsh(operators).max())
-        return float(max_unent_val)
+            eigvals, eigvecs = np.linalg.eigh(operators)
+            f_best = int(eigvals[:, -1].argmax())
+            if eigvals[f_best, -1] > max_unent_val:
+                max_unent_val = float(eigvals[f_best, -1])
+                best = (alice_strategies[f_best], np.array(g_bob), eigvecs[f_best, :, -1])
+        if not return_strategy:
+            return max_unent_val
+        alice_outputs, bob_outputs, referee_vector = best
+        return max_unent_val, (alice_outputs, bob_outputs, np.outer(referee_vector, referee_vector.conj()))
 
-    def nonsignaling_value(self, solver: str | None = None, solver_params: dict | None = None) -> float:
+    def nonsignaling_value(
+        self, solver: str | None = None, solver_params: dict | None = None, return_strategy: bool = False
+    ) -> float | tuple[float, np.ndarray]:
         r"""Calculate the non-signaling value of an extended nonlocal game.
 
         The *non-signaling value* of an extended nonlocal game is the supremum
@@ -170,9 +248,13 @@ class ExtendedNonlocalGame:
         Args:
             solver: The cvxpy solver to use (default is cvxpy's choice).
             solver_params: Extra keyword arguments passed to `cvxpy.Problem.solve`.
+            return_strategy: If True, also return the optimal non-signaling assemblage \(K\) as an array of shape
+                ``(referee_dim, referee_dim, num_alice_out, num_bob_out, num_alice_in, num_bob_in)`` (default is
+                False).
 
         Returns:
-            The non-signaling value of the extended nonlocal game.
+            The non-signaling value of the extended nonlocal game, followed by the optimal assemblage when
+            `return_strategy` is True.
 
         """
         dim = self.referee_dim
@@ -216,7 +298,13 @@ class ExtendedNonlocalGame:
         constraints += [cvxpy.trace(tau) == 1, tau >> 0]
 
         problem = cvxpy.Problem(cvxpy.Maximize(cvxpy.real(p_win)), constraints)
-        return solve_sdp(problem, solver, solver_params)
+        value = solve_sdp(problem, solver, solver_params)
+        if not return_strategy:
+            return value
+        assemblage = np.zeros((dim, dim, alice_out, bob_out, alice_in, bob_in), dtype=complex)
+        for (a, b, x, y), var in k_var.items():
+            assemblage[:, :, a, b, x, y] = var.value
+        return value, assemblage
 
     def quantum_value_lower_bound(
         self,
@@ -228,7 +316,8 @@ class ExtendedNonlocalGame:
         initial_bob_povms: np.ndarray | None = None,
         solver: str | None = cvxpy.SCS,
         solver_params: dict | None = None,
-    ) -> float:
+        return_strategy: bool = False,
+    ) -> float | tuple[float, QuantumStrategy]:
         r"""Calculate lower bound on the quantum value of an extended nonlocal game.
 
         Uses the see-saw method of `NonlocalGame.quantum_value_lower_bound`: Bob's measurements are fixed while an SDP
@@ -250,12 +339,16 @@ class ExtendedNonlocalGame:
             solver_params: Extra keyword arguments passed to `cvxpy.Problem.solve` (default, for SCS, is
                 ``{"eps": 1e-8, "max_iters": 50_000}``, tight enough that the returned value is an achievable
                 winning probability to within solver accuracy).
+            return_strategy: If True, also return the strategy attaining the bound as a `QuantumStrategy` whose state
+                lives on the referee's system, Alice's system of dimension ``referee_dim * dim`` and Bob's system of
+                dimension ``dim``, in that order (default is False).
 
         Raises:
             ValueError: If `initial_bob_povms` does not have shape ``(dim, dim, num_bob_in, num_bob_out)``.
 
         Returns:
-            The best lower bound found on the quantum value.
+            The best lower bound found on the quantum value, followed by the strategy attaining it when
+            `return_strategy` is True.
 
         """
         referee_dim = self.referee_dim
@@ -298,6 +391,7 @@ class ExtendedNonlocalGame:
         bob_problem = cvxpy.Problem(cvxpy.Maximize(bob_win), bob_constraints)
 
         best_lower_bound = float("-inf")
+        best_operators = None
         for restart in range(iters):
             if restart == 0 and initial_bob_povms is not None:
                 bob_vals = np.asarray(initial_bob_povms, dtype=complex).transpose(2, 3, 0, 1)
@@ -312,20 +406,23 @@ class ExtendedNonlocalGame:
                     param.value = coeffs[x, a]
                 solve_sdp(alice_problem, solver, solver_params)
                 rho_vals = np.array([[rho_vars[x, a].value for a in range(alice_out)] for x in range(alice_in)])
-                rho_vals = rho_vals.reshape(alice_in, alice_out, referee_dim, dim, referee_dim, dim)
+                rho_blocks = rho_vals.reshape(alice_in, alice_out, referee_dim, dim, referee_dim, dim)
 
-                coeffs = np.einsum("xy,ikabxy,xaklij->yblj", self.prob_mat, self.pred_mat, rho_vals)
+                coeffs = np.einsum("xy,ikabxy,xaklij->yblj", self.prob_mat, self.pred_mat, rho_blocks)
                 for (y, b), param in bob_coeffs.items():
                     param.value = coeffs[y, b]
                 lower_bound = solve_sdp(bob_problem, solver, solver_params)
                 bob_vals = np.array([[bob_vars[y, b].value for b in range(bob_out)] for y in range(bob_in)])
 
-                best_lower_bound = max(best_lower_bound, lower_bound)
+                if lower_bound > best_lower_bound:
+                    best_lower_bound, best_operators = lower_bound, (rho_vals, bob_vals)
                 if abs(lower_bound - prev_win) <= tol:
                     break
                 prev_win = lower_bound
 
-        return best_lower_bound
+        if not return_strategy:
+            return best_lower_bound
+        return best_lower_bound, _strategy_from_seesaw(*best_operators, referee_dim=referee_dim)
 
     @staticmethod
     def _answer_event_probability(
@@ -407,7 +504,8 @@ class ExtendedNonlocalGame:
         constraints: list[AnswerEventConstraint] | None = None,
         solver: str | None = cvxpy.SCS,
         solver_params: dict | None = None,
-    ) -> float:
+        return_strategy: bool = False,
+    ) -> float | tuple[float, np.ndarray]:
         r"""Compute an upper bound on the commuting measurement value of an extended nonlocal game.
 
         This function calculates an upper bound on the commuting measurement value by
@@ -440,9 +538,13 @@ class ExtendedNonlocalGame:
             solver: The cvxpy solver to use (default is SCS).
             solver_params: Extra keyword arguments passed to `cvxpy.Problem.solve` (default, for SCS, is
                 ``{"eps": 1e-8, "max_iters": 100_000}``).
+            return_strategy: If True, also return the optimal assemblage of the relaxation as an array of shape
+                ``(referee_dim, referee_dim, num_alice_out, num_bob_out, num_alice_in, num_bob_in)`` (default is
+                False). At a finite level this assemblage need not be realisable by commuting measurements.
 
         Returns:
-            The upper bound on the commuting strategy value of an extended nonlocal game.
+            The upper bound on the commuting strategy value of an extended nonlocal game, followed by the optimal
+            assemblage of the relaxation when `return_strategy` is True.
 
         """
         if solver_params is None:
@@ -469,4 +571,10 @@ class ExtendedNonlocalGame:
             for constraint in constraints:
                 cons.append(self._answer_event_linear_constraint(K, constraint, dR, A_out, B_out, A_in, B_in))
         prob = cvxpy.Problem(cvxpy.Maximize(cvxpy.real(total_win)), cons)
-        return solve_sdp(prob, solver, solver_params)
+        value = solve_sdp(prob, solver, solver_params)
+        if not return_strategy:
+            return value
+        assemblage = np.zeros((dR, dR, A_out, B_out, A_in, B_in), dtype=complex)
+        for (x, y), var in K.items():
+            assemblage[:, :, :, :, x, y] = var.value.reshape(A_out, dR, B_out, dR).transpose(1, 3, 0, 2)
+        return value, assemblage

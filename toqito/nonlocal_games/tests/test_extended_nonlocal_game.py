@@ -571,3 +571,55 @@ class TestAnswerEventLinearConstraint(unittest.TestCase):
         built = ExtendedNonlocalGame._answer_event_linear_constraint(assemblage, constraint, 2, 2, 2, 2, 2)
 
         self.assertIsInstance(built, cvxpy.constraints.constraint.Constraint)
+
+
+class TestExtendedNonlocalGameStrategies(unittest.TestCase):
+    """The strategies returned alongside each value reproduce that value."""
+
+    def test_unentangled_strategy_attains_value(self):
+        """The optimal answers and referee state win with the unentangled value."""
+        bb84 = ExtendedNonlocalGame(*bb84_extended_nonlocal_game())
+        value, (alice_outputs, bob_outputs, referee_state) = bb84.unentangled_value(return_strategy=True)
+        self.assertAlmostEqual(value, np.cos(np.pi / 8) ** 2)
+        self.assertEqual(referee_state.shape, (2, 2))
+        self.assertAlmostEqual(np.trace(referee_state).real, 1.0)
+        self.assertAlmostEqual(bb84.unentangled_strategy_value(alice_outputs, bob_outputs, referee_state), value)
+
+    def test_quantum_strategy_attains_lower_bound(self):
+        """The returned state and measurements form a valid strategy whose winning probability is the bound."""
+        bb84 = ExtendedNonlocalGame(*bb84_extended_nonlocal_game())
+        value, strategy = bb84.quantum_value_lower_bound(seed=0, return_strategy=True)
+        self.assertAlmostEqual(value, np.cos(np.pi / 8) ** 2, delta=1e-4)
+        self.assertAlmostEqual(bb84.quantum_strategy_value(strategy), value, delta=1e-6)
+
+        # Referee (2), Alice (referee_dim * dim = 4), Bob (2).
+        self.assertEqual(strategy.state.shape, (16, 16))
+        self.assertAlmostEqual(np.trace(strategy.state).real, 1.0, delta=1e-8)
+        self.assertEqual(strategy.alice_povms.shape, (4, 4, 2, 2))
+        self.assertEqual(strategy.bob_povms.shape, (2, 2, 2, 2))
+        np.testing.assert_allclose(
+            strategy.alice_povms.sum(axis=3), np.broadcast_to(np.eye(4)[:, :, np.newaxis], (4, 4, 2)), atol=1e-6
+        )
+        np.testing.assert_allclose(
+            strategy.bob_povms.sum(axis=3), np.broadcast_to(np.eye(2)[:, :, np.newaxis], (2, 2, 2)), atol=1e-6
+        )
+
+    def test_nonsignaling_assemblage_attains_value(self):
+        """The optimal assemblage is positive, normalised and wins with the non-signaling value."""
+        bb84 = ExtendedNonlocalGame(*bb84_extended_nonlocal_game())
+        value, assemblage = bb84.nonsignaling_value(return_strategy=True)
+        self.assertAlmostEqual(bb84.assemblage_value(assemblage), value, delta=1e-6)
+        self.assertEqual(assemblage.shape, (2, 2, 2, 2, 2, 2))
+        referee_states = assemblage.sum(axis=(2, 3))
+        for x in range(2):
+            for y in range(2):
+                np.testing.assert_allclose(referee_states[:, :, x, y], referee_states[:, :, 0, 0], atol=1e-5)
+        self.assertAlmostEqual(np.trace(referee_states[:, :, 0, 0]).real, 1.0, delta=1e-5)
+
+    def test_commuting_assemblage_attains_upper_bound(self):
+        """The assemblage of the level-1 relaxation wins with the upper bound."""
+        bb84 = ExtendedNonlocalGame(*bb84_extended_nonlocal_game())
+        value, assemblage = bb84.commuting_measurement_value_upper_bound(k=1, return_strategy=True)
+        self.assertAlmostEqual(bb84.assemblage_value(assemblage), value, delta=1e-6)
+        self.assertEqual(assemblage.shape, (2, 2, 2, 2, 2, 2))
+        self.assertAlmostEqual(np.trace(assemblage.sum(axis=(2, 3))[:, :, 0, 0]).real, 1.0, delta=1e-5)
