@@ -5,7 +5,6 @@ import re
 import cvxpy
 import numpy as np
 import pytest
-from cvxpy.atoms.affine.vstack import Vstack
 
 from toqito.matrix_ops import partial_trace
 
@@ -45,11 +44,39 @@ def test_invalid_input(input_mat, sys_arg, dim_arg, msg):
         partial_trace(input_mat, sys_arg, dim_arg)
 
 
-def test_partial_trace_cvxpy():
-    """Test partial trace on cvxpy objects."""
-    x_var = cvxpy.Variable((4, 4), hermitian=True)
-    x_pt = partial_trace(x_var)
-    assert isinstance(x_pt, Vstack)
+@pytest.mark.parametrize(
+    "dim_total, sys_arg, dim_arg",
+    [
+        (4, None, None),
+        (4, 0, None),
+        (4, [1], 2),
+        (6, [0], [2, 3]),
+        (12, [1], [3, 4]),
+        (16, [0, 2], [2, 2, 2, 2]),
+        (16, [1, 3], [2, 2, 2, 2]),
+        (12, [0, 2], [2, 3, 2]),
+    ],
+)
+def test_partial_trace_cvxpy(dim_total, sys_arg, dim_arg):
+    """The cvxpy expression evaluates to the numeric partial trace."""
+    rng = np.random.default_rng(dim_total)
+    mat = rng.normal(size=(dim_total, dim_total)) + 1j * rng.normal(size=(dim_total, dim_total))
+    mat = mat + mat.conj().T
+    x_var = cvxpy.Variable((dim_total, dim_total), hermitian=True)
+    x_var.value = mat
+    x_pt = partial_trace(x_var, sys_arg, dim_arg)
+    expected = partial_trace(mat, sys_arg, dim_arg)
+    assert isinstance(x_pt, cvxpy.Expression)
+    assert x_pt.shape == expected.shape
+    np.testing.assert_allclose(x_pt.value, expected)
+
+
+def test_partial_trace_cvxpy_invalid_input():
+    """Argument validation applies to cvxpy expressions as well."""
+    with pytest.raises(ValueError, match="out of bounds"):
+        partial_trace(cvxpy.Variable((4, 4)), [2])
+    with pytest.raises(ValueError, match="2D square"):
+        partial_trace(cvxpy.Variable((4, 3)))
 
 
 test_input_mat = np.arange(1, 17).reshape(4, 4)
