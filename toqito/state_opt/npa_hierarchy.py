@@ -93,6 +93,11 @@ def npa_constraints(
     def assemblage_block(x: int, y: int, a: int, b: int) -> cvxpy.Expression:
         return assemblage[x, y][a * referee_dim : (a + 1) * referee_dim, b * referee_dim : (b + 1) * referee_dim]
 
+    # Sums of blocks over one player's answers are matrix products: `sum_a @ K_xy` is the row of blocks
+    # sum_a K_xy(a, b) and `K_xy @ sum_b.T` the column of blocks sum_b K_xy(a, b).
+    sum_a = np.kron(np.ones((1, a_out)), np.eye(referee_dim))
+    sum_b = np.kron(np.ones((1, b_out)), np.eye(referee_dim))
+
     # The referee's effective state is the block of the identity word.
     rho_referee = block(*first_position[(IDENTITY_SYMBOL,)])
     constraints = [moment_matrix >> 0, cvxpy.trace(rho_referee) == 1]
@@ -105,10 +110,11 @@ def npa_constraints(
             target = assemblage_block(alice.question, bob.question, alice.answer, bob.answer)
         elif _is_meas_on_one_player(word):
             symbol = word[0]
+            rows = slice(symbol.answer * referee_dim, (symbol.answer + 1) * referee_dim)
             if symbol.player == "Alice":
-                target = sum(assemblage_block(symbol.question, 0, symbol.answer, b) for b in range(b_out))
+                target = (assemblage[symbol.question, 0] @ sum_b.T)[rows, :]
             else:
-                target = sum(assemblage_block(0, symbol.question, a, symbol.answer) for a in range(a_out))
+                target = (sum_a @ assemblage[0, symbol.question])[:, rows]
         else:
             continue
         constraints.append(block(i, j) == target)
@@ -120,24 +126,16 @@ def npa_constraints(
                 constraints.append(assemblage[x, y] >= 0)
             else:
                 constraints += [assemblage_block(x, y, a, b) >> 0 for a in range(a_out) for b in range(b_out)]
-            constraints.append(
-                sum(assemblage_block(x, y, a, b) for a in range(a_out) for b in range(b_out)) == rho_referee
-            )
+            constraints.append(sum_a @ assemblage[x, y] @ sum_b.T == rho_referee)
 
     if no_signaling:
         # Bob's marginal sum_a K_xy(a, b) must not depend on x, and Alice's sum_b K_xy(a, b) must not depend on y.
         for y in range(b_in):
-            for b in range(b_out):
-                reference = sum(assemblage_block(0, y, a, b) for a in range(a_out))
-                constraints += [
-                    sum(assemblage_block(x, y, a, b) for a in range(a_out)) == reference for x in range(1, a_in)
-                ]
+            reference = sum_a @ assemblage[0, y]
+            constraints += [sum_a @ assemblage[x, y] == reference for x in range(1, a_in)]
         for x in range(a_in):
-            for a in range(a_out):
-                reference = sum(assemblage_block(x, 0, a, b) for b in range(b_out))
-                constraints += [
-                    sum(assemblage_block(x, y, a, b) for b in range(b_out)) == reference for y in range(1, b_in)
-                ]
+            reference = assemblage[x, 0] @ sum_b.T
+            constraints += [assemblage[x, y] @ sum_b.T == reference for y in range(1, b_in)]
 
     return constraints
 

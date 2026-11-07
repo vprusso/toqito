@@ -10,6 +10,7 @@ from typing import Literal, TypeAlias
 
 import cvxpy
 import numpy as np
+import scipy.sparse
 
 from toqito._sdp import solve_sdp
 from toqito.matrix_ops import tensor
@@ -227,6 +228,94 @@ def answer_event_linear_constraint(
     raise ValueError(f"Constraint operator must be '==', '<=', or '>=', got {op!r}.")
 
 
+class Assemblage:
+    r"""The operator-valued function \(K(a, b \mid x, y)\) of an extended nonlocal game as cvxpy expressions.
+
+    For every question pair the block matrix \(K_{xy}\), whose \((a, b)\) block is \(K(a, b \mid x, y)\), is a linear
+    image of one real variable vector: a Hermitian block has ``dim (dim + 1) / 2`` free real parts and
+    ``dim (dim - 1) / 2`` free imaginary parts, and sparse matrices place them into the block matrix. Each block is
+    therefore Hermitian by construction, and the block matrices, their slices and linear functionals of them all
+    have small expression trees, which keeps cvxpy's canonicalisation cheap when there are hundreds of blocks.
+
+    Without a referee (``dim == 1``) the blocks are real scalars and ``exprs[x, y]`` is a plain real variable of
+    shape ``(num_alice_out, num_bob_out)``.
+    """
+
+    def __init__(self, referee_dim: int, alice_out: int, bob_out: int, alice_in: int, bob_in: int) -> None:
+        """Create the variables and the block matrices of the assemblage."""
+        self.shape = (referee_dim, referee_dim, alice_out, bob_out, alice_in, bob_in)
+        dim = referee_dim
+        self.exprs: dict[tuple[int, int], cvxpy.Expression] = {}
+        if dim == 1:
+            for x in range(alice_in):
+                for y in range(bob_in):
+                    self.exprs[x, y] = cvxpy.Variable((alice_out, bob_out), name=f"K({x},{y})")
+            return
+
+        num_blocks = alice_out * bob_out
+        size = num_blocks * dim * dim
+        real_entries, real_cols, imag_entries, imag_cols, imag_signs = [], [], [], [], []
+        num_real = num_imag = 0
+        for a in range(alice_out):
+            for b in range(bob_out):
+                for r in range(dim):
+                    for s in range(r, dim):
+                        upper = (a * dim + r) * (bob_out * dim) + (b * dim + s)
+                        lower = (a * dim + s) * (bob_out * dim) + (b * dim + r)
+                        real_entries += [upper, lower] if r != s else [upper]
+                        real_cols += [num_real, num_real] if r != s else [num_real]
+                        num_real += 1
+                        if r != s:
+                            imag_entries += [upper, lower]
+                            imag_cols += [num_imag, num_imag]
+                            imag_signs += [1.0, -1.0]
+                            num_imag += 1
+        self._real_map = scipy.sparse.csc_matrix(
+            (np.ones(len(real_entries)), (real_entries, real_cols)), shape=(size, num_real)
+        )
+        self._imag_map = scipy.sparse.csc_matrix((imag_signs, (imag_entries, imag_cols)), shape=(size, num_imag))
+        self._real = {(x, y): cvxpy.Variable(num_real) for x in range(alice_in) for y in range(bob_in)}
+        self._imag = {(x, y): cvxpy.Variable(num_imag) for x in range(alice_in) for y in range(bob_in)}
+        matrix_shape = (alice_out * dim, bob_out * dim)
+        for key in self._real:
+            self.exprs[key] = cvxpy.reshape(self._real_map @ self._real[key], matrix_shape, order="C") + 1j * (
+                cvxpy.reshape(self._imag_map @ self._imag[key], matrix_shape, order="C")
+            )
+
+    def linear_functional(self, weights: np.ndarray, prob_mat: np.ndarray) -> cvxpy.Expression:
+        r"""Return \(\sum_{x,y} \pi(x,y) \sum_{a,b} \langle W(a,b \mid x,y), K(a,b \mid x,y) \rangle\).
+
+        The weights have the shape of the assemblage, and the inner product is the Hilbert-Schmidt one, so the
+        result is real-valued. The coefficients of the variables are computed in numpy.
+        """
+        referee_dim, _, alice_out, bob_out, alice_in, bob_in = self.shape
+        if referee_dim == 1:
+            return sum(
+                cvxpy.sum(cvxpy.multiply(prob_mat[x, y] * weights[0, 0, :, :, x, y].real, var))
+                for (x, y), var in self.exprs.items()
+            )
+        total = 0
+        for (x, y), real_var in self._real.items():
+            block_matrix = prob_mat[x, y] * np.block(
+                [[weights[:, :, a, b, x, y] for b in range(bob_out)] for a in range(alice_out)]
+            )
+            # <W, K> = sum conj(W) K, whose real part pairs Re(W) with the real parts and Im(W) with the imaginary.
+            real_coeffs = self._real_map.T @ block_matrix.real.ravel()
+            imag_coeffs = self._imag_map.T @ block_matrix.imag.ravel()
+            total = total + real_coeffs @ real_var + imag_coeffs @ self._imag[x, y]
+        return total
+
+    def value(self) -> np.ndarray:
+        """Return the current value of the assemblage as an array with the layout of a game's predicate."""
+        referee_dim, _, alice_out, bob_out, alice_in, bob_in = self.shape
+        optimum = np.zeros(self.shape, dtype=complex)
+        for (x, y), expr in self.exprs.items():
+            optimum[:, :, :, :, x, y] = expr.value.reshape(alice_out, referee_dim, bob_out, referee_dim).transpose(
+                1, 3, 0, 2
+            )
+        return optimum
+
+
 def npa_upper_bound(
     prob_mat: np.ndarray,
     pred_mat: np.ndarray,
@@ -245,44 +334,16 @@ def npa_upper_bound(
         solver_params = {"eps": 1e-8, "max_iters": 100_000} if solver == cvxpy.SCS else {}
     referee_dim, _, alice_out, bob_out, alice_in, bob_in = pred_mat.shape
 
-    # The assemblage K_xy is the block matrix of the referee's conditional states K_xy(a, b); without a referee it is
-    # just the real matrix of answer probabilities.
-    assemblage = {}
-    for x in range(alice_in):
-        for y in range(bob_in):
-            if referee_dim == 1:
-                assemblage[x, y] = cvxpy.Variable((alice_out, bob_out), name=f"K({x},{y})")
-            else:
-                blocks = [
-                    [
-                        cvxpy.Variable((referee_dim, referee_dim), hermitian=True, name=f"K({x},{y})_{a}{b}")
-                        for b in range(bob_out)
-                    ]
-                    for a in range(alice_out)
-                ]
-                assemblage[x, y] = cvxpy.bmat(blocks)
+    assemblage = Assemblage(referee_dim, alice_out, bob_out, alice_in, bob_in)
+    # The winning probability is sum_{x, y} pi(x, y) sum_{a, b} <V(a, b | x, y), K(a, b | x, y)>.
+    objective = assemblage.linear_functional(pred_mat, prob_mat)
 
-    # The winning probability is sum_{x, y} <W_xy, K_xy> with W_xy the block matrix of weighted referee operators
-    # pi(x, y) V(a, b | x, y), laid out in the same (a, b) block pattern as K_xy.
-    total_win = 0
-    for (x, y), var in assemblage.items():
-        weights = prob_mat[x, y] * np.block(
-            [[pred_mat[:, :, a, b, x, y] for b in range(bob_out)] for a in range(alice_out)]
-        )
-        total_win += cvxpy.sum(cvxpy.multiply(weights.conj(), var))
-
-    cons = npa_constraints(assemblage, k, referee_dim=referee_dim, no_signaling=no_signaling)
+    cons = npa_constraints(assemblage.exprs, k, referee_dim=referee_dim, no_signaling=no_signaling)
     for constraint in constraints or []:
         cons.append(
-            answer_event_linear_constraint(assemblage, constraint, referee_dim, alice_out, bob_out, alice_in, bob_in)
+            answer_event_linear_constraint(
+                assemblage.exprs, constraint, referee_dim, alice_out, bob_out, alice_in, bob_in
+            )
         )
-    # Without a referee the objective is already real, and cvxpy's real() does not accept a real argument.
-    objective = cvxpy.real(total_win) if total_win.is_complex() else total_win
     value = solve_sdp(cvxpy.Problem(cvxpy.Maximize(objective), cons), solver, solver_params)
-
-    optimum = np.zeros((referee_dim, referee_dim, alice_out, bob_out, alice_in, bob_in), dtype=complex)
-    for (x, y), var in assemblage.items():
-        optimum[:, :, :, :, x, y] = var.value.reshape(alice_out, referee_dim, bob_out, referee_dim).transpose(
-            1, 3, 0, 2
-        )
-    return value, optimum
+    return value, assemblage.value()
