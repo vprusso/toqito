@@ -1,6 +1,6 @@
 """Two-player binary constraint system (BCS) game."""
 
-from collections import Counter
+from collections import Counter, deque
 
 import networkx as nx
 import numpy as np
@@ -155,7 +155,7 @@ def _enumerate_solution_group(M: np.ndarray, b: np.ndarray, max_cosets: int) -> 
 
     table = [[-1] * num_gens]  # table[coset][generator], with -1 for undefined
     parent = [0]  # union-find over cosets; the root of a class is its live representative
-    queue: list[int] = []  # dead cosets whose rows still have to be transferred
+    queue: deque[int] = deque()  # dead cosets whose rows still have to be transferred
 
     def rep(k: int) -> int:
         root = k
@@ -175,7 +175,7 @@ def _enumerate_solution_group(M: np.ndarray, b: np.ndarray, max_cosets: int) -> 
     def coincidence(alpha: int, beta: int) -> None:
         merge(alpha, beta)
         while queue:
-            gamma = queue.pop(0)
+            gamma = queue.popleft()
             for x in range(num_gens):
                 delta = table[gamma][x]
                 if delta == -1:

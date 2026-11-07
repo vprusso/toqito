@@ -1,5 +1,7 @@
 """Two-player XOR game."""
 
+from functools import cached_property
+
 import cvxpy
 import numpy as np
 
@@ -321,10 +323,16 @@ class XORGame:
     def to_nonlocal_game(self) -> NonlocalGame:
         """Given an XOR game, compute a predicate matrix representing the more generic `NonlocalGame` equivalent.
 
+        The equivalent game is built once and reused by the methods that delegate to it.
+
         Returns:
             A `NonlocalGame` object equivalent to the XOR game.
 
         """
+        return self._nonlocal_game
+
+    @cached_property
+    def _nonlocal_game(self) -> NonlocalGame:
         q_0, q_1 = self.prob_mat.shape
         # Answers (a, b) win on questions (x, y) exactly when a XOR b equals the predicate bit.
         nlg_pred_mat = np.zeros((2, 2, q_0, q_1))

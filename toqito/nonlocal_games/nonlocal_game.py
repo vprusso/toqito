@@ -1,6 +1,5 @@
 """Two-player nonlocal game."""
 
-import itertools
 from dataclasses import dataclass
 
 import cvxpy
@@ -18,6 +17,16 @@ from toqito.nonlocal_games.binary_constraint_system_game import (
     _parity_system_from_truth_tables,
     check_perfect_commuting_strategy,
 )
+
+# The classical value enumerates one player's deterministic strategies in chunks whose gathered predicate values
+# occupy at most this many bytes, so the peak memory does not grow with the number of strategies.
+_STRATEGY_CHUNK_BYTES = 2**24
+
+
+def _deterministic_strategies(num_out: int, num_in: int, start: int, stop: int) -> np.ndarray:
+    """Return strategies ``start`` to ``stop - 1`` as rows, numbered in lexicographic order of their answer tuples."""
+    index = np.arange(start, stop)[:, np.newaxis]
+    return (index // num_out ** np.arange(num_in - 1, -1, -1)) % num_out
 
 
 @dataclass(frozen=True)
@@ -211,18 +220,24 @@ class NonlocalGame:
 
         # Each deterministic strategy for Bob assigns an output b(y) to every question y. For a fixed Bob strategy,
         # Alice independently picks the best output a for each question x, so the winning probability is
-        # sum_x max_a sum_y pm[a, x, b(y), y]. The classical value is the maximum over all of Bob's strategies.
-        strategies = np.array(list(itertools.product(range(B_out), repeat=B_in)))  # (num_strategies, B_in)
-        # gathered[a, x, s, y] = pm[a, x, strategies[s, y], y]
-        gathered = pm[:, :, strategies, np.arange(B_in)]  # (A_out, A_in, num_strategies, B_in)
-        per_question = gathered.sum(axis=-1)  # (A_out, A_in, num_strategies)
-        per_strategy = per_question.max(axis=0).sum(axis=0)  # (num_strategies,)
-        best = int(per_strategy.argmax())
-        value = float(per_strategy[best])
+        # sum_x max_a sum_y pm[a, x, b(y), y]. The classical value is the maximum over all of Bob's strategies,
+        # which are enumerated in chunks to bound the memory of the gathered array.
+        num_strategies = B_out**B_in
+        chunk = max(1, _STRATEGY_CHUNK_BYTES // (pm.itemsize * A_out * A_in * B_in))
+        value, best_per_question, bob_outputs = float("-inf"), None, None
+        for start in range(0, num_strategies, chunk):
+            strategies = _deterministic_strategies(B_out, B_in, start, min(start + chunk, num_strategies))
+            # gathered[a, x, s, y] = pm[a, x, strategies[s, y], y]
+            gathered = pm[:, :, strategies, np.arange(B_in)]  # (A_out, A_in, chunk, B_in)
+            per_question = gathered.sum(axis=-1)  # (A_out, A_in, chunk)
+            per_strategy = per_question.max(axis=0).sum(axis=0)  # (chunk,)
+            best = int(per_strategy.argmax())
+            if per_strategy[best] > value:
+                value = float(per_strategy[best])
+                best_per_question, bob_outputs = per_question[:, :, best], strategies[best]
         if not return_strategy:
             return value
-        bob_outputs = strategies[best]
-        alice_outputs = per_question[:, :, best].argmax(axis=0)
+        alice_outputs = best_per_question.argmax(axis=0)
         if swapped:
             alice_outputs, bob_outputs = bob_outputs, alice_outputs
         return value, (alice_outputs, bob_outputs)

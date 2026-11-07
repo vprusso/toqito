@@ -1,5 +1,6 @@
 """Tests for NonlocalGame class."""
 
+import itertools
 import re
 import unittest
 from unittest import mock
@@ -8,7 +9,7 @@ import cvxpy
 import numpy as np
 import pytest
 
-from toqito.nonlocal_games.nonlocal_game import NonlocalGame
+from toqito.nonlocal_games.nonlocal_game import NonlocalGame, _deterministic_strategies
 
 
 class TestNonlocalGame(unittest.TestCase):
@@ -423,6 +424,27 @@ class TestNonlocalGameStrategies(unittest.TestCase):
         self.assertEqual(alice_outputs.shape, (2,))
         self.assertEqual(bob_outputs.shape, (2,))
         self.assertAlmostEqual(chsh.classical_strategy_value(alice_outputs, bob_outputs), value)
+
+    def test_classical_value_chunked_enumeration_matches(self):
+        """Enumerating Bob's strategies in several chunks gives the same value and strategy as one chunk."""
+        rng = np.random.default_rng(7)
+        prob_mat = np.full((3, 4), 1 / 12)
+        pred_mat = (rng.random((3, 3, 3, 4)) < 0.5).astype(float)
+        game = NonlocalGame(prob_mat, pred_mat)
+        value, (alice_outputs, bob_outputs) = game.classical_value(return_strategy=True)
+        # Bob has 3**4 = 81 strategies; a budget of one strategy's worth of bytes forces 81 chunks.
+        with mock.patch("toqito.nonlocal_games.nonlocal_game._STRATEGY_CHUNK_BYTES", 1):
+            chunked_value, (chunked_alice, chunked_bob) = game.classical_value(return_strategy=True)
+        self.assertAlmostEqual(chunked_value, value)
+        np.testing.assert_array_equal(chunked_alice, alice_outputs)
+        np.testing.assert_array_equal(chunked_bob, bob_outputs)
+        self.assertAlmostEqual(game.classical_strategy_value(alice_outputs, bob_outputs), value)
+
+    def test_deterministic_strategies_are_numbered_lexicographically(self):
+        """Strategy ``s`` is the ``s``-th answer tuple in lexicographic order, as `itertools.product` lists them."""
+        expected = np.array(list(itertools.product(range(3), repeat=4)))
+        np.testing.assert_array_equal(_deterministic_strategies(3, 4, 0, 81), expected)
+        np.testing.assert_array_equal(_deterministic_strategies(3, 4, 10, 25), expected[10:25])
 
     def test_classical_strategy_when_roles_are_swapped(self):
         """The strategy is reported in the right order when Alice's strategy space is the smaller one."""
