@@ -170,14 +170,16 @@ class ExtendedNonlocalGame:
             summed_y = weights[:, list(g_bob), :, np.arange(bob_in)].sum(axis=0)
             # operators[f] = sum_x summed_y[f(x), x], for every deterministic strategy f of Alice at once
             operators = summed_y[alice_strategies, np.arange(alice_in)].sum(axis=1)
-            eigvals, eigvecs = np.linalg.eigh(operators)
-            f_best = int(eigvals[:, -1].argmax())
-            if eigvals[f_best, -1] > max_unent_val:
-                max_unent_val = float(eigvals[f_best, -1])
-                best = (alice_strategies[f_best], np.array(g_bob), eigvecs[f_best, :, -1])
+            largest = np.linalg.eigvalsh(operators)[:, -1]
+            f_best = int(largest.argmax())
+            if largest[f_best] > max_unent_val:
+                max_unent_val = float(largest[f_best])
+                best = (alice_strategies[f_best], np.array(g_bob), operators[f_best])
         if not return_strategy:
             return max_unent_val
-        alice_outputs, bob_outputs, referee_vector = best
+        alice_outputs, bob_outputs, operator = best
+        # The referee state is the top eigenvector of the winning operator of the best strategy.
+        referee_vector = np.linalg.eigh(operator)[1][:, -1]
         return max_unent_val, (alice_outputs, bob_outputs, np.outer(referee_vector, referee_vector.conj()))
 
     def nonsignaling_value(
