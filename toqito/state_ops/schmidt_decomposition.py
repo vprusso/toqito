@@ -68,7 +68,7 @@ def schmidt_decomposition(
         dim = np.array(dim)
 
     # Allow the user to enter a single number for `dim`.
-    if isinstance(dim, float):
+    if isinstance(dim, (int, float, np.integer, np.floating)):
         dim = np.array([dim, len(rho) / dim])
         dim[1] = np.round(dim[1])
 
@@ -131,7 +131,7 @@ def _operator_schmidt_decomposition(
         dim = np.array(dim)
 
     # Allow the user to enter a single number for `dim` if `rho` is square.
-    if isinstance(dim, int):
+    if isinstance(dim, (int, float, np.integer, np.floating)):
         dim = np.array([dim, len(rho) / dim])
         dim[1] = np.round(dim[1])
 

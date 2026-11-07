@@ -158,3 +158,23 @@ def test_allclose_phi5():
     np.testing.assert_allclose(calculated_singular_vals, expected_singular_vals, 1e-5)
     np.testing.assert_allclose(calculated_vt_mat, expected_v_mat, 1e-5)
     np.testing.assert_allclose(calculated_u_mat, expected_u_mat, 1e-5)
+
+
+@pytest.mark.parametrize("dim", [2, 2.0, np.int64(2)])
+def test_schmidt_decomposition_scalar_dim(dim):
+    """A single number for `dim` is the dimension of the first subsystem."""
+    vec = random_state_vector(6, seed=1)
+    expected = schmidt_decomposition(vec, [2, 3])
+    calculated = schmidt_decomposition(vec, dim)
+    for calc, exp in zip(calculated, expected):
+        np.testing.assert_allclose(calc, exp)
+
+
+@pytest.mark.parametrize("dim", [2, 2.0, np.int64(2)])
+def test_operator_schmidt_decomposition_scalar_dim(dim):
+    """A single number for `dim` also works for operators."""
+    rho = random_density_matrix(8, seed=1)
+    expected = schmidt_decomposition(rho, [2, 4])
+    calculated = schmidt_decomposition(rho, dim)
+    for calc, exp in zip(calculated, expected):
+        np.testing.assert_allclose(calc, exp)
