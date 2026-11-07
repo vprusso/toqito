@@ -8,6 +8,7 @@ import numpy as np
 from toqito._sdp import solve_sdp
 from toqito.nonlocal_games._common import (
     AnswerEventConstraint,
+    Assemblage,
     answer_event_linear_constraint,
     answer_event_probability,
     npa_upper_bound,
@@ -233,51 +234,37 @@ class ExtendedNonlocalGame:
         dim = self.referee_dim
         alice_out, bob_out, alice_in, bob_in = self.num_alice_out, self.num_bob_out, self.num_alice_in, self.num_bob_in
 
-        # cvxpy variables are at most two-dimensional, so the operator-valued functions are dictionaries of
-        # `dim`-by-`dim` Hermitian variables indexed by answers and questions.
-        k_var = {
-            (a, b, x, y): cvxpy.Variable((dim, dim), hermitian=True)
+        assemblage = Assemblage(dim, alice_out, bob_out, alice_in, bob_in)
+        k_mat = assemblage.exprs
+        p_win = assemblage.linear_functional(self.pred_mat, self.prob_mat)
+
+        # `sum_a @ K_xy` is the row of blocks sum_a K(a, b | x, y) and `K_xy @ sum_b.T` the column of blocks
+        # sum_b K(a, b | x, y).
+        sum_a = np.kron(np.ones((1, alice_out)), np.eye(dim))
+        sum_b = np.kron(np.ones((1, bob_out)), np.eye(dim))
+
+        constraints = [
+            k_mat[x, y][a * dim : (a + 1) * dim, b * dim : (b + 1) * dim] >> 0
+            for x in range(alice_in)
+            for y in range(bob_in)
             for a in range(alice_out)
             for b in range(bob_out)
-            for x in range(alice_in)
-            for y in range(bob_in)
-        }
-        sigma = {(a, x): cvxpy.Variable((dim, dim), hermitian=True) for a in range(alice_out) for x in range(alice_in)}
-        rho = {(b, y): cvxpy.Variable((dim, dim), hermitian=True) for b in range(bob_out) for y in range(bob_in)}
-        tau = cvxpy.Variable((dim, dim), hermitian=True)
-
-        p_win = sum(
-            self.prob_mat[x, y] * cvxpy.trace(self.pred_mat[:, :, a, b, x, y].conj().T @ var)
-            for (a, b, x, y), var in k_var.items()
-        )
-
-        constraints = [var >> 0 for var in k_var.values()]
-        # The non-signaling conditions: Alice's marginal does not depend on y and Bob's does not depend on x.
-        constraints += [
-            sum(k_var[a, b, x, y] for b in range(bob_out)) == sigma[a, x]
-            for a in range(alice_out)
-            for x in range(alice_in)
-            for y in range(bob_in)
         ]
-        constraints += [
-            sum(k_var[a, b, x, y] for a in range(alice_out)) == rho[b, y]
-            for b in range(bob_out)
-            for x in range(alice_in)
-            for y in range(bob_in)
-        ]
-        # Both marginals sum to the referee's reduced state tau, a density operator.
-        constraints += [sum(sigma[a, x] for a in range(alice_out)) == tau for x in range(alice_in)]
-        constraints += [sum(rho[b, y] for b in range(bob_out)) == tau for y in range(bob_in)]
-        constraints += [cvxpy.trace(tau) == 1, tau >> 0]
+        # The non-signaling conditions: Bob's marginal does not depend on x and Alice's does not depend on y. They
+        # make the sum of all blocks, the referee's reduced state tau, the same for every question pair.
+        for y in range(bob_in):
+            reference = sum_a @ k_mat[0, y]
+            constraints += [sum_a @ k_mat[x, y] == reference for x in range(1, alice_in)]
+        for x in range(alice_in):
+            reference = k_mat[x, 0] @ sum_b.T
+            constraints += [k_mat[x, y] @ sum_b.T == reference for y in range(1, bob_in)]
+        constraints.append(cvxpy.real(cvxpy.trace(sum_a @ k_mat[0, 0] @ sum_b.T)) == 1)
 
-        problem = cvxpy.Problem(cvxpy.Maximize(cvxpy.real(p_win)), constraints)
+        problem = cvxpy.Problem(cvxpy.Maximize(p_win), constraints)
         value = solve_sdp(problem, solver, solver_params)
         if not return_strategy:
             return value
-        assemblage = np.zeros((dim, dim, alice_out, bob_out, alice_in, bob_in), dtype=complex)
-        for (a, b, x, y), var in k_var.items():
-            assemblage[:, :, a, b, x, y] = var.value
-        return value, assemblage
+        return value, assemblage.value()
 
     def quantum_value_lower_bound(
         self,

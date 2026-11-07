@@ -610,6 +610,13 @@ class TestExtendedNonlocalGameStrategies(unittest.TestCase):
         value, assemblage = bb84.nonsignaling_value(return_strategy=True)
         self.assertAlmostEqual(bb84.assemblage_value(assemblage), value, delta=1e-6)
         self.assertEqual(assemblage.shape, (2, 2, 2, 2, 2, 2))
+        blocks = np.moveaxis(assemblage, (0, 1), (-2, -1)).reshape(-1, 2, 2)
+        np.testing.assert_allclose(blocks, blocks.conj().transpose(0, 2, 1), atol=1e-8)
+        self.assertGreater(np.linalg.eigvalsh(blocks).min(), -1e-6)
+        # Bob's marginal does not depend on x and Alice's does not depend on y.
+        bob_marginals, alice_marginals = assemblage.sum(axis=2), assemblage.sum(axis=3)
+        np.testing.assert_allclose(bob_marginals[..., 1, :], bob_marginals[..., 0, :], atol=1e-5)
+        np.testing.assert_allclose(alice_marginals[..., 1], alice_marginals[..., 0], atol=1e-5)
         referee_states = assemblage.sum(axis=(2, 3))
         for x in range(2):
             for y in range(2):
