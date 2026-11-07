@@ -11275,9 +11275,7 @@ the odd cycle game as follows.</p>
 
                   <details class="mkdocstrings-source">
                     <summary>Source code in <code>toqito/nonlocal_games/xor_game.py</code></summary>
-                    <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-157">157</a></span>
-<span class="normal"><a href="#__codelineno-0-158">158</a></span>
-<span class="normal"><a href="#__codelineno-0-159">159</a></span>
+                    <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-159">159</a></span>
 <span class="normal"><a href="#__codelineno-0-160">160</a></span>
 <span class="normal"><a href="#__codelineno-0-161">161</a></span>
 <span class="normal"><a href="#__codelineno-0-162">162</a></span>
@@ -11317,49 +11315,51 @@ the odd cycle game as follows.</p>
 <span class="normal"><a href="#__codelineno-0-196">196</a></span>
 <span class="normal"><a href="#__codelineno-0-197">197</a></span>
 <span class="normal"><a href="#__codelineno-0-198">198</a></span>
-<span class="normal"><a href="#__codelineno-0-199">199</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-157" name="__codelineno-0-157"></a><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
-<a id="__codelineno-0-158" name="__codelineno-0-158"></a>    <span class="bp">self</span><span class="p">,</span>
-<a id="__codelineno-0-159" name="__codelineno-0-159"></a>    <span class="n">prob_mat</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
-<a id="__codelineno-0-160" name="__codelineno-0-160"></a>    <span class="n">pred_mat</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
-<a id="__codelineno-0-161" name="__codelineno-0-161"></a>    <span class="n">reps</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
-<a id="__codelineno-0-162" name="__codelineno-0-162"></a>    <span class="n">tol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-<a id="__codelineno-0-163" name="__codelineno-0-163"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<a id="__codelineno-0-164" name="__codelineno-0-164"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Construct XOR game object.</span>
-<a id="__codelineno-0-165" name="__codelineno-0-165"></a>
-<a id="__codelineno-0-166" name="__codelineno-0-166"></a><span class="sd">    Raises:</span>
-<a id="__codelineno-0-167" name="__codelineno-0-167"></a><span class="sd">        ValueError: If dimension of probability matrix is not equal to</span>
-<a id="__codelineno-0-168" name="__codelineno-0-168"></a><span class="sd">                                            dimension of predicate matrix.</span>
-<a id="__codelineno-0-169" name="__codelineno-0-169"></a>
-<a id="__codelineno-0-170" name="__codelineno-0-170"></a><span class="sd">    Args:</span>
-<a id="__codelineno-0-171" name="__codelineno-0-171"></a><span class="sd">        prob_mat: A matrix whose (q_0, q_1)-entry gives the probability that</span>
-<a id="__codelineno-0-172" name="__codelineno-0-172"></a><span class="sd">                             the referee will give Alice the value `q_0` and Bob the</span>
-<a id="__codelineno-0-173" name="__codelineno-0-173"></a><span class="sd">                             value `q_1`.</span>
-<a id="__codelineno-0-174" name="__codelineno-0-174"></a><span class="sd">        pred_mat: A binary matrix whose (q_0, q_1)-entry indicates the</span>
-<a id="__codelineno-0-175" name="__codelineno-0-175"></a><span class="sd">                             winning choice (either 0 or 1) when Alice and Bob receive</span>
-<a id="__codelineno-0-176" name="__codelineno-0-176"></a><span class="sd">                             values `q_0` and `q_1` from the referee.</span>
-<a id="__codelineno-0-177" name="__codelineno-0-177"></a><span class="sd">        reps: Number of parallel repetitions to perform. Default is 1.</span>
-<a id="__codelineno-0-178" name="__codelineno-0-178"></a><span class="sd">        tol: The error tolerance for the value.</span>
-<a id="__codelineno-0-179" name="__codelineno-0-179"></a>
-<a id="__codelineno-0-180" name="__codelineno-0-180"></a><span class="sd">    &quot;&quot;&quot;</span>
-<a id="__codelineno-0-181" name="__codelineno-0-181"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">prob_mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">prob_mat</span><span class="p">)</span>
-<a id="__codelineno-0-182" name="__codelineno-0-182"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">pred_mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">pred_mat</span><span class="p">)</span>
-<a id="__codelineno-0-183" name="__codelineno-0-183"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">reps</span> <span class="o">=</span> <span class="n">reps</span>
-<a id="__codelineno-0-184" name="__codelineno-0-184"></a>
-<a id="__codelineno-0-185" name="__codelineno-0-185"></a>    <span class="n">q_0</span><span class="p">,</span> <span class="n">q_1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">prob_mat</span><span class="o">.</span><span class="n">shape</span>
-<a id="__codelineno-0-186" name="__codelineno-0-186"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">tol</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">finfo</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span><span class="o">.</span><span class="n">eps</span> <span class="o">*</span> <span class="n">q_0</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">q_1</span><span class="o">**</span><span class="mi">2</span> <span class="k">if</span> <span class="n">tol</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">tol</span>
-<a id="__codelineno-0-187" name="__codelineno-0-187"></a>
-<a id="__codelineno-0-188" name="__codelineno-0-188"></a>    <span class="c1"># Perform some basic error checking to ensure the probability and</span>
-<a id="__codelineno-0-189" name="__codelineno-0-189"></a>    <span class="c1"># predicate matrices are well-defined.</span>
-<a id="__codelineno-0-190" name="__codelineno-0-190"></a>    <span class="k">if</span> <span class="p">(</span><span class="n">q_0</span><span class="p">,</span> <span class="n">q_1</span><span class="p">)</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pred_mat</span><span class="o">.</span><span class="n">shape</span><span class="p">:</span>
-<a id="__codelineno-0-191" name="__codelineno-0-191"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Invalid: The matrices `prob_mat` and `pred_mat` must be matrices of the same size.&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-192" name="__codelineno-0-192"></a>    <span class="k">if</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">prob_mat</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">tol</span><span class="p">:</span>
-<a id="__codelineno-0-193" name="__codelineno-0-193"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-<a id="__codelineno-0-194" name="__codelineno-0-194"></a>            <span class="s2">&quot;Invalid: The variable `prob_mat` must be a probability matrix: its entries must be non-negative.&quot;</span>
-<a id="__codelineno-0-195" name="__codelineno-0-195"></a>        <span class="p">)</span>
-<a id="__codelineno-0-196" name="__codelineno-0-196"></a>    <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">prob_mat</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">tol</span><span class="p">:</span>
-<a id="__codelineno-0-197" name="__codelineno-0-197"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-<a id="__codelineno-0-198" name="__codelineno-0-198"></a>            <span class="s2">&quot;Invalid: The variable `prob_mat` must be a probability matrix: its entries must sum to 1.&quot;</span>
-<a id="__codelineno-0-199" name="__codelineno-0-199"></a>        <span class="p">)</span>
+<span class="normal"><a href="#__codelineno-0-199">199</a></span>
+<span class="normal"><a href="#__codelineno-0-200">200</a></span>
+<span class="normal"><a href="#__codelineno-0-201">201</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-159" name="__codelineno-0-159"></a><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+<a id="__codelineno-0-160" name="__codelineno-0-160"></a>    <span class="bp">self</span><span class="p">,</span>
+<a id="__codelineno-0-161" name="__codelineno-0-161"></a>    <span class="n">prob_mat</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+<a id="__codelineno-0-162" name="__codelineno-0-162"></a>    <span class="n">pred_mat</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+<a id="__codelineno-0-163" name="__codelineno-0-163"></a>    <span class="n">reps</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+<a id="__codelineno-0-164" name="__codelineno-0-164"></a>    <span class="n">tol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<a id="__codelineno-0-165" name="__codelineno-0-165"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-0-166" name="__codelineno-0-166"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Construct XOR game object.</span>
+<a id="__codelineno-0-167" name="__codelineno-0-167"></a>
+<a id="__codelineno-0-168" name="__codelineno-0-168"></a><span class="sd">    Raises:</span>
+<a id="__codelineno-0-169" name="__codelineno-0-169"></a><span class="sd">        ValueError: If dimension of probability matrix is not equal to</span>
+<a id="__codelineno-0-170" name="__codelineno-0-170"></a><span class="sd">                                            dimension of predicate matrix.</span>
+<a id="__codelineno-0-171" name="__codelineno-0-171"></a>
+<a id="__codelineno-0-172" name="__codelineno-0-172"></a><span class="sd">    Args:</span>
+<a id="__codelineno-0-173" name="__codelineno-0-173"></a><span class="sd">        prob_mat: A matrix whose (q_0, q_1)-entry gives the probability that</span>
+<a id="__codelineno-0-174" name="__codelineno-0-174"></a><span class="sd">                             the referee will give Alice the value `q_0` and Bob the</span>
+<a id="__codelineno-0-175" name="__codelineno-0-175"></a><span class="sd">                             value `q_1`.</span>
+<a id="__codelineno-0-176" name="__codelineno-0-176"></a><span class="sd">        pred_mat: A binary matrix whose (q_0, q_1)-entry indicates the</span>
+<a id="__codelineno-0-177" name="__codelineno-0-177"></a><span class="sd">                             winning choice (either 0 or 1) when Alice and Bob receive</span>
+<a id="__codelineno-0-178" name="__codelineno-0-178"></a><span class="sd">                             values `q_0` and `q_1` from the referee.</span>
+<a id="__codelineno-0-179" name="__codelineno-0-179"></a><span class="sd">        reps: Number of parallel repetitions to perform. Default is 1.</span>
+<a id="__codelineno-0-180" name="__codelineno-0-180"></a><span class="sd">        tol: The error tolerance for the value.</span>
+<a id="__codelineno-0-181" name="__codelineno-0-181"></a>
+<a id="__codelineno-0-182" name="__codelineno-0-182"></a><span class="sd">    &quot;&quot;&quot;</span>
+<a id="__codelineno-0-183" name="__codelineno-0-183"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">prob_mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">prob_mat</span><span class="p">)</span>
+<a id="__codelineno-0-184" name="__codelineno-0-184"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">pred_mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">pred_mat</span><span class="p">)</span>
+<a id="__codelineno-0-185" name="__codelineno-0-185"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">reps</span> <span class="o">=</span> <span class="n">reps</span>
+<a id="__codelineno-0-186" name="__codelineno-0-186"></a>
+<a id="__codelineno-0-187" name="__codelineno-0-187"></a>    <span class="n">q_0</span><span class="p">,</span> <span class="n">q_1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">prob_mat</span><span class="o">.</span><span class="n">shape</span>
+<a id="__codelineno-0-188" name="__codelineno-0-188"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">tol</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">finfo</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span><span class="o">.</span><span class="n">eps</span> <span class="o">*</span> <span class="n">q_0</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">q_1</span><span class="o">**</span><span class="mi">2</span> <span class="k">if</span> <span class="n">tol</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">tol</span>
+<a id="__codelineno-0-189" name="__codelineno-0-189"></a>
+<a id="__codelineno-0-190" name="__codelineno-0-190"></a>    <span class="c1"># Perform some basic error checking to ensure the probability and</span>
+<a id="__codelineno-0-191" name="__codelineno-0-191"></a>    <span class="c1"># predicate matrices are well-defined.</span>
+<a id="__codelineno-0-192" name="__codelineno-0-192"></a>    <span class="k">if</span> <span class="p">(</span><span class="n">q_0</span><span class="p">,</span> <span class="n">q_1</span><span class="p">)</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pred_mat</span><span class="o">.</span><span class="n">shape</span><span class="p">:</span>
+<a id="__codelineno-0-193" name="__codelineno-0-193"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Invalid: The matrices `prob_mat` and `pred_mat` must be matrices of the same size.&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-194" name="__codelineno-0-194"></a>    <span class="k">if</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">prob_mat</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">tol</span><span class="p">:</span>
+<a id="__codelineno-0-195" name="__codelineno-0-195"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+<a id="__codelineno-0-196" name="__codelineno-0-196"></a>            <span class="s2">&quot;Invalid: The variable `prob_mat` must be a probability matrix: its entries must be non-negative.&quot;</span>
+<a id="__codelineno-0-197" name="__codelineno-0-197"></a>        <span class="p">)</span>
+<a id="__codelineno-0-198" name="__codelineno-0-198"></a>    <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">prob_mat</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">tol</span><span class="p">:</span>
+<a id="__codelineno-0-199" name="__codelineno-0-199"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+<a id="__codelineno-0-200" name="__codelineno-0-200"></a>            <span class="s2">&quot;Invalid: The variable `prob_mat` must be a probability matrix: its entries must sum to 1.&quot;</span>
+<a id="__codelineno-0-201" name="__codelineno-0-201"></a>        <span class="p">)</span>
 </code></pre></div></td></tr></table></div>
                   </details>
 
@@ -11504,9 +11504,7 @@ have outcome <code>0</code> for the <span class="arithmatex">\(+1\)</span> eigen
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>toqito/nonlocal_games/xor_game.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-201">201</a></span>
-<span class="normal"><a href="#__codelineno-0-202">202</a></span>
-<span class="normal"><a href="#__codelineno-0-203">203</a></span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-203">203</a></span>
 <span class="normal"><a href="#__codelineno-0-204">204</a></span>
 <span class="normal"><a href="#__codelineno-0-205">205</a></span>
 <span class="normal"><a href="#__codelineno-0-206">206</a></span>
@@ -11590,93 +11588,95 @@ have outcome <code>0</code> for the <span class="arithmatex">\(+1\)</span> eigen
 <span class="normal"><a href="#__codelineno-0-284">284</a></span>
 <span class="normal"><a href="#__codelineno-0-285">285</a></span>
 <span class="normal"><a href="#__codelineno-0-286">286</a></span>
-<span class="normal"><a href="#__codelineno-0-287">287</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-201" name="__codelineno-0-201"></a><span class="k">def</span><span class="w"> </span><span class="nf">quantum_value</span><span class="p">(</span>
-<a id="__codelineno-0-202" name="__codelineno-0-202"></a>    <span class="bp">self</span><span class="p">,</span> <span class="n">solver</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">solver_params</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">return_strategy</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
-<a id="__codelineno-0-203" name="__codelineno-0-203"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span> <span class="o">|</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">QuantumStrategy</span><span class="p">]:</span>
-<a id="__codelineno-0-204" name="__codelineno-0-204"></a><span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Compute the quantum value of the XOR game.</span>
-<a id="__codelineno-0-205" name="__codelineno-0-205"></a>
-<a id="__codelineno-0-206" name="__codelineno-0-206"></a><span class="sd">    By Tsirelson&#39;s theorem the quantum bias of an XOR game is the value of the semidefinite program (Lecture 6</span>
-<a id="__codelineno-0-207" name="__codelineno-0-207"></a><span class="sd">    of [@watrous2011theory])</span>
-<a id="__codelineno-0-208" name="__codelineno-0-208"></a>
-<a id="__codelineno-0-209" name="__codelineno-0-209"></a><span class="sd">    \[</span>
-<a id="__codelineno-0-210" name="__codelineno-0-210"></a><span class="sd">    \begin{equation}</span>
-<a id="__codelineno-0-211" name="__codelineno-0-211"></a><span class="sd">            \begin{aligned}</span>
-<a id="__codelineno-0-212" name="__codelineno-0-212"></a><span class="sd">                    \text{maximize:} \quad &amp; \sum_{x \in X, y \in Y} D(x, y) \langle u_x, v_y \rangle \\</span>
-<a id="__codelineno-0-213" name="__codelineno-0-213"></a><span class="sd">                    \text{subject to:} \quad &amp; \lVert u_x \rVert = \lVert v_y \rVert = 1,</span>
-<a id="__codelineno-0-214" name="__codelineno-0-214"></a><span class="sd">            \end{aligned}</span>
-<a id="__codelineno-0-215" name="__codelineno-0-215"></a><span class="sd">    \end{equation}</span>
-<a id="__codelineno-0-216" name="__codelineno-0-216"></a><span class="sd">    \]</span>
-<a id="__codelineno-0-217" name="__codelineno-0-217"></a>
-<a id="__codelineno-0-218" name="__codelineno-0-218"></a><span class="sd">    over real unit vectors, which is solved as a semidefinite program in their Gram matrix. Here \(D\) is the</span>
-<a id="__codelineno-0-219" name="__codelineno-0-219"></a><span class="sd">    matrix</span>
-<a id="__codelineno-0-220" name="__codelineno-0-220"></a>
-<a id="__codelineno-0-221" name="__codelineno-0-221"></a><span class="sd">    \[</span>
-<a id="__codelineno-0-222" name="__codelineno-0-222"></a><span class="sd">    D(x,y) = \pi(x, y) (-1)^{f(x,y)},</span>
-<a id="__codelineno-0-223" name="__codelineno-0-223"></a><span class="sd">    \]</span>
-<a id="__codelineno-0-224" name="__codelineno-0-224"></a>
-<a id="__codelineno-0-225" name="__codelineno-0-225"></a><span class="sd">    where \(\pi(x, y)\) corresponds to `prob_mat[x, y]` and \(f(x,y)\) corresponds to `pred_mat[x, y]`, and the</span>
-<a id="__codelineno-0-226" name="__codelineno-0-226"></a><span class="sd">    quantum value is \((1 + \text{bias}) / 2\).</span>
-<a id="__codelineno-0-227" name="__codelineno-0-227"></a>
-<a id="__codelineno-0-228" name="__codelineno-0-228"></a><span class="sd">    The optimal vectors also give an optimal strategy: with anticommuting Hermitian involutions</span>
-<a id="__codelineno-0-229" name="__codelineno-0-229"></a><span class="sd">    \(C_1, \ldots, C_r\) on \(2^{\lceil r/2 \rceil}\) dimensions, Alice measures the observable</span>
-<a id="__codelineno-0-230" name="__codelineno-0-230"></a><span class="sd">    \(\sum_i u_x(i) C_i\), Bob measures \(\sum_i v_y(i) C_i^{\mathsf{T}}\), and they share the maximally</span>
-<a id="__codelineno-0-231" name="__codelineno-0-231"></a><span class="sd">    entangled state, so that \(\langle A_x \otimes B_y \rangle = \langle u_x, v_y \rangle\).</span>
-<a id="__codelineno-0-232" name="__codelineno-0-232"></a>
-<a id="__codelineno-0-233" name="__codelineno-0-233"></a><span class="sd">    Args:</span>
-<a id="__codelineno-0-234" name="__codelineno-0-234"></a><span class="sd">        solver: The cvxpy solver to use (default is cvxpy&#39;s choice).</span>
-<a id="__codelineno-0-235" name="__codelineno-0-235"></a><span class="sd">        solver_params: Extra keyword arguments passed to `cvxpy.Problem.solve`.</span>
-<a id="__codelineno-0-236" name="__codelineno-0-236"></a><span class="sd">        return_strategy: If True, also return the optimal strategy as a `QuantumStrategy` whose measurements</span>
-<a id="__codelineno-0-237" name="__codelineno-0-237"></a><span class="sd">            have outcome ``0`` for the \(+1\) eigenspace of the observable and ``1`` for the \(-1\) eigenspace</span>
-<a id="__codelineno-0-238" name="__codelineno-0-238"></a><span class="sd">            (default is False). Only available for a single repetition.</span>
-<a id="__codelineno-0-239" name="__codelineno-0-239"></a>
-<a id="__codelineno-0-240" name="__codelineno-0-240"></a><span class="sd">    Raises:</span>
-<a id="__codelineno-0-241" name="__codelineno-0-241"></a><span class="sd">        ValueError: If a strategy is requested for more than one repetition.</span>
-<a id="__codelineno-0-242" name="__codelineno-0-242"></a>
-<a id="__codelineno-0-243" name="__codelineno-0-243"></a><span class="sd">    Returns:</span>
-<a id="__codelineno-0-244" name="__codelineno-0-244"></a><span class="sd">        A value between `[0, 1]` representing the quantum value, followed by the optimal strategy when</span>
-<a id="__codelineno-0-245" name="__codelineno-0-245"></a><span class="sd">        `return_strategy` is True.</span>
-<a id="__codelineno-0-246" name="__codelineno-0-246"></a>
-<a id="__codelineno-0-247" name="__codelineno-0-247"></a><span class="sd">    &quot;&quot;&quot;</span>
-<a id="__codelineno-0-248" name="__codelineno-0-248"></a>    <span class="k">if</span> <span class="n">return_strategy</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">reps</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
-<a id="__codelineno-0-249" name="__codelineno-0-249"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;A strategy can only be returned for a single repetition of the game.&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-250" name="__codelineno-0-250"></a>    <span class="n">alice_in</span><span class="p">,</span> <span class="n">bob_in</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">prob_mat</span><span class="o">.</span><span class="n">shape</span>
-<a id="__codelineno-0-251" name="__codelineno-0-251"></a>    <span class="n">d_mat</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">prob_mat</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="mf">1.0</span><span class="p">)</span> <span class="o">**</span> <span class="bp">self</span><span class="o">.</span><span class="n">pred_mat</span>
-<a id="__codelineno-0-252" name="__codelineno-0-252"></a>
-<a id="__codelineno-0-253" name="__codelineno-0-253"></a>    <span class="c1"># gram[i, j] = &lt;w_i, w_j&gt; for the stacked vectors (u_0, ..., u_{m-1}, v_0, ..., v_{n-1}).</span>
-<a id="__codelineno-0-254" name="__codelineno-0-254"></a>    <span class="n">num_vectors</span> <span class="o">=</span> <span class="n">alice_in</span> <span class="o">+</span> <span class="n">bob_in</span>
-<a id="__codelineno-0-255" name="__codelineno-0-255"></a>    <span class="n">gram</span> <span class="o">=</span> <span class="n">cvxpy</span><span class="o">.</span><span class="n">Variable</span><span class="p">((</span><span class="n">num_vectors</span><span class="p">,</span> <span class="n">num_vectors</span><span class="p">),</span> <span class="n">symmetric</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<a id="__codelineno-0-256" name="__codelineno-0-256"></a>    <span class="n">weights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">num_vectors</span><span class="p">,</span> <span class="n">num_vectors</span><span class="p">))</span>
-<a id="__codelineno-0-257" name="__codelineno-0-257"></a>    <span class="n">weights</span><span class="p">[:</span><span class="n">alice_in</span><span class="p">,</span> <span class="n">alice_in</span><span class="p">:]</span> <span class="o">=</span> <span class="n">d_mat</span> <span class="o">/</span> <span class="mi">2</span>
-<a id="__codelineno-0-258" name="__codelineno-0-258"></a>    <span class="n">weights</span> <span class="o">+=</span> <span class="n">weights</span><span class="o">.</span><span class="n">T</span>
-<a id="__codelineno-0-259" name="__codelineno-0-259"></a>    <span class="n">objective</span> <span class="o">=</span> <span class="n">cvxpy</span><span class="o">.</span><span class="n">Maximize</span><span class="p">(</span><span class="n">cvxpy</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">cvxpy</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="n">weights</span><span class="p">,</span> <span class="n">gram</span><span class="p">)))</span>
-<a id="__codelineno-0-260" name="__codelineno-0-260"></a>    <span class="n">bias</span> <span class="o">=</span> <span class="n">solve_sdp</span><span class="p">(</span><span class="n">cvxpy</span><span class="o">.</span><span class="n">Problem</span><span class="p">(</span><span class="n">objective</span><span class="p">,</span> <span class="p">[</span><span class="n">gram</span> <span class="o">&gt;&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="n">cvxpy</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">gram</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]),</span> <span class="n">solver</span><span class="p">,</span> <span class="n">solver_params</span><span class="p">)</span>
-<a id="__codelineno-0-261" name="__codelineno-0-261"></a>
-<a id="__codelineno-0-262" name="__codelineno-0-262"></a>    <span class="c1"># It holds from (https://arxiv.org/abs/quant-ph/0608146) that the quantum value of any XOR game obeys strong</span>
-<a id="__codelineno-0-263" name="__codelineno-0-263"></a>    <span class="c1"># parallel repetition, so the value of `reps` parallel copies is the single-copy value to that power.</span>
-<a id="__codelineno-0-264" name="__codelineno-0-264"></a>    <span class="n">value</span> <span class="o">=</span> <span class="p">((</span><span class="mi">1</span> <span class="o">+</span> <span class="n">bias</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">**</span> <span class="bp">self</span><span class="o">.</span><span class="n">reps</span>
-<a id="__codelineno-0-265" name="__codelineno-0-265"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">return_strategy</span><span class="p">:</span>
-<a id="__codelineno-0-266" name="__codelineno-0-266"></a>        <span class="k">return</span> <span class="n">value</span>
-<a id="__codelineno-0-267" name="__codelineno-0-267"></a>
-<a id="__codelineno-0-268" name="__codelineno-0-268"></a>    <span class="c1"># Read the vectors off the Gram matrix, keeping only the directions that carry weight.</span>
-<a id="__codelineno-0-269" name="__codelineno-0-269"></a>    <span class="n">eigvals</span><span class="p">,</span> <span class="n">eigvecs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigh</span><span class="p">(</span><span class="n">gram</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
-<a id="__codelineno-0-270" name="__codelineno-0-270"></a>    <span class="n">keep</span> <span class="o">=</span> <span class="n">eigvals</span> <span class="o">&gt;</span> <span class="mf">1e-9</span> <span class="o">*</span> <span class="n">eigvals</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
-<a id="__codelineno-0-271" name="__codelineno-0-271"></a>    <span class="n">vectors</span> <span class="o">=</span> <span class="n">eigvecs</span><span class="p">[:,</span> <span class="n">keep</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">eigvals</span><span class="p">[</span><span class="n">keep</span><span class="p">])</span>
-<a id="__codelineno-0-272" name="__codelineno-0-272"></a>    <span class="n">vectors</span> <span class="o">/=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">vectors</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<a id="__codelineno-0-273" name="__codelineno-0-273"></a>    <span class="n">generators</span> <span class="o">=</span> <span class="n">_clifford_generators</span><span class="p">(</span><span class="n">vectors</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-<a id="__codelineno-0-274" name="__codelineno-0-274"></a>    <span class="n">dim</span> <span class="o">=</span> <span class="n">generators</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-<a id="__codelineno-0-275" name="__codelineno-0-275"></a>
-<a id="__codelineno-0-276" name="__codelineno-0-276"></a>    <span class="n">alice_obs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">einsum</span><span class="p">(</span><span class="s2">&quot;xi,ijk-&gt;xjk&quot;</span><span class="p">,</span> <span class="n">vectors</span><span class="p">[:</span><span class="n">alice_in</span><span class="p">],</span> <span class="n">generators</span><span class="p">)</span>
-<a id="__codelineno-0-277" name="__codelineno-0-277"></a>    <span class="n">bob_obs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">einsum</span><span class="p">(</span><span class="s2">&quot;yi,ijk-&gt;yjk&quot;</span><span class="p">,</span> <span class="n">vectors</span><span class="p">[</span><span class="n">alice_in</span><span class="p">:],</span> <span class="n">generators</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
-<a id="__codelineno-0-278" name="__codelineno-0-278"></a>    <span class="n">signs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">])</span>
-<a id="__codelineno-0-279" name="__codelineno-0-279"></a>    <span class="n">alice_povms</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">dim</span><span class="p">)[</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">+</span> <span class="n">signs</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="p">:,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="n">alice_obs</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span>
-<a id="__codelineno-0-280" name="__codelineno-0-280"></a>    <span class="n">bob_povms</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">dim</span><span class="p">)[</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">+</span> <span class="n">signs</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="p">:,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="n">bob_obs</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span>
-<a id="__codelineno-0-281" name="__codelineno-0-281"></a>    <span class="n">psi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">dim</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">dim</span><span class="p">)</span>
-<a id="__codelineno-0-282" name="__codelineno-0-282"></a>    <span class="n">strategy</span> <span class="o">=</span> <span class="n">QuantumStrategy</span><span class="p">(</span>
-<a id="__codelineno-0-283" name="__codelineno-0-283"></a>        <span class="n">state</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">outer</span><span class="p">(</span><span class="n">psi</span><span class="p">,</span> <span class="n">psi</span><span class="o">.</span><span class="n">conj</span><span class="p">()),</span>
-<a id="__codelineno-0-284" name="__codelineno-0-284"></a>        <span class="n">alice_povms</span><span class="o">=</span><span class="n">alice_povms</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
-<a id="__codelineno-0-285" name="__codelineno-0-285"></a>        <span class="n">bob_povms</span><span class="o">=</span><span class="n">bob_povms</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
-<a id="__codelineno-0-286" name="__codelineno-0-286"></a>    <span class="p">)</span>
-<a id="__codelineno-0-287" name="__codelineno-0-287"></a>    <span class="k">return</span> <span class="n">value</span><span class="p">,</span> <span class="n">strategy</span>
+<span class="normal"><a href="#__codelineno-0-287">287</a></span>
+<span class="normal"><a href="#__codelineno-0-288">288</a></span>
+<span class="normal"><a href="#__codelineno-0-289">289</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-203" name="__codelineno-0-203"></a><span class="k">def</span><span class="w"> </span><span class="nf">quantum_value</span><span class="p">(</span>
+<a id="__codelineno-0-204" name="__codelineno-0-204"></a>    <span class="bp">self</span><span class="p">,</span> <span class="n">solver</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">solver_params</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">return_strategy</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+<a id="__codelineno-0-205" name="__codelineno-0-205"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span> <span class="o">|</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">QuantumStrategy</span><span class="p">]:</span>
+<a id="__codelineno-0-206" name="__codelineno-0-206"></a><span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Compute the quantum value of the XOR game.</span>
+<a id="__codelineno-0-207" name="__codelineno-0-207"></a>
+<a id="__codelineno-0-208" name="__codelineno-0-208"></a><span class="sd">    By Tsirelson&#39;s theorem the quantum bias of an XOR game is the value of the semidefinite program (Lecture 6</span>
+<a id="__codelineno-0-209" name="__codelineno-0-209"></a><span class="sd">    of [@watrous2011theory])</span>
+<a id="__codelineno-0-210" name="__codelineno-0-210"></a>
+<a id="__codelineno-0-211" name="__codelineno-0-211"></a><span class="sd">    \[</span>
+<a id="__codelineno-0-212" name="__codelineno-0-212"></a><span class="sd">    \begin{equation}</span>
+<a id="__codelineno-0-213" name="__codelineno-0-213"></a><span class="sd">            \begin{aligned}</span>
+<a id="__codelineno-0-214" name="__codelineno-0-214"></a><span class="sd">                    \text{maximize:} \quad &amp; \sum_{x \in X, y \in Y} D(x, y) \langle u_x, v_y \rangle \\</span>
+<a id="__codelineno-0-215" name="__codelineno-0-215"></a><span class="sd">                    \text{subject to:} \quad &amp; \lVert u_x \rVert = \lVert v_y \rVert = 1,</span>
+<a id="__codelineno-0-216" name="__codelineno-0-216"></a><span class="sd">            \end{aligned}</span>
+<a id="__codelineno-0-217" name="__codelineno-0-217"></a><span class="sd">    \end{equation}</span>
+<a id="__codelineno-0-218" name="__codelineno-0-218"></a><span class="sd">    \]</span>
+<a id="__codelineno-0-219" name="__codelineno-0-219"></a>
+<a id="__codelineno-0-220" name="__codelineno-0-220"></a><span class="sd">    over real unit vectors, which is solved as a semidefinite program in their Gram matrix. Here \(D\) is the</span>
+<a id="__codelineno-0-221" name="__codelineno-0-221"></a><span class="sd">    matrix</span>
+<a id="__codelineno-0-222" name="__codelineno-0-222"></a>
+<a id="__codelineno-0-223" name="__codelineno-0-223"></a><span class="sd">    \[</span>
+<a id="__codelineno-0-224" name="__codelineno-0-224"></a><span class="sd">    D(x,y) = \pi(x, y) (-1)^{f(x,y)},</span>
+<a id="__codelineno-0-225" name="__codelineno-0-225"></a><span class="sd">    \]</span>
+<a id="__codelineno-0-226" name="__codelineno-0-226"></a>
+<a id="__codelineno-0-227" name="__codelineno-0-227"></a><span class="sd">    where \(\pi(x, y)\) corresponds to `prob_mat[x, y]` and \(f(x,y)\) corresponds to `pred_mat[x, y]`, and the</span>
+<a id="__codelineno-0-228" name="__codelineno-0-228"></a><span class="sd">    quantum value is \((1 + \text{bias}) / 2\).</span>
+<a id="__codelineno-0-229" name="__codelineno-0-229"></a>
+<a id="__codelineno-0-230" name="__codelineno-0-230"></a><span class="sd">    The optimal vectors also give an optimal strategy: with anticommuting Hermitian involutions</span>
+<a id="__codelineno-0-231" name="__codelineno-0-231"></a><span class="sd">    \(C_1, \ldots, C_r\) on \(2^{\lceil r/2 \rceil}\) dimensions, Alice measures the observable</span>
+<a id="__codelineno-0-232" name="__codelineno-0-232"></a><span class="sd">    \(\sum_i u_x(i) C_i\), Bob measures \(\sum_i v_y(i) C_i^{\mathsf{T}}\), and they share the maximally</span>
+<a id="__codelineno-0-233" name="__codelineno-0-233"></a><span class="sd">    entangled state, so that \(\langle A_x \otimes B_y \rangle = \langle u_x, v_y \rangle\).</span>
+<a id="__codelineno-0-234" name="__codelineno-0-234"></a>
+<a id="__codelineno-0-235" name="__codelineno-0-235"></a><span class="sd">    Args:</span>
+<a id="__codelineno-0-236" name="__codelineno-0-236"></a><span class="sd">        solver: The cvxpy solver to use (default is cvxpy&#39;s choice).</span>
+<a id="__codelineno-0-237" name="__codelineno-0-237"></a><span class="sd">        solver_params: Extra keyword arguments passed to `cvxpy.Problem.solve`.</span>
+<a id="__codelineno-0-238" name="__codelineno-0-238"></a><span class="sd">        return_strategy: If True, also return the optimal strategy as a `QuantumStrategy` whose measurements</span>
+<a id="__codelineno-0-239" name="__codelineno-0-239"></a><span class="sd">            have outcome ``0`` for the \(+1\) eigenspace of the observable and ``1`` for the \(-1\) eigenspace</span>
+<a id="__codelineno-0-240" name="__codelineno-0-240"></a><span class="sd">            (default is False). Only available for a single repetition.</span>
+<a id="__codelineno-0-241" name="__codelineno-0-241"></a>
+<a id="__codelineno-0-242" name="__codelineno-0-242"></a><span class="sd">    Raises:</span>
+<a id="__codelineno-0-243" name="__codelineno-0-243"></a><span class="sd">        ValueError: If a strategy is requested for more than one repetition.</span>
+<a id="__codelineno-0-244" name="__codelineno-0-244"></a>
+<a id="__codelineno-0-245" name="__codelineno-0-245"></a><span class="sd">    Returns:</span>
+<a id="__codelineno-0-246" name="__codelineno-0-246"></a><span class="sd">        A value between `[0, 1]` representing the quantum value, followed by the optimal strategy when</span>
+<a id="__codelineno-0-247" name="__codelineno-0-247"></a><span class="sd">        `return_strategy` is True.</span>
+<a id="__codelineno-0-248" name="__codelineno-0-248"></a>
+<a id="__codelineno-0-249" name="__codelineno-0-249"></a><span class="sd">    &quot;&quot;&quot;</span>
+<a id="__codelineno-0-250" name="__codelineno-0-250"></a>    <span class="k">if</span> <span class="n">return_strategy</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">reps</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+<a id="__codelineno-0-251" name="__codelineno-0-251"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;A strategy can only be returned for a single repetition of the game.&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-252" name="__codelineno-0-252"></a>    <span class="n">alice_in</span><span class="p">,</span> <span class="n">bob_in</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">prob_mat</span><span class="o">.</span><span class="n">shape</span>
+<a id="__codelineno-0-253" name="__codelineno-0-253"></a>    <span class="n">d_mat</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">prob_mat</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="mf">1.0</span><span class="p">)</span> <span class="o">**</span> <span class="bp">self</span><span class="o">.</span><span class="n">pred_mat</span>
+<a id="__codelineno-0-254" name="__codelineno-0-254"></a>
+<a id="__codelineno-0-255" name="__codelineno-0-255"></a>    <span class="c1"># gram[i, j] = &lt;w_i, w_j&gt; for the stacked vectors (u_0, ..., u_{m-1}, v_0, ..., v_{n-1}).</span>
+<a id="__codelineno-0-256" name="__codelineno-0-256"></a>    <span class="n">num_vectors</span> <span class="o">=</span> <span class="n">alice_in</span> <span class="o">+</span> <span class="n">bob_in</span>
+<a id="__codelineno-0-257" name="__codelineno-0-257"></a>    <span class="n">gram</span> <span class="o">=</span> <span class="n">cvxpy</span><span class="o">.</span><span class="n">Variable</span><span class="p">((</span><span class="n">num_vectors</span><span class="p">,</span> <span class="n">num_vectors</span><span class="p">),</span> <span class="n">symmetric</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<a id="__codelineno-0-258" name="__codelineno-0-258"></a>    <span class="n">weights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">num_vectors</span><span class="p">,</span> <span class="n">num_vectors</span><span class="p">))</span>
+<a id="__codelineno-0-259" name="__codelineno-0-259"></a>    <span class="n">weights</span><span class="p">[:</span><span class="n">alice_in</span><span class="p">,</span> <span class="n">alice_in</span><span class="p">:]</span> <span class="o">=</span> <span class="n">d_mat</span> <span class="o">/</span> <span class="mi">2</span>
+<a id="__codelineno-0-260" name="__codelineno-0-260"></a>    <span class="n">weights</span> <span class="o">+=</span> <span class="n">weights</span><span class="o">.</span><span class="n">T</span>
+<a id="__codelineno-0-261" name="__codelineno-0-261"></a>    <span class="n">objective</span> <span class="o">=</span> <span class="n">cvxpy</span><span class="o">.</span><span class="n">Maximize</span><span class="p">(</span><span class="n">cvxpy</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">cvxpy</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="n">weights</span><span class="p">,</span> <span class="n">gram</span><span class="p">)))</span>
+<a id="__codelineno-0-262" name="__codelineno-0-262"></a>    <span class="n">bias</span> <span class="o">=</span> <span class="n">solve_sdp</span><span class="p">(</span><span class="n">cvxpy</span><span class="o">.</span><span class="n">Problem</span><span class="p">(</span><span class="n">objective</span><span class="p">,</span> <span class="p">[</span><span class="n">gram</span> <span class="o">&gt;&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="n">cvxpy</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">gram</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]),</span> <span class="n">solver</span><span class="p">,</span> <span class="n">solver_params</span><span class="p">)</span>
+<a id="__codelineno-0-263" name="__codelineno-0-263"></a>
+<a id="__codelineno-0-264" name="__codelineno-0-264"></a>    <span class="c1"># It holds from (https://arxiv.org/abs/quant-ph/0608146) that the quantum value of any XOR game obeys strong</span>
+<a id="__codelineno-0-265" name="__codelineno-0-265"></a>    <span class="c1"># parallel repetition, so the value of `reps` parallel copies is the single-copy value to that power.</span>
+<a id="__codelineno-0-266" name="__codelineno-0-266"></a>    <span class="n">value</span> <span class="o">=</span> <span class="p">((</span><span class="mi">1</span> <span class="o">+</span> <span class="n">bias</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">**</span> <span class="bp">self</span><span class="o">.</span><span class="n">reps</span>
+<a id="__codelineno-0-267" name="__codelineno-0-267"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">return_strategy</span><span class="p">:</span>
+<a id="__codelineno-0-268" name="__codelineno-0-268"></a>        <span class="k">return</span> <span class="n">value</span>
+<a id="__codelineno-0-269" name="__codelineno-0-269"></a>
+<a id="__codelineno-0-270" name="__codelineno-0-270"></a>    <span class="c1"># Read the vectors off the Gram matrix, keeping only the directions that carry weight.</span>
+<a id="__codelineno-0-271" name="__codelineno-0-271"></a>    <span class="n">eigvals</span><span class="p">,</span> <span class="n">eigvecs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigh</span><span class="p">(</span><span class="n">gram</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+<a id="__codelineno-0-272" name="__codelineno-0-272"></a>    <span class="n">keep</span> <span class="o">=</span> <span class="n">eigvals</span> <span class="o">&gt;</span> <span class="mf">1e-9</span> <span class="o">*</span> <span class="n">eigvals</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+<a id="__codelineno-0-273" name="__codelineno-0-273"></a>    <span class="n">vectors</span> <span class="o">=</span> <span class="n">eigvecs</span><span class="p">[:,</span> <span class="n">keep</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">eigvals</span><span class="p">[</span><span class="n">keep</span><span class="p">])</span>
+<a id="__codelineno-0-274" name="__codelineno-0-274"></a>    <span class="n">vectors</span> <span class="o">/=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">vectors</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<a id="__codelineno-0-275" name="__codelineno-0-275"></a>    <span class="n">generators</span> <span class="o">=</span> <span class="n">_clifford_generators</span><span class="p">(</span><span class="n">vectors</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<a id="__codelineno-0-276" name="__codelineno-0-276"></a>    <span class="n">dim</span> <span class="o">=</span> <span class="n">generators</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<a id="__codelineno-0-277" name="__codelineno-0-277"></a>
+<a id="__codelineno-0-278" name="__codelineno-0-278"></a>    <span class="n">alice_obs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">einsum</span><span class="p">(</span><span class="s2">&quot;xi,ijk-&gt;xjk&quot;</span><span class="p">,</span> <span class="n">vectors</span><span class="p">[:</span><span class="n">alice_in</span><span class="p">],</span> <span class="n">generators</span><span class="p">)</span>
+<a id="__codelineno-0-279" name="__codelineno-0-279"></a>    <span class="n">bob_obs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">einsum</span><span class="p">(</span><span class="s2">&quot;yi,ijk-&gt;yjk&quot;</span><span class="p">,</span> <span class="n">vectors</span><span class="p">[</span><span class="n">alice_in</span><span class="p">:],</span> <span class="n">generators</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<a id="__codelineno-0-280" name="__codelineno-0-280"></a>    <span class="n">signs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">])</span>
+<a id="__codelineno-0-281" name="__codelineno-0-281"></a>    <span class="n">alice_povms</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">dim</span><span class="p">)[</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">+</span> <span class="n">signs</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="p">:,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="n">alice_obs</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span>
+<a id="__codelineno-0-282" name="__codelineno-0-282"></a>    <span class="n">bob_povms</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">dim</span><span class="p">)[</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">+</span> <span class="n">signs</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="p">:,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="n">bob_obs</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span>
+<a id="__codelineno-0-283" name="__codelineno-0-283"></a>    <span class="n">psi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">dim</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">dim</span><span class="p">)</span>
+<a id="__codelineno-0-284" name="__codelineno-0-284"></a>    <span class="n">strategy</span> <span class="o">=</span> <span class="n">QuantumStrategy</span><span class="p">(</span>
+<a id="__codelineno-0-285" name="__codelineno-0-285"></a>        <span class="n">state</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">outer</span><span class="p">(</span><span class="n">psi</span><span class="p">,</span> <span class="n">psi</span><span class="o">.</span><span class="n">conj</span><span class="p">()),</span>
+<a id="__codelineno-0-286" name="__codelineno-0-286"></a>        <span class="n">alice_povms</span><span class="o">=</span><span class="n">alice_povms</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+<a id="__codelineno-0-287" name="__codelineno-0-287"></a>        <span class="n">bob_povms</span><span class="o">=</span><span class="n">bob_povms</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+<a id="__codelineno-0-288" name="__codelineno-0-288"></a>    <span class="p">)</span>
+<a id="__codelineno-0-289" name="__codelineno-0-289"></a>    <span class="k">return</span> <span class="n">value</span><span class="p">,</span> <span class="n">strategy</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
@@ -11736,9 +11736,7 @@ have outcome <code>0</code> for the <span class="arithmatex">\(+1\)</span> eigen
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>toqito/nonlocal_games/xor_game.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-289">289</a></span>
-<span class="normal"><a href="#__codelineno-0-290">290</a></span>
-<span class="normal"><a href="#__codelineno-0-291">291</a></span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-291">291</a></span>
 <span class="normal"><a href="#__codelineno-0-292">292</a></span>
 <span class="normal"><a href="#__codelineno-0-293">293</a></span>
 <span class="normal"><a href="#__codelineno-0-294">294</a></span>
@@ -11746,17 +11744,19 @@ have outcome <code>0</code> for the <span class="arithmatex">\(+1\)</span> eigen
 <span class="normal"><a href="#__codelineno-0-296">296</a></span>
 <span class="normal"><a href="#__codelineno-0-297">297</a></span>
 <span class="normal"><a href="#__codelineno-0-298">298</a></span>
-<span class="normal"><a href="#__codelineno-0-299">299</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-289" name="__codelineno-0-289"></a><span class="k">def</span><span class="w"> </span><span class="nf">quantum_strategy_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">strategy</span><span class="p">:</span> <span class="n">QuantumStrategy</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-<a id="__codelineno-0-290" name="__codelineno-0-290"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute the winning probability of a quantum strategy, as for the equivalent `NonlocalGame`.</span>
-<a id="__codelineno-0-291" name="__codelineno-0-291"></a>
-<a id="__codelineno-0-292" name="__codelineno-0-292"></a><span class="sd">    Args:</span>
-<a id="__codelineno-0-293" name="__codelineno-0-293"></a><span class="sd">        strategy: A shared state on Alice&#39;s and Bob&#39;s systems and their measurements.</span>
-<a id="__codelineno-0-294" name="__codelineno-0-294"></a>
-<a id="__codelineno-0-295" name="__codelineno-0-295"></a><span class="sd">    Returns:</span>
-<a id="__codelineno-0-296" name="__codelineno-0-296"></a><span class="sd">        The probability of winning the game with the strategy.</span>
-<a id="__codelineno-0-297" name="__codelineno-0-297"></a>
-<a id="__codelineno-0-298" name="__codelineno-0-298"></a><span class="sd">    &quot;&quot;&quot;</span>
-<a id="__codelineno-0-299" name="__codelineno-0-299"></a>    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_nonlocal_game</span><span class="p">()</span><span class="o">.</span><span class="n">quantum_strategy_value</span><span class="p">(</span><span class="n">strategy</span><span class="p">)</span>
+<span class="normal"><a href="#__codelineno-0-299">299</a></span>
+<span class="normal"><a href="#__codelineno-0-300">300</a></span>
+<span class="normal"><a href="#__codelineno-0-301">301</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-291" name="__codelineno-0-291"></a><span class="k">def</span><span class="w"> </span><span class="nf">quantum_strategy_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">strategy</span><span class="p">:</span> <span class="n">QuantumStrategy</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<a id="__codelineno-0-292" name="__codelineno-0-292"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute the winning probability of a quantum strategy, as for the equivalent `NonlocalGame`.</span>
+<a id="__codelineno-0-293" name="__codelineno-0-293"></a>
+<a id="__codelineno-0-294" name="__codelineno-0-294"></a><span class="sd">    Args:</span>
+<a id="__codelineno-0-295" name="__codelineno-0-295"></a><span class="sd">        strategy: A shared state on Alice&#39;s and Bob&#39;s systems and their measurements.</span>
+<a id="__codelineno-0-296" name="__codelineno-0-296"></a>
+<a id="__codelineno-0-297" name="__codelineno-0-297"></a><span class="sd">    Returns:</span>
+<a id="__codelineno-0-298" name="__codelineno-0-298"></a><span class="sd">        The probability of winning the game with the strategy.</span>
+<a id="__codelineno-0-299" name="__codelineno-0-299"></a>
+<a id="__codelineno-0-300" name="__codelineno-0-300"></a><span class="sd">    &quot;&quot;&quot;</span>
+<a id="__codelineno-0-301" name="__codelineno-0-301"></a>    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_nonlocal_game</span><span class="p">()</span><span class="o">.</span><span class="n">quantum_strategy_value</span><span class="p">(</span><span class="n">strategy</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
@@ -11793,21 +11793,21 @@ have outcome <code>0</code> for the <span class="arithmatex">\(+1\)</span> eigen
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>toqito/nonlocal_games/xor_game.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-301">301</a></span>
-<span class="normal"><a href="#__codelineno-0-302">302</a></span>
-<span class="normal"><a href="#__codelineno-0-303">303</a></span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-303">303</a></span>
 <span class="normal"><a href="#__codelineno-0-304">304</a></span>
 <span class="normal"><a href="#__codelineno-0-305">305</a></span>
 <span class="normal"><a href="#__codelineno-0-306">306</a></span>
 <span class="normal"><a href="#__codelineno-0-307">307</a></span>
-<span class="normal"><a href="#__codelineno-0-308">308</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-301" name="__codelineno-0-301"></a><span class="k">def</span><span class="w"> </span><span class="nf">classical_value</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-<a id="__codelineno-0-302" name="__codelineno-0-302"></a><span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Compute the classical value of the XOR game.</span>
-<a id="__codelineno-0-303" name="__codelineno-0-303"></a>
-<a id="__codelineno-0-304" name="__codelineno-0-304"></a><span class="sd">    Returns:</span>
-<a id="__codelineno-0-305" name="__codelineno-0-305"></a><span class="sd">        A value between `[0, 1]` representing the classical value.</span>
-<a id="__codelineno-0-306" name="__codelineno-0-306"></a>
-<a id="__codelineno-0-307" name="__codelineno-0-307"></a><span class="sd">    &quot;&quot;&quot;</span>
-<a id="__codelineno-0-308" name="__codelineno-0-308"></a>    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_nonlocal_game</span><span class="p">()</span><span class="o">.</span><span class="n">classical_value</span><span class="p">()</span>
+<span class="normal"><a href="#__codelineno-0-308">308</a></span>
+<span class="normal"><a href="#__codelineno-0-309">309</a></span>
+<span class="normal"><a href="#__codelineno-0-310">310</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-303" name="__codelineno-0-303"></a><span class="k">def</span><span class="w"> </span><span class="nf">classical_value</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<a id="__codelineno-0-304" name="__codelineno-0-304"></a><span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Compute the classical value of the XOR game.</span>
+<a id="__codelineno-0-305" name="__codelineno-0-305"></a>
+<a id="__codelineno-0-306" name="__codelineno-0-306"></a><span class="sd">    Returns:</span>
+<a id="__codelineno-0-307" name="__codelineno-0-307"></a><span class="sd">        A value between `[0, 1]` representing the classical value.</span>
+<a id="__codelineno-0-308" name="__codelineno-0-308"></a>
+<a id="__codelineno-0-309" name="__codelineno-0-309"></a><span class="sd">    &quot;&quot;&quot;</span>
+<a id="__codelineno-0-310" name="__codelineno-0-310"></a>    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_nonlocal_game</span><span class="p">()</span><span class="o">.</span><span class="n">classical_value</span><span class="p">()</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
@@ -11845,25 +11845,25 @@ have outcome <code>0</code> for the <span class="arithmatex">\(+1\)</span> eigen
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>toqito/nonlocal_games/xor_game.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-310">310</a></span>
-<span class="normal"><a href="#__codelineno-0-311">311</a></span>
-<span class="normal"><a href="#__codelineno-0-312">312</a></span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-312">312</a></span>
 <span class="normal"><a href="#__codelineno-0-313">313</a></span>
 <span class="normal"><a href="#__codelineno-0-314">314</a></span>
 <span class="normal"><a href="#__codelineno-0-315">315</a></span>
 <span class="normal"><a href="#__codelineno-0-316">316</a></span>
 <span class="normal"><a href="#__codelineno-0-317">317</a></span>
 <span class="normal"><a href="#__codelineno-0-318">318</a></span>
-<span class="normal"><a href="#__codelineno-0-319">319</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-310" name="__codelineno-0-310"></a><span class="k">def</span><span class="w"> </span><span class="nf">nonsignaling_value</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-<a id="__codelineno-0-311" name="__codelineno-0-311"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute the nonsignaling value of an XOR game.</span>
-<a id="__codelineno-0-312" name="__codelineno-0-312"></a>
-<a id="__codelineno-0-313" name="__codelineno-0-313"></a><span class="sd">    Here, the existing function in the `NonlocalGame` class is called.</span>
+<span class="normal"><a href="#__codelineno-0-319">319</a></span>
+<span class="normal"><a href="#__codelineno-0-320">320</a></span>
+<span class="normal"><a href="#__codelineno-0-321">321</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-312" name="__codelineno-0-312"></a><span class="k">def</span><span class="w"> </span><span class="nf">nonsignaling_value</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<a id="__codelineno-0-313" name="__codelineno-0-313"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute the nonsignaling value of an XOR game.</span>
 <a id="__codelineno-0-314" name="__codelineno-0-314"></a>
-<a id="__codelineno-0-315" name="__codelineno-0-315"></a><span class="sd">    Returns:</span>
-<a id="__codelineno-0-316" name="__codelineno-0-316"></a><span class="sd">        A value between `[0, 1]` representing the nonsignaling value.</span>
-<a id="__codelineno-0-317" name="__codelineno-0-317"></a>
-<a id="__codelineno-0-318" name="__codelineno-0-318"></a><span class="sd">    &quot;&quot;&quot;</span>
-<a id="__codelineno-0-319" name="__codelineno-0-319"></a>    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_nonlocal_game</span><span class="p">()</span><span class="o">.</span><span class="n">nonsignaling_value</span><span class="p">()</span>
+<a id="__codelineno-0-315" name="__codelineno-0-315"></a><span class="sd">    Here, the existing function in the `NonlocalGame` class is called.</span>
+<a id="__codelineno-0-316" name="__codelineno-0-316"></a>
+<a id="__codelineno-0-317" name="__codelineno-0-317"></a><span class="sd">    Returns:</span>
+<a id="__codelineno-0-318" name="__codelineno-0-318"></a><span class="sd">        A value between `[0, 1]` representing the nonsignaling value.</span>
+<a id="__codelineno-0-319" name="__codelineno-0-319"></a>
+<a id="__codelineno-0-320" name="__codelineno-0-320"></a><span class="sd">    &quot;&quot;&quot;</span>
+<a id="__codelineno-0-321" name="__codelineno-0-321"></a>    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_nonlocal_game</span><span class="p">()</span><span class="o">.</span><span class="n">nonsignaling_value</span><span class="p">()</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
@@ -11884,6 +11884,7 @@ have outcome <code>0</code> for the <span class="arithmatex">\(+1\)</span> eigen
     <div class="doc doc-contents ">
 
         <p>Given an XOR game, compute a predicate matrix representing the more generic <code>NonlocalGame</code> equivalent.</p>
+<p>The equivalent game is built once and reused by the methods that delegate to it.</p>
 
 
 <p><span class="doc-section-title">Returns:</span></p>
@@ -11900,9 +11901,7 @@ have outcome <code>0</code> for the <span class="arithmatex">\(+1\)</span> eigen
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>toqito/nonlocal_games/xor_game.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-321">321</a></span>
-<span class="normal"><a href="#__codelineno-0-322">322</a></span>
-<span class="normal"><a href="#__codelineno-0-323">323</a></span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-323">323</a></span>
 <span class="normal"><a href="#__codelineno-0-324">324</a></span>
 <span class="normal"><a href="#__codelineno-0-325">325</a></span>
 <span class="normal"><a href="#__codelineno-0-326">326</a></span>
@@ -11911,22 +11910,16 @@ have outcome <code>0</code> for the <span class="arithmatex">\(+1\)</span> eigen
 <span class="normal"><a href="#__codelineno-0-329">329</a></span>
 <span class="normal"><a href="#__codelineno-0-330">330</a></span>
 <span class="normal"><a href="#__codelineno-0-331">331</a></span>
-<span class="normal"><a href="#__codelineno-0-332">332</a></span>
-<span class="normal"><a href="#__codelineno-0-333">333</a></span>
-<span class="normal"><a href="#__codelineno-0-334">334</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-321" name="__codelineno-0-321"></a><span class="k">def</span><span class="w"> </span><span class="nf">to_nonlocal_game</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NonlocalGame</span><span class="p">:</span>
-<a id="__codelineno-0-322" name="__codelineno-0-322"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Given an XOR game, compute a predicate matrix representing the more generic `NonlocalGame` equivalent.</span>
-<a id="__codelineno-0-323" name="__codelineno-0-323"></a>
-<a id="__codelineno-0-324" name="__codelineno-0-324"></a><span class="sd">    Returns:</span>
-<a id="__codelineno-0-325" name="__codelineno-0-325"></a><span class="sd">        A `NonlocalGame` object equivalent to the XOR game.</span>
-<a id="__codelineno-0-326" name="__codelineno-0-326"></a>
-<a id="__codelineno-0-327" name="__codelineno-0-327"></a><span class="sd">    &quot;&quot;&quot;</span>
-<a id="__codelineno-0-328" name="__codelineno-0-328"></a>    <span class="n">q_0</span><span class="p">,</span> <span class="n">q_1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">prob_mat</span><span class="o">.</span><span class="n">shape</span>
-<a id="__codelineno-0-329" name="__codelineno-0-329"></a>    <span class="c1"># Answers (a, b) win on questions (x, y) exactly when a XOR b equals the predicate bit.</span>
-<a id="__codelineno-0-330" name="__codelineno-0-330"></a>    <span class="n">nlg_pred_mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">q_0</span><span class="p">,</span> <span class="n">q_1</span><span class="p">))</span>
-<a id="__codelineno-0-331" name="__codelineno-0-331"></a>    <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
-<a id="__codelineno-0-332" name="__codelineno-0-332"></a>        <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
-<a id="__codelineno-0-333" name="__codelineno-0-333"></a>            <span class="n">nlg_pred_mat</span><span class="p">[</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pred_mat</span> <span class="o">==</span> <span class="p">(</span><span class="n">a</span> <span class="o">^</span> <span class="n">b</span><span class="p">)</span>
-<a id="__codelineno-0-334" name="__codelineno-0-334"></a>    <span class="k">return</span> <span class="n">NonlocalGame</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">prob_mat</span><span class="p">,</span> <span class="n">nlg_pred_mat</span><span class="p">,</span> <span class="n">reps</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">reps</span><span class="p">)</span>
+<span class="normal"><a href="#__codelineno-0-332">332</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-323" name="__codelineno-0-323"></a><span class="k">def</span><span class="w"> </span><span class="nf">to_nonlocal_game</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NonlocalGame</span><span class="p">:</span>
+<a id="__codelineno-0-324" name="__codelineno-0-324"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Given an XOR game, compute a predicate matrix representing the more generic `NonlocalGame` equivalent.</span>
+<a id="__codelineno-0-325" name="__codelineno-0-325"></a>
+<a id="__codelineno-0-326" name="__codelineno-0-326"></a><span class="sd">    The equivalent game is built once and reused by the methods that delegate to it.</span>
+<a id="__codelineno-0-327" name="__codelineno-0-327"></a>
+<a id="__codelineno-0-328" name="__codelineno-0-328"></a><span class="sd">    Returns:</span>
+<a id="__codelineno-0-329" name="__codelineno-0-329"></a><span class="sd">        A `NonlocalGame` object equivalent to the XOR game.</span>
+<a id="__codelineno-0-330" name="__codelineno-0-330"></a>
+<a id="__codelineno-0-331" name="__codelineno-0-331"></a><span class="sd">    &quot;&quot;&quot;</span>
+<a id="__codelineno-0-332" name="__codelineno-0-332"></a>    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_nonlocal_game</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
