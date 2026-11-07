@@ -3,7 +3,6 @@
 import cvxpy
 import numpy as np
 import pytest
-from cvxpy.atoms.affine.vstack import Vstack
 
 from toqito.matrix_ops import partial_transpose
 from toqito.states import bell
@@ -723,11 +722,46 @@ def test_partial_transpose_non_square_matrix_2():
         partial_transpose(rho, 2, [2])
 
 
-def test_partial_transpose_cvxpy():
-    """Test partial transpose on cvxpy objects."""
-    x_var = cvxpy.Variable((4, 4), hermitian=True)
-    x_pt = partial_transpose(x_var)
-    np.testing.assert_equal(isinstance(x_pt, Vstack), True)
+@pytest.mark.parametrize(
+    "dim_total, sys_arg, dim_arg",
+    [
+        (4, None, None),
+        (4, 0, None),
+        (4, [1], 2.0),
+        (6, [0], [2, 3]),
+        (6, np.array([1]), np.array([2, 3])),
+        (12, [1], [3, 4]),
+        (16, [0, 2], [2, 2, 2, 2]),
+        (16, [1, 2, 3], [2, 2, 2, 2]),
+        (12, [0, 2], [2, 3, 2]),
+    ],
+)
+def test_partial_transpose_cvxpy(dim_total, sys_arg, dim_arg):
+    """The cvxpy expression evaluates to the numeric partial transpose."""
+    rng = np.random.default_rng(dim_total)
+    mat = rng.normal(size=(dim_total, dim_total)) + 1j * rng.normal(size=(dim_total, dim_total))
+    mat = mat + mat.conj().T
+    x_var = cvxpy.Variable((dim_total, dim_total), hermitian=True)
+    x_var.value = mat
+    x_pt = partial_transpose(x_var, sys_arg, dim_arg)
+    expected = partial_transpose(mat, sys_arg, dim_arg)
+    assert isinstance(x_pt, cvxpy.Expression)
+    assert x_pt.shape == expected.shape
+    np.testing.assert_allclose(x_pt.value, expected)
+
+
+@pytest.mark.parametrize("sys_arg", [[0], [1]])
+def test_partial_transpose_cvxpy_unequal_row_column_dims(sys_arg):
+    """Subsystems with differing row and column dimensions go through the entrywise fallback."""
+    rng = np.random.default_rng(7)
+    mat = rng.normal(size=(6, 6))
+    x_var = cvxpy.Variable((6, 6))
+    x_var.value = mat
+    dim_arg = [[2, 3], [3, 2]]
+    x_pt = partial_transpose(x_var, sys_arg, dim_arg)
+    expected = partial_transpose(mat, sys_arg, dim_arg)
+    assert x_pt.shape == expected.shape
+    np.testing.assert_allclose(x_pt.value, expected)
 
 
 def test_partial_transpose_three_subsystems():

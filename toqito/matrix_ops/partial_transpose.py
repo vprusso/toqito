@@ -1,9 +1,11 @@
 """Generates the partial transpose of a matrix."""
 
+import cvxpy
 import numpy as np
 from cvxpy.expressions.expression import Expression
 from cvxpy.expressions.variable import Variable
 
+from toqito.matrix_ops._vec_maps import _vec_partial_transpose_perm
 from toqito.matrix_ops.expr_as_np_array import expr_as_np_array
 from toqito.matrix_ops.np_array_as_expr import np_array_as_expr
 from toqito.perms import permute_systems
@@ -116,14 +118,6 @@ def partial_transpose(
     if not isinstance(sys, int):
         if sys is None:
             sys = [1]
-    # If the input matrix is a CVXPY expression for an SDP, we convert it to a
-    # NumPy object array, perform the partial transpose recursively, and
-    # convert it back to a CVXPY expression.
-    if isinstance(rho, (Expression, Variable)):
-        rho_np = expr_as_np_array(rho)
-        transposed_rho = partial_transpose(rho_np, sys, dim)
-        transposed_rho = np_array_as_expr(transposed_rho)
-        return transposed_rho
 
     sqrt_rho_dims = np.round(np.sqrt(list(rho.shape)))
 
@@ -157,16 +151,28 @@ def partial_transpose(
         dim = dim.T.flatten()
         dim = np.array([dim, dim])
 
-    # Fast path: square / equal-dimension subsystems with a numeric (non-cvxpy)
-    # input. Here the row and column subsystem dimensions coincide, so the
-    # partial transpose is a pure index swap on a `(dim + dim)` tensor: reshape
-    # `rho` into a rank-`2 * num_sys` tensor, swap each traced subsystem's row
-    # axis `s` with its column axis `s + num_sys`, then reshape back. This
-    # avoids the gathered full copy that `permute_systems` materializes. The
-    # genuine non-square case (a 2-row `dim` with differing row/column
-    # dimensions) and cvxpy/object inputs fall through to the `permute_systems`
-    # implementation below, which is left unchanged.
-    if np.issubdtype(rho.dtype, np.number) and np.array_equal(dim[0, :], dim[1, :]):
+    square_subsystems = np.array_equal(dim[0, :], dim[1, :])
+
+    # A cvxpy expression on equal row and column subsystem dimensions is
+    # transposed by permuting its row-major vectorization, which canonicalizes
+    # orders of magnitude faster than rebuilding the result from scalar
+    # entries. The genuine non-square case still goes through the entrywise
+    # object array.
+    if isinstance(rho, Expression):
+        if not square_subsystems:
+            return np_array_as_expr(partial_transpose(expr_as_np_array(rho), sys, dim))
+        perm = _vec_partial_transpose_perm([int(d) for d in dim[0, :]], [int(s) for s in sys])
+        return cvxpy.reshape(cvxpy.vec(rho, order="C")[perm], rho.shape, order="C")
+
+    # Fast path: square / equal-dimension subsystems with a numeric input. Here
+    # the row and column subsystem dimensions coincide, so the partial
+    # transpose is a pure index swap on a `(dim + dim)` tensor: reshape `rho`
+    # into a rank-`2 * num_sys` tensor, swap each traced subsystem's row axis
+    # `s` with its column axis `s + num_sys`, then reshape back. This avoids
+    # the gathered full copy that `permute_systems` materializes. The genuine
+    # non-square case (a 2-row `dim` with differing row/column dimensions) and
+    # object inputs fall through to the `permute_systems` implementation below.
+    if np.issubdtype(rho.dtype, np.number) and square_subsystems:
         sub_dims = dim[0, :].astype(int)
         axes = list(range(2 * num_sys))
         for s in sys:

@@ -8,17 +8,17 @@ import scipy
 
 from toqito._sdp import solve_sdp
 from toqito.channels.realignment import realignment
-from toqito.matrix_props.is_hermitian import is_hermitian
-from toqito.matrix_props.kp_norm import kp_norm
-from toqito.perms.swap import swap
-from toqito.state_ops.schmidt_decomposition import schmidt_decomposition
-from toqito.state_opt._symmetric_extension import (
-    SymmetricExtension,
+from toqito.matrix_ops._vec_maps import (
     _apply_vec_map,
     _vec_kron_identity,
     _vec_partial_trace,
     _vec_partial_transpose_perm,
 )
+from toqito.matrix_props.is_hermitian import is_hermitian
+from toqito.matrix_props.kp_norm import kp_norm
+from toqito.perms.swap import swap
+from toqito.state_ops.schmidt_decomposition import schmidt_decomposition
+from toqito.state_opt._symmetric_extension import SymmetricExtension
 from toqito.state_props.schmidt_rank import schmidt_rank
 from toqito.state_props.sk_vec_norm import sk_vector_norm
 from toqito.states.max_entangled import max_entangled
