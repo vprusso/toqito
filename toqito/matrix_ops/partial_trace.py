@@ -4,8 +4,7 @@ import numpy as np
 from cvxpy.expressions.expression import Expression
 from cvxpy.expressions.variable import Variable
 
-from toqito.matrix_ops.expr_as_np_array import expr_as_np_array
-from toqito.matrix_ops.np_array_as_expr import np_array_as_expr
+from toqito.matrix_ops._vec_maps import _apply_vec_map, _vec_partial_trace
 from toqito.perms import permute_systems
 
 
@@ -123,14 +122,6 @@ def partial_trace(
     if not isinstance(sys, int):
         if sys is None:
             sys = [1]
-    # If the input matrix is a CVXPY expression for an SDP, we convert it to a
-    # NumPy object array, perform the partial trace recursively, and convert it
-    # back to a CVXPY expression.
-    if isinstance(input_mat, (Expression, Variable)):
-        rho_np = expr_as_np_array(input_mat)
-        traced_rho = partial_trace(rho_np, sys, dim)
-        traced_rho = np_array_as_expr(traced_rho)
-        return traced_rho
 
     # Ensure input_mat is square.
     if input_mat.ndim != 2 or input_mat.shape[0] != input_mat.shape[1]:
@@ -184,13 +175,20 @@ def partial_trace(
     sub_prod = prod_dim // prod_dim_sys
     sub_sys_size = prod_dim_sys
 
-    # Fast path: numeric (non-cvxpy) input. `input_mat` is square with equal row
-    # and column subsystem dimensions, so the partial trace is a direct tensor
+    # A cvxpy expression is traced by one sparse linear map on its row-major
+    # vectorization, which canonicalizes orders of magnitude faster than
+    # rebuilding the result from scalar entries.
+    if isinstance(input_mat, Expression):
+        vec_map = _vec_partial_trace([int(d) for d in dim], [int(s) for s in sys])
+        return _apply_vec_map(vec_map, input_mat, int(sub_prod))
+
+    # Fast path: numeric input. `input_mat` is square with equal row and column
+    # subsystem dimensions, so the partial trace is a direct tensor
     # contraction: reshape into a `(dim + dim)` tensor and contract each traced
     # subsystem's row index against its matching column index via `np.einsum`.
     # This avoids the gathered full copy that `permute_systems` materializes.
-    # Object-dtype (cvxpy) inputs fall through to the `permute_systems`
-    # implementation below, which is left unchanged.
+    # Object-dtype inputs fall through to the `permute_systems` implementation
+    # below.
     if np.issubdtype(input_mat.dtype, np.number):
         sub_dims = dim.astype(int)
         tensor = input_mat.reshape(np.concatenate([sub_dims, sub_dims]))
