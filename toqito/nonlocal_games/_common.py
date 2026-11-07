@@ -73,6 +73,30 @@ def random_measurements(dim: int, num_inputs: int, num_outputs: int, seed: int) 
     return measurements
 
 
+def best_two_outcome_measurements(coeffs: np.ndarray) -> tuple[float, np.ndarray]:
+    r"""Maximise \(\sum_y \sum_{b} \langle D_b^y, B_b^y \rangle\) over two-outcome measurements \(\{B_0^y, B_1^y\}\).
+
+    For each ``y`` the objective is \(\langle D_1^y, \mathbb{1} \rangle + \langle D_0^y - D_1^y, B_0^y \rangle\)
+    with \(0 \leq B_0^y \leq \mathbb{1}\), which is maximised by the projector onto the positive eigenspace of the
+    Hermitian part of \(D_0^y - D_1^y\).
+
+    Args:
+        coeffs: The operators \(D_b^y\) as an array of shape ``(num_inputs, 2, dim, dim)``.
+
+    Returns:
+        The maximum and the measurements attaining it, as an array of the same shape as ``coeffs``.
+
+    """
+    difference = coeffs[:, 0] - coeffs[:, 1]
+    difference = (difference + difference.conj().transpose(0, 2, 1)) / 2
+    eigvals, eigvecs = np.linalg.eigh(difference)
+    positive = eigvecs * (eigvals > 0)[:, np.newaxis, :]
+    first = positive @ positive.conj().transpose(0, 2, 1)
+    measurements = np.stack([first, np.eye(coeffs.shape[-1]) - first], axis=1)
+    value = float(np.einsum("ybij,ybji->", coeffs, measurements).real)
+    return value, measurements
+
+
 def seesaw(
     prob_mat: np.ndarray,
     pred_mat: np.ndarray,
@@ -125,13 +149,15 @@ def seesaw(
     alice_problem = cvxpy.Problem(cvxpy.Maximize(alice_win), alice_constraints)
 
     # Bob's SDP: maximize sum_{y, b} <D_b^y, B_b^y> over POVMs {B_b^y}_b, where
-    # D_b^y = sum_{x, a} pi(x, y) Tr_R[(V(a, b | x, y) (x) 1) rho_a^x].
-    bob_vars = {(y, b): cvxpy.Variable((dim, dim), hermitian=True) for y in range(bob_in) for b in range(bob_out)}
-    bob_coeffs = {key: cvxpy.Parameter((dim, dim), complex=True) for key in bob_vars}
-    bob_win = sum(cvxpy.real(cvxpy.trace(bob_coeffs[key] @ bob_vars[key])) for key in bob_vars)
-    bob_constraints = [var >> 0 for var in bob_vars.values()]
-    bob_constraints += [sum(bob_vars[y, b] for b in range(bob_out)) == np.identity(dim) for y in range(bob_in)]
-    bob_problem = cvxpy.Problem(cvxpy.Maximize(bob_win), bob_constraints)
+    # D_b^y = sum_{x, a} pi(x, y) Tr_R[(V(a, b | x, y) (x) 1) rho_a^x]. With two answers the optimum is the
+    # projective measurement onto the positive and negative parts of D_0^y - D_1^y, so no SDP is built.
+    if bob_out != 2:
+        bob_vars = {(y, b): cvxpy.Variable((dim, dim), hermitian=True) for y in range(bob_in) for b in range(bob_out)}
+        bob_coeffs = {key: cvxpy.Parameter((dim, dim), complex=True) for key in bob_vars}
+        bob_win = sum(cvxpy.real(cvxpy.trace(bob_coeffs[key] @ bob_vars[key])) for key in bob_vars)
+        bob_constraints = [var >> 0 for var in bob_vars.values()]
+        bob_constraints += [sum(bob_vars[y, b] for b in range(bob_out)) == np.identity(dim) for y in range(bob_in)]
+        bob_problem = cvxpy.Problem(cvxpy.Maximize(bob_win), bob_constraints)
 
     best_value = float("-inf")
     best_operators = None
@@ -152,10 +178,13 @@ def seesaw(
             rho_blocks = rho_vals.reshape(alice_in, alice_out, referee_dim, dim, referee_dim, dim)
 
             coeffs = np.einsum("xy,ikabxy,xaklij->yblj", prob_mat, pred_mat, rho_blocks)
-            for (y, b), param in bob_coeffs.items():
-                param.value = coeffs[y, b]
-            value = solve_sdp(bob_problem, solver, solver_params)
-            bob_vals = np.array([[bob_vars[y, b].value for b in range(bob_out)] for y in range(bob_in)])
+            if bob_out == 2:
+                value, bob_vals = best_two_outcome_measurements(coeffs)
+            else:
+                for (y, b), param in bob_coeffs.items():
+                    param.value = coeffs[y, b]
+                value = solve_sdp(bob_problem, solver, solver_params)
+                bob_vals = np.array([[bob_vars[y, b].value for b in range(bob_out)] for y in range(bob_in)])
 
             if value > best_value:
                 best_value, best_operators = value, (rho_vals, bob_vals)

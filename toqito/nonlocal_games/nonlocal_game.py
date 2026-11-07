@@ -305,7 +305,8 @@ class NonlocalGame:
 
         The alternating projection algorithm has also been referred to as the
         "see-saw" algorithm as it goes back and forth between the following two
-        semidefinite programs:
+        semidefinite programs (when Bob has two answers, SDP-2 is solved in closed
+        form by measuring the sign of a Hermitian operator):
 
         \[
             \begin{equation}

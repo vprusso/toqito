@@ -283,8 +283,9 @@ class ExtendedNonlocalGame:
         Uses the see-saw method of `NonlocalGame.quantum_value_lower_bound`: Bob's measurements are fixed while an SDP
         optimizes Alice's measurements and the shared state (represented by the operators
         \(\rho_a^x = \mathrm{Tr}_A[(A_a^x \otimes \mathbb{1}) \rho]\) on the referee and Bob), then those are fixed
-        while an SDP optimizes Bob's measurements, and so on until the winning probability stops improving. The
-        procedure is restarted from `iters` random measurements for Bob and the best value found is returned.
+        while an SDP optimizes Bob's measurements (in closed form when Bob has two answers), and so on until the
+        winning probability stops improving. The procedure is restarted from `iters` random measurements for Bob
+        and the best value found is returned.
 
         Args:
             dim: The dimension of Bob's quantum system (default is the number of Bob's outputs).
