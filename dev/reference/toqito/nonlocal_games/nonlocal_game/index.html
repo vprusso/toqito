@@ -12119,7 +12119,8 @@ number of times and keep the highest value obtained.</p>
 can be applied to Bell inequalities as shown in <sup><a id="cite-toqito-nonlocal_games-nonlocal_game-NonlocalGame-quantum_value_lower_bound-1" href="#ref-toqito-nonlocal_games-nonlocal_game-NonlocalGame-quantum_value_lower_bound-1">1</a></sup>.</p>
 <p>The alternating projection algorithm has also been referred to as the
 "see-saw" algorithm as it goes back and forth between the following two
-semidefinite programs:</p>
+semidefinite programs (when Bob has two answers, SDP-2 is solved in closed
+form by measuring the sign of a Hermitian operator):</p>
 <div class="arithmatex">\[
     \begin{equation}
         \begin{aligned}
@@ -12327,7 +12328,7 @@ is <span class="arithmatex">\(3/4\)</span>.</p>
 <a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>
 <a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="nb">print</span><span class="p">(</span><span class="n">chsh</span><span class="o">.</span><span class="n">quantum_value_lower_bound</span><span class="p">())</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>0.8535533962248435
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>0.8535533941562443
 </code></pre></div>
         <p><strong>References</strong></p>
 <p><span id="ref-toqito-nonlocal_games-nonlocal_game-NonlocalGame-quantum_value_lower_bound-1"><sup><a href="#cite-toqito-nonlocal_games-nonlocal_game-NonlocalGame-quantum_value_lower_bound-1">1</a></sup> Liang, Yeong-Cherng and Doherty, Andrew. <em>Bounds on quantum correlations in Bell-inequality experiments</em>. <strong>Physical Review A</strong>. vol. 75(4). (2007). <a href="https://doi.org/10.1103/physreva.75.042103">doi:10.1103/physreva.75.042103</a>.</span></p>
@@ -12504,7 +12505,8 @@ is <span class="arithmatex">\(3/4\)</span>.</p>
 <span class="normal"><a href="#__codelineno-0-441">441</a></span>
 <span class="normal"><a href="#__codelineno-0-442">442</a></span>
 <span class="normal"><a href="#__codelineno-0-443">443</a></span>
-<span class="normal"><a href="#__codelineno-0-444">444</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-275" name="__codelineno-0-275"></a><span class="k">def</span><span class="w"> </span><span class="nf">quantum_value_lower_bound</span><span class="p">(</span>
+<span class="normal"><a href="#__codelineno-0-444">444</a></span>
+<span class="normal"><a href="#__codelineno-0-445">445</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-275" name="__codelineno-0-275"></a><span class="k">def</span><span class="w"> </span><span class="nf">quantum_value_lower_bound</span><span class="p">(</span>
 <a id="__codelineno-0-276" name="__codelineno-0-276"></a>    <span class="bp">self</span><span class="p">,</span>
 <a id="__codelineno-0-277" name="__codelineno-0-277"></a>    <span class="n">dim</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
 <a id="__codelineno-0-278" name="__codelineno-0-278"></a>    <span class="n">iters</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span>
@@ -12537,143 +12539,144 @@ is <span class="arithmatex">\(3/4\)</span>.</p>
 <a id="__codelineno-0-305" name="__codelineno-0-305"></a>
 <a id="__codelineno-0-306" name="__codelineno-0-306"></a><span class="sd">    The alternating projection algorithm has also been referred to as the</span>
 <a id="__codelineno-0-307" name="__codelineno-0-307"></a><span class="sd">    &quot;see-saw&quot; algorithm as it goes back and forth between the following two</span>
-<a id="__codelineno-0-308" name="__codelineno-0-308"></a><span class="sd">    semidefinite programs:</span>
-<a id="__codelineno-0-309" name="__codelineno-0-309"></a>
-<a id="__codelineno-0-310" name="__codelineno-0-310"></a><span class="sd">    \[</span>
-<a id="__codelineno-0-311" name="__codelineno-0-311"></a><span class="sd">        \begin{equation}</span>
-<a id="__codelineno-0-312" name="__codelineno-0-312"></a><span class="sd">            \begin{aligned}</span>
-<a id="__codelineno-0-313" name="__codelineno-0-313"></a><span class="sd">                \textbf{SDP-1:} \quad &amp; \\</span>
-<a id="__codelineno-0-314" name="__codelineno-0-314"></a><span class="sd">                \text{maximize:} \quad &amp; \sum_{(x,y \in \Sigma)} \pi(x,y)</span>
-<a id="__codelineno-0-315" name="__codelineno-0-315"></a><span class="sd">                                         \sum_{(a,b) \in \Gamma}</span>
-<a id="__codelineno-0-316" name="__codelineno-0-316"></a><span class="sd">                                         V(a,b|x,y)</span>
-<a id="__codelineno-0-317" name="__codelineno-0-317"></a><span class="sd">                                         \langle B_b^y, A_a^x \rangle \\</span>
-<a id="__codelineno-0-318" name="__codelineno-0-318"></a><span class="sd">                \text{subject to:} \quad &amp; \sum_{a \in \Gamma_{\mathsf{A}}}=</span>
-<a id="__codelineno-0-319" name="__codelineno-0-319"></a><span class="sd">                                    \tau, \qquad \qquad</span>
-<a id="__codelineno-0-320" name="__codelineno-0-320"></a><span class="sd">                                    \forall x \in \Sigma_{\mathsf{A}}, \\</span>
-<a id="__codelineno-0-321" name="__codelineno-0-321"></a><span class="sd">                                   \quad &amp; A_a^x \in \text{Pos}(\mathcal{A}),</span>
-<a id="__codelineno-0-322" name="__codelineno-0-322"></a><span class="sd">                                    \qquad</span>
-<a id="__codelineno-0-323" name="__codelineno-0-323"></a><span class="sd">                                    \forall x \in \Sigma_{\mathsf{A}}, \</span>
-<a id="__codelineno-0-324" name="__codelineno-0-324"></a><span class="sd">                                    \forall a \in \Gamma_{\mathsf{A}}, \\</span>
-<a id="__codelineno-0-325" name="__codelineno-0-325"></a><span class="sd">                                    &amp; \tau \in \text{D}(\mathcal{A}).</span>
-<a id="__codelineno-0-326" name="__codelineno-0-326"></a><span class="sd">            \end{aligned}</span>
-<a id="__codelineno-0-327" name="__codelineno-0-327"></a><span class="sd">        \end{equation}</span>
-<a id="__codelineno-0-328" name="__codelineno-0-328"></a><span class="sd">    \]</span>
-<a id="__codelineno-0-329" name="__codelineno-0-329"></a>
-<a id="__codelineno-0-330" name="__codelineno-0-330"></a><span class="sd">    \[</span>
-<a id="__codelineno-0-331" name="__codelineno-0-331"></a><span class="sd">        \begin{equation}</span>
-<a id="__codelineno-0-332" name="__codelineno-0-332"></a><span class="sd">            \begin{aligned}</span>
-<a id="__codelineno-0-333" name="__codelineno-0-333"></a><span class="sd">                \textbf{SDP-2:} \quad &amp; \\</span>
-<a id="__codelineno-0-334" name="__codelineno-0-334"></a><span class="sd">                \text{maximize:} \quad &amp; \sum_{(x,y \in \Sigma)} \pi(x,y)</span>
-<a id="__codelineno-0-335" name="__codelineno-0-335"></a><span class="sd">                                         \sum_{(a,b) \in \Gamma} V(a,b|x,y)</span>
-<a id="__codelineno-0-336" name="__codelineno-0-336"></a><span class="sd">                                         \langle B_b^y, A_a^x \rangle \\</span>
-<a id="__codelineno-0-337" name="__codelineno-0-337"></a><span class="sd">                \text{subject to:} \quad &amp; \sum_{b \in \Gamma_{\mathsf{B}}}=</span>
-<a id="__codelineno-0-338" name="__codelineno-0-338"></a><span class="sd">                                    \mathbb{I}, \qquad \qquad</span>
-<a id="__codelineno-0-339" name="__codelineno-0-339"></a><span class="sd">                                    \forall y \in \Sigma_{\mathsf{B}}, \\</span>
-<a id="__codelineno-0-340" name="__codelineno-0-340"></a><span class="sd">                                \quad &amp; B_b^y \in \text{Pos}(\mathcal{B}),</span>
-<a id="__codelineno-0-341" name="__codelineno-0-341"></a><span class="sd">                                \qquad \forall y \in \Sigma_{\mathsf{B}}, \</span>
-<a id="__codelineno-0-342" name="__codelineno-0-342"></a><span class="sd">                                \forall b \in \Gamma_{\mathsf{B}}.</span>
-<a id="__codelineno-0-343" name="__codelineno-0-343"></a><span class="sd">            \end{aligned}</span>
-<a id="__codelineno-0-344" name="__codelineno-0-344"></a><span class="sd">        \end{equation}</span>
-<a id="__codelineno-0-345" name="__codelineno-0-345"></a><span class="sd">    \]</span>
-<a id="__codelineno-0-346" name="__codelineno-0-346"></a>
-<a id="__codelineno-0-347" name="__codelineno-0-347"></a><span class="sd">    Args:</span>
-<a id="__codelineno-0-348" name="__codelineno-0-348"></a><span class="sd">        dim: The dimension of the quantum system that Alice and Bob have</span>
-<a id="__codelineno-0-349" name="__codelineno-0-349"></a><span class="sd">                access to (default = 2).</span>
-<a id="__codelineno-0-350" name="__codelineno-0-350"></a><span class="sd">        iters: The number of random restarts of the alternating projection algorithm (default = 5).</span>
-<a id="__codelineno-0-351" name="__codelineno-0-351"></a><span class="sd">        tol: The see-saw stops once the winning probability changes by at most `tol` between</span>
-<a id="__codelineno-0-352" name="__codelineno-0-352"></a><span class="sd">                consecutive steps (default = 1e-6).</span>
-<a id="__codelineno-0-353" name="__codelineno-0-353"></a><span class="sd">        seed: Optional seed for reproducibly generating the random starting</span>
-<a id="__codelineno-0-354" name="__codelineno-0-354"></a><span class="sd">                POVMs (default is None).</span>
-<a id="__codelineno-0-355" name="__codelineno-0-355"></a><span class="sd">        max_steps: The maximum number of see-saw steps per restart (default = 100).</span>
-<a id="__codelineno-0-356" name="__codelineno-0-356"></a><span class="sd">        solver: The cvxpy solver to use (default is SCS).</span>
-<a id="__codelineno-0-357" name="__codelineno-0-357"></a><span class="sd">        solver_params: Extra keyword arguments passed to `cvxpy.Problem.solve` (default, for SCS, is</span>
-<a id="__codelineno-0-358" name="__codelineno-0-358"></a><span class="sd">                ``{&quot;eps&quot;: 1e-8, &quot;max_iters&quot;: 50_000}``, tight enough that the returned value is an achievable</span>
-<a id="__codelineno-0-359" name="__codelineno-0-359"></a><span class="sd">                winning probability to within solver accuracy).</span>
-<a id="__codelineno-0-360" name="__codelineno-0-360"></a><span class="sd">        return_strategy: If True, also return the strategy attaining the bound as a `QuantumStrategy` on</span>
-<a id="__codelineno-0-361" name="__codelineno-0-361"></a><span class="sd">                two `dim`-dimensional systems (default is False).</span>
-<a id="__codelineno-0-362" name="__codelineno-0-362"></a>
-<a id="__codelineno-0-363" name="__codelineno-0-363"></a><span class="sd">    Returns:</span>
-<a id="__codelineno-0-364" name="__codelineno-0-364"></a><span class="sd">        The lower bound on the quantum value of a nonlocal game, followed by the strategy attaining it when</span>
-<a id="__codelineno-0-365" name="__codelineno-0-365"></a><span class="sd">        `return_strategy` is True.</span>
-<a id="__codelineno-0-366" name="__codelineno-0-366"></a>
-<a id="__codelineno-0-367" name="__codelineno-0-367"></a><span class="sd">    Examples:</span>
-<a id="__codelineno-0-368" name="__codelineno-0-368"></a><span class="sd">        The CHSH game</span>
-<a id="__codelineno-0-369" name="__codelineno-0-369"></a>
-<a id="__codelineno-0-370" name="__codelineno-0-370"></a><span class="sd">        The CHSH game is a two-player nonlocal game with the following</span>
-<a id="__codelineno-0-371" name="__codelineno-0-371"></a><span class="sd">        probability distribution and question and answer sets.</span>
-<a id="__codelineno-0-372" name="__codelineno-0-372"></a>
-<a id="__codelineno-0-373" name="__codelineno-0-373"></a><span class="sd">        \[</span>
-<a id="__codelineno-0-374" name="__codelineno-0-374"></a><span class="sd">            \begin{equation}</span>
-<a id="__codelineno-0-375" name="__codelineno-0-375"></a><span class="sd">            \begin{aligned}</span>
-<a id="__codelineno-0-376" name="__codelineno-0-376"></a><span class="sd">                \pi(x,y) = \frac{1}{4}, \qquad (x,y) \in \Sigma_A \times \Sigma_B,</span>
-<a id="__codelineno-0-377" name="__codelineno-0-377"></a><span class="sd">                \qquad \text{and} \qquad (a, b) \in \Gamma_A \times \Gamma_B,</span>
-<a id="__codelineno-0-378" name="__codelineno-0-378"></a><span class="sd">            \end{aligned}</span>
-<a id="__codelineno-0-379" name="__codelineno-0-379"></a><span class="sd">            \end{equation}</span>
-<a id="__codelineno-0-380" name="__codelineno-0-380"></a><span class="sd">        \]</span>
-<a id="__codelineno-0-381" name="__codelineno-0-381"></a>
-<a id="__codelineno-0-382" name="__codelineno-0-382"></a><span class="sd">        where</span>
-<a id="__codelineno-0-383" name="__codelineno-0-383"></a>
-<a id="__codelineno-0-384" name="__codelineno-0-384"></a><span class="sd">        \[</span>
-<a id="__codelineno-0-385" name="__codelineno-0-385"></a><span class="sd">            \begin{equation}</span>
-<a id="__codelineno-0-386" name="__codelineno-0-386"></a><span class="sd">            \Sigma_A = \{0, 1\}, \quad \Sigma_B = \{0, 1\}, \quad \Gamma_A =</span>
-<a id="__codelineno-0-387" name="__codelineno-0-387"></a><span class="sd">            \{0,1\}, \quad \text{and} \quad \Gamma_B = \{0, 1\}.</span>
-<a id="__codelineno-0-388" name="__codelineno-0-388"></a><span class="sd">            \end{equation}</span>
-<a id="__codelineno-0-389" name="__codelineno-0-389"></a><span class="sd">        \]</span>
-<a id="__codelineno-0-390" name="__codelineno-0-390"></a>
-<a id="__codelineno-0-391" name="__codelineno-0-391"></a><span class="sd">        Alice and Bob win the CHSH game if and only if the following equation is</span>
-<a id="__codelineno-0-392" name="__codelineno-0-392"></a><span class="sd">        satisfied.</span>
-<a id="__codelineno-0-393" name="__codelineno-0-393"></a>
-<a id="__codelineno-0-394" name="__codelineno-0-394"></a><span class="sd">        \[</span>
-<a id="__codelineno-0-395" name="__codelineno-0-395"></a><span class="sd">            \begin{equation}</span>
-<a id="__codelineno-0-396" name="__codelineno-0-396"></a><span class="sd">            a \oplus b = x \land y.</span>
-<a id="__codelineno-0-397" name="__codelineno-0-397"></a><span class="sd">            \end{equation}</span>
-<a id="__codelineno-0-398" name="__codelineno-0-398"></a><span class="sd">        \]</span>
-<a id="__codelineno-0-399" name="__codelineno-0-399"></a>
-<a id="__codelineno-0-400" name="__codelineno-0-400"></a><span class="sd">        Recall that \(\oplus\) refers to the XOR operation.</span>
-<a id="__codelineno-0-401" name="__codelineno-0-401"></a>
-<a id="__codelineno-0-402" name="__codelineno-0-402"></a><span class="sd">        The optimal quantum value of CHSH is</span>
-<a id="__codelineno-0-403" name="__codelineno-0-403"></a><span class="sd">        \(\cos(\pi/8)^2 \approx 0.8536\) where the optimal classical value</span>
-<a id="__codelineno-0-404" name="__codelineno-0-404"></a><span class="sd">        is \(3/4\).</span>
-<a id="__codelineno-0-405" name="__codelineno-0-405"></a>
-<a id="__codelineno-0-406" name="__codelineno-0-406"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;</span>
-<a id="__codelineno-0-407" name="__codelineno-0-407"></a><span class="sd">        import numpy as np</span>
-<a id="__codelineno-0-408" name="__codelineno-0-408"></a><span class="sd">        from toqito.nonlocal_games.nonlocal_game import NonlocalGame</span>
-<a id="__codelineno-0-409" name="__codelineno-0-409"></a>
-<a id="__codelineno-0-410" name="__codelineno-0-410"></a><span class="sd">        dim = 2</span>
-<a id="__codelineno-0-411" name="__codelineno-0-411"></a><span class="sd">        num_alice_inputs, num_alice_outputs = 2, 2</span>
-<a id="__codelineno-0-412" name="__codelineno-0-412"></a><span class="sd">        num_bob_inputs, num_bob_outputs = 2, 2</span>
-<a id="__codelineno-0-413" name="__codelineno-0-413"></a><span class="sd">        prob_mat = np.array([[1 / 4, 1 / 4], [1 / 4, 1 / 4]])</span>
-<a id="__codelineno-0-414" name="__codelineno-0-414"></a><span class="sd">        pred_mat = np.zeros((num_alice_outputs, num_bob_outputs, num_alice_inputs, num_bob_inputs))</span>
-<a id="__codelineno-0-415" name="__codelineno-0-415"></a>
-<a id="__codelineno-0-416" name="__codelineno-0-416"></a><span class="sd">        for a_alice in range(num_alice_outputs):</span>
-<a id="__codelineno-0-417" name="__codelineno-0-417"></a><span class="sd">            for b_bob in range(num_bob_outputs):</span>
-<a id="__codelineno-0-418" name="__codelineno-0-418"></a><span class="sd">                for x_alice in range(num_alice_inputs):</span>
-<a id="__codelineno-0-419" name="__codelineno-0-419"></a><span class="sd">                    for y_bob in range(num_bob_inputs):</span>
-<a id="__codelineno-0-420" name="__codelineno-0-420"></a><span class="sd">                        if np.mod(a_alice + b_bob + x_alice * y_bob, dim) == 0:</span>
-<a id="__codelineno-0-421" name="__codelineno-0-421"></a><span class="sd">                            pred_mat[a_alice, b_bob, x_alice, y_bob] = 1</span>
-<a id="__codelineno-0-422" name="__codelineno-0-422"></a>
-<a id="__codelineno-0-423" name="__codelineno-0-423"></a><span class="sd">        chsh = NonlocalGame(prob_mat, pred_mat)</span>
-<a id="__codelineno-0-424" name="__codelineno-0-424"></a>
-<a id="__codelineno-0-425" name="__codelineno-0-425"></a><span class="sd">        print(chsh.quantum_value_lower_bound())</span>
-<a id="__codelineno-0-426" name="__codelineno-0-426"></a><span class="sd">        ```</span>
-<a id="__codelineno-0-427" name="__codelineno-0-427"></a>
-<a id="__codelineno-0-428" name="__codelineno-0-428"></a><span class="sd">    &quot;&quot;&quot;</span>
-<a id="__codelineno-0-429" name="__codelineno-0-429"></a>    <span class="c1"># A nonlocal game is an extended nonlocal game with a one-dimensional referee.</span>
-<a id="__codelineno-0-430" name="__codelineno-0-430"></a>    <span class="n">value</span><span class="p">,</span> <span class="n">rho_vals</span><span class="p">,</span> <span class="n">bob_vals</span> <span class="o">=</span> <span class="n">seesaw</span><span class="p">(</span>
-<a id="__codelineno-0-431" name="__codelineno-0-431"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">prob_mat</span><span class="p">,</span>
-<a id="__codelineno-0-432" name="__codelineno-0-432"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">pred_mat</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">],</span>
-<a id="__codelineno-0-433" name="__codelineno-0-433"></a>        <span class="n">dim</span><span class="p">,</span>
-<a id="__codelineno-0-434" name="__codelineno-0-434"></a>        <span class="n">iters</span><span class="p">,</span>
-<a id="__codelineno-0-435" name="__codelineno-0-435"></a>        <span class="n">tol</span><span class="p">,</span>
-<a id="__codelineno-0-436" name="__codelineno-0-436"></a>        <span class="n">seed</span><span class="p">,</span>
-<a id="__codelineno-0-437" name="__codelineno-0-437"></a>        <span class="n">max_steps</span><span class="p">,</span>
-<a id="__codelineno-0-438" name="__codelineno-0-438"></a>        <span class="kc">None</span><span class="p">,</span>
-<a id="__codelineno-0-439" name="__codelineno-0-439"></a>        <span class="n">solver</span><span class="p">,</span>
-<a id="__codelineno-0-440" name="__codelineno-0-440"></a>        <span class="n">solver_params</span><span class="p">,</span>
-<a id="__codelineno-0-441" name="__codelineno-0-441"></a>    <span class="p">)</span>
-<a id="__codelineno-0-442" name="__codelineno-0-442"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">return_strategy</span><span class="p">:</span>
-<a id="__codelineno-0-443" name="__codelineno-0-443"></a>        <span class="k">return</span> <span class="n">value</span>
-<a id="__codelineno-0-444" name="__codelineno-0-444"></a>    <span class="k">return</span> <span class="n">value</span><span class="p">,</span> <span class="n">_strategy_from_seesaw</span><span class="p">(</span><span class="n">rho_vals</span><span class="p">,</span> <span class="n">bob_vals</span><span class="p">)</span>
+<a id="__codelineno-0-308" name="__codelineno-0-308"></a><span class="sd">    semidefinite programs (when Bob has two answers, SDP-2 is solved in closed</span>
+<a id="__codelineno-0-309" name="__codelineno-0-309"></a><span class="sd">    form by measuring the sign of a Hermitian operator):</span>
+<a id="__codelineno-0-310" name="__codelineno-0-310"></a>
+<a id="__codelineno-0-311" name="__codelineno-0-311"></a><span class="sd">    \[</span>
+<a id="__codelineno-0-312" name="__codelineno-0-312"></a><span class="sd">        \begin{equation}</span>
+<a id="__codelineno-0-313" name="__codelineno-0-313"></a><span class="sd">            \begin{aligned}</span>
+<a id="__codelineno-0-314" name="__codelineno-0-314"></a><span class="sd">                \textbf{SDP-1:} \quad &amp; \\</span>
+<a id="__codelineno-0-315" name="__codelineno-0-315"></a><span class="sd">                \text{maximize:} \quad &amp; \sum_{(x,y \in \Sigma)} \pi(x,y)</span>
+<a id="__codelineno-0-316" name="__codelineno-0-316"></a><span class="sd">                                         \sum_{(a,b) \in \Gamma}</span>
+<a id="__codelineno-0-317" name="__codelineno-0-317"></a><span class="sd">                                         V(a,b|x,y)</span>
+<a id="__codelineno-0-318" name="__codelineno-0-318"></a><span class="sd">                                         \langle B_b^y, A_a^x \rangle \\</span>
+<a id="__codelineno-0-319" name="__codelineno-0-319"></a><span class="sd">                \text{subject to:} \quad &amp; \sum_{a \in \Gamma_{\mathsf{A}}}=</span>
+<a id="__codelineno-0-320" name="__codelineno-0-320"></a><span class="sd">                                    \tau, \qquad \qquad</span>
+<a id="__codelineno-0-321" name="__codelineno-0-321"></a><span class="sd">                                    \forall x \in \Sigma_{\mathsf{A}}, \\</span>
+<a id="__codelineno-0-322" name="__codelineno-0-322"></a><span class="sd">                                   \quad &amp; A_a^x \in \text{Pos}(\mathcal{A}),</span>
+<a id="__codelineno-0-323" name="__codelineno-0-323"></a><span class="sd">                                    \qquad</span>
+<a id="__codelineno-0-324" name="__codelineno-0-324"></a><span class="sd">                                    \forall x \in \Sigma_{\mathsf{A}}, \</span>
+<a id="__codelineno-0-325" name="__codelineno-0-325"></a><span class="sd">                                    \forall a \in \Gamma_{\mathsf{A}}, \\</span>
+<a id="__codelineno-0-326" name="__codelineno-0-326"></a><span class="sd">                                    &amp; \tau \in \text{D}(\mathcal{A}).</span>
+<a id="__codelineno-0-327" name="__codelineno-0-327"></a><span class="sd">            \end{aligned}</span>
+<a id="__codelineno-0-328" name="__codelineno-0-328"></a><span class="sd">        \end{equation}</span>
+<a id="__codelineno-0-329" name="__codelineno-0-329"></a><span class="sd">    \]</span>
+<a id="__codelineno-0-330" name="__codelineno-0-330"></a>
+<a id="__codelineno-0-331" name="__codelineno-0-331"></a><span class="sd">    \[</span>
+<a id="__codelineno-0-332" name="__codelineno-0-332"></a><span class="sd">        \begin{equation}</span>
+<a id="__codelineno-0-333" name="__codelineno-0-333"></a><span class="sd">            \begin{aligned}</span>
+<a id="__codelineno-0-334" name="__codelineno-0-334"></a><span class="sd">                \textbf{SDP-2:} \quad &amp; \\</span>
+<a id="__codelineno-0-335" name="__codelineno-0-335"></a><span class="sd">                \text{maximize:} \quad &amp; \sum_{(x,y \in \Sigma)} \pi(x,y)</span>
+<a id="__codelineno-0-336" name="__codelineno-0-336"></a><span class="sd">                                         \sum_{(a,b) \in \Gamma} V(a,b|x,y)</span>
+<a id="__codelineno-0-337" name="__codelineno-0-337"></a><span class="sd">                                         \langle B_b^y, A_a^x \rangle \\</span>
+<a id="__codelineno-0-338" name="__codelineno-0-338"></a><span class="sd">                \text{subject to:} \quad &amp; \sum_{b \in \Gamma_{\mathsf{B}}}=</span>
+<a id="__codelineno-0-339" name="__codelineno-0-339"></a><span class="sd">                                    \mathbb{I}, \qquad \qquad</span>
+<a id="__codelineno-0-340" name="__codelineno-0-340"></a><span class="sd">                                    \forall y \in \Sigma_{\mathsf{B}}, \\</span>
+<a id="__codelineno-0-341" name="__codelineno-0-341"></a><span class="sd">                                \quad &amp; B_b^y \in \text{Pos}(\mathcal{B}),</span>
+<a id="__codelineno-0-342" name="__codelineno-0-342"></a><span class="sd">                                \qquad \forall y \in \Sigma_{\mathsf{B}}, \</span>
+<a id="__codelineno-0-343" name="__codelineno-0-343"></a><span class="sd">                                \forall b \in \Gamma_{\mathsf{B}}.</span>
+<a id="__codelineno-0-344" name="__codelineno-0-344"></a><span class="sd">            \end{aligned}</span>
+<a id="__codelineno-0-345" name="__codelineno-0-345"></a><span class="sd">        \end{equation}</span>
+<a id="__codelineno-0-346" name="__codelineno-0-346"></a><span class="sd">    \]</span>
+<a id="__codelineno-0-347" name="__codelineno-0-347"></a>
+<a id="__codelineno-0-348" name="__codelineno-0-348"></a><span class="sd">    Args:</span>
+<a id="__codelineno-0-349" name="__codelineno-0-349"></a><span class="sd">        dim: The dimension of the quantum system that Alice and Bob have</span>
+<a id="__codelineno-0-350" name="__codelineno-0-350"></a><span class="sd">                access to (default = 2).</span>
+<a id="__codelineno-0-351" name="__codelineno-0-351"></a><span class="sd">        iters: The number of random restarts of the alternating projection algorithm (default = 5).</span>
+<a id="__codelineno-0-352" name="__codelineno-0-352"></a><span class="sd">        tol: The see-saw stops once the winning probability changes by at most `tol` between</span>
+<a id="__codelineno-0-353" name="__codelineno-0-353"></a><span class="sd">                consecutive steps (default = 1e-6).</span>
+<a id="__codelineno-0-354" name="__codelineno-0-354"></a><span class="sd">        seed: Optional seed for reproducibly generating the random starting</span>
+<a id="__codelineno-0-355" name="__codelineno-0-355"></a><span class="sd">                POVMs (default is None).</span>
+<a id="__codelineno-0-356" name="__codelineno-0-356"></a><span class="sd">        max_steps: The maximum number of see-saw steps per restart (default = 100).</span>
+<a id="__codelineno-0-357" name="__codelineno-0-357"></a><span class="sd">        solver: The cvxpy solver to use (default is SCS).</span>
+<a id="__codelineno-0-358" name="__codelineno-0-358"></a><span class="sd">        solver_params: Extra keyword arguments passed to `cvxpy.Problem.solve` (default, for SCS, is</span>
+<a id="__codelineno-0-359" name="__codelineno-0-359"></a><span class="sd">                ``{&quot;eps&quot;: 1e-8, &quot;max_iters&quot;: 50_000}``, tight enough that the returned value is an achievable</span>
+<a id="__codelineno-0-360" name="__codelineno-0-360"></a><span class="sd">                winning probability to within solver accuracy).</span>
+<a id="__codelineno-0-361" name="__codelineno-0-361"></a><span class="sd">        return_strategy: If True, also return the strategy attaining the bound as a `QuantumStrategy` on</span>
+<a id="__codelineno-0-362" name="__codelineno-0-362"></a><span class="sd">                two `dim`-dimensional systems (default is False).</span>
+<a id="__codelineno-0-363" name="__codelineno-0-363"></a>
+<a id="__codelineno-0-364" name="__codelineno-0-364"></a><span class="sd">    Returns:</span>
+<a id="__codelineno-0-365" name="__codelineno-0-365"></a><span class="sd">        The lower bound on the quantum value of a nonlocal game, followed by the strategy attaining it when</span>
+<a id="__codelineno-0-366" name="__codelineno-0-366"></a><span class="sd">        `return_strategy` is True.</span>
+<a id="__codelineno-0-367" name="__codelineno-0-367"></a>
+<a id="__codelineno-0-368" name="__codelineno-0-368"></a><span class="sd">    Examples:</span>
+<a id="__codelineno-0-369" name="__codelineno-0-369"></a><span class="sd">        The CHSH game</span>
+<a id="__codelineno-0-370" name="__codelineno-0-370"></a>
+<a id="__codelineno-0-371" name="__codelineno-0-371"></a><span class="sd">        The CHSH game is a two-player nonlocal game with the following</span>
+<a id="__codelineno-0-372" name="__codelineno-0-372"></a><span class="sd">        probability distribution and question and answer sets.</span>
+<a id="__codelineno-0-373" name="__codelineno-0-373"></a>
+<a id="__codelineno-0-374" name="__codelineno-0-374"></a><span class="sd">        \[</span>
+<a id="__codelineno-0-375" name="__codelineno-0-375"></a><span class="sd">            \begin{equation}</span>
+<a id="__codelineno-0-376" name="__codelineno-0-376"></a><span class="sd">            \begin{aligned}</span>
+<a id="__codelineno-0-377" name="__codelineno-0-377"></a><span class="sd">                \pi(x,y) = \frac{1}{4}, \qquad (x,y) \in \Sigma_A \times \Sigma_B,</span>
+<a id="__codelineno-0-378" name="__codelineno-0-378"></a><span class="sd">                \qquad \text{and} \qquad (a, b) \in \Gamma_A \times \Gamma_B,</span>
+<a id="__codelineno-0-379" name="__codelineno-0-379"></a><span class="sd">            \end{aligned}</span>
+<a id="__codelineno-0-380" name="__codelineno-0-380"></a><span class="sd">            \end{equation}</span>
+<a id="__codelineno-0-381" name="__codelineno-0-381"></a><span class="sd">        \]</span>
+<a id="__codelineno-0-382" name="__codelineno-0-382"></a>
+<a id="__codelineno-0-383" name="__codelineno-0-383"></a><span class="sd">        where</span>
+<a id="__codelineno-0-384" name="__codelineno-0-384"></a>
+<a id="__codelineno-0-385" name="__codelineno-0-385"></a><span class="sd">        \[</span>
+<a id="__codelineno-0-386" name="__codelineno-0-386"></a><span class="sd">            \begin{equation}</span>
+<a id="__codelineno-0-387" name="__codelineno-0-387"></a><span class="sd">            \Sigma_A = \{0, 1\}, \quad \Sigma_B = \{0, 1\}, \quad \Gamma_A =</span>
+<a id="__codelineno-0-388" name="__codelineno-0-388"></a><span class="sd">            \{0,1\}, \quad \text{and} \quad \Gamma_B = \{0, 1\}.</span>
+<a id="__codelineno-0-389" name="__codelineno-0-389"></a><span class="sd">            \end{equation}</span>
+<a id="__codelineno-0-390" name="__codelineno-0-390"></a><span class="sd">        \]</span>
+<a id="__codelineno-0-391" name="__codelineno-0-391"></a>
+<a id="__codelineno-0-392" name="__codelineno-0-392"></a><span class="sd">        Alice and Bob win the CHSH game if and only if the following equation is</span>
+<a id="__codelineno-0-393" name="__codelineno-0-393"></a><span class="sd">        satisfied.</span>
+<a id="__codelineno-0-394" name="__codelineno-0-394"></a>
+<a id="__codelineno-0-395" name="__codelineno-0-395"></a><span class="sd">        \[</span>
+<a id="__codelineno-0-396" name="__codelineno-0-396"></a><span class="sd">            \begin{equation}</span>
+<a id="__codelineno-0-397" name="__codelineno-0-397"></a><span class="sd">            a \oplus b = x \land y.</span>
+<a id="__codelineno-0-398" name="__codelineno-0-398"></a><span class="sd">            \end{equation}</span>
+<a id="__codelineno-0-399" name="__codelineno-0-399"></a><span class="sd">        \]</span>
+<a id="__codelineno-0-400" name="__codelineno-0-400"></a>
+<a id="__codelineno-0-401" name="__codelineno-0-401"></a><span class="sd">        Recall that \(\oplus\) refers to the XOR operation.</span>
+<a id="__codelineno-0-402" name="__codelineno-0-402"></a>
+<a id="__codelineno-0-403" name="__codelineno-0-403"></a><span class="sd">        The optimal quantum value of CHSH is</span>
+<a id="__codelineno-0-404" name="__codelineno-0-404"></a><span class="sd">        \(\cos(\pi/8)^2 \approx 0.8536\) where the optimal classical value</span>
+<a id="__codelineno-0-405" name="__codelineno-0-405"></a><span class="sd">        is \(3/4\).</span>
+<a id="__codelineno-0-406" name="__codelineno-0-406"></a>
+<a id="__codelineno-0-407" name="__codelineno-0-407"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;</span>
+<a id="__codelineno-0-408" name="__codelineno-0-408"></a><span class="sd">        import numpy as np</span>
+<a id="__codelineno-0-409" name="__codelineno-0-409"></a><span class="sd">        from toqito.nonlocal_games.nonlocal_game import NonlocalGame</span>
+<a id="__codelineno-0-410" name="__codelineno-0-410"></a>
+<a id="__codelineno-0-411" name="__codelineno-0-411"></a><span class="sd">        dim = 2</span>
+<a id="__codelineno-0-412" name="__codelineno-0-412"></a><span class="sd">        num_alice_inputs, num_alice_outputs = 2, 2</span>
+<a id="__codelineno-0-413" name="__codelineno-0-413"></a><span class="sd">        num_bob_inputs, num_bob_outputs = 2, 2</span>
+<a id="__codelineno-0-414" name="__codelineno-0-414"></a><span class="sd">        prob_mat = np.array([[1 / 4, 1 / 4], [1 / 4, 1 / 4]])</span>
+<a id="__codelineno-0-415" name="__codelineno-0-415"></a><span class="sd">        pred_mat = np.zeros((num_alice_outputs, num_bob_outputs, num_alice_inputs, num_bob_inputs))</span>
+<a id="__codelineno-0-416" name="__codelineno-0-416"></a>
+<a id="__codelineno-0-417" name="__codelineno-0-417"></a><span class="sd">        for a_alice in range(num_alice_outputs):</span>
+<a id="__codelineno-0-418" name="__codelineno-0-418"></a><span class="sd">            for b_bob in range(num_bob_outputs):</span>
+<a id="__codelineno-0-419" name="__codelineno-0-419"></a><span class="sd">                for x_alice in range(num_alice_inputs):</span>
+<a id="__codelineno-0-420" name="__codelineno-0-420"></a><span class="sd">                    for y_bob in range(num_bob_inputs):</span>
+<a id="__codelineno-0-421" name="__codelineno-0-421"></a><span class="sd">                        if np.mod(a_alice + b_bob + x_alice * y_bob, dim) == 0:</span>
+<a id="__codelineno-0-422" name="__codelineno-0-422"></a><span class="sd">                            pred_mat[a_alice, b_bob, x_alice, y_bob] = 1</span>
+<a id="__codelineno-0-423" name="__codelineno-0-423"></a>
+<a id="__codelineno-0-424" name="__codelineno-0-424"></a><span class="sd">        chsh = NonlocalGame(prob_mat, pred_mat)</span>
+<a id="__codelineno-0-425" name="__codelineno-0-425"></a>
+<a id="__codelineno-0-426" name="__codelineno-0-426"></a><span class="sd">        print(chsh.quantum_value_lower_bound())</span>
+<a id="__codelineno-0-427" name="__codelineno-0-427"></a><span class="sd">        ```</span>
+<a id="__codelineno-0-428" name="__codelineno-0-428"></a>
+<a id="__codelineno-0-429" name="__codelineno-0-429"></a><span class="sd">    &quot;&quot;&quot;</span>
+<a id="__codelineno-0-430" name="__codelineno-0-430"></a>    <span class="c1"># A nonlocal game is an extended nonlocal game with a one-dimensional referee.</span>
+<a id="__codelineno-0-431" name="__codelineno-0-431"></a>    <span class="n">value</span><span class="p">,</span> <span class="n">rho_vals</span><span class="p">,</span> <span class="n">bob_vals</span> <span class="o">=</span> <span class="n">seesaw</span><span class="p">(</span>
+<a id="__codelineno-0-432" name="__codelineno-0-432"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">prob_mat</span><span class="p">,</span>
+<a id="__codelineno-0-433" name="__codelineno-0-433"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">pred_mat</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">],</span>
+<a id="__codelineno-0-434" name="__codelineno-0-434"></a>        <span class="n">dim</span><span class="p">,</span>
+<a id="__codelineno-0-435" name="__codelineno-0-435"></a>        <span class="n">iters</span><span class="p">,</span>
+<a id="__codelineno-0-436" name="__codelineno-0-436"></a>        <span class="n">tol</span><span class="p">,</span>
+<a id="__codelineno-0-437" name="__codelineno-0-437"></a>        <span class="n">seed</span><span class="p">,</span>
+<a id="__codelineno-0-438" name="__codelineno-0-438"></a>        <span class="n">max_steps</span><span class="p">,</span>
+<a id="__codelineno-0-439" name="__codelineno-0-439"></a>        <span class="kc">None</span><span class="p">,</span>
+<a id="__codelineno-0-440" name="__codelineno-0-440"></a>        <span class="n">solver</span><span class="p">,</span>
+<a id="__codelineno-0-441" name="__codelineno-0-441"></a>        <span class="n">solver_params</span><span class="p">,</span>
+<a id="__codelineno-0-442" name="__codelineno-0-442"></a>    <span class="p">)</span>
+<a id="__codelineno-0-443" name="__codelineno-0-443"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">return_strategy</span><span class="p">:</span>
+<a id="__codelineno-0-444" name="__codelineno-0-444"></a>        <span class="k">return</span> <span class="n">value</span>
+<a id="__codelineno-0-445" name="__codelineno-0-445"></a>    <span class="k">return</span> <span class="n">value</span><span class="p">,</span> <span class="n">_strategy_from_seesaw</span><span class="p">(</span><span class="n">rho_vals</span><span class="p">,</span> <span class="n">bob_vals</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
@@ -12759,8 +12762,7 @@ is <span class="arithmatex">\(3/4\)</span>.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>toqito/nonlocal_games/nonlocal_game.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-446">446</a></span>
-<span class="normal"><a href="#__codelineno-0-447">447</a></span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-447">447</a></span>
 <span class="normal"><a href="#__codelineno-0-448">448</a></span>
 <span class="normal"><a href="#__codelineno-0-449">449</a></span>
 <span class="normal"><a href="#__codelineno-0-450">450</a></span>
@@ -12803,51 +12805,52 @@ is <span class="arithmatex">\(3/4\)</span>.</p>
 <span class="normal"><a href="#__codelineno-0-487">487</a></span>
 <span class="normal"><a href="#__codelineno-0-488">488</a></span>
 <span class="normal"><a href="#__codelineno-0-489">489</a></span>
-<span class="normal"><a href="#__codelineno-0-490">490</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-446" name="__codelineno-0-446"></a><span class="k">def</span><span class="w"> </span><span class="nf">nonsignaling_value</span><span class="p">(</span>
-<a id="__codelineno-0-447" name="__codelineno-0-447"></a>    <span class="bp">self</span><span class="p">,</span> <span class="n">solver</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">solver_params</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">return_strategy</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
-<a id="__codelineno-0-448" name="__codelineno-0-448"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span> <span class="o">|</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
-<a id="__codelineno-0-449" name="__codelineno-0-449"></a><span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Compute the non-signaling value of the nonlocal game.</span>
-<a id="__codelineno-0-450" name="__codelineno-0-450"></a>
-<a id="__codelineno-0-451" name="__codelineno-0-451"></a><span class="sd">    The non-signaling value is the maximum winning probability over all conditional distributions</span>
-<a id="__codelineno-0-452" name="__codelineno-0-452"></a><span class="sd">    \(p(a, b | x, y)\) whose marginals do not depend on the other player&#39;s question, which is a linear program.</span>
-<a id="__codelineno-0-453" name="__codelineno-0-453"></a>
-<a id="__codelineno-0-454" name="__codelineno-0-454"></a><span class="sd">    Args:</span>
-<a id="__codelineno-0-455" name="__codelineno-0-455"></a><span class="sd">        solver: The cvxpy solver to use (default is cvxpy&#39;s choice).</span>
-<a id="__codelineno-0-456" name="__codelineno-0-456"></a><span class="sd">        solver_params: Extra keyword arguments passed to `cvxpy.Problem.solve`.</span>
-<a id="__codelineno-0-457" name="__codelineno-0-457"></a><span class="sd">        return_strategy: If True, also return the optimal distribution as an array of shape</span>
-<a id="__codelineno-0-458" name="__codelineno-0-458"></a><span class="sd">            ``(num_alice_out, num_bob_out, num_alice_in, num_bob_in)`` (default is False).</span>
-<a id="__codelineno-0-459" name="__codelineno-0-459"></a>
-<a id="__codelineno-0-460" name="__codelineno-0-460"></a><span class="sd">    Returns:</span>
-<a id="__codelineno-0-461" name="__codelineno-0-461"></a><span class="sd">        A value between `[0, 1]` representing the non-signaling value, followed by the optimal distribution when</span>
-<a id="__codelineno-0-462" name="__codelineno-0-462"></a><span class="sd">        `return_strategy` is True.</span>
-<a id="__codelineno-0-463" name="__codelineno-0-463"></a>
-<a id="__codelineno-0-464" name="__codelineno-0-464"></a><span class="sd">    &quot;&quot;&quot;</span>
-<a id="__codelineno-0-465" name="__codelineno-0-465"></a>    <span class="n">alice_out</span><span class="p">,</span> <span class="n">bob_out</span><span class="p">,</span> <span class="n">alice_in</span><span class="p">,</span> <span class="n">bob_in</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pred_mat</span><span class="o">.</span><span class="n">shape</span>
-<a id="__codelineno-0-466" name="__codelineno-0-466"></a>
-<a id="__codelineno-0-467" name="__codelineno-0-467"></a>    <span class="c1"># p_var[a * bob_out + b, x * bob_in + y] is the probability of answers (a, b) to questions (x, y), laid out as</span>
-<a id="__codelineno-0-468" name="__codelineno-0-468"></a>    <span class="c1"># a matrix so that marginals are matrix products.</span>
-<a id="__codelineno-0-469" name="__codelineno-0-469"></a>    <span class="n">p_var</span> <span class="o">=</span> <span class="n">cvxpy</span><span class="o">.</span><span class="n">Variable</span><span class="p">((</span><span class="n">alice_out</span> <span class="o">*</span> <span class="n">bob_out</span><span class="p">,</span> <span class="n">alice_in</span> <span class="o">*</span> <span class="n">bob_in</span><span class="p">),</span> <span class="n">nonneg</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<a id="__codelineno-0-470" name="__codelineno-0-470"></a>    <span class="c1"># The marginals of Alice and Bob, which non-signaling requires to be independent of the other question.</span>
-<a id="__codelineno-0-471" name="__codelineno-0-471"></a>    <span class="n">alice_marginal</span> <span class="o">=</span> <span class="n">cvxpy</span><span class="o">.</span><span class="n">Variable</span><span class="p">((</span><span class="n">alice_out</span><span class="p">,</span> <span class="n">alice_in</span><span class="p">),</span> <span class="n">nonneg</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<a id="__codelineno-0-472" name="__codelineno-0-472"></a>    <span class="n">bob_marginal</span> <span class="o">=</span> <span class="n">cvxpy</span><span class="o">.</span><span class="n">Variable</span><span class="p">((</span><span class="n">bob_out</span><span class="p">,</span> <span class="n">bob_in</span><span class="p">),</span> <span class="n">nonneg</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<a id="__codelineno-0-473" name="__codelineno-0-473"></a>
-<a id="__codelineno-0-474" name="__codelineno-0-474"></a>    <span class="n">sum_over_b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">kron</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">alice_out</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="n">bob_out</span><span class="p">)))</span>
-<a id="__codelineno-0-475" name="__codelineno-0-475"></a>    <span class="n">sum_over_a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">kron</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="n">alice_out</span><span class="p">)),</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">bob_out</span><span class="p">))</span>
-<a id="__codelineno-0-476" name="__codelineno-0-476"></a>    <span class="n">repeat_over_y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">kron</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">alice_in</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="n">bob_in</span><span class="p">)))</span>
-<a id="__codelineno-0-477" name="__codelineno-0-477"></a>    <span class="n">repeat_over_x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">kron</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="n">alice_in</span><span class="p">)),</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">bob_in</span><span class="p">))</span>
-<a id="__codelineno-0-478" name="__codelineno-0-478"></a>    <span class="n">constraints</span> <span class="o">=</span> <span class="p">[</span>
-<a id="__codelineno-0-479" name="__codelineno-0-479"></a>        <span class="n">sum_over_b</span> <span class="o">@</span> <span class="n">p_var</span> <span class="o">==</span> <span class="n">alice_marginal</span> <span class="o">@</span> <span class="n">repeat_over_y</span><span class="p">,</span>
-<a id="__codelineno-0-480" name="__codelineno-0-480"></a>        <span class="n">sum_over_a</span> <span class="o">@</span> <span class="n">p_var</span> <span class="o">==</span> <span class="n">bob_marginal</span> <span class="o">@</span> <span class="n">repeat_over_x</span><span class="p">,</span>
-<a id="__codelineno-0-481" name="__codelineno-0-481"></a>        <span class="n">cvxpy</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">alice_marginal</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span>
-<a id="__codelineno-0-482" name="__codelineno-0-482"></a>        <span class="n">cvxpy</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">bob_marginal</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span>
-<a id="__codelineno-0-483" name="__codelineno-0-483"></a>    <span class="p">]</span>
-<a id="__codelineno-0-484" name="__codelineno-0-484"></a>
-<a id="__codelineno-0-485" name="__codelineno-0-485"></a>    <span class="n">weights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pred_mat</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">prob_mat</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">alice_out</span> <span class="o">*</span> <span class="n">bob_out</span><span class="p">,</span> <span class="n">alice_in</span> <span class="o">*</span> <span class="n">bob_in</span><span class="p">)</span>
-<a id="__codelineno-0-486" name="__codelineno-0-486"></a>    <span class="n">problem</span> <span class="o">=</span> <span class="n">cvxpy</span><span class="o">.</span><span class="n">Problem</span><span class="p">(</span><span class="n">cvxpy</span><span class="o">.</span><span class="n">Maximize</span><span class="p">(</span><span class="n">cvxpy</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">cvxpy</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="n">weights</span><span class="p">,</span> <span class="n">p_var</span><span class="p">))),</span> <span class="n">constraints</span><span class="p">)</span>
-<a id="__codelineno-0-487" name="__codelineno-0-487"></a>    <span class="n">value</span> <span class="o">=</span> <span class="n">solve_sdp</span><span class="p">(</span><span class="n">problem</span><span class="p">,</span> <span class="n">solver</span><span class="p">,</span> <span class="n">solver_params</span><span class="p">)</span>
-<a id="__codelineno-0-488" name="__codelineno-0-488"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">return_strategy</span><span class="p">:</span>
-<a id="__codelineno-0-489" name="__codelineno-0-489"></a>        <span class="k">return</span> <span class="n">value</span>
-<a id="__codelineno-0-490" name="__codelineno-0-490"></a>    <span class="k">return</span> <span class="n">value</span><span class="p">,</span> <span class="n">p_var</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">alice_out</span><span class="p">,</span> <span class="n">bob_out</span><span class="p">,</span> <span class="n">alice_in</span><span class="p">,</span> <span class="n">bob_in</span><span class="p">)</span>
+<span class="normal"><a href="#__codelineno-0-490">490</a></span>
+<span class="normal"><a href="#__codelineno-0-491">491</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-447" name="__codelineno-0-447"></a><span class="k">def</span><span class="w"> </span><span class="nf">nonsignaling_value</span><span class="p">(</span>
+<a id="__codelineno-0-448" name="__codelineno-0-448"></a>    <span class="bp">self</span><span class="p">,</span> <span class="n">solver</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">solver_params</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">return_strategy</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+<a id="__codelineno-0-449" name="__codelineno-0-449"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span> <span class="o">|</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+<a id="__codelineno-0-450" name="__codelineno-0-450"></a><span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Compute the non-signaling value of the nonlocal game.</span>
+<a id="__codelineno-0-451" name="__codelineno-0-451"></a>
+<a id="__codelineno-0-452" name="__codelineno-0-452"></a><span class="sd">    The non-signaling value is the maximum winning probability over all conditional distributions</span>
+<a id="__codelineno-0-453" name="__codelineno-0-453"></a><span class="sd">    \(p(a, b | x, y)\) whose marginals do not depend on the other player&#39;s question, which is a linear program.</span>
+<a id="__codelineno-0-454" name="__codelineno-0-454"></a>
+<a id="__codelineno-0-455" name="__codelineno-0-455"></a><span class="sd">    Args:</span>
+<a id="__codelineno-0-456" name="__codelineno-0-456"></a><span class="sd">        solver: The cvxpy solver to use (default is cvxpy&#39;s choice).</span>
+<a id="__codelineno-0-457" name="__codelineno-0-457"></a><span class="sd">        solver_params: Extra keyword arguments passed to `cvxpy.Problem.solve`.</span>
+<a id="__codelineno-0-458" name="__codelineno-0-458"></a><span class="sd">        return_strategy: If True, also return the optimal distribution as an array of shape</span>
+<a id="__codelineno-0-459" name="__codelineno-0-459"></a><span class="sd">            ``(num_alice_out, num_bob_out, num_alice_in, num_bob_in)`` (default is False).</span>
+<a id="__codelineno-0-460" name="__codelineno-0-460"></a>
+<a id="__codelineno-0-461" name="__codelineno-0-461"></a><span class="sd">    Returns:</span>
+<a id="__codelineno-0-462" name="__codelineno-0-462"></a><span class="sd">        A value between `[0, 1]` representing the non-signaling value, followed by the optimal distribution when</span>
+<a id="__codelineno-0-463" name="__codelineno-0-463"></a><span class="sd">        `return_strategy` is True.</span>
+<a id="__codelineno-0-464" name="__codelineno-0-464"></a>
+<a id="__codelineno-0-465" name="__codelineno-0-465"></a><span class="sd">    &quot;&quot;&quot;</span>
+<a id="__codelineno-0-466" name="__codelineno-0-466"></a>    <span class="n">alice_out</span><span class="p">,</span> <span class="n">bob_out</span><span class="p">,</span> <span class="n">alice_in</span><span class="p">,</span> <span class="n">bob_in</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pred_mat</span><span class="o">.</span><span class="n">shape</span>
+<a id="__codelineno-0-467" name="__codelineno-0-467"></a>
+<a id="__codelineno-0-468" name="__codelineno-0-468"></a>    <span class="c1"># p_var[a * bob_out + b, x * bob_in + y] is the probability of answers (a, b) to questions (x, y), laid out as</span>
+<a id="__codelineno-0-469" name="__codelineno-0-469"></a>    <span class="c1"># a matrix so that marginals are matrix products.</span>
+<a id="__codelineno-0-470" name="__codelineno-0-470"></a>    <span class="n">p_var</span> <span class="o">=</span> <span class="n">cvxpy</span><span class="o">.</span><span class="n">Variable</span><span class="p">((</span><span class="n">alice_out</span> <span class="o">*</span> <span class="n">bob_out</span><span class="p">,</span> <span class="n">alice_in</span> <span class="o">*</span> <span class="n">bob_in</span><span class="p">),</span> <span class="n">nonneg</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<a id="__codelineno-0-471" name="__codelineno-0-471"></a>    <span class="c1"># The marginals of Alice and Bob, which non-signaling requires to be independent of the other question.</span>
+<a id="__codelineno-0-472" name="__codelineno-0-472"></a>    <span class="n">alice_marginal</span> <span class="o">=</span> <span class="n">cvxpy</span><span class="o">.</span><span class="n">Variable</span><span class="p">((</span><span class="n">alice_out</span><span class="p">,</span> <span class="n">alice_in</span><span class="p">),</span> <span class="n">nonneg</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<a id="__codelineno-0-473" name="__codelineno-0-473"></a>    <span class="n">bob_marginal</span> <span class="o">=</span> <span class="n">cvxpy</span><span class="o">.</span><span class="n">Variable</span><span class="p">((</span><span class="n">bob_out</span><span class="p">,</span> <span class="n">bob_in</span><span class="p">),</span> <span class="n">nonneg</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<a id="__codelineno-0-474" name="__codelineno-0-474"></a>
+<a id="__codelineno-0-475" name="__codelineno-0-475"></a>    <span class="n">sum_over_b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">kron</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">alice_out</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="n">bob_out</span><span class="p">)))</span>
+<a id="__codelineno-0-476" name="__codelineno-0-476"></a>    <span class="n">sum_over_a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">kron</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="n">alice_out</span><span class="p">)),</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">bob_out</span><span class="p">))</span>
+<a id="__codelineno-0-477" name="__codelineno-0-477"></a>    <span class="n">repeat_over_y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">kron</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">alice_in</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="n">bob_in</span><span class="p">)))</span>
+<a id="__codelineno-0-478" name="__codelineno-0-478"></a>    <span class="n">repeat_over_x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">kron</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="n">alice_in</span><span class="p">)),</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">bob_in</span><span class="p">))</span>
+<a id="__codelineno-0-479" name="__codelineno-0-479"></a>    <span class="n">constraints</span> <span class="o">=</span> <span class="p">[</span>
+<a id="__codelineno-0-480" name="__codelineno-0-480"></a>        <span class="n">sum_over_b</span> <span class="o">@</span> <span class="n">p_var</span> <span class="o">==</span> <span class="n">alice_marginal</span> <span class="o">@</span> <span class="n">repeat_over_y</span><span class="p">,</span>
+<a id="__codelineno-0-481" name="__codelineno-0-481"></a>        <span class="n">sum_over_a</span> <span class="o">@</span> <span class="n">p_var</span> <span class="o">==</span> <span class="n">bob_marginal</span> <span class="o">@</span> <span class="n">repeat_over_x</span><span class="p">,</span>
+<a id="__codelineno-0-482" name="__codelineno-0-482"></a>        <span class="n">cvxpy</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">alice_marginal</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span>
+<a id="__codelineno-0-483" name="__codelineno-0-483"></a>        <span class="n">cvxpy</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">bob_marginal</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span>
+<a id="__codelineno-0-484" name="__codelineno-0-484"></a>    <span class="p">]</span>
+<a id="__codelineno-0-485" name="__codelineno-0-485"></a>
+<a id="__codelineno-0-486" name="__codelineno-0-486"></a>    <span class="n">weights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pred_mat</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">prob_mat</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">alice_out</span> <span class="o">*</span> <span class="n">bob_out</span><span class="p">,</span> <span class="n">alice_in</span> <span class="o">*</span> <span class="n">bob_in</span><span class="p">)</span>
+<a id="__codelineno-0-487" name="__codelineno-0-487"></a>    <span class="n">problem</span> <span class="o">=</span> <span class="n">cvxpy</span><span class="o">.</span><span class="n">Problem</span><span class="p">(</span><span class="n">cvxpy</span><span class="o">.</span><span class="n">Maximize</span><span class="p">(</span><span class="n">cvxpy</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">cvxpy</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="n">weights</span><span class="p">,</span> <span class="n">p_var</span><span class="p">))),</span> <span class="n">constraints</span><span class="p">)</span>
+<a id="__codelineno-0-488" name="__codelineno-0-488"></a>    <span class="n">value</span> <span class="o">=</span> <span class="n">solve_sdp</span><span class="p">(</span><span class="n">problem</span><span class="p">,</span> <span class="n">solver</span><span class="p">,</span> <span class="n">solver_params</span><span class="p">)</span>
+<a id="__codelineno-0-489" name="__codelineno-0-489"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">return_strategy</span><span class="p">:</span>
+<a id="__codelineno-0-490" name="__codelineno-0-490"></a>        <span class="k">return</span> <span class="n">value</span>
+<a id="__codelineno-0-491" name="__codelineno-0-491"></a>    <span class="k">return</span> <span class="n">value</span><span class="p">,</span> <span class="n">p_var</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">alice_out</span><span class="p">,</span> <span class="n">bob_out</span><span class="p">,</span> <span class="n">alice_in</span><span class="p">,</span> <span class="n">bob_in</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
@@ -12977,8 +12980,7 @@ this distribution need not be realisable by commuting measurements.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>toqito/nonlocal_games/nonlocal_game.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-492">492</a></span>
-<span class="normal"><a href="#__codelineno-0-493">493</a></span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-493">493</a></span>
 <span class="normal"><a href="#__codelineno-0-494">494</a></span>
 <span class="normal"><a href="#__codelineno-0-495">495</a></span>
 <span class="normal"><a href="#__codelineno-0-496">496</a></span>
@@ -13021,51 +13023,52 @@ this distribution need not be realisable by commuting measurements.</p>
 <span class="normal"><a href="#__codelineno-0-533">533</a></span>
 <span class="normal"><a href="#__codelineno-0-534">534</a></span>
 <span class="normal"><a href="#__codelineno-0-535">535</a></span>
-<span class="normal"><a href="#__codelineno-0-536">536</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-492" name="__codelineno-0-492"></a><span class="k">def</span><span class="w"> </span><span class="nf">commuting_measurement_value_upper_bound</span><span class="p">(</span>
-<a id="__codelineno-0-493" name="__codelineno-0-493"></a>    <span class="bp">self</span><span class="p">,</span>
-<a id="__codelineno-0-494" name="__codelineno-0-494"></a>    <span class="n">k</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
-<a id="__codelineno-0-495" name="__codelineno-0-495"></a>    <span class="n">no_signaling</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-<a id="__codelineno-0-496" name="__codelineno-0-496"></a>    <span class="n">constraints</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">AnswerEventConstraint</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-<a id="__codelineno-0-497" name="__codelineno-0-497"></a>    <span class="n">solver</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-<a id="__codelineno-0-498" name="__codelineno-0-498"></a>    <span class="n">solver_params</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-<a id="__codelineno-0-499" name="__codelineno-0-499"></a>    <span class="n">return_strategy</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-<a id="__codelineno-0-500" name="__codelineno-0-500"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span> <span class="o">|</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
-<a id="__codelineno-0-501" name="__codelineno-0-501"></a><span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Compute an upper bound on the commuting measurement value of the nonlocal game.</span>
-<a id="__codelineno-0-502" name="__codelineno-0-502"></a>
-<a id="__codelineno-0-503" name="__codelineno-0-503"></a><span class="sd">    This function calculates an upper bound on the commuting measurement value by</span>
-<a id="__codelineno-0-504" name="__codelineno-0-504"></a><span class="sd">        using k-levels of the NPA hierarchy [@navascues2008convergent]. The NPA hierarchy is a uniform</span>
-<a id="__codelineno-0-505" name="__codelineno-0-505"></a><span class="sd">        family of semidefinite programs that converges to the commuting measurement value of</span>
-<a id="__codelineno-0-506" name="__codelineno-0-506"></a><span class="sd">        any nonlocal game.</span>
-<a id="__codelineno-0-507" name="__codelineno-0-507"></a>
-<a id="__codelineno-0-508" name="__codelineno-0-508"></a><span class="sd">    You can determine the level of the hierarchy by a positive integer or a string</span>
-<a id="__codelineno-0-509" name="__codelineno-0-509"></a><span class="sd">        of a form like &#39;1+ab+aab&#39;, which indicates that an intermediate level of the hierarchy</span>
-<a id="__codelineno-0-510" name="__codelineno-0-510"></a><span class="sd">        should be used, where this example uses all products of one measurement, all products of</span>
-<a id="__codelineno-0-511" name="__codelineno-0-511"></a><span class="sd">        one Alice and one Bob measurement, and all products of two Alice and one Bob measurements.</span>
-<a id="__codelineno-0-512" name="__codelineno-0-512"></a>
-<a id="__codelineno-0-513" name="__codelineno-0-513"></a><span class="sd">    Optional linear constraints on the answer probabilities may be supplied in the form documented for</span>
-<a id="__codelineno-0-514" name="__codelineno-0-514"></a><span class="sd">    `ExtendedNonlocalGame.commuting_measurement_value_upper_bound`.</span>
-<a id="__codelineno-0-515" name="__codelineno-0-515"></a>
-<a id="__codelineno-0-516" name="__codelineno-0-516"></a><span class="sd">    Args:</span>
-<a id="__codelineno-0-517" name="__codelineno-0-517"></a><span class="sd">        k: The level of the NPA hierarchy to use (default=1).</span>
-<a id="__codelineno-0-518" name="__codelineno-0-518"></a><span class="sd">        no_signaling: Whether to enforce the no-signaling constraints (default=True).</span>
-<a id="__codelineno-0-519" name="__codelineno-0-519"></a><span class="sd">        constraints: Optional linear constraints on answer probabilities.</span>
-<a id="__codelineno-0-520" name="__codelineno-0-520"></a><span class="sd">        solver: The cvxpy solver to use (default is cvxpy&#39;s choice).</span>
-<a id="__codelineno-0-521" name="__codelineno-0-521"></a><span class="sd">        solver_params: Extra keyword arguments passed to `cvxpy.Problem.solve`.</span>
-<a id="__codelineno-0-522" name="__codelineno-0-522"></a><span class="sd">        return_strategy: If True, also return the optimal distribution of the relaxation as an array of shape</span>
-<a id="__codelineno-0-523" name="__codelineno-0-523"></a><span class="sd">            ``(num_alice_out, num_bob_out, num_alice_in, num_bob_in)`` (default is False). At a finite level</span>
-<a id="__codelineno-0-524" name="__codelineno-0-524"></a><span class="sd">            this distribution need not be realisable by commuting measurements.</span>
-<a id="__codelineno-0-525" name="__codelineno-0-525"></a>
-<a id="__codelineno-0-526" name="__codelineno-0-526"></a><span class="sd">    Returns:</span>
-<a id="__codelineno-0-527" name="__codelineno-0-527"></a><span class="sd">        The upper bound on the commuting strategy value of a nonlocal game, followed by the optimal distribution</span>
-<a id="__codelineno-0-528" name="__codelineno-0-528"></a><span class="sd">        of the relaxation when `return_strategy` is True.</span>
-<a id="__codelineno-0-529" name="__codelineno-0-529"></a>
-<a id="__codelineno-0-530" name="__codelineno-0-530"></a><span class="sd">    &quot;&quot;&quot;</span>
-<a id="__codelineno-0-531" name="__codelineno-0-531"></a>    <span class="n">value</span><span class="p">,</span> <span class="n">assemblage</span> <span class="o">=</span> <span class="n">npa_upper_bound</span><span class="p">(</span>
-<a id="__codelineno-0-532" name="__codelineno-0-532"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">prob_mat</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">pred_mat</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">],</span> <span class="n">k</span><span class="p">,</span> <span class="n">no_signaling</span><span class="p">,</span> <span class="n">constraints</span><span class="p">,</span> <span class="n">solver</span><span class="p">,</span> <span class="n">solver_params</span>
-<a id="__codelineno-0-533" name="__codelineno-0-533"></a>    <span class="p">)</span>
-<a id="__codelineno-0-534" name="__codelineno-0-534"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">return_strategy</span><span class="p">:</span>
-<a id="__codelineno-0-535" name="__codelineno-0-535"></a>        <span class="k">return</span> <span class="n">value</span>
-<a id="__codelineno-0-536" name="__codelineno-0-536"></a>    <span class="k">return</span> <span class="n">value</span><span class="p">,</span> <span class="n">assemblage</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">real</span>
+<span class="normal"><a href="#__codelineno-0-536">536</a></span>
+<span class="normal"><a href="#__codelineno-0-537">537</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-493" name="__codelineno-0-493"></a><span class="k">def</span><span class="w"> </span><span class="nf">commuting_measurement_value_upper_bound</span><span class="p">(</span>
+<a id="__codelineno-0-494" name="__codelineno-0-494"></a>    <span class="bp">self</span><span class="p">,</span>
+<a id="__codelineno-0-495" name="__codelineno-0-495"></a>    <span class="n">k</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+<a id="__codelineno-0-496" name="__codelineno-0-496"></a>    <span class="n">no_signaling</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+<a id="__codelineno-0-497" name="__codelineno-0-497"></a>    <span class="n">constraints</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">AnswerEventConstraint</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<a id="__codelineno-0-498" name="__codelineno-0-498"></a>    <span class="n">solver</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<a id="__codelineno-0-499" name="__codelineno-0-499"></a>    <span class="n">solver_params</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<a id="__codelineno-0-500" name="__codelineno-0-500"></a>    <span class="n">return_strategy</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<a id="__codelineno-0-501" name="__codelineno-0-501"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span> <span class="o">|</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+<a id="__codelineno-0-502" name="__codelineno-0-502"></a><span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Compute an upper bound on the commuting measurement value of the nonlocal game.</span>
+<a id="__codelineno-0-503" name="__codelineno-0-503"></a>
+<a id="__codelineno-0-504" name="__codelineno-0-504"></a><span class="sd">    This function calculates an upper bound on the commuting measurement value by</span>
+<a id="__codelineno-0-505" name="__codelineno-0-505"></a><span class="sd">        using k-levels of the NPA hierarchy [@navascues2008convergent]. The NPA hierarchy is a uniform</span>
+<a id="__codelineno-0-506" name="__codelineno-0-506"></a><span class="sd">        family of semidefinite programs that converges to the commuting measurement value of</span>
+<a id="__codelineno-0-507" name="__codelineno-0-507"></a><span class="sd">        any nonlocal game.</span>
+<a id="__codelineno-0-508" name="__codelineno-0-508"></a>
+<a id="__codelineno-0-509" name="__codelineno-0-509"></a><span class="sd">    You can determine the level of the hierarchy by a positive integer or a string</span>
+<a id="__codelineno-0-510" name="__codelineno-0-510"></a><span class="sd">        of a form like &#39;1+ab+aab&#39;, which indicates that an intermediate level of the hierarchy</span>
+<a id="__codelineno-0-511" name="__codelineno-0-511"></a><span class="sd">        should be used, where this example uses all products of one measurement, all products of</span>
+<a id="__codelineno-0-512" name="__codelineno-0-512"></a><span class="sd">        one Alice and one Bob measurement, and all products of two Alice and one Bob measurements.</span>
+<a id="__codelineno-0-513" name="__codelineno-0-513"></a>
+<a id="__codelineno-0-514" name="__codelineno-0-514"></a><span class="sd">    Optional linear constraints on the answer probabilities may be supplied in the form documented for</span>
+<a id="__codelineno-0-515" name="__codelineno-0-515"></a><span class="sd">    `ExtendedNonlocalGame.commuting_measurement_value_upper_bound`.</span>
+<a id="__codelineno-0-516" name="__codelineno-0-516"></a>
+<a id="__codelineno-0-517" name="__codelineno-0-517"></a><span class="sd">    Args:</span>
+<a id="__codelineno-0-518" name="__codelineno-0-518"></a><span class="sd">        k: The level of the NPA hierarchy to use (default=1).</span>
+<a id="__codelineno-0-519" name="__codelineno-0-519"></a><span class="sd">        no_signaling: Whether to enforce the no-signaling constraints (default=True).</span>
+<a id="__codelineno-0-520" name="__codelineno-0-520"></a><span class="sd">        constraints: Optional linear constraints on answer probabilities.</span>
+<a id="__codelineno-0-521" name="__codelineno-0-521"></a><span class="sd">        solver: The cvxpy solver to use (default is cvxpy&#39;s choice).</span>
+<a id="__codelineno-0-522" name="__codelineno-0-522"></a><span class="sd">        solver_params: Extra keyword arguments passed to `cvxpy.Problem.solve`.</span>
+<a id="__codelineno-0-523" name="__codelineno-0-523"></a><span class="sd">        return_strategy: If True, also return the optimal distribution of the relaxation as an array of shape</span>
+<a id="__codelineno-0-524" name="__codelineno-0-524"></a><span class="sd">            ``(num_alice_out, num_bob_out, num_alice_in, num_bob_in)`` (default is False). At a finite level</span>
+<a id="__codelineno-0-525" name="__codelineno-0-525"></a><span class="sd">            this distribution need not be realisable by commuting measurements.</span>
+<a id="__codelineno-0-526" name="__codelineno-0-526"></a>
+<a id="__codelineno-0-527" name="__codelineno-0-527"></a><span class="sd">    Returns:</span>
+<a id="__codelineno-0-528" name="__codelineno-0-528"></a><span class="sd">        The upper bound on the commuting strategy value of a nonlocal game, followed by the optimal distribution</span>
+<a id="__codelineno-0-529" name="__codelineno-0-529"></a><span class="sd">        of the relaxation when `return_strategy` is True.</span>
+<a id="__codelineno-0-530" name="__codelineno-0-530"></a>
+<a id="__codelineno-0-531" name="__codelineno-0-531"></a><span class="sd">    &quot;&quot;&quot;</span>
+<a id="__codelineno-0-532" name="__codelineno-0-532"></a>    <span class="n">value</span><span class="p">,</span> <span class="n">assemblage</span> <span class="o">=</span> <span class="n">npa_upper_bound</span><span class="p">(</span>
+<a id="__codelineno-0-533" name="__codelineno-0-533"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">prob_mat</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">pred_mat</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">],</span> <span class="n">k</span><span class="p">,</span> <span class="n">no_signaling</span><span class="p">,</span> <span class="n">constraints</span><span class="p">,</span> <span class="n">solver</span><span class="p">,</span> <span class="n">solver_params</span>
+<a id="__codelineno-0-534" name="__codelineno-0-534"></a>    <span class="p">)</span>
+<a id="__codelineno-0-535" name="__codelineno-0-535"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">return_strategy</span><span class="p">:</span>
+<a id="__codelineno-0-536" name="__codelineno-0-536"></a>        <span class="k">return</span> <span class="n">value</span>
+<a id="__codelineno-0-537" name="__codelineno-0-537"></a>    <span class="k">return</span> <span class="n">value</span><span class="p">,</span> <span class="n">assemblage</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">real</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
