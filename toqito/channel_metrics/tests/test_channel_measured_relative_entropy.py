@@ -263,3 +263,42 @@ def test_channel_2_must_be_completely_positive():
         channel_measured_relative_entropy(
             good_channel, non_cp_channel, in_dim, m=2, k=2, hamiltonian=hamiltonian, energy=1.0
         )
+
+
+@pytest.mark.parametrize("p", [0.25, 0.5])
+def test_completely_depolarizing_against_depolarizing_closed_form(p):
+    """With no energy constraint the value is the relative entropy at the maximally entangled input.
+
+    There the two outputs are I/4 and p Phi + (1 - p) I/4, which commute, so the measured and the Umegaki
+    relative entropies coincide at (1/4) ln(1 / (1 + 3p)) + (3/4) ln(1 / (1 - p)).
+    """
+    channel_1 = np.eye(4, dtype=complex) / 2
+    channel_2 = depolarizing(2, p)
+    expected = np.log(1 / (1 + 3 * p)) / 4 + 3 * np.log(1 / (1 - p)) / 4
+    value = channel_measured_relative_entropy(channel_1, channel_2, 2, 6, 6, np.zeros((2, 2)), np.inf)
+    assert value == pytest.approx(expected, abs=1e-4)
+
+
+def test_energy_constraint_closed_form():
+    """A zero energy budget against H = diag(0, 1) forces the input to |0><0|, whose value is in closed form."""
+    p = 0.35
+    channel_1 = np.eye(4, dtype=complex) / 2
+    channel_2 = depolarizing(2, p)
+    sigma = np.array([p + (1 - p) / 2, (1 - p) / 2])
+    expected = float(np.sum(0.5 * np.log(0.5 / sigma)))
+    value = channel_measured_relative_entropy(channel_1, channel_2, 2, 6, 6, np.diag([0.0, 1.0]), 0.0)
+    assert value == pytest.approx(expected, abs=1e-4)
+
+
+@pytest.mark.parametrize("energy", [1e6, 100.0, 1.0])
+def test_non_binding_energy_matches_unconstrained(energy):
+    """An energy budget at or above the largest eigenvalue of H cannot bind, so the value is unchanged.
+
+    Passing such a budget to the solver as a constraint used to make SCS stall at a value an order of
+    magnitude too large.
+    """
+    channel_1 = np.eye(4, dtype=complex) / 2
+    channel_2 = depolarizing(2, 0.25)
+    unconstrained = channel_measured_relative_entropy(channel_1, channel_2, 2, 6, 6, np.zeros((2, 2)), np.inf)
+    value = channel_measured_relative_entropy(channel_1, channel_2, 2, 6, 6, np.zeros((2, 2)), energy)
+    assert value == pytest.approx(unconstrained, abs=1e-6)
