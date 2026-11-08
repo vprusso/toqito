@@ -166,6 +166,14 @@ def test_partial_channel_error(test_input, map_arg, sys_arg, dim_arg):
         partial_channel(test_input, map_arg)
 
 
+@pytest.mark.parametrize("sys_arg", [0, 3, -1])
+def test_partial_channel_sys_out_of_range(sys_arg):
+    """`sys` counts subsystems from 1; anything else is rejected before any operator is built."""
+    rho = np.eye(9) / 9
+    with pytest.raises(ValueError, match="between 1 and 2"):
+        partial_channel(rho, depolarizing(3), sys=sys_arg, dim=[3, 3])
+
+
 def test_partial_channel_non_cp_map_explicit_dim():
     """A non-CP map given as [left, right] operator pairs, applied with an explicit 2D `dim`."""
     rho = np.arange(16, dtype=complex).reshape(4, 4)
