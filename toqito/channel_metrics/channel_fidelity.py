@@ -34,7 +34,12 @@ def channel_fidelity(choi_1: np.ndarray, choi_2: np.ndarray, eps: float = 1e-7) 
         \end{align*}
     \]
 
-    where \(Q \in \text{L}(\mathcal{Z} \otimes \mathcal{X})\).
+    where \(Q \in \text{L}(\mathcal{Z} \otimes \mathcal{X})\) and \(\text{Re}(X) = (X + X^*)/2\) is the Hermitian
+    part of an operator, so the first constraint is an operator inequality.
+
+    The block constraint confines the column space of \(Q\) to the support of \(J(\Psi)\) and its row space to
+    the support of \(J(\Phi)\). The program is therefore solved for \(Q\) on those supports, which keeps it strictly
+    feasible when either Choi matrix is singular and makes the solve fast and accurate.
 
     Args:
         choi_1: The Choi matrix of the first quantum channel.
@@ -91,18 +96,27 @@ def channel_fidelity(choi_1: np.ndarray, choi_2: np.ndarray, eps: float = 1e-7) 
     if dim * dim != choi_dim:
         raise ValueError("The Choi matrix dimension must be a perfect square (equal input and output dimensions).")
 
+    basis_1, spectrum_1 = _support(choi_1)
+    basis_2, spectrum_2 = _support(choi_2)
+
     lam = cvxpy.Variable(nonneg=True)
-    q_var = cvxpy.Variable((choi_dim, choi_dim), complex=True)
+    q_small = cvxpy.Variable((basis_2.shape[1], basis_1.shape[1]), complex=True)
+    q_var = basis_2 @ q_small @ basis_1.conj().T
+    traced = partial_trace(q_var, [1], [dim, dim])
 
-    constraints = []
-    objective = cvxpy.Maximize(lam)
-
-    constraints.append(cvxpy.bmat([[choi_1, q_var.H], [q_var, choi_2]]) >> 0)
-
-    constraints.append(lam * np.identity(dim) <= cvxpy.real(partial_trace(q_var, [1], [dim, dim])))
-
-    problem = cvxpy.Problem(objective, constraints)
+    constraints = [
+        cvxpy.bmat([[np.diag(spectrum_1), q_small.H], [q_small, np.diag(spectrum_2)]]) >> 0,
+        (traced + traced.H) / 2 >> lam * np.identity(dim),
+    ]
+    problem = cvxpy.Problem(cvxpy.Maximize(lam), constraints)
 
     with warnings.catch_warnings():
         warnings.filterwarnings("ignore", message="Solution may be inaccurate")
         return problem.solve(solver=cvxpy.SCS, eps=eps)
+
+
+def _support(mat: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
+    """Return an orthonormal basis of the support of a positive semidefinite matrix and the eigenvalues on it."""
+    eigenvalues, eigenvectors = np.linalg.eigh((mat + mat.conj().T) / 2)
+    keep = eigenvalues > 1e-10 * max(1.0, float(eigenvalues[-1]))
+    return eigenvectors[:, keep], eigenvalues[keep]
