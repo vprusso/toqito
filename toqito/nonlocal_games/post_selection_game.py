@@ -282,7 +282,8 @@ class PostSelectionGame:
             The statistical power \(W_G(P)\).
 
         """
-        value = self.distribution_value(distribution)
+        # Numerical optima can overshoot the unit interval by rounding, which the entropy cannot take.
+        value = min(max(self.distribution_value(distribution), 0.0), 1.0)
         kept = self.post_selection_probability(distribution)
         local = self._classical_value if self._classical_value is not None else self.classical_value()
         divergence = xlogy(value, value) - xlogy(value, local)

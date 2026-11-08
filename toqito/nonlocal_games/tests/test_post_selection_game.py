@@ -280,6 +280,16 @@ class TestValidation:
         with pytest.raises(ValueError, match="ever kept"):
             PostSelectionGame(prob_mat, np.ones((2, 2, 2, 2)), select_mat)
 
+    def test_statistical_power_clips_rounding_overshoot(self):
+        """A behaviour whose value rounds to just above one still has a finite statistical power."""
+        game = PostSelectionGame.hardy()
+        distribution = np.zeros((2, 2, 2, 2))
+        distribution[0, 1, 1, 1] = 1.0
+        distribution[0, 1, 0, 1] = -1e-12
+        assert game.distribution_value(distribution) > 1.0
+        kept = game.post_selection_probability(distribution)
+        assert game.statistical_power(distribution) == pytest.approx(kept, rel=1e-9)
+
     def test_undefined_values(self):
         """Strategies and distributions that never pass post-selection have no value."""
         game = PostSelectionGame.hardy()
