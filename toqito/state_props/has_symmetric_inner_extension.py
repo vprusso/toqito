@@ -6,9 +6,9 @@ import cvxpy
 import numpy as np
 from scipy.special import roots_jacobi
 
+from toqito._symmetric_extension import SymmetricExtension
 from toqito.matrix_ops._vec_maps import _apply_vec_map, _vec_kron_identity
 from toqito.matrix_props import is_positive_semidefinite
-from toqito.state_opt._symmetric_extension import SymmetricExtension
 
 
 def has_symmetric_inner_extension(

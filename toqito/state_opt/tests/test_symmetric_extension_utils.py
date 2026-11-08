@@ -4,13 +4,13 @@ import cvxpy
 import numpy as np
 import pytest
 
-from toqito.matrix_ops import partial_trace, partial_transpose
-from toqito.perms import symmetric_projection
-from toqito.state_opt._symmetric_extension import (
+from toqito._symmetric_extension import (
     SymmetricExtension,
     _symmetric_isometry,
     symmetric_extension_sdp,
 )
+from toqito.matrix_ops import partial_trace, partial_transpose
+from toqito.perms import symmetric_projection
 from toqito.states import bell
 
 
