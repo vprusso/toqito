@@ -1331,8 +1331,9 @@ def test_choi_1975_map_detects_npt_isotropic_3x3_via_partial_channel():
     rho_iso = 0.6 * np.eye(9) / 9 + 0.4 * (me_vec @ me_vec.conj().T)
     J_choi = _choi_1975_choi_matrix()
 
-    for sys in (0, 1):
+    for sys in (1, 2):
         mapped = partial_channel(rho_iso, J_choi, sys=sys, dim=[3, 3])
+        assert mapped.shape == (9, 9)
         assert not is_positive_semidefinite(mapped), f"Choi 1975 map should produce a non-PSD image on sys={sys}"
 
 

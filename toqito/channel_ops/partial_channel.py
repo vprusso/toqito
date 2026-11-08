@@ -32,14 +32,15 @@ def partial_channel(
     Args:
         rho: A matrix.
         phi_map: The map to partially apply.
-        sys: Scalar or vector specifying the size of the subsystems.
+        sys: The subsystem the channel acts on, counted from 1.
         dim: Dimension of the subsystems. If `None`, all dimensions are assumed to be equal.
 
     Returns:
         The partial map `phi_map` applied to matrix `rho`.
 
     Raises:
-        ValueError: If Phi map is not provided as a Choi matrix or Kraus operators.
+        ValueError: If `sys` does not name one of the subsystems in `dim`, or if `phi_map` is not provided as
+            a Choi matrix or Kraus operators.
 
     Examples:
         The following applies the completely depolarizing channel to the second
@@ -94,6 +95,11 @@ def partial_channel(
     if dim.ndim == 1:
         dim = dim.T.flatten()
         dim = np.array([dim, dim])
+
+    # `sys` counts subsystems from 1. Out-of-range values would otherwise index `dim` from the end and build
+    # an operator on the wrong (and much larger) space.
+    if not 1 <= sys <= dim.shape[1]:
+        raise ValueError(f"`sys` must be between 1 and {dim.shape[1]} (the number of subsystems), got {sys}.")
 
     prod_dim_r1 = int(np.prod(dim[0, : sys - 1]))
     prod_dim_c1 = int(np.prod(dim[1, : sys - 1]))
