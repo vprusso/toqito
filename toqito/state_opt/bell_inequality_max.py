@@ -155,7 +155,9 @@ def bell_inequality_max(
         problem = cp.Problem(cp.Maximize(cp.sum(cp.multiply(M, p_cg))), constraints)
         with warnings.catch_warnings():
             warnings.simplefilter("ignore", category=UserWarning)
-            return solve_sdp(problem, cp.SCS, {"eps": tol, "verbose": False})
+            return solve_sdp(
+                problem, cp.CLARABEL, {"tol_gap_abs": tol, "tol_gap_rel": tol, "tol_feas": tol, "verbose": False}
+            )
 
     if mtype_low == "classical":
         current_oa, current_ob, current_ma, current_mb = oa, ob, ma, mb
