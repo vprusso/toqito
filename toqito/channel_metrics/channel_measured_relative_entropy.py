@@ -6,6 +6,7 @@ import cvxpy as cvx
 import numpy as np
 
 from toqito._quadrature import _gauss_legendre_01
+from toqito._sdp import solve_sdp
 from toqito.channel_props import is_completely_positive, is_quantum_channel
 
 
@@ -79,23 +80,22 @@ def channel_measured_relative_entropy(
 
     Raises:
         ValueError: If `channel_1` is not a quantum channel or `channel_2` is not completely positive.
+        ValueError: If the semidefinite program does not solve.
 
     Examples:
-        We can find the measured relative entropy between a depolarizing channel of dimension 2
-        and the identity channel, constrained by a Hamiltonian and energy, as follows:
+        The completely depolarizing channel against the depolarizing channel with parameter \(1/4\), with no
+        energy constraint. Both outputs commute for the maximally entangled input, where the measured and the
+        Umegaki relative entropies agree at about \(0.0759\) nats.
 
         ```python exec="1" source="above" result="text"
+        import numpy as np
         from toqito.channel_metrics import channel_measured_relative_entropy
         from toqito.channels import depolarizing
-        import numpy as np
-        channel_1 = depolarizing(2, 0.2)
-        channel_2 = depolarizing(2, 1)  # Identity channel Choi matrix
-        in_dim = 2
-        m = 5
-        k = 5
+
+        channel_1 = np.eye(4) / 2
+        channel_2 = depolarizing(2, 0.25)
         hamiltonian = np.zeros((2, 2))
-        energy = 100
-        print(channel_measured_relative_entropy(channel_1, channel_2, in_dim, m, k, hamiltonian, energy))
+        print(round(channel_measured_relative_entropy(channel_1, channel_2, 2, 6, 6, hamiltonian, np.inf), 4))
         ```
 
     """
@@ -107,40 +107,45 @@ def channel_measured_relative_entropy(
         return 0
     n = len(channel_1)
     out_dim = len(channel_1) // in_dim
-    omega = cvx.Variable((n, n), complex=True)
-    rho = cvx.Variable((in_dim, in_dim), complex=True)
+    omega = cvx.Variable((n, n), hermitian=True)
+    rho = cvx.Variable((in_dim, in_dim), hermitian=True)
     theta = cvx.Variable((n, n), hermitian=True)
     ts = [cvx.Variable((n, n), hermitian=True) for _ in range(m)]
     zs = [cvx.Variable((n, n), hermitian=True) for _ in range(k + 1)]
     nodes, weights = _gauss_legendre_01(m)
 
-    Id = cvx.Constant(np.eye(out_dim))
-    zblocks = [cvx.bmat(([zs[i], zs[i + 1]], [zs[i + 1], cvx.kron(rho, Id)])) for i in range(k)]
+    rho_id = cvx.kron(rho, np.eye(out_dim))
+    zblocks = [cvx.bmat(([zs[i], zs[i + 1]], [zs[i + 1], rho_id])) for i in range(k)]
     tblocks = [
         cvx.bmat(
             (
-                [zs[k] - cvx.kron(rho, Id) - ts[j], -np.sqrt(nodes[j]) * ts[j]],
-                [-np.sqrt(nodes[j]) * ts[j], cvx.kron(rho, Id) - nodes[j] * ts[j]],
+                [zs[k] - rho_id - ts[j], -np.sqrt(nodes[j]) * ts[j]],
+                [-np.sqrt(nodes[j]) * ts[j], rho_id - nodes[j] * ts[j]],
             )
         )
         for j in range(m)
     ]
 
+    # The quadrature constraint carries the 2^k factor on the T side, as in `measured_relative_entropy`: a
+    # residual of size eps in sum_j w_j T_j = 2^{-k} theta would be amplified by 2^k in theta, which enters the
+    # objective directly.
     cons = (
         [cvx.trace(rho) == 1]
         + [zs[0] == omega]
-        + [cvx.real(cvx.trace(hamiltonian @ rho)) <= energy]
         + [rho >> 0, omega >> 0]
-        + [sum([weights[i] * ts[i] for i in range(m)]) == 2 ** (-k) * theta]
+        + [2**k * sum(weights[i] * ts[i] for i in range(m)) == theta]
         + [zblocks[i] >> 0 for i in range(k)]
         + [tblocks[j] >> 0 for j in range(m)]
     )
+    # Tr[H rho] <= lambda_max(H) for every state, so the energy constraint only binds below that. Leaving it out
+    # otherwise matters numerically: a constraint such as 0 <= 1e6 puts a constant of that size into the solver
+    # data and SCS then stalls at a value an order of magnitude off.
+    hamiltonian = (np.asarray(hamiltonian) + np.asarray(hamiltonian).conj().T) / 2
+    if energy < np.linalg.eigvalsh(hamiltonian)[-1]:
+        cons.append(cvx.real(cvx.trace(hamiltonian @ rho)) <= energy)
 
-    channel_1_cvx = cvx.Constant(channel_1)
-    channel_2_cvx = cvx.Constant(channel_2)
-    obj = cvx.Maximize(cvx.real(cvx.trace(theta @ channel_1_cvx) - cvx.trace(omega @ channel_2_cvx) + 1))
+    obj = cvx.Maximize(cvx.real(cvx.trace(theta @ channel_1) - cvx.trace(omega @ channel_2) + 1))
     problem = cvx.Problem(obj, constraints=cons)
     with warnings.catch_warnings():
         warnings.filterwarnings("ignore", message="Solution may be inaccurate")
-        problem.solve(solver=cvx.SCS, eps=1e-8, verbose=False)
-    return obj.value
+        return solve_sdp(problem, cvx.SCS, {"eps": 1e-8})
