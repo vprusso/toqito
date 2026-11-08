@@ -5,6 +5,7 @@ from itertools import product
 
 import cvxpy
 import numpy as np
+import scipy.linalg
 import scipy.sparse
 
 Symbol = namedtuple("Symbol", ["player", "question", "answer"], defaults=["", None, None])
@@ -18,6 +19,7 @@ def npa_constraints(
     referee_dim: int = 1,
     no_signaling: bool = True,
     normalize: bool = True,
+    zero_events: list[tuple[int, int, int, int]] | None = None,
 ) -> list[cvxpy.constraints.constraint.Constraint]:
     r"""Generate the constraints specified by the NPA hierarchy up to a finite level.
 
@@ -79,6 +81,11 @@ def npa_constraints(
         normalize: Whether to fix the trace of the referee's state to one (default=True). Without it the constraints
             describe the cone of unnormalized assemblages, which is what a ratio of two linear functionals of the
             assemblage is maximized over.
+        zero_events: Answer events ``(a, b, x, y)`` whose probability is required to vanish, as in Hardy-type
+            arguments. Such an event annihilates the state, so every moment of a word whose last Alice and Bob
+            operators (or first ones) form the event is zero, and the words that are themselves annihilated drop out
+            of the moment matrix. This restricts the relaxation to the face the constraints select, which keeps it
+            strictly feasible, where fixing the probabilities to zero by equality constraints would not.
 
     Returns:
         A list of cvxpy constraints.
@@ -89,10 +96,27 @@ def npa_constraints(
     words = _gen_words(k, a_out, a_in, b_out, b_in)
     if len(words) == 0:
         raise ValueError("Generated word list is empty. Check _gen_words logic.")
+    zero_pairs = frozenset()
+    if zero_events:
+        if referee_dim != 1:
+            raise ValueError("`zero_events` is only supported without a referee system (referee_dim=1).")
+        for a, b, x, y in zero_events:
+            if not (0 <= a < a_out and 0 <= b < b_out and 0 <= x < a_in and 0 <= y < b_in):
+                raise ValueError(f"Zero event (a={a}, b={b}, x={x}, y={y}) is out of range.")
+        # The last outcome of each measurement has no symbol of its own; its events are imposed as constraints below.
+        zero_pairs = frozenset(
+            (Symbol("Alice", x, a), Symbol("Bob", y, b))
+            for a, b, x, y in zero_events
+            if a < a_out - 1 and b < b_out - 1
+        )
+        words = [word for word in words if not _annihilates(word, zero_pairs)]
 
     # Moment matrix (Gamma matrix in [@navascues2008convergent]) with one `referee_dim`-dimensional block per pair of
     # words, generalised to referee systems as in extended nonlocal games [@speelman2016position].
-    moment_matrix, first_position = _moment_matrix(words, referee_dim, complex_entries=referee_dim > 1)
+    null_vectors = _zero_event_null_vectors(words, zero_events, zero_pairs, a_out, b_out) if zero_events else None
+    moment_matrix, first_position, psd_constraint = _moment_matrix(
+        words, referee_dim, complex_entries=referee_dim > 1, zero_pairs=zero_pairs, null_vectors=null_vectors
+    )
 
     def block(i: int, j: int) -> cvxpy.Expression:
         return moment_matrix[i * referee_dim : (i + 1) * referee_dim, j * referee_dim : (j + 1) * referee_dim]
@@ -107,7 +131,7 @@ def npa_constraints(
 
     # The referee's effective state is the block of the identity word.
     rho_referee = block(*first_position[(IDENTITY_SYMBOL,)])
-    constraints = [moment_matrix >> 0]
+    constraints = [psd_constraint]
     if normalize:
         constraints.append(cvxpy.trace(rho_referee) == 1)
 
@@ -136,6 +160,8 @@ def npa_constraints(
             else:
                 constraints += [assemblage_block(x, y, a, b) >> 0 for a in range(a_out) for b in range(b_out)]
             constraints.append(sum_a @ assemblage[x, y] @ sum_b.T == rho_referee)
+    for a, b, x, y in zero_events or []:
+        constraints.append(assemblage_block(x, y, a, b) == 0)
 
     if no_signaling:
         # Bob's marginal sum_a K_xy(a, b) must not depend on x, and Alice's sum_b K_xy(a, b) must not depend on y.
@@ -239,7 +265,7 @@ def bell_npa_constraints(
     """
     oa, ob, ma, mb = desc
     words = _gen_words(k, oa, ma, ob, mb)
-    moment_matrix, first_position = _moment_matrix(words, referee_dim=1, complex_entries=False)
+    moment_matrix, first_position, psd_constraint = _moment_matrix(words, referee_dim=1, complex_entries=False)
 
     # Every word with a Collins-Gisin entry is identified with it in one vector equality.
     moment_entries, cg_indices = [], []
@@ -249,7 +275,7 @@ def bell_npa_constraints(
             moment_entries.append(moment_matrix[i, j])
             cg_indices.append(cg_index)
     p_flat = p_var.flatten(order="F")
-    return [moment_matrix >> 0, cvxpy.hstack(moment_entries) == p_flat[cg_indices]]
+    return [psd_constraint, cvxpy.hstack(moment_entries) == p_flat[cg_indices]]
 
 
 def _conjugate(word: tuple[Symbol, ...]) -> tuple[Symbol, ...]:
@@ -266,9 +292,83 @@ def _word_key(word: tuple[Symbol, ...]) -> tuple:
     return (len(word), tuple(repr(symbol) for symbol in word))
 
 
+def _zero_event_null_vectors(
+    words: list[tuple[Symbol, ...]],
+    zero_events: list[tuple[int, int, int, int]],
+    zero_pairs: frozenset[tuple[Symbol, Symbol]],
+    a_out: int,
+    b_out: int,
+) -> np.ndarray | None:
+    r"""Return vectors on which the moment matrix vanishes because of zero events involving a last outcome.
+
+    The last outcome of a measurement has no symbol: it is the identity minus the other outcomes. For a zero event
+    \((a, b | x, y)\) in which, say, \(b\) is Bob's last outcome, the operator
+    \(A_a^x (\mathbb{1} - \sum_{b'} B_{b'}^y)\) annihilates the state, and so does \(W\) times it for every word
+    \(W\). Whenever the reduced words \(W A_a^x\) and all \(W A_a^x B_{b'}^y\) index rows of the moment matrix, the
+    corresponding signed indicator vector is in its kernel.
+    Events in which both outcomes have symbols are handled by dropping the annihilated words instead.
+    """
+    index = {word: i for i, word in enumerate(words)}
+    vectors = []
+    for a, b, x, y in zero_events:
+        alice_last, bob_last = a == a_out - 1, b == b_out - 1
+        if not (alice_last or bob_last):
+            continue
+        alice_terms = (
+            [(Symbol("Alice", x, a),)]
+            if not alice_last
+            else [()] + [(Symbol("Alice", x, a2),) for a2 in range(a_out - 1)]
+        )
+        alice_signs = [1.0] if not alice_last else [1.0] + [-1.0] * (a_out - 1)
+        bob_terms = (
+            [(Symbol("Bob", y, b),)] if not bob_last else [()] + [(Symbol("Bob", y, b2),) for b2 in range(b_out - 1)]
+        )
+        bob_signs = [1.0] if not bob_last else [1.0] + [-1.0] * (b_out - 1)
+        for prefix in words:
+            vector = np.zeros(len(words))
+            complete = True
+            for alice_term, alice_sign in zip(alice_terms, alice_signs):
+                for bob_term, bob_sign in zip(bob_terms, bob_signs):
+                    word = _reduce(prefix + alice_term + bob_term)
+                    # Terms that vanish identically, or whose word annihilates the state, drop out of the relation.
+                    if _is_zero(word) or _annihilates(word, zero_pairs):
+                        continue
+                    if word not in index:
+                        complete = False
+                        break
+                    vector[index[word]] += alice_sign * bob_sign
+                if not complete:
+                    break
+            if complete and np.any(vector):
+                vectors.append(vector)
+    if not vectors:
+        return None
+    matrix = np.array(vectors).T
+    # Keep an independent set of directions.
+    basis = scipy.linalg.orth(matrix)
+    return basis
+
+
+def _annihilates(word: tuple[Symbol, ...], zero_pairs: frozenset[tuple[Symbol, Symbol]]) -> bool:
+    """Return whether a reduced word annihilates the state because its last Alice and Bob operators form a zero event.
+
+    A reduced word is Alice's operators followed by Bob's; the last of each act first on the state, and their product
+    annihilates it when the event they form has zero probability.
+    """
+    if not zero_pairs or _is_zero(word) or _is_identity(word):
+        return False
+    alice = [symbol for symbol in word if symbol.player == "Alice"]
+    bob = [symbol for symbol in word if symbol.player == "Bob"]
+    return bool(alice) and bool(bob) and (alice[-1], bob[-1]) in zero_pairs
+
+
 def _moment_matrix(
-    words: list[tuple[Symbol, ...]], referee_dim: int, complex_entries: bool
-) -> tuple[cvxpy.Expression, dict[tuple[Symbol, ...], tuple[int, int]]]:
+    words: list[tuple[Symbol, ...]],
+    referee_dim: int,
+    complex_entries: bool,
+    zero_pairs: frozenset[tuple[Symbol, Symbol]] = frozenset(),
+    null_vectors: np.ndarray | None = None,
+) -> tuple[cvxpy.Expression, dict[tuple[Symbol, ...], tuple[int, int]], cvxpy.constraints.constraint.Constraint]:
     r"""Build the moment matrix of a word list as a linear image of free variables.
 
     Block ``(i, j)`` of the moment matrix is the moment of the product \(S_i^\dagger S_j\). Products that reduce to
@@ -276,7 +376,13 @@ def _moment_matrix(
     carrying the block's conjugate transpose, so the matrix is Hermitian (symmetric in the real case) by
     construction. Products that reduce to zero are fixed to zero.
 
-    Returns the matrix expression and, for every reduced word, the first ``(i, j)`` block at which it appears.
+    With ``null_vectors`` (columns on which the matrix must vanish, from zero-probability events), the free variables
+    are restricted to the solutions of those linear equations and the positivity constraint is placed on the
+    compression of the matrix to the orthogonal complement, which has an interior point where the full matrix has
+    none.
+
+    Returns the matrix expression, for every reduced word the first ``(i, j)`` block at which it appears, and the
+    positivity constraint to impose.
     """
     n = len(words)
     dim = referee_dim
@@ -289,7 +395,8 @@ def _moment_matrix(
     for i in range(n):
         for j in range(n):
             word = _reduce(words[i][::-1] + words[j])
-            if _is_zero(word):
+            # A moment vanishes when the product annihilates the state from the right or its adjoint does from the left.
+            if _is_zero(word) or _annihilates(word, zero_pairs) or _annihilates(_conjugate(word), zero_pairs):
                 continue
             first_position.setdefault(word, (i, j))
             adjoint = _conjugate(word)
@@ -336,13 +443,24 @@ def _moment_matrix(
 
     size = n * dim
     real_map = scipy.sparse.csc_matrix((np.ones(len(rows)), (rows, real_cols)), shape=(size * size, len(real_index)))
-    real_part = cvxpy.Variable(len(real_index), name="moments")
+    if null_vectors is None:
+        real_part = cvxpy.Variable(len(real_index), name="moments")
+    else:
+        # Each free variable contributes a fixed pattern to the matrix; `moment_matrix @ null_vectors == 0` is a linear
+        # system in the variables, and only its solution space is kept.
+        patterns = real_map.toarray().T.reshape(len(real_index), size, size)
+        system = np.einsum("mij,jk->mik", patterns, null_vectors).reshape(len(real_index), -1).T
+        solutions = scipy.linalg.null_space(system)
+        real_part = solutions @ cvxpy.Variable(solutions.shape[1], name="moments")
     moment_matrix = cvxpy.reshape(real_map @ real_part, (size, size), order="C")
     if imag_index:
         imag_map = scipy.sparse.csc_matrix((imag_signs, (imag_rows, imag_cols)), shape=(size * size, len(imag_index)))
         imag_part = cvxpy.Variable(len(imag_index), name="moments_imag")
         moment_matrix = moment_matrix + 1j * cvxpy.reshape(imag_map @ imag_part, (size, size), order="C")
-    return moment_matrix, first_position
+    if null_vectors is None:
+        return moment_matrix, first_position, moment_matrix >> 0
+    complement = scipy.linalg.null_space(null_vectors.T)
+    return moment_matrix, first_position, complement.T @ moment_matrix @ complement >> 0
 
 
 def _reduce(word: tuple[Symbol, ...]) -> tuple[Symbol, ...]:
