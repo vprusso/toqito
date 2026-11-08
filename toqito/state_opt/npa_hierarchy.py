@@ -13,7 +13,11 @@ PLAYERS = ("Alice", "Bob")
 
 
 def npa_constraints(
-    assemblage: dict[tuple[int, int], cvxpy.Variable], k: int | str = 1, referee_dim: int = 1, no_signaling: bool = True
+    assemblage: dict[tuple[int, int], cvxpy.Variable],
+    k: int | str = 1,
+    referee_dim: int = 1,
+    no_signaling: bool = True,
+    normalize: bool = True,
 ) -> list[cvxpy.constraints.constraint.Constraint]:
     r"""Generate the constraints specified by the NPA hierarchy up to a finite level.
 
@@ -72,6 +76,9 @@ def npa_constraints(
         k: The level of the NPA hierarchy to use (default=1).
         referee_dim: The dimension of the referee's quantum system (default=1).
         no_signaling: Whether to impose the no-signaling conditions on the assemblage (default=True).
+        normalize: Whether to fix the trace of the referee's state to one (default=True). Without it the constraints
+            describe the cone of unnormalized assemblages, which is what a ratio of two linear functionals of the
+            assemblage is maximized over.
 
     Returns:
         A list of cvxpy constraints.
@@ -100,7 +107,9 @@ def npa_constraints(
 
     # The referee's effective state is the block of the identity word.
     rho_referee = block(*first_position[(IDENTITY_SYMBOL,)])
-    constraints = [moment_matrix >> 0, cvxpy.trace(rho_referee) == 1]
+    constraints = [moment_matrix >> 0]
+    if normalize:
+        constraints.append(cvxpy.trace(rho_referee) == 1)
 
     # Identify the blocks of low-order words with the assemblage. Marginals of a single player are read off at the
     # other player's first question, which is immaterial under no-signaling.

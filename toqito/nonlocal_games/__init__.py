@@ -2,6 +2,7 @@
 
 from toqito.nonlocal_games.extended_nonlocal_game import AnswerEventConstraint, ExtendedNonlocalGame
 from toqito.nonlocal_games.nonlocal_game import NonlocalGame, QuantumStrategy
+from toqito.nonlocal_games.post_selection_game import PostSelectionGame
 from toqito.nonlocal_games.quantum_hedging import QuantumHedging
 from toqito.nonlocal_games.xor_game import XORGame
 from toqito.nonlocal_games.binary_constraint_system_game import (
