@@ -727,8 +727,8 @@ def test_breuer_hall_witness_fires_on_breuer_state():
     """The Breuer-Hall positive-map witness fires on the Breuer state.
 
     rho = (P_phi + P_psi)/2 with |psi> = (I x U)|phi>, U the 4x4
-    anti-symmetric unitary, is detected by the Breuer-Hall map on
-    subsystem 2 (dim=4): (I x phi_BH)(rho) fails to be PSD.
+    anti-symmetric unitary, is detected by the Breuer-Hall map on the
+    second subsystem (dim=4): (I x phi_BH)(rho) fails to be PSD.
 
     Note: this state is NPT, so in the full is_separable flow it is
     caught earlier by the PPT criterion; this test exercises the
@@ -742,7 +742,7 @@ def test_breuer_hall_witness_fires_on_breuer_state():
     assert not is_ppt(rho_breuer, dim=[2, 4])
     verdict, reason = _positive_map_witness_criteria(rho_breuer, [2, 4], 2, 4, 1e-8)
     assert verdict is False
-    assert reason == "Breuer-Hall positive-map witness (on subsystem 2, dim=4)"
+    assert reason == "Breuer-Hall positive-map witness (on subsystem 1, dim=4)"
 
 
 def test_breuer_hall_on_dA_detects_entangled_2x2werner():
@@ -1331,7 +1331,7 @@ def test_choi_1975_map_detects_npt_isotropic_3x3_via_partial_channel():
     rho_iso = 0.6 * np.eye(9) / 9 + 0.4 * (me_vec @ me_vec.conj().T)
     J_choi = _choi_1975_choi_matrix()
 
-    for sys in (1, 2):
+    for sys in (0, 1):
         mapped = partial_channel(rho_iso, J_choi, sys=sys, dim=[3, 3])
         assert mapped.shape == (9, 9)
         assert not is_positive_semidefinite(mapped), f"Choi 1975 map should produce a non-PSD image on sys={sys}"

@@ -8,7 +8,7 @@ from toqito.channel_props.channel_dim import channel_dim
 from toqito.states import max_entangled
 
 
-def kraus_to_choi(kraus_ops: list[np.ndarray] | list[list[np.ndarray]], sys: int = 2) -> np.ndarray:
+def kraus_to_choi(kraus_ops: list[np.ndarray] | list[list[np.ndarray]], sys: int = 1) -> np.ndarray:
     r"""Compute the Choi matrix of a list of Kraus operators.
 
     (Section: Kraus Representations of [@watrous2018theory]).
@@ -24,7 +24,7 @@ def kraus_to_choi(kraus_ops: list[np.ndarray] | list[list[np.ndarray]], sys: int
 
     Args:
         kraus_ops: A list of Kraus operators.
-        sys: The subsystem on which the channel acts (default is 2).
+        sys: The subsystem on which the channel acts, counted from 0. The default `1` is the second subsystem.
 
     Returns:
         The corresponding Choi matrix of the provided Kraus operators.
@@ -65,7 +65,7 @@ def kraus_to_choi(kraus_ops: list[np.ndarray] | list[list[np.ndarray]], sys: int
     if len(kraus_ops) == 0:
         raise ValueError("The list of Kraus operators cannot be empty.")
 
-    if sys == 2:
+    if sys == 1:
         # Fast path for the default convention (apply the channel to the second subsystem of the unnormalized
         # maximally entangled state). The Choi matrix is then sum_i vec(A_i) vec(B_i)^dagger, where vec stacks the
         # columns of an operator. This avoids building the entangled state and the dense Kronecker products that the
