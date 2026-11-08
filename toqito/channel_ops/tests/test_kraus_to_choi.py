@@ -122,12 +122,12 @@ expected_non_square = np.array(
         ([v_mat], expected_v_mat, None),
         # Kraus operators for non square inputs and outputs
         ([[kraus_1, kraus_2]], expected_non_square, None),
-        # Transpose map with sys=2 yields the swap operator.
-        (kraus_ops_transpose, expected_choi_res_transpose, 2),
-        # Dephasing channel with sys=2.
-        (kraus_ops_dephasing_channel, expected_choi_res_dephasing_channel, 2),
-        # Depolarizing channel with sys=2.
-        (kraus_ops_depolarizing_channel, expected_choi_res_depolarizing_channel, 2),
+        # Transpose map with the second subsystem named explicitly yields the swap operator.
+        (kraus_ops_transpose, expected_choi_res_transpose, 1),
+        # Dephasing channel with sys=1.
+        (kraus_ops_dephasing_channel, expected_choi_res_dephasing_channel, 1),
+        # Depolarizing channel with sys=1.
+        (kraus_ops_depolarizing_channel, expected_choi_res_depolarizing_channel, 1),
     ],
 )
 def test_kraus_to_choi(test_input, expected, sys):
@@ -161,7 +161,7 @@ def test_kraus_to_choi_accepts_stacked_ndarray():
 def test_kraus_to_choi_general_sys_branch():
     """The general (non-fast-path) `sys` branch yields a valid Choi matrix for a CP map."""
     pauli_x = np.array([[0, 1], [1, 0]], dtype=complex)
-    choi = kraus_to_choi([pauli_x], sys=1)
+    choi = kraus_to_choi([pauli_x], sys=0)
     assert choi.shape == (4, 4)
     herm = (choi + choi.conj().T) / 2
     np.testing.assert_allclose(choi, herm)

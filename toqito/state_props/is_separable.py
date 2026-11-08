@@ -1287,7 +1287,7 @@ def _positive_map_witness_criteria(
     """Return the first positive-map or witness verdict that fires."""
     if d_a == 3 and d_b == 3:
         phi_choi_1975 = _choi_1975_choi_matrix()
-        for p_idx_choi in (1, 2):
+        for p_idx_choi in (0, 1):
             mapped = partial_channel(state, phi_choi_1975, sys=p_idx_choi, dim=dims)
             if not is_positive_semidefinite(mapped, atol=tol, rtol=tol):
                 return False, f"Choi 1975 positive-map witness (on subsystem {p_idx_choi}, 3x3)"
@@ -1308,12 +1308,12 @@ def _positive_map_witness_criteria(
                 b_hk = t_iter_ha**2 / denom_ha
                 c_hk = 1 / denom_ha
                 phi_map_ha = np.diag([a_hk + 1, c_hk, b_hk, b_hk, a_hk + 1, c_hk, c_hk, b_hk, a_hk + 1]) - phi_proj3
-                mapped = partial_channel(state, phi_map_ha, sys=1, dim=dims)
+                mapped = partial_channel(state, phi_map_ha, sys=0, dim=dims)
                 if not is_positive_semidefinite(mapped, atol=tol, rtol=tol):
                     return False, f"Ha-Kye positive-map witness (3x3, t={t_iter_ha:.4g})"
 
-    for p_idx_bh in (1, 2):
-        current_dim_bh = dims[p_idx_bh - 1]
+    for p_idx_bh in (0, 1):
+        current_dim_bh = dims[p_idx_bh]
         if current_dim_bh > 0 and current_dim_bh % 2 == 0:
             phi_me_bh = max_entangled(current_dim_bh, False, False)
             phi_proj_bh = phi_me_bh @ phi_me_bh.conj().T

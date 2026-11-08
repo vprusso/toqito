@@ -99,12 +99,12 @@ expected_res_dim_list = np.array(
 @pytest.mark.parametrize(
     "test_input, expected, sys_arg, dim_arg",
     [
-        # Perform the partial map using the depolarizing channel as the Choi matrix on first system
+        # Depolarizing channel as a Choi matrix on the second subsystem (the default).
         (rho_first_system, expected_res_first_system, None, None),
-        # Perform the partial map using the depolarizing channel as the Choi matrix on second system
-        (rho_second_system, expected_res_second_system, 1, None),
-        # Test uses the depolarizing channel as the Choi matrix on first system when the dimension is specified as list.
-        (rho_dim_list, expected_res_dim_list, 2, [2, 2]),
+        # Depolarizing channel as a Choi matrix on the first subsystem.
+        (rho_second_system, expected_res_second_system, 0, None),
+        # Depolarizing channel on the second subsystem with the dimension given as a list.
+        (rho_dim_list, expected_res_dim_list, 1, [2, 2]),
     ],
 )
 def test_partial_channel(test_input, expected, sys_arg, dim_arg):
@@ -149,11 +149,11 @@ def test_partial_channel_cpt_kraus(nested):
         # Matrix must be square
         (np.array([[1, 1, 1, 1], [5, 6, 7, 8], [3, 3, 3, 3]]), depolarizing(3), None, None),
         # Matrix must be square with sys arg
-        (np.array([[1, 2, 3, 4], [2, 2, 2, 2], [12, 11, 10, 9]]), depolarizing(3), 2, None),
+        (np.array([[1, 2, 3, 4], [2, 2, 2, 2], [12, 11, 10, 9]]), depolarizing(3), 1, None),
         # Invalid dimension for partial map
-        (np.array([[1, 2, 3, 4], [5, 6, 7, 8], [12, 11, 10, 9]]), depolarizing(3), 1, [2, 2]),
+        (np.array([[1, 2, 3, 4], [5, 6, 7, 8], [12, 11, 10, 9]]), depolarizing(3), 0, [2, 2]),
         # Invalid map argument for partial map
-        (np.array([[1, 2, 3, 4], [5, 6, 7, 8], [12, 11, 10, 9]]), 5, 2, [2, 2]),
+        (np.array([[1, 2, 3, 4], [5, 6, 7, 8], [12, 11, 10, 9]]), 5, 1, [2, 2]),
     ],
 )
 def test_partial_channel_error(test_input, map_arg, sys_arg, dim_arg):
@@ -166,11 +166,11 @@ def test_partial_channel_error(test_input, map_arg, sys_arg, dim_arg):
         partial_channel(test_input, map_arg)
 
 
-@pytest.mark.parametrize("sys_arg", [0, 3, -1])
+@pytest.mark.parametrize("sys_arg", [2, 3, -1])
 def test_partial_channel_sys_out_of_range(sys_arg):
-    """`sys` counts subsystems from 1; anything else is rejected before any operator is built."""
+    """`sys` counts subsystems from 0; anything else is rejected before any operator is built."""
     rho = np.eye(9) / 9
-    with pytest.raises(ValueError, match="between 1 and 2"):
+    with pytest.raises(ValueError, match="between 0 and 1"):
         partial_channel(rho, depolarizing(3), sys=sys_arg, dim=[3, 3])
 
 
@@ -179,6 +179,6 @@ def test_partial_channel_non_cp_map_explicit_dim():
     rho = np.arange(16, dtype=complex).reshape(4, 4)
     a = np.array([[1, 2], [3, 4]], dtype=complex)
     b = np.array([[0, 1], [1, 1]], dtype=complex)
-    res = partial_channel(rho, [[a, b]], sys=2, dim=np.array([[2, 2], [2, 2]]))
+    res = partial_channel(rho, [[a, b]], sys=1, dim=np.array([[2, 2], [2, 2]]))
     expected = np.kron(np.eye(2), a) @ rho @ np.kron(np.eye(2), b).conj().T
     np.testing.assert_allclose(res, expected)

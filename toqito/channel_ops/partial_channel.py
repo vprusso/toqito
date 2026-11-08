@@ -11,7 +11,7 @@ from toqito.states import max_entangled
 def partial_channel(
     rho: np.ndarray,
     phi_map: np.ndarray | list[list[np.ndarray]],
-    sys: int = 2,
+    sys: int = 1,
     dim: list[int] | np.ndarray | None = None,
 ) -> np.ndarray:
     r"""Apply channel to a subsystem of an operator [@watrous2018theory].
@@ -32,7 +32,7 @@ def partial_channel(
     Args:
         rho: A matrix.
         phi_map: The map to partially apply.
-        sys: The subsystem the channel acts on, counted from 1.
+        sys: The subsystem the channel acts on, counted from 0. The default `1` is the second subsystem.
         dim: Dimension of the subsystems. If `None`, all dimensions are assumed to be equal.
 
     Returns:
@@ -80,7 +80,7 @@ def partial_channel(
         [-0.0170 + 0.0694j, -0.0613 - 0.0529j, 0.0602 - 0.0062j, 0.4530]
         ])
 
-        res = partial_channel(rho, depolarizing(2))
+        res = partial_channel(rho, depolarizing(2), sys=0)
         np.set_printoptions(linewidth=150, suppress=False)
         print(res)
         ```
@@ -96,15 +96,15 @@ def partial_channel(
         dim = dim.T.flatten()
         dim = np.array([dim, dim])
 
-    # `sys` counts subsystems from 1. Out-of-range values would otherwise index `dim` from the end and build
+    # `sys` counts subsystems from 0. Out-of-range values would otherwise index `dim` from the end and build
     # an operator on the wrong (and much larger) space.
-    if not 1 <= sys <= dim.shape[1]:
-        raise ValueError(f"`sys` must be between 1 and {dim.shape[1]} (the number of subsystems), got {sys}.")
+    if not 0 <= sys < dim.shape[1]:
+        raise ValueError(f"`sys` must be between 0 and {dim.shape[1] - 1} (the subsystems of `dim`), got {sys}.")
 
-    prod_dim_r1 = int(np.prod(dim[0, : sys - 1]))
-    prod_dim_c1 = int(np.prod(dim[1, : sys - 1]))
-    prod_dim_r2 = int(np.prod(dim[0, sys:]))
-    prod_dim_c2 = int(np.prod(dim[1, sys:]))
+    prod_dim_r1 = int(np.prod(dim[0, :sys]))
+    prod_dim_c1 = int(np.prod(dim[1, :sys]))
+    prod_dim_r2 = int(np.prod(dim[0, sys + 1 :]))
+    prod_dim_c2 = int(np.prod(dim[1, sys + 1 :]))
 
     if isinstance(phi_map, list):
         # Compute the Kraus operators on the full system.
@@ -151,16 +151,16 @@ def partial_channel(
                 [
                     prod_dim_r1,
                     prod_dim_r1,
-                    int(dim[0, sys - 1]),
-                    int(dim_phi[0] / dim[0, sys - 1]),
+                    int(dim[0, sys]),
+                    int(dim_phi[0] / dim[0, sys]),
                     prod_dim_r2,
                     prod_dim_r2,
                 ],
                 [
                     prod_dim_c1,
                     prod_dim_c1,
-                    int(dim[1, sys - 1]),
-                    int(dim_phi[1] / dim[1, sys - 1]),
+                    int(dim[1, sys]),
+                    int(dim_phi[1] / dim[1, sys]),
                     prod_dim_c2,
                     prod_dim_c2,
                 ],
