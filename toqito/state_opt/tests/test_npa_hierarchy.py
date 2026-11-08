@@ -643,7 +643,7 @@ def test_bell_npa_constraints_output_structure(k, desc, expected_gamma_shape):
 def test_moment_matrix_shares_entries_between_equal_products():
     """Entries whose operator products reduce to the same word share one variable, and the matrix is symmetric."""
     words = _gen_words(2, 2, 2, 2, 2)
-    moment_matrix, first_position = _moment_matrix(words, referee_dim=1, complex_entries=False)
+    moment_matrix, first_position, _ = _moment_matrix(words, referee_dim=1, complex_entries=False)
     rng = np.random.default_rng(0)
     for var in moment_matrix.variables():
         var.value = rng.normal(size=var.shape)
@@ -665,7 +665,7 @@ def test_moment_matrix_shares_entries_between_equal_products():
 def test_moment_matrix_hermitian_with_referee_blocks():
     """With a referee system the moment matrix is complex Hermitian by construction."""
     words = _gen_words("1+ab", 2, 2, 2, 2)
-    moment_matrix, _ = _moment_matrix(words, referee_dim=2, complex_entries=True)
+    moment_matrix, _, _ = _moment_matrix(words, referee_dim=2, complex_entries=True)
     rng = np.random.default_rng(1)
     for var in moment_matrix.variables():
         var.value = rng.normal(size=var.shape)
@@ -732,3 +732,72 @@ def test_npa_constraints_unnormalized_cone_scales_with_the_referee_state():
     constraints.append(cvxpy.sum(assemblage[0, 0]) == 2)
     value = cvxpy.Problem(cvxpy.Maximize(p_win), constraints).solve(solver=cvxpy.CLARABEL)
     assert value == pytest.approx(2 * np.cos(np.pi / 8) ** 2, abs=1e-6)
+
+
+def hardy_paradox_setup():
+    """Hardy's paradox: the three vanishing events and the winning event as sparse weight arrays."""
+    forbidden = [(0, 1, 0, 1), (1, 0, 1, 0), (0, 0, 1, 1)]
+    assemblage = {(x, y): cvxpy.Variable((2, 2), name=f"K({x},{y})") for x in range(2) for y in range(2)}
+    return assemblage, forbidden, assemblage[0, 0][0, 0]
+
+
+@pytest.mark.parametrize("level", ["1+ab", 2])
+def test_npa_constraints_zero_events_recover_the_hardy_probability(level):
+    """Maximizing P(00|00) with the three Hardy events removed gives the Hardy probability (5 sqrt 5 - 11) / 2."""
+    assemblage, forbidden, p_win = hardy_paradox_setup()
+    constraints = npa_constraints(assemblage, level, zero_events=forbidden)
+    problem = cvxpy.Problem(cvxpy.Maximize(p_win), constraints)
+    value = problem.solve(solver=cvxpy.CLARABEL)
+    assert problem.status == cvxpy.OPTIMAL
+    assert value == pytest.approx((5 * np.sqrt(5) - 11) / 2, abs=1e-6)
+    for a, b, x, y in forbidden:
+        assert assemblage[x, y].value[a, b] == pytest.approx(0, abs=1e-8)
+
+
+def test_npa_constraints_zero_events_shrink_the_moment_matrix():
+    """Words annihilated by a zero event leave the moment matrix and kernel directions are compressed away."""
+    assemblage, forbidden, _ = hardy_paradox_setup()
+    full = npa_constraints(assemblage, "1+ab")[0].args[0].shape[0]
+    reduced = npa_constraints(assemblage, "1+ab", zero_events=forbidden)[0].args[0].shape[0]
+    # Level 1+ab has 9 words; (A_0^1, B_0^1) is annihilated and the two events with a last outcome each remove a
+    # direction, so 6 remain.
+    assert (full, reduced) == (9, 6)
+
+
+def test_npa_constraints_zero_events_match_equality_constraints():
+    """A zero event involving both last outcomes agrees with imposing the probability equality directly."""
+    assemblage = {(x, y): cvxpy.Variable((2, 2), name=f"K({x},{y})") for x in range(2) for y in range(2)}
+    chsh = sum(
+        0.25 * assemblage[x, y][a, b]
+        for x in range(2)
+        for y in range(2)
+        for a in range(2)
+        for b in range(2)
+        if a ^ b == x * y
+    )
+    reduced = cvxpy.Problem(cvxpy.Maximize(chsh), npa_constraints(assemblage, 2, zero_events=[(1, 1, 0, 0)]))
+    value = reduced.solve(solver=cvxpy.CLARABEL)
+    assert reduced.status == cvxpy.OPTIMAL
+    explicit = cvxpy.Problem(cvxpy.Maximize(chsh), npa_constraints(assemblage, 2) + [assemblage[0, 0][1, 1] == 0])
+    expected = explicit.solve(solver=cvxpy.SCS, eps=1e-9, max_iters=200_000)
+    assert value == pytest.approx(expected, abs=1e-5)
+    assert value < np.cos(np.pi / 8) ** 2
+
+
+def test_npa_constraints_zero_events_validation():
+    """Out-of-range events and referee systems are rejected."""
+    assemblage, _, _ = hardy_paradox_setup()
+    with pytest.raises(ValueError, match="out of range"):
+        npa_constraints(assemblage, 1, zero_events=[(2, 0, 0, 0)])
+    referee = {(x, y): cvxpy.Variable((4, 4), name=f"R({x},{y})") for x in range(2) for y in range(2)}
+    with pytest.raises(ValueError, match="referee_dim"):
+        npa_constraints(referee, 1, referee_dim=2, zero_events=[(0, 0, 0, 0)])
+
+
+def test_npa_constraints_zero_events_at_level_one_keep_only_the_equalities():
+    """At level 1 the pair words are absent, so no kernel direction is complete and only the equalities remain."""
+    assemblage, forbidden, p_win = hardy_paradox_setup()
+    constraints = npa_constraints(assemblage, 1, zero_events=forbidden)
+    assert constraints[0].args[0].shape[0] == 5
+    value = cvxpy.Problem(cvxpy.Maximize(p_win), constraints).solve(solver=cvxpy.CLARABEL)
+    assert value >= (5 * np.sqrt(5) - 11) / 2 - 1e-6
