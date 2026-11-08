@@ -22,11 +22,13 @@ on:
 permissions:
   contents: write
 
-# Serialize all writers of the gh-pages branch (this workflow + Docs Preview)
-# so mike's deploy and rossjrw/pr-preview-action cleanup don't race each other
-# and lose one of the pushes to a non-fast-forward rejection.
+# One deploy at a time. Docs Preview writes gh-pages too, but it runs in its
+# own group: GitHub keeps a single pending run per group, so when a merge
+# queued this workflow and the preview cleanup for the merged PR at the same
+# time, the cleanup evicted the deploy and the dev docs were never updated.
+# The push below retries instead if the preview workflow moved the branch.
 concurrency:
-  group: gh-pages-deploy
+  group: docs-deploy
   cancel-in-progress: false
 
 jobs:
@@ -59,13 +61,33 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
+      # mike commits onto the local gh-pages branch and pushes. If Docs Preview
+      # pushed first, drop the rejected commit, refetch and rebuild on top.
+      - name: Define a retrying mike wrapper
+        run: |
+          cat > "$RUNNER_TEMP/mike-push.sh" <<'EOF'
+          #!/usr/bin/env bash
+          set -u
+          for attempt in 1 2 3; do
+            git fetch origin gh-pages
+            git branch -f gh-pages origin/gh-pages
+            if uv run mike "$@"; then
+              exit 0
+            fi
+            echo "mike $* failed on attempt $attempt; retrying"
+            sleep $((attempt * 20))
+          done
+          exit 1
+          EOF
+          chmod +x "$RUNNER_TEMP/mike-push.sh"
+
       - name: Deploy dev docs (push to master, or manual run without a version)
         if: >-
           github.event_name == 'push' ||
           (github.event_name == 'workflow_dispatch' && inputs.version == '')
         run: |
           cd docs
-          uv run mike deploy --push dev
+          "$RUNNER_TEMP/mike-push.sh" deploy --push dev
 
       - name: Deploy versioned docs (release, or manual run with a version)
         if: >-
@@ -80,5 +102,5 @@ jobs:
           VERSION=${VERSION#v}
           VERSION=${VERSION#.}
           cd docs
-          uv run mike deploy --push --update-aliases "$VERSION" latest
-          uv run mike set-default --push latest
+          "$RUNNER_TEMP/mike-push.sh" deploy --push --update-aliases "$VERSION" latest
+          "$RUNNER_TEMP/mike-push.sh" set-default --push latest
