@@ -4,7 +4,7 @@ import cvxpy
 import numpy as np
 
 from toqito._sdp import solve_sdp
-from toqito.state_opt._symmetric_extension import symmetric_extension_sdp
+from toqito._symmetric_extension import symmetric_extension_sdp
 
 
 def symmetric_extension_hierarchy(

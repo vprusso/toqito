@@ -3,9 +3,9 @@
 import cvxpy
 import numpy as np
 
+from toqito._symmetric_extension import symmetric_extension_sdp
 from toqito.matrix_ops import partial_trace
 from toqito.matrix_props import is_positive_semidefinite
-from toqito.state_opt._symmetric_extension import symmetric_extension_sdp
 from toqito.state_props.is_ppt import is_ppt
 
 
