@@ -10988,7 +10988,11 @@ the following semidefinite program (Proposition 50) in <sup><a id="cite-toqito-c
             \end{pmatrix} \geq 0
     \end{align*}
 \]</div>
-<p>where <span class="arithmatex">\(Q \in \text{L}(\mathcal{Z} \otimes \mathcal{X})\)</span>.</p>
+<p>where <span class="arithmatex">\(Q \in \text{L}(\mathcal{Z} \otimes \mathcal{X})\)</span> and <span class="arithmatex">\(\text{Re}(X) = (X + X^*)/2\)</span> is the Hermitian
+part of an operator, so the first constraint is an operator inequality.</p>
+<p>The block constraint confines the column space of <span class="arithmatex">\(Q\)</span> to the support of <span class="arithmatex">\(J(\Psi)\)</span> and its row space to
+the support of <span class="arithmatex">\(J(\Phi)\)</span>. The program is therefore solved for <span class="arithmatex">\(Q\)</span> on those supports, which keeps it strictly
+feasible when either Choi matrix is singular and makes the solve fast and accurate.</p>
 
 
 <p><span class="doc-section-title">Parameters:</span></p>
@@ -11071,7 +11075,7 @@ the following semidefinite program (Proposition 50) in <sup><a id="cite-toqito-c
 <a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="n">choi_2</span> <span class="o">=</span> <span class="n">dephasing</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
 <a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="nb">print</span><span class="p">(</span><span class="n">channel_fidelity</span><span class="p">(</span><span class="n">choi_1</span><span class="p">,</span> <span class="n">choi_2</span><span class="p">))</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>0.9999999999309447
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>1.0000001953423157
 </code></pre></div>
 <p>We can also compute the channel fidelity between two different channels. For example, we can
 compute the channel fidelity between the dephasing and depolarizing channels.</p>
@@ -11083,7 +11087,7 @@ compute the channel fidelity between the dephasing and depolarizing channels.</p
 <a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="n">choi_2</span> <span class="o">=</span> <span class="n">depolarizing</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
 <a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="nb">print</span><span class="p">(</span><span class="n">channel_fidelity</span><span class="p">(</span><span class="n">choi_1</span><span class="p">,</span> <span class="n">choi_2</span><span class="p">))</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>0.5003013053731958
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>0.5000000003407536
 </code></pre></div>
         <p><strong>References</strong></p>
 <p><span id="ref-toqito-channel_metrics-channel_fidelity-channel_fidelity-1"><sup><a href="#cite-toqito-channel_metrics-channel_fidelity-channel_fidelity-1">1</a></sup> Katariya, Vishal and Wilde, Mark. <em>Geometric distinguishability measures limit quantum channel estimation and discrimination</em>. <strong>Quantum Information Processing</strong>. vol. 20(2). (2021). <a href="https://doi.org/10.1007/s11128-021-02992-7">doi:10.1007/s11128-021-02992-7</a>.</span></p>
@@ -11188,7 +11192,14 @@ compute the channel fidelity between the dephasing and depolarizing channels.</p
 <span class="normal"><a href="#__codelineno-0-105">105</a></span>
 <span class="normal"><a href="#__codelineno-0-106">106</a></span>
 <span class="normal"><a href="#__codelineno-0-107">107</a></span>
-<span class="normal"><a href="#__codelineno-0-108">108</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-11" name="__codelineno-0-11"></a><span class="k">def</span><span class="w"> </span><span class="nf">channel_fidelity</span><span class="p">(</span><span class="n">choi_1</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">choi_2</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">eps</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-7</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="normal"><a href="#__codelineno-0-108">108</a></span>
+<span class="normal"><a href="#__codelineno-0-109">109</a></span>
+<span class="normal"><a href="#__codelineno-0-110">110</a></span>
+<span class="normal"><a href="#__codelineno-0-111">111</a></span>
+<span class="normal"><a href="#__codelineno-0-112">112</a></span>
+<span class="normal"><a href="#__codelineno-0-113">113</a></span>
+<span class="normal"><a href="#__codelineno-0-114">114</a></span>
+<span class="normal"><a href="#__codelineno-0-115">115</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-11" name="__codelineno-0-11"></a><span class="k">def</span><span class="w"> </span><span class="nf">channel_fidelity</span><span class="p">(</span><span class="n">choi_1</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">choi_2</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">eps</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-7</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <a id="__codelineno-0-12" name="__codelineno-0-12"></a><span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Compute the channel fidelity between two quantum channels [@katariya2021geometric].</span>
 <a id="__codelineno-0-13" name="__codelineno-0-13"></a>
 <a id="__codelineno-0-14" name="__codelineno-0-14"></a><span class="sd">    Let \(\Phi : \text{L}(\mathcal{Y}) \rightarrow \text{L}(\mathcal{X})\) and</span>
@@ -11214,78 +11225,85 @@ compute the channel fidelity between the dephasing and depolarizing channels.</p
 <a id="__codelineno-0-34" name="__codelineno-0-34"></a><span class="sd">        \end{align*}</span>
 <a id="__codelineno-0-35" name="__codelineno-0-35"></a><span class="sd">    \]</span>
 <a id="__codelineno-0-36" name="__codelineno-0-36"></a>
-<a id="__codelineno-0-37" name="__codelineno-0-37"></a><span class="sd">    where \(Q \in \text{L}(\mathcal{Z} \otimes \mathcal{X})\).</span>
-<a id="__codelineno-0-38" name="__codelineno-0-38"></a>
-<a id="__codelineno-0-39" name="__codelineno-0-39"></a><span class="sd">    Args:</span>
-<a id="__codelineno-0-40" name="__codelineno-0-40"></a><span class="sd">        choi_1: The Choi matrix of the first quantum channel.</span>
-<a id="__codelineno-0-41" name="__codelineno-0-41"></a><span class="sd">        choi_2: The Choi matrix of the second quantum channel.</span>
-<a id="__codelineno-0-42" name="__codelineno-0-42"></a><span class="sd">        eps: The solver tolerance for convergence to feasibility.</span>
+<a id="__codelineno-0-37" name="__codelineno-0-37"></a><span class="sd">    where \(Q \in \text{L}(\mathcal{Z} \otimes \mathcal{X})\) and \(\text{Re}(X) = (X + X^*)/2\) is the Hermitian</span>
+<a id="__codelineno-0-38" name="__codelineno-0-38"></a><span class="sd">    part of an operator, so the first constraint is an operator inequality.</span>
+<a id="__codelineno-0-39" name="__codelineno-0-39"></a>
+<a id="__codelineno-0-40" name="__codelineno-0-40"></a><span class="sd">    The block constraint confines the column space of \(Q\) to the support of \(J(\Psi)\) and its row space to</span>
+<a id="__codelineno-0-41" name="__codelineno-0-41"></a><span class="sd">    the support of \(J(\Phi)\). The program is therefore solved for \(Q\) on those supports, which keeps it strictly</span>
+<a id="__codelineno-0-42" name="__codelineno-0-42"></a><span class="sd">    feasible when either Choi matrix is singular and makes the solve fast and accurate.</span>
 <a id="__codelineno-0-43" name="__codelineno-0-43"></a>
-<a id="__codelineno-0-44" name="__codelineno-0-44"></a><span class="sd">    Returns:</span>
-<a id="__codelineno-0-45" name="__codelineno-0-45"></a><span class="sd">        The channel fidelity between the channels specified by the quantum channels corresponding to the Choi matrices</span>
-<a id="__codelineno-0-46" name="__codelineno-0-46"></a><span class="sd">        `choi_1` and `choi_2`.</span>
-<a id="__codelineno-0-47" name="__codelineno-0-47"></a>
-<a id="__codelineno-0-48" name="__codelineno-0-48"></a><span class="sd">    Raises:</span>
-<a id="__codelineno-0-49" name="__codelineno-0-49"></a><span class="sd">        ValueError: If matrices are not of equal dimension.</span>
-<a id="__codelineno-0-50" name="__codelineno-0-50"></a><span class="sd">        ValueError: If matrices are not square.</span>
-<a id="__codelineno-0-51" name="__codelineno-0-51"></a>
-<a id="__codelineno-0-52" name="__codelineno-0-52"></a><span class="sd">    Examples:</span>
-<a id="__codelineno-0-53" name="__codelineno-0-53"></a><span class="sd">        For two identical channels, we should expect that the channel fidelity should yield a value of</span>
-<a id="__codelineno-0-54" name="__codelineno-0-54"></a><span class="sd">        \(1\).</span>
-<a id="__codelineno-0-55" name="__codelineno-0-55"></a>
-<a id="__codelineno-0-56" name="__codelineno-0-56"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;</span>
-<a id="__codelineno-0-57" name="__codelineno-0-57"></a><span class="sd">        import numpy as np</span>
-<a id="__codelineno-0-58" name="__codelineno-0-58"></a><span class="sd">        from toqito.channels import dephasing</span>
-<a id="__codelineno-0-59" name="__codelineno-0-59"></a><span class="sd">        from toqito.channel_metrics import channel_fidelity</span>
-<a id="__codelineno-0-60" name="__codelineno-0-60"></a><span class="sd">        # The Choi matrices of dimension-4 for the dephasing channel</span>
-<a id="__codelineno-0-61" name="__codelineno-0-61"></a><span class="sd">        choi_1 = dephasing(4)</span>
-<a id="__codelineno-0-62" name="__codelineno-0-62"></a><span class="sd">        choi_2 = dephasing(4)</span>
-<a id="__codelineno-0-63" name="__codelineno-0-63"></a><span class="sd">        print(channel_fidelity(choi_1, choi_2))</span>
-<a id="__codelineno-0-64" name="__codelineno-0-64"></a><span class="sd">        ```</span>
-<a id="__codelineno-0-65" name="__codelineno-0-65"></a>
-<a id="__codelineno-0-66" name="__codelineno-0-66"></a><span class="sd">        We can also compute the channel fidelity between two different channels. For example, we can</span>
-<a id="__codelineno-0-67" name="__codelineno-0-67"></a><span class="sd">        compute the channel fidelity between the dephasing and depolarizing channels.</span>
-<a id="__codelineno-0-68" name="__codelineno-0-68"></a>
-<a id="__codelineno-0-69" name="__codelineno-0-69"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;</span>
-<a id="__codelineno-0-70" name="__codelineno-0-70"></a><span class="sd">        import numpy as np</span>
-<a id="__codelineno-0-71" name="__codelineno-0-71"></a><span class="sd">        from toqito.channels import dephasing, depolarizing</span>
-<a id="__codelineno-0-72" name="__codelineno-0-72"></a><span class="sd">        from toqito.channel_metrics import channel_fidelity</span>
-<a id="__codelineno-0-73" name="__codelineno-0-73"></a><span class="sd">        # The Choi matrices of dimension-4 for the dephasing and depolarizing channels</span>
-<a id="__codelineno-0-74" name="__codelineno-0-74"></a><span class="sd">        choi_1 = dephasing(4)</span>
-<a id="__codelineno-0-75" name="__codelineno-0-75"></a><span class="sd">        choi_2 = depolarizing(4)</span>
-<a id="__codelineno-0-76" name="__codelineno-0-76"></a><span class="sd">        print(channel_fidelity(choi_1, choi_2))</span>
-<a id="__codelineno-0-77" name="__codelineno-0-77"></a><span class="sd">        ```</span>
-<a id="__codelineno-0-78" name="__codelineno-0-78"></a>
-<a id="__codelineno-0-79" name="__codelineno-0-79"></a><span class="sd">    &quot;&quot;&quot;</span>
-<a id="__codelineno-0-80" name="__codelineno-0-80"></a>    <span class="k">if</span> <span class="n">choi_1</span><span class="o">.</span><span class="n">shape</span> <span class="o">!=</span> <span class="n">choi_2</span><span class="o">.</span><span class="n">shape</span><span class="p">:</span>
-<a id="__codelineno-0-81" name="__codelineno-0-81"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The Choi matrices provided should be of equal dimension.&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-82" name="__codelineno-0-82"></a>
-<a id="__codelineno-0-83" name="__codelineno-0-83"></a>    <span class="n">choi_dim_x</span><span class="p">,</span> <span class="n">choi_dim_y</span> <span class="o">=</span> <span class="n">choi_1</span><span class="o">.</span><span class="n">shape</span>
-<a id="__codelineno-0-84" name="__codelineno-0-84"></a>    <span class="k">if</span> <span class="n">choi_dim_x</span> <span class="o">!=</span> <span class="n">choi_dim_y</span><span class="p">:</span>
-<a id="__codelineno-0-85" name="__codelineno-0-85"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The Choi matrix provided must be square.&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-86" name="__codelineno-0-86"></a>
-<a id="__codelineno-0-87" name="__codelineno-0-87"></a>    <span class="n">choi_dim</span> <span class="o">=</span> <span class="n">choi_dim_x</span>
-<a id="__codelineno-0-88" name="__codelineno-0-88"></a>    <span class="c1"># The Choi matrix of a channel with equal input/output dimension d is d^2 by d^2, so the subsystem dimension is</span>
-<a id="__codelineno-0-89" name="__codelineno-0-89"></a>    <span class="c1"># sqrt(choi_dim). The previous int(log2(choi_dim)) only coincided with this for d &lt;= 4 and was wrong for larger d.</span>
-<a id="__codelineno-0-90" name="__codelineno-0-90"></a>    <span class="n">dim</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">choi_dim</span><span class="p">)))</span>
-<a id="__codelineno-0-91" name="__codelineno-0-91"></a>    <span class="k">if</span> <span class="n">dim</span> <span class="o">*</span> <span class="n">dim</span> <span class="o">!=</span> <span class="n">choi_dim</span><span class="p">:</span>
-<a id="__codelineno-0-92" name="__codelineno-0-92"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The Choi matrix dimension must be a perfect square (equal input and output dimensions).&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-93" name="__codelineno-0-93"></a>
-<a id="__codelineno-0-94" name="__codelineno-0-94"></a>    <span class="n">lam</span> <span class="o">=</span> <span class="n">cvxpy</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="n">nonneg</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<a id="__codelineno-0-95" name="__codelineno-0-95"></a>    <span class="n">q_var</span> <span class="o">=</span> <span class="n">cvxpy</span><span class="o">.</span><span class="n">Variable</span><span class="p">((</span><span class="n">choi_dim</span><span class="p">,</span> <span class="n">choi_dim</span><span class="p">),</span> <span class="nb">complex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<a id="__codelineno-0-96" name="__codelineno-0-96"></a>
-<a id="__codelineno-0-97" name="__codelineno-0-97"></a>    <span class="n">constraints</span> <span class="o">=</span> <span class="p">[]</span>
-<a id="__codelineno-0-98" name="__codelineno-0-98"></a>    <span class="n">objective</span> <span class="o">=</span> <span class="n">cvxpy</span><span class="o">.</span><span class="n">Maximize</span><span class="p">(</span><span class="n">lam</span><span class="p">)</span>
-<a id="__codelineno-0-99" name="__codelineno-0-99"></a>
-<a id="__codelineno-0-100" name="__codelineno-0-100"></a>    <span class="n">constraints</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cvxpy</span><span class="o">.</span><span class="n">bmat</span><span class="p">([[</span><span class="n">choi_1</span><span class="p">,</span> <span class="n">q_var</span><span class="o">.</span><span class="n">H</span><span class="p">],</span> <span class="p">[</span><span class="n">q_var</span><span class="p">,</span> <span class="n">choi_2</span><span class="p">]])</span> <span class="o">&gt;&gt;</span> <span class="mi">0</span><span class="p">)</span>
+<a id="__codelineno-0-44" name="__codelineno-0-44"></a><span class="sd">    Args:</span>
+<a id="__codelineno-0-45" name="__codelineno-0-45"></a><span class="sd">        choi_1: The Choi matrix of the first quantum channel.</span>
+<a id="__codelineno-0-46" name="__codelineno-0-46"></a><span class="sd">        choi_2: The Choi matrix of the second quantum channel.</span>
+<a id="__codelineno-0-47" name="__codelineno-0-47"></a><span class="sd">        eps: The solver tolerance for convergence to feasibility.</span>
+<a id="__codelineno-0-48" name="__codelineno-0-48"></a>
+<a id="__codelineno-0-49" name="__codelineno-0-49"></a><span class="sd">    Returns:</span>
+<a id="__codelineno-0-50" name="__codelineno-0-50"></a><span class="sd">        The channel fidelity between the channels specified by the quantum channels corresponding to the Choi matrices</span>
+<a id="__codelineno-0-51" name="__codelineno-0-51"></a><span class="sd">        `choi_1` and `choi_2`.</span>
+<a id="__codelineno-0-52" name="__codelineno-0-52"></a>
+<a id="__codelineno-0-53" name="__codelineno-0-53"></a><span class="sd">    Raises:</span>
+<a id="__codelineno-0-54" name="__codelineno-0-54"></a><span class="sd">        ValueError: If matrices are not of equal dimension.</span>
+<a id="__codelineno-0-55" name="__codelineno-0-55"></a><span class="sd">        ValueError: If matrices are not square.</span>
+<a id="__codelineno-0-56" name="__codelineno-0-56"></a>
+<a id="__codelineno-0-57" name="__codelineno-0-57"></a><span class="sd">    Examples:</span>
+<a id="__codelineno-0-58" name="__codelineno-0-58"></a><span class="sd">        For two identical channels, we should expect that the channel fidelity should yield a value of</span>
+<a id="__codelineno-0-59" name="__codelineno-0-59"></a><span class="sd">        \(1\).</span>
+<a id="__codelineno-0-60" name="__codelineno-0-60"></a>
+<a id="__codelineno-0-61" name="__codelineno-0-61"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;</span>
+<a id="__codelineno-0-62" name="__codelineno-0-62"></a><span class="sd">        import numpy as np</span>
+<a id="__codelineno-0-63" name="__codelineno-0-63"></a><span class="sd">        from toqito.channels import dephasing</span>
+<a id="__codelineno-0-64" name="__codelineno-0-64"></a><span class="sd">        from toqito.channel_metrics import channel_fidelity</span>
+<a id="__codelineno-0-65" name="__codelineno-0-65"></a><span class="sd">        # The Choi matrices of dimension-4 for the dephasing channel</span>
+<a id="__codelineno-0-66" name="__codelineno-0-66"></a><span class="sd">        choi_1 = dephasing(4)</span>
+<a id="__codelineno-0-67" name="__codelineno-0-67"></a><span class="sd">        choi_2 = dephasing(4)</span>
+<a id="__codelineno-0-68" name="__codelineno-0-68"></a><span class="sd">        print(channel_fidelity(choi_1, choi_2))</span>
+<a id="__codelineno-0-69" name="__codelineno-0-69"></a><span class="sd">        ```</span>
+<a id="__codelineno-0-70" name="__codelineno-0-70"></a>
+<a id="__codelineno-0-71" name="__codelineno-0-71"></a><span class="sd">        We can also compute the channel fidelity between two different channels. For example, we can</span>
+<a id="__codelineno-0-72" name="__codelineno-0-72"></a><span class="sd">        compute the channel fidelity between the dephasing and depolarizing channels.</span>
+<a id="__codelineno-0-73" name="__codelineno-0-73"></a>
+<a id="__codelineno-0-74" name="__codelineno-0-74"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; result=&quot;text&quot;</span>
+<a id="__codelineno-0-75" name="__codelineno-0-75"></a><span class="sd">        import numpy as np</span>
+<a id="__codelineno-0-76" name="__codelineno-0-76"></a><span class="sd">        from toqito.channels import dephasing, depolarizing</span>
+<a id="__codelineno-0-77" name="__codelineno-0-77"></a><span class="sd">        from toqito.channel_metrics import channel_fidelity</span>
+<a id="__codelineno-0-78" name="__codelineno-0-78"></a><span class="sd">        # The Choi matrices of dimension-4 for the dephasing and depolarizing channels</span>
+<a id="__codelineno-0-79" name="__codelineno-0-79"></a><span class="sd">        choi_1 = dephasing(4)</span>
+<a id="__codelineno-0-80" name="__codelineno-0-80"></a><span class="sd">        choi_2 = depolarizing(4)</span>
+<a id="__codelineno-0-81" name="__codelineno-0-81"></a><span class="sd">        print(channel_fidelity(choi_1, choi_2))</span>
+<a id="__codelineno-0-82" name="__codelineno-0-82"></a><span class="sd">        ```</span>
+<a id="__codelineno-0-83" name="__codelineno-0-83"></a>
+<a id="__codelineno-0-84" name="__codelineno-0-84"></a><span class="sd">    &quot;&quot;&quot;</span>
+<a id="__codelineno-0-85" name="__codelineno-0-85"></a>    <span class="k">if</span> <span class="n">choi_1</span><span class="o">.</span><span class="n">shape</span> <span class="o">!=</span> <span class="n">choi_2</span><span class="o">.</span><span class="n">shape</span><span class="p">:</span>
+<a id="__codelineno-0-86" name="__codelineno-0-86"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The Choi matrices provided should be of equal dimension.&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-87" name="__codelineno-0-87"></a>
+<a id="__codelineno-0-88" name="__codelineno-0-88"></a>    <span class="n">choi_dim_x</span><span class="p">,</span> <span class="n">choi_dim_y</span> <span class="o">=</span> <span class="n">choi_1</span><span class="o">.</span><span class="n">shape</span>
+<a id="__codelineno-0-89" name="__codelineno-0-89"></a>    <span class="k">if</span> <span class="n">choi_dim_x</span> <span class="o">!=</span> <span class="n">choi_dim_y</span><span class="p">:</span>
+<a id="__codelineno-0-90" name="__codelineno-0-90"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The Choi matrix provided must be square.&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-91" name="__codelineno-0-91"></a>
+<a id="__codelineno-0-92" name="__codelineno-0-92"></a>    <span class="n">choi_dim</span> <span class="o">=</span> <span class="n">choi_dim_x</span>
+<a id="__codelineno-0-93" name="__codelineno-0-93"></a>    <span class="c1"># The Choi matrix of a channel with equal input/output dimension d is d^2 by d^2, so the subsystem dimension is</span>
+<a id="__codelineno-0-94" name="__codelineno-0-94"></a>    <span class="c1"># sqrt(choi_dim). The previous int(log2(choi_dim)) only coincided with this for d &lt;= 4 and was wrong for larger d.</span>
+<a id="__codelineno-0-95" name="__codelineno-0-95"></a>    <span class="n">dim</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">choi_dim</span><span class="p">)))</span>
+<a id="__codelineno-0-96" name="__codelineno-0-96"></a>    <span class="k">if</span> <span class="n">dim</span> <span class="o">*</span> <span class="n">dim</span> <span class="o">!=</span> <span class="n">choi_dim</span><span class="p">:</span>
+<a id="__codelineno-0-97" name="__codelineno-0-97"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The Choi matrix dimension must be a perfect square (equal input and output dimensions).&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-98" name="__codelineno-0-98"></a>
+<a id="__codelineno-0-99" name="__codelineno-0-99"></a>    <span class="n">basis_1</span><span class="p">,</span> <span class="n">spectrum_1</span> <span class="o">=</span> <span class="n">_support</span><span class="p">(</span><span class="n">choi_1</span><span class="p">)</span>
+<a id="__codelineno-0-100" name="__codelineno-0-100"></a>    <span class="n">basis_2</span><span class="p">,</span> <span class="n">spectrum_2</span> <span class="o">=</span> <span class="n">_support</span><span class="p">(</span><span class="n">choi_2</span><span class="p">)</span>
 <a id="__codelineno-0-101" name="__codelineno-0-101"></a>
-<a id="__codelineno-0-102" name="__codelineno-0-102"></a>    <span class="n">constraints</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">lam</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="n">dim</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">cvxpy</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">partial_trace</span><span class="p">(</span><span class="n">q_var</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="n">dim</span><span class="p">,</span> <span class="n">dim</span><span class="p">])))</span>
-<a id="__codelineno-0-103" name="__codelineno-0-103"></a>
-<a id="__codelineno-0-104" name="__codelineno-0-104"></a>    <span class="n">problem</span> <span class="o">=</span> <span class="n">cvxpy</span><span class="o">.</span><span class="n">Problem</span><span class="p">(</span><span class="n">objective</span><span class="p">,</span> <span class="n">constraints</span><span class="p">)</span>
-<a id="__codelineno-0-105" name="__codelineno-0-105"></a>
-<a id="__codelineno-0-106" name="__codelineno-0-106"></a>    <span class="k">with</span> <span class="n">warnings</span><span class="o">.</span><span class="n">catch_warnings</span><span class="p">():</span>
-<a id="__codelineno-0-107" name="__codelineno-0-107"></a>        <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="s2">&quot;Solution may be inaccurate&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-108" name="__codelineno-0-108"></a>        <span class="k">return</span> <span class="n">problem</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">solver</span><span class="o">=</span><span class="n">cvxpy</span><span class="o">.</span><span class="n">SCS</span><span class="p">,</span> <span class="n">eps</span><span class="o">=</span><span class="n">eps</span><span class="p">)</span>
+<a id="__codelineno-0-102" name="__codelineno-0-102"></a>    <span class="n">lam</span> <span class="o">=</span> <span class="n">cvxpy</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="n">nonneg</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<a id="__codelineno-0-103" name="__codelineno-0-103"></a>    <span class="n">q_small</span> <span class="o">=</span> <span class="n">cvxpy</span><span class="o">.</span><span class="n">Variable</span><span class="p">((</span><span class="n">basis_2</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">basis_1</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="nb">complex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<a id="__codelineno-0-104" name="__codelineno-0-104"></a>    <span class="n">q_var</span> <span class="o">=</span> <span class="n">basis_2</span> <span class="o">@</span> <span class="n">q_small</span> <span class="o">@</span> <span class="n">basis_1</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span>
+<a id="__codelineno-0-105" name="__codelineno-0-105"></a>    <span class="n">traced</span> <span class="o">=</span> <span class="n">partial_trace</span><span class="p">(</span><span class="n">q_var</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="n">dim</span><span class="p">,</span> <span class="n">dim</span><span class="p">])</span>
+<a id="__codelineno-0-106" name="__codelineno-0-106"></a>
+<a id="__codelineno-0-107" name="__codelineno-0-107"></a>    <span class="n">constraints</span> <span class="o">=</span> <span class="p">[</span>
+<a id="__codelineno-0-108" name="__codelineno-0-108"></a>        <span class="n">cvxpy</span><span class="o">.</span><span class="n">bmat</span><span class="p">([[</span><span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">spectrum_1</span><span class="p">),</span> <span class="n">q_small</span><span class="o">.</span><span class="n">H</span><span class="p">],</span> <span class="p">[</span><span class="n">q_small</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">spectrum_2</span><span class="p">)]])</span> <span class="o">&gt;&gt;</span> <span class="mi">0</span><span class="p">,</span>
+<a id="__codelineno-0-109" name="__codelineno-0-109"></a>        <span class="p">(</span><span class="n">traced</span> <span class="o">+</span> <span class="n">traced</span><span class="o">.</span><span class="n">H</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">&gt;&gt;</span> <span class="n">lam</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="n">dim</span><span class="p">),</span>
+<a id="__codelineno-0-110" name="__codelineno-0-110"></a>    <span class="p">]</span>
+<a id="__codelineno-0-111" name="__codelineno-0-111"></a>    <span class="n">problem</span> <span class="o">=</span> <span class="n">cvxpy</span><span class="o">.</span><span class="n">Problem</span><span class="p">(</span><span class="n">cvxpy</span><span class="o">.</span><span class="n">Maximize</span><span class="p">(</span><span class="n">lam</span><span class="p">),</span> <span class="n">constraints</span><span class="p">)</span>
+<a id="__codelineno-0-112" name="__codelineno-0-112"></a>
+<a id="__codelineno-0-113" name="__codelineno-0-113"></a>    <span class="k">with</span> <span class="n">warnings</span><span class="o">.</span><span class="n">catch_warnings</span><span class="p">():</span>
+<a id="__codelineno-0-114" name="__codelineno-0-114"></a>        <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="s2">&quot;Solution may be inaccurate&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-115" name="__codelineno-0-115"></a>        <span class="k">return</span> <span class="n">problem</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">solver</span><span class="o">=</span><span class="n">cvxpy</span><span class="o">.</span><span class="n">SCS</span><span class="p">,</span> <span class="n">eps</span><span class="o">=</span><span class="n">eps</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
