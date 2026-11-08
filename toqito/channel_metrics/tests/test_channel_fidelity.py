@@ -2,8 +2,10 @@
 
 import numpy as np
 import pytest
+from scipy.stats import unitary_group
 
 from toqito.channel_metrics import channel_fidelity
+from toqito.channel_ops import kraus_to_choi
 from toqito.channels import dephasing, depolarizing
 
 dephasing_channel = dephasing(4)
@@ -21,8 +23,7 @@ depolarizing_channel = depolarizing(4)
 )
 def test_channel_fidelity(input1, input2, expected_value):
     """Test function works as expected for valid inputs."""
-    calculated_value = channel_fidelity(input1, input2, 1e-4)
-    assert pytest.approx(expected_value, 1e-4) == calculated_value
+    assert channel_fidelity(input1, input2) == pytest.approx(expected_value, abs=1e-6)
 
 
 @pytest.mark.parametrize(
@@ -61,8 +62,29 @@ def test_channel_fidelity_qudit(dim):
     """
     dephasing_choi = dephasing(dim)
     depolarizing_choi = depolarizing(dim)
-    assert channel_fidelity(dephasing_choi, dephasing_choi, 1e-4) == pytest.approx(1, abs=1e-3)
-    assert channel_fidelity(dephasing_choi, depolarizing_choi, 1e-4) == pytest.approx(1 / np.sqrt(dim), abs=1e-3)
+    assert channel_fidelity(dephasing_choi, dephasing_choi) == pytest.approx(1, abs=1e-6)
+    assert channel_fidelity(dephasing_choi, depolarizing_choi) == pytest.approx(1 / np.sqrt(dim), abs=1e-6)
+
+
+@pytest.mark.parametrize("dim", [2, 3, 4])
+@pytest.mark.parametrize("seed", [0, 1, 2])
+def test_channel_fidelity_unitary_channels(dim, seed):
+    """Unitary channels have a closed form that exercises a non-diagonal reduced operator.
+
+    For unitary channels the root channel fidelity is the distance from the origin to the convex hull of the
+    eigenvalues of the relative unitary. When the eigenphases lie within an arc shorter than pi, that is the
+    cosine of half the angular spread. The operator inequality is needed here: its elementwise counterpart
+    returns a value near zero.
+    """
+    rng = np.random.default_rng(seed)
+    phases = rng.uniform(0, 2.5, size=dim)
+    basis = unitary_group.rvs(dim, random_state=rng)
+    relative = basis @ np.diag(np.exp(1j * phases)) @ basis.conj().T
+    unitary = unitary_group.rvs(dim, random_state=rng)
+    choi_1 = kraus_to_choi([[unitary]])
+    choi_2 = kraus_to_choi([[unitary @ relative]])
+    expected = np.cos((phases.max() - phases.min()) / 2)
+    assert channel_fidelity(choi_1, choi_2) == pytest.approx(expected, abs=1e-6)
 
 
 def test_channel_fidelity_non_perfect_square_dim_raises():
