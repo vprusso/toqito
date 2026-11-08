@@ -17,11 +17,8 @@ from toqito.matrix_ops._vec_maps import (
 )
 from toqito.matrix_props.is_hermitian import is_hermitian
 from toqito.matrix_props.kp_norm import kp_norm
-from toqito.perms.swap import swap
-from toqito.state_ops.schmidt_decomposition import schmidt_decomposition
 from toqito.state_props.schmidt_rank import schmidt_rank
 from toqito.state_props.sk_vec_norm import sk_vector_norm
-from toqito.states.max_entangled import max_entangled
 
 
 def sk_operator_norm(
@@ -296,44 +293,37 @@ def __lower_bound_sk_norm_randomized(
     tol: float = 1e-5,
     start_vec: np.ndarray | None = None,
 ) -> float:
-    """Compute a lower bound of the S(k)-norm via a randomized method."""
+    """Compute a lower bound of the S(k)-norm via a randomized method.
+
+    A vector of Schmidt rank at most ``k`` is stored as a ``dim[0] x dim[1]`` matrix of rank at most ``k``.
+    Each half-step holds one Schmidt factor fixed, as an orthonormal frame read off the singular value
+    decomposition of that matrix, and maximizes the quadratic form over the other factor, which is an
+    ordinary Hermitian eigenproblem of size ``k * dim[i]``.
+    """
     if mat.shape[0] != mat.shape[1]:  # pragma: no cover - defensive; caller validates shape
         raise ValueError("Input matrix must be square.")
 
-    dim_a, dim_b = dim
+    dim_a, dim_b = (int(d) for d in dim)
+    mat4 = np.asarray(mat, dtype=complex).reshape(dim_a, dim_b, dim_a, dim_b)
 
-    psi = max_entangled(k, is_normalized=False)
-    left_swap_entangled_kron_id = swap(np.kron(psi, np.eye(dim_a * dim_b)), [2, 3], [k, k, dim_a, dim_b], row_only=True)
-
-    swap_entangled_kron_id = left_swap_entangled_kron_id @ left_swap_entangled_kron_id.conj().T
-    swap_entangled_kron_mat = swap(np.kron(psi @ psi.conj().T, mat), [2, 3], [k, k, dim_a, dim_b], row_only=False)
-
-    opt_vec = None
+    v_mat = None
     if start_vec is not None:
-        singular_vals, vt_mat, u_mat = schmidt_decomposition(start_vec, dim)
-        if (s_rank := len(singular_vals)) > k:
+        if (s_rank := schmidt_rank(start_vec, dim)) > k:
             warnings.warn(
                 f"The Schmidt rank of the initial vector is {s_rank}, which is larger than k={k}. "
                 "Using a randomly-generated initial vector instead."
             )
         else:
-            opt_vec = start_vec
-            opt_schmidt = np.zeros((max(dim) * k, 2), dtype=complex)
-            opt_schmidt[: s_rank * dim_a, 0] = np.ravel(vt_mat @ np.diag(singular_vals.ravel()), order="F")
-            opt_schmidt[: s_rank * dim_b, 1] = np.ravel(u_mat, order="F")
+            v_mat = np.asarray(start_vec, dtype=complex).reshape(dim_a, dim_b)
 
-    if opt_vec is None:
-        opt_schmidt = np.random.randn(max(dim) * k, 2) + 1j * np.random.randn(max(dim) * k, 2)
-        opt_schmidt[k * dim_a :, 0] = 0
-        opt_schmidt[k * dim_b :, 1] = 0
-        opt_vec = left_swap_entangled_kron_id.conj().T @ np.kron(
-            opt_schmidt[: k * dim_a, 0], opt_schmidt[: k * dim_b, 1]
-        )
-        opt_vec /= np.linalg.norm(opt_vec, ord=2)
+    if v_mat is None:
+        a_mat = np.random.randn(k, dim_a) + 1j * np.random.randn(k, dim_a)
+        b_mat = np.random.randn(k, dim_b) + 1j * np.random.randn(k, dim_b)
+        v_mat = a_mat.T @ b_mat
+    v_mat = v_mat / np.linalg.norm(v_mat)
 
-    opt_schmidt /= np.linalg.norm(opt_schmidt, ord=2, axis=0)
-
-    sk_lower_bound = np.real(opt_vec.conj().T @ mat @ opt_vec)
+    v_vec = v_mat.ravel()
+    sk_lower_bound = float(np.real(np.vdot(v_vec, mat @ v_vec)))
     it_lower_bound_improved = True
 
     while it_lower_bound_improved:
@@ -341,33 +331,27 @@ def __lower_bound_sk_norm_randomized(
 
         # Loop through the 2 parties.
         for p in range(2):
-            # If Schmidt rank is not full, go to lower Schmidt rank iteration.
-            if (s_rank := schmidt_rank(opt_vec, dim)) < k:
-                return __lower_bound_sk_norm_randomized(mat, s_rank, dim, tol, opt_vec)
+            u_mat, _, vh_mat = np.linalg.svd(v_mat)
 
             # Fix one of the parties and optimize over the other party.
             if p == 0:
-                v0_mat = np.kron(opt_schmidt[: dim_a * k, 0].reshape((-1, 1)), np.eye(dim_b * k))
+                frame = u_mat[:, :k]
+                size = k * dim_b
+                reduced = np.einsum("ai,abcd,cj->ibjd", frame.conj(), mat4, frame).reshape(size, size)
             else:
-                v0_mat = np.kron(np.eye(dim_a * k), opt_schmidt[: dim_b * k, 1].reshape((-1, 1)))
+                frame = vh_mat[:k, :]
+                size = k * dim_a
+                reduced = np.einsum("ib,abcd,jd->iajc", frame.conj(), mat4, frame).reshape(size, size)
 
-            a_mat = v0_mat.conj().T @ swap_entangled_kron_mat @ v0_mat
-            b_mat = v0_mat.conj().T @ swap_entangled_kron_id @ v0_mat
+            eigvals, eigvecs = np.linalg.eigh(reduced)
 
-            largest_eigval, largest_eigvec = scipy.linalg.eigh(
-                a_mat, b=b_mat, subset_by_index=[a_mat.shape[0] - 1, a_mat.shape[0] - 1]
-            )
-
-            if (new_sk_lower_bound := np.real(largest_eigval[0])) >= sk_lower_bound + tol:
+            if (new_sk_lower_bound := float(eigvals[-1])) >= sk_lower_bound + tol:
                 it_lower_bound_improved = True
                 sk_lower_bound = new_sk_lower_bound
 
-                opt_schmidt[: v0_mat.shape[1], (p + 1) % 2] = largest_eigvec.ravel()
-                opt_vec = left_swap_entangled_kron_id.conj().T @ np.kron(
-                    opt_schmidt[: k * dim_a, 0], opt_schmidt[: k * dim_b, 1]
-                )
-
-                opt_schmidt[:, (p + 1) % 2] /= np.linalg.norm(opt_schmidt[:, (p + 1) % 2], ord=2)
-                opt_vec /= np.linalg.norm(opt_vec, ord=2)
+                if p == 0:
+                    v_mat = frame @ eigvecs[:, -1].reshape(k, dim_b)
+                else:
+                    v_mat = eigvecs[:, -1].reshape(k, dim_a).T @ frame
 
     return sk_lower_bound
