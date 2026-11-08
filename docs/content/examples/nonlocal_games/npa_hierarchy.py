@@ -110,6 +110,34 @@ print(f"Known quantum value:        {np.cos(np.pi / 8) ** 2:.6f}")
 # For the CHSH game, even the `"1+ab"` level already provides a value
 # very close to the true quantum value of $\cos^2(\pi/8)$.
 #
+# ## Events that never happen
+#
+# Hardy's paradox asks for the largest $P(00|00)$ among quantum behaviours
+# with $P(01|01) = P(10|10) = P(00|11) = 0$. Imposing the three zero
+# probabilities as equality constraints leaves the relaxation without an
+# interior point, and interior-point solvers then return inaccurate values
+# that can even grow with the level. The `zero_events` argument of
+# `npa_constraints` performs the facial reduction instead: a vanishing
+# event annihilates the state, so the words it annihilates leave the
+# moment matrix and the remaining kernel directions are eliminated
+# analytically. The reduced problem has an interior point and solves to
+# the Hardy probability $(5\sqrt{5} - 11)/2 \approx 0.0902$ at every
+# level.
+
+# %%
+import cvxpy
+from toqito.state_opt.npa_hierarchy import npa_constraints
+
+assemblage = {(x, y): cvxpy.Variable((2, 2)) for x in range(2) for y in range(2)}
+hardy_conditions = [(0, 1, 0, 1), (1, 0, 1, 0), (0, 0, 1, 1)]
+for level in ["1+ab", 2]:
+    constraints = npa_constraints(assemblage, level, zero_events=hardy_conditions)
+    problem = cvxpy.Problem(cvxpy.Maximize(assemblage[0, 0][0, 0]), constraints)
+    value = problem.solve(solver=cvxpy.CLARABEL)
+    print(f"Level {level}: Hardy probability <= {value:.6f} ({problem.status})")
+print(f"(5 sqrt(5) - 11) / 2 = {(5 * np.sqrt(5) - 11) / 2:.6f}")
+
+# %%
 # ## Example: The odd-cycle game
 #
 # The odd-cycle game on $n$ vertices is another well-studied nonlocal
