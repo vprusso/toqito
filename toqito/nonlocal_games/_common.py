@@ -54,6 +54,33 @@ def parallel_repetition(prob_mat: np.ndarray, pred_mat: np.ndarray, reps: int) -
     return tensor(prob_mat, reps), repeated
 
 
+def nonsignaling_cone(
+    alice_out: int, bob_out: int, alice_in: int, bob_in: int
+) -> tuple[cvxpy.Variable, cvxpy.Variable, list[cvxpy.constraints.constraint.Constraint]]:
+    """Return a variable for an unnormalized no-signaling behaviour, its total weight and the constraints of the cone.
+
+    ``p_var[a * bob_out + b, x * bob_in + y]`` is the weight of answers (a, b) to questions (x, y), laid out as a
+    matrix so that marginals are matrix products. Each player's marginal is independent of the other player's
+    question, and every question pair carries the same total weight ``scale``; adding ``scale == 1`` gives the
+    no-signaling polytope.
+    """
+    p_var = cvxpy.Variable((alice_out * bob_out, alice_in * bob_in), nonneg=True)
+    alice_marginal = cvxpy.Variable((alice_out, alice_in), nonneg=True)
+    bob_marginal = cvxpy.Variable((bob_out, bob_in), nonneg=True)
+    scale = cvxpy.Variable(nonneg=True)
+    sum_over_b = np.kron(np.eye(alice_out), np.ones((1, bob_out)))
+    sum_over_a = np.kron(np.ones((1, alice_out)), np.eye(bob_out))
+    repeat_over_y = np.kron(np.eye(alice_in), np.ones((1, bob_in)))
+    repeat_over_x = np.kron(np.ones((1, alice_in)), np.eye(bob_in))
+    constraints = [
+        sum_over_b @ p_var == alice_marginal @ repeat_over_y,
+        sum_over_a @ p_var == bob_marginal @ repeat_over_x,
+        cvxpy.sum(alice_marginal, axis=0) == scale,
+        cvxpy.sum(bob_marginal, axis=0) == scale,
+    ]
+    return p_var, scale, constraints
+
+
 def random_measurements(dim: int, num_inputs: int, num_outputs: int, seed: int) -> np.ndarray:
     """Draw random starting measurements for a see-saw, as an array indexed by ``[input, output]``.
 

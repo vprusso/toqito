@@ -8,6 +8,7 @@ import numpy as np
 from toqito._sdp import solve_sdp
 from toqito.nonlocal_games._common import (
     AnswerEventConstraint,
+    nonsignaling_cone,
     npa_upper_bound,
     parallel_repetition,
     seesaw,
@@ -479,25 +480,8 @@ class NonlocalGame:
 
         """
         alice_out, bob_out, alice_in, bob_in = self.pred_mat.shape
-
-        # p_var[a * bob_out + b, x * bob_in + y] is the probability of answers (a, b) to questions (x, y), laid out as
-        # a matrix so that marginals are matrix products.
-        p_var = cvxpy.Variable((alice_out * bob_out, alice_in * bob_in), nonneg=True)
-        # The marginals of Alice and Bob, which non-signaling requires to be independent of the other question.
-        alice_marginal = cvxpy.Variable((alice_out, alice_in), nonneg=True)
-        bob_marginal = cvxpy.Variable((bob_out, bob_in), nonneg=True)
-
-        sum_over_b = np.kron(np.eye(alice_out), np.ones((1, bob_out)))
-        sum_over_a = np.kron(np.ones((1, alice_out)), np.eye(bob_out))
-        repeat_over_y = np.kron(np.eye(alice_in), np.ones((1, bob_in)))
-        repeat_over_x = np.kron(np.ones((1, alice_in)), np.eye(bob_in))
-        constraints = [
-            sum_over_b @ p_var == alice_marginal @ repeat_over_y,
-            sum_over_a @ p_var == bob_marginal @ repeat_over_x,
-            cvxpy.sum(alice_marginal, axis=0) == 1,
-            cvxpy.sum(bob_marginal, axis=0) == 1,
-        ]
-
+        p_var, scale, constraints = nonsignaling_cone(alice_out, bob_out, alice_in, bob_in)
+        constraints.append(scale == 1)
         weights = np.real(self.pred_mat * self.prob_mat).reshape(alice_out * bob_out, alice_in * bob_in)
         problem = cvxpy.Problem(cvxpy.Maximize(cvxpy.sum(cvxpy.multiply(weights, p_var))), constraints)
         value = solve_sdp(problem, solver, solver_params)

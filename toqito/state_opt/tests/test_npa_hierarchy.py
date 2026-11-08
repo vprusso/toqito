@@ -715,3 +715,20 @@ def test_bell_npa_constraints_identify_moments_with_cg_entries():
     assert any(var is p_var for var in equalities[0].variables())
     # Identity, four marginals and four joint moments: one per CG entry.
     assert equalities[0].args[0].shape == (9,)
+
+
+def test_npa_constraints_unnormalized_cone_scales_with_the_referee_state():
+    """Without normalization the constraints describe a cone: fixing the total weight to 2 doubles the CHSH value."""
+    assemblage = {(x, y): cvxpy.Variable((2, 2), name=f"K({x},{y})") for x in range(2) for y in range(2)}
+    p_win = sum(
+        0.25 * assemblage[x, y][a, b]
+        for x in range(2)
+        for y in range(2)
+        for a in range(2)
+        for b in range(2)
+        if a ^ b == x * y
+    )
+    constraints = npa_constraints(assemblage, k=1, normalize=False)
+    constraints.append(cvxpy.sum(assemblage[0, 0]) == 2)
+    value = cvxpy.Problem(cvxpy.Maximize(p_win), constraints).solve(solver=cvxpy.CLARABEL)
+    assert value == pytest.approx(2 * np.cos(np.pi / 8) ** 2, abs=1e-6)
