@@ -8,11 +8,14 @@ on:
       - "toqito/**"
       - ".github/workflows/docs-preview.yml"
 
-# Shared with .github/workflows/docs.yml — mike deploys and preview cleanups
-# both write to gh-pages, so they must not run concurrently or one push will
-# be rejected as non-fast-forward.
+# One preview deployment at a time. The master docs deploy (docs.yml) runs in
+# its own group rather than sharing this one, because GitHub keeps a single
+# pending run per group and the cleanup for a merged PR used to evict the
+# deploy queued by the same merge. Both sides tolerate the other moving
+# gh-pages underneath them: the deploy action below rebases and retries
+# (force: false), and docs.yml refetches and retries its mike push.
 concurrency:
-  group: gh-pages-deploy
+  group: docs-preview
   cancel-in-progress: false
 
 permissions:
