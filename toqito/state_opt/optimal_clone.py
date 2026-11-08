@@ -232,9 +232,9 @@ def dual_problem(q_a: np.ndarray, pperm: np.ndarray, num_reps: int) -> float:
     kron_var = cvxpy.kron(cvxpy.kron(np.eye(2**num_reps), np.eye(2**num_reps)), y_var)
 
     if num_reps == 1:
-        constraints = [cvxpy.real(kron_var) >> q_a]
+        constraints = [kron_var >> q_a]
     else:
-        constraints = [cvxpy.real(kron_var) >> pperm @ q_a @ pperm.conj().T]
+        constraints = [kron_var >> pperm @ q_a @ pperm.conj().T]
     problem = cvxpy.Problem(objective, constraints)
 
     optimal_value = problem.solve(verbose=False)
