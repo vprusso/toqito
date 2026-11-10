@@ -6,11 +6,13 @@ from unittest import mock
 import cvxpy
 import numpy as np
 import pytest
+import scipy.sparse
 
 from toqito.state_opt.npa_hierarchy import (
     IDENTITY_SYMBOL,
     Symbol,
     _gen_words,
+    _independent_rows,
     _moment_matrix,
     _parse,
     _reduce,
@@ -801,3 +803,29 @@ def test_npa_constraints_zero_events_at_level_one_keep_only_the_equalities():
     assert constraints[0].args[0].shape[0] == 5
     value = cvxpy.Problem(cvxpy.Maximize(p_win), constraints).solve(solver=cvxpy.CLARABEL)
     assert value >= (5 * np.sqrt(5) - 11) / 2 - 1e-6
+
+
+@pytest.mark.parametrize(("level", "expected"), [("1+ab", 0.1419123), (2, 0.1413267)])
+def test_npa_constraints_zero_events_hardy_two_settings_three_outcomes(level, expected):
+    """The three-outcome Hardy game has many dependent kernel relations; dropping any of them inflates the value.
+
+    The level-2 value is attained by a qutrit strategy and the level-1+ab value is strictly above it.
+    """
+    forbidden = [(a, b, 0, 0) for a in range(3) for b in range(3) if a > b]
+    forbidden += [(a, b, x, y) for x, y in ((0, 1), (1, 0)) for a in range(3) for b in range(3) if a < b]
+    assemblage = {(x, y): cvxpy.Variable((3, 3), name=f"K({x},{y})") for x in range(2) for y in range(2)}
+    p_win = sum(assemblage[1, 1][a, b] for a in range(3) for b in range(3) if a < b)
+    constraints = npa_constraints(assemblage, level, zero_events=forbidden)
+    problem = cvxpy.Problem(cvxpy.Maximize(p_win), constraints)
+    value = problem.solve(solver=cvxpy.CLARABEL)
+    assert value == pytest.approx(expected, abs=2e-6)
+
+
+def test_independent_rows_keeps_original_rows_of_full_rank():
+    """Duplicate, negated and dependent rows are dropped; the survivors are the original rows and span the row space."""
+    matrix = scipy.sparse.csr_matrix(
+        np.array([[1, -1, 0, 0], [0, 0, 0, 0], [-1, 1, 0, 0], [0, 1, -1, 0], [1, 0, -1, 0], [0, 0, 1, 1]], dtype=float)
+    )
+    kept = _independent_rows(matrix).toarray()
+    assert kept.tolist() == [[1, -1, 0, 0], [0, 1, -1, 0], [0, 0, 1, 1]]
+    assert np.linalg.matrix_rank(kept) == np.linalg.matrix_rank(matrix.toarray())
