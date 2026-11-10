@@ -114,7 +114,7 @@ def npa_constraints(
     # Moment matrix (Gamma matrix in [@navascues2008convergent]) with one `referee_dim`-dimensional block per pair of
     # words, generalised to referee systems as in extended nonlocal games [@speelman2016position].
     null_vectors = _zero_event_null_vectors(words, zero_events, zero_pairs, a_out, b_out) if zero_events else None
-    moment_matrix, first_position, psd_constraint = _moment_matrix(
+    moment_matrix, first_position, moment_constraints = _moment_matrix(
         words, referee_dim, complex_entries=referee_dim > 1, zero_pairs=zero_pairs, null_vectors=null_vectors
     )
 
@@ -131,7 +131,7 @@ def npa_constraints(
 
     # The referee's effective state is the block of the identity word.
     rho_referee = block(*first_position[(IDENTITY_SYMBOL,)])
-    constraints = [psd_constraint]
+    constraints = list(moment_constraints)
     if normalize:
         constraints.append(cvxpy.trace(rho_referee) == 1)
 
@@ -265,7 +265,7 @@ def bell_npa_constraints(
     """
     oa, ob, ma, mb = desc
     words = _gen_words(k, oa, ma, ob, mb)
-    moment_matrix, first_position, psd_constraint = _moment_matrix(words, referee_dim=1, complex_entries=False)
+    moment_matrix, first_position, moment_constraints = _moment_matrix(words, referee_dim=1, complex_entries=False)
 
     # Every word with a Collins-Gisin entry is identified with it in one vector equality.
     moment_entries, cg_indices = [], []
@@ -275,7 +275,7 @@ def bell_npa_constraints(
             moment_entries.append(moment_matrix[i, j])
             cg_indices.append(cg_index)
     p_flat = p_var.flatten(order="F")
-    return [psd_constraint, cvxpy.hstack(moment_entries) == p_flat[cg_indices]]
+    return [*moment_constraints, cvxpy.hstack(moment_entries) == p_flat[cg_indices]]
 
 
 def _conjugate(word: tuple[Symbol, ...]) -> tuple[Symbol, ...]:
@@ -343,10 +343,9 @@ def _zero_event_null_vectors(
                 vectors.append(vector)
     if not vectors:
         return None
-    matrix = np.array(vectors).T
-    # Keep an independent set of directions.
-    basis = scipy.linalg.orth(matrix)
-    return basis
+    # Keep an independent set of directions, as the signed indicator vectors themselves so that the equations they
+    # produce have small integer coefficients.
+    return _independent_rows(scipy.sparse.csr_matrix(np.array(vectors))).toarray().T
 
 
 def _annihilates(word: tuple[Symbol, ...], zero_pairs: frozenset[tuple[Symbol, Symbol]]) -> bool:
@@ -368,7 +367,7 @@ def _moment_matrix(
     complex_entries: bool,
     zero_pairs: frozenset[tuple[Symbol, Symbol]] = frozenset(),
     null_vectors: np.ndarray | None = None,
-) -> tuple[cvxpy.Expression, dict[tuple[Symbol, ...], tuple[int, int]], cvxpy.constraints.constraint.Constraint]:
+) -> tuple[cvxpy.Expression, dict[tuple[Symbol, ...], tuple[int, int]], list[cvxpy.constraints.constraint.Constraint]]:
     r"""Build the moment matrix of a word list as a linear image of free variables.
 
     Block ``(i, j)`` of the moment matrix is the moment of the product \(S_i^\dagger S_j\). Products that reduce to
@@ -376,13 +375,15 @@ def _moment_matrix(
     carrying the block's conjugate transpose, so the matrix is Hermitian (symmetric in the real case) by
     construction. Products that reduce to zero are fixed to zero.
 
-    With ``null_vectors`` (columns on which the matrix must vanish, from zero-probability events), the free variables
-    are restricted to the solutions of those linear equations and the positivity constraint is placed on the
-    compression of the matrix to the orthogonal complement, which has an interior point where the full matrix has
-    none.
+    With ``null_vectors`` (columns on which the matrix must vanish, from zero-probability events), the equations
+    ``moment_matrix @ null_vectors == 0`` are imposed on the free variables and positivity is placed on a principal
+    submatrix: the rows and columns left after deleting one coordinate per null direction. A Hermitian matrix that
+    vanishes on the null directions is positive semidefinite exactly when that submatrix is, and the submatrix has an
+    interior point where the full matrix has none. Both pieces are sparse in the free variables, which keeps the
+    problem well scaled for interior-point solvers.
 
     Returns the matrix expression, for every reduced word the first ``(i, j)`` block at which it appears, and the
-    positivity constraint to impose.
+    list of constraints to impose.
     """
     n = len(words)
     dim = referee_dim
@@ -443,24 +444,66 @@ def _moment_matrix(
 
     size = n * dim
     real_map = scipy.sparse.csc_matrix((np.ones(len(rows)), (rows, real_cols)), shape=(size * size, len(real_index)))
-    if null_vectors is None:
-        real_part = cvxpy.Variable(len(real_index), name="moments")
-    else:
-        # Each free variable contributes a fixed pattern to the matrix; `moment_matrix @ null_vectors == 0` is a linear
-        # system in the variables, and only its solution space is kept.
-        patterns = real_map.toarray().T.reshape(len(real_index), size, size)
-        system = np.einsum("mij,jk->mik", patterns, null_vectors).reshape(len(real_index), -1).T
-        solutions = scipy.linalg.null_space(system)
-        real_part = solutions @ cvxpy.Variable(solutions.shape[1], name="moments")
+    real_part = cvxpy.Variable(len(real_index), name="moments")
     moment_matrix = cvxpy.reshape(real_map @ real_part, (size, size), order="C")
+    constraints = []
     if imag_index:
         imag_map = scipy.sparse.csc_matrix((imag_signs, (imag_rows, imag_cols)), shape=(size * size, len(imag_index)))
         imag_part = cvxpy.Variable(len(imag_index), name="moments_imag")
         moment_matrix = moment_matrix + 1j * cvxpy.reshape(imag_map @ imag_part, (size, size), order="C")
     if null_vectors is None:
-        return moment_matrix, first_position, moment_matrix >> 0
-    complement = scipy.linalg.null_space(null_vectors.T)
-    return moment_matrix, first_position, complement.T @ moment_matrix @ complement >> 0
+        return moment_matrix, first_position, [moment_matrix >> 0]
+    # Delete one coordinate per null direction, chosen so that the deleted rows of `null_vectors` are independent;
+    # the remaining coordinates together with the null directions then span the whole space. The principal submatrix
+    # is assembled from the rows of the sparse maps directly rather than by multiplying the matrix expression.
+    _, _, pivots = scipy.linalg.qr(null_vectors.T, mode="economic", pivoting=True)
+    kept = np.setdiff1d(np.arange(size), pivots[: null_vectors.shape[1]])
+    entries = (kept[:, None] * size + kept[None, :]).ravel()
+    submatrix = cvxpy.reshape(real_map[entries] @ real_part, (len(kept), len(kept)), order="C")
+    if imag_index:
+        submatrix = submatrix + 1j * cvxpy.reshape(imag_map[entries] @ imag_part, (len(kept), len(kept)), order="C")
+    constraints.append(submatrix >> 0)
+    # Entry (i, c) of `moment_matrix @ null_vectors` is a sparse linear form in the free variables; in row-major order
+    # of the matrix it is row i * k + c of `kron(I, null_vectors.T) @ real_map`.
+    annihilator = scipy.sparse.kron(scipy.sparse.identity(size), scipy.sparse.csr_matrix(null_vectors.T))
+    constraints.append(_independent_rows(scipy.sparse.csr_matrix(annihilator @ real_map)) @ real_part == 0)
+    if imag_index:
+        constraints.append(_independent_rows(scipy.sparse.csr_matrix(annihilator @ imag_map)) @ imag_part == 0)
+    return moment_matrix, first_position, constraints
+
+
+def _independent_rows(matrix: scipy.sparse.csr_matrix, tol: float = 1e-9) -> scipy.sparse.csr_matrix:
+    """Return a maximal linearly independent subset of the rows of a sparse matrix, in their original form.
+
+    Rows are brought into echelon form one at a time: a row is reduced by the stored pivot rows until its leading
+    column is not yet a pivot, in which case it is independent and becomes the pivot row for that column. The
+    selected rows themselves are returned unreduced, so their sparsity and integer coefficients are kept.
+    """
+    matrix = scipy.sparse.csr_matrix(matrix)
+    matrix.sum_duplicates()
+    matrix.eliminate_zeros()
+    pivot_rows: dict[int, dict[int, float]] = {}
+    keep = []
+    for i in range(matrix.shape[0]):
+        start, stop = matrix.indptr[i], matrix.indptr[i + 1]
+        row = dict(zip(matrix.indices[start:stop].tolist(), matrix.data[start:stop].tolist()))
+        scale = max((abs(v) for v in row.values()), default=0.0)
+        while row:
+            lead = min(row)
+            if lead not in pivot_rows:
+                break
+            factor = row[lead]
+            for col, value in pivot_rows[lead].items():
+                updated = row.get(col, 0.0) - factor * value
+                if abs(updated) <= tol * scale:
+                    row.pop(col, None)
+                else:
+                    row[col] = updated
+        if row:
+            lead = min(row)
+            pivot_rows[lead] = {col: value / row[lead] for col, value in row.items()}
+            keep.append(i)
+    return matrix[keep]
 
 
 def _reduce(word: tuple[Symbol, ...]) -> tuple[Symbol, ...]:
