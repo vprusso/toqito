@@ -71,6 +71,8 @@ _PARTIAL_TRACE_KRAUS = [np.kron(np.identity(2)[[i]], np.identity(2)) for i in ra
         # Same channels in the [A, B] pair format.
         ([[_ISOMETRY_2_TO_3, _ISOMETRY_2_TO_3]], True),
         ([[k, k] for k in _PARTIAL_TRACE_KRAUS], True),
+        # Same channel with each Kraus operator in its own list.
+        ([[k] for k in _PARTIAL_TRACE_KRAUS], True),
         # Completely positive but not trace preserving.
         ([_ISOMETRY_2_TO_3 / 2], False),
         ([k / 2 for k in _PARTIAL_TRACE_KRAUS], False),

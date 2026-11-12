@@ -30,3 +30,15 @@ def test_is_trace_preserving_flat_kraus_format():
     kraus = [np.eye(2) / np.sqrt(2), np.array([[0, 1], [1, 0]]) / np.sqrt(2)]
     assert is_trace_preserving(kraus) is True
     assert is_trace_preserving([0.5 * np.eye(2)]) is False
+
+
+@pytest.mark.parametrize(
+    "wrap",
+    [lambda ops: [[k] for k in ops], lambda ops: [ops]],
+    ids=["one_per_wrapper", "single_wrapper"],
+)
+def test_is_trace_preserving_wrapped_kraus_format(wrap):
+    """The wrapped CP forms [[K1], [K2], ...] and [[K1, K2, K3]] give the flat-list result."""
+    kraus = [np.eye(2) / np.sqrt(2), np.array([[0, 1], [1, 0]]) / 2, np.array([[1, 0], [0, -1]]) / 2]
+    assert is_trace_preserving(wrap(kraus)) is True
+    assert is_trace_preserving(wrap([k / 2 for k in kraus])) is False
