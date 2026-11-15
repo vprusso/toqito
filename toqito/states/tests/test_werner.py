@@ -4,6 +4,7 @@ import numpy as np
 import pytest
 
 from toqito.matrix_props import is_density
+from toqito.perms import permutation_operator
 from toqito.states import werner
 
 
@@ -58,3 +59,27 @@ def test_werner_bipartite_alpha_out_of_range():
     """A bipartite alpha outside [-1, 1] is rejected."""
     with pytest.raises(ValueError, match="must be in the interval"):
         werner(2, 5)
+
+
+def test_werner_multipartite_permutation_weights():
+    """Test that alpha weights are applied to the correct permutations."""
+    dim = 2
+    alpha = [0.01, 0.02, 0.03, 0.04, 0.05]
+
+    perms = [
+        [0, 1, 2],
+        [0, 2, 1],
+        [1, 0, 2],
+        [2, 0, 1],
+        [1, 2, 0],
+        [2, 1, 0],
+    ]
+
+    expected = np.identity(dim**3)
+
+    for weight, perm in zip(alpha, perms[1:]):
+        expected -= weight * permutation_operator(dim, perm, False, True)
+
+    expected /= np.trace(expected)
+
+    np.testing.assert_allclose(werner(dim, alpha), expected)

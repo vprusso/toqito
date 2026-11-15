@@ -80,8 +80,8 @@ def werner(dim: int, alpha: float | list[float]) -> np.ndarray:
         sorted_perms = np.argsort(perms, axis=1)
 
         rho = np.identity(dim**n_var)
-        for i in range(2, n_fac):
-            rho -= alpha[i - 1] * permutation_operator(dim, sorted_perms[i - 1, :], False, True)
+        for i in range(1, n_fac):
+            rho -= alpha[i - 1] * permutation_operator(dim, sorted_perms[i, :], False, True)
         rho = rho / np.trace(rho)
         return rho
 
