@@ -171,7 +171,7 @@ def fidelity_of_separability(
 
     # PPT constraint:
     sys = []
-    for i in range(1, k):
+    for i in range(1, k + 1):
         sys = sys + [i]
         problem.add_constraint(picos.partial_transpose(sigma_ab_k, sys, dim_direct_sum_ab_k) >> 0)
 
