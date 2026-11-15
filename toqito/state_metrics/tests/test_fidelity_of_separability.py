@@ -1,6 +1,8 @@
 """Tests for State Fidelity of Separability."""
+from unittest.mock import patch
 
 import numpy as np
+import picos
 import pytest
 
 from toqito.matrix_ops import tensor
@@ -46,3 +48,14 @@ def test_sdp_output():
     """Test expected output of the state SDP function."""
     state_output_value = fidelity_of_separability(sep_rho, [2, 2], 2)
     assert np.isclose(1, state_output_value)
+
+
+def test_sdp_ppt_constraints():
+    """Test that PPT constraints are added for all k extensions."""
+    with patch("picos.partial_transpose", wraps=picos.partial_transpose) as mock_pt:
+        fidelity_of_separability(sep_rho, [2, 2], 1)
+        assert [call.args[1] for call in mock_pt.call_args_list] == [[1]]
+
+    with patch("picos.partial_transpose", wraps=picos.partial_transpose) as mock_pt:
+        fidelity_of_separability(sep_rho, [2, 2], 2)
+        assert [call.args[1] for call in mock_pt.call_args_list] == [[1], [1, 2]]
