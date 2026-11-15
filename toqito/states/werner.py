@@ -76,12 +76,12 @@ def werner(dim: int, alpha: float | list[float]) -> np.ndarray:
 
         # Done error checking and computing the number of parties
         # -- now compute the Werner state.
+        # itertools.permutations yields the permutations in lexicographic order, identity first.
         perms = list(itertools.permutations(range(n_var)))
-        sorted_perms = np.argsort(perms, axis=1)
 
         rho = np.identity(dim**n_var)
         for i in range(1, n_fac):
-            rho -= alpha[i - 1] * permutation_operator(dim, sorted_perms[i, :], False, True)
+            rho -= alpha[i - 1] * permutation_operator(dim, perms[i], False, True)
         rho = rho / np.trace(rho)
         return rho
 

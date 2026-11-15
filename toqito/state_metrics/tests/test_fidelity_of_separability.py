@@ -1,4 +1,5 @@
 """Tests for State Fidelity of Separability."""
+
 from unittest.mock import patch
 
 import numpy as np

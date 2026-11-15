@@ -70,8 +70,8 @@ def test_werner_multipartite_permutation_weights():
         [0, 1, 2],
         [0, 2, 1],
         [1, 0, 2],
-        [2, 0, 1],
         [1, 2, 0],
+        [2, 0, 1],
         [2, 1, 0],
     ]
 
@@ -83,3 +83,8 @@ def test_werner_multipartite_permutation_weights():
     expected /= np.trace(expected)
 
     np.testing.assert_allclose(werner(dim, alpha), expected)
+
+
+def test_werner_multipartite_two_parties_matches_bipartite():
+    """A one-element alpha list gives the bipartite Werner state with that alpha."""
+    np.testing.assert_allclose(werner(3, [0.5]), werner(3, 0.5))
