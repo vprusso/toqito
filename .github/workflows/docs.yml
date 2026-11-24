@@ -48,7 +48,7 @@ jobs:
       - name: Install system dependencies for BLAS/LAPACK
         run: |
           sudo apt-get update
-          sudo apt-get install -y libblas-dev liblapack-dev gfortran libatlas-base-dev
+          sudo apt-get install -y libblas-dev liblapack-dev gfortran
 
       - name: Install uv
         uses: astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2 # v10.3.3

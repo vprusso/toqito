@@ -41,7 +41,7 @@ jobs:
         if: github.event.action != 'closed'
         run: |
           sudo apt-get update
-          sudo apt-get install -y libblas-dev liblapack-dev gfortran libatlas-base-dev
+          sudo apt-get install -y libblas-dev liblapack-dev gfortran
 
       - name: Install uv
         if: github.event.action != 'closed'
