@@ -13,6 +13,7 @@ from toqito.state_opt.state_distinguishability import (
     _min_error_dual,
     _min_error_primal,
     _min_error_two_state_closed_form,
+    _validate_ppt_params,
 )
 
 
@@ -354,18 +355,6 @@ def state_exclusion(
         return _unambiguous_primal(vectors=vectors, dim=dim, probs=probs, solver=solver, **kwargs)
 
     return _unambiguous_dual(vectors=vectors, dim=dim, probs=probs, solver=solver, **kwargs)
-
-
-def _validate_ppt_params(dim: int, subsystems: list[int] | None, dimensions: list[int] | None) -> None:
-    """Validate subsystem information for PPT-constrained measurements."""
-    if subsystems is None or dimensions is None:
-        raise ValueError("The 'subsystems' and 'dimensions' parameters are required for PPT measurements.")
-
-    if np.prod(dimensions) != dim:
-        raise ValueError("The product of `dimensions` must equal the dimension of the states.")
-
-    if any(sys < 0 or sys >= len(dimensions) for sys in subsystems):
-        raise ValueError("Entries of `subsystems` must index into `dimensions`.")
 
 
 def _ppt_dual_cone_constraint(
