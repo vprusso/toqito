@@ -459,56 +459,64 @@ def _integer_digits(number: int, base: int, digits: int) -> np.ndarray:
     return dits
 
 
+def _cg_row_index(a: int, x: int, oa: int) -> int:
+    r"""Return the 0-based Collins-Gisin row index for Alice's outcome \(a < oa - 1\) on input \(x\)."""
+    return 1 + a + x * (oa - 1)
+
+
+def _cg_col_index(b: int, y: int, ob: int) -> int:
+    r"""Return the 0-based Collins-Gisin column index for Bob's outcome \(b < ob - 1\) on input \(y\)."""
+    return 1 + b + y * (ob - 1)
+
+
 def _cg_to_fp_cp(p_cg_var: cp.Variable, desc: list[int]) -> list[cp.Expression]:
     """Generate cp expressions for full probabilities from a CG variable."""
     oa, ob, ia, ib = desc
     fp_expressions = []
-
-    def _cg_row_index(a: int, x: int) -> int:
-        return 1 + a + x * (oa - 1)
-
-    def _cg_col_index(b: int, y: int) -> int:
-        return 1 + b + y * (ob - 1)
 
     for x in range(ia):
         for y in range(ib):
             if oa > 1 and ob > 1:
                 for a in range(oa - 1):
                     for b in range(ob - 1):
-                        row_idx = _cg_row_index(a, x)
-                        col_idx = _cg_col_index(b, y)
+                        row_idx = _cg_row_index(a, x, oa)
+                        col_idx = _cg_col_index(b, y, ob)
                         fp_expressions.append(p_cg_var[row_idx, col_idx])
 
             if oa > 1:
                 for a in range(oa - 1):
-                    row_idx = _cg_row_index(a, x)
+                    row_idx = _cg_row_index(a, x, oa)
                     cg_a_marg = p_cg_var[row_idx, 0]
                     sum_b = 0
                     if ob > 1:
-                        sum_b = cp.sum([p_cg_var[row_idx, _cg_col_index(b_prime, y)] for b_prime in range(ob - 1)])
+                        sum_b = cp.sum([p_cg_var[row_idx, _cg_col_index(b_prime, y, ob)] for b_prime in range(ob - 1)])
                     fp_expressions.append(cg_a_marg - sum_b)
 
             if ob > 1:
                 for b in range(ob - 1):
-                    col_idx = _cg_col_index(b, y)
+                    col_idx = _cg_col_index(b, y, ob)
                     cg_b_marg = p_cg_var[0, col_idx]
                     sum_a = 0
                     if oa > 1:
-                        sum_a = cp.sum([p_cg_var[_cg_row_index(a_prime, x), col_idx] for a_prime in range(oa - 1)])
+                        sum_a = cp.sum([p_cg_var[_cg_row_index(a_prime, x, oa), col_idx] for a_prime in range(oa - 1)])
                     fp_expressions.append(cg_b_marg - sum_a)
 
             sum_a_marg = 0
             if oa > 1:
-                sum_a_marg = cp.sum([p_cg_var[_cg_row_index(a, x), 0] for a in range(oa - 1)])
+                sum_a_marg = cp.sum([p_cg_var[_cg_row_index(a, x, oa), 0] for a in range(oa - 1)])
 
             sum_b_marg = 0
             if ob > 1:
-                sum_b_marg = cp.sum([p_cg_var[0, _cg_col_index(b, y)] for b in range(ob - 1)])
+                sum_b_marg = cp.sum([p_cg_var[0, _cg_col_index(b, y, ob)] for b in range(ob - 1)])
 
             sum_ab_joint = 0
             if oa > 1 and ob > 1:
                 sum_ab_joint = cp.sum(
-                    [p_cg_var[_cg_row_index(a, x), _cg_col_index(b, y)] for a in range(oa - 1) for b in range(ob - 1)]
+                    [
+                        p_cg_var[_cg_row_index(a, x, oa), _cg_col_index(b, y, ob)]
+                        for a in range(oa - 1)
+                        for b in range(ob - 1)
+                    ]
                 )
 
             fp_expressions.append(p_cg_var[0, 0] - sum_a_marg - sum_b_marg + sum_ab_joint)
@@ -1066,20 +1074,6 @@ def _fp_to_cg(v_mat: np.ndarray, behavior: bool = False) -> np.ndarray:
 
     cg_mat = np.zeros((alice_pars, bob_pars))
 
-    def _cg_row_index(a: int, x: int) -> int:
-        r"""Calculate 0-based CG matrix row index for Alice.
-
-        Outcome \(a\) (0..\(oa-2\)) and input \(x\) (0..\(ia-1\)).
-        """
-        return 1 + a + x * (oa - 1)
-
-    def _cg_col_index(b: int, y: int) -> int:
-        r"""Calculate 0-based CG matrix col index for Bob.
-
-        Outcome \(b\) (0..\(ob-2\)) and input \(y\) (0..\(ib-1\)).
-        """
-        return 1 + b + y * (ob - 1)
-
     if not behavior:
         # Functional case logic
         cg_mat[0, 0] = np.sum(v_mat[oa - 1, ob - 1, :, :])
@@ -1087,20 +1081,20 @@ def _fp_to_cg(v_mat: np.ndarray, behavior: bool = False) -> np.ndarray:
         if oa > 1:
             for a in range(oa - 1):
                 for x in range(ia):
-                    cg_mat[_cg_row_index(a, x), 0] = np.sum(v_mat[a, ob - 1, x, :] - v_mat[oa - 1, ob - 1, x, :])
+                    cg_mat[_cg_row_index(a, x, oa), 0] = np.sum(v_mat[a, ob - 1, x, :] - v_mat[oa - 1, ob - 1, x, :])
 
         if ob > 1:
             for b in range(ob - 1):
                 for y in range(ib):
-                    cg_mat[0, _cg_col_index(b, y)] = np.sum(v_mat[oa - 1, b, :, y] - v_mat[oa - 1, ob - 1, :, y])
+                    cg_mat[0, _cg_col_index(b, y, ob)] = np.sum(v_mat[oa - 1, b, :, y] - v_mat[oa - 1, ob - 1, :, y])
 
         if oa > 1 and ob > 1:
             for a in range(oa - 1):
                 for b in range(ob - 1):
                     for x in range(ia):
                         for y in range(ib):
-                            row_idx_0based = _cg_row_index(a, x)
-                            col_idx_0based = _cg_col_index(b, y)
+                            row_idx_0based = _cg_row_index(a, x, oa)
+                            col_idx_0based = _cg_col_index(b, y, ob)
                             cg_mat[row_idx_0based, col_idx_0based] = (
                                 v_mat[a, b, x, y]
                                 - v_mat[a, ob - 1, x, y]
@@ -1114,7 +1108,7 @@ def _fp_to_cg(v_mat: np.ndarray, behavior: bool = False) -> np.ndarray:
         if oa > 1 and ib > 0:
             for x in range(ia):
                 for a in range(oa - 1):
-                    target_row_0based = _cg_row_index(a, x)
+                    target_row_0based = _cg_row_index(a, x, oa)
                     cg_mat[target_row_0based, 0] = np.sum(v_mat[a, :, x, 0])
         elif oa > 1 and ib == 0:
             pass  # Already initialized to 0
@@ -1122,7 +1116,7 @@ def _fp_to_cg(v_mat: np.ndarray, behavior: bool = False) -> np.ndarray:
         if ob > 1 and ia > 0:
             for y in range(ib):
                 for b in range(ob - 1):
-                    target_col_0based = _cg_col_index(b, y)
+                    target_col_0based = _cg_col_index(b, y, ob)
                     cg_mat[0, target_col_0based] = np.sum(v_mat[:, b, 0, y])
         elif ob > 1 and ia == 0:
             pass
@@ -1131,9 +1125,9 @@ def _fp_to_cg(v_mat: np.ndarray, behavior: bool = False) -> np.ndarray:
             for x in range(ia):
                 for y in range(ib):
                     for a in range(oa - 1):
-                        target_row_0based = _cg_row_index(a, x)
+                        target_row_0based = _cg_row_index(a, x, oa)
                         for b in range(ob - 1):
-                            target_col_0based = _cg_col_index(b, y)
+                            target_col_0based = _cg_col_index(b, y, ob)
                             cg_mat[target_row_0based, target_col_0based] = v_mat[a, b, x, y]
 
     return cg_mat
